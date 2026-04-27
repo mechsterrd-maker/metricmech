@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <header class="site-header">
         <div class="header-inner">
           <a href="${pathPrefix}index.html" class="brand-link">
-            <span class="brand-name">Mech<em>Hub</em></span>
+            <span class="brand-name">Metric<em>Mech</em></span>
             <span class="brand-tag">FREE REFERENCE</span>
           </a>
           <div class="header-search">
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <footer class="site-footer">
         <div class="footer-inner">
           <div>
-            <div class="footer-brand">Mech<em>Hub</em></div>
+            <div class="footer-brand">Metric<em>Mech</em></div>
             <p class="footer-about">A free reference for working manufacturing engineers — calculators, standards, GD&amp;T, FAI templates, and articles. Written and reviewed by people who've spent their careers on shop floors and audit rooms.</p>
             <div class="footer-supported">Supported by <a href="https://cadnexa.com">CadNexa</a> — inspection software for QA teams</div>
           </div>
