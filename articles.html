@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Articles — Manufacturing Quality, Inspection, GD&amp;T, FAI | MetricMech</title>
+<meta name="description" content="In-depth articles for manufacturing engineers. FAI walkthroughs, GD&T worked examples, PPAP guidance, CMM inspection, materials selection. By working engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.art-section { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.art-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; }
+@media (max-width: 1000px) { .art-grid { grid-template-columns: 1fr; } }
+.topic-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
+.topic-btn { padding: 8px 14px; background: transparent; border: 1px solid var(--rule); border-radius: var(--rad); cursor: pointer; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-2); transition: all 0.15s; }
+.topic-btn:hover { border-color: var(--ink); }
+.topic-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.art-row { padding: 26px 0; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: 130px 1fr; gap: 24px; text-decoration: none; color: inherit; }
+.art-row:hover { text-decoration: none; }
+.art-row:hover h3 { color: var(--blueprint); }
+.art-meta { font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.6; }
+.art-meta .topic-tag { display: block; color: var(--amber); font-weight: 600; margin-bottom: 4px; }
+.art-row h3 { font-family: var(--display); font-weight: 600; font-size: 22px; line-height: 1.25; margin-bottom: 8px; letter-spacing: -0.01em; transition: color 0.15s; }
+.art-row p { font-size: 15px; line-height: 1.55; color: var(--ink-2); margin-bottom: 8px; }
+.art-row .byline { font-size: 12px; color: var(--mute); }
+.art-side { position: sticky; top: 80px; align-self: start; }
+@media (max-width: 700px) { .art-row { grid-template-columns: 1fr; gap: 8px; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix=""></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>Articles</div>
+  <h1 class="page-title">Articles &amp; <em>Deep Dives.</em></h1>
+  <p class="page-lede">340+ articles for manufacturing engineers. Worked examples, audit walkthroughs, OEM-specific advice — all by people who've spent careers on shop floors.</p>
+</div>
+
+<section class="art-section">
+
+  <div class="topic-tabs">
+    <button class="topic-btn active">All topics</button>
+    <button class="topic-btn">FAI / Aerospace</button>
+    <button class="topic-btn">GD&amp;T</button>
+    <button class="topic-btn">PPAP / Auto</button>
+    <button class="topic-btn">CMM / Inspection</button>
+    <button class="topic-btn">Materials</button>
+    <button class="topic-btn">SPC / Six Sigma</button>
+    <button class="topic-btn">Sheet Metal</button>
+    <button class="topic-btn">Machining</button>
+  </div>
+
+  <div class="art-grid">
+    <div>
+
+      <a href="articles/as9102-form3.html" class="art-row">
+        <div class="art-meta"><span class="topic-tag">FAI / Aerospace</span>Apr 22, 2026<br>14 min read</div>
+        <div>
+          <h3>How to fill AS9102 Form 3: a real example with a Tata Advanced Systems drawing</h3>
+          <p>The five places Tier-2 suppliers lose audit points, the exact wording inspectors look for, and how to handle "characteristic accountability" without rework.</p>
+          <div class="byline">By a former Plant Head · Reviewed by an AS9100 lead auditor</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">GD&amp;T</span>Apr 18, 2026<br>9 min read</div>
+        <div>
+          <h3>Position tolerance with MMC: the bonus tolerance that saves your scrap rate</h3>
+          <p>A worked example showing how the Maximum Material Condition modifier turns a 12% rejection rate into 1.4% for a hole pattern in a steel bracket.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">PPAP / Auto</span>Apr 15, 2026<br>11 min read</div>
+        <div>
+          <h3>PPAP for Mahindra and Tata Motors — what's actually different from AIAG</h3>
+          <p>Indian Tier-1s have specific PPAP variations from the AIAG manual. Here's what to add (and what you can skip) when submitting to either OEM.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">CMM / Inspection</span>Apr 10, 2026<br>7 min read</div>
+        <div>
+          <h3>CMM measurement uncertainty: how to defend your numbers in an audit</h3>
+          <p>The four sources of CMM uncertainty most QA teams forget to document, and how to write a one-page uncertainty budget that satisfies ISO 17025 reviewers.</p>
+          <div class="byline">By a Senior Metrology Engineer</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">Materials</span>Apr 6, 2026<br>6 min read</div>
+        <div>
+          <h3>EN8 vs EN24 vs SAE 1045: choosing carbon steel for shafts and bushings</h3>
+          <p>Hardness, machinability, cost per kg in Indian markets, and which OEMs accept which substitutions. With a comparison chart for procurement teams.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">SPC / Six Sigma</span>Apr 3, 2026<br>10 min read</div>
+        <div>
+          <h3>Cp 1.33 vs Cpk 1.33 — why the difference matters more than your QA team thinks</h3>
+          <p>Suppliers often submit Cp data when customers actually want Cpk. The difference can flip a "capable" verdict to "not capable" — here's the detection trick.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">FAI / Aerospace</span>Mar 28, 2026<br>13 min read</div>
+        <div>
+          <h3>NADCAP audit prep: the 14 special process areas you might be missing</h3>
+          <p>If you do heat treat, surface treatment, NDT, or welding, NADCAP applies. Most aerospace suppliers fail their first NADCAP because they don't know it covers their process.</p>
+          <div class="byline">By a former Boeing supplier QA lead</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">Sheet Metal</span>Mar 24, 2026<br>8 min read</div>
+        <div>
+          <h3>K-factor in sheet metal: when 0.33 is wrong</h3>
+          <p>Default K-factor 0.33 works for most cases — but not for all materials, all bend radii, or all press-brake setups. Here's when you need to measure your own.</p>
+          <div class="byline">By a Tooling Engineer</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">GD&amp;T</span>Mar 20, 2026<br>11 min read</div>
+        <div>
+          <h3>Profile of a surface: the GD&amp;T symbol that replaces five others</h3>
+          <p>Profile of a surface (⌓) can do the work of size + form + orientation + location all at once. Here's when to use it and when explicit dimensioning is still better.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">Machining</span>Mar 16, 2026<br>9 min read</div>
+        <div>
+          <h3>Machining EN24: the heat-treat trap that costs Indian shops crores</h3>
+          <p>EN24 is forgiving as supplied — but rough-machine before heat treat or after? The wrong sequence can blow your scrap rate. Worked example with Tata supplier data.</p>
+          <div class="byline">By the Hub editorial team</div>
+        </div>
+      </a>
+
+      <a href="#" class="art-row">
+        <div class="art-meta"><span class="topic-tag">CMM / Inspection</span>Mar 12, 2026<br>7 min read</div>
+        <div>
+          <h3>Probe stylus selection: ruby, silicon nitride, ceramic, or zirconia</h3>
+          <p>The four common stylus materials, when each wins, and when wear shows up in your gauge R&amp;R numbers before you can see it on the part.</p>
+          <div class="byline">By a Senior Metrology Engineer</div>
+        </div>
+      </a>
+
+      <div style="text-align: center; padding: 32px 0;">
+        <a href="#" class="btn btn-ghost">Load 50 more articles →</a>
+      </div>
+
+    </div>
+
+    <aside class="art-side">
+      <div data-mw="cn-sidebar"></div>
+
+      <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+        <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule);">Most-read this month</h4>
+        <ol style="list-style: none; padding: 0;">
+          <li style="padding: 10px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px;">
+            <span style="font-family: var(--mono); font-size: 14px; color: var(--blueprint); font-weight: 600;">1</span>
+            <a href="articles/as9102-form3.html" style="font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink);">AS9102 Form 3 — TASL example</a>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px;">
+            <span style="font-family: var(--mono); font-size: 14px; color: var(--blueprint); font-weight: 600;">2</span>
+            <a href="#" style="font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink);">Position tolerance with MMC</a>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px;">
+            <span style="font-family: var(--mono); font-size: 14px; color: var(--blueprint); font-weight: 600;">3</span>
+            <a href="#" style="font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink);">PPAP for Mahindra &amp; Tata</a>
+          </li>
+          <li style="padding: 10px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px;">
+            <span style="font-family: var(--mono); font-size: 14px; color: var(--blueprint); font-weight: 600;">4</span>
+            <a href="#" style="font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink);">CMM uncertainty in audits</a>
+          </li>
+          <li style="padding: 10px 0; display: flex; gap: 12px;">
+            <span style="font-family: var(--mono); font-size: 14px; color: var(--blueprint); font-weight: 600;">5</span>
+            <a href="#" style="font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink);">EN8 vs EN24 selection</a>
+          </li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix=""></div>
+<script src="site.js"></script>
+</body>
+</html>
