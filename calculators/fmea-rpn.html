@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FMEA RPN Calculator — Severity × Occurrence × Detection | MetricMech</title>
+<meta name="description" content="Free FMEA Risk Priority Number calculator. Compute RPN from Severity, Occurrence, and Detection ratings. AIAG-VDA 2019 Action Priority included for modern FMEA." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card select, .input-card input { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 32px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 14px; }
+.result-big .val { font-family: var(--display); font-size: 96px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-big.high { background: #c73e3e; }
+.result-big.med { background: #c87b1a; }
+.result-big.low { background: #2d7a3a; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.result-card { padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); text-align: center; }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 32px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.r-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.r-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.r-table td { padding: 8px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; vertical-align: top; }
+.r-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } .result-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>FMEA RPN</div>
+  <h1 class="page-title">FMEA Risk <em>Priority Number.</em></h1>
+  <p class="page-lede">RPN = Severity × Occurrence × Detection. With AIAG-VDA 2019 Action Priority (AP) — the modern method that replaced raw RPN ranking. Use for both DFMEA and PFMEA.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Severity (S) — how serious is the effect</label>
+        <select id="sev" onchange="calc()">
+          <option value="10">10 — Hazardous, no warning (safety/regulatory failure)</option>
+          <option value="9">9 — Hazardous with warning</option>
+          <option value="8">8 — Loss of primary function</option>
+          <option value="7" selected>7 — Reduced primary function</option>
+          <option value="6">6 — Loss of secondary function</option>
+          <option value="5">5 — Reduced secondary function</option>
+          <option value="4">4 — Annoyance, customer noticed</option>
+          <option value="3">3 — Slight annoyance</option>
+          <option value="2">2 — Minor — most users won't notice</option>
+          <option value="1">1 — No effect</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Occurrence (O) — how often will it happen</label>
+        <select id="occ" onchange="calc()">
+          <option value="10">10 — Very high: failure inevitable (≥1 in 10)</option>
+          <option value="9">9 — Very high: 1 in 20</option>
+          <option value="8">8 — High: 1 in 50</option>
+          <option value="7">7 — High: 1 in 100</option>
+          <option value="6">6 — Moderate: 1 in 500</option>
+          <option value="5" selected>5 — Moderate: 1 in 2,000</option>
+          <option value="4">4 — Low: 1 in 10,000</option>
+          <option value="3">3 — Low: 1 in 100,000</option>
+          <option value="2">2 — Very low: 1 in 1,000,000</option>
+          <option value="1">1 — Extremely unlikely: never</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Detection (D) — how likely will controls catch it</label>
+        <select id="det" onchange="calc()">
+          <option value="10">10 — Cannot be detected (no controls)</option>
+          <option value="9">9 — Very remote chance of detection</option>
+          <option value="8">8 — Remote — visual / manual check only</option>
+          <option value="7">7 — Very low — operator inspection</option>
+          <option value="6" selected>6 — Low — sampling inspection</option>
+          <option value="5">5 — Moderate — gauge / 100% manual</option>
+          <option value="4">4 — Moderately high — automated check</option>
+          <option value="3">3 — High — multiple automated checks</option>
+          <option value="2">2 — Very high — error-proofing (poka-yoke)</option>
+          <option value="1">1 — Almost certain — by design impossible</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big" id="rpnBox">
+        <div class="lbl">RPN</div>
+        <div class="val" id="rpn">—</div>
+        <div class="unit" id="rpnVerdict">—</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Severity</div><div class="v" id="sevV">—</div></div>
+        <div class="result-card"><div class="l">Occurrence</div><div class="v" id="occV">—</div></div>
+        <div class="result-card"><div class="l">Detection</div><div class="v" id="detV">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">AIAG-VDA 2019 Action Priority (AP)</label>
+        <div id="ap" style="font-family: var(--display); font-size: 24px; font-weight: 600; margin-top: 6px;">—</div>
+        <div id="apAction" style="font-size: 13px; line-height: 1.6; color: var(--ink-2); margin-top: 6px;">—</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">RPN interpretation thresholds</h3>
+  <table class="r-table">
+    <thead><tr><th>RPN range</th><th>Priority</th><th>Action required</th></tr></thead>
+    <tbody>
+      <tr><td>≥ 200</td><td><strong style="color: #c73e3e;">CRITICAL</strong></td><td>Mandatory action — redesign or process change. Cannot ship product.</td></tr>
+      <tr><td>120 – 200</td><td><strong style="color: #c87b1a;">HIGH</strong></td><td>Action required — develop containment plan and timeline before next phase.</td></tr>
+      <tr><td>60 – 120</td><td><strong style="color: #c87b1a;">MEDIUM</strong></td><td>Plan corrective action — address in next continuous improvement cycle.</td></tr>
+      <tr><td>&lt; 60</td><td><strong style="color: #2d7a3a;">LOW</strong></td><td>Monitor only — no immediate action required.</td></tr>
+      <tr><td>Severity = 9 or 10</td><td><strong style="color: #c73e3e;">SAFETY/REG</strong></td><td>Action mandatory regardless of RPN — design out the failure mode.</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// AIAG-VDA 2019 AP table simplified
+function getAP(s, o, d) {
+  if (s >= 9) {
+    if (o >= 6) return ['H', 'High priority — top management review. Mandatory action.'];
+    if (o >= 4) return ['H', 'High priority — develop and implement action.'];
+    if (o >= 2) return ['M', 'Medium priority — consider improvements.'];
+    return ['L', 'Low priority — monitor.'];
+  }
+  if (s >= 7) {
+    if (o >= 6 && d >= 6) return ['H', 'High priority — both occurrence and detection are weak.'];
+    if (o >= 6) return ['H', 'High priority — high occurrence rate.'];
+    if (o >= 4 && d >= 6) return ['M', 'Medium priority — consider improving detection.'];
+    if (o >= 4) return ['M', 'Medium priority — moderate risk.'];
+    return ['L', 'Low priority — monitor.'];
+  }
+  if (s >= 4) {
+    if (o >= 8 && d >= 6) return ['M', 'Medium priority — high occurrence with weak detection.'];
+    if (o >= 6) return ['M', 'Medium priority.'];
+    return ['L', 'Low priority — monitor.'];
+  }
+  return ['L', 'Low priority — minor effect, monitor only.'];
+}
+function calc() {
+  const s = +document.getElementById('sev').value;
+  const o = +document.getElementById('occ').value;
+  const d = +document.getElementById('det').value;
+  const rpn = s * o * d;
+  document.getElementById('rpn').textContent = rpn;
+  document.getElementById('sevV').textContent = s;
+  document.getElementById('occV').textContent = o;
+  document.getElementById('detV').textContent = d;
+  const box = document.getElementById('rpnBox');
+  box.className = 'result-big';
+  let v;
+  if (s >= 9) { box.classList.add('high'); v = 'SAFETY/REG — action mandatory'; }
+  else if (rpn >= 200) { box.classList.add('high'); v = 'CRITICAL — mandatory redesign'; }
+  else if (rpn >= 120) { box.classList.add('med'); v = 'HIGH — action required'; }
+  else if (rpn >= 60) { box.classList.add('med'); v = 'MEDIUM — plan action'; }
+  else { box.classList.add('low'); v = 'LOW — monitor only'; }
+  document.getElementById('rpnVerdict').textContent = v;
+  const [ap, action] = getAP(s, o, d);
+  const apMap = { H: 'H — High Priority', M: 'M — Medium Priority', L: 'L — Low Priority' };
+  document.getElementById('ap').textContent = apMap[ap];
+  document.getElementById('apAction').textContent = action;
+}
+calc();
+</script>
+</body>
+</html>

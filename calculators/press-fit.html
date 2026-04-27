@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Press Fit Calculator — Interference Fit, Push-Out Force, Hub Stress | MetricMech</title>
+<meta name="description" content="Free press fit / interference fit calculator. Compute interference, contact pressure, push-out force, hub stress, and required temperature for shrink-fit assembly." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Press / Interference Fit</div>
+  <h1 class="page-title">Press Fit / Interference <em>Fit Calculator.</em></h1>
+  <p class="page-lede">Calculate contact pressure, push-out force, hub stress, required interference, and shrink-fit temperature for shaft-hub press fits and shrink-fit assemblies. Based on Lamé's thick-cylinder equations.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Geometry</h4>
+        <div class="field">
+          <label>Shaft outer diameter (Df)</label>
+          <input type="number" id="Df" value="50" step="0.01" oninput="calc()">
+          <div class="hint">mm — nominal mating diameter</div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Shaft inner dia (Di)</label>
+            <input type="number" id="Di" value="0" step="0.1" oninput="calc()">
+            <div class="hint">mm — 0 if solid</div>
+          </div>
+          <div>
+            <label>Hub outer dia (Do)</label>
+            <input type="number" id="Do" value="100" step="0.1" oninput="calc()">
+            <div class="hint">mm</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top: 12px;">
+          <label>Engagement length (L)</label>
+          <input type="number" id="L" value="40" step="1" oninput="calc()">
+          <div class="hint">mm — contact length</div>
+        </div>
+        <div class="field">
+          <label>Diametrical interference (δ)</label>
+          <input type="number" id="delta" value="0.025" step="0.001" oninput="calc()">
+          <div class="hint">mm — typical: 0.0005·D to 0.001·D for press fit</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Materials</h4>
+        <div class="field">
+          <label>Shaft material</label>
+          <select id="shaftMat" onchange="calc()">
+            <option value="210000,0.30,11,210" selected>Steel — E=210 GPa</option>
+            <option value="200000,0.30,17,200">Stainless 304 — E=200 GPa</option>
+            <option value="100000,0.30,11,150">Cast iron — E=100 GPa</option>
+            <option value="69000,0.33,23,90">Aluminium 6061 — E=69 GPa</option>
+            <option value="120000,0.34,17,120">Brass — E=120 GPa</option>
+            <option value="115000,0.34,17,80">Bronze — E=115 GPa</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Hub material</label>
+          <select id="hubMat" onchange="calc()">
+            <option value="210000,0.30,11,210" selected>Steel — E=210 GPa</option>
+            <option value="200000,0.30,17,200">Stainless 304 — E=200 GPa</option>
+            <option value="100000,0.30,11,150">Cast iron — E=100 GPa</option>
+            <option value="69000,0.33,23,90">Aluminium 6061 — E=69 GPa</option>
+            <option value="120000,0.34,17,120">Brass — E=120 GPa</option>
+            <option value="115000,0.34,17,80">Bronze — E=115 GPa</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Friction coefficient (μ)</label>
+          <input type="number" id="mu" value="0.15" step="0.01" oninput="calc()">
+          <div class="hint">Steel-steel ≈ 0.10–0.15; oiled = lower</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">CONTACT PRESSURE</div>
+        <div class="val" id="pressure">—</div>
+        <div class="unit">MPa (N/mm²)</div>
+      </div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">PUSH-OUT / TRANSMISSIBLE FORCE</div>
+        <div class="val" id="force">—</div>
+        <div class="unit">kN axial</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Transmissible torque</div><div class="v" id="torque">—</div></div>
+        <div class="result-card"><div class="l">Hub max stress (σ<sub>θ</sub>)</div><div class="v" id="hubStress">—</div></div>
+        <div class="result-card"><div class="l">Shaft max stress</div><div class="v" id="shaftStress">—</div></div>
+        <div class="result-card"><div class="l">Press-in force</div><div class="v" id="pressIn">—</div></div>
+        <div class="result-card"><div class="l">Shrink-fit ΔT (hub heat)</div><div class="v" id="dT">—</div></div>
+        <div class="result-card"><div class="l">Required clearance</div><div class="v" id="clear">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas (Lamé thick cylinder)</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          p = δ / [Df · (C<sub>hub</sub>/E<sub>h</sub> + C<sub>shaft</sub>/E<sub>s</sub>)]<br>
+          C<sub>hub</sub> = (Do² + Df²)/(Do² − Df²) + ν<sub>h</sub><br>
+          C<sub>shaft</sub> = (Df² + Di²)/(Df² − Di²) − ν<sub>s</sub><br>
+          F<sub>axial</sub> = π · Df · L · p · μ
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+function calc() {
+  const Df = +document.getElementById('Df').value;
+  const Di = +document.getElementById('Di').value;
+  const Do = +document.getElementById('Do').value;
+  const L = +document.getElementById('L').value;
+  const delta = +document.getElementById('delta').value;
+  const mu = +document.getElementById('mu').value;
+  const [Es, vs, alphaS] = document.getElementById('shaftMat').value.split(',').map(Number);
+  const [Eh, vh, alphaH] = document.getElementById('hubMat').value.split(',').map(Number);
+  if (!Df || !Do || Do <= Df || delta <= 0) return;
+  // Compliance factors (thick-cylinder)
+  const Cs = Di > 0 ? ((Df*Df + Di*Di)/(Df*Df - Di*Di)) - vs : 1 - vs; // solid shaft case
+  const Ch = (Do*Do + Df*Df)/(Do*Do - Df*Df) + vh;
+  // Pressure (MPa). Es and Eh in MPa, delta and Df in mm
+  const p = delta / (Df * (Ch/Eh + Cs/Es));
+  const Faxial = Math.PI * Df * L * p * mu / 1000; // kN
+  const Trans = Faxial * Df / 2 / 1000; // kN·m
+  // Stresses
+  const hubInner = p * (Do*Do + Df*Df)/(Do*Do - Df*Df);
+  const shaftMax = Di > 0 ? p * 2 * Df*Df / (Df*Df - Di*Di) : -p; // solid: -p comp
+  const dT = delta / (alphaH * Df) * 1e6 * 1e-6 * 1000; // approx ΔT for hub expansion to clear δ
+  const dT_ok = (delta + 0.05) / (alphaH * Df * 1e-6); // clearance for assembly
+  document.getElementById('pressure').textContent = p.toFixed(1);
+  document.getElementById('force').textContent = Faxial.toFixed(1);
+  document.getElementById('torque').textContent = (Trans * 1000).toFixed(1) + ' N·m';
+  document.getElementById('hubStress').textContent = hubInner.toFixed(0) + ' MPa';
+  document.getElementById('shaftStress').textContent = Math.abs(shaftMax).toFixed(0) + ' MPa';
+  document.getElementById('pressIn').textContent = (Faxial * 1.3).toFixed(1) + ' kN';
+  document.getElementById('dT').textContent = '+' + Math.round(dT_ok) + ' °C';
+  document.getElementById('clear').textContent = (delta + 0.05).toFixed(3) + ' mm';
+}
+calc();
+</script>
+</body>
+</html>

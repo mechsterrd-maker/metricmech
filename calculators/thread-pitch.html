@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thread Pitch &amp; Tap Drill Chart — Metric, UNC, UNF, BSPP, NPT | MetricMech</title>
+<meta name="description" content="Free thread pitch and tap drill calculator. Metric (M3-M48), UNC, UNF, BSPP, NPT. Find correct tap drill size, pitch, major/minor diameter, and thread engagement." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.std-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+.tab-btn { padding: 10px 18px; background: transparent; border: 1px solid var(--rule); color: var(--ink-2); border-radius: var(--rad); cursor: pointer; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; transition: all 0.15s; }
+.tab-btn:hover { border-color: var(--ink); }
+.tab-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.thread-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.thread-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; padding: 10px 12px; text-align: left; text-transform: uppercase; letter-spacing: 0.1em; }
+.thread-table td { padding: 9px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.thread-table tr:nth-child(even) td { background: var(--paper-2); }
+.thread-table tr:hover td { background: var(--blueprint-tint); }
+.thread-table .name { font-family: var(--display); font-weight: 600; font-size: 15px; }
+.thread-table .tap { color: var(--blueprint); font-weight: 600; font-family: var(--mono); }
+.search-bar { display: grid; grid-template-columns: 1fr 200px; gap: 12px; margin-bottom: 20px; }
+.search-bar input { width: 100%; padding: 12px 16px; font-family: var(--mono); font-size: 14px; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; }
+.search-bar input:focus { border-color: var(--blueprint); }
+.engage-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 24px; }
+.engage-card h3 { font-family: var(--display); font-size: 18px; margin-bottom: 12px; }
+.engage-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.engage-grid label { display: block; font-size: 12px; color: var(--mute); margin-bottom: 4px; }
+.engage-grid input { width: 100%; padding: 8px 12px; font-family: var(--mono); font-size: 14px; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); }
+.engage-result { background: var(--ink); color: var(--paper); padding: 16px 20px; border-radius: var(--rad-lg); margin-top: 14px; font-family: var(--mono); font-size: 14px; }
+.engage-result strong { color: var(--amber); }
+@media (max-width: 700px) { .engage-grid { grid-template-columns: 1fr; } .search-bar { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Thread Pitch &amp; Tap Drill</div>
+  <h1 class="page-title">Thread Pitch &amp; <em>Tap Drill Chart.</em></h1>
+  <p class="page-lede">Find the right tap drill, pitch, major and minor diameter for any thread. Metric coarse and fine, UNC, UNF, BSPP, and NPT — all in one place.</p>
+</div>
+
+<div class="calc-layout">
+
+  <div class="std-tabs">
+    <button class="tab-btn active" onclick="setTab('metric')">Metric (M)</button>
+    <button class="tab-btn" onclick="setTab('unc')">UNC (Coarse)</button>
+    <button class="tab-btn" onclick="setTab('unf')">UNF (Fine)</button>
+    <button class="tab-btn" onclick="setTab('bspp')">BSPP (G)</button>
+    <button class="tab-btn" onclick="setTab('npt')">NPT</button>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search size (e.g. M8, 1/4-20, 1/2 NPT)..." oninput="filterTable()">
+    <button class="btn btn-sm" onclick="document.getElementById('search').value='';filterTable()">Clear</button>
+  </div>
+
+  <table class="thread-table" id="threadTable"></table>
+
+  <div class="engage-card">
+    <h3>Thread engagement calculator</h3>
+    <p style="font-size: 13px; color: var(--mute); margin-bottom: 14px;">For a tapped hole, calculate the percent thread engagement based on hole diameter and minor diameter of thread. Aim for 60–75% engagement for best balance of strength and tapping ease.</p>
+    <div class="engage-grid">
+      <div>
+        <label>Major diameter (mm)</label>
+        <input type="number" id="majDia" value="8" step="0.01" oninput="calcEngage()">
+      </div>
+      <div>
+        <label>Pitch (mm)</label>
+        <input type="number" id="pitch" value="1.25" step="0.01" oninput="calcEngage()">
+      </div>
+      <div>
+        <label>Tap drill diameter (mm)</label>
+        <input type="number" id="tapDia" value="6.8" step="0.01" oninput="calcEngage()">
+      </div>
+    </div>
+    <div class="engage-result" id="engageResult">— Enter values</div>
+  </div>
+
+  <div data-mw="cn-inline" data-variant="machining" style="margin-top: 24px;"></div>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+const DATA = {
+  metric: [
+    // [Designation, Pitch (mm), Major D (mm), Minor D (mm), Tap drill (mm), Clearance (mm)]
+    ['M2 × 0.4', 0.4, 2.0, 1.567, 1.6, 2.4],
+    ['M2.5 × 0.45', 0.45, 2.5, 2.013, 2.05, 2.9],
+    ['M3 × 0.5', 0.5, 3.0, 2.459, 2.5, 3.4],
+    ['M3.5 × 0.6', 0.6, 3.5, 2.85, 2.9, 3.9],
+    ['M4 × 0.7', 0.7, 4.0, 3.242, 3.3, 4.5],
+    ['M5 × 0.8', 0.8, 5.0, 4.134, 4.2, 5.5],
+    ['M6 × 1.0', 1.0, 6.0, 4.917, 5.0, 6.6],
+    ['M7 × 1.0', 1.0, 7.0, 5.917, 6.0, 7.5],
+    ['M8 × 1.25', 1.25, 8.0, 6.647, 6.8, 9.0],
+    ['M8 × 1.0 (fine)', 1.0, 8.0, 6.917, 7.0, 9.0],
+    ['M10 × 1.5', 1.5, 10.0, 8.376, 8.5, 11.0],
+    ['M10 × 1.25 (fine)', 1.25, 10.0, 8.647, 8.8, 11.0],
+    ['M12 × 1.75', 1.75, 12.0, 10.106, 10.2, 13.5],
+    ['M12 × 1.5 (fine)', 1.5, 12.0, 10.376, 10.5, 13.5],
+    ['M14 × 2.0', 2.0, 14.0, 11.835, 12.0, 15.5],
+    ['M16 × 2.0', 2.0, 16.0, 13.835, 14.0, 17.5],
+    ['M18 × 2.5', 2.5, 18.0, 15.294, 15.5, 20.0],
+    ['M20 × 2.5', 2.5, 20.0, 17.294, 17.5, 22.0],
+    ['M22 × 2.5', 2.5, 22.0, 19.294, 19.5, 24.0],
+    ['M24 × 3.0', 3.0, 24.0, 20.752, 21.0, 26.0],
+    ['M27 × 3.0', 3.0, 27.0, 23.752, 24.0, 30.0],
+    ['M30 × 3.5', 3.5, 30.0, 26.211, 26.5, 33.0],
+    ['M33 × 3.5', 3.5, 33.0, 29.211, 29.5, 36.0],
+    ['M36 × 4.0', 4.0, 36.0, 31.670, 32.0, 39.0],
+    ['M39 × 4.0', 4.0, 39.0, 34.670, 35.0, 42.0],
+    ['M42 × 4.5', 4.5, 42.0, 37.129, 37.5, 45.0],
+    ['M45 × 4.5', 4.5, 45.0, 40.129, 40.5, 48.0],
+    ['M48 × 5.0', 5.0, 48.0, 42.587, 43.0, 52.0]
+  ],
+  unc: [
+    ['#4-40', 0.635, 2.84, 2.16, 2.16, 3.0],
+    ['#6-32', 0.794, 3.51, 2.64, 2.71, 3.8],
+    ['#8-32', 0.794, 4.17, 3.30, 3.40, 4.4],
+    ['#10-24', 1.058, 4.83, 3.71, 3.81, 5.0],
+    ['1/4"-20', 1.270, 6.35, 4.98, 5.11, 6.6],
+    ['5/16"-18', 1.411, 7.94, 6.40, 6.53, 8.4],
+    ['3/8"-16', 1.587, 9.53, 7.81, 7.94, 10.0],
+    ['7/16"-14', 1.814, 11.11, 9.15, 9.42, 11.5],
+    ['1/2"-13', 1.954, 12.70, 10.59, 10.80, 13.5],
+    ['9/16"-12', 2.117, 14.29, 12.00, 12.20, 14.5],
+    ['5/8"-11', 2.309, 15.88, 13.38, 13.50, 16.5],
+    ['3/4"-10', 2.540, 19.05, 16.30, 16.50, 20.0],
+    ['7/8"-9', 2.822, 22.23, 19.17, 19.50, 23.0],
+    ['1"-8', 3.175, 25.40, 22.00, 22.25, 26.5]
+  ],
+  unf: [
+    ['#4-48', 0.529, 2.84, 2.30, 2.30, 3.0],
+    ['#6-40', 0.635, 3.51, 2.84, 2.85, 3.8],
+    ['#8-36', 0.706, 4.17, 3.45, 3.50, 4.4],
+    ['#10-32', 0.794, 4.83, 4.04, 4.10, 5.0],
+    ['1/4"-28', 0.907, 6.35, 5.40, 5.50, 6.6],
+    ['5/16"-24', 1.058, 7.94, 6.83, 6.90, 8.4],
+    ['3/8"-24', 1.058, 9.53, 8.42, 8.50, 10.0],
+    ['7/16"-20', 1.270, 11.11, 9.74, 9.80, 11.5],
+    ['1/2"-20', 1.270, 12.70, 11.34, 11.50, 13.5],
+    ['9/16"-18', 1.411, 14.29, 12.74, 13.00, 14.5],
+    ['5/8"-18', 1.411, 15.88, 14.33, 14.50, 16.5],
+    ['3/4"-16', 1.587, 19.05, 17.34, 17.50, 20.0],
+    ['7/8"-14', 1.814, 22.23, 20.27, 20.50, 23.0],
+    ['1"-12', 2.117, 25.40, 23.11, 23.40, 26.5]
+  ],
+  bspp: [
+    ['G 1/8"', 0.907, 9.728, 8.566, 8.80, '—'],
+    ['G 1/4"', 1.337, 13.157, 11.445, 11.80, '—'],
+    ['G 3/8"', 1.337, 16.662, 14.950, 15.25, '—'],
+    ['G 1/2"', 1.814, 20.955, 18.631, 19.00, '—'],
+    ['G 5/8"', 1.814, 22.911, 20.587, 21.00, '—'],
+    ['G 3/4"', 1.814, 26.441, 24.117, 24.50, '—'],
+    ['G 7/8"', 1.814, 30.201, 27.877, 28.25, '—'],
+    ['G 1"', 2.309, 33.249, 30.291, 30.75, '—'],
+    ['G 1-1/4"', 2.309, 41.910, 38.952, 39.50, '—'],
+    ['G 1-1/2"', 2.309, 47.803, 44.845, 45.25, '—'],
+    ['G 2"', 2.309, 59.614, 56.656, 57.00, '—']
+  ],
+  npt: [
+    ['1/16"-27', 0.941, 7.895, 6.385, 6.40, '—'],
+    ['1/8"-27', 0.941, 10.272, 8.762, 8.80, '—'],
+    ['1/4"-18', 1.411, 13.616, 11.413, 11.10, '—'],
+    ['3/8"-18', 1.411, 17.055, 14.851, 14.50, '—'],
+    ['1/2"-14', 1.814, 21.224, 18.391, 18.00, '—'],
+    ['3/4"-14', 1.814, 26.568, 23.736, 23.25, '—'],
+    ['1"-11.5', 2.209, 33.225, 29.776, 29.50, '—'],
+    ['1-1/4"-11.5', 2.209, 41.987, 38.539, 38.10, '—'],
+    ['1-1/2"-11.5', 2.209, 48.054, 44.605, 44.30, '—'],
+    ['2"-11.5', 2.209, 60.092, 56.643, 56.30, '—']
+  ]
+};
+
+let currentTab = 'metric';
+
+function setTab(t) {
+  currentTab = t;
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['metric','unc','unf','bspp','npt'][i] === t);
+  });
+  renderTable();
+}
+
+function renderTable() {
+  const data = DATA[currentTab];
+  const isPipe = currentTab === 'bspp' || currentTab === 'npt';
+  const headers = isPipe
+    ? ['Size', 'Pitch (mm)', 'Major Ø (mm)', 'Minor Ø (mm)', 'Tap Drill (mm)']
+    : ['Size', 'Pitch (mm)', 'Major Ø (mm)', 'Minor Ø (mm)', 'Tap Drill (mm)', 'Clearance Hole (mm)'];
+
+  const table = document.getElementById('threadTable');
+  table.innerHTML = '<thead><tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+    data.map(row => {
+      const cells = isPipe ? row.slice(0, 5) : row;
+      return '<tr>' + cells.map((c, i) => {
+        if (i === 0) return `<td class="name">${c}</td>`;
+        if (i === 4) return `<td class="tap">${typeof c === 'number' ? c.toFixed(2) : c}</td>`;
+        return `<td>${typeof c === 'number' ? c.toFixed(3) : c}</td>`;
+      }).join('') + '</tr>';
+    }).join('') + '</tbody>';
+  filterTable();
+}
+
+function filterTable() {
+  const q = document.getElementById('search').value.toLowerCase();
+  Array.from(document.querySelectorAll('#threadTable tbody tr')).forEach(tr => {
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function calcEngage() {
+  const maj = +document.getElementById('majDia').value || 0;
+  const p = +document.getElementById('pitch').value || 0;
+  const tap = +document.getElementById('tapDia').value || 0;
+  if (!maj || !p || !tap) {
+    document.getElementById('engageResult').textContent = '— Enter values';
+    return;
+  }
+  // Engagement % = (Major - Tap drill) / (1.0825 * pitch) * 100
+  const engage = ((maj - tap) / (1.0825 * p)) * 100;
+  let verdict;
+  if (engage < 50) verdict = '⚠ Low engagement — risk of stripped threads';
+  else if (engage < 65) verdict = '○ Moderate engagement — acceptable for non-critical';
+  else if (engage <= 80) verdict = '✓ Optimal engagement — best balance of strength & tapping ease';
+  else verdict = '⚠ Very high engagement — tap will break easily';
+  document.getElementById('engageResult').innerHTML = `<strong>${engage.toFixed(1)}% thread engagement</strong> — ${verdict}`;
+}
+
+setTab('metric');
+calcEngage();
+</script>
+
+</body>
+</html>

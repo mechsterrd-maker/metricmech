@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Position Tolerance Calculator with MMC / LMC Bonus | MetricMech</title>
+<meta name="description" content="Free position tolerance calculator. Compute true position from X/Y deviations, with MMC and LMC bonus tolerance from feature size. ASME Y14.5 compliant." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 980px) { .calc-layout { grid-template-columns: 1fr; } }
+.input-group { margin-bottom: 16px; }
+.input-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--ink-2); }
+.input-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modifier-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.mod-btn { flex: 1; padding: 10px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad); cursor: pointer; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.15s; }
+.mod-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.feature-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.feat-btn { flex: 1; padding: 10px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad); cursor: pointer; font-size: 12px; transition: all 0.15s; }
+.feat-btn.active { background: var(--blueprint); color: var(--paper); border-color: var(--blueprint); }
+.result-card { padding: 22px; border-radius: var(--rad-lg); margin-bottom: 12px; }
+.result-card.primary { background: var(--ink); color: var(--paper); }
+.result-card.primary .lbl { color: var(--amber); }
+.result-card.ok { background: var(--ok); color: var(--paper); }
+.result-card.warn { background: var(--alert); color: var(--paper); }
+.result-card.std { background: var(--paper-2); border: 1px solid var(--rule); }
+.lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 8px; }
+.val { font-family: var(--display); font-size: 32px; font-weight: 600; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.sub { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-top: 6px; }
+.diagram { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; margin-top: 16px; }
+.formula { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); padding: 14px 18px; font-family: var(--mono); font-size: 13px; line-height: 1.7; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Position Tolerance</div>
+  <h1 class="page-title">True Position with <em>MMC / LMC Bonus.</em></h1>
+  <p class="page-lede">Compute true position from X/Y deviations. Apply MMC or LMC modifiers to get bonus tolerance from feature size deviation. ASME Y14.5 compliant.</p>
+</div>
+
+<div class="calc-layout">
+  <div>
+    <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 14px;">Feature type</h3>
+    <div class="feature-row">
+      <button class="feat-btn active" id="ftHole" onclick="setFeature('hole')">Hole (internal)</button>
+      <button class="feat-btn" id="ftPin" onclick="setFeature('pin')">Pin / shaft (external)</button>
+    </div>
+
+    <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 14px;">Material condition modifier</h3>
+    <div class="modifier-row">
+      <button class="mod-btn active" id="mRFS" onclick="setMod('RFS')">RFS — Regardless of feature size</button>
+      <button class="mod-btn" id="mMMC" onclick="setMod('MMC')">Ⓜ MMC</button>
+      <button class="mod-btn" id="mLMC" onclick="setMod('LMC')">Ⓛ LMC</button>
+    </div>
+
+    <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 14px;">Drawing call-out</h3>
+    <div class="input-grid-2">
+      <div class="input-group">
+        <label>Stated position tolerance ⌀ (mm)</label>
+        <input type="number" step="any" id="posTol" class="calc-input" value="0.1" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Feature nominal Ø (mm)</label>
+        <input type="number" step="any" id="featNom" class="calc-input" value="10" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Upper limit Ø (mm)</label>
+        <input type="number" step="any" id="featMax" class="calc-input" value="10.05" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Lower limit Ø (mm)</label>
+        <input type="number" step="any" id="featMin" class="calc-input" value="9.95" oninput="recalc()">
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 14px;">Measured</h3>
+    <div class="input-grid-2">
+      <div class="input-group">
+        <label>Measured Ø (actual size)</label>
+        <input type="number" step="any" id="featAct" class="calc-input" value="10.02" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>X deviation from true (mm)</label>
+        <input type="number" step="any" id="devX" class="calc-input" value="0.04" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Y deviation from true (mm)</label>
+        <input type="number" step="any" id="devY" class="calc-input" value="0.03" oninput="recalc()">
+      </div>
+    </div>
+
+    <div class="formula">
+      <strong style="font-family: var(--body); display: block; margin-bottom: 6px;">Formulas</strong>
+      Actual position ⌀ = 2 × √(X² + Y²)<br>
+      Bonus tol (MMC, hole) = Actual − Smallest hole<br>
+      Bonus tol (MMC, pin) = Largest pin − Actual<br>
+      Total allowed ⌀ = Stated tol + Bonus
+    </div>
+  </div>
+
+  <div>
+    <div class="result-card primary" id="passCard">
+      <div class="lbl">Verdict</div>
+      <div class="val" id="verdict">—</div>
+      <div class="sub" id="verdictSub">Enter values to see result</div>
+    </div>
+    <div class="result-card std">
+      <div class="lbl">Actual Position ⌀</div>
+      <div class="val" id="actualPos" style="color: var(--blueprint);">—</div>
+      <div class="sub">From X/Y deviations</div>
+    </div>
+    <div class="result-card std">
+      <div class="lbl">Bonus Tolerance ⌀</div>
+      <div class="val" id="bonusTol" style="color: var(--ink);">—</div>
+      <div class="sub" id="bonusNote">—</div>
+    </div>
+    <div class="result-card std">
+      <div class="lbl">Total Allowed Position ⌀</div>
+      <div class="val" id="totalAllowed">—</div>
+      <div class="sub">Stated tol + bonus</div>
+    </div>
+    <div class="result-card std">
+      <div class="lbl">Margin</div>
+      <div class="val" id="margin" style="font-size: 24px;">—</div>
+      <div class="sub" id="marginSub">—</div>
+    </div>
+
+    <div data-mw="cn-sidebar" style="margin-top: 16px;"></div>
+  </div>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+let modifier = 'RFS';
+let feature = 'hole';
+
+function setMod(m) {
+  modifier = m;
+  ['RFS','MMC','LMC'].forEach(x => document.getElementById('m'+x).classList.remove('active'));
+  document.getElementById('m'+m).classList.add('active');
+  recalc();
+}
+function setFeature(f) {
+  feature = f;
+  document.getElementById('ftHole').classList.toggle('active', f==='hole');
+  document.getElementById('ftPin').classList.toggle('active', f==='pin');
+  recalc();
+}
+
+function recalc() {
+  const posTol = +document.getElementById('posTol').value || 0;
+  const featAct = +document.getElementById('featAct').value || 0;
+  const featMax = +document.getElementById('featMax').value || 0;
+  const featMin = +document.getElementById('featMin').value || 0;
+  const devX = +document.getElementById('devX').value || 0;
+  const devY = +document.getElementById('devY').value || 0;
+
+  const actualPos = 2 * Math.sqrt(devX*devX + devY*devY);
+  document.getElementById('actualPos').textContent = '⌀ ' + actualPos.toFixed(4);
+
+  // Bonus calculation
+  let bonus = 0, note = '';
+  if (modifier === 'RFS') {
+    bonus = 0;
+    note = 'No bonus tolerance (RFS — modifier not applied)';
+  } else if (modifier === 'MMC') {
+    if (feature === 'hole') {
+      // MMC of hole = smallest hole
+      bonus = Math.max(0, featAct - featMin);
+      note = `Bonus = Actual (${featAct}) − MMC hole (${featMin}) = ${bonus.toFixed(4)}`;
+    } else {
+      // MMC of pin = largest pin
+      bonus = Math.max(0, featMax - featAct);
+      note = `Bonus = MMC pin (${featMax}) − Actual (${featAct}) = ${bonus.toFixed(4)}`;
+    }
+  } else if (modifier === 'LMC') {
+    if (feature === 'hole') {
+      // LMC of hole = largest hole
+      bonus = Math.max(0, featMax - featAct);
+      note = `Bonus = LMC hole (${featMax}) − Actual (${featAct}) = ${bonus.toFixed(4)}`;
+    } else {
+      // LMC of pin = smallest pin
+      bonus = Math.max(0, featAct - featMin);
+      note = `Bonus = Actual (${featAct}) − LMC pin (${featMin}) = ${bonus.toFixed(4)}`;
+    }
+  }
+
+  const total = posTol + bonus;
+  const margin = total - actualPos;
+
+  document.getElementById('bonusTol').textContent = '+' + bonus.toFixed(4);
+  document.getElementById('bonusNote').textContent = note;
+  document.getElementById('totalAllowed').textContent = '⌀ ' + total.toFixed(4);
+  document.getElementById('margin').textContent = (margin >= 0 ? '+' : '') + margin.toFixed(4);
+  document.getElementById('marginSub').textContent = margin >= 0 ? `${(margin/total*100).toFixed(1)}% headroom` : 'Out of tolerance';
+
+  const passCard = document.getElementById('passCard');
+  passCard.classList.remove('primary', 'ok', 'warn');
+  if (actualPos === 0) {
+    passCard.classList.add('primary');
+    document.getElementById('verdict').textContent = '—';
+    document.getElementById('verdictSub').textContent = 'Enter values to see result';
+  } else if (margin >= 0) {
+    passCard.classList.add('ok');
+    document.getElementById('verdict').textContent = 'PASS ✓';
+    document.getElementById('verdictSub').textContent = `Actual ⌀${actualPos.toFixed(3)} within allowed ⌀${total.toFixed(3)}`;
+  } else {
+    passCard.classList.add('warn');
+    document.getElementById('verdict').textContent = 'FAIL ✗';
+    document.getElementById('verdictSub').textContent = `Actual ⌀${actualPos.toFixed(3)} exceeds allowed ⌀${total.toFixed(3)} by ${Math.abs(margin).toFixed(4)}`;
+  }
+}
+recalc();
+</script>
+
+</body>
+</html>

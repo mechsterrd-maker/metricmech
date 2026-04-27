@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gauge R&amp;R Calculator — MSA Type 1 Quick Study | MetricMech</title>
+<meta name="description" content="Free Gauge R&amp;R Type 1 study calculator. Determine if your measurement system is fit for purpose using Cg and Cgk capability indices. AIAG MSA-compliant." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card textarea { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus, .input-card textarea:focus { border-color: var(--blueprint); }
+.input-card textarea { font-family: var(--mono); font-size: 13px; height: 200px; resize: vertical; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 24px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+.result-big .val { font-family: var(--display); font-size: 44px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-big .verdict { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(245,242,236,0.2); }
+.verdict.ok { color: #4ade80; }
+.verdict.warn { color: #fbbf24; }
+.verdict.bad { color: #f87171; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.btn-row { display: flex; gap: 8px; }
+.btn-row button { flex: 1; padding: 8px 12px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--paper-2); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--rad); cursor: pointer; }
+.btn-row button:hover { background: var(--blueprint); color: var(--paper); border-color: var(--blueprint); }
+.bench-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.bench-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.bench-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.bench-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Gauge R&amp;R</div>
+  <h1 class="page-title">Gauge R&amp;R Type 1 <em>Study.</em></h1>
+  <p class="page-lede">Quick measurement system analysis (MSA) — measure one master part 25–50 times with one operator and one gauge. Computes Cg and Cgk capability indices to determine if the gauge is fit for the tolerance.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Reference / Master value</label>
+        <input type="number" id="ref" value="50.000" step="0.001" oninput="calc()">
+        <div class="hint">Known true value of the calibration master</div>
+      </div>
+
+      <div class="input-card">
+        <div class="row">
+          <div>
+            <label>USL</label>
+            <input type="number" id="usl" value="50.020" step="0.001" oninput="calc()">
+          </div>
+          <div>
+            <label>LSL</label>
+            <input type="number" id="lsl" value="49.980" step="0.001" oninput="calc()">
+          </div>
+        </div>
+        <div class="hint">Specification limits of the part being measured</div>
+      </div>
+
+      <div class="input-card">
+        <label>Repeated measurements (one per line)</label>
+        <textarea id="data">49.998
+50.001
+49.999
+50.002
+50.000
+49.997
+50.001
+50.000
+49.999
+50.001
+50.000
+49.998
+50.002
+49.999
+50.001
+50.000
+50.001
+49.999
+50.000
+50.001
+49.999
+50.000
+50.001
+49.998
+50.000</textarea>
+        <div class="btn-row" style="margin-top: 8px;">
+          <button onclick="loadEx1()">Example: good gauge</button>
+          <button onclick="loadEx2()">Example: marginal gauge</button>
+          <button onclick="loadEx3()">Example: bad gauge</button>
+        </div>
+        <div class="hint" style="margin-top: 8px;">25–50 readings recommended (AIAG MSA)</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">Cg — REPEATABILITY</div>
+        <div class="val" id="cg">—</div>
+        <div class="verdict" id="cgVerdict">—</div>
+      </div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">Cgk — REPEATABILITY + BIAS</div>
+        <div class="val" id="cgk">—</div>
+        <div class="verdict" id="cgkVerdict">—</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">n (samples)</div><div class="v" id="n">—</div></div>
+        <div class="result-card"><div class="l">Mean (x̄)</div><div class="v" id="mean">—</div></div>
+        <div class="result-card"><div class="l">Std dev (s)</div><div class="v" id="sd">—</div></div>
+        <div class="result-card"><div class="l">Bias (x̄ − ref)</div><div class="v" id="bias">—</div></div>
+        <div class="result-card"><div class="l">Tolerance</div><div class="v" id="tol">—</div></div>
+        <div class="result-card"><div class="l">%EV (study var.)</div><div class="v" id="ev">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas (AIAG MSA)</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          Cg = 0.2 × Tolerance / (6 × s)<br>
+          Cgk = (0.1 × Tolerance − |Bias|) / (3 × s)<br>
+          %EV = 6s / Tolerance × 100<br>
+          Pass criteria: Cg ≥ 1.33 and Cgk ≥ 1.33
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Acceptance criteria</h3>
+  <table class="bench-table">
+    <thead><tr><th>Cg / Cgk</th><th>Verdict</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>≥ 1.67</td><td style="color: #2d7a3a; font-weight: 600;">Excellent</td><td>Use as is — gauge well within capability</td></tr>
+      <tr><td>1.33 – 1.67</td><td style="color: #2d7a3a; font-weight: 600;">Capable</td><td>Acceptable per AIAG MSA — use for production</td></tr>
+      <tr><td>1.00 – 1.33</td><td style="color: var(--blueprint); font-weight: 600;">Marginal</td><td>Acceptable for non-critical features only — investigate</td></tr>
+      <tr><td>&lt; 1.00</td><td style="color: #c73e3e; font-weight: 600;">Not capable</td><td>Replace gauge or tighten the measurement procedure</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+function parseData() {
+  return document.getElementById('data').value
+    .split(/[\n,;\t]+/).map(s => s.trim()).filter(s => s).map(Number).filter(x => !isNaN(x));
+}
+function calc() {
+  const data = parseData();
+  const ref = +document.getElementById('ref').value;
+  const usl = +document.getElementById('usl').value;
+  const lsl = +document.getElementById('lsl').value;
+  const tol = usl - lsl;
+  const n = data.length;
+  if (n < 2 || tol <= 0) return;
+  const mean = data.reduce((a,b) => a+b, 0) / n;
+  const variance = data.reduce((a,b) => a + (b-mean)**2, 0) / (n-1);
+  const sd = Math.sqrt(variance);
+  const bias = mean - ref;
+  const Cg = (0.2 * tol) / (6 * sd);
+  const Cgk = (0.1 * tol - Math.abs(bias)) / (3 * sd);
+  const evPct = (6 * sd / tol) * 100;
+  const fmt = x => x.toFixed(3);
+  document.getElementById('n').textContent = n;
+  document.getElementById('mean').textContent = fmt(mean);
+  document.getElementById('sd').textContent = sd.toFixed(5);
+  document.getElementById('bias').textContent = fmt(bias);
+  document.getElementById('tol').textContent = fmt(tol);
+  document.getElementById('ev').textContent = evPct.toFixed(1) + '%';
+  document.getElementById('cg').textContent = Cg.toFixed(2);
+  document.getElementById('cgk').textContent = Cgk.toFixed(2);
+  const verdict = (val, el) => {
+    let v, c;
+    if (val >= 1.67) { v = '★ Excellent — well capable'; c = 'ok'; }
+    else if (val >= 1.33) { v = '✓ Capable — accept (AIAG)'; c = 'ok'; }
+    else if (val >= 1.00) { v = '⚠ Marginal — non-critical only'; c = 'warn'; }
+    else { v = '✗ Not capable — replace gauge'; c = 'bad'; }
+    el.textContent = v;
+    el.className = 'verdict ' + c;
+  };
+  verdict(Cg, document.getElementById('cgVerdict'));
+  verdict(Cgk, document.getElementById('cgkVerdict'));
+}
+function loadEx1() {
+  document.getElementById('data').value = `49.998\n50.001\n49.999\n50.002\n50.000\n49.997\n50.001\n50.000\n49.999\n50.001\n50.000\n49.998\n50.002\n49.999\n50.001\n50.000\n50.001\n49.999\n50.000\n50.001\n49.999\n50.000\n50.001\n49.998\n50.000`;
+  document.getElementById('ref').value = 50.000;
+  document.getElementById('usl').value = 50.020;
+  document.getElementById('lsl').value = 49.980;
+  calc();
+}
+function loadEx2() {
+  document.getElementById('data').value = `50.005\n50.001\n50.008\n49.995\n50.002\n50.007\n49.998\n50.004\n50.000\n50.006\n49.997\n50.003\n50.005\n49.999\n50.002\n50.006\n49.996\n50.004\n50.001\n50.005\n49.998\n50.003\n50.007\n49.999\n50.002`;
+  document.getElementById('ref').value = 50.000;
+  document.getElementById('usl').value = 50.020;
+  document.getElementById('lsl').value = 49.980;
+  calc();
+}
+function loadEx3() {
+  document.getElementById('data').value = `50.014\n49.985\n50.022\n49.978\n50.018\n49.992\n50.012\n49.988\n50.020\n49.982\n50.016\n49.990\n50.024\n49.980\n50.014\n49.986\n50.018\n49.984\n50.020\n49.988\n50.016\n49.990\n50.022\n49.982\n50.014`;
+  document.getElementById('ref').value = 50.000;
+  document.getElementById('usl').value = 50.020;
+  document.getElementById('lsl').value = 49.980;
+  calc();
+}
+calc();
+</script>
+</body>
+</html>
