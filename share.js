@@ -245,7 +245,17 @@
     lines.push('');
     lines.push('— MetricMech (free engineering calculators)');
     const body = encodeURIComponent(lines.join('\n'));
-    window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+    const mailtoUrl = 'mailto:?subject=' + subject + '&body=' + body;
+    // Use a temporary anchor click — most reliable across browsers (Chrome blocks mailto via location.href silently when no handler is registered, but the user is still prompted to pick one)
+    const a = document.createElement('a');
+    a.href = mailtoUrl;
+    a.target = '_self';
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => a.remove(), 100);
+    toast('Opening your email app…');
   }
 
   async function copyLink(opts) {

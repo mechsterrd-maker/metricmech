@@ -497,6 +497,13 @@
 
   let activeCat = 'all';
 
+  // Pre-fill search from URL ?q= (used by header search bar on other pages)
+  const params = new URLSearchParams(window.location.search);
+  const initialQ = params.get('q');
+  if (initialQ) {
+    searchInput.value = initialQ;
+  }
+
   function applyFilter() {
     const query = searchInput.value.trim().toLowerCase();
     let visibleCount = 0;
@@ -561,6 +568,12 @@
       applyFilter();
     }
   });
+
+  // Apply filter immediately on load (handles ?q= URL param from header search)
+  applyFilter();
+  if (initialQ) {
+    searchInput.focus();
+  }
 })();
 </script>
 </body>

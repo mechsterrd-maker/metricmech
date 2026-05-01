@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="brand-tag">FREE REFERENCE</span>
           </a>
           <div class="header-search">
-            <input type="text" placeholder="Search calculators, standards, articles…" />
+            <input type="text" id="mm-header-search" placeholder="Search calculators…" />
           </div>
           <nav class="header-nav">
             <a href="${pathPrefix}calculators.html" class="${currentPage==='calculators'?'current':''}">Calculators</a>
@@ -38,6 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </header>
     `;
+
+    // Wire up header search — redirect to calculators page with ?q=
+    setTimeout(() => {
+      const inp = document.getElementById('mm-header-search');
+      if (!inp) return;
+      const go = () => {
+        const q = inp.value.trim();
+        if (!q) return;
+        window.location.href = pathPrefix + 'calculators.html?q=' + encodeURIComponent(q);
+      };
+      inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+    }, 0);
   }
 
   // ========== Footer ==========
