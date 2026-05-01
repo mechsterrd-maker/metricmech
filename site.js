@@ -3,6 +3,12 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Compute path prefix for the current page (works for any depth)
+  // Uses the header's data-prefix if present, otherwise falls back to detecting from URL
+  const _hdr = document.querySelector('[data-mw="header"]');
+  const _ftr = document.querySelector('[data-mw="footer"]');
+  const siteRoot = (_hdr && _hdr.dataset.prefix) || (_ftr && _ftr.dataset.prefix) || '';
+
   // ========== Notice bar ==========
   const noticeBar = document.querySelector('[data-mw="notice-bar"]');
   if (noticeBar) {
@@ -297,10 +303,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="cn-big-eyebrow">SUPPORTED BY CADNEXA</div>
             <h2>This hub is free because <em>CadNexa pays for it.</em></h2>
             <p>CadNexa is a browser-based CAD platform for Indian manufacturing engineers — STEP/IGES viewer, AI-powered ballooning, AS9102/PPAP/ISO 13485 reports, auto-BOM with Indian material prices, machining cost estimator, and a secure RFQ marketplace. No installs, no SolidWorks licence, no Western pricing.</p>
+            <div class="cn-big-cta">
+              <a href="https://cadnexa.com?utm_source=metricmech&utm_medium=cn-big" class="btn btn-amber btn-lg">Try CadNexa free →</a>
+              <span>14-day trial · No card · From ₹399/mo</span>
+            </div>
           </div>
-          <div class="cn-big-cta">
-            <a href="https://cadnexa.com" class="btn btn-amber btn-lg">Try CadNexa free →</a>
-            <span>14-day trial · No card · From ₹399/mo</span>
+          <div class="cn-big-preview">
+            <img src="${siteRoot}images/mm-3d-measure-banner.jpg" alt="CadNexa 3D viewer with live measurements" loading="lazy" />
+            <img src="${siteRoot}images/mm-balloon-ui-banner.jpg" alt="CadNexa AI ballooning on engineering drawing" loading="lazy" class="cn-big-preview-stack" />
           </div>
         </div>
       </div>
