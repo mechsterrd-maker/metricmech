@@ -555,6 +555,27 @@ main, header, footer, section, article { position: relative; z-index: 2; }
   transform: translateY(0);
   opacity: 1;
 }
+
+/* Variant with calculator preview image */
+.mm-sticky-cta.mm-sticky-with-img {
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  width: 380px;
+}
+.mm-sticky-cta.mm-sticky-with-img .mm-sticky-thumb {
+  flex-shrink: 0;
+  width: 100px;
+  background-size: cover;
+  background-position: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--rad-lg) 0 0 var(--rad-lg);
+}
+.mm-sticky-cta.mm-sticky-with-img .mm-sticky-content {
+  flex: 1; padding: 16px 18px 14px;
+  min-width: 0;
+}
+
 .mm-sticky-close {
   position: absolute;
   top: 6px;
@@ -576,29 +597,29 @@ main, header, footer, section, article { position: relative; z-index: 2; }
   color: #74d9b6;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 .mm-sticky-title {
   font-family: var(--display);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   letter-spacing: -0.01em;
 }
 .mm-sticky-sub {
-  font-size: 12.5px;
-  line-height: 1.45;
+  font-size: 12px;
+  line-height: 1.4;
   color: rgba(255,255,255,0.75);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .mm-sticky-cta-btn {
   display: inline-block;
   background: linear-gradient(135deg, #2554ba 0%, #0d9488 100%);
   color: #ffffff;
   text-decoration: none;
-  padding: 9px 18px;
+  padding: 8px 16px;
   border-radius: var(--rad);
   font-family: var(--body);
   font-size: 12px;
@@ -613,14 +634,27 @@ main, header, footer, section, article { position: relative; z-index: 2; }
   box-shadow: 0 4px 18px rgba(13,148,136,0.46);
   color: #ffffff;
 }
+
+/* Mobile: thinner, full width, lower priority */
 @media (max-width: 600px) {
   .mm-sticky-cta {
-    bottom: 12px;
-    right: 12px;
-    left: 12px;
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
     width: auto;
     max-width: none;
+    padding: 12px 14px 12px;
   }
+  .mm-sticky-cta.mm-sticky-with-img .mm-sticky-thumb {
+    width: 70px;
+    border-radius: var(--rad-lg) 0 0 var(--rad-lg);
+  }
+  .mm-sticky-cta.mm-sticky-with-img .mm-sticky-content {
+    padding: 10px 14px 10px;
+  }
+  .mm-sticky-title { font-size: 14px; }
+  .mm-sticky-sub { font-size: 11px; margin-bottom: 8px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+  .mm-sticky-cta-btn { font-size: 11px; padding: 7px 12px; }
 }
 
 /* "From 3D model" contextual CTA — uses CadNexa's actual brand palette */

@@ -319,6 +319,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ========== Sticky Scroll CTA — rotates 3 messages ==========
   if (sessionStorage.getItem('mm_cta_dismissed') !== '1') {
+    // Calculator pages: show sticky CTA faster + at lower scroll (users have shorter sessions there)
+    const isCalculator = /\/calculators\//.test(window.location.pathname);
+
+    // Map calculator slugs to feature-specific sticky messages
+    const calcMessages = {
+      'as9102-form3':       { eyebrow: 'AS9102 in CadNexa', title: 'Auto-balloon any drawing.', sub: 'AS9102 Form 1, 2, 3 generated from your PDF — in 10 minutes.', img: 'mm-balloon-ui-thumb.jpg' },
+      'ppap-checklist':     { eyebrow: 'PPAP in CadNexa', title: 'Tata + Mahindra PPAPs.', sub: 'Pre-built variation packs. No more reformatting AIAG templates.', img: 'mm-balloon-ui-thumb.jpg' },
+      'tolerance-stack':    { eyebrow: 'Stack in CadNexa', title: 'Stack on the 3D model.', sub: 'Open STEP/IGES, measure features, run the analysis. Zero manual entry.', img: 'mm-3d-measure-thumb.jpg' },
+      'position-tolerance': { eyebrow: 'GD&T in CadNexa', title: 'Measure position in 3D.', sub: 'CadNexa shows hole-to-hole positions live on your 3D model.', img: 'mm-3d-measure-thumb.jpg' },
+      'press-fit':          { eyebrow: 'Fits in CadNexa', title: 'Check fits in your browser.', sub: 'Open STEP, measure shaft + hole. No SolidWorks license needed.', img: 'mm-3d-measure-thumb.jpg' },
+      'beam-deflection':    { eyebrow: 'Beams in CadNexa', title: 'See beam profiles in 3D.', sub: 'Open STEP, measure cross-section. Browser viewer, no install.', img: 'mm-3d-measure-thumb.jpg' },
+      'gauge-rr':           { eyebrow: 'MSA in CadNexa', title: 'Attach Gauge R&R to FAI.', sub: 'Link MSA studies to characteristic numbers in AS9102 Form 3.', img: 'mm-balloon-ui-thumb.jpg' },
+      'surface-finish':     { eyebrow: 'Surface in CadNexa', title: 'Auto-extract Ra/Rz.', sub: 'CadNexa AI reads surface finish callouts directly from drawings.', img: 'mm-balloon-ui-thumb.jpg' },
+      'cp-cpk':             { eyebrow: 'Cp/Cpk in CadNexa', title: 'Capability + FAI in one.', sub: 'Link Cp/Cpk to characteristic numbers — audit-ready submissions.', img: 'mm-balloon-ui-thumb.jpg' },
+      'material-weight':    { eyebrow: 'BOM in CadNexa', title: 'Auto-BOM from a STEP.', sub: 'Drop a 3D file. Get weight + ₹/kg cost for 40+ Indian materials.', img: 'mm-3d-exploded-thumb.jpg' },
+      'cycle-time':         { eyebrow: 'Quote in CadNexa', title: 'CNC quote in 60s.', sub: 'CadNexa estimates cycle time + Indian shop rates from your 3D file.', img: 'mm-3d-assembly-thumb.jpg' }
+    };
+
+    // Detect calculator slug
+    const calcMatch = window.location.pathname.match(/\/calculators\/([a-z0-9-]+)\.html/);
+    const calcSlug = calcMatch ? calcMatch[1] : null;
+    const calcMsg = calcSlug && calcMessages[calcSlug];
+
     const stickyVariants = [
       {
         eyebrow: 'Built by CadNexa',
@@ -342,15 +365,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
     let h = 0;
     for (let i = 0; i < path.length; i++) h = (h * 31 + path.charCodeAt(i)) & 0xffffffff;
-    const v = stickyVariants[Math.abs(h) % stickyVariants.length];
+    // Use calculator-specific message if on a known calculator page; else rotate generic
+    const v = calcMsg
+      ? { eyebrow: calcMsg.eyebrow, title: calcMsg.title, sub: calcMsg.sub, cta: 'Try in CadNexa →', img: calcMsg.img }
+      : stickyVariants[Math.abs(h) % stickyVariants.length];
+
+    // CadNexa link with UTM tracking
+    const ctaHref = calcSlug
+      ? `https://cadnexa.com?utm_source=metricmech&utm_medium=sticky&utm_campaign=${calcSlug}`
+      : `https://cadnexa.com?utm_source=metricmech&utm_medium=sticky`;
+
+    const imgHTML = v.img ? `<div class="mm-sticky-thumb" style="background-image:url('${siteRoot}images/${v.img}');"></div>` : '';
 
     const stickyHTML = `
-      <div id="mm-sticky-cta" class="mm-sticky-cta" role="complementary" aria-label="CadNexa promo">
+      <div id="mm-sticky-cta" class="mm-sticky-cta${v.img ? ' mm-sticky-with-img' : ''}" role="complementary" aria-label="CadNexa promo">
         <button class="mm-sticky-close" aria-label="Dismiss" onclick="document.getElementById('mm-sticky-cta').remove(); sessionStorage.setItem('mm_cta_dismissed','1');">×</button>
-        <div class="mm-sticky-eyebrow">${v.eyebrow}</div>
-        <div class="mm-sticky-title">${v.title}</div>
-        <div class="mm-sticky-sub">${v.sub}</div>
-        <a href="https://cadnexa.com" class="mm-sticky-cta-btn">${v.cta}</a>
+        ${imgHTML}
+        <div class="mm-sticky-content">
+          <div class="mm-sticky-eyebrow">${v.eyebrow}</div>
+          <div class="mm-sticky-title">${v.title}</div>
+          <div class="mm-sticky-sub">${v.sub}</div>
+          <a href="${ctaHref}" target="_blank" rel="noopener" class="mm-sticky-cta-btn">${v.cta}</a>
+        </div>
       </div>
     `;
     let shown = false;
@@ -365,10 +401,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el) el.classList.add('mm-sticky-show');
       });
     };
-    setTimeout(showStickyCTA, 45000);
+    setTimeout(showStickyCTA, isCalculator ? 15000 : 45000);
     window.addEventListener('scroll', () => {
       const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
-      if (scrolled > 0.6) showStickyCTA();
+      if (scrolled > (isCalculator ? 0.4 : 0.6)) showStickyCTA();
     }, { passive: true });
   }
 
