@@ -184,6 +184,9 @@
 
   <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
 
+  <!-- Interpretation engine — verdict, recommendations, conditional CadNexa CTA -->
+  <div id="grrInterpret" style="display:none;"></div>
+
 </div>
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
@@ -192,6 +195,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function parseData() {
   return document.getElementById('data').value
@@ -232,6 +236,52 @@ function calc() {
   };
   verdict(Cg, document.getElementById('cgVerdict'));
   verdict(Cgk, document.getElementById('cgkVerdict'));
+
+  // ── Interpretation engine ──
+  const minCC = Math.min(Cg, Cgk);
+  let v, recs = [];
+  if (minCC >= 1.33) {
+    v = { level: 'good', label: 'Gauge Capable', sub: `Cg ${Cg.toFixed(2)} / Cgk ${Cgk.toFixed(2)} — meets AIAG MSA criteria. Gauge is acceptable for production measurement.` };
+    recs.push({ type: 'ok', title: 'Use this gauge with confidence', detail: 'Continue periodic R&R studies (every 6 months or after gauge service). No corrective action needed.' });
+  } else if (minCC >= 1.00) {
+    v = { level: 'warn', label: 'Marginal Capability', sub: `Cg ${Cg.toFixed(2)} / Cgk ${Cgk.toFixed(2)} — usable only for non-critical features. Variation or bias is at the edge of acceptable.` };
+    if (Cg < 1.33) recs.push({ type: 'warn', title: 'Reduce measurement variation', detail: 'Sources: ambient temperature changes, fixture stability, operator technique, gauge wear. Standardize procedure and re-run.' });
+    if (Cgk < Cg - 0.15) recs.push({ type: 'warn', title: 'Bias detected — calibrate the gauge', detail: `Bias of ${(mean - ref).toFixed(4)} indicates the gauge reads consistently off. Verify against reference standard or send for calibration.` });
+    recs.push({ type: 'info', title: 'Do not use on critical-to-quality dimensions', detail: 'Reserve this gauge for non-critical measurements. For tight-tolerance work, replace with a higher-resolution instrument.' });
+  } else {
+    v = { level: 'bad', label: 'Gauge NOT Capable', sub: `Cg ${Cg.toFixed(2)} / Cgk ${Cgk.toFixed(2)} — below AIAG threshold (1.00). Measurement system is contributing too much variation to be trusted.` };
+    if (Cg < 1.00) recs.push({ type: 'critical', title: 'Variation is excessive — replace the gauge', detail: `Resolution must be at least 10× tighter than the tolerance. Current 6σ (${(6*sd).toFixed(4)}) consumes ${evPct.toFixed(0)}% of tolerance ${tol.toFixed(3)}.` });
+    if (Cgk < 1.00 && Math.abs(bias) > 0.05 * tol) recs.push({ type: 'critical', title: 'Significant bias — calibration required', detail: 'Send to calibration lab. Until then, do not release any measurements as compliance evidence — they will fail audit.' });
+    recs.push({ type: 'critical', title: 'Quarantine recent measurements', detail: 'Any released parts measured with this gauge in the last MSA cycle should be re-verified with a known-capable gauge before customer shipment.' });
+  }
+
+  // Sample size warning
+  if (n < 25) recs.push({ type: 'info', title: `Small sample (n=${n}) — limited confidence`, detail: 'AIAG MSA recommends ≥25 measurements for a reliable Cg/Cgk study. Collect more data over time and across operators.' });
+
+  const isPass = minCC >= 1.33;
+  const cta = {
+    show: true,
+    severity: isPass ? 'good' : (minCC >= 1.0 ? 'marginal' : 'critical'),
+    calc: 'gaugerr',
+    eyebrow: 'MSA · FAI integration',
+    headline: isPass ? 'Attach this Gauge R&R to your FAI submission.' : 'Fix gauge issue before next PPAP.',
+    sub: isPass
+      ? 'CadNexa links MSA studies to specific characteristic numbers in AS9102 Form 3 — no manual paperwork.'
+      : 'Use CadNexa to track gauge issues against open inspection tickets, attach corrective action records, and document the fix in your PPAP submission.',
+    ctaText: isPass ? 'Generate FAI in CadNexa →' : 'Fix this in CadNexa →',
+  };
+
+  mmInterpret.render('grrInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: cta,
+    related: [
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: 'as9102-form3.html', text: 'AS9102 Form 3 Builder' },
+      { href: 'control-chart.html', text: 'Control Chart' },
+      { href: 'measurement-uncertainty.html', text: 'Measurement Uncertainty' },
+    ]
+  });
 }
 function loadEx1() {
   document.getElementById('data').value = `49.998\n50.001\n49.999\n50.002\n50.000\n49.997\n50.001\n50.000\n49.999\n50.001\n50.000\n49.998\n50.002\n49.999\n50.001\n50.000\n50.001\n49.999\n50.000\n50.001\n49.999\n50.000\n50.001\n49.998\n50.000`;

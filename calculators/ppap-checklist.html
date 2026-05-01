@@ -115,6 +115,9 @@
 
   <div data-mw="cn-inline" data-variant="ppap"></div>
 
+  <!-- Interpretation engine -->
+  <div id="ppapInterpret" style="display:none;"></div>
+
   <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px 26px; margin-top: 24px;">
     <h3 style="font-family: var(--display); font-size: 18px; margin-bottom: 12px;">Indian OEM variations</h3>
     <ul style="font-size: 13px; line-height: 1.7; color: var(--ink-2); margin-left: 18px;">
@@ -136,6 +139,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 const LEVELS = {
@@ -249,6 +253,65 @@ function updateProgress() {
   else if (pct < 100) head = 'Almost ready — finalize remaining elements';
   else head = 'All required elements complete — ready to submit';
   document.getElementById('summaryHead').textContent = head;
+
+  // ── Interpretation engine ──
+  const recs = [];
+  let v;
+  const missing = req - done;
+
+  // Find which critical elements are missing
+  const criticalMissing = [];
+  const lvlKey2 = 'l' + currentLevel;
+  ELEMENTS.forEach(e => {
+    const status = e[lvlKey2];
+    if ((status === 'S' || status === 'R') && statuses[e.num] !== 'complete' && statuses[e.num] !== 'na') {
+      // Critical elements
+      if ([3, 4, 5, 6, 7, 8, 9, 10, 11, 14].includes(e.num)) criticalMissing.push(e);
+    }
+  });
+
+  if (req === 0) {
+    v = { level: 'warn', label: 'Set status on each element', sub: 'Use the dropdowns to mark each PPAP element as Not started / In progress / Complete / N/A. Track readiness for submission.' };
+  } else if (pct === 100) {
+    v = { level: 'good', label: 'Submission ready', sub: `All ${req} required elements for Level ${currentLevel} are complete. Generate warrant (PSW), package, and submit to customer.` };
+    recs.push({ type: 'ok', title: 'Final review before submission', detail: 'Verify all signatures (Quality, Engineering, Materials), date stamps, and that all attached documents are the latest revisions. Send via customer-specified portal or email.' });
+  } else if (pct >= 80) {
+    v = { level: 'warn', label: `${pct}% complete — final push`, sub: `${missing} of ${req} required elements remaining. ${criticalMissing.length > 0 ? 'Critical elements still pending.' : 'Mostly documentation cleanup left.'}` };
+    if (criticalMissing.length > 0) {
+      recs.push({ type: 'warn', title: `${criticalMissing.length} critical element(s) still missing`, detail: 'Outstanding: ' + criticalMissing.map(e => `#${e.num} ${e.name}`).slice(0, 4).join('; ') + (criticalMissing.length > 4 ? '...' : '') });
+    }
+    recs.push({ type: 'info', title: 'Schedule the final submission review meeting', detail: 'Pull Quality, Engineering, and Production into a 30-min review. Catch missing signatures and stale revisions before sending to customer.' });
+  } else if (pct >= 50) {
+    v = { level: 'warn', label: `${pct}% complete — keep going`, sub: `${missing} of ${req} required elements still pending for Level ${currentLevel}.` };
+    recs.push({ type: 'info', title: 'Tackle the data-intensive elements first', detail: 'Process Capability (#11), Measurement System (#10), and Initial Process Studies require trial runs and data collection. Schedule those now — they have the longest lead time.' });
+  } else if (pct > 0) {
+    v = { level: 'bad', label: `${pct}% complete — early stage`, sub: `Only ${done} of ${req} required elements done. Significant work remaining for Level ${currentLevel} submission.` };
+    recs.push({ type: 'warn', title: 'Prioritize Design Records and Engineering Approvals', detail: 'Element #1 (Design Record) and #2 (Engineering Change Documents) gate everything else — without the right drawings, your other PPAP work may be wasted on a stale revision.' });
+    recs.push({ type: 'info', title: 'Confirm customer Level requirement', detail: `You're tracking Level ${currentLevel}. Most automotive customers require Level 3 by default. Confirm with your customer SQA — different customers expect different element sets.` });
+  } else {
+    v = { level: 'warn', label: 'PPAP not started', sub: `${req} required elements for Level ${currentLevel}. Mark elements as you complete them.` };
+  }
+
+  const isStruggling = pct < 50;
+  mmInterpret.render('ppapInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: {
+      show: true,
+      severity: isStruggling ? 'critical' : (pct === 100 ? 'good' : 'marginal'),
+      calc: 'ppap',
+      eyebrow: 'PPAP automation · CadNexa',
+      headline: pct === 100 ? 'PPAP ready. Generate warrant in CadNexa.' : 'Build complete PPAP package in CadNexa.',
+      sub: 'Upload your STEP file, auto-balloon the drawing, attach Cp/Cpk and MSA studies, fill AS9102 Forms 1/2/3, and generate a complete Tata/Mahindra/Bajaj-formatted PPAP submission — under one workflow.',
+      ctaText: pct === 100 ? 'Generate PSW in CadNexa →' : 'Build PPAP in CadNexa →',
+    },
+    related: [
+      { href: 'as9102-form3.html', text: 'AS9102 Form 3 Builder' },
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: 'gauge-rr.html', text: 'Gauge R&R (MSA)' },
+      { href: 'fmea-rpn.html', text: 'FMEA RPN' },
+    ]
+  });
 }
 
 setLevel(3);

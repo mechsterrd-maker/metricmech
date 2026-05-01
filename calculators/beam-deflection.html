@@ -186,10 +186,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="bdInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 let currentCase = 'cant_p';
 const FORMULAS = {
@@ -281,6 +285,41 @@ function calc() {
   document.getElementById('reaction').textContent = R.toFixed(1) + ' N';
   document.getElementById('Ix').textContent = I.toExponential(3) + ' mm⁴';
   document.getElementById('Z').textContent = Z.toExponential(3) + ' mm³';
+
+  // ── Interpretation ──
+  (function(){
+    const defTxt = document.getElementById('defl')?.textContent || '';
+    const stressTxt = document.getElementById('stress')?.textContent || '';
+    const def = parseFloat(defTxt);
+    const stress = parseFloat(stressTxt);
+    const span = parseFloat(document.getElementById('L')?.value) || 1000;
+    const yieldS = 250;
+    const sf = stress > 0 ? yieldS / stress : 99;
+    const deflRatio = (span > 0 && def > 0) ? span / def : 99999;
+    const recs = [];
+    let v;
+    if (isNaN(def) || def === 0) v = { level: 'warn', label: 'Enter beam properties', sub: '' };
+    else if (sf < 1) {
+      v = { level: 'bad', label: 'Beam Yields — Failure', sub: `Stress ${stress.toFixed(0)} MPa exceeds typical yield ${yieldS} MPa.` };
+      recs.push({ type: 'critical', title: 'Beam will permanently deform', detail: 'Increase section modulus (deeper beam), use higher-strength material, reduce load, or add intermediate support.' });
+    } else if (sf < 2) {
+      v = { level: 'warn', label: 'Low Safety Factor', sub: `SF = ${sf.toFixed(2)}. Acceptable for static loads only.` };
+      recs.push({ type: 'warn', title: 'Aim for SF ≥ 2.5 for dynamic loads', detail: 'Vibrating, cyclic, or impact loads need higher SF — fatigue cracks form well below yield.' });
+    } else if (deflRatio < 250) {
+      v = { level: 'warn', label: 'Excessive Deflection', sub: `Span/${Math.round(deflRatio)} ratio. Spec for floors is L/360, beams L/240.` };
+      recs.push({ type: 'warn', title: 'Increase stiffness', detail: 'Stiffness goes with depth³ — doubling beam depth gives 8× stiffness. Often cheaper than upgrading material.' });
+    } else {
+      v = { level: 'good', label: 'Beam Safe', sub: `SF = ${sf.toFixed(2)}, deflection ${def.toFixed(2)} mm (L/${Math.round(deflRatio)}).` };
+    }
+    mmInterpret.render('bdInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: sf < 1 ? 'critical' : 'good', calc: 'beam-deflection', eyebrow: 'CadNexa · Design verification',
+             headline: 'Verify section modulus on your 3D model.',
+             sub: 'Open the part in CadNexa, measure cross-section, and confirm dimensions match calculation inputs.',
+             ctaText: 'Verify in CadNexa →' },
+      related: [ { href: 'press-fit.html', text: 'Press-Fit' }, { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' } ]
+    });
+  })();
 }
 setCase('cant_p');
 </script>

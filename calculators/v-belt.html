@@ -167,10 +167,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="vbInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const D1 = +document.getElementById('d1').value;
@@ -199,6 +203,23 @@ function calc() {
   document.getElementById('arc').textContent = arcDeg.toFixed(1) + '°';
   document.getElementById('T1').textContent = Math.round(T1) + ' N';
   document.getElementById('T2').textContent = Math.round(T2) + ' N';
+
+  // ── Interpretation ──
+  (function(){
+    const lenTxt = document.getElementById('beltLen')?.textContent || '';
+    const len = parseFloat(lenTxt);
+    const recs = [];
+    let v;
+    if (isNaN(len) || len === 0) v = { level: 'warn', label: 'Enter pulley diameters and center distance', sub: '' };
+    else {
+      v = { level: 'good', label: 'Belt Length Calculated', sub: `Pitch length ${len.toFixed(1)} mm. Round up to nearest stock belt length.` };
+      recs.push({ type: 'info', title: 'Verify wrap angle on small pulley', detail: 'Wrap angle <120° causes belt slip. Use idler pulley or spring tensioner if center distance is too short.' });
+    }
+    mmInterpret.render('vbInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: false }, related: [ { href: 'gear-calculator.html', text: 'Gear Calculator' }, { href: 'motor-hp.html', text: 'Motor HP' } ]
+    });
+  })();
 }
 calc();
 </script>

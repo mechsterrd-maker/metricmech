@@ -192,6 +192,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // Material defaults: SFM (m/min) and chip load (mm) by tool material
 const MATS = {
@@ -238,6 +239,31 @@ function calc() {
   document.getElementById('fc').textContent = Math.round(fc) + ' N';
   document.getElementById('kw').textContent = power.toFixed(2) + ' kW';
   document.getElementById('hp').textContent = (power * 1.341).toFixed(2) + ' HP';
+
+  // ── Interpretation ──
+  (function(){
+    const recs = [];
+    let v;
+    if (rpm > 30000) {
+      v = { level: 'warn', label: 'Very High RPM', sub: `${Math.round(rpm)} RPM may exceed spindle limit. Check machine specs before running.` };
+      recs.push({ type: 'warn', title: 'Verify spindle max RPM', detail: 'Most VMC spindles cap at 8,000–12,000 RPM. High-speed spindles go to 30,000+. Running over spec causes bearing failure.' });
+    } else if (rpm < 200) {
+      v = { level: 'warn', label: 'Very Low RPM', sub: `${Math.round(rpm)} RPM. Tool may rub instead of cut.` };
+      recs.push({ type: 'warn', title: 'Increase cutting speed (Vc)', detail: 'Low RPM with sharp tools causes built-up edge. Increase Vc per material recommendation.' });
+    } else {
+      v = { level: 'good', label: 'Cutting parameters OK', sub: `RPM ${Math.round(rpm).toLocaleString()}, feed ${Math.round(feed).toLocaleString()} mm/min, ${power.toFixed(2)} kW power demand.` };
+      recs.push({ type: 'ok', title: 'Run a 5-piece trial', detail: 'Verify tool life, surface finish, and dimensional accuracy on 5 trial parts before full batch.' });
+    }
+    if (power > 15) recs.push({ type: 'warn', title: `${power.toFixed(1)} kW exceeds typical 3-axis VMC`, detail: 'Most production VMCs are rated 7.5–15 kW spindle power. Reduce ap, ae, or feed if you see chatter or stalling.' });
+    mmInterpret.render('sfInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'speeds-feeds', eyebrow: 'CadNexa · Cost estimator',
+             headline: 'Estimate machining cost for this part.',
+             sub: 'CadNexa lets you upload the STEP file, auto-detect features, and add machining operations with these speeds/feeds — generating a per-part cost in seconds.',
+             ctaText: 'Estimate cost in CadNexa →' },
+      related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE Calculator' }, { href: 'cadnexa-roi.html', text: 'CadNexa ROI' } ]
+    });
+  })();
 }
 loadMat();
 </script>

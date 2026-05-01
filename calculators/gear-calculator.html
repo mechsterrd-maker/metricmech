@@ -145,10 +145,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="gcInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const sys = document.getElementById('system').value;
@@ -184,6 +188,27 @@ function calc() {
   set('cp', cp); set('tt', tt);
   document.getElementById('gr').textContent = (z2/z1).toFixed(3) + ' : 1';
   document.getElementById('cd').textContent = cd.toFixed(2);
+
+  // ── Interpretation ──
+  (function(){
+    const ratioTxt = document.getElementById('ratio')?.textContent || '';
+    const ratio = parseFloat(ratioTxt);
+    const recs = [];
+    let v;
+    if (isNaN(ratio) || ratio === 0) v = { level: 'warn', label: 'Enter tooth counts', sub: '' };
+    else if (ratio > 7) {
+      v = { level: 'warn', label: 'High Ratio Single Stage', sub: `Ratio ${ratio.toFixed(2)}:1 — use compound gearing for efficiency.` };
+      recs.push({ type: 'warn', title: 'Single-stage above 7:1 has issues', detail: 'High ratio gives interference, undercut, and low contact ratio. Split into two stages of ~3:1 each for better life.' });
+    } else v = { level: 'good', label: 'Gear Train Calculated', sub: `Ratio ${ratio.toFixed(2)}:1.` };
+    mmInterpret.render('gcInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'gear', eyebrow: 'CadNexa · 3D inspection',
+             headline: 'Inspect gear teeth on the 3D model.',
+             sub: 'Measure tooth profile, OD, and root in CadNexa. Validate against AGMA spec before machining.',
+             ctaText: 'Verify in CadNexa →' },
+      related: [ { href: 'speeds-feeds.html', text: 'Speeds & Feeds' }, { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'beam-deflection.html', text: 'Beam Deflection' } ]
+    });
+  })();
 }
 calc();
 </script>

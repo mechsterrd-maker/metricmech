@@ -84,10 +84,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="dsInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // type: metric, frac, num, letter
 const DRILLS = [
@@ -192,6 +196,18 @@ function render() {
 }
 render();
 </script>
+<script>document.addEventListener("DOMContentLoaded", function(){
+mmInterpret.render('dsInterpret', {
+  verdict: { level: 'good', label: 'Drill Size Reference', sub: 'For tapped holes, use tap-drill chart. For clearance, use ISO 286 fits.' },
+  recommendations: [
+    { type: 'info', title: 'Verify drill diameter at gauge', detail: 'Drills wear; new drill ≠ used drill. Measure with pin gauges or check the hole on a calibrated CMM if dimension matters.' }
+  ],
+  cta: { show: true, severity: 'good', calc: 'drill', eyebrow: 'CadNexa · Inspection',
+         headline: 'Verify drilled holes on 3D model.',
+         sub: 'Auto-detect hole features in CadNexa, check actual ⌀ vs nominal, generate hole inspection report.',
+         ctaText: 'Inspect in CadNexa →' },
+  related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'thread-pitch.html', text: 'Thread Pitch' }, { href: 'position-tolerance.html', text: 'Position Tolerance' } ]
+});});</script>
 <script src="../share.js"></script>
 <script>mmShare.auto({kicker: 'Drill Size Chart'});</script>
 </body>

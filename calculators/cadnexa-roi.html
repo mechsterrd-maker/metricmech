@@ -192,10 +192,14 @@
 
 <div data-mw="cn-inline" data-variant="default" style="max-width: var(--max-w); margin: 40px auto; padding: 0 32px;"></div>
 
+
+<div id="roiInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 function fmt(n) {
@@ -234,6 +238,27 @@ function recalc() {
   document.getElementById('newLabor').textContent = fmt(newLabor);
   document.getElementById('newRework').textContent = fmt(newRework);
   document.getElementById('netSave').textContent = fmt(savings);
+
+  // ── Interpretation ──
+  (function(){
+    const savingsTxt = document.getElementById('savings')?.textContent || '';
+    const savings = parseFloat(savingsTxt.replace(/[^\d.]/g,''));
+    const recs = [];
+    let v;
+    if (isNaN(savings) || savings === 0) v = { level: 'warn', label: 'Enter your current FAI hours and rates', sub: '' };
+    else if (savings > 200000) {
+      v = { level: 'good', label: 'Strong ROI', sub: `You save ₹${Math.round(savings).toLocaleString()}/year with CadNexa. Payback in weeks.` };
+      recs.push({ type: 'ok', title: 'Start free trial — no credit card', detail: 'Most teams see ROI in the first FAI submission. CadNexa is ₹399/mo (Balloon Tool) or ₹1499/mo (Business with RFQ).' });
+    } else v = { level: 'good', label: 'ROI Calculated', sub: `Annual savings ≈ ₹${Math.round(savings).toLocaleString()} based on your inputs.` };
+    mmInterpret.render('roiInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'roi', eyebrow: 'Start free trial',
+             headline: 'See it for yourself — 14-day free trial.',
+             sub: 'No credit card. Full access to balloon tool, 3D viewer, BOM, RFQ. Cancel anytime.',
+             ctaText: 'Start CadNexa trial →' },
+      related: [ { href: 'copq.html', text: 'Cost of Poor Quality' }, { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE' } ]
+    });
+  })();
 }
 recalc();
 </script>

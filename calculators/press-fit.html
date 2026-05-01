@@ -174,10 +174,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="pfInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const Df = +document.getElementById('Df').value;
@@ -209,6 +213,35 @@ function calc() {
   document.getElementById('pressIn').textContent = (Faxial * 1.3).toFixed(1) + ' kN';
   document.getElementById('dT').textContent = '+' + Math.round(dT_ok) + ' °C';
   document.getElementById('clear').textContent = (delta + 0.05).toFixed(3) + ' mm';
+
+  // ── Interpretation ──
+  (function(){
+    const stressTxt = document.getElementById('hubStress')?.textContent || '';
+    const sfTxt = document.getElementById('safetyFactor')?.textContent || '';
+    const stress = parseFloat(stressTxt);
+    const sf = parseFloat(sfTxt);
+    const recs = [];
+    let v;
+    if (isNaN(stress) || isNaN(sf)) {
+      v = { level: 'warn', label: 'Enter values to see stress analysis', sub: 'Set interference, materials, and dimensions.' };
+    } else if (sf < 1) {
+      v = { level: 'bad', label: 'Hub will yield', sub: `Stress ${stress.toFixed(0)} MPa exceeds yield. Hub will plastically deform — fit fails.` };
+      recs.push({ type: 'critical', title: 'Reduce interference or use stronger material', detail: 'Either tighten the shaft or enlarge the hub OD, OR upgrade to higher-yield steel. Aim for SF ≥ 2.' });
+    } else if (sf < 1.5) {
+      v = { level: 'warn', label: 'Marginal Safety Factor', sub: `SF = ${sf.toFixed(2)}. Acceptable for static loads but no headroom for thermal cycling or shock.` };
+      recs.push({ type: 'warn', title: 'Aim for SF ≥ 2 for production', detail: 'Manufacturing variation in interference (±0.01 mm) can push marginal designs into yield.' });
+    } else {
+      v = { level: 'good', label: 'Press-Fit Safe', sub: `SF = ${sf.toFixed(2)}. Stress ${stress.toFixed(0)} MPa well below yield.` };
+    }
+    mmInterpret.render('pfInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: sf < 1 ? 'critical' : 'good', calc: 'press-fit', eyebrow: 'CadNexa · 3D verification',
+             headline: 'Verify the fit on your 3D model.',
+             sub: 'Open the assembly in CadNexa, measure actual hole/shaft sizes, and confirm interference matches your calculation.',
+             ctaText: 'Verify in CadNexa →' },
+      related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' }, { href: 'bolt-torque.html', text: 'Bolt Torque' } ]
+    });
+  })();
 }
 calc();
 </script>

@@ -131,10 +131,13 @@
 
 <div data-mw="cn-inline" data-variant="tolerance" style="max-width: var(--max-w); margin: 40px auto; padding: 0 32px;"></div>
 
+<div id="stackInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 const tbody = document.getElementById('dimBody');
@@ -215,6 +218,55 @@ function recalc() {
   document.getElementById('wcRange').textContent = `${(nomSum - wcTol).toFixed(3)} → ${(nomSum + wcTol).toFixed(3)}`;
   document.getElementById('rssVal').textContent = '±' + rssTol.toFixed(3);
   document.getElementById('rssRange').textContent = `${(nomSum - rssTol).toFixed(3)} → ${(nomSum + rssTol).toFixed(3)}`;
+
+  // ── Interpretation engine ──
+  const numDims = Array.from(tbody.children).length;
+  const wcVsRss = wcTol / Math.max(rssTol, 0.0001);  // how much you save with RSS
+
+  const recs = [];
+  let v;
+
+  if (numDims < 3) {
+    v = { level: 'warn', label: 'Add more dimensions for meaningful analysis',
+          sub: `${numDims} dimension(s) entered. Stack-up analysis is most useful with 3+ contributing dimensions.` };
+  } else if (wcTol > Math.abs(nomSum) * 0.05 && Math.abs(nomSum) > 0) {
+    v = { level: 'warn', label: 'Stack-up tolerance is significant',
+          sub: `Worst-case ±${wcTol.toFixed(3)} is more than 5% of nominal ${nomSum.toFixed(3)}. Assembly fits will vary substantially. Consider tighter dimensional tolerances or RSS approach.` };
+    recs.push({ type: 'warn', title: 'Tighten the largest contributors', detail: 'Sort dimensions by tolerance contribution. The 1-2 dimensions with largest ±tol drive most of the stack-up. Tighten those first — cheapest path to reducing variation.' });
+    recs.push({ type: 'info', title: `Use RSS instead of worst-case (${rssTol.toFixed(3)} vs ${wcTol.toFixed(3)})`, detail: `RSS analysis is statistically valid for batch production. You save ${(wcVsRss * 100 - 100).toFixed(0)}% on tolerance budget by switching to RSS — but document the assumption that dimensions are independent and normally distributed.` });
+  } else {
+    v = { level: 'good', label: 'Stack-up looks healthy',
+          sub: `Worst-case ±${wcTol.toFixed(3)}, RSS ±${rssTol.toFixed(3)} on nominal ${nomSum.toFixed(3)}. Reasonable assembly variation.` };
+    recs.push({ type: 'ok', title: 'Document this stack analysis in your DFMEA / FAI', detail: 'Attach the chain diagram and assumptions to your design records. Auditors will ask which method (worst-case vs RSS) was used and why.' });
+  }
+
+  if (numDims >= 5 && wcVsRss > 1.5) {
+    recs.push({ type: 'info', title: 'RSS gives significant tolerance relief', detail: `With ${numDims} contributors, statistical (RSS) analysis is reasonable if production volumes justify it. RSS allows ±${rssTol.toFixed(3)} vs worst-case ±${wcTol.toFixed(3)} — a ${((wcVsRss-1)*100).toFixed(0)}% relaxation.` });
+  }
+
+  // Critical dimension flag
+  const tolPct = Math.abs(nomSum) > 0 ? (wcTol / Math.abs(nomSum) * 100) : 0;
+  const isHighRisk = tolPct > 5 && Math.abs(nomSum) > 0;
+
+  mmInterpret.render('stackInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: {
+      show: numDims > 0,
+      severity: isHighRisk ? 'critical' : 'good',
+      calc: 'tolstack',
+      eyebrow: '3D verification · CadNexa',
+      headline: isHighRisk ? 'Verify this stack on the actual 3D model.' : 'Stack-up done. Now verify in 3D.',
+      sub: 'Open your STEP/IGES file in CadNexa, measure the actual dimensions in the assembly, and confirm the stack-up against drawing tolerances. Catch interference issues before prototype build.',
+      ctaText: 'Verify in CadNexa 3D →',
+    },
+    related: [
+      { href: 'position-tolerance.html', text: 'Position Tolerance & MMC' },
+      { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: '../gdt.html', text: 'GD&T Reference' },
+    ]
+  });
 }
 
 // Init with 3 empty rows

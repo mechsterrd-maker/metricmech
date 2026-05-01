@@ -150,10 +150,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="eoInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 const Z_TABLE = { '90': 1.28, '92': 1.41, '95': 1.65, '97': 1.88, '98': 2.05, '99': 2.33, '99.5': 2.58, '99.9': 3.09 };
 function getZ(s) {
@@ -188,6 +192,23 @@ function calc() {
   document.getElementById('cycle').textContent = Math.round(cycleDays) + ' days';
   document.getElementById('totalCost').textContent = '₹' + Math.round(totalCost).toLocaleString('en-IN');
   document.getElementById('hold').textContent = '₹' + H.toFixed(2);
+
+  // ── Interpretation ──
+  (function(){
+    const eoqTxt = document.getElementById('eoq')?.textContent || '';
+    const eoq = parseFloat(eoqTxt.replace(/,/g,''));
+    const recs = [];
+    let v;
+    if (isNaN(eoq) || eoq === 0) v = { level: 'warn', label: 'Enter demand, order cost, holding cost', sub: '' };
+    else {
+      v = { level: 'good', label: 'EOQ Calculated', sub: `Order ${Math.round(eoq).toLocaleString()} units at a time for minimum total cost.` };
+      recs.push({ type: 'info', title: 'EOQ assumes constant demand', detail: 'For seasonal or volatile demand, layer EOQ over forecast. Use safety stock for variability — don\'t bake it into EOQ.' });
+    }
+    mmInterpret.render('eoInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: false }, related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'takt-time.html', text: 'Takt Time' } ]
+    });
+  })();
 }
 calc();
 </script>

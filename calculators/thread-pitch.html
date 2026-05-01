@@ -102,10 +102,14 @@
 
 <div data-mw="cn-big"></div>
 
+
+<div id="tpInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 const DATA = {
@@ -258,6 +262,20 @@ setTab('metric');
 calcEngage();
 </script>
 
+<script>document.addEventListener("DOMContentLoaded", function(){
+// ── Static interpretation ──
+mmInterpret.render('tpInterpret', {
+  verdict: { level: 'good', label: 'Thread Reference', sub: 'Always specify pitch when ordering fasteners — M10×1.5 ≠ M10×1.25.' },
+  recommendations: [
+    { type: 'info', title: 'Match thread series exactly', detail: 'Metric coarse, metric fine, UN, and UNF look similar but cross-thread under load. Always specify pitch.' },
+    { type: 'info', title: 'Coarse for general use, fine for precision', detail: 'Coarse threads tolerate damage better and assemble faster. Fine threads give higher preload at same torque — use for engine, hydraulic, instrument joints.' }
+  ],
+  cta: { show: true, severity: 'good', calc: 'thread', eyebrow: 'CadNexa · GD&T workflow',
+         headline: 'Document thread spec in FAI.',
+         sub: 'Balloon the thread callout, link to ISO/UN standard, and generate inspection plan automatically.',
+         ctaText: 'Document in CadNexa →' },
+  related: [ { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'as9102-form3.html', text: 'AS9102 Form 3' }, { href: 'iso-286-fits.html', text: 'ISO 286 Fits' } ]
+});});</script>
 <script src="../share.js"></script>
 <script>mmShare.auto({kicker: 'Thread Pitch & Tap Drill'});</script>
 </body>

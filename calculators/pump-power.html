@@ -149,10 +149,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="ppInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // Convert flow to m³/s
 function toM3s(val, unit) {
@@ -193,6 +197,23 @@ function calc() {
   const annualKWh = Pelec * 24 * 365;
   document.getElementById('energy').textContent = (annualKWh/1000).toFixed(1) + ' MWh';
   document.getElementById('cost').textContent = '₹' + (annualKWh * 8).toLocaleString('en-IN', {maximumFractionDigits: 0});
+
+  // ── Interpretation ──
+  (function(){
+    const kwTxt = document.getElementById('kw')?.textContent || '';
+    const kw = parseFloat(kwTxt);
+    const recs = [];
+    let v;
+    if (isNaN(kw) || kw === 0) v = { level: 'warn', label: 'Enter flow and head', sub: '' };
+    else {
+      v = { level: 'good', label: 'Pump Power Calculated', sub: `${kw.toFixed(2)} kW shaft power. Add 15-20% for motor sizing.` };
+      recs.push({ type: 'info', title: 'Account for system losses', detail: 'Pipe friction, fittings, and elevation can add 20-40% to required head. Run a system curve before final selection.' });
+    }
+    mmInterpret.render('ppInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: false }, related: [ { href: 'motor-hp.html', text: 'Motor HP' }, { href: 'beam-deflection.html', text: 'Beam Deflection' } ]
+    });
+  })();
 }
 calc();
 </script>

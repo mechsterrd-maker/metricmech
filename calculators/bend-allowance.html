@@ -168,10 +168,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="baInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 const PRESETS = {
   ms_soft: 0.33, ms_med: 0.42, ms_hard: 0.50,
@@ -201,6 +205,28 @@ function calc() {
   document.getElementById('ossb').textContent = OSSB.toFixed(3) + ' mm';
   document.getElementById('naoff').textContent = naOff.toFixed(3) + ' mm';
   document.getElementById('flat').textContent = flat.toFixed(2);
+
+  // ── Interpretation ──
+  (function(){
+    const baTxt = document.getElementById('ba')?.textContent || '';
+    const ba = parseFloat(baTxt);
+    const recs = [];
+    let v;
+    if (isNaN(ba) || ba === 0) v = { level: 'warn', label: 'Enter sheet metal parameters', sub: '' };
+    else {
+      v = { level: 'good', label: 'Bend Allowance Calculated', sub: `BA = ${ba.toFixed(3)} mm. Flat blank size = part length(s) + ${ba.toFixed(3)} per bend.` };
+      recs.push({ type: 'info', title: 'Verify K-factor for your machine', detail: 'K-factor varies with material, thickness, and tool. For critical work, bend a sample, measure flat, then back-calculate K.' });
+      recs.push({ type: 'info', title: 'Mind springback', detail: 'Bend angle springs back 1-3°. Overbend by that amount, or use coining for critical-angle parts.' });
+    }
+    mmInterpret.render('baInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'bend', eyebrow: 'CadNexa · Sheet metal',
+             headline: 'Auto-unbend in CadNexa.',
+             sub: 'Upload your sheet-metal STEP/IGES file. CadNexa auto-flattens, calculates K-factor, and exports DXF for laser cutting.',
+             ctaText: 'Try sheet metal in CadNexa →' },
+      related: [ { href: 'material-weight.html', text: 'Material Weight' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' } ]
+    });
+  })();
 }
 calc();
 </script>

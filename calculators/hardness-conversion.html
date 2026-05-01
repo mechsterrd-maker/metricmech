@@ -107,10 +107,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="hcInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // ASTM E140 conversion table (subset, keyed by HRC)
 const TABLE = [
@@ -185,6 +189,28 @@ function calc() {
   out('r_hb').textContent = typeof row[3] === 'number' ? Math.round(row[3]) : '—';
   out('r_hk').textContent = typeof row[4] === 'number' ? Math.round(row[4]) : '—';
   out('r_uts').textContent = typeof row[5] === 'number' ? Math.round(row[5]) : '—';
+
+  // ── Interpretation ──
+  (function(){
+    const hb = parseFloat(document.getElementById('hbOut')?.textContent) || 0;
+    const recs = [];
+    let v;
+    if (hb === 0) v = { level: 'warn', label: 'Enter a hardness value', sub: '' };
+    else if (hb > 600) {
+      v = { level: 'warn', label: 'Very Hard — Brittle Risk', sub: `${hb.toFixed(0)} HB exceeds typical hardened steel. Brittle fracture risk under impact.` };
+      recs.push({ type: 'warn', title: 'Verify hardness is appropriate', detail: 'For wear resistance, consider case-hardening (hard surface, tough core). Through-hardening above 60 HRC reduces toughness.' });
+    } else if (hb > 250) v = { level: 'good', label: 'Hardened steel range', sub: `${hb.toFixed(0)} HB — typical of quench-tempered tool steel, hardened bearings, gear teeth.` };
+    else if (hb > 150) v = { level: 'good', label: 'Medium-hard steel', sub: `${hb.toFixed(0)} HB — typical of normalized carbon steel, mild structural steel.` };
+    else v = { level: 'good', label: 'Soft material', sub: `${hb.toFixed(0)} HB — typical of aluminum, brass, annealed copper, mild steel.` };
+    mmInterpret.render('hcInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'hardness', eyebrow: 'CadNexa · Material spec',
+             headline: 'Document material spec in your FAI.',
+             sub: 'CadNexa pulls material certs into Form 3, links them to specific characteristics, and validates against drawing callouts.',
+             ctaText: 'Document in CadNexa →' },
+      related: [ { href: 'as9102-form3.html', text: 'AS9102 Form 3' }, { href: 'material-weight.html', text: 'Material Weight' }, { href: 'ppap-checklist.html', text: 'PPAP Submission' } ]
+    });
+  })();
 }
 // Fix em dash literal in TABLE - replace with null
 for (let i = 0; i < TABLE.length; i++) {

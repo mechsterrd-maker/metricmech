@@ -145,10 +145,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="tkInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const time = +document.getElementById('time').value * 60;
@@ -186,6 +190,31 @@ function calc() {
   }
   document.getElementById('status').textContent = status;
   document.getElementById('action').textContent = action;
+
+  // ── Interpretation ──
+  (function(){
+    const taktTxt = document.getElementById('takt')?.textContent || '';
+    const takt = parseFloat(taktTxt);
+    const recs = [];
+    let v;
+    if (isNaN(takt) || takt === 0) v = { level: 'warn', label: 'Enter shift data and demand', sub: '' };
+    else if (takt < 30) {
+      v = { level: 'warn', label: 'Very Tight Takt', sub: `${takt.toFixed(1)} sec/part. High-volume line — every second of downtime hurts.` };
+      recs.push({ type: 'warn', title: 'Run OEE study to find hidden capacity', detail: 'At sub-minute takt, OEE losses (changeover, micro-stops) eat throughput fast. Target ≥85% OEE.' });
+    } else if (takt < 300) v = { level: 'good', label: 'Standard Takt', sub: `${takt.toFixed(1)} sec/part. Typical of mid-volume manufacturing.` };
+    else {
+      v = { level: 'good', label: 'Long Takt — Job Shop', sub: `${(takt/60).toFixed(1)} min/part. Low volume — focus on flexibility over takt adherence.` };
+      recs.push({ type: 'info', title: 'Long takt suits low-volume mix', detail: 'For high-mix low-volume, focus on changeover reduction (SMED) rather than line balancing.' });
+    }
+    mmInterpret.render('tkInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'takt', eyebrow: 'CadNexa · Cost estimator',
+             headline: 'Match cycle time to takt.',
+             sub: 'Estimate total cost per part in CadNexa using cycle time, machine rate, and overheads — then quote with confidence.',
+             ctaText: 'Estimate in CadNexa →' },
+      related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE' }, { href: 'speeds-feeds.html', text: 'Speeds & Feeds' } ]
+    });
+  })();
 }
 calc();
 </script>

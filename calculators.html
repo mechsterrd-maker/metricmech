@@ -266,7 +266,15 @@
     <button class="search-clear" id="searchClear" aria-label="Clear search">×</button>
   </div>
 
-  <!-- Filter tabs -->
+  <!-- Tier filter — primary discoverability -->
+  <div class="tier-tabs" id="tierTabs" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+    <button class="tier-tab active" data-tier="all" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--ink); color: #fff; border: 1px solid var(--ink); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">All tools <span style="opacity: 0.6; margin-left: 4px;">32</span></button>
+    <button class="tier-tab" data-tier="1" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--blueprint-tint); color: var(--blueprint); border: 1px solid var(--blueprint-tint-2); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">★ Critical Quality <span style="opacity: 0.6; margin-left: 4px;">8</span></button>
+    <button class="tier-tab" data-tier="2" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--rule); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">Production <span style="opacity: 0.6; margin-left: 4px;">10</span></button>
+    <button class="tier-tab" data-tier="3" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--paper-2); color: var(--mute); border: 1px solid var(--rule); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">Utilities <span style="opacity: 0.6; margin-left: 4px;">14</span></button>
+  </div>
+
+  <!-- Filter tabs (categories) -->
   <div class="filter-tabs" id="filterTabs">
     <button class="filter-tab active" data-cat="all">All <span class="count">33</span></button>
     <button class="filter-tab" data-cat="quality">Quality &amp; Inspection <span class="count">15</span></button>
@@ -279,37 +287,37 @@
   <div class="tool-grid" id="toolGrid">
 
     <!-- QUALITY (16) -->
-    <a href="calculators/tolerance-stack.html" class="tool-card" data-cat="quality" data-keywords="tolerance stack rss worst case assembly dim multi-dim">
+    <a href="calculators/tolerance-stack.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="tolerance stack rss worst case assembly dim multi-dim">
       <div class="tool-card-cat">Quality</div>
       <h4>Tolerance Stack-Up</h4>
       <p>Worst-case + RSS analysis. Multi-dim assembly stack.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/as9102-form3.html" class="tool-card" data-cat="quality" data-keywords="as9102 form 3 fai aerospace inspection report">
+    <a href="calculators/as9102-form3.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="as9102 form 3 fai aerospace inspection report">
       <div class="tool-card-cat">Quality</div>
       <h4>AS9102 Form 3 Builder</h4>
       <p>Paste dims → editable Form 3 → PDF export.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/cp-cpk.html" class="tool-card" data-cat="quality" data-keywords="cp cpk pp ppk process capability spc histogram six sigma">
+    <a href="calculators/cp-cpk.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="cp cpk pp ppk process capability spc histogram six sigma">
       <div class="tool-card-cat">Quality</div>
       <h4>Cp / Cpk / Pp / Ppk Calculator</h4>
       <p>Process capability + histogram from sample data.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/ppap-checklist.html" class="tool-card" data-cat="quality" data-keywords="ppap submission checklist 18 elements automotive aiag">
+    <a href="calculators/ppap-checklist.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="ppap submission checklist 18 elements automotive aiag">
       <div class="tool-card-cat">Quality</div>
       <h4>PPAP Submission Checklist</h4>
       <p>Level 1–5 status tracker, 18 elements.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/copq.html" class="tool-card" data-cat="quality" data-keywords="copq cost poor quality rejection scrap rework">
+    <a href="calculators/copq.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="copq cost poor quality rejection scrap rework">
       <div class="tool-card-cat">Quality</div>
       <h4>Cost of Poor Quality (COPQ)</h4>
       <p>Rejection rate → ₹ wasted per month.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/position-tolerance.html" class="tool-card" data-cat="quality" data-keywords="position tolerance mmc lmc bonus converter true position diameter zone gd&t feature size">
+    <a href="calculators/position-tolerance.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="position tolerance mmc lmc bonus converter true position diameter zone gd&t feature size">
       <div class="tool-card-cat">Quality</div>
       <h4>Position Tolerance &amp; MMC/LMC Bonus</h4>
       <p>True position + bonus tolerance from feature size deviation.</p>
@@ -321,49 +329,49 @@
       <p>14 ASME Y14.5 symbols, worked examples.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/iso-286-fits.html" class="tool-card" data-cat="quality" data-keywords="iso 286 fits tolerances h7 g6 hole shaft basis clearance">
+    <a href="calculators/iso-286-fits.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="iso 286 fits tolerances h7 g6 hole shaft basis clearance">
       <div class="tool-card-cat">Quality</div>
       <h4>ISO 286 Fits &amp; Tolerances</h4>
       <p>H7/g6, H8/h7, hole-basis &amp; shaft-basis.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/surface-finish.html" class="tool-card" data-cat="quality" data-keywords="surface finish ra rz rt roughness micron n grade iso 4287">
+    <a href="calculators/surface-finish.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="surface finish ra rz rt roughness micron n grade iso 4287">
       <div class="tool-card-cat">Quality</div>
       <h4>Surface Finish Converter</h4>
       <p>Ra ↔ Rz ↔ Rt ↔ µin/µm ↔ N-grade.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/gauge-rr.html" class="tool-card" data-cat="quality" data-keywords="gauge r&r msa cg cgk repeatability reproducibility measurement">
+    <a href="calculators/gauge-rr.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="gauge r&r msa cg cgk repeatability reproducibility measurement">
       <div class="tool-card-cat">Quality</div>
       <h4>Gauge R&amp;R (MSA Type 1)</h4>
       <p>Cg / Cgk capability study from repeated readings.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/aql-sampling.html" class="tool-card" data-cat="quality" data-keywords="aql sampling plan ansi z1.4 iso 2859 lot size accept reject">
+    <a href="calculators/aql-sampling.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="aql sampling plan ansi z1.4 iso 2859 lot size accept reject">
       <div class="tool-card-cat">Quality</div>
       <h4>AQL Sampling Plan</h4>
       <p>ANSI Z1.4 / ISO 2859 — sample size, accept/reject.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/fmea-rpn.html" class="tool-card" data-cat="quality" data-keywords="fmea rpn risk priority severity occurrence detection aiag vda">
+    <a href="calculators/fmea-rpn.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="fmea rpn risk priority severity occurrence detection aiag vda">
       <div class="tool-card-cat">Quality</div>
       <h4>FMEA Risk Priority (RPN)</h4>
       <p>Severity × Occurrence × Detection + AIAG-VDA AP.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/dpmo-sigma.html" class="tool-card" data-cat="quality" data-keywords="dpmo sigma level six sigma defects per million yield">
+    <a href="calculators/dpmo-sigma.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="dpmo sigma level six sigma defects per million yield">
       <div class="tool-card-cat">Quality</div>
       <h4>Six Sigma DPMO / Sigma Level</h4>
       <p>Defects per million ↔ sigma ↔ yield.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/hardness-conversion.html" class="tool-card" data-cat="quality" data-keywords="hardness conversion hrc hrb hv hb tensile astm e140 rockwell brinell vickers">
+    <a href="calculators/hardness-conversion.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="hardness conversion hrc hrb hv hb tensile astm e140 rockwell brinell vickers">
       <div class="tool-card-cat">Quality</div>
       <h4>Hardness Conversion</h4>
       <p>HRC ↔ HRB ↔ HV ↔ HB ↔ tensile (ASTM E140).</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/drill-size-chart.html" class="tool-card" data-cat="quality" data-keywords="drill size chart tap clearance hole metric fractional number letter">
+    <a href="calculators/drill-size-chart.html" class="tool-card" data-tier="3" data-cat="quality" data-keywords="drill size chart tap clearance hole metric fractional number letter">
       <div class="tool-card-cat">Quality</div>
       <h4>Drill Size Chart</h4>
       <p>Tap drill, clearance hole. Metric, fractional, number, letter.</p>
@@ -371,55 +379,55 @@
     </a>
 
     <!-- DESIGN (9) -->
-    <a href="calculators/material-weight.html" class="tool-card" data-cat="design" data-keywords="material weight density steel aluminium copper plate bar pipe ring">
+    <a href="calculators/material-weight.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="material weight density steel aluminium copper plate bar pipe ring">
       <div class="tool-card-cat">Design</div>
       <h4>Material Weight Calculator</h4>
       <p>Plate, bar, pipe, ring weight from 60+ materials.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/bolt-torque.html" class="tool-card" data-cat="design" data-keywords="bolt torque preload vdi 2230 grade friction tightening">
+    <a href="calculators/bolt-torque.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="bolt torque preload vdi 2230 grade friction tightening">
       <div class="tool-card-cat">Design</div>
       <h4>Bolt Torque &amp; Preload</h4>
       <p>VDI 2230 torque from bolt grade, friction, preload target.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/beam-deflection.html" class="tool-card" data-cat="design" data-keywords="beam deflection bending cantilever simply supported point udl load">
+    <a href="calculators/beam-deflection.html" class="tool-card" data-tier="2" data-cat="design" data-keywords="beam deflection bending cantilever simply supported point udl load">
       <div class="tool-card-cat">Design</div>
       <h4>Beam Deflection / Bending</h4>
       <p>Cantilever, simply-supported, point &amp; UDL loading.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/press-fit.html" class="tool-card" data-cat="design" data-keywords="press fit interference shrink hub stress push out force">
+    <a href="calculators/press-fit.html" class="tool-card" data-tier="2" data-cat="design" data-keywords="press fit interference shrink hub stress push out force">
       <div class="tool-card-cat">Design</div>
       <h4>Press / Interference Fit</h4>
       <p>Hub stress, push-out force, shrink-fit calc.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/thread-pitch.html" class="tool-card" data-cat="design" data-keywords="thread pitch tap drill metric unc unf bspp npt">
+    <a href="calculators/thread-pitch.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="thread pitch tap drill metric unc unf bspp npt">
       <div class="tool-card-cat">Design</div>
       <h4>Thread Pitch &amp; Tap Drill</h4>
       <p>Metric, UNC, UNF, BSPP, NPT.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/motor-hp.html" class="tool-card" data-cat="design" data-keywords="motor hp power torque rpm 3 phase electrical 415v indian">
+    <a href="calculators/motor-hp.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="motor hp power torque rpm 3 phase electrical 415v indian">
       <div class="tool-card-cat">Design</div>
       <h4>Motor HP / Power Calculator</h4>
       <p>Power ↔ torque ↔ RPM, 3-phase electrical, Indian 415V.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/v-belt.html" class="tool-card" data-cat="design" data-keywords="v belt drive length ratio speed tension a b c d section">
+    <a href="calculators/v-belt.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="v belt drive length ratio speed tension a b c d section">
       <div class="tool-card-cat">Design</div>
       <h4>V-Belt Drive Calculator</h4>
       <p>Belt length, ratio, belt speed, tensions for A/B/C/D.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/gear-calculator.html" class="tool-card" data-cat="design" data-keywords="spur gear module diametral pitch dp centre distance ratio">
+    <a href="calculators/gear-calculator.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="spur gear module diametral pitch dp centre distance ratio">
       <div class="tool-card-cat">Design</div>
       <h4>Spur Gear Calculator</h4>
       <p>Module, DP, pitch &amp; centre distance for any gear pair.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/pump-power.html" class="tool-card" data-cat="design" data-keywords="pump power hydraulic kw motor sizing flow head fluid sg">
+    <a href="calculators/pump-power.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="pump power hydraulic kw motor sizing flow head fluid sg">
       <div class="tool-card-cat">Design</div>
       <h4>Pump Power Calculator</h4>
       <p>Hydraulic kW, motor sizing from flow + head + fluid SG.</p>
@@ -427,43 +435,43 @@
     </a>
 
     <!-- PRODUCTION (5) -->
-    <a href="calculators/cycle-time.html" class="tool-card" data-cat="production" data-keywords="cycle time cost estimator setup run labor overhead per part">
+    <a href="calculators/cycle-time.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="cycle time cost estimator setup run labor overhead per part">
       <div class="tool-card-cat">Production</div>
       <h4>Cycle Time / Cost Estimator</h4>
       <p>Setup + run + labor + overhead → ₹/part.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/bend-allowance.html" class="tool-card" data-cat="production" data-keywords="sheet metal bend allowance k factor flat blank ba bd ossb">
+    <a href="calculators/bend-allowance.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="sheet metal bend allowance k factor flat blank ba bd ossb">
       <div class="tool-card-cat">Production</div>
       <h4>Sheet Metal Bend Allowance</h4>
       <p>Flat blank, BA, BD, OSSB by material &amp; thickness.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/speeds-feeds.html" class="tool-card" data-cat="production" data-keywords="machining speeds feeds rpm feed mrr cnc cutting tool material">
+    <a href="calculators/speeds-feeds.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="machining speeds feeds rpm feed mrr cnc cutting tool material">
       <div class="tool-card-cat">Production</div>
       <h4>Machining Speeds &amp; Feeds</h4>
       <p>RPM, feed, MRR, kW by material + tool.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/oee.html" class="tool-card" data-cat="production" data-keywords="oee overall equipment effectiveness availability performance quality">
+    <a href="calculators/oee.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="oee overall equipment effectiveness availability performance quality">
       <div class="tool-card-cat">Production</div>
       <h4>OEE Calculator</h4>
       <p>Availability × Performance × Quality.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/takt-time.html" class="tool-card" data-cat="production" data-keywords="takt time line balancing cycle gap efficiency stations">
+    <a href="calculators/takt-time.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="takt time line balancing cycle gap efficiency stations">
       <div class="tool-card-cat">Production</div>
       <h4>Takt Time &amp; Line Balancing</h4>
       <p>Takt, cycle gap, line efficiency, required stations.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/welding-heat-input.html" class="tool-card" data-cat="production" data-keywords="welding heat input kj smaw gmaw gtaw saw fcaw weld">
+    <a href="calculators/welding-heat-input.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="welding heat input kj smaw gmaw gtaw saw fcaw weld">
       <div class="tool-card-cat">Production</div>
       <h4>Welding Heat Input</h4>
       <p>kJ/mm for SMAW, GMAW, GTAW, SAW, FCAW.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/eoq.html" class="tool-card" data-cat="production" data-keywords="eoq economic order quantity rop reorder safety stock inventory">
+    <a href="calculators/eoq.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="eoq economic order quantity rop reorder safety stock inventory">
       <div class="tool-card-cat">Production</div>
       <h4>EOQ (Economic Order Quantity)</h4>
       <p>Optimal order size, ROP, safety stock, total cost.</p>
@@ -471,13 +479,13 @@
     </a>
 
     <!-- REFERENCE (2) -->
-    <a href="calculators/cadnexa-roi.html" class="tool-card" data-cat="reference" data-keywords="cadnexa roi return investment fai count saved hours money">
+    <a href="calculators/cadnexa-roi.html" class="tool-card" data-tier="3" data-cat="reference" data-keywords="cadnexa roi return investment fai count saved hours money">
       <div class="tool-card-cat">Reference</div>
       <h4>CadNexa ROI Calculator</h4>
       <p>Monthly FAI count → ₹ saved + hours saved.</p>
       <span class="arrow">→</span>
     </a>
-    <a href="calculators/unit-converter.html" class="tool-card" data-cat="reference" data-keywords="unit converter length force pressure torque temperature engineering">
+    <a href="calculators/unit-converter.html" class="tool-card" data-tier="3" data-cat="reference" data-keywords="unit converter length force pressure torque temperature engineering">
       <div class="tool-card-cat">Reference</div>
       <h4>Engineering Unit Converter</h4>
       <p>Length, force, pressure, torque, temperature, etc.</p>
@@ -508,11 +516,14 @@
   const searchInput = document.getElementById('searchInput');
   const searchClear = document.getElementById('searchClear');
   const filterTabs = document.querySelectorAll('.filter-tab');
+  const tierTabs = document.querySelectorAll('.tier-tab');
   const toolCards = document.querySelectorAll('.tool-card');
+  const grid = document.getElementById('toolGrid');
   const emptyState = document.getElementById('emptyState');
   const resetSearch = document.getElementById('resetSearch');
 
   let activeCat = 'all';
+  let activeTier = 'all';
 
   // Pre-fill search from URL ?q= (used by header search bar on other pages)
   const params = new URLSearchParams(window.location.search);
@@ -521,23 +532,46 @@
     searchInput.value = initialQ;
   }
 
+  // ── DOM SORT — Tier 1 cards rise to top on load ──
+  // Order: Tier 1 alphabetical, then Tier 2, then Tier 3
+  const sortedCards = Array.from(toolCards).sort((a, b) => {
+    const tA = parseInt(a.dataset.tier || '3', 10);
+    const tB = parseInt(b.dataset.tier || '3', 10);
+    if (tA !== tB) return tA - tB;
+    return 0;  // preserve in-tier order
+  });
+  sortedCards.forEach(card => grid.appendChild(card));
+
+  // ── Add tier badges to Tier 1 cards (gold star) ──
+  sortedCards.forEach(card => {
+    if (card.dataset.tier === '1' && !card.querySelector('.tier-badge')) {
+      const badge = document.createElement('div');
+      badge.className = 'tier-badge';
+      badge.style.cssText = 'position: absolute; top: 14px; right: 30px; font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: var(--blueprint); letter-spacing: 0.08em;';
+      badge.textContent = 'CRITICAL';
+      card.appendChild(badge);
+    }
+  });
+
   function applyFilter() {
     const query = searchInput.value.trim().toLowerCase();
     let visibleCount = 0;
 
     toolCards.forEach(card => {
       const cardCat = card.dataset.cat;
+      const cardTier = card.dataset.tier || '3';
       const cardKeywords = card.dataset.keywords || '';
       const cardName = card.querySelector('h4').textContent.toLowerCase();
       const cardDesc = card.querySelector('p').textContent.toLowerCase();
 
       const matchesCat = (activeCat === 'all' || cardCat === activeCat);
+      const matchesTier = (activeTier === 'all' || cardTier === activeTier);
       const matchesQuery = !query ||
         cardName.includes(query) ||
         cardDesc.includes(query) ||
         cardKeywords.includes(query);
 
-      if (matchesCat && matchesQuery) {
+      if (matchesCat && matchesTier && matchesQuery) {
         card.hidden = false;
         visibleCount++;
       } else {
@@ -564,8 +598,36 @@
     e.preventDefault();
     searchInput.value = '';
     activeCat = 'all';
+    activeTier = 'all';
     filterTabs.forEach(t => t.classList.toggle('active', t.dataset.cat === 'all'));
+    tierTabs.forEach(t => {
+      t.classList.toggle('active', t.dataset.tier === 'all');
+      // reset visual state
+      if (t.dataset.tier === 'all') { t.style.background = 'var(--ink)'; t.style.color = '#fff'; t.style.borderColor = 'var(--ink)'; }
+      else if (t.dataset.tier === '1') { t.style.background = 'var(--blueprint-tint)'; t.style.color = 'var(--blueprint)'; t.style.borderColor = 'var(--blueprint-tint-2)'; }
+      else { t.style.background = 'var(--paper-2)'; t.style.color = 'var(--ink-3)'; t.style.borderColor = 'var(--rule)'; }
+    });
     applyFilter();
+  });
+
+  // ── Tier tab clicks ──
+  tierTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      activeTier = tab.dataset.tier;
+      tierTabs.forEach(t => {
+        const isActive = t === tab;
+        t.classList.toggle('active', isActive);
+        if (isActive) {
+          t.style.background = 'var(--ink)';
+          t.style.color = '#fff';
+          t.style.borderColor = 'var(--ink)';
+        } else {
+          if (t.dataset.tier === '1') { t.style.background = 'var(--blueprint-tint)'; t.style.color = 'var(--blueprint)'; t.style.borderColor = 'var(--blueprint-tint-2)'; }
+          else { t.style.background = 'var(--paper-2)'; t.style.color = 'var(--ink-3)'; t.style.borderColor = 'var(--rule)'; }
+        }
+      });
+      applyFilter();
+    });
   });
 
   // Filter tabs

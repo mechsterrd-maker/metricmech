@@ -186,10 +186,14 @@
 
 <div data-mw="cn-big"></div>
 
+
+<div id="sfiInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 const N_RA = { 1: 0.025, 2: 0.05, 3: 0.1, 4: 0.2, 5: 0.4, 6: 0.8, 7: 1.6, 8: 3.2, 9: 6.3, 10: 12.5, 11: 25, 12: 50 };
@@ -234,6 +238,33 @@ function updateFrom(src) {
   document.getElementById('r_n').textContent = 'N' + n;
 
   updating = false;
+
+  // ── Interpretation ──
+  (function(){
+    const ra = parseFloat(document.getElementById('ra')?.value) || 0;
+    const recs = [];
+    let v;
+    if (ra === 0) v = { level: 'warn', label: 'Enter Ra to see assessment', sub: '' };
+    else if (ra > 12.5) {
+      v = { level: 'warn', label: 'Rough finish', sub: `Ra ${ra} µm — typical of rough turning, milling, sand casting. Most precision parts spec Ra ≤ 3.2 µm.` };
+      recs.push({ type: 'info', title: 'Add finish operation', detail: 'For tighter Ra, add reaming, grinding, or honing after primary machining. Tool feedrate dominates Ra in turning.' });
+    } else if (ra > 3.2) {
+      v = { level: 'good', label: 'Standard machined finish', sub: `Ra ${ra} µm — typical finish-turn or finish-mill quality.` };
+    } else if (ra > 0.4) {
+      v = { level: 'good', label: 'Fine ground finish', sub: `Ra ${ra} µm — good for bearing seats, hydraulic seals, mating surfaces.` };
+    } else {
+      v = { level: 'good', label: 'Mirror/polished finish', sub: `Ra ${ra} µm — typical of lapping, super-finishing, or polishing.` };
+      recs.push({ type: 'info', title: 'Verify gauge can read this Ra', detail: 'Most contact profilometers cap at Ra 0.025 µm. Below that, use white-light interferometry.' });
+    }
+    mmInterpret.render('sfiInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'surface-finish', eyebrow: 'CadNexa · Inspection workflow',
+             headline: 'Document surface finish in your FAI.',
+             sub: 'CadNexa balloons the surface-finish callout from the drawing and pulls the spec into Form 3 — no manual entry.',
+             ctaText: 'Generate FAI in CadNexa →' },
+      related: [ { href: 'as9102-form3.html', text: 'AS9102 Form 3' }, { href: 'speeds-feeds.html', text: 'Speeds & Feeds' }, { href: '../gdt.html', text: 'GD&T Reference' } ]
+    });
+  })();
 }
 updateFrom('ra');
 </script>

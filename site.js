@@ -2,6 +2,23 @@
 // Inject the same UI across every page.
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ── EMBED MODE — clean iframe view ──
+  if (/[?&]embed=1/.test(window.location.search)) {
+    const s = document.createElement('style');
+    s.textContent = `
+      .grid-bg, .site-header, .notice-bar, .site-footer,
+      [data-mw="footer"], [data-mw="cn-big"], .cn-big-banner,
+      .mm-rail, .mm-rail-left, #mm-sticky-cta, #mm-install-pill,
+      .breadcrumb { display: none !important; }
+      body { background: #fff !important; }
+      .page-header { padding-top: 18px !important; padding-bottom: 14px !important; }
+      .page-title { font-size: clamp(20px, 3.5vw, 28px) !important; }
+      .page-lede { font-size: 14px !important; }
+      main { padding-bottom: 24px !important; }
+    `;
+    document.head.appendChild(s);
+    document.body.classList.add('mm-embed-mode');
+  }
 
   // Compute path prefix for the current page (works for any depth)
   // Uses the header's data-prefix if present, otherwise falls back to detecting from URL

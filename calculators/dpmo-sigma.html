@@ -135,10 +135,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="dpInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // Inverse normal CDF (Beasley-Springer/Moro algorithm)
 function normsInv(p) {
@@ -181,6 +185,34 @@ function calc() {
   else { v = '✗ Critical'; a = 'Stop and rebuild — process not in control.'; }
   document.getElementById('verdict').textContent = v;
   document.getElementById('action').textContent = a;
+
+  // ── Interpretation ──
+  (function(){
+    const sigmaTxt = document.getElementById('sigma')?.textContent || '';
+    const dpmoTxt = document.getElementById('dpmo')?.textContent || '';
+    const sigma = parseFloat(sigmaTxt);
+    const dpmo = parseFloat(dpmoTxt.replace(/,/g,''));
+    const recs = [];
+    let v;
+    if (isNaN(sigma) || sigma === 0) v = { level: 'warn', label: 'Enter defect data', sub: '' };
+    else if (sigma >= 6) v = { level: 'good', label: 'World-Class (6σ)', sub: `${dpmo.toFixed(1)} DPMO. Six Sigma performance — only 3.4 defects per million opportunities at long-term.` };
+    else if (sigma >= 4.5) v = { level: 'good', label: 'Excellent', sub: `${Math.round(dpmo).toLocaleString()} DPMO at ${sigma.toFixed(2)}σ. Industry-leading quality.` };
+    else if (sigma >= 3) {
+      v = { level: 'warn', label: 'Industry Average', sub: `${Math.round(dpmo).toLocaleString()} DPMO at ${sigma.toFixed(2)}σ. Most companies operate here.` };
+      recs.push({ type: 'info', title: 'Run Cp/Cpk on top defect modes', detail: 'Identify top 3 defect modes, run capability studies on each. Pareto: usually 80% of defects come from 20% of causes.' });
+    } else {
+      v = { level: 'bad', label: 'High Defect Rate', sub: `${Math.round(dpmo).toLocaleString()} DPMO at ${sigma.toFixed(2)}σ. Below industry minimum. Customer rejection risk is high.` };
+      recs.push({ type: 'critical', title: 'Immediate process improvement needed', detail: 'Run FMEA, identify high-RPN failure modes, install poka-yoke or 100% inspection until process capability is restored.' });
+    }
+    mmInterpret.render('dpInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: sigma < 3 ? 'critical' : 'good', calc: 'dpmo', eyebrow: 'CadNexa · Quality system',
+             headline: sigma < 3 ? 'Track defects to root cause in CadNexa.' : 'Document quality KPI in your PPAP.',
+             sub: 'Link DPMO to specific drawing characteristics, FMEA records, and Cp/Cpk studies.',
+             ctaText: 'Track in CadNexa →' },
+      related: [ { href: 'cp-cpk.html', text: 'Cp / Cpk' }, { href: 'fmea-rpn.html', text: 'FMEA RPN' }, { href: 'copq.html', text: 'Cost of Poor Quality' } ]
+    });
+  })();
 }
 calc();
 </script>

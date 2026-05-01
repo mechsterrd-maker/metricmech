@@ -145,6 +145,9 @@
 
   <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
 
+  <!-- Interpretation engine -->
+  <div id="fmeaInterpret" style="display:none;"></div>
+
 </div>
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
@@ -153,6 +156,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // AIAG-VDA 2019 AP table simplified
 function getAP(s, o, d) {
@@ -198,6 +202,58 @@ function calc() {
   const apMap = { H: 'H — High Priority', M: 'M — Medium Priority', L: 'L — Low Priority' };
   document.getElementById('ap').textContent = apMap[ap];
   document.getElementById('apAction').textContent = action;
+
+  // ── Interpretation engine ──
+  const recs = [];
+  let verdict;
+  if (s >= 9) {
+    verdict = { level: 'critical', label: 'SAFETY / REGULATORY RISK',
+                sub: `Severity ${s} indicates safety or compliance impact. RPN = ${rpn}. Action is mandatory regardless of Occurrence or Detection.` };
+    recs.push({ type: 'critical', title: 'Engineering action MANDATORY', detail: 'High severity (≥9) means injury, regulatory failure, or fatality risk. AIAG-VDA requires action even if Occurrence and Detection are low. Do not close this FMEA item without verified corrective action.' });
+    if (d >= 7) recs.push({ type: 'critical', title: 'Detection is weak — current controls miss this', detail: 'Severity 9+ with Detection 7+ means failures can reach the customer. Add upstream poka-yoke / mistake-proofing or 100% inspection until detection is improved.' });
+  } else if (rpn >= 200) {
+    verdict = { level: 'bad', label: 'CRITICAL RISK — Redesign Needed',
+                sub: `RPN ${rpn} (${s}×${o}×${d}). High-priority risk requires design or process change. AIAG Action Priority: ${ap}.` };
+    recs.push({ type: 'critical', title: 'Reduce Severity through redesign', detail: 'Severity is the hardest factor to change but the most effective. Eliminate the failure mode at design stage where possible — use FTA, fail-safe design, or redundancy.' });
+  } else if (rpn >= 120) {
+    verdict = { level: 'warn', label: 'HIGH RISK — Action Required',
+                sub: `RPN ${rpn} indicates significant risk. AIAG Action Priority: ${ap}. Add controls before production release.` };
+  } else if (rpn >= 60) {
+    verdict = { level: 'warn', label: 'MEDIUM RISK — Plan Action',
+                sub: `RPN ${rpn} is below high-priority threshold but not negligible. Plan corrective action in next process review cycle.` };
+  } else {
+    verdict = { level: 'good', label: 'LOW RISK — Monitor Only',
+                sub: `RPN ${rpn} indicates acceptable residual risk. AIAG Action Priority: ${ap}.` };
+    recs.push({ type: 'ok', title: 'Existing controls are adequate', detail: 'Continue monitoring through SPC and routine audits. Re-evaluate FMEA on design change or after any field failure.' });
+  }
+
+  // Specific drivers
+  if (o >= 7) recs.push({ type: 'warn', title: `Occurrence is high (${o})`, detail: 'Failure happens often. Run a process capability (Cp/Cpk) study; investigate raw material variation, tooling wear, or operator method differences with a structured 5-Why or DOE.' });
+  if (d >= 8) recs.push({ type: 'warn', title: `Detection is poor (${d})`, detail: 'Current controls are unlikely to catch the failure. Add automated inspection, in-process gauges, or upstream mistake-proofing — these are usually cheaper than 100% inspection.' });
+  if (s <= 3 && o <= 3 && d <= 3) recs.push({ type: 'info', title: 'Risk is well-controlled — document and move on', detail: 'All three factors are low. Document the rationale in the FMEA worksheet so future audits can see why no action was taken.' });
+
+  const isCritical = rpn >= 120 || s >= 9;
+  mmInterpret.render('fmeaInterpret', {
+    verdict: verdict,
+    recommendations: recs,
+    cta: {
+      show: true,
+      severity: isCritical ? 'critical' : 'good',
+      calc: 'fmea',
+      eyebrow: 'PFMEA · Process risk',
+      headline: isCritical ? 'High-risk FMEA. Document corrective action in CadNexa.' : 'Document FMEA in your PPAP submission.',
+      sub: isCritical
+        ? 'Link this RPN to a specific drawing characteristic, attach the corrective action plan, and route through your PPAP package — all in one workflow.'
+        : 'CadNexa connects FMEA records to the drawing characteristic numbers and PPAP elements. Generate a complete submission package — Tata, Mahindra, Bajaj formats included.',
+      ctaText: 'Document in CadNexa →',
+    },
+    related: [
+      { href: 'ppap-checklist.html', text: 'PPAP Submission Checklist' },
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: 'aql-sampling.html', text: 'AQL Sampling Plan' },
+      { href: 'as9102-form3.html', text: 'AS9102 Form 3' },
+    ]
+  });
 }
 calc();
 </script>

@@ -50,6 +50,8 @@
     .mm-share-btn.primary:hover { background: var(--blueprint, #2554ba); border-color: var(--blueprint, #2554ba); }
     .mm-share-btn.wa { background: #25D366; color: #fff; border-color: #25D366; }
     .mm-share-btn.wa:hover { background: #1ebe5d; border-color: #1ebe5d; }
+    .mm-share-btn.li { background: #0A66C2; color: #fff; border-color: #0A66C2; }
+    .mm-share-btn.li:hover { background: #084d92; border-color: #084d92; }
     .mm-share-btn[disabled] { opacity: 0.6; cursor: wait; }
     .mm-toast {
       position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
@@ -97,7 +99,8 @@
       '#shareBarMount', '.mm-share-bar',
       'aside', '.action-bar',
       'script', 'noscript',
-      '.notice-bar', '.breadcrumb'
+      '.notice-bar', '.breadcrumb',
+      '[id$="Interpret"] a[href*="cadnexa.com"]'  // strip CadNexa conditional CTAs from PDFs (footer already has them)
     ];
 
     const clone = source.cloneNode(true);
@@ -286,15 +289,28 @@
       }
     }
 
-    // Footer on each page
+    // Footer on each page — branded with CadNexa funnel
     const totalPages = pdf.internal.getNumberOfPages();
     for (let i = 1; i <= totalPages; i++) {
       pdf.setPage(i);
+      // Top line — MetricMech brand
       pdf.setFontSize(8);
+      pdf.setTextColor(37, 84, 186);  // blueprint blue
+      pdf.text(
+        'MetricMech  ·  metricmech.com',
+        pageW / 2, pageH - 8, { align: 'center' }
+      );
+      // Bottom line — CadNexa CTA + page number
+      pdf.setFontSize(7);
+      pdf.setTextColor(13, 148, 136);  // teal
+      pdf.text(
+        'Need full FAI / RFQ workflow? Try CadNexa free at cadnexa.com',
+        pageW / 2 - 35, pageH - 4, { align: 'left' }
+      );
       pdf.setTextColor(120);
       pdf.text(
-        'Generated free at metricmech.com  ·  Page ' + i + ' of ' + totalPages,
-        pageW / 2, pageH - 5, { align: 'center' }
+        'Page ' + i + ' of ' + totalPages,
+        pageW - 12, pageH - 4, { align: 'right' }
       );
     }
 
@@ -304,13 +320,66 @@
 
   function shareWhatsApp(opts) {
     const lines = [];
-    if (opts.title) lines.push(opts.title);
+    if (opts.title) lines.push('*' + opts.title + '*');
     if (opts.summary) lines.push(opts.summary);
     lines.push('');
-    lines.push('Generated free at ' + (opts.pageUrl || location.href));
+    lines.push('🔧 Free calculator: ' + (opts.pageUrl || location.href));
+    lines.push('');
+    lines.push('Need full FAI / 3D viewer / RFQ? → cadnexa.com');
     const text = encodeURIComponent(lines.join('\n'));
     const url = 'https://wa.me/?text=' + text;
     window.open(url, '_blank', 'noopener');
+  }
+
+  function shareLinkedIn(opts) {
+    // LinkedIn share endpoint takes only URL — text comes from Open Graph tags
+    const u = encodeURIComponent(opts.pageUrl || location.href);
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + u, '_blank', 'noopener,width=600,height=600');
+  }
+
+  function showEmbedModal(opts) {
+    const url = opts.pageUrl || location.href;
+    const title = (opts.title || document.title || 'MetricMech calculator').replace(/"/g, '&quot;');
+    const embedCode = `<iframe src="${url}?embed=1" width="100%" height="720" frameborder="0" title="${title}" loading="lazy" style="border:1px solid #e2e8f0; border-radius:8px; max-width:900px;"></iframe>\n<p style="font-size:12px; color:#64748b; margin-top:6px;">Calculator by <a href="${url}" target="_blank" rel="noopener">MetricMech</a></p>`;
+
+    // Build modal
+    let modal = document.getElementById('mm-embed-modal');
+    if (modal) modal.remove();
+    modal = document.createElement('div');
+    modal.id = 'mm-embed-modal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+      <div style="background:#fff;border-radius:14px;max-width:560px;width:100%;padding:26px 28px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+        <button id="mm-embed-close" style="position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;line-height:1;cursor:pointer;color:#64748b;padding:4px 8px;">×</button>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.14em;color:#2554BA;font-weight:600;margin-bottom:6px;">Embed this calculator</div>
+        <h3 style="font-family:'Inter',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.02em;margin-bottom:8px;color:#0F172A;">Add to your site or blog</h3>
+        <p style="font-size:13px;color:#475569;line-height:1.55;margin-bottom:14px;">Copy this code and paste it where you want the calculator to appear. Works in WordPress, Notion blocks, Confluence, custom sites — any HTML environment.</p>
+        <textarea id="mm-embed-code" readonly style="width:100%;height:110px;padding:12px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.5;border:1px solid #e2e8f0;border-radius:6px;background:#f8fafc;color:#0F172A;resize:vertical;outline:none;">${embedCode.replace(/</g, '&lt;')}</textarea>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">
+          <button id="mm-embed-copy" style="flex:1;padding:10px 14px;background:linear-gradient(135deg,#2554ba,#0d9488);color:#fff;border:none;border-radius:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Copy embed code</button>
+          <button id="mm-embed-cancel" style="padding:10px 14px;background:#fff;color:#0F172A;border:1px solid #cbd5e1;border-radius:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;">Close</button>
+        </div>
+        <p style="font-size:11px;color:#94a3b8;margin-top:10px;line-height:1.5;">Your readers can use the calculator inline — no signup. The embed includes a small "by MetricMech" link.</p>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    const closeFn = () => modal.remove();
+    document.getElementById('mm-embed-close').addEventListener('click', closeFn);
+    document.getElementById('mm-embed-cancel').addEventListener('click', closeFn);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeFn(); });
+    document.getElementById('mm-embed-copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(embedCode);
+        const btn = document.getElementById('mm-embed-copy');
+        btn.textContent = '✓ Copied to clipboard';
+        btn.style.background = '#16a34a';
+        setTimeout(closeFn, 900);
+      } catch {
+        document.getElementById('mm-embed-code').select();
+        toast('Press Ctrl+C to copy');
+      }
+    });
   }
 
   function shareEmail(opts) {
@@ -368,6 +437,10 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4 0 1.4 1 2.8 1.2 3 .1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
         WhatsApp
       </button>
+      <button class="mm-share-btn li" data-act="li" title="Share on LinkedIn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+        LinkedIn
+      </button>
       <button class="mm-share-btn" data-act="email" title="Share by Email">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Email
@@ -376,13 +449,16 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         Copy link
       </button>
+      <button class="mm-share-btn" data-act="embed" title="Embed this calculator on your site">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Embed
+      </button>
     `;
 
     bar.addEventListener('click', async (e) => {
       const btn = e.target.closest('.mm-share-btn');
       if (!btn) return;
       const act = btn.dataset.act;
-      // Recompute opts on click in case the form has updated values
       const liveOpts = (typeof opts === 'function') ? opts() : opts;
       if (act === 'pdf') {
         btn.disabled = true;
@@ -392,8 +468,10 @@
         btn.disabled = false;
         btn.innerHTML = original;
       } else if (act === 'wa') shareWhatsApp(liveOpts);
+      else if (act === 'li') shareLinkedIn(liveOpts);
       else if (act === 'email') shareEmail(liveOpts);
       else if (act === 'link') copyLink(liveOpts);
+      else if (act === 'embed') showEmbedModal(liveOpts);
     });
 
     container.appendChild(bar);

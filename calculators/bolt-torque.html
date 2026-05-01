@@ -171,10 +171,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="btInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const sz = document.getElementById('size').value.split(',').map(Number);
@@ -200,6 +204,30 @@ function calc() {
   set('area', As.toFixed(1) + ' mm²');
   set('yieldF', (F_yield/1000).toFixed(1) + ' kN');
   set('maxF', (F_break/1000).toFixed(1) + ' kN');
+
+  // ── Interpretation ──
+  (function(){
+    const torqueTxt = document.getElementById('torque')?.textContent || '';
+    const preloadTxt = document.getElementById('preload')?.textContent || '';
+    const torque = parseFloat(torqueTxt);
+    const preload = parseFloat(preloadTxt);
+    const recs = [];
+    let v;
+    if (isNaN(torque) || torque === 0) v = { level: 'warn', label: 'Enter bolt size and grade', sub: '' };
+    else {
+      v = { level: 'good', label: 'Torque Spec Calculated', sub: `${torque.toFixed(1)} Nm tightening torque, ${(preload/1000).toFixed(1)} kN preload.` };
+      recs.push({ type: 'info', title: 'Use torque-angle method for critical joints', detail: 'For high-stakes joints (engine, gearbox, structural), torque alone has ±25% scatter. Torque-angle gives ±5%.' });
+      recs.push({ type: 'info', title: 'Verify with calibrated torque wrench', detail: 'Torque wrenches lose calibration. Verify monthly with calibration tester. Document results in your QMS.' });
+    }
+    mmInterpret.render('btInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'bolt-torque', eyebrow: 'CadNexa · Assembly inspection',
+             headline: 'Document torque values in your assembly FAI.',
+             sub: 'Link torque specs to specific bolt callouts on the drawing in CadNexa. Auditors love traceability.',
+             ctaText: 'Document in CadNexa →' },
+      related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'press-fit.html', text: 'Press-Fit' }, { href: 'thread-pitch.html', text: 'Thread Pitch' } ]
+    });
+  })();
 }
 calc();
 </script>

@@ -256,10 +256,13 @@
 
 <div data-mw="cn-inline" data-variant="as9102" style="max-width: var(--max-w); margin: 40px auto; padding: 0 32px;"></div>
 
+<div id="faiInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script src="../share.js"></script>
 
 <script>
@@ -349,6 +352,65 @@ function updatePreview() {
 
   // Sync hidden print-area for clean PDF export
   syncPrintArea(total, pass, fail);
+
+  // ── Interpretation engine ──
+  const recs = [];
+  let v;
+
+  // Header completeness check
+  const headerFields = ['hPN', 'hRev', 'hName', 'hDwg', 'hFAI', 'hSup', 'hCust', 'hInsp'];
+  const missingHeader = headerFields.filter(id => !document.getElementById(id).value.trim());
+  const hasFAINumber = document.getElementById('hFAI').value.trim();
+
+  if (total === 0) {
+    v = { level: 'warn', label: 'No characteristics added',
+          sub: 'Add at least one characteristic to begin building the FAI Form 3.' };
+    recs.push({ type: 'info', title: 'Click "+ Add characteristic" to start', detail: 'Each balloon on your drawing becomes one row. Aerospace customers expect every dimension, GD&T callout, material spec, and surface finish to be documented.' });
+  } else if (fail > 0) {
+    v = { level: 'bad', label: `${fail} of ${total} characteristics FAILED`,
+          sub: `Pass rate: ${((pass/total)*100).toFixed(0)}%. Cannot submit FAI as-is — failed characteristics will trigger immediate rejection by quality engineering.` };
+    recs.push({ type: 'critical', title: 'Investigate root cause for each FAIL', detail: 'For each failed characteristic, document the actual measurement, the cause (tool wear, setup error, raw material), and the corrective action taken before re-running the part.' });
+    recs.push({ type: 'warn', title: 'Quarantine the FAI part — do not ship', detail: 'AS9102 requires the FAI part to be representative of production. A failed part cannot be shipped. Re-machine, then re-measure, then re-submit Form 3.' });
+  } else if (pass === total && total >= 5) {
+    v = { level: 'good', label: 'All Characteristics PASS',
+          sub: `${pass} of ${total} characteristics within tolerance. FAI is ready for submission once header fields are complete.` };
+    recs.push({ type: 'ok', title: 'FAI ready for submission', detail: 'Verify all header fields, attach drawing, material certs, and inspection records. Submit per AS9102 Rev C requirements.' });
+  } else if (pass === total) {
+    v = { level: 'warn', label: 'Limited characteristics measured',
+          sub: `Only ${total} characteristics. Most aerospace parts have 15–40 balloons. Verify you've captured every dimension and GD&T callout from the drawing.` };
+    recs.push({ type: 'warn', title: 'Add remaining characteristics', detail: 'Every balloon on the drawing must appear on Form 3. Include: linear dimensions, GD&T callouts, surface finish, material spec, heat treatment, plating, and any notes.' });
+  } else {
+    v = { level: 'warn', label: 'Some characteristics missing measurements',
+          sub: 'Enter measured values for all characteristics before generating the final FAI.' };
+  }
+
+  if (missingHeader.length > 3) {
+    recs.push({ type: 'warn', title: `${missingHeader.length} header fields are blank`, detail: 'AS9102 Rev C requires complete identification: P/N, revision, drawing number, FAI number, supplier, customer, inspector. Incomplete headers fail audit.' });
+  }
+  if (!hasFAINumber) {
+    recs.push({ type: 'info', title: 'Assign a unique FAI number', detail: 'Most companies use format: SUP-PN-REV-DATE (e.g., ABC-12345-A-2026010). This makes the FAI traceable in your QMS.' });
+  }
+
+  const isFail = fail > 0;
+  mmInterpret.render('faiInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: {
+      show: total > 0,
+      severity: isFail ? 'critical' : (pass === total && total >= 5 ? 'good' : 'marginal'),
+      calc: 'as9102',
+      eyebrow: 'CadNexa · Full FAI workflow',
+      headline: isFail ? 'FAI failed. Fix and resubmit in CadNexa.' : 'Generate the complete FAI in CadNexa.',
+      sub: 'CadNexa balloons your drawing automatically (PDF + 3D), pulls dimensions into Form 3, links Cp/Cpk and Gauge R&R studies, and exports the full AS9102 Rev C package — Forms 1, 2, and 3 — ready to send to your aerospace customer.',
+      ctaText: isFail ? 'Fix this in CadNexa →' : 'Generate full FAI in CadNexa →',
+    },
+    related: [
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: 'gauge-rr.html', text: 'Gauge R&R (MSA)' },
+      { href: 'ppap-checklist.html', text: 'PPAP Submission' },
+      { href: 'position-tolerance.html', text: 'Position Tolerance' },
+    ]
+  });
 }
 
 function syncPrintArea(total, pass, fail) {

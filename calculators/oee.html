@@ -156,6 +156,9 @@
 
   <div data-mw="cn-inline" data-variant="production" style="margin-top: 40px;"></div>
 
+  <!-- Interpretation engine -->
+  <div id="oeeInterpret" style="display:none;"></div>
+
 </div>
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
@@ -164,6 +167,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 function calc() {
   const planned = +document.getElementById('planned').value;
@@ -198,6 +202,54 @@ function calc() {
   document.getElementById('maxout').textContent = Math.round(maxOut);
   document.getElementById('speedloss').textContent = (runTime - produced * idealMin).toFixed(1);
   document.getElementById('defects').textContent = rejects;
+
+  // ── Interpretation engine ──
+  const recs = [];
+  let v;
+  if (oee >= 0.85) {
+    v = { level: 'good', label: 'World-Class OEE', sub: `${(oee*100).toFixed(1)}% — top 5% of global manufacturers. Maintain current TPM, autonomous maintenance, and SMED practices.` };
+    recs.push({ type: 'ok', title: 'Sustain through TPM and autonomous maintenance', detail: 'Continue daily maintenance routines, line-side problem solving, and operator-led kaizen. Small drift kills world-class — track OEE daily.' });
+  } else if (oee >= 0.70) {
+    v = { level: 'good', label: 'Good OEE', sub: `${(oee*100).toFixed(1)}% — established manufacturer territory. Targeted improvement on the weakest factor will move you to world-class.` };
+  } else if (oee >= 0.40) {
+    v = { level: 'warn', label: 'Improvement Opportunity', sub: `${(oee*100).toFixed(1)}% — typical Indian SME range. Multiple loss sources to address. The factor with lowest score has the highest payback.` };
+  } else {
+    v = { level: 'bad', label: 'Significant Losses', sub: `${(oee*100).toFixed(1)}% — major hidden losses. Start by measuring downtime accurately for 1 week before making changes.` };
+    recs.push({ type: 'critical', title: 'Track downtime in 5-min increments first', detail: 'Most low-OEE shops underestimate stoppages. Run a manual downtime log for 5 days; pareto the causes; fix top 2 contributors before chasing performance or quality.' });
+  }
+
+  // Identify weakest factor
+  if (availability < 0.80 && availability < performanceCapped && availability < quality) {
+    recs.push({ type: 'warn', title: `Availability is the weakest factor (${(availability*100).toFixed(1)}%)`, detail: `Downtime ${downtime} min consumes ${((downtime/planned)*100).toFixed(0)}% of planned. Top causes for SMEs: changeover, breakdown, no operator, no material. Apply SMED on changeover; preventive maintenance on breakdowns.` });
+  }
+  if (performanceCapped < 0.80 && performanceCapped < availability && performanceCapped < quality) {
+    recs.push({ type: 'warn', title: `Performance is the weakest factor (${(performanceCapped*100).toFixed(1)}%)`, detail: 'Speed loss = running below ideal cycle time. Causes: minor stops, idling, reduced speed for quality. Audit cycle time on every machine; restore to design speed.' });
+  }
+  if (quality < 0.95 && quality < availability && quality < performanceCapped) {
+    recs.push({ type: 'critical', title: `Quality is the weakest factor (${(quality*100).toFixed(1)}%)`, detail: `${rejects} rejects on ${produced} produced = ${((rejects/produced)*100).toFixed(1)}% reject rate. Run Cp/Cpk on the failed dimension; do an MSA on the inspection gauge; investigate raw material variation.` });
+  }
+
+  mmInterpret.render('oeeInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: {
+      show: true,
+      severity: oee < 0.60 ? 'critical' : 'good',
+      calc: 'oee',
+      eyebrow: 'CadNexa · Production analytics',
+      headline: oee < 0.60 ? 'Find OEE losses faster with CadNexa.' : 'Document this OEE for management review.',
+      sub: oee < 0.60
+        ? 'CadNexa estimates manufacturing cycle times directly from your 3D model — compare design-intent vs actual. Validate the ideal cycle time you used in this OEE calc.'
+        : 'Use CadNexa to cost-estimate parts including realistic cycle times, machining operations, and overhead — turn this OEE into pricing decisions.',
+      ctaText: 'Try CadNexa →',
+    },
+    related: [
+      { href: 'cycle-time.html', text: 'Cycle Time Calculator' },
+      { href: 'takt-time.html', text: 'Takt Time' },
+      { href: 'speeds-feeds.html', text: 'Speeds & Feeds' },
+      { href: 'copq.html', text: 'Cost of Poor Quality' },
+    ]
+  });
 }
 calc();
 </script>

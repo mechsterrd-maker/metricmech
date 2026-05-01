@@ -171,10 +171,14 @@
 
 <div data-mw="cn-big"></div>
 
+
+<div id="copqInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 
 <script>
 function fmt(n) {
@@ -217,6 +221,32 @@ function recalc() {
     document.getElementById('bar' + (i+1)).style.width = (v/max*100) + '%';
     document.getElementById('val' + (i+1)).textContent = fmt(v);
   });
+
+  // ── Interpretation ──
+  (function(){
+    const totalTxt = document.getElementById('totalCopq')?.textContent || '';
+    const pctTxt = document.getElementById('pctRev')?.textContent || '';
+    const totalCost = parseFloat(totalTxt.replace(/[^\d.]/g,'')) || 0;
+    const revPct = parseFloat(pctTxt) || 0;
+    const recs = [];
+    let v;
+    if (totalCost === 0) v = { level: 'warn', label: 'Enter cost data', sub: '' };
+    else if (revPct > 15) {
+      v = { level: 'bad', label: 'Severe COPQ', sub: `${revPct.toFixed(1)}% of revenue lost to poor quality. World-class is <2%, average is 5-8%.` };
+      recs.push({ type: 'critical', title: 'COPQ is destroying margin', detail: 'Map top 5 cost contributors. Apply 8D problem-solving on the largest. Most COPQ is preventable through capable processes and stronger inspection.' });
+    } else if (revPct > 5) {
+      v = { level: 'warn', label: 'High COPQ', sub: `${revPct.toFixed(1)}% of revenue. Improvement target: get below 3%.` };
+      recs.push({ type: 'warn', title: 'Shift spending from external to prevention', detail: 'External failures (warranty, returns) cost 10× more than prevention (training, FMEA, capability studies). Invest upstream.' });
+    } else v = { level: 'good', label: 'COPQ Under Control', sub: `${revPct.toFixed(1)}% of revenue — better than industry average.` };
+    mmInterpret.render('copqInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: revPct > 10 ? 'critical' : 'good', calc: 'copq', eyebrow: 'CadNexa · Quality ROI',
+             headline: 'Reduce COPQ with better inspection workflow.',
+             sub: 'CadNexa replaces 4-hour FAI work with 10-minute auto-ballooning + report. Cuts internal failure cost dramatically.',
+             ctaText: 'See ROI in CadNexa →' },
+      related: [ { href: 'cadnexa-roi.html', text: 'CadNexa ROI Calculator' }, { href: 'fmea-rpn.html', text: 'FMEA RPN' }, { href: 'dpmo-sigma.html', text: 'DPMO / Sigma' } ]
+    });
+  })();
 }
 recalc();
 </script>

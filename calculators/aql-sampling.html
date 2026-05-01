@@ -154,6 +154,9 @@
 
   <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
 
+  <!-- Interpretation engine -->
+  <div id="aqlInterpret" style="display:none;"></div>
+
 </div>
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
@@ -162,6 +165,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 // Lot size → code letter map by inspection level
 const CODE_TABLE = [
@@ -225,6 +229,52 @@ function calc() {
   set('ac', ac);
   set('re', re);
   set('r_n', n); set('r_ac', ac); set('r_re', re); set('r_lot', lot.toLocaleString());
+
+  // ── Interpretation ──
+  const aqlPct = parseFloat(aql);
+  const sampleRatio = (n / lot) * 100;
+  const recs = [];
+  let v;
+  if (ac === 0) {
+    v = { level: 'warn', label: 'Zero-defect plan', sub: `Inspect ${n} pieces. Find ZERO defects to accept the lot. Even one defect rejects the entire lot of ${lot.toLocaleString()}.` };
+    recs.push({ type: 'info', title: 'Zero-acceptance is strict — train the inspector well', detail: `At AQL ${aql}%, this plan rejects on the first defect. Make sure inspector understands gauge use, defect categorization, and reference samples before sampling begins.` });
+  } else if (typeof ac === 'number') {
+    v = { level: 'good', label: 'Sampling plan ready', sub: `Inspect ${n} pieces from a lot of ${lot.toLocaleString()}. Accept if defects ≤ ${ac}, reject if defects ≥ ${re}.` };
+    recs.push({ type: 'ok', title: 'Plan complies with ANSI/ASQ Z1.4 — single sampling normal', detail: `Inspection level ${level}, AQL ${aql}%, code letter ${code}. Document this plan in your incoming inspection SOP.` });
+  } else {
+    v = { level: 'warn', label: 'Plan not standard — check inputs', sub: 'Lot size, AQL, or inspection level produced an undefined acceptance criterion.' };
+  }
+
+  // Practical advice
+  if (lot > 5000 && sampleRatio < 1) {
+    recs.push({ type: 'info', title: `Sample is only ${sampleRatio.toFixed(2)}% of lot`, detail: `For large lots, a small sample is statistically valid but feels light. Verify supplier process Cpk before relying on this sampling alone — high Cpk reduces the inspection burden.` });
+  }
+  if (level === 'S1' || level === 'S2') {
+    recs.push({ type: 'warn', title: 'Reduced inspection level — only for proven suppliers', detail: 'Special levels (S-1, S-2) are for trusted suppliers with strong process capability. For new suppliers or audit response, use general level II or tightened.' });
+  }
+  if (aqlPct >= 4.0) {
+    recs.push({ type: 'warn', title: 'AQL ≥ 4% is very loose', detail: 'Most automotive/aerospace customers require AQL 0.65% or tighter for critical features. Confirm this AQL is contractually agreed.' });
+  }
+
+  mmInterpret.render('aqlInterpret', {
+    verdict: v,
+    recommendations: recs,
+    cta: {
+      show: true,
+      severity: ac === 0 || aqlPct < 0.4 ? 'critical' : 'good',
+      calc: 'aql',
+      eyebrow: 'PPAP · Inspection records',
+      headline: 'Document this AQL plan in your PPAP submission.',
+      sub: 'CadNexa lets you attach incoming inspection plans to specific characteristic numbers, link to Cp/Cpk studies, and generate full PPAP packages — Tata, Mahindra, Bajaj variations included.',
+      ctaText: 'Build PPAP in CadNexa →',
+    },
+    related: [
+      { href: 'ppap-checklist.html', text: 'PPAP Submission Checklist' },
+      { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
+      { href: 'fmea-rpn.html', text: 'FMEA RPN' },
+      { href: 'control-chart.html', text: 'Control Chart' },
+    ]
+  });
 }
 calc();
 </script>

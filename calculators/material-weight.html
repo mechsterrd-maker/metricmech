@@ -176,10 +176,14 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<div id="mwInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../interpret.js"></script>
 <script>
 let currentShape = 'plate';
 const FIELDS = {
@@ -290,6 +294,27 @@ function calc() {
   document.getElementById('volume').textContent = volCm3.toFixed(2) + ' cm³';
   document.getElementById('density').textContent = rho.toFixed(2) + ' g/cm³';
   document.getElementById('surface').textContent = (surface / 100).toFixed(1) + ' cm²';
+
+  // ── Interpretation ──
+  (function(){
+    const wTxt = document.getElementById('weight')?.textContent || '';
+    const w = parseFloat(wTxt);
+    const recs = [];
+    let v;
+    if (isNaN(w) || w === 0) v = { level: 'warn', label: 'Enter dimensions and material', sub: '' };
+    else {
+      v = { level: 'good', label: 'Material Weight Calculated', sub: `${w.toFixed(2)} kg per piece.` };
+      recs.push({ type: 'info', title: 'Add scrap allowance', detail: 'Stock = finished weight + machining allowance + clamping/runner. Typical multiplier: 1.15–1.30 for milled, 1.05–1.10 for turned.' });
+    }
+    mmInterpret.render('mwInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'mat-weight', eyebrow: 'CadNexa · Auto-BOM',
+             headline: 'Auto-calculate weight from your STEP file.',
+             sub: 'CadNexa reads the 3D geometry, applies material density, and outputs exact weight + cost — no manual calculation.',
+             ctaText: 'Try CadNexa BOM →' },
+      related: [ { href: 'cadnexa-roi.html', text: 'CadNexa ROI' }, { href: 'hardness-conversion.html', text: 'Hardness Conversion' }, { href: 'press-fit.html', text: 'Press-Fit' } ]
+    });
+  })();
 }
 buildFields();
 calc();
