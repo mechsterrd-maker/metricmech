@@ -91,7 +91,9 @@
     const stripSelectors = [
       '[data-mw="cn-sidebar"]', '[data-mw="cn-inline"]', '[data-mw="cn-big"]',
       '.cn-promo-card', '.cn-inline-banner', '.cn-big-banner',
+      '.cn-3d-cta',
       '#mm-sticky-cta', '.mm-sticky-cta',
+      '.mm-rail', '.mm-rail-left',
       '#shareBarMount', '.mm-share-bar',
       'aside', '.action-bar',
       'script', 'noscript',
@@ -178,33 +180,34 @@
     const pageH = pdf.internal.pageSize.getHeight();
     const margin = 10;
     const usableW = pageW - margin * 2;
+    const usableH = pageH - margin * 2;
     const imgRatio = canvas.height / canvas.width;
     const imgH = usableW * imgRatio;
 
     const imgData = canvas.toDataURL('image/png');
 
-    // If content fits on one page, just add it. Otherwise split across pages.
-    if (imgH <= pageH - margin * 2) {
+    // If content fits on one page, just add it.
+    if (imgH <= usableH) {
       pdf.addImage(imgData, 'PNG', margin, margin, usableW, imgH);
     } else {
-      // Multi-page: slice the canvas vertically
-      const sliceHpx = (pageH - margin * 2) * (canvas.width / usableW);
-      let yPx = 0;
-      let firstPage = true;
-      while (yPx < canvas.height) {
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.min(sliceHpx, canvas.height - yPx);
-        const ctx = sliceCanvas.getContext('2d');
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
-        ctx.drawImage(canvas, 0, yPx, canvas.width, sliceCanvas.height, 0, 0, canvas.width, sliceCanvas.height);
-        const sliceData = sliceCanvas.toDataURL('image/png');
-        if (!firstPage) pdf.addPage();
-        const sliceImgH = (sliceCanvas.height * usableW) / canvas.width;
-        pdf.addImage(sliceData, 'PNG', margin, margin, usableW, sliceImgH);
-        firstPage = false;
-        yPx += sliceHpx;
+      // Multi-page: place the SAME image on each page at progressively higher Y offsets,
+      // and clip via page boundaries. This is the standard reliable approach for jsPDF + html2canvas.
+      let heightLeft = imgH;
+      let position = 0; // current Y offset on page (negative as we go down the canvas)
+      let pageNum = 0;
+
+      while (heightLeft > 0) {
+        if (pageNum > 0) pdf.addPage();
+        // Place the full image, with top-Y shifted up by `position` so the next strip is visible
+        pdf.addImage(imgData, 'PNG', margin, margin + position, usableW, imgH);
+        // Mask the area outside usableH on this page (jsPDF doesn't auto-clip — but image overflow is fine,
+        // it just gets clipped to the page edge). Each page shows usableH worth of content.
+        heightLeft -= usableH;
+        position -= usableH;
+        pageNum++;
+
+        // Safety break — no PDF should be > 50 pages from a calculator
+        if (pageNum > 50) break;
       }
     }
 

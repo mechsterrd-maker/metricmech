@@ -459,19 +459,69 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.body.appendChild(railEl);
 
-    // When the bottom-right sticky CTA appears, hide the rail to avoid stacking
+    // ===== LEFT RAIL — complementary message, different feature angle =====
+    // Right rail = primary CTA (the matched-feature card). Left rail = secondary, generic value prop.
+    let leftMsg;
+    if (_calcSlugRail) {
+      // On calculator pages: left rail shows time/cost saved framing
+      leftMsg = {
+        eyebrow: '70% time saved',
+        title: 'QA team finishes <em>before lunch.</em>',
+        sub: 'Manual FAI: 4–6 hours. CadNexa: under 10 minutes. Save ₹15K–₹40K per project.',
+        img: 'mm-balloon-ui-thumb.jpg'
+      };
+    } else if (_isCalcIndex) {
+      leftMsg = {
+        eyebrow: 'Why these are free',
+        title: 'CadNexa <em>pays for it.</em>',
+        sub: '14 years of plant-floor experience. Built for Indian manufacturing.',
+        img: 'mm-3d-assembly-thumb.jpg'
+      };
+    } else {
+      leftMsg = {
+        eyebrow: 'Trusted by engineers',
+        title: 'No installs. No <em>licence cost.</em>',
+        sub: 'STEP, IGES, BREP — open in browser. Indian MSME pricing from ₹399/mo.',
+        img: 'mm-3d-assembly-thumb.jpg'
+      };
+    }
+
+    const leftHref = _calcSlugRail
+      ? `https://cadnexa.com?utm_source=metricmech&utm_medium=rail-left&utm_campaign=${_calcSlugRail}`
+      : `https://cadnexa.com?utm_source=metricmech&utm_medium=rail-left`;
+
+    const leftEl = document.createElement('a');
+    leftEl.className = 'mm-rail mm-rail-left';
+    leftEl.href = leftHref;
+    leftEl.target = '_blank';
+    leftEl.rel = 'noopener';
+    leftEl.setAttribute('aria-label', 'Try CadNexa — 70% time saved');
+    leftEl.innerHTML = `
+      <div class="mm-rail-img" style="background-image: url('${siteRoot}images/${leftMsg.img}');"></div>
+      <div class="mm-rail-body">
+        <div class="mm-rail-eyebrow">${leftMsg.eyebrow}</div>
+        <div class="mm-rail-title">${leftMsg.title}</div>
+        <div class="mm-rail-sub">${leftMsg.sub}</div>
+        <span class="mm-rail-btn">See how →</span>
+        <div class="mm-rail-foot">14-day · No card · ₹399/mo</div>
+      </div>
+    `;
+    document.body.appendChild(leftEl);
+
+    // When the bottom-right sticky CTA appears, hide BOTH rails to avoid stacking
     const railObserver = new MutationObserver(() => {
       const sticky = document.getElementById('mm-sticky-cta');
       if (sticky && sticky.classList.contains('mm-sticky-show')) {
         railEl.classList.add('mm-rail-sticky-active');
+        leftEl.classList.add('mm-rail-sticky-active');
       }
     });
     railObserver.observe(document.body, { childList: true, subtree: false });
-    // Also check on scroll for class change on sticky element
     const checkInterval = setInterval(() => {
       const sticky = document.getElementById('mm-sticky-cta');
       if (sticky && sticky.classList.contains('mm-sticky-show')) {
         railEl.classList.add('mm-rail-sticky-active');
+        leftEl.classList.add('mm-rail-sticky-active');
         clearInterval(checkInterval);
       }
     }, 1000);
