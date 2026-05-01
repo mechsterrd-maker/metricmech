@@ -556,6 +556,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 5000);
     }
 
+    // Listen for explicit "Install as app" card click
+    window.addEventListener('mm-trigger-install', function() {
+      // Clear any prior dismissal
+      sessionStorage.removeItem('mm_install_dismissed');
+      if (_deferredPrompt) {
+        _deferredPrompt.prompt();
+        _deferredPrompt.userChoice.then(function(choice) {
+          if (choice.outcome === 'accepted') sessionStorage.setItem('mm_install_dismissed', '1');
+          _deferredPrompt = null;
+        });
+      } else if (isIOS) {
+        showInstructions('ios');
+      } else {
+        showInstructions('desktop');
+      }
+    });
+
     function buildPill() {
       if (document.getElementById('mm-install-pill')) return;
       const pill = document.createElement('div');
