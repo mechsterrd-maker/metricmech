@@ -317,25 +317,25 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
+  // Map calculator slugs to feature-specific messages — used by both sticky CTA and right-rail CTA
+  const calcMessages = {
+    'as9102-form3':       { eyebrow: 'AS9102 in CadNexa', title: 'Auto-balloon any drawing.', sub: 'AS9102 Form 1, 2, 3 generated from your PDF — in 10 minutes.', img: 'mm-balloon-ui-thumb.jpg' },
+    'ppap-checklist':     { eyebrow: 'PPAP in CadNexa', title: 'Tata + Mahindra PPAPs.', sub: 'Pre-built variation packs. No more reformatting AIAG templates.', img: 'mm-balloon-ui-thumb.jpg' },
+    'tolerance-stack':    { eyebrow: 'Stack in CadNexa', title: 'Stack on the 3D model.', sub: 'Open STEP/IGES, measure features, run the analysis. Zero manual entry.', img: 'mm-3d-measure-thumb.jpg' },
+    'position-tolerance': { eyebrow: 'GD&T in CadNexa', title: 'Measure position in 3D.', sub: 'CadNexa shows hole-to-hole positions live on your 3D model.', img: 'mm-3d-measure-thumb.jpg' },
+    'press-fit':          { eyebrow: 'Fits in CadNexa', title: 'Check fits in your browser.', sub: 'Open STEP, measure shaft + hole. No SolidWorks license needed.', img: 'mm-3d-measure-thumb.jpg' },
+    'beam-deflection':    { eyebrow: 'Beams in CadNexa', title: 'See beam profiles in 3D.', sub: 'Open STEP, measure cross-section. Browser viewer, no install.', img: 'mm-3d-measure-thumb.jpg' },
+    'gauge-rr':           { eyebrow: 'MSA in CadNexa', title: 'Attach Gauge R&R to FAI.', sub: 'Link MSA studies to characteristic numbers in AS9102 Form 3.', img: 'mm-balloon-ui-thumb.jpg' },
+    'surface-finish':     { eyebrow: 'Surface in CadNexa', title: 'Auto-extract Ra/Rz.', sub: 'CadNexa AI reads surface finish callouts directly from drawings.', img: 'mm-balloon-ui-thumb.jpg' },
+    'cp-cpk':             { eyebrow: 'Cp/Cpk in CadNexa', title: 'Capability + FAI in one.', sub: 'Link Cp/Cpk to characteristic numbers — audit-ready submissions.', img: 'mm-balloon-ui-thumb.jpg' },
+    'material-weight':    { eyebrow: 'BOM in CadNexa', title: 'Auto-BOM from a STEP.', sub: 'Drop a 3D file. Get weight + ₹/kg cost for 40+ Indian materials.', img: 'mm-3d-exploded-thumb.jpg' },
+    'cycle-time':         { eyebrow: 'Quote in CadNexa', title: 'CNC quote in 60s.', sub: 'CadNexa estimates cycle time + Indian shop rates from your 3D file.', img: 'mm-3d-assembly-thumb.jpg' }
+  };
+
   // ========== Sticky Scroll CTA — rotates 3 messages ==========
   if (sessionStorage.getItem('mm_cta_dismissed') !== '1') {
     // Calculator pages: show sticky CTA faster + at lower scroll (users have shorter sessions there)
     const isCalculator = /\/calculators\//.test(window.location.pathname);
-
-    // Map calculator slugs to feature-specific sticky messages
-    const calcMessages = {
-      'as9102-form3':       { eyebrow: 'AS9102 in CadNexa', title: 'Auto-balloon any drawing.', sub: 'AS9102 Form 1, 2, 3 generated from your PDF — in 10 minutes.', img: 'mm-balloon-ui-thumb.jpg' },
-      'ppap-checklist':     { eyebrow: 'PPAP in CadNexa', title: 'Tata + Mahindra PPAPs.', sub: 'Pre-built variation packs. No more reformatting AIAG templates.', img: 'mm-balloon-ui-thumb.jpg' },
-      'tolerance-stack':    { eyebrow: 'Stack in CadNexa', title: 'Stack on the 3D model.', sub: 'Open STEP/IGES, measure features, run the analysis. Zero manual entry.', img: 'mm-3d-measure-thumb.jpg' },
-      'position-tolerance': { eyebrow: 'GD&T in CadNexa', title: 'Measure position in 3D.', sub: 'CadNexa shows hole-to-hole positions live on your 3D model.', img: 'mm-3d-measure-thumb.jpg' },
-      'press-fit':          { eyebrow: 'Fits in CadNexa', title: 'Check fits in your browser.', sub: 'Open STEP, measure shaft + hole. No SolidWorks license needed.', img: 'mm-3d-measure-thumb.jpg' },
-      'beam-deflection':    { eyebrow: 'Beams in CadNexa', title: 'See beam profiles in 3D.', sub: 'Open STEP, measure cross-section. Browser viewer, no install.', img: 'mm-3d-measure-thumb.jpg' },
-      'gauge-rr':           { eyebrow: 'MSA in CadNexa', title: 'Attach Gauge R&R to FAI.', sub: 'Link MSA studies to characteristic numbers in AS9102 Form 3.', img: 'mm-balloon-ui-thumb.jpg' },
-      'surface-finish':     { eyebrow: 'Surface in CadNexa', title: 'Auto-extract Ra/Rz.', sub: 'CadNexa AI reads surface finish callouts directly from drawings.', img: 'mm-balloon-ui-thumb.jpg' },
-      'cp-cpk':             { eyebrow: 'Cp/Cpk in CadNexa', title: 'Capability + FAI in one.', sub: 'Link Cp/Cpk to characteristic numbers — audit-ready submissions.', img: 'mm-balloon-ui-thumb.jpg' },
-      'material-weight':    { eyebrow: 'BOM in CadNexa', title: 'Auto-BOM from a STEP.', sub: 'Drop a 3D file. Get weight + ₹/kg cost for 40+ Indian materials.', img: 'mm-3d-exploded-thumb.jpg' },
-      'cycle-time':         { eyebrow: 'Quote in CadNexa', title: 'CNC quote in 60s.', sub: 'CadNexa estimates cycle time + Indian shop rates from your 3D file.', img: 'mm-3d-assembly-thumb.jpg' }
-    };
 
     // Detect calculator slug
     const calcMatch = window.location.pathname.match(/\/calculators\/([a-z0-9-]+)\.html/);
@@ -406,6 +406,76 @@ document.addEventListener('DOMContentLoaded', () => {
       const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
       if (scrolled > (isCalculator ? 0.4 : 0.6)) showStickyCTA();
     }, { passive: true });
+  }
+
+  // ========== Right-Rail CTA — fills empty desktop side space (>1500px viewports) ==========
+  // Doesn't render on mobile/tablet (CSS @media handles visibility).
+  // Hides itself when sticky CTA appears to avoid stacking.
+  if (sessionStorage.getItem('mm_rail_dismissed') !== '1') {
+    // Pick relevant message — reuse calculator-specific message if on a calculator page
+    const _calcMatchRail = window.location.pathname.match(/\/calculators\/([a-z0-9-]+)\.html/);
+    const _calcSlugRail = _calcMatchRail ? _calcMatchRail[1] : null;
+    const _isCalcIndex = /\/calculators\.html/.test(window.location.pathname);
+
+    let railMsg;
+    if (_calcSlugRail && typeof calcMessages !== 'undefined' && calcMessages[_calcSlugRail]) {
+      const cm = calcMessages[_calcSlugRail];
+      railMsg = { eyebrow: cm.eyebrow, title: cm.title, sub: cm.sub, img: cm.img };
+    } else if (_isCalcIndex) {
+      railMsg = {
+        eyebrow: 'Built by CadNexa',
+        title: 'These are <em>free.</em> CadNexa is the full thing.',
+        sub: '3D viewer, auto-balloon, BOM, machining quote, RFQ marketplace — all in browser.',
+        img: 'mm-3d-measure-thumb.jpg'
+      };
+    } else {
+      railMsg = {
+        eyebrow: 'Built by CadNexa',
+        title: 'Skip the math — <em>open your STEP.</em>',
+        sub: 'CadNexa: browser-based 3D viewer + AI ballooning + BOM + machining cost.',
+        img: 'mm-3d-measure-thumb.jpg'
+      };
+    }
+
+    const railHref = _calcSlugRail
+      ? `https://cadnexa.com?utm_source=metricmech&utm_medium=rail&utm_campaign=${_calcSlugRail}`
+      : `https://cadnexa.com?utm_source=metricmech&utm_medium=rail`;
+
+    const railEl = document.createElement('a');
+    railEl.className = 'mm-rail';
+    railEl.href = railHref;
+    railEl.target = '_blank';
+    railEl.rel = 'noopener';
+    railEl.setAttribute('aria-label', 'Try CadNexa — free 14-day trial');
+    railEl.innerHTML = `
+      <div class="mm-rail-img" style="background-image: url('${siteRoot}images/${railMsg.img}');"></div>
+      <div class="mm-rail-body">
+        <div class="mm-rail-eyebrow">${railMsg.eyebrow}</div>
+        <div class="mm-rail-title">${railMsg.title}</div>
+        <div class="mm-rail-sub">${railMsg.sub}</div>
+        <span class="mm-rail-btn">Try free →</span>
+        <div class="mm-rail-foot">14-day · No card · ₹399/mo</div>
+      </div>
+    `;
+    document.body.appendChild(railEl);
+
+    // When the bottom-right sticky CTA appears, hide the rail to avoid stacking
+    const railObserver = new MutationObserver(() => {
+      const sticky = document.getElementById('mm-sticky-cta');
+      if (sticky && sticky.classList.contains('mm-sticky-show')) {
+        railEl.classList.add('mm-rail-sticky-active');
+      }
+    });
+    railObserver.observe(document.body, { childList: true, subtree: false });
+    // Also check on scroll for class change on sticky element
+    const checkInterval = setInterval(() => {
+      const sticky = document.getElementById('mm-sticky-cta');
+      if (sticky && sticky.classList.contains('mm-sticky-show')) {
+        railEl.classList.add('mm-rail-sticky-active');
+        clearInterval(checkInterval);
+      }
+    }, 1000);
+    setTimeout(() => clearInterval(checkInterval), 60000);
   }
 
 });
