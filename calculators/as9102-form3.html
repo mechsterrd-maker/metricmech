@@ -125,9 +125,10 @@
           <div class="stat-mini"><div class="num" id="sFail" style="color: var(--alert);">0</div><div class="lbl">Fail</div></div>
         </div>
 
-        <div style="display: flex; gap: 8px; margin-top: 14px;">
-          <button class="export-btn" onclick="window.print()" style="flex: 1;">⌘ Export PDF</button>
-          <button class="btn btn-sm btn-ghost" onclick="exportCSV()">Export CSV</button>
+        <!-- Share bar mounts here -->
+        <div id="shareBarMount"></div>
+        <div style="margin-top: 8px;">
+          <button class="btn btn-sm btn-ghost" onclick="exportCSV()" style="width: 100%;">Export CSV</button>
         </div>
       </div>
 
@@ -141,6 +142,93 @@
   </div>
 </div>
 
+<!-- HIDDEN PRINT-AREA — captured by PDF export, not visible to user -->
+<div id="printArea" style="position: absolute; left: -10000px; top: 0; width: 800px; padding: 40px; background: #fff; font-family: 'Inter Tight', system-ui, sans-serif; color: #1a1f2e;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 2px solid #1a1f2e; margin-bottom: 22px;">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; margin-bottom: 6px;">AS9102 Rev C — Form 3</div>
+      <div style="font-family: 'Fraunces', serif; font-size: 24px; font-weight: 600;">Characteristic Accountability</div>
+    </div>
+    <div style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #888;">
+      MetricMech<br>metricmech.com
+    </div>
+  </div>
+
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 22px; font-size: 12px;">
+    <tr>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase; width: 30%;">Part Number</td>
+      <td style="padding: 8px 12px; font-weight: 600;" id="prPN">—</td>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase; width: 20%;">Revision</td>
+      <td style="padding: 8px 12px; font-weight: 600;" id="prRev">—</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Part Name</td>
+      <td style="padding: 8px 12px; font-weight: 600;" colspan="3" id="prName">—</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Drawing Number</td>
+      <td style="padding: 8px 12px;" id="prDwg">—</td>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">FAI Report No.</td>
+      <td style="padding: 8px 12px;" id="prFAI">—</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Supplier</td>
+      <td style="padding: 8px 12px;" id="prSup">—</td>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Customer / OEM</td>
+      <td style="padding: 8px 12px;" id="prCust">—</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Inspector</td>
+      <td style="padding: 8px 12px;" id="prInsp">—</td>
+      <td style="padding: 8px 12px; background: #f5f5f0; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase;">Date</td>
+      <td style="padding: 8px 12px;" id="prDate">—</td>
+    </tr>
+  </table>
+
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; margin-bottom: 10px;">Characteristic Accountability</div>
+  <table style="width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 22px;" id="prTable">
+    <thead>
+      <tr style="background: #1a1f2e; color: #fff;">
+        <th style="padding: 8px 6px; text-align: left; font-weight: 600; width: 40px;">Char #</th>
+        <th style="padding: 8px 6px; text-align: left; font-weight: 600;">Characteristic / Feature</th>
+        <th style="padding: 8px 6px; text-align: left; font-weight: 600; width: 90px;">Requirement</th>
+        <th style="padding: 8px 6px; text-align: center; font-weight: 600; width: 50px;">Tol +</th>
+        <th style="padding: 8px 6px; text-align: center; font-weight: 600; width: 50px;">Tol −</th>
+        <th style="padding: 8px 6px; text-align: center; font-weight: 600; width: 70px;">Measured</th>
+        <th style="padding: 8px 6px; text-align: left; font-weight: 600; width: 75px;">Method</th>
+        <th style="padding: 8px 6px; text-align: center; font-weight: 600; width: 55px;">Result</th>
+      </tr>
+    </thead>
+    <tbody id="prTbody"></tbody>
+  </table>
+
+  <table style="width: 100%; margin-bottom: 22px;">
+    <tr>
+      <td style="padding: 14px; background: #f5f5f0; text-align: center; width: 33%;">
+        <div style="font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600;" id="prTotal">0</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #888; text-transform: uppercase; margin-top: 4px;">Total Characteristics</div>
+      </td>
+      <td style="padding: 14px; background: #d4edda; text-align: center; width: 33%;">
+        <div style="font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: #166534;" id="prPass">0</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #166534; text-transform: uppercase; margin-top: 4px;">Pass</div>
+      </td>
+      <td style="padding: 14px; background: #f8d7da; text-align: center; width: 33%;">
+        <div style="font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: #991b1b;" id="prFail">0</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: #991b1b; text-transform: uppercase; margin-top: 4px;">Fail</div>
+      </td>
+    </tr>
+  </table>
+
+  <div style="margin-top: 32px; padding-top: 18px; border-top: 1px solid #ddd; display: flex; justify-content: space-between; font-size: 11px; color: #666;">
+    <div><strong>Inspector signature:</strong> ______________________________</div>
+    <div><strong>Date:</strong> ______________</div>
+  </div>
+
+  <div style="margin-top: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #999; text-align: center; letter-spacing: 0.08em;">
+    Form generated using metricmech.com — free reference tools for manufacturing engineers
+  </div>
+</div>
+
 <div data-mw="cn-big"></div>
 
 
@@ -150,6 +238,7 @@
 
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
+<script src="../share.js"></script>
 
 <script>
 const tbody = document.getElementById('charBody');
@@ -235,6 +324,57 @@ function updatePreview() {
   document.getElementById('pCust').textContent = document.getElementById('hCust').value;
   document.getElementById('pDwg').textContent = document.getElementById('hDwg').value;
   document.getElementById('pSup').textContent = document.getElementById('hSup').value;
+
+  // Sync hidden print-area for clean PDF export
+  syncPrintArea(total, pass, fail);
+}
+
+function syncPrintArea(total, pass, fail) {
+  const v = id => (document.getElementById(id).value || '—');
+  document.getElementById('prPN').textContent   = v('hPN');
+  document.getElementById('prRev').textContent  = v('hRev');
+  document.getElementById('prName').textContent = v('hName');
+  document.getElementById('prDwg').textContent  = v('hDwg');
+  document.getElementById('prFAI').textContent  = v('hFAI');
+  document.getElementById('prSup').textContent  = v('hSup');
+  document.getElementById('prCust').textContent = v('hCust');
+  document.getElementById('prInsp').textContent = v('hInsp');
+  document.getElementById('prDate').textContent = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+
+  // Build clean characteristic table
+  const prTbody = document.getElementById('prTbody');
+  prTbody.innerHTML = '';
+  Array.from(tbody.children).forEach((tr, i) => {
+    const cells = Array.from(tr.children).slice(0, 7).map(td => {
+      const inp = td.firstElementChild;
+      return inp ? (inp.value || '') : '';
+    });
+    const result = tr.children[7].textContent.trim();
+    const isPass = result.includes('PASS');
+    const isFail = result.includes('FAIL');
+    const resColor = isPass ? '#166534' : isFail ? '#991b1b' : '#888';
+    const rowBg = (i % 2 === 0) ? '#fff' : '#fafaf6';
+    const row = document.createElement('tr');
+    row.style.background = rowBg;
+    row.innerHTML = `
+      <td style="padding: 7px 6px; text-align: left; border-bottom: 1px solid #e5e5e0;">${cells[0]}</td>
+      <td style="padding: 7px 6px; text-align: left; border-bottom: 1px solid #e5e5e0;">${cells[1]}</td>
+      <td style="padding: 7px 6px; text-align: left; border-bottom: 1px solid #e5e5e0;">${cells[2]}</td>
+      <td style="padding: 7px 6px; text-align: center; border-bottom: 1px solid #e5e5e0;">${cells[3] ? '+' + cells[3] : '—'}</td>
+      <td style="padding: 7px 6px; text-align: center; border-bottom: 1px solid #e5e5e0;">${cells[4] ? '−' + cells[4] : '—'}</td>
+      <td style="padding: 7px 6px; text-align: center; border-bottom: 1px solid #e5e5e0;">${cells[5] || '—'}</td>
+      <td style="padding: 7px 6px; text-align: left; border-bottom: 1px solid #e5e5e0;">${cells[6]}</td>
+      <td style="padding: 7px 6px; text-align: center; border-bottom: 1px solid #e5e5e0; color: ${resColor}; font-weight: 600;">${result}</td>
+    `;
+    prTbody.appendChild(row);
+  });
+  if (Array.from(tbody.children).length === 0) {
+    prTbody.innerHTML = '<tr><td colspan="8" style="padding: 16px; text-align: center; color: #888; font-style: italic;">No characteristics added</td></tr>';
+  }
+
+  document.getElementById('prTotal').textContent = total;
+  document.getElementById('prPass').textContent  = pass;
+  document.getElementById('prFail').textContent  = fail;
 }
 
 function exportCSV() {
@@ -255,6 +395,24 @@ function exportCSV() {
 }
 
 loadExample();
+
+// Mount share bar
+mmShare.renderInto('#shareBarMount', () => {
+  const pn   = document.getElementById('hPN').value || 'export';
+  const name = document.getElementById('hName').value || 'Part';
+  const fai  = document.getElementById('hFAI').value || '';
+  const total = document.getElementById('sTotal').textContent;
+  const pass  = document.getElementById('sPass').textContent;
+  const fail  = document.getElementById('sFail').textContent;
+  return {
+    title: `AS9102 Form 3 — ${name} (P/N ${pn})`,
+    subject: `AS9102 FAI Report ${fai} — ${name}`,
+    filename: `as9102-form3-${pn}.pdf`,
+    pdfElement: document.getElementById('printArea'),
+    summary: `${total} characteristics · ${pass} pass · ${fail} fail`,
+    pageUrl: location.href
+  };
+});
 </script>
 
 </body>
