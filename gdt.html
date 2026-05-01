@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GD&amp;T Symbol Reference — All 14 ASME Y14.5 Symbols Explained | MetricMech</title>
+<meta name="description" content="Complete GD&T reference. All 14 ASME Y14.5 symbols with diagrams, definitions, MMC/LMC modifiers, datum references, and worked examples. Free." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.gdt-section { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.gdt-cat-band { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 18px 26px; margin: 28px 0 16px; }
+.gdt-cat-band .eyebrow { font-family: var(--mono); font-size: 10px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 4px; }
+.gdt-cat-band h2 { font-family: var(--display); font-size: 22px; font-weight: 600; }
+.gdt-cat-band h2 em { font-style: italic; color: var(--amber); font-weight: 500; }
+.symbol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 800px) { .symbol-grid { grid-template-columns: 1fr; } }
+.sym-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px 26px; }
+.sym-head { display: grid; grid-template-columns: 64px 1fr; gap: 18px; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.sym-icon { width: 64px; height: 64px; background: var(--paper); border: 2px solid var(--ink); border-radius: var(--rad); display: flex; align-items: center; justify-content: center; font-size: 36px; line-height: 1; color: var(--ink); }
+.sym-name { font-family: var(--display); font-size: 19px; font-weight: 600; }
+.sym-cat { font-family: var(--mono); font-size: 10px; color: var(--blueprint); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 2px; }
+.sym-card p { font-size: 13px; line-height: 1.55; color: var(--ink-2); margin-bottom: 10px; }
+.sym-tag-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.sym-tag { font-family: var(--mono); font-size: 10px; padding: 3px 7px; background: var(--paper); border: 1px solid var(--rule); border-radius: var(--rad); color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; }
+.sym-tag.dat { background: var(--blueprint-tint); color: var(--blueprint); border-color: var(--blueprint); }
+.sym-tag.mod { background: var(--amber-tint); color: var(--ink); border-color: var(--amber); }
+.modifier-section { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; margin: 32px 0; }
+.mod-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+@media (max-width: 800px) { .mod-grid { grid-template-columns: 1fr; } }
+.mod-card { background: var(--paper); border: 1px solid var(--rule); border-radius: var(--rad); padding: 16px; }
+.mod-icon { font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--blueprint); margin-bottom: 6px; }
+.mod-name { font-family: var(--display); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.mod-desc { font-size: 12px; color: var(--mute); line-height: 1.5; }
+.fcf-example { background: var(--paper); border: 1px solid var(--rule-strong); border-radius: var(--rad); padding: 20px; margin: 20px 0; }
+.fcf-box { display: inline-flex; align-items: center; gap: 0; font-family: var(--mono); font-size: 18px; font-weight: 600; }
+.fcf-box span { padding: 8px 14px; border: 2px solid var(--ink); }
+.fcf-box span:not(:last-child) { border-right: 1px solid var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="gdt" data-prefix=""></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>GD&amp;T Reference</div>
+  <h1 class="page-title">GD&amp;T Symbol <em>Reference.</em></h1>
+  <p class="page-lede">All 14 ASME Y14.5 symbols. Datum references. Material condition modifiers. Feature control frame syntax. With diagrams and worked examples.</p>
+</div>
+
+<section class="gdt-section">
+
+  <!-- FORM TOLERANCES -->
+  <div class="gdt-cat-band">
+    <div class="eyebrow">CATEGORY</div>
+    <h2>Form <em>tolerances</em> · 4 symbols · No datum required</h2>
+  </div>
+  <div class="symbol-grid">
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⏤</div>
+        <div><div class="sym-name">Straightness</div><div class="sym-cat">Form · 0.005–0.05 typical</div></div>
+      </div>
+      <p>Constrains a line element of a feature (axis or surface line) to lie within a specified tolerance zone. The zone is two parallel lines for surface, or a cylinder for axis.</p>
+      <p><strong>Example:</strong> A shaft with ⏤ 0.02 means every cross-section axis lies within a 0.02mm cylinder.</p>
+      <div class="sym-tag-row"><span class="sym-tag">No datum</span><span class="sym-tag mod">Ⓜ allowed</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⏥</div>
+        <div><div class="sym-name">Flatness</div><div class="sym-cat">Form · 0.01–0.1 typical</div></div>
+      </div>
+      <p>Constrains an entire surface to lie between two parallel planes. Cannot exceed the size tolerance — flatness is always tighter than total size.</p>
+      <p><strong>Example:</strong> A machined block with ⏥ 0.05 means the surface lies entirely within 0.05mm thick sandwich of parallel planes.</p>
+      <div class="sym-tag-row"><span class="sym-tag">No datum</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">○</div>
+        <div><div class="sym-name">Circularity (Roundness)</div><div class="sym-cat">Form · 0.005–0.02 typical</div></div>
+      </div>
+      <p>Constrains every cross-section of a cylinder, cone, or sphere to lie between two concentric circles. Independent at each cross-section — does not constrain axial alignment.</p>
+      <p><strong>Example:</strong> A bearing journal with ○ 0.008 — each cross-section round within 0.008mm radial band.</p>
+      <div class="sym-tag-row"><span class="sym-tag">No datum</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⌭</div>
+        <div><div class="sym-name">Cylindricity</div><div class="sym-cat">Form · 0.01–0.05 typical</div></div>
+      </div>
+      <p>Composite of straightness, circularity, and parallelism of cylindrical surface elements. Constrains surface between two concentric cylinders.</p>
+      <p><strong>Example:</strong> A hydraulic cylinder bore with ⌭ 0.015 — entire surface within a 0.015mm thick cylindrical band.</p>
+      <div class="sym-tag-row"><span class="sym-tag">No datum</span></div>
+    </div>
+
+  </div>
+
+  <!-- ORIENTATION -->
+  <div class="gdt-cat-band">
+    <div class="eyebrow">CATEGORY</div>
+    <h2>Orientation <em>tolerances</em> · 3 symbols · Datum required</h2>
+  </div>
+  <div class="symbol-grid">
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">∥</div>
+        <div><div class="sym-name">Parallelism</div><div class="sym-cat">Orientation · 0.02–0.1 typical</div></div>
+      </div>
+      <p>Constrains a surface or axis to be parallel to a datum within a specified tolerance zone. Zone is two parallel planes (surface) or a cylinder (axis).</p>
+      <p><strong>Example:</strong> Top face of a block with ∥ 0.05 to datum A (bottom face) — top surface within 0.05mm parallel sandwich relative to bottom.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span><span class="sym-tag mod">Ⓜ allowed</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⟂</div>
+        <div><div class="sym-name">Perpendicularity</div><div class="sym-cat">Orientation · 0.02–0.1 typical</div></div>
+      </div>
+      <p>Constrains a surface, axis, or median plane to be perpendicular (90°) to a datum. Same zone types as parallelism — perpendicular instead of parallel.</p>
+      <p><strong>Example:</strong> A bored hole axis with ⟂ 0.05 to datum A (the face) — axis perpendicular to face within 0.05mm.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span><span class="sym-tag mod">Ⓜ allowed</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">∠</div>
+        <div><div class="sym-name">Angularity</div><div class="sym-cat">Orientation · 0.05–0.2 typical</div></div>
+      </div>
+      <p>Constrains a surface, axis, or median plane to a specified angle (other than 90°) relative to a datum. The basic angle is shown as a basic dimension.</p>
+      <p><strong>Example:</strong> A 30° bevel surface with ∠ 0.1 to datum A — surface within 0.1mm tolerance zone at 30° angle.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span><span class="sym-tag mod">Ⓜ allowed</span></div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="gdt"></div>
+
+  <!-- LOCATION -->
+  <div class="gdt-cat-band">
+    <div class="eyebrow">CATEGORY</div>
+    <h2>Location <em>tolerances</em> · 3 symbols · Datum required</h2>
+  </div>
+  <div class="symbol-grid">
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⌖</div>
+        <div><div class="sym-name">Position (True Position)</div><div class="sym-cat">Location · 0.05–0.5 typical</div></div>
+      </div>
+      <p>The most common GD&amp;T symbol. Constrains the location of a feature axis or center plane to a tolerance zone (cylinder for holes, two parallel planes for slots) at a basic dimension from datums.</p>
+      <p><strong>Example:</strong> Hole pattern with ⌖ ⌀0.1 Ⓜ A B C — each hole axis within ⌀0.1 cylinder at basic location, with bonus from MMC.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span><span class="sym-tag mod">Ⓜ Ⓛ allowed</span></div>
+      <p style="margin-top: 10px; font-size: 12px;"><a href="calculators/position-tolerance.html" style="color: var(--blueprint);">→ Calculate true position from X/Y deviations</a></p>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">◎</div>
+        <div><div class="sym-name">Concentricity</div><div class="sym-cat">Location · 0.02–0.1 · Rare in 2018</div></div>
+      </div>
+      <p>Constrains the median points of all opposing elements of a feature to a cylindrical tolerance zone coaxial to the datum axis. <strong>Removed in ASME Y14.5-2018</strong> in favor of position or runout.</p>
+      <p><strong>Example:</strong> ◎ ⌀0.05 to datum A — derived median axis within ⌀0.05 zone coaxial to datum A.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">≡</div>
+        <div><div class="sym-name">Symmetry</div><div class="sym-cat">Location · Rare in 2018</div></div>
+      </div>
+      <p>Constrains the median plane of a slot or planar feature to be symmetric about the datum plane. Also <strong>removed in ASME Y14.5-2018</strong> — use position with center plane instead.</p>
+      <p><strong>Example:</strong> ≡ 0.1 to datum A — median plane of slot within 0.1mm sandwich centered on datum.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum required</span></div>
+    </div>
+
+  </div>
+
+  <!-- RUNOUT -->
+  <div class="gdt-cat-band">
+    <div class="eyebrow">CATEGORY</div>
+    <h2>Runout <em>tolerances</em> · 2 symbols · Datum axis required</h2>
+  </div>
+  <div class="symbol-grid">
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">↗</div>
+        <div><div class="sym-name">Circular Runout</div><div class="sym-cat">Runout · 0.02–0.1 typical</div></div>
+      </div>
+      <p>Combines circularity and concentricity. Measured by indicator on each cross-section as the part rotates 360° about the datum axis. Captures TIR per cross-section.</p>
+      <p><strong>Example:</strong> ↗ 0.05 to A — indicator placed on rotating surface, must not vary more than 0.05mm at any cross-section.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum axis</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⌰</div>
+        <div><div class="sym-name">Total Runout</div><div class="sym-cat">Runout · 0.05–0.2 typical</div></div>
+      </div>
+      <p>Combines cylindricity and coaxiality. Indicator traverses the full length of the surface (axially) while part rotates. Captures total form + position deviation.</p>
+      <p><strong>Example:</strong> ⌰ 0.1 to A — indicator moves across full length, total reading variation within 0.1mm anywhere.</p>
+      <div class="sym-tag-row"><span class="sym-tag dat">Datum axis</span></div>
+    </div>
+
+  </div>
+
+  <!-- PROFILE -->
+  <div class="gdt-cat-band">
+    <div class="eyebrow">CATEGORY</div>
+    <h2>Profile <em>tolerances</em> · 2 symbols · Most versatile</h2>
+  </div>
+  <div class="symbol-grid">
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⌒</div>
+        <div><div class="sym-name">Profile of a Line</div><div class="sym-cat">Profile · 0.05–0.5 typical</div></div>
+      </div>
+      <p>Constrains line elements (any cross-section) of a complex curve or surface to lie within a tolerance zone bounded by two curves offset from the basic profile.</p>
+      <p><strong>Example:</strong> Airfoil cross-section with ⌒ 0.1 — each cross-section line within 0.1mm zone around basic shape.</p>
+      <div class="sym-tag-row"><span class="sym-tag">Datum optional</span><span class="sym-tag dat">A B C if all-around</span></div>
+    </div>
+
+    <div class="sym-card">
+      <div class="sym-head">
+        <div class="sym-icon">⌓</div>
+        <div><div class="sym-name">Profile of a Surface</div><div class="sym-cat">Profile · 0.1–1.0 typical</div></div>
+      </div>
+      <p>The most powerful GD&amp;T symbol. Constrains a 3D surface to lie within a tolerance zone bounded by two surfaces offset from the basic profile. Can replace size, form, orientation, location all in one.</p>
+      <p><strong>Example:</strong> Casting surface with ⌓ 0.5 A B C — entire surface within 0.5mm thick offset shell relative to datums.</p>
+      <div class="sym-tag-row"><span class="sym-tag">Datum optional</span><span class="sym-tag dat">A B C common</span></div>
+    </div>
+
+  </div>
+
+  <!-- MODIFIERS -->
+  <div class="modifier-section">
+    <h2 style="font-family: var(--display); font-size: 24px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em;">Material Condition <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">Modifiers</em></h2>
+    <p style="font-size: 14px; color: var(--ink-2); margin-bottom: 6px;">Modifiers change how the tolerance is applied based on the actual size of the feature. Critical for applying GD&amp;T economically.</p>
+    <div class="mod-grid">
+      <div class="mod-card">
+        <div class="mod-icon">Ⓜ</div>
+        <div class="mod-name">MMC — Maximum Material Condition</div>
+        <div class="mod-desc">Tightest possible feature size (largest pin, smallest hole). Bonus tolerance available as feature deviates from MMC. Best for assembly fit.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">Ⓛ</div>
+        <div class="mod-name">LMC — Least Material Condition</div>
+        <div class="mod-desc">Loosest possible feature size (smallest pin, largest hole). Bonus tolerance available as feature deviates from LMC. Best for wall thickness control.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">Ⓢ</div>
+        <div class="mod-name">RFS — Regardless of Feature Size</div>
+        <div class="mod-desc">Default condition (no symbol shown in 2018 standard). Tolerance applies regardless of actual feature size. No bonus available.</div>
+      </div>
+    </div>
+    <p style="margin-top: 16px; font-size: 13px;">
+      <a href="calculators/position-tolerance.html" style="color: var(--blueprint); font-weight: 500;">→ Calculate bonus tolerance with the Position Tolerance Calculator</a>
+    </p>
+  </div>
+
+  <!-- FEATURE CONTROL FRAME -->
+  <div class="modifier-section">
+    <h2 style="font-family: var(--display); font-size: 24px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em;">Reading a <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">Feature Control Frame</em></h2>
+    <p style="font-size: 14px; color: var(--ink-2);">A feature control frame combines symbol, tolerance, modifier, and datums into a single reading order: symbol → tolerance → modifier → primary datum → secondary → tertiary.</p>
+    <div class="fcf-example">
+      <div class="fcf-box">
+        <span>⌖</span><span>⌀ 0.1</span><span>Ⓜ</span><span>A</span><span>B</span><span>C</span>
+      </div>
+      <p style="margin-top: 14px; font-size: 14px; line-height: 1.7;">
+        <strong>Read as:</strong> "Position tolerance, ⌀0.1mm zone, applied at Maximum Material Condition, with primary datum A, secondary B, tertiary C."
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix=""></div>
+<script src="site.js"></script>
+</body>
+</html>

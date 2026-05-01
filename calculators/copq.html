@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>COPQ Calculator — Cost of Poor Quality (Rejection ₹/month) | MetricMech</title>
+<meta name="description" content="Free Cost of Poor Quality (COPQ) calculator. Convert your monthly rejection rate into rupees wasted. See where to fix it first." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 980px) { .calc-layout { grid-template-columns: 1fr; } }
+.input-group { margin-bottom: 18px; }
+.input-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+.input-group .hint { font-size: 12px; color: var(--mute); margin-top: 4px; font-family: var(--mono); }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.copq-result { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 32px; }
+.copq-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 14px; }
+.big-num { font-family: var(--display); font-size: 64px; font-weight: 600; color: var(--alert); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.big-sub { font-size: 14px; opacity: 0.75; margin-top: 8px; margin-bottom: 24px; }
+.bar-chart { margin-top: 24px; }
+.bar-row { display: grid; grid-template-columns: 130px 1fr 100px; gap: 12px; align-items: center; padding: 10px 0; }
+.bar-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(245,242,236,0.7); }
+.bar-track { height: 28px; background: rgba(245,242,236,0.08); border-radius: 2px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; background: var(--amber); transition: width 0.4s; }
+.bar-val { font-family: var(--mono); font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.annual-bar { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 16px 20px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+.annual-bar .label { font-size: 13px; color: var(--ink-2); }
+.annual-bar .val { font-family: var(--display); font-size: 24px; font-weight: 600; color: var(--alert); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>COPQ Calculator</div>
+  <h1 class="page-title">Cost of Poor <em>Quality.</em></h1>
+  <p class="page-lede">How much is your rejection rate actually costing you? COPQ totals all the rupees wasted on scrap, rework, inspection escalation, and customer returns each month.</p>
+</div>
+
+<div class="calc-layout">
+  <div>
+    <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 18px;">Your production data</h3>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Parts produced / month</label>
+        <input type="number" id="qty" class="calc-input" value="5000" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Average part cost (₹)</label>
+        <input type="number" id="cost" class="calc-input" value="850" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Internal scrap rate (%)</label>
+        <input type="number" id="scrap" class="calc-input" value="2.5" step="0.1" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Rework rate (%)</label>
+        <input type="number" id="rework" class="calc-input" value="4" step="0.1" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Customer rejection rate (%)</label>
+        <input type="number" id="custRej" class="calc-input" value="0.8" step="0.1" oninput="recalc()">
+      </div>
+      <div class="input-group">
+        <label>Average rework cost / part (₹)</label>
+        <input type="number" id="reworkCost" class="calc-input" value="180" oninput="recalc()">
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin: 24px 0 14px;">Hidden costs</h3>
+    <div class="input-grid">
+      <div class="input-group">
+        <label>Inspection cost / month (₹)</label>
+        <input type="number" id="inspect" class="calc-input" value="35000" oninput="recalc()">
+        <div class="hint">QA staff time, gauges, CMM time</div>
+      </div>
+      <div class="input-group">
+        <label>Customer return shipping / penalty (₹)</label>
+        <input type="number" id="penalty" class="calc-input" value="15000" oninput="recalc()">
+        <div class="hint">RMA logistics, OEM PCN penalties</div>
+      </div>
+      <div class="input-group">
+        <label>FAI re-submission cost (₹)</label>
+        <input type="number" id="fai" class="calc-input" value="8000" oninput="recalc()">
+        <div class="hint">Per FAI rejection event × frequency</div>
+      </div>
+      <div class="input-group">
+        <label>Customer escalation/visits (₹)</label>
+        <input type="number" id="escal" class="calc-input" value="20000" oninput="recalc()">
+        <div class="hint">Time of GM/Plant Head, travel, audit support</div>
+      </div>
+    </div>
+
+    <div data-mw="cn-inline" data-variant="production" style="margin-top: 24px;"></div>
+  </div>
+
+  <div>
+    <div class="copq-result">
+      <div class="copq-eyebrow">YOUR MONTHLY COST OF POOR QUALITY</div>
+      <div class="big-num" id="copqVal">₹—</div>
+      <div class="big-sub" id="copqPct">— % of revenue</div>
+
+      <div class="bar-chart">
+        <div class="bar-row">
+          <span class="bar-label">Internal scrap</span>
+          <div class="bar-track"><div class="bar-fill" id="bar1"></div></div>
+          <span class="bar-val" id="val1">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Rework labor</span>
+          <div class="bar-track"><div class="bar-fill" id="bar2"></div></div>
+          <span class="bar-val" id="val2">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Customer reject</span>
+          <div class="bar-track"><div class="bar-fill" id="bar3"></div></div>
+          <span class="bar-val" id="val3">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Inspection</span>
+          <div class="bar-track"><div class="bar-fill" id="bar4"></div></div>
+          <span class="bar-val" id="val4">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Penalties</span>
+          <div class="bar-track"><div class="bar-fill" id="bar5"></div></div>
+          <span class="bar-val" id="val5">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">FAI rework</span>
+          <div class="bar-track"><div class="bar-fill" id="bar6"></div></div>
+          <span class="bar-val" id="val6">—</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Escalation</span>
+          <div class="bar-track"><div class="bar-fill" id="bar7"></div></div>
+          <span class="bar-val" id="val7">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="annual-bar">
+      <span class="label">Annualized COPQ:</span>
+      <span class="val" id="annual">₹—</span>
+    </div>
+
+    <div style="margin-top: 16px; padding: 16px 20px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); font-size: 13px; line-height: 1.6;">
+      <strong style="font-family: var(--display); font-size: 15px; display: block; margin-bottom: 6px;">Industry benchmark</strong>
+      Indian Tier-2 manufacturing COPQ is typically <strong>4–8% of revenue.</strong> World-class operations target <strong>under 1%.</strong> Most teams underestimate by 40–60% because they only count visible scrap.
+    </div>
+  </div>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+function fmt(n) {
+  if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + ' Cr';
+  if (n >= 100000) return '₹' + (n/100000).toFixed(2) + ' L';
+  if (n >= 1000) return '₹' + Math.round(n).toLocaleString('en-IN');
+  return '₹' + Math.round(n);
+}
+function recalc() {
+  const qty = +document.getElementById('qty').value || 0;
+  const cost = +document.getElementById('cost').value || 0;
+  const scrap = +document.getElementById('scrap').value / 100;
+  const rework = +document.getElementById('rework').value / 100;
+  const custRej = +document.getElementById('custRej').value / 100;
+  const reworkCost = +document.getElementById('reworkCost').value || 0;
+  const inspect = +document.getElementById('inspect').value || 0;
+  const penalty = +document.getElementById('penalty').value || 0;
+  const fai = +document.getElementById('fai').value || 0;
+  const escal = +document.getElementById('escal').value || 0;
+
+  const c1 = qty * scrap * cost;
+  const c2 = qty * rework * reworkCost;
+  const c3 = qty * custRej * cost * 1.5; // customer reject costs 1.5x part cost
+  const c4 = inspect;
+  const c5 = penalty;
+  const c6 = fai;
+  const c7 = escal;
+  const total = c1 + c2 + c3 + c4 + c5 + c6 + c7;
+
+  const revenue = qty * cost;
+  const pct = revenue > 0 ? (total / revenue * 100) : 0;
+
+  document.getElementById('copqVal').textContent = fmt(total);
+  document.getElementById('copqPct').textContent = pct.toFixed(1) + '% of monthly revenue';
+  document.getElementById('annual').textContent = fmt(total * 12);
+
+  const arr = [c1, c2, c3, c4, c5, c6, c7];
+  const max = Math.max(...arr, 1);
+  arr.forEach((v, i) => {
+    document.getElementById('bar' + (i+1)).style.width = (v/max*100) + '%';
+    document.getElementById('val' + (i+1)).textContent = fmt(v);
+  });
+}
+recalc();
+</script>
+
+</body>
+</html>

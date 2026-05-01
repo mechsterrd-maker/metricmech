@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AS9102 Form 3 Builder — Free Aerospace FAI Generator | MetricMech</title>
+<meta name="description" content="Free AS9102 Form 3 Builder. Add characteristics, requirements, results, and inspection methods. Export as PDF for aerospace First Article Inspection submissions." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.builder-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 1100px) { .builder-grid { grid-template-columns: 1fr; } }
+.header-section { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.header-section h3 { font-family: var(--display); font-size: 17px; font-weight: 600; margin-bottom: 14px; }
+.header-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.header-grid input { width: 100%; padding: 9px 12px; font-family: var(--mono); font-size: 13px; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; }
+.header-grid label { display: block; font-size: 12px; font-weight: 500; margin-bottom: 4px; color: var(--ink-2); }
+.fai-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.fai-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 10px; padding: 8px 6px; text-align: left; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.fai-table td { border: 1px solid var(--rule); padding: 4px; vertical-align: top; }
+.fai-table input, .fai-table select, .fai-table textarea { width: 100%; padding: 6px 8px; font-family: var(--mono); font-size: 12px; border: none; background: transparent; outline: none; resize: vertical; }
+.fai-table input:focus, .fai-table textarea:focus, .fai-table select:focus { background: var(--blueprint-tint); }
+.fai-table tr:nth-child(even) td { background: var(--paper-2); }
+.fai-table .pass { color: var(--ok); font-weight: 600; }
+.fai-table .fail { color: var(--alert); font-weight: 600; }
+.del-btn { background: none; border: none; color: var(--alert); cursor: pointer; font-size: 14px; padding: 4px; font-family: var(--mono); }
+.action-bar { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.export-btn { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 11px 18px; font-family: var(--body); font-size: 14px; font-weight: 600; border-radius: var(--rad); cursor: pointer; }
+.export-btn:hover { background: var(--paper); color: var(--ink); }
+.preview-section { background: var(--paper); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; }
+.preview-header { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.preview-form-title { font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.preview-form-sub { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.08em; }
+.preview-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; font-size: 12px; }
+.preview-meta div { padding: 6px 8px; background: var(--paper-2); border-radius: var(--rad); }
+.preview-meta strong { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); display: block; margin-bottom: 2px; }
+.summary-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0; }
+.stat-mini { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad); padding: 14px 12px; text-align: center; }
+.stat-mini .num { font-family: var(--display); font-size: 22px; font-weight: 600; line-height: 1; }
+.stat-mini .lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-top: 4px; }
+@media print {
+  body { background: white; }
+  .grid-bg, .site-header, .notice-bar, .site-footer, .page-header, .builder-grid > div:first-child, [data-mw="cn-big"], [data-mw="cn-sidebar"] { display: none !important; }
+  .builder-grid { grid-template-columns: 1fr; }
+  .preview-section { box-shadow: none; border: none; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>AS9102 Form 3 Builder</div>
+  <h1 class="page-title">AS9102 Form 3 <em>Builder.</em></h1>
+  <p class="page-lede">Build characteristic accountability forms for aerospace First Article Inspection. Add dimensions, paste measurements, get pass/fail verdicts. Export to PDF for OEM submission.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="builder-grid">
+    <!-- LEFT: BUILDER -->
+    <div>
+      <div class="header-section">
+        <h3>FAI Header Information</h3>
+        <div class="header-grid">
+          <div><label>Part Number</label><input id="hPN" value="ABC-12345-001" oninput="updatePreview()"></div>
+          <div><label>Part Revision</label><input id="hRev" value="A" oninput="updatePreview()"></div>
+          <div><label>Part Name</label><input id="hName" value="Bracket, Mounting" oninput="updatePreview()"></div>
+          <div><label>Drawing Number</label><input id="hDwg" value="D-12345" oninput="updatePreview()"></div>
+          <div><label>Supplier Name</label><input id="hSup" value="Acme Precision" oninput="updatePreview()"></div>
+          <div><label>FAI Report Number</label><input id="hFAI" value="FAI-2026-001" oninput="updatePreview()"></div>
+          <div><label>Customer / OEM</label><input id="hCust" value="Tata Advanced Systems" oninput="updatePreview()"></div>
+          <div><label>Inspector</label><input id="hInsp" value="" oninput="updatePreview()"></div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn btn-sm" onclick="addRow()">+ Add characteristic</button>
+        <button class="btn btn-sm btn-ghost" onclick="loadExample()">Load example part</button>
+        <button class="btn btn-sm btn-ghost" onclick="clearAll()">Clear all</button>
+      </div>
+
+      <table class="fai-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">Char #</th>
+            <th>Characteristic / Feature</th>
+            <th style="width: 120px;">Requirement</th>
+            <th style="width: 80px;">Tol +</th>
+            <th style="width: 80px;">Tol −</th>
+            <th style="width: 100px;">Measured</th>
+            <th style="width: 100px;">Method</th>
+            <th style="width: 70px;">Result</th>
+            <th style="width: 30px;"></th>
+          </tr>
+        </thead>
+        <tbody id="charBody"></tbody>
+      </table>
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div>
+      <div class="preview-section" id="preview">
+        <div class="preview-header">FORM 3 — CHARACTERISTIC ACCOUNTABILITY · LIVE PREVIEW</div>
+        <div class="preview-form-title" id="pName">Bracket, Mounting</div>
+        <div class="preview-form-sub" id="pPN">P/N ABC-12345-001 · Rev A</div>
+
+        <div class="preview-meta">
+          <div><strong>FAI Report</strong><span id="pFAI">FAI-2026-001</span></div>
+          <div><strong>Customer</strong><span id="pCust">Tata Advanced Systems</span></div>
+          <div><strong>Drawing</strong><span id="pDwg">D-12345</span></div>
+          <div><strong>Supplier</strong><span id="pSup">Acme Precision</span></div>
+        </div>
+
+        <div class="summary-stats">
+          <div class="stat-mini"><div class="num" id="sTotal">0</div><div class="lbl">Total chars</div></div>
+          <div class="stat-mini"><div class="num" id="sPass" style="color: var(--ok);">0</div><div class="lbl">Pass</div></div>
+          <div class="stat-mini"><div class="num" id="sFail" style="color: var(--alert);">0</div><div class="lbl">Fail</div></div>
+        </div>
+
+        <div style="display: flex; gap: 8px; margin-top: 14px;">
+          <button class="export-btn" onclick="window.print()" style="flex: 1;">⌘ Export PDF</button>
+          <button class="btn btn-sm btn-ghost" onclick="exportCSV()">Export CSV</button>
+        </div>
+      </div>
+
+      <div data-mw="cn-sidebar" style="margin-top: 20px;"></div>
+
+      <div style="background: var(--amber-tint); border: 1px solid var(--amber); border-radius: var(--rad-lg); padding: 18px; margin-top: 16px; font-size: 13px; line-height: 1.55;">
+        <strong style="font-family: var(--display); display: block; margin-bottom: 6px; font-size: 15px;">Tip from the editor</strong>
+        Boeing &amp; Airbus reject 1 in 4 FAI submissions for one of three reasons: missed characteristic numbering, mismatched tolerances vs. drawing, or measurement units inconsistency (mm vs inch in same form). Double-check before submission.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-mw="cn-big"></div>
+
+
+<div data-mw="cn-inline" data-variant="as9102" style="max-width: var(--max-w); margin: 40px auto; padding: 0 32px;"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+const tbody = document.getElementById('charBody');
+let charNum = 1;
+
+function addRow(c = '', req = '', p = '', m = '', meas = '', method = 'Caliper') {
+  const num = charNum++;
+  const tr = document.createElement('tr');
+  tr.dataset.num = num;
+  tr.innerHTML = `
+    <td><input value="${num}" style="text-align:center;"></td>
+    <td><input value="${c}" placeholder="e.g. Hole Ø 5.0 ±0.05" oninput="updatePreview()"></td>
+    <td><input value="${req}" placeholder="5.000" oninput="updatePreview()"></td>
+    <td><input value="${p}" placeholder="0.05" oninput="updatePreview()"></td>
+    <td><input value="${m}" placeholder="0.05" oninput="updatePreview()"></td>
+    <td><input value="${meas}" placeholder="5.012" oninput="updatePreview()"></td>
+    <td><select onchange="updatePreview()">
+      <option ${method==='Caliper'?'selected':''}>Caliper</option>
+      <option ${method==='Micrometer'?'selected':''}>Micrometer</option>
+      <option ${method==='CMM'?'selected':''}>CMM</option>
+      <option ${method==='Pin Gauge'?'selected':''}>Pin Gauge</option>
+      <option ${method==='Surface Plate'?'selected':''}>Surface Plate</option>
+      <option ${method==='Hardness Tester'?'selected':''}>Hardness Tester</option>
+      <option ${method==='Thread Gauge'?'selected':''}>Thread Gauge</option>
+      <option ${method==='Visual'?'selected':''}>Visual</option>
+    </select></td>
+    <td class="result-cell">—</td>
+    <td><button class="del-btn" onclick="this.closest('tr').remove();updatePreview()">×</button></td>
+  `;
+  tbody.appendChild(tr);
+  updatePreview();
+}
+
+function clearAll() {
+  tbody.innerHTML = '';
+  charNum = 1;
+  updatePreview();
+}
+
+function loadExample() {
+  clearAll();
+  addRow('Length overall', '50.000', '0.10', '0.10', '50.04', 'Caliper');
+  addRow('Width', '25.000', '0.05', '0.05', '24.98', 'Micrometer');
+  addRow('Thickness', '6.000', '0.05', '0.05', '6.02', 'Micrometer');
+  addRow('Hole Ø (4 places)', '5.000', '0.05', '0.05', '5.012', 'Pin Gauge');
+  addRow('Hole position (true position)', '⌀ 0.10', '', '', '⌀ 0.08', 'CMM');
+  addRow('Surface finish (Ra)', '1.6 µm', '', '', '1.4 µm', 'Surface Plate');
+  addRow('Material — AMS 4117 verified', 'Cert', '', '', 'Cert # 8842', 'Visual');
+  addRow('Heat treatment — T6 hardness', 'HRB 75', '5', '5', 'HRB 78', 'Hardness Tester');
+}
+
+function updatePreview() {
+  let total = 0, pass = 0, fail = 0;
+  Array.from(tbody.children).forEach(tr => {
+    total++;
+    const req = parseFloat(tr.children[2].firstElementChild.value);
+    const tolP = parseFloat(tr.children[3].firstElementChild.value);
+    const tolM = parseFloat(tr.children[4].firstElementChild.value);
+    const meas = parseFloat(tr.children[5].firstElementChild.value);
+    const cell = tr.children[7];
+    if (!isNaN(req) && !isNaN(meas)) {
+      const upper = req + (isNaN(tolP) ? 0 : tolP);
+      const lower = req - (isNaN(tolM) ? 0 : tolM);
+      if (meas >= lower && meas <= upper) {
+        cell.innerHTML = '<span class="pass">PASS ✓</span>';
+        pass++;
+      } else {
+        cell.innerHTML = '<span class="fail">FAIL ✗</span>';
+        fail++;
+      }
+    } else {
+      cell.innerHTML = '<span style="color: var(--mute);">—</span>';
+    }
+  });
+
+  document.getElementById('sTotal').textContent = total;
+  document.getElementById('sPass').textContent = pass;
+  document.getElementById('sFail').textContent = fail;
+
+  document.getElementById('pName').textContent = document.getElementById('hName').value || '—';
+  document.getElementById('pPN').textContent = `P/N ${document.getElementById('hPN').value} · Rev ${document.getElementById('hRev').value}`;
+  document.getElementById('pFAI').textContent = document.getElementById('hFAI').value;
+  document.getElementById('pCust').textContent = document.getElementById('hCust').value;
+  document.getElementById('pDwg').textContent = document.getElementById('hDwg').value;
+  document.getElementById('pSup').textContent = document.getElementById('hSup').value;
+}
+
+function exportCSV() {
+  let csv = 'Char #,Characteristic,Requirement,Tol+,Tol-,Measured,Method,Result\n';
+  Array.from(tbody.children).forEach(tr => {
+    const cells = Array.from(tr.children).slice(0, 7).map(td => {
+      const inp = td.firstElementChild;
+      return `"${inp.value || ''}"`;
+    });
+    cells.push(`"${tr.children[7].textContent.trim()}"`);
+    csv += cells.join(',') + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fai-form3-' + (document.getElementById('hPN').value || 'export') + '.csv';
+  a.click();
+}
+
+loadExample();
+</script>
+
+</body>
+</html>

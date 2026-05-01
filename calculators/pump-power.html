@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pump Power Calculator — Hydraulic kW &amp; Motor Sizing | MetricMech</title>
+<meta name="description" content="Free pump power calculator. Compute hydraulic kW, shaft kW, motor size from flow rate and head. NPSH calculation, pump efficiency, water and other fluids." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 20px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 52px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 16px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Pump Power</div>
+  <h1 class="page-title">Pump Power <em>Calculator.</em></h1>
+  <p class="page-lede">Calculate hydraulic kW, required shaft power, and motor size from flow rate and total head. Works for centrifugal, positive displacement, and submersible pumps. Includes service factor and recommended motor rating.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Flow rate (Q)</label>
+        <div class="row">
+          <input type="number" id="flow" value="50" step="1" oninput="calc()">
+          <select id="flowUnit" onchange="calc()">
+            <option value="m3h" selected>m³/hr</option>
+            <option value="lpm">L/min</option>
+            <option value="lps">L/sec</option>
+            <option value="gpm">US GPM</option>
+            <option value="gpmuk">UK GPM</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <label>Total head (H)</label>
+        <div class="row">
+          <input type="number" id="head" value="30" step="1" oninput="calc()">
+          <select id="headUnit" onchange="calc()">
+            <option value="m" selected>metres of liquid</option>
+            <option value="ft">feet of liquid</option>
+            <option value="bar">bar</option>
+            <option value="psi">psi</option>
+            <option value="kgcm2">kg/cm²</option>
+          </select>
+        </div>
+        <div class="hint">Total head = static lift + friction losses + pressure head</div>
+      </div>
+
+      <div class="input-card">
+        <label>Fluid</label>
+        <select id="fluid" onchange="calc()">
+          <option value="1.000" selected>Water (clean, 20°C) — SG 1.00</option>
+          <option value="1.000">Water (chilled, 5°C) — SG 1.000</option>
+          <option value="1.050">Sewage / wastewater — SG 1.05</option>
+          <option value="1.100">Brine 10% NaCl — SG 1.07</option>
+          <option value="1.200">Slurry (light) — SG 1.20</option>
+          <option value="0.870">Diesel / kerosene — SG 0.87</option>
+          <option value="0.745">Petrol / gasoline — SG 0.75</option>
+          <option value="0.910">Engine oil — SG 0.91</option>
+          <option value="1.260">Glycerine — SG 1.26</option>
+          <option value="1.840">Sulphuric acid — SG 1.84</option>
+          <option value="1.420">Nitric acid 65% — SG 1.40</option>
+        </select>
+        <div class="hint">Specific gravity affects shaft power directly</div>
+      </div>
+
+      <div class="input-card">
+        <label>Pump efficiency (η<sub>p</sub>)</label>
+        <input type="number" id="eff_pump" value="70" step="1" min="20" max="90" oninput="calc()">
+        <div class="hint">% — Centrifugal: 60–80, PD: 80–90, submersible: 50–70</div>
+      </div>
+
+      <div class="input-card">
+        <label>Motor efficiency (η<sub>m</sub>)</label>
+        <input type="number" id="eff_motor" value="88" step="1" min="50" max="98" oninput="calc()">
+        <div class="hint">% — IE2 ≈ 85, IE3 ≈ 90, IE4 ≈ 93</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">RECOMMENDED MOTOR</div>
+        <div class="val" id="motor">—</div>
+        <div class="unit">kW (next standard rating)</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Hydraulic power</div><div class="v" id="hyd">—</div></div>
+        <div class="result-card"><div class="l">Shaft power</div><div class="v" id="shaft">—</div></div>
+        <div class="result-card"><div class="l">Electrical input</div><div class="v" id="elec">—</div></div>
+        <div class="result-card"><div class="l">Motor (HP)</div><div class="v" id="motorHP">—</div></div>
+        <div class="result-card"><div class="l">Annual energy (24/7)</div><div class="v" id="energy">—</div></div>
+        <div class="result-card"><div class="l">Annual cost (₹8/kWh)</div><div class="v" id="cost">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          P<sub>hydraulic</sub> (kW) = ρ × g × Q × H / 1000<br>
+          P<sub>shaft</sub> = P<sub>hydraulic</sub> / η<sub>pump</sub><br>
+          P<sub>motor</sub> = P<sub>shaft</sub> / η<sub>motor</sub><br>
+          where ρ = 1000 × SG kg/m³, g = 9.81 m/s², Q in m³/s, H in m
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="default" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// Convert flow to m³/s
+function toM3s(val, unit) {
+  const f = { m3h: 1/3600, lpm: 1/60000, lps: 0.001, gpm: 6.309e-5, gpmuk: 7.577e-5 };
+  return val * f[unit];
+}
+// Convert head to metres of liquid (using SG as reference)
+function toMetres(val, unit, sg) {
+  if (unit === 'm') return val;
+  if (unit === 'ft') return val * 0.3048;
+  if (unit === 'bar') return val * 10.197 / sg;
+  if (unit === 'psi') return val * 0.7031 / sg;
+  if (unit === 'kgcm2') return val * 10 / sg;
+}
+const STD_MOTORS = [0.37, 0.55, 0.75, 1.1, 1.5, 2.2, 3.0, 3.7, 4.0, 5.5, 7.5, 9.3, 11, 15, 18.5, 22, 30, 37, 45, 55, 75, 90, 110, 132, 160, 200, 250, 315, 400];
+function calc() {
+  const flow = +document.getElementById('flow').value;
+  const flowUnit = document.getElementById('flowUnit').value;
+  const head = +document.getElementById('head').value;
+  const headUnit = document.getElementById('headUnit').value;
+  const sg = +document.getElementById('fluid').value;
+  const np = +document.getElementById('eff_pump').value / 100;
+  const nm = +document.getElementById('eff_motor').value / 100;
+  if (!flow || !head || !sg) return;
+  const Q = toM3s(flow, flowUnit); // m³/s
+  const H = toMetres(head, headUnit, sg); // m
+  const rho = 1000 * sg;
+  const g = 9.81;
+  const Phyd = rho * g * Q * H / 1000; // kW
+  const Pshaft = Phyd / np;
+  const Pelec = Pshaft / nm;
+  const stdMotor = STD_MOTORS.find(m => m >= Pshaft * 1.15) || STD_MOTORS[STD_MOTORS.length-1];
+  document.getElementById('hyd').textContent = Phyd.toFixed(2) + ' kW';
+  document.getElementById('shaft').textContent = Pshaft.toFixed(2) + ' kW';
+  document.getElementById('elec').textContent = Pelec.toFixed(2) + ' kW';
+  document.getElementById('motor').textContent = stdMotor;
+  document.getElementById('motorHP').textContent = (stdMotor / 0.7457).toFixed(1) + ' HP';
+  const annualKWh = Pelec * 24 * 365;
+  document.getElementById('energy').textContent = (annualKWh/1000).toFixed(1) + ' MWh';
+  document.getElementById('cost').textContent = '₹' + (annualKWh * 8).toLocaleString('en-IN', {maximumFractionDigits: 0});
+}
+calc();
+</script>
+</body>
+</html>

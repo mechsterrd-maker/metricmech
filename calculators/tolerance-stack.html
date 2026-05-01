@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tolerance Stack-Up Calculator (Worst-Case + RSS) | MetricMech</title>
+<meta name="description" content="Free tolerance stack-up calculator. Worst-case and RSS (Root Sum Square) analysis for assembly stacks. Add up to 20 dimensions with bilateral or unilateral tolerances." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 980px) { .calc-layout { grid-template-columns: 1fr; } }
+.dim-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+.dim-table th { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--rule-strong); font-weight: 600; }
+.dim-table td { padding: 6px; }
+.dim-table input { width: 100%; padding: 8px 10px; font-family: var(--mono); font-size: 13px; border: 1px solid var(--rule); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.dim-table input:focus { border-color: var(--blueprint); }
+.dim-table select { width: 100%; padding: 8px; font-family: var(--mono); font-size: 12px; border: 1px solid var(--rule); background: var(--paper); border-radius: var(--rad); }
+.del-btn { background: var(--paper-2); border: 1px solid var(--rule); color: var(--alert); width: 28px; height: 28px; cursor: pointer; border-radius: var(--rad); font-family: var(--mono); }
+.del-btn:hover { background: var(--alert); color: var(--paper); }
+.action-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.results { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.result-card { padding: 22px; border-radius: var(--rad-lg); background: var(--paper-2); border: 1px solid var(--rule); }
+.result-card.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.result-card.primary .result-label { color: var(--amber); }
+.result-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 6px; }
+.result-value { font-family: var(--display); font-size: 28px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-sub { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-top: 4px; }
+.result-card.primary .result-sub { color: rgba(245,242,236,0.6); }
+.method-box { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; }
+.method-box h3 { font-family: var(--display); font-size: 18px; margin-bottom: 10px; }
+.method-box p { font-size: 13px; color: var(--ink-2); margin-bottom: 10px; line-height: 1.55; }
+.method-box code { font-family: var(--mono); font-size: 12px; background: var(--paper); padding: 2px 6px; border-radius: var(--rad); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Tolerance Stack-Up</div>
+  <h1 class="page-title">Tolerance Stack-Up <em>Calculator.</em></h1>
+  <p class="page-lede">Worst-case and RSS (Root Sum Square) analysis for assembly tolerance stacks. Add up to 20 dimensions with bilateral or unilateral tolerances.</p>
+</div>
+
+<div class="calc-layout">
+  <div>
+    <div class="action-row">
+      <button class="btn btn-sm" onclick="addDim()">+ Add dimension</button>
+      <button class="btn btn-sm btn-ghost" onclick="loadExample()">Load example</button>
+      <button class="btn btn-sm btn-ghost" onclick="clearAll()">Clear all</button>
+    </div>
+
+    <table class="dim-table" id="dimTable">
+      <thead>
+        <tr>
+          <th style="width: 36px;">#</th>
+          <th>Description</th>
+          <th style="width: 100px;">Nominal</th>
+          <th style="width: 90px;">+ Tol</th>
+          <th style="width: 90px;">− Tol</th>
+          <th style="width: 80px;">Direction</th>
+          <th style="width: 36px;"></th>
+        </tr>
+      </thead>
+      <tbody id="dimBody"></tbody>
+    </table>
+
+    <div class="method-box">
+      <h3>How it works</h3>
+      <p><strong>Worst-Case (WC):</strong> Sums all tolerances assuming every dimension is at its limit simultaneously. Most conservative — guarantees fit but may over-tolerance.</p>
+      <p><code>Stack = Σ(nominal × dir),  Tol = Σ|tol|</code></p>
+      <p><strong>RSS (Root Sum Square):</strong> Statistical method assuming dimensions are normally distributed. Smaller stack but accepts low (<0.27%) probability of failure.</p>
+      <p><code>Tol = √(Σ tol²)</code></p>
+    </div>
+  </div>
+
+  <aside>
+    <div class="results">
+      <div class="result-card primary">
+        <div class="result-label">Worst-Case Stack</div>
+        <div class="result-value" id="wcVal">—</div>
+        <div class="result-sub" id="wcRange">—</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">RSS Stack (±3σ)</div>
+        <div class="result-value" id="rssVal" style="color: var(--blueprint);">—</div>
+        <div class="result-sub" id="rssRange">—</div>
+      </div>
+      <div class="result-card" style="grid-column: 1 / -1;">
+        <div class="result-label">Nominal Sum</div>
+        <div class="result-value" id="nomVal">—</div>
+        <div class="result-sub" id="nomNote">Mean assembly dimension</div>
+      </div>
+    </div>
+
+    <div data-mw="cn-sidebar"></div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+
+<div data-mw="cn-inline" data-variant="tolerance" style="max-width: var(--max-w); margin: 40px auto; padding: 0 32px;"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+const tbody = document.getElementById('dimBody');
+let rows = [];
+let nextId = 1;
+
+function addDim(d = '', n = '', p = '', m = '', dir = '+') {
+  const id = nextId++;
+  const tr = document.createElement('tr');
+  tr.dataset.id = id;
+  tr.innerHTML = `
+    <td style="font-family: var(--mono); font-size: 12px; color: var(--mute); text-align: center;">${rows.length + 1}</td>
+    <td><input type="text" placeholder="e.g. Block A" value="${d}" onchange="recalc()"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${n}" onchange="recalc()"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${p}" onchange="recalc()"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${m}" onchange="recalc()"></td>
+    <td><select onchange="recalc()">
+      <option value="+" ${dir==='+'?'selected':''}>+</option>
+      <option value="-" ${dir==='-'?'selected':''}>−</option>
+    </select></td>
+    <td><button class="del-btn" onclick="delDim(${id})">×</button></td>
+  `;
+  tbody.appendChild(tr);
+  rows.push(id);
+  recalc();
+}
+
+function delDim(id) {
+  const tr = tbody.querySelector(`tr[data-id="${id}"]`);
+  if (tr) tr.remove();
+  rows = rows.filter(r => r !== id);
+  // Renumber
+  Array.from(tbody.children).forEach((tr, i) => {
+    tr.children[0].textContent = i + 1;
+  });
+  recalc();
+}
+
+function clearAll() {
+  tbody.innerHTML = '';
+  rows = [];
+  recalc();
+}
+
+function loadExample() {
+  clearAll();
+  addDim('Block A', '25.0', '0.05', '0.05', '+');
+  addDim('Block B', '15.0', '0.03', '0.03', '+');
+  addDim('Block C', '10.0', '0.02', '0.02', '+');
+  addDim('Slot (gap)', '5.0', '0.10', '0.10', '-');
+}
+
+function recalc() {
+  let nomSum = 0, wcTol = 0, rssSq = 0;
+  Array.from(tbody.children).forEach(tr => {
+    const n = parseFloat(tr.children[2].firstElementChild.value) || 0;
+    const p = Math.abs(parseFloat(tr.children[3].firstElementChild.value) || 0);
+    const m = Math.abs(parseFloat(tr.children[4].firstElementChild.value) || 0);
+    const dir = tr.children[5].firstElementChild.value === '+' ? 1 : -1;
+    nomSum += dir * n;
+    const meanTol = (p + m) / 2;
+    wcTol += meanTol;
+    rssSq += meanTol * meanTol;
+  });
+  const rssTol = Math.sqrt(rssSq);
+
+  if (Array.from(tbody.children).length === 0) {
+    document.getElementById('nomVal').textContent = '—';
+    document.getElementById('wcVal').textContent = '—';
+    document.getElementById('wcRange').textContent = '—';
+    document.getElementById('rssVal').textContent = '—';
+    document.getElementById('rssRange').textContent = '—';
+    return;
+  }
+
+  document.getElementById('nomVal').textContent = nomSum.toFixed(3);
+  document.getElementById('wcVal').textContent = '±' + wcTol.toFixed(3);
+  document.getElementById('wcRange').textContent = `${(nomSum - wcTol).toFixed(3)} → ${(nomSum + wcTol).toFixed(3)}`;
+  document.getElementById('rssVal').textContent = '±' + rssTol.toFixed(3);
+  document.getElementById('rssRange').textContent = `${(nomSum - rssTol).toFixed(3)} → ${(nomSum + rssTol).toFixed(3)}`;
+}
+
+// Init with 3 empty rows
+addDim();
+addDim();
+addDim();
+</script>
+
+</body>
+</html>

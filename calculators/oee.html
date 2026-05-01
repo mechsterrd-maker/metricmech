@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OEE Calculator — Overall Equipment Effectiveness for Manufacturing | MetricMech</title>
+<meta name="description" content="Free OEE calculator. Compute Availability, Performance, Quality, and Overall Equipment Effectiveness for any production machine. World-class benchmark comparison included." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus { border-color: var(--blueprint); }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.input-card .field { margin-bottom: 12px; }
+.oee-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 32px; text-align: center; margin-bottom: 16px; }
+.oee-big .lbl { font-family: var(--mono); font-size: 12px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 14px; }
+.oee-big .val { font-family: var(--display); font-size: 88px; font-weight: 600; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.oee-big .pct { font-size: 44px; opacity: 0.7; }
+.oee-big .verdict { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(245,242,236,0.2); }
+.metric-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.metric-card { padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); text-align: center; }
+.metric-card .l { font-family: var(--mono); font-size: 10px; color: var(--blueprint); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; font-weight: 600; }
+.metric-card .v { font-family: var(--display); font-size: 32px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.metric-card .b { font-family: var(--mono); font-size: 9px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; }
+.bench-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.bench-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.bench-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.bench-table tr:nth-child(even) td { background: var(--paper-2); }
+.bench-table .good { color: #2d7a3a; font-weight: 600; }
+.bench-table .ok { color: var(--blueprint); font-weight: 600; }
+.bench-table .bad { color: #c73e3e; font-weight: 600; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } .metric-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>OEE</div>
+  <h1 class="page-title">OEE <em>Calculator.</em></h1>
+  <p class="page-lede">Compute Overall Equipment Effectiveness for any machine or production line. OEE = Availability × Performance × Quality. World-class benchmark is 85%; typical Indian plants run 40–60%.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Availability — Time</h4>
+        <div class="field">
+          <label>Planned production time (min)</label>
+          <input type="number" id="planned" value="480" step="1" oninput="calc()">
+          <div class="hint">Total scheduled time per shift, minus planned breaks</div>
+        </div>
+        <div class="field">
+          <label>Total downtime (min)</label>
+          <input type="number" id="downtime" value="60" step="1" oninput="calc()">
+          <div class="hint">Breakdowns, changeovers, material shortage, waiting</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Performance — Speed</h4>
+        <div class="field">
+          <label>Ideal cycle time (sec/part)</label>
+          <input type="number" id="ideal" value="30" step="0.1" oninput="calc()">
+          <div class="hint">Theoretical fastest cycle time per part</div>
+        </div>
+        <div class="field">
+          <label>Total parts produced</label>
+          <input type="number" id="produced" value="700" step="1" oninput="calc()">
+          <div class="hint">Total units run during operating time (good + reject)</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Quality — Defects</h4>
+        <div class="field">
+          <label>Rejected / reworked parts</label>
+          <input type="number" id="rejects" value="35" step="1" oninput="calc()">
+          <div class="hint">Parts that did not meet quality first time</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="oee-big">
+        <div class="lbl">OVERALL EQUIPMENT EFFECTIVENESS</div>
+        <div class="val"><span id="oee">—</span><span class="pct">%</span></div>
+        <div class="verdict" id="verdict">—</div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-card">
+          <div class="l">Availability</div>
+          <div class="v" id="avail">—</div>
+          <div class="b">Run time / planned time</div>
+        </div>
+        <div class="metric-card">
+          <div class="l">Performance</div>
+          <div class="v" id="perf">—</div>
+          <div class="b">Actual / ideal output</div>
+        </div>
+        <div class="metric-card">
+          <div class="l">Quality</div>
+          <div class="v" id="qual">—</div>
+          <div class="b">Good / total parts</div>
+        </div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <h4 style="color: var(--blueprint); border: 0; padding: 0; margin-bottom: 8px;">Loss summary</h4>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2);">
+          Operating time: <strong id="optime">—</strong> min<br>
+          Run time lost to breakdowns: <strong id="downloss">—</strong> min<br>
+          Speed loss vs ideal: <strong id="speedloss">—</strong> min<br>
+          Defective parts: <strong id="defects">—</strong> units<br>
+          Theoretical max output: <strong id="maxout">—</strong> parts
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">OEE benchmarks</h3>
+  <table class="bench-table">
+    <thead><tr><th>OEE Range</th><th>Class</th><th>Typical Industry</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>85% +</td><td class="good">World-class</td><td>Toyota Production System, top automotive Tier-1s</td><td>Maintain &amp; document best practices</td></tr>
+      <tr><td>70–85%</td><td class="good">Good</td><td>Established Tier-1 / Tier-2 manufacturers</td><td>Targeted Kaizen on top loss</td></tr>
+      <tr><td>60–70%</td><td class="ok">Acceptable</td><td>Most Indian Tier-1 / SME automotive</td><td>SMED, autonomous maintenance</td></tr>
+      <tr><td>40–60%</td><td class="ok">Typical</td><td>Average Indian SME job-shops</td><td>TPM rollout, root-cause for top 3 losses</td></tr>
+      <tr><td>Below 40%</td><td class="bad">Low</td><td>Unmonitored shops, ad-hoc operations</td><td>Start with availability tracking — measure before fixing</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="production" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+function calc() {
+  const planned = +document.getElementById('planned').value;
+  const downtime = +document.getElementById('downtime').value;
+  const ideal = +document.getElementById('ideal').value;
+  const produced = +document.getElementById('produced').value;
+  const rejects = +document.getElementById('rejects').value;
+  if (!planned || !ideal) return;
+  const runTime = Math.max(0, planned - downtime);
+  const availability = runTime / planned;
+  const idealMin = ideal / 60;
+  const performance = (idealMin * produced) / Math.max(runTime, 0.001);
+  const performanceCapped = Math.min(performance, 1);
+  const goodParts = Math.max(0, produced - rejects);
+  const quality = produced > 0 ? goodParts / produced : 0;
+  const oee = availability * performanceCapped * quality;
+  const set = (id, v) => document.getElementById(id).textContent = (v * 100).toFixed(1) + '%';
+  set('avail', availability);
+  set('perf', performanceCapped);
+  set('qual', quality);
+  document.getElementById('oee').textContent = (oee * 100).toFixed(1);
+  let verdict;
+  if (oee >= 0.85) verdict = '★ World-class — top 5% of manufacturers';
+  else if (oee >= 0.70) verdict = 'Good — established manufacturer territory';
+  else if (oee >= 0.60) verdict = 'Acceptable — room for targeted improvement';
+  else if (oee >= 0.40) verdict = 'Typical Indian SME — large kaizen opportunity';
+  else verdict = 'Low — start by accurately measuring downtime';
+  document.getElementById('verdict').textContent = verdict;
+  document.getElementById('optime').textContent = runTime.toFixed(0);
+  document.getElementById('downloss').textContent = downtime.toFixed(0);
+  const maxOut = runTime / idealMin;
+  document.getElementById('maxout').textContent = Math.round(maxOut);
+  document.getElementById('speedloss').textContent = (runTime - produced * idealMin).toFixed(1);
+  document.getElementById('defects').textContent = rejects;
+}
+calc();
+</script>
+</body>
+</html>

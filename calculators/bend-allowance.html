@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sheet Metal Bend Allowance &amp; K-Factor Calculator | MetricMech</title>
+<meta name="description" content="Free bend allowance, bend deduction, and K-factor calculator for sheet metal. Calculate flat blank size for press brake forming. Material presets for steel, aluminium, stainless." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 20px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus, .input-card select:focus { border-color: var(--blueprint); }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 16px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 56px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 16px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.k-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.k-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.k-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.k-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Bend Allowance</div>
+  <h1 class="page-title">Bend Allowance &amp; <em>K-Factor.</em></h1>
+  <p class="page-lede">Calculate flat blank size for sheet metal press brake forming. Bend allowance, bend deduction, K-factor, and outside setback for any angle, thickness, and inside radius.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Material preset</label>
+        <select id="material" onchange="loadPreset()">
+          <option value="custom">Custom (enter K-factor)</option>
+          <option value="ms_soft" selected>Mild steel — soft (CRCA / CR)</option>
+          <option value="ms_med">Mild steel — medium</option>
+          <option value="ms_hard">Mild steel — hard / HR</option>
+          <option value="ss">Stainless steel (304 / 316)</option>
+          <option value="al_soft">Aluminium — soft (5052, 6061-O)</option>
+          <option value="al_hard">Aluminium — hard (6061-T6, 7075)</option>
+          <option value="copper">Copper / brass (annealed)</option>
+        </select>
+        <div class="hint">Auto-loads typical K-factor. Always verify with a test bend.</div>
+      </div>
+
+      <div class="input-card">
+        <label>Material thickness (T)</label>
+        <input type="number" id="thickness" value="2.0" step="0.1" oninput="calc()">
+        <div class="hint">mm</div>
+      </div>
+
+      <div class="input-card">
+        <label>Inside bend radius (R)</label>
+        <input type="number" id="radius" value="2.0" step="0.1" oninput="calc()">
+        <div class="hint">mm — typically equals thickness for most press brakes</div>
+      </div>
+
+      <div class="input-card">
+        <label>Bend angle (α)</label>
+        <input type="number" id="angle" value="90" step="1" oninput="calc()">
+        <div class="hint">degrees — angle of bend (90° = right angle)</div>
+      </div>
+
+      <div class="input-card">
+        <label>K-factor</label>
+        <input type="number" id="kfactor" value="0.42" step="0.01" min="0" max="0.5" oninput="calc()">
+        <div class="hint">0 to 0.5 — neutral axis position. Default 0.42 for mild steel.</div>
+      </div>
+
+      <div class="input-card">
+        <label>Leg A (flange before bend)</label>
+        <input type="number" id="legA" value="50" step="1" oninput="calc()">
+        <div class="hint">mm — outside dimension</div>
+      </div>
+
+      <div class="input-card">
+        <label>Leg B (flange after bend)</label>
+        <input type="number" id="legB" value="30" step="1" oninput="calc()">
+        <div class="hint">mm — outside dimension</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">FLAT BLANK LENGTH</div>
+        <div class="val" id="flat">—</div>
+        <div class="unit">mm — leg A + leg B − bend deduction</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card">
+          <div class="l">Bend Allowance (BA)</div>
+          <div class="v" id="ba">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Bend Deduction (BD)</div>
+          <div class="v" id="bd">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Outside Setback (OSSB)</div>
+          <div class="v" id="ossb">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Neutral axis offset</div>
+          <div class="v" id="naoff">—</div>
+        </div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas used</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          BA = (π/180) × α × (R + K·T)<br>
+          OSSB = tan(α/2) × (R + T)<br>
+          BD = 2·OSSB − BA<br>
+          Flat = A + B − BD
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Typical K-factor reference</h3>
+  <table class="k-table">
+    <thead><tr><th>Material</th><th>Soft (R&lt;T)</th><th>Medium (R≈T)</th><th>Hard (R&gt;2T)</th></tr></thead>
+    <tbody>
+      <tr><td>Mild steel — CRCA</td><td>0.33</td><td>0.42</td><td>0.50</td></tr>
+      <tr><td>Mild steel — HR</td><td>0.38</td><td>0.45</td><td>0.50</td></tr>
+      <tr><td>Stainless steel 304/316</td><td>0.40</td><td>0.45</td><td>0.50</td></tr>
+      <tr><td>Aluminium — soft (5052, 6061-O)</td><td>0.33</td><td>0.40</td><td>0.45</td></tr>
+      <tr><td>Aluminium — hard (6061-T6)</td><td>0.38</td><td>0.42</td><td>0.50</td></tr>
+      <tr><td>Copper / brass — annealed</td><td>0.35</td><td>0.40</td><td>0.45</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="sheet" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+const PRESETS = {
+  ms_soft: 0.33, ms_med: 0.42, ms_hard: 0.50,
+  ss: 0.45, al_soft: 0.40, al_hard: 0.42, copper: 0.40
+};
+function loadPreset() {
+  const m = document.getElementById('material').value;
+  if (PRESETS[m] !== undefined) { document.getElementById('kfactor').value = PRESETS[m]; }
+  calc();
+}
+function calc() {
+  const T = +document.getElementById('thickness').value;
+  const R = +document.getElementById('radius').value;
+  const a = +document.getElementById('angle').value;
+  const K = +document.getElementById('kfactor').value;
+  const A = +document.getElementById('legA').value;
+  const B = +document.getElementById('legB').value;
+  if (!T || !R || !a) return;
+  const rad = a * Math.PI / 180;
+  const BA = rad * (R + K * T);
+  const OSSB = Math.tan(rad/2) * (R + T);
+  const BD = 2 * OSSB - BA;
+  const flat = A + B - BD;
+  const naOff = K * T;
+  document.getElementById('ba').textContent = BA.toFixed(3) + ' mm';
+  document.getElementById('bd').textContent = BD.toFixed(3) + ' mm';
+  document.getElementById('ossb').textContent = OSSB.toFixed(3) + ' mm';
+  document.getElementById('naoff').textContent = naOff.toFixed(3) + ' mm';
+  document.getElementById('flat').textContent = flat.toFixed(2);
+}
+calc();
+</script>
+</body>
+</html>

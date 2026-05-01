@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Unit Converter — Length, Force, Pressure, Torque | MetricMech</title>
+<meta name="description" content="Free engineering unit converter. Convert length, area, volume, mass, force, pressure, torque, power, and temperature units used in manufacturing engineering." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+.cat-tabs button { font-family: var(--mono); font-size: 11px; padding: 8px 16px; background: var(--paper-2); color: var(--ink); border: 1px solid var(--rule); text-transform: uppercase; letter-spacing: 0.1em; border-radius: var(--rad); cursor: pointer; transition: all 0.15s; }
+.cat-tabs button:hover { border-color: var(--blueprint); }
+.cat-tabs button.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.conv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.conv-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; }
+.conv-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.conv-card input { width: 100%; padding: 14px 16px; font-family: var(--display); font-size: 32px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; margin-bottom: 12px; }
+.conv-card input:focus { border-color: var(--blueprint); }
+.conv-card select { width: 100%; padding: 10px 12px; font-family: var(--mono); font-size: 14px; font-weight: 500; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; text-transform: uppercase; letter-spacing: 0.05em; }
+.swap-btn { display: block; margin: 12px auto; background: var(--ink); color: var(--paper); border: none; padding: 10px 24px; border-radius: var(--rad); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; cursor: pointer; }
+.full-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14px; }
+.full-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 12px 16px; text-align: left; }
+.full-table td { padding: 10px 16px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.full-table tr:nth-child(even) td { background: var(--paper-2); }
+.full-table .u { font-family: var(--mono); font-size: 11px; color: var(--blueprint); text-transform: uppercase; letter-spacing: 0.08em; }
+@media (max-width: 900px) { .conv-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Unit Converter</div>
+  <h1 class="page-title">Engineering <em>Unit Converter.</em></h1>
+  <p class="page-lede">Convert between every unit you'll encounter on a manufacturing drawing — length, area, volume, mass, force, pressure, torque, power, and temperature. Live two-way conversion with a full reference table.</p>
+</div>
+
+<div class="calc-layout">
+
+  <div class="cat-tabs" id="tabs"></div>
+
+  <div class="conv-grid">
+    <div class="conv-card">
+      <label>From</label>
+      <input type="number" id="fromVal" value="1" oninput="convert()">
+      <select id="fromUnit" onchange="convert()"></select>
+    </div>
+    <div class="conv-card">
+      <label>To</label>
+      <input type="number" id="toVal" oninput="convertReverse()">
+      <select id="toUnit" onchange="convert()"></select>
+    </div>
+  </div>
+
+  <button class="swap-btn" onclick="swap()">⇄ Swap</button>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Full reference for <span id="catName">length</span></h3>
+  <table class="full-table">
+    <thead><tr><th>From → To</th><th>Conversion</th></tr></thead>
+    <tbody id="refTable"></tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="default" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// Each unit defined in terms of base SI unit
+const CATEGORIES = {
+  length: {
+    name: 'Length',
+    units: {
+      'm': { label: 'metres (m)', factor: 1 },
+      'mm': { label: 'millimetres (mm)', factor: 0.001 },
+      'cm': { label: 'centimetres (cm)', factor: 0.01 },
+      'km': { label: 'kilometres (km)', factor: 1000 },
+      'in': { label: 'inches (in)', factor: 0.0254 },
+      'ft': { label: 'feet (ft)', factor: 0.3048 },
+      'yd': { label: 'yards (yd)', factor: 0.9144 },
+      'mil': { label: 'thou / mil (0.001 in)', factor: 0.0000254 },
+      'um': { label: 'microns (µm)', factor: 0.000001 }
+    }
+  },
+  area: {
+    name: 'Area',
+    units: {
+      'm2': { label: 'square metres (m²)', factor: 1 },
+      'mm2': { label: 'square mm (mm²)', factor: 0.000001 },
+      'cm2': { label: 'square cm (cm²)', factor: 0.0001 },
+      'in2': { label: 'square inches (in²)', factor: 0.00064516 },
+      'ft2': { label: 'square feet (ft²)', factor: 0.092903 }
+    }
+  },
+  volume: {
+    name: 'Volume',
+    units: {
+      'm3': { label: 'cubic metres (m³)', factor: 1 },
+      'cm3': { label: 'cubic cm (cm³ / mL)', factor: 0.000001 },
+      'L': { label: 'litres (L)', factor: 0.001 },
+      'in3': { label: 'cubic inches (in³)', factor: 0.0000163871 },
+      'ft3': { label: 'cubic feet (ft³)', factor: 0.0283168 },
+      'gal_us': { label: 'US gallons', factor: 0.00378541 },
+      'gal_uk': { label: 'UK gallons', factor: 0.00454609 }
+    }
+  },
+  mass: {
+    name: 'Mass',
+    units: {
+      'kg': { label: 'kilograms (kg)', factor: 1 },
+      'g': { label: 'grams (g)', factor: 0.001 },
+      't': { label: 'tonnes (t)', factor: 1000 },
+      'lb': { label: 'pounds (lb)', factor: 0.453592 },
+      'oz': { label: 'ounces (oz)', factor: 0.0283495 },
+      'ton_us': { label: 'short tons (US)', factor: 907.185 },
+      'ton_uk': { label: 'long tons (UK)', factor: 1016.05 }
+    }
+  },
+  force: {
+    name: 'Force',
+    units: {
+      'N': { label: 'newtons (N)', factor: 1 },
+      'kN': { label: 'kilonewtons (kN)', factor: 1000 },
+      'kgf': { label: 'kilogram-force (kgf)', factor: 9.80665 },
+      'lbf': { label: 'pound-force (lbf)', factor: 4.44822 },
+      'tonf': { label: 'ton-force (metric)', factor: 9806.65 },
+      'dyne': { label: 'dynes', factor: 0.00001 }
+    }
+  },
+  pressure: {
+    name: 'Pressure / Stress',
+    units: {
+      'Pa': { label: 'pascals (Pa)', factor: 1 },
+      'kPa': { label: 'kilopascals (kPa)', factor: 1000 },
+      'MPa': { label: 'megapascals (MPa = N/mm²)', factor: 1000000 },
+      'GPa': { label: 'gigapascals (GPa)', factor: 1e9 },
+      'bar': { label: 'bar', factor: 100000 },
+      'psi': { label: 'pounds/sq.in (psi)', factor: 6894.76 },
+      'ksi': { label: 'kips/sq.in (ksi)', factor: 6894760 },
+      'atm': { label: 'atmospheres', factor: 101325 },
+      'kgcm2': { label: 'kg/cm²', factor: 98066.5 }
+    }
+  },
+  torque: {
+    name: 'Torque',
+    units: {
+      'Nm': { label: 'newton-metres (N·m)', factor: 1 },
+      'Ncm': { label: 'newton-cm (N·cm)', factor: 0.01 },
+      'kgfm': { label: 'kilogram-force-metres (kgf·m)', factor: 9.80665 },
+      'lbft': { label: 'pound-feet (lb·ft)', factor: 1.35582 },
+      'lbin': { label: 'pound-inches (lb·in)', factor: 0.112985 },
+      'ozin': { label: 'ounce-inches (oz·in)', factor: 0.00706155 }
+    }
+  },
+  power: {
+    name: 'Power',
+    units: {
+      'W': { label: 'watts (W)', factor: 1 },
+      'kW': { label: 'kilowatts (kW)', factor: 1000 },
+      'hp_mech': { label: 'mechanical HP', factor: 745.7 },
+      'hp_metric': { label: 'metric HP (PS)', factor: 735.499 },
+      'btu_h': { label: 'BTU/hour', factor: 0.293071 },
+      'ftlb_s': { label: 'foot-pounds/second', factor: 1.35582 }
+    }
+  },
+  temperature: {
+    name: 'Temperature',
+    special: true,
+    units: {
+      'C': { label: '°C (Celsius)' },
+      'F': { label: '°F (Fahrenheit)' },
+      'K': { label: 'K (Kelvin)' },
+      'R': { label: '°R (Rankine)' }
+    }
+  }
+};
+let currentCat = 'length';
+
+function buildTabs() {
+  const t = document.getElementById('tabs');
+  t.innerHTML = '';
+  Object.keys(CATEGORIES).forEach(k => {
+    const b = document.createElement('button');
+    b.textContent = CATEGORIES[k].name;
+    if (k === currentCat) b.className = 'active';
+    b.onclick = () => { currentCat = k; buildTabs(); buildSelects(); convert(); buildRefTable(); };
+    t.appendChild(b);
+  });
+}
+function buildSelects() {
+  const cat = CATEGORIES[currentCat];
+  const from = document.getElementById('fromUnit');
+  const to = document.getElementById('toUnit');
+  from.innerHTML = ''; to.innerHTML = '';
+  Object.keys(cat.units).forEach(u => {
+    const o1 = document.createElement('option'); o1.value = u; o1.textContent = cat.units[u].label; from.appendChild(o1);
+    const o2 = document.createElement('option'); o2.value = u; o2.textContent = cat.units[u].label; to.appendChild(o2);
+  });
+  const keys = Object.keys(cat.units);
+  from.value = keys[0];
+  to.value = keys[1] || keys[0];
+  document.getElementById('catName').textContent = cat.name.toLowerCase();
+}
+function tempConvert(val, from, to) {
+  // To Celsius
+  let c;
+  if (from === 'C') c = val;
+  else if (from === 'F') c = (val - 32) * 5/9;
+  else if (from === 'K') c = val - 273.15;
+  else if (from === 'R') c = (val - 491.67) * 5/9;
+  // From Celsius
+  if (to === 'C') return c;
+  if (to === 'F') return c * 9/5 + 32;
+  if (to === 'K') return c + 273.15;
+  if (to === 'R') return (c + 273.15) * 9/5;
+}
+function convert() {
+  const cat = CATEGORIES[currentCat];
+  const v = +document.getElementById('fromVal').value;
+  const f = document.getElementById('fromUnit').value;
+  const t = document.getElementById('toUnit').value;
+  let result;
+  if (cat.special) {
+    result = tempConvert(v, f, t);
+  } else {
+    result = v * cat.units[f].factor / cat.units[t].factor;
+  }
+  document.getElementById('toVal').value = formatNum(result);
+}
+function convertReverse() {
+  const cat = CATEGORIES[currentCat];
+  const v = +document.getElementById('toVal').value;
+  const f = document.getElementById('toUnit').value;
+  const t = document.getElementById('fromUnit').value;
+  let result;
+  if (cat.special) {
+    result = tempConvert(v, f, t);
+  } else {
+    result = v * cat.units[f].factor / cat.units[t].factor;
+  }
+  document.getElementById('fromVal').value = formatNum(result);
+}
+function formatNum(x) {
+  if (Math.abs(x) >= 1e6 || (Math.abs(x) < 0.001 && x !== 0)) return x.toExponential(4);
+  return parseFloat(x.toPrecision(8)).toString();
+}
+function swap() {
+  const fu = document.getElementById('fromUnit').value;
+  const tu = document.getElementById('toUnit').value;
+  const fv = document.getElementById('fromVal').value;
+  const tv = document.getElementById('toVal').value;
+  document.getElementById('fromUnit').value = tu;
+  document.getElementById('toUnit').value = fu;
+  document.getElementById('fromVal').value = tv;
+  convert();
+}
+function buildRefTable() {
+  const cat = CATEGORIES[currentCat];
+  const t = document.getElementById('refTable');
+  t.innerHTML = '';
+  const keys = Object.keys(cat.units);
+  if (cat.special) {
+    const examples = [['0 °C', '32 °F  /  273.15 K'], ['100 °C', '212 °F  /  373.15 K'], ['25 °C', '77 °F'], ['-40 °C', '-40 °F'], ['200 °C', '392 °F'], ['1000 °C', '1832 °F']];
+    examples.forEach(([a,b]) => { t.innerHTML += `<tr><td class="u">${a}</td><td>${b}</td></tr>`; });
+    return;
+  }
+  // First unit as base reference
+  const base = keys[0];
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i] === base) continue;
+    const factor = cat.units[keys[i]].factor / cat.units[base].factor;
+    t.innerHTML += `<tr><td class="u">1 ${base} = ${formatNum(1/factor)} ${keys[i]}</td><td>1 ${keys[i]} = ${formatNum(factor)} ${base}</td></tr>`;
+  }
+}
+buildTabs(); buildSelects(); convert(); buildRefTable();
+</script>
+</body>
+</html>

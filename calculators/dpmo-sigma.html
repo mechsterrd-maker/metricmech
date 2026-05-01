@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DPMO &amp; Sigma Level Calculator — Six Sigma Quality | MetricMech</title>
+<meta name="description" content="Free Six Sigma calculator. Convert between DPMO (defects per million opportunities), yield, sigma level, and Cpk. Process capability benchmark for any quality system." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 22px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 22px 18px; background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); text-align: center; }
+.result-card .l { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+.result-card .v { font-family: var(--display); font-size: 38px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-card .b { font-family: var(--mono); font-size: 10px; color: rgba(245,242,236,0.5); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.bench-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.bench-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.bench-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.bench-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } .result-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>DPMO / Sigma</div>
+  <h1 class="page-title">DPMO &amp; Sigma <em>Level.</em></h1>
+  <p class="page-lede">Convert between DPMO (defects per million opportunities), yield percentage, and process sigma level. Six Sigma benchmark calculator with the standard 1.5σ shift convention.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Number of units inspected</label>
+        <input type="number" id="units" value="10000" step="1" oninput="calc()">
+      </div>
+
+      <div class="input-card">
+        <label>Defect opportunities per unit</label>
+        <input type="number" id="opps" value="5" step="1" oninput="calc()">
+        <div class="hint">Number of inspection points / characteristics per unit</div>
+      </div>
+
+      <div class="input-card">
+        <label>Total defects observed</label>
+        <input type="number" id="defects" value="120" step="1" oninput="calc()">
+        <div class="hint">Defects across all units inspected</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-row">
+        <div class="result-card">
+          <div class="l">DPMO</div>
+          <div class="v" id="dpmo">—</div>
+          <div class="b">Defects per Million Opportunities</div>
+        </div>
+        <div class="result-card" style="background: var(--blueprint);">
+          <div class="l" style="color: var(--amber);">SIGMA LEVEL</div>
+          <div class="v" id="sigma">—</div>
+          <div class="b">With 1.5σ shift</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Yield (RTY)</div>
+          <div class="v" id="yield">—</div>
+          <div class="b">Process yield %</div>
+        </div>
+        <div class="result-card">
+          <div class="l">DPU</div>
+          <div class="v" id="dpu">—</div>
+          <div class="b">Defects per unit</div>
+        </div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Verdict</label>
+        <div id="verdict" style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-top: 6px;">—</div>
+        <div id="action" style="font-size: 13px; color: var(--ink-2); margin-top: 6px;">—</div>
+      </div>
+
+      <div class="input-card" style="margin-top: 12px; border-left: 3px solid var(--blueprint);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          DPMO = (Defects / (Units × Opps)) × 1,000,000<br>
+          Yield = (1 − Defects/(Units×Opps)) × 100%<br>
+          σ = NORMSINV(1 − DPMO/1,000,000) + 1.5
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Sigma level reference (with 1.5σ shift)</h3>
+  <table class="bench-table">
+    <thead><tr><th>Sigma Level</th><th>DPMO</th><th>Yield</th><th>Cpk</th><th>Quality classification</th></tr></thead>
+    <tbody>
+      <tr><td>6σ</td><td>3.4</td><td>99.99966%</td><td>2.0</td><td><strong style="color: #2d7a3a;">World class</strong> — aerospace, medical implants</td></tr>
+      <tr><td>5σ</td><td>233</td><td>99.977%</td><td>1.67</td><td><strong style="color: #2d7a3a;">Excellent</strong> — top automotive, surgical devices</td></tr>
+      <tr><td>4σ</td><td>6,210</td><td>99.38%</td><td>1.33</td><td><strong style="color: var(--blueprint);">Good</strong> — typical IATF 16949 supplier</td></tr>
+      <tr><td>3.5σ</td><td>22,750</td><td>97.7%</td><td>1.17</td><td><strong style="color: var(--blueprint);">Acceptable</strong></td></tr>
+      <tr><td>3σ</td><td>66,810</td><td>93.32%</td><td>1.0</td><td><strong style="color: #c87b1a;">Industry average</strong> — most Indian SMEs</td></tr>
+      <tr><td>2.5σ</td><td>158,655</td><td>84.13%</td><td>0.83</td><td>Below average</td></tr>
+      <tr><td>2σ</td><td>308,538</td><td>69.15%</td><td>0.67</td><td><strong style="color: #c73e3e;">Poor</strong> — cannot meet customer expectations</td></tr>
+      <tr><td>1σ</td><td>691,462</td><td>30.85%</td><td>0.33</td><td><strong style="color: #c73e3e;">Critical</strong> — process not in control</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// Inverse normal CDF (Beasley-Springer/Moro algorithm)
+function normsInv(p) {
+  if (p <= 0 || p >= 1) return p <= 0 ? -Infinity : Infinity;
+  const a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+  const b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+  const c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+  const d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+  const pl = 0.02425, ph = 1 - pl;
+  let q, r;
+  if (p < pl) { q = Math.sqrt(-2 * Math.log(p)); return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1); }
+  if (p <= ph) { q = p - 0.5; r = q*q; return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q / (((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1); }
+  q = Math.sqrt(-2 * Math.log(1-p));
+  return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5]) / ((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+}
+function calc() {
+  const units = +document.getElementById('units').value;
+  const opps = +document.getElementById('opps').value;
+  const defects = +document.getElementById('defects').value;
+  if (!units || !opps || defects < 0) return;
+  const totalOpps = units * opps;
+  const dpu = defects / units;
+  const defectRate = defects / totalOpps;
+  const dpmo = defectRate * 1e6;
+  const yieldPct = (1 - defectRate) * 100;
+  let sigma = 0;
+  if (defectRate > 0 && defectRate < 1) sigma = normsInv(1 - defectRate) + 1.5;
+  else if (defectRate === 0) sigma = 6;
+  const set = (id, v) => document.getElementById(id).textContent = v;
+  set('dpmo', Math.round(dpmo).toLocaleString());
+  set('sigma', sigma.toFixed(2) + 'σ');
+  set('yield', yieldPct.toFixed(3) + '%');
+  set('dpu', dpu.toFixed(4));
+  let v, a;
+  if (sigma >= 6) { v = '★ World-class'; a = 'Aerospace / medical-grade quality. Maintain.'; }
+  else if (sigma >= 5) { v = '✓ Excellent'; a = 'Top automotive Tier-1 territory. Document best practices.'; }
+  else if (sigma >= 4) { v = 'Good'; a = 'IATF 16949 typical performance. Targeted Kaizen on top loss.'; }
+  else if (sigma >= 3) { v = 'Industry average'; a = 'Below world-class — clear improvement opportunity.'; }
+  else if (sigma >= 2) { v = '⚠ Below average'; a = 'Process not capable. Run RCA on top defect mode.'; }
+  else { v = '✗ Critical'; a = 'Stop and rebuild — process not in control.'; }
+  document.getElementById('verdict').textContent = v;
+  document.getElementById('action').textContent = a;
+}
+calc();
+</script>
+</body>
+</html>

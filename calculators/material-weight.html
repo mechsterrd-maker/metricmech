@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Material Weight Calculator — Steel, Aluminium, Brass, SS Plate &amp; Bar | MetricMech</title>
+<meta name="description" content="Free material weight calculator for plates, bars, pipes, and shapes. 60+ alloys with Indian density values. Steel, stainless, aluminium, brass, copper, titanium." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.shape-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.shape-tabs button { font-family: var(--mono); font-size: 11px; padding: 10px 18px; background: var(--paper-2); color: var(--ink); border: 1px solid var(--rule); text-transform: uppercase; letter-spacing: 0.1em; border-radius: var(--rad); cursor: pointer; }
+.shape-tabs button.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 20px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.input-card .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 32px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 64px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 16px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.d-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.d-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.d-table td { padding: 8px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.d-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Material Weight</div>
+  <h1 class="page-title">Material Weight <em>Calculator.</em></h1>
+  <p class="page-lede">Calculate weight of plates, bars, pipes, tubes, and structural shapes. 60+ materials including Indian standards (IS 2062, EN, SS 304/316/410, Al 6061/7075, brass, copper, titanium).</p>
+</div>
+
+<div class="calc-layout">
+
+  <div class="shape-tabs" id="tabs">
+    <button class="active" data-shape="plate" onclick="setShape('plate')">Plate / Sheet</button>
+    <button data-shape="round" onclick="setShape('round')">Round Bar</button>
+    <button data-shape="square" onclick="setShape('square')">Square Bar</button>
+    <button data-shape="hex" onclick="setShape('hex')">Hex Bar</button>
+    <button data-shape="pipe" onclick="setShape('pipe')">Pipe / Tube</button>
+    <button data-shape="angle" onclick="setShape('angle')">Angle</button>
+    <button data-shape="ring" onclick="setShape('ring')">Ring / Disc</button>
+  </div>
+
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Material</label>
+        <select id="mat" onchange="calc()">
+          <optgroup label="Carbon &amp; Alloy Steel"></optgroup>
+          <option value="7.85">Mild Steel — IS 2062 / EN8 / 1018 (7.85)</option>
+          <option value="7.85">Carbon Steel — EN24 / 4140 (7.85)</option>
+          <option value="7.85">Spring Steel — EN47 / 65Si7 (7.85)</option>
+          <option value="7.85">Tool Steel — D2 / D3 / OHNS (7.70)</option>
+          <option value="7.85">HSS — M2 / M42 (8.10)</option>
+          <optgroup label="Stainless Steel"></optgroup>
+          <option value="8.00">SS 304 / 304L (8.00)</option>
+          <option value="8.00">SS 316 / 316L (8.00)</option>
+          <option value="7.75">SS 410 / 420 (7.75)</option>
+          <option value="7.70">SS 430 (7.70)</option>
+          <option value="7.78">Duplex 2205 (7.78)</option>
+          <optgroup label="Aluminium"></optgroup>
+          <option value="2.70" selected>Aluminium 6061 (2.70)</option>
+          <option value="2.81">Aluminium 7075 (2.81)</option>
+          <option value="2.68">Aluminium 5052 (2.68)</option>
+          <option value="2.71">Aluminium 2024 (2.78)</option>
+          <option value="2.70">Aluminium 6082 (2.70)</option>
+          <optgroup label="Copper &amp; Brass"></optgroup>
+          <option value="8.96">Copper — pure (8.96)</option>
+          <option value="8.50">Brass — IS 319 / C26000 (8.50)</option>
+          <option value="8.80">Bronze — phosphor (8.80)</option>
+          <option value="8.94">Beryllium Copper (8.36)</option>
+          <optgroup label="Other"></optgroup>
+          <option value="4.51">Titanium Grade 2 (4.51)</option>
+          <option value="4.43">Titanium Ti-6Al-4V (4.43)</option>
+          <option value="8.91">Nickel — Inconel 625 (8.44)</option>
+          <option value="7.20">Cast Iron — gray (7.20)</option>
+          <option value="7.30">Ductile Iron (7.30)</option>
+          <option value="11.34">Lead (11.34)</option>
+          <option value="7.13">Zinc (7.13)</option>
+        </select>
+        <div class="hint">Indian + international density values (g/cm³)</div>
+      </div>
+
+      <div id="dimensions"></div>
+
+      <div class="input-card">
+        <label>Quantity</label>
+        <input type="number" id="qty" value="1" step="1" min="1" oninput="calc()">
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">TOTAL WEIGHT</div>
+        <div class="val" id="weight">—</div>
+        <div class="unit">kg</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Per piece</div><div class="v" id="perPiece">—</div></div>
+        <div class="result-card"><div class="l">In pounds</div><div class="v" id="lbs">—</div></div>
+        <div class="result-card"><div class="l">In tonnes</div><div class="v" id="tonnes">—</div></div>
+        <div class="result-card"><div class="l">Volume</div><div class="v" id="volume">—</div></div>
+        <div class="result-card"><div class="l">Density</div><div class="v" id="density">—</div></div>
+        <div class="result-card"><div class="l">Surface area</div><div class="v" id="surface">—</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Material density quick reference</h3>
+  <table class="d-table">
+    <thead><tr><th>Material</th><th>Density (g/cm³)</th><th>Density (kg/m³)</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Mild Steel (IS 2062, EN8, 1018)</td><td>7.85</td><td>7,850</td><td>Most common structural steel</td></tr>
+      <tr><td>Stainless 304 / 316</td><td>8.00</td><td>8,000</td><td>Austenitic — non-magnetic</td></tr>
+      <tr><td>Stainless 410 / 420</td><td>7.75</td><td>7,750</td><td>Martensitic — magnetic, hardenable</td></tr>
+      <tr><td>Cast Iron (gray)</td><td>7.20</td><td>7,200</td><td>Lower than steel due to graphite</td></tr>
+      <tr><td>Aluminium 6061</td><td>2.70</td><td>2,700</td><td>1/3 weight of steel</td></tr>
+      <tr><td>Aluminium 7075</td><td>2.81</td><td>2,810</td><td>Highest strength aluminium</td></tr>
+      <tr><td>Brass (IS 319)</td><td>8.50</td><td>8,500</td><td>Cu-Zn alloy</td></tr>
+      <tr><td>Copper</td><td>8.96</td><td>8,960</td><td>Pure</td></tr>
+      <tr><td>Titanium Grade 2</td><td>4.51</td><td>4,510</td><td>56% of steel weight, equal strength</td></tr>
+      <tr><td>Inconel 625</td><td>8.44</td><td>8,440</td><td>Nickel super-alloy</td></tr>
+      <tr><td>Lead</td><td>11.34</td><td>11,340</td><td>Heaviest common engineering metal</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="material" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+let currentShape = 'plate';
+const FIELDS = {
+  plate: [
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' },
+    { id: 'W', label: 'Width', val: 500, unit: 'mm' },
+    { id: 'T', label: 'Thickness', val: 6, unit: 'mm' }
+  ],
+  round: [
+    { id: 'D', label: 'Diameter', val: 50, unit: 'mm' },
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' }
+  ],
+  square: [
+    { id: 'A', label: 'Side', val: 50, unit: 'mm' },
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' }
+  ],
+  hex: [
+    { id: 'AF', label: 'Across flats', val: 50, unit: 'mm' },
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' }
+  ],
+  pipe: [
+    { id: 'OD', label: 'Outside diameter', val: 50, unit: 'mm' },
+    { id: 'WT', label: 'Wall thickness', val: 4, unit: 'mm' },
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' }
+  ],
+  angle: [
+    { id: 'A', label: 'Leg A', val: 50, unit: 'mm' },
+    { id: 'B', label: 'Leg B', val: 50, unit: 'mm' },
+    { id: 'T', label: 'Thickness', val: 5, unit: 'mm' },
+    { id: 'L', label: 'Length', val: 1000, unit: 'mm' }
+  ],
+  ring: [
+    { id: 'OD', label: 'Outside diameter', val: 100, unit: 'mm' },
+    { id: 'ID', label: 'Inside diameter', val: 50, unit: 'mm' },
+    { id: 'T', label: 'Thickness', val: 10, unit: 'mm' }
+  ]
+};
+function setShape(s) {
+  currentShape = s;
+  document.querySelectorAll('.shape-tabs button').forEach(b => b.classList.toggle('active', b.dataset.shape === s));
+  buildFields();
+  calc();
+}
+function buildFields() {
+  const c = document.getElementById('dimensions');
+  c.innerHTML = '';
+  const f = FIELDS[currentShape];
+  const card = document.createElement('div');
+  card.className = 'input-card';
+  card.innerHTML = '<label>Dimensions</label>';
+  const grid = document.createElement('div');
+  grid.className = f.length === 2 ? 'row2' : 'row';
+  grid.style.cssText = f.length > 3 ? 'display:grid;grid-template-columns:1fr 1fr;gap:10px;' : '';
+  f.forEach(field => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">${field.label} (${field.unit})</div><input type="number" id="${field.id}" value="${field.val}" step="any" oninput="calc()">`;
+    grid.appendChild(div);
+  });
+  card.appendChild(grid);
+  c.appendChild(card);
+}
+function getVal(id) { return +document.getElementById(id).value; }
+function calc() {
+  const rho = +document.getElementById('mat').value; // g/cm³
+  const qty = +document.getElementById('qty').value || 1;
+  let volMm3 = 0, surface = 0;
+  if (currentShape === 'plate') {
+    const L = getVal('L'), W = getVal('W'), T = getVal('T');
+    volMm3 = L * W * T;
+    surface = 2 * (L*W + L*T + W*T);
+  } else if (currentShape === 'round') {
+    const D = getVal('D'), L = getVal('L');
+    volMm3 = Math.PI * D*D/4 * L;
+    surface = Math.PI * D * L + 2 * Math.PI * D*D/4;
+  } else if (currentShape === 'square') {
+    const A = getVal('A'), L = getVal('L');
+    volMm3 = A*A * L;
+    surface = 4*A*L + 2*A*A;
+  } else if (currentShape === 'hex') {
+    const AF = getVal('AF'), L = getVal('L');
+    const area = (3 * Math.sqrt(3) / 2) * Math.pow(AF/Math.sqrt(3), 2);
+    volMm3 = area * L;
+    surface = 6 * (AF/Math.sqrt(3)) * L + 2 * area;
+  } else if (currentShape === 'pipe') {
+    const OD = getVal('OD'), WT = getVal('WT'), L = getVal('L');
+    const ID = OD - 2*WT;
+    if (ID < 0) return;
+    volMm3 = Math.PI * (OD*OD - ID*ID)/4 * L;
+    surface = Math.PI * (OD + ID) * L + 2 * Math.PI * (OD*OD - ID*ID)/4;
+  } else if (currentShape === 'angle') {
+    const A = getVal('A'), B = getVal('B'), T = getVal('T'), L = getVal('L');
+    const area = A*T + (B-T)*T;
+    volMm3 = area * L;
+    surface = 2*area + 2*L*(A+B);
+  } else if (currentShape === 'ring') {
+    const OD = getVal('OD'), ID = getVal('ID'), T = getVal('T');
+    if (ID >= OD) return;
+    volMm3 = Math.PI * (OD*OD - ID*ID)/4 * T;
+    surface = Math.PI * (OD + ID) * T + 2 * Math.PI * (OD*OD - ID*ID)/4;
+  }
+  const volCm3 = volMm3 / 1000;
+  const massPerPc = volCm3 * rho / 1000; // kg
+  const total = massPerPc * qty;
+  document.getElementById('weight').textContent = total.toFixed(3);
+  document.getElementById('perPiece').textContent = massPerPc.toFixed(3) + ' kg';
+  document.getElementById('lbs').textContent = (total * 2.2046).toFixed(2) + ' lb';
+  document.getElementById('tonnes').textContent = (total / 1000).toFixed(4) + ' t';
+  document.getElementById('volume').textContent = volCm3.toFixed(2) + ' cm³';
+  document.getElementById('density').textContent = rho.toFixed(2) + ' g/cm³';
+  document.getElementById('surface').textContent = (surface / 100).toFixed(1) + ' cm²';
+}
+buildFields();
+calc();
+</script>
+</body>
+</html>

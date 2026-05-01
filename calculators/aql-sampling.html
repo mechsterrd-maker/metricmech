@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AQL Sampling Plan Calculator — ANSI Z1.4 / ISO 2859 | MetricMech</title>
+<meta name="description" content="Free AQL sampling plan calculator. ANSI/ASQ Z1.4 and ISO 2859 single sampling plans. Get sample size, accept and reject numbers from lot size and AQL level." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.result-card { padding: 22px 18px; background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); text-align: center; }
+.result-card .l { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; }
+.result-card .v { font-family: var(--display); font-size: 44px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-card .b { font-family: var(--mono); font-size: 10px; color: rgba(245,242,236,0.5); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.aql-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 12px; }
+.aql-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 8px 10px; text-align: left; }
+.aql-table td { padding: 6px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.aql-table tr:nth-child(even) td { background: var(--paper-2); }
+.aql-table .hl { background: var(--amber) !important; color: var(--ink); font-weight: 700; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } .result-row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>AQL Sampling</div>
+  <h1 class="page-title">AQL Sampling <em>Plan.</em></h1>
+  <p class="page-lede">ANSI/ASQ Z1.4 and ISO 2859-1 single sampling plan. Enter your lot size and Acceptable Quality Level — get sample size, acceptance number, and rejection number for incoming or outgoing inspection.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Lot size (N)</label>
+        <input type="number" id="lot" value="1000" step="1" oninput="calc()">
+        <div class="hint">Total quantity in the inspection lot</div>
+      </div>
+
+      <div class="input-card">
+        <label>Inspection level</label>
+        <select id="level" onchange="calc()">
+          <option value="I">Level I — reduced inspection</option>
+          <option value="II" selected>Level II — normal inspection (default)</option>
+          <option value="III">Level III — tightened inspection</option>
+          <option value="S1">Special S-1 — destructive testing</option>
+          <option value="S2">Special S-2</option>
+          <option value="S3">Special S-3</option>
+          <option value="S4">Special S-4</option>
+        </select>
+        <div class="hint">Level II is the default for most quality plans</div>
+      </div>
+
+      <div class="input-card">
+        <label>AQL — Acceptable Quality Limit</label>
+        <select id="aql" onchange="calc()">
+          <option value="0.065">0.065% — critical safety</option>
+          <option value="0.10">0.10% — critical functional</option>
+          <option value="0.15">0.15%</option>
+          <option value="0.25">0.25% — major defects (auto/aero)</option>
+          <option value="0.40">0.40% — major defects</option>
+          <option value="0.65">0.65% — typical aerospace minor</option>
+          <option value="1.0" selected>1.0% — standard auto/industrial</option>
+          <option value="1.5">1.5% — standard consumer</option>
+          <option value="2.5">2.5% — minor defects</option>
+          <option value="4.0">4.0% — minor defects</option>
+          <option value="6.5">6.5% — cosmetic / non-critical</option>
+        </select>
+        <div class="hint">Maximum allowable defect rate the customer accepts</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-row">
+        <div class="result-card">
+          <div class="l">Sample Size</div>
+          <div class="v" id="sample">—</div>
+          <div class="b">Pieces to inspect</div>
+        </div>
+        <div class="result-card" style="background: #2d7a3a;">
+          <div class="l">Accept (Ac)</div>
+          <div class="v" id="ac">—</div>
+          <div class="b">Defects: pass</div>
+        </div>
+        <div class="result-card" style="background: #c73e3e;">
+          <div class="l">Reject (Re)</div>
+          <div class="v" id="re">—</div>
+          <div class="b">Defects: fail</div>
+        </div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px;">
+        <h4 style="font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 10px; color: var(--blueprint);">Decision rule</h4>
+        <div style="font-size: 14px; line-height: 1.6;">
+          Inspect <strong id="r_n">—</strong> randomly selected pieces from the lot of <strong id="r_lot">—</strong>.<br>
+          If <strong id="r_ac">—</strong> or fewer defects are found → <strong style="color: #2d7a3a;">ACCEPT lot</strong>.<br>
+          If <strong id="r_re">—</strong> or more defects are found → <strong style="color: #c73e3e;">REJECT lot</strong>.
+        </div>
+      </div>
+
+      <div class="input-card" style="background: var(--paper); border-left: 3px solid var(--amber);">
+        <h4 style="font-family: var(--display); font-weight: 600; font-size: 14px; margin-bottom: 8px; color: var(--blueprint);">Code letter (sample size code)</h4>
+        <div style="font-family: var(--mono); font-size: 24px; font-weight: 600;" id="codeLetter">—</div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Sample size code letters (Level II — default)</h3>
+  <table class="aql-table">
+    <thead><tr><th>Lot size</th><th>S-1</th><th>S-2</th><th>S-3</th><th>S-4</th><th>Level I</th><th>Level II</th><th>Level III</th></tr></thead>
+    <tbody>
+      <tr><td>2 to 8</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>B</td></tr>
+      <tr><td>9 to 15</td><td>A</td><td>A</td><td>A</td><td>A</td><td>A</td><td>B</td><td>C</td></tr>
+      <tr><td>16 to 25</td><td>A</td><td>A</td><td>B</td><td>B</td><td>B</td><td>C</td><td>D</td></tr>
+      <tr><td>26 to 50</td><td>A</td><td>B</td><td>B</td><td>C</td><td>C</td><td>D</td><td>E</td></tr>
+      <tr><td>51 to 90</td><td>B</td><td>B</td><td>C</td><td>C</td><td>C</td><td>E</td><td>F</td></tr>
+      <tr><td>91 to 150</td><td>B</td><td>B</td><td>C</td><td>D</td><td>D</td><td>F</td><td>G</td></tr>
+      <tr><td>151 to 280</td><td>B</td><td>C</td><td>D</td><td>E</td><td>E</td><td>G</td><td>H</td></tr>
+      <tr><td>281 to 500</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td><td>H</td><td>J</td></tr>
+      <tr><td>501 to 1,200</td><td>C</td><td>C</td><td>E</td><td>F</td><td>G</td><td>J</td><td>K</td></tr>
+      <tr><td>1,201 to 3,200</td><td>C</td><td>D</td><td>E</td><td>G</td><td>H</td><td>K</td><td>L</td></tr>
+      <tr><td>3,201 to 10,000</td><td>C</td><td>D</td><td>F</td><td>G</td><td>J</td><td>L</td><td>M</td></tr>
+      <tr><td>10,001 to 35,000</td><td>C</td><td>D</td><td>F</td><td>H</td><td>K</td><td>M</td><td>N</td></tr>
+      <tr><td>35,001 to 150,000</td><td>D</td><td>E</td><td>G</td><td>J</td><td>L</td><td>N</td><td>P</td></tr>
+      <tr><td>150,001 to 500,000</td><td>D</td><td>E</td><td>G</td><td>J</td><td>M</td><td>P</td><td>Q</td></tr>
+      <tr><td>500,001 and over</td><td>D</td><td>E</td><td>H</td><td>K</td><td>N</td><td>Q</td><td>R</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// Lot size → code letter map by inspection level
+const CODE_TABLE = [
+  // [maxLot, S1, S2, S3, S4, I, II, III]
+  [8, 'A','A','A','A','A','A','B'],
+  [15,'A','A','A','A','A','B','C'],
+  [25,'A','A','B','B','B','C','D'],
+  [50,'A','B','B','C','C','D','E'],
+  [90,'B','B','C','C','C','E','F'],
+  [150,'B','B','C','D','D','F','G'],
+  [280,'B','C','D','E','E','G','H'],
+  [500,'B','C','D','E','F','H','J'],
+  [1200,'C','C','E','F','G','J','K'],
+  [3200,'C','D','E','G','H','K','L'],
+  [10000,'C','D','F','G','J','L','M'],
+  [35000,'C','D','F','H','K','M','N'],
+  [150000,'D','E','G','J','L','N','P'],
+  [500000,'D','E','G','J','M','P','Q'],
+  [Infinity,'D','E','H','K','N','Q','R']
+];
+const LEVEL_IDX = { 'S1':1,'S2':2,'S3':3,'S4':4,'I':5,'II':6,'III':7 };
+// Sample size by code letter
+const SAMPLE_SIZE = { A:2, B:3, C:5, D:8, E:13, F:20, G:32, H:50, J:80, K:125, L:200, M:315, N:500, P:800, Q:1250, R:2000 };
+// Acceptance/rejection: AQL → array indexed by code letter
+// For each [code, AQL] → [Ac, Re]. Using Z1.4 master table single sampling normal.
+const AC_RE = {
+  A: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[0,1], '1.0':[0,1], '1.5':[0,1], '2.5':[0,1], '4.0':[0,1], '6.5':[0,1] },
+  B: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[0,1], '1.0':[0,1], '1.5':[0,1], '2.5':[0,1], '4.0':[0,1], '6.5':[1,2] },
+  C: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[0,1], '1.0':[0,1], '1.5':[0,1], '2.5':[0,1], '4.0':[1,2], '6.5':[1,2] },
+  D: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[0,1], '1.0':[0,1], '1.5':[0,1], '2.5':[1,2], '4.0':[1,2], '6.5':[2,3] },
+  E: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[0,1], '1.0':[0,1], '1.5':[1,2], '2.5':[1,2], '4.0':[2,3], '6.5':[3,4] },
+  F: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[0,1], '0.65':[1,2], '1.0':[1,2], '1.5':[2,3], '2.5':[3,4], '4.0':[5,6], '6.5':[7,8] },
+  G: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[0,1], '0.40':[1,2], '0.65':[1,2], '1.0':[2,3], '1.5':[3,4], '2.5':[5,6], '4.0':[7,8], '6.5':[10,11] },
+  H: { '0.065':[0,1], '0.10':[0,1], '0.15':[0,1], '0.25':[1,2], '0.40':[1,2], '0.65':[2,3], '1.0':[3,4], '1.5':[5,6], '2.5':[7,8], '4.0':[10,11], '6.5':[14,15] },
+  J: { '0.065':[0,1], '0.10':[0,1], '0.15':[1,2], '0.25':[1,2], '0.40':[2,3], '0.65':[3,4], '1.0':[5,6], '1.5':[7,8], '2.5':[10,11], '4.0':[14,15], '6.5':[21,22] },
+  K: { '0.065':[0,1], '0.10':[1,2], '0.15':[1,2], '0.25':[2,3], '0.40':[3,4], '0.65':[5,6], '1.0':[7,8], '1.5':[10,11], '2.5':[14,15], '4.0':[21,22], '6.5':[21,22] },
+  L: { '0.065':[1,2], '0.10':[1,2], '0.15':[2,3], '0.25':[3,4], '0.40':[5,6], '0.65':[7,8], '1.0':[10,11], '1.5':[14,15], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] },
+  M: { '0.065':[1,2], '0.10':[2,3], '0.15':[3,4], '0.25':[5,6], '0.40':[7,8], '0.65':[10,11], '1.0':[14,15], '1.5':[21,22], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] },
+  N: { '0.065':[2,3], '0.10':[3,4], '0.15':[5,6], '0.25':[7,8], '0.40':[10,11], '0.65':[14,15], '1.0':[21,22], '1.5':[21,22], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] },
+  P: { '0.065':[3,4], '0.10':[5,6], '0.15':[7,8], '0.25':[10,11], '0.40':[14,15], '0.65':[21,22], '1.0':[21,22], '1.5':[21,22], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] },
+  Q: { '0.065':[5,6], '0.10':[7,8], '0.15':[10,11], '0.25':[14,15], '0.40':[21,22], '0.65':[21,22], '1.0':[21,22], '1.5':[21,22], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] },
+  R: { '0.065':[7,8], '0.10':[10,11], '0.15':[14,15], '0.25':[21,22], '0.40':[21,22], '0.65':[21,22], '1.0':[21,22], '1.5':[21,22], '2.5':[21,22], '4.0':[21,22], '6.5':[21,22] }
+};
+
+function calc() {
+  const lot = +document.getElementById('lot').value;
+  const level = document.getElementById('level').value;
+  const aql = document.getElementById('aql').value;
+  if (!lot || lot < 2) return;
+  const idx = LEVEL_IDX[level];
+  let row = CODE_TABLE[CODE_TABLE.length-1];
+  for (const r of CODE_TABLE) { if (lot <= r[0]) { row = r; break; } }
+  const code = row[idx];
+  const n = SAMPLE_SIZE[code];
+  const ar = AC_RE[code] && AC_RE[code][aql];
+  const ac = ar ? ar[0] : '—';
+  const re = ar ? ar[1] : '—';
+  const set = (id, v) => document.getElementById(id).textContent = v;
+  set('codeLetter', code);
+  set('sample', n);
+  set('ac', ac);
+  set('re', re);
+  set('r_n', n); set('r_ac', ac); set('r_re', re); set('r_lot', lot.toLocaleString());
+}
+calc();
+</script>
+</body>
+</html>

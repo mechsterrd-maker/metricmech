@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CNC Speeds &amp; Feeds Calculator — RPM, MRR, HP for Milling | MetricMech</title>
+<meta name="description" content="Free CNC milling speeds and feeds calculator. Compute spindle RPM, feed rate, chip load, MRR, and spindle horsepower for steel, aluminium, stainless, and titanium." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 20px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus, .input-card select:focus { border-color: var(--blueprint); }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 24px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; }
+.result-big .val { font-family: var(--display); font-size: 44px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 11px; color: rgba(245,242,236,0.6); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 16px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.sf-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.sf-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.sf-table td { padding: 8px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.sf-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Speeds &amp; Feeds</div>
+  <h1 class="page-title">Speeds &amp; <em>Feeds.</em></h1>
+  <p class="page-lede">CNC milling calculator. Compute spindle RPM, feed rate, chip load per tooth, material removal rate (MRR), and required spindle horsepower from cutting parameters.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <label>Material</label>
+        <select id="material" onchange="loadMat()">
+          <option value="al" selected>Aluminium 6061 / 7075</option>
+          <option value="ms">Mild steel (1018, EN8)</option>
+          <option value="alloy">Alloy steel (4140, EN24)</option>
+          <option value="ss304">Stainless 304</option>
+          <option value="ss316">Stainless 316</option>
+          <option value="ti">Titanium Ti-6Al-4V</option>
+          <option value="brass">Brass / bronze</option>
+          <option value="ci">Cast iron</option>
+        </select>
+        <div class="hint">Auto-loads typical SFM and chip load for HSS / carbide</div>
+      </div>
+
+      <div class="input-card">
+        <label>Tool material</label>
+        <select id="toolmat" onchange="loadMat()">
+          <option value="hss">HSS</option>
+          <option value="carbide" selected>Carbide</option>
+          <option value="coated">Coated carbide (TiAlN)</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Tool diameter (D)</label>
+        <input type="number" id="dia" value="10" step="0.5" oninput="calc()">
+        <div class="hint">mm — end mill diameter</div>
+      </div>
+
+      <div class="input-card">
+        <label>Number of flutes (Z)</label>
+        <input type="number" id="flutes" value="4" step="1" min="1" max="12" oninput="calc()">
+      </div>
+
+      <div class="input-card">
+        <label>Surface speed (Vc)</label>
+        <input type="number" id="sfm" value="500" step="10" oninput="calc()">
+        <div class="hint">m/min — auto-set by material; override if needed</div>
+      </div>
+
+      <div class="input-card">
+        <label>Chip load (fz)</label>
+        <input type="number" id="fz" value="0.05" step="0.005" oninput="calc()">
+        <div class="hint">mm/tooth — feed per tooth</div>
+      </div>
+
+      <div class="input-card">
+        <div class="row">
+          <div>
+            <label>Axial DOC (ap)</label>
+            <input type="number" id="ap" value="5" step="0.5" oninput="calc()">
+            <div class="hint">mm — depth of cut</div>
+          </div>
+          <div>
+            <label>Radial DOC (ae)</label>
+            <input type="number" id="ae" value="5" step="0.5" oninput="calc()">
+            <div class="hint">mm — width of cut</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">SPINDLE SPEED</div>
+        <div class="val" id="rpm">—</div>
+        <div class="unit">RPM</div>
+      </div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">FEED RATE</div>
+        <div class="val" id="feed">—</div>
+        <div class="unit">mm/min</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card">
+          <div class="l">MRR</div>
+          <div class="v" id="mrr">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Cutting force (Fc est.)</div>
+          <div class="v" id="fc">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Spindle power (kW)</div>
+          <div class="v" id="kw">—</div>
+        </div>
+        <div class="result-card">
+          <div class="l">Spindle power (HP)</div>
+          <div class="v" id="hp">—</div>
+        </div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          n (RPM) = 1000 × Vc / (π × D)<br>
+          Vf (mm/min) = n × Z × fz<br>
+          MRR (cm³/min) = ap × ae × Vf / 1000<br>
+          P (kW) = MRR × Kc / 60000
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Typical surface speed reference (Vc, m/min)</h3>
+  <table class="sf-table">
+    <thead><tr><th>Material</th><th>HSS</th><th>Carbide</th><th>Coated carbide</th><th>Typical fz (mm)</th></tr></thead>
+    <tbody>
+      <tr><td>Aluminium 6061 / 7075</td><td>120–180</td><td>400–700</td><td>500–1000</td><td>0.05–0.15</td></tr>
+      <tr><td>Brass / bronze</td><td>60–90</td><td>150–300</td><td>200–400</td><td>0.05–0.12</td></tr>
+      <tr><td>Cast iron — gray</td><td>20–35</td><td>80–150</td><td>120–200</td><td>0.10–0.20</td></tr>
+      <tr><td>Mild steel (1018, EN8)</td><td>25–35</td><td>100–180</td><td>150–280</td><td>0.05–0.15</td></tr>
+      <tr><td>Alloy steel (4140, EN24)</td><td>15–25</td><td>80–120</td><td>120–200</td><td>0.05–0.12</td></tr>
+      <tr><td>Stainless 304</td><td>15–25</td><td>60–100</td><td>100–180</td><td>0.04–0.10</td></tr>
+      <tr><td>Stainless 316</td><td>12–20</td><td>50–90</td><td>80–150</td><td>0.04–0.10</td></tr>
+      <tr><td>Titanium Ti-6Al-4V</td><td>8–15</td><td>30–60</td><td>50–100</td><td>0.03–0.08</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="machining" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// Material defaults: SFM (m/min) and chip load (mm) by tool material
+const MATS = {
+  al:    { hss: [150, 0.08], carbide: [550, 0.10], coated: [750, 0.12] },
+  ms:    { hss: [30, 0.08],  carbide: [140, 0.08], coated: [220, 0.10] },
+  alloy: { hss: [20, 0.06],  carbide: [100, 0.06], coated: [160, 0.08] },
+  ss304: { hss: [20, 0.05],  carbide: [80, 0.06],  coated: [140, 0.07] },
+  ss316: { hss: [16, 0.05],  carbide: [70, 0.05],  coated: [115, 0.06] },
+  ti:    { hss: [12, 0.04],  carbide: [45, 0.05],  coated: [75, 0.06] },
+  brass: { hss: [75, 0.08],  carbide: [225, 0.10], coated: [300, 0.10] },
+  ci:    { hss: [28, 0.12],  carbide: [115, 0.12], coated: [160, 0.15] }
+};
+// Specific cutting energy Kc (N/mm²)
+const KC = { al: 800, ms: 2100, alloy: 2500, ss304: 2400, ss316: 2500, ti: 2700, brass: 800, ci: 1100 };
+function loadMat() {
+  const m = document.getElementById('material').value;
+  const t = document.getElementById('toolmat').value;
+  if (MATS[m] && MATS[m][t]) {
+    document.getElementById('sfm').value = MATS[m][t][0];
+    document.getElementById('fz').value = MATS[m][t][1];
+  }
+  calc();
+}
+function calc() {
+  const D = +document.getElementById('dia').value;
+  const Z = +document.getElementById('flutes').value;
+  const Vc = +document.getElementById('sfm').value;
+  const fz = +document.getElementById('fz').value;
+  const ap = +document.getElementById('ap').value;
+  const ae = +document.getElementById('ae').value;
+  if (!D || !Z || !Vc || !fz) return;
+  const m = document.getElementById('material').value;
+  const Kc = KC[m] || 2000;
+  const rpm = 1000 * Vc / (Math.PI * D);
+  const feed = rpm * Z * fz;
+  const mrr = ap * ae * feed / 1000; // cm³/min
+  const power_W = (mrr / 60) * Kc; // mrr in mm³/s × Kc N/mm² = W (approx)
+  const mrr_mm3s = ap * ae * feed / 60;
+  const power = mrr_mm3s * Kc / 1000; // kW
+  const fc = (power * 60000) / Math.max(feed, 1); // N approx
+  document.getElementById('rpm').textContent = Math.round(rpm).toLocaleString();
+  document.getElementById('feed').textContent = Math.round(feed).toLocaleString();
+  document.getElementById('mrr').textContent = mrr.toFixed(1) + ' cm³/min';
+  document.getElementById('fc').textContent = Math.round(fc) + ' N';
+  document.getElementById('kw').textContent = power.toFixed(2) + ' kW';
+  document.getElementById('hp').textContent = (power * 1.341).toFixed(2) + ' HP';
+}
+loadMat();
+</script>
+</body>
+</html>

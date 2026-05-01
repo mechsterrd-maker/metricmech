@@ -1,0 +1,353 @@
+// MetricMech — Shared site components (header, footer, CadNexa promos)
+// Inject the same UI across every page.
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ========== Notice bar ==========
+  const noticeBar = document.querySelector('[data-mw="notice-bar"]');
+  if (noticeBar) {
+    noticeBar.outerHTML = `
+      <div class="notice-bar">
+        Free reference, supported by <a href="https://cadnexa.com">CadNexa</a> — browser-based CAD platform for manufacturing engineers.
+      </div>
+    `;
+  }
+
+  // ========== Header ==========
+  const header = document.querySelector('[data-mw="header"]');
+  if (header) {
+    const currentPage = header.dataset.page || '';
+    const pathPrefix = header.dataset.prefix || '';
+    header.outerHTML = `
+      <header class="site-header">
+        <div class="header-inner">
+          <a href="${pathPrefix}index.html" class="brand-link">
+            <span class="brand-name">Metric<em>Mech</em></span>
+            <span class="brand-tag">FREE REFERENCE</span>
+          </a>
+          <div class="header-search">
+            <input type="text" placeholder="Search calculators, standards, articles…" />
+          </div>
+          <nav class="header-nav">
+            <a href="${pathPrefix}calculators.html" class="${currentPage==='calculators'?'current':''}">Calculators</a>
+            <a href="${pathPrefix}standards.html" class="${currentPage==='standards'?'current':''}">Standards</a>
+            <a href="${pathPrefix}gdt.html" class="${currentPage==='gdt'?'current':''}">GD&amp;T</a>
+            <a href="${pathPrefix}templates.html" class="${currentPage==='templates'?'current':''}">Templates</a>
+            <a href="${pathPrefix}articles.html" class="${currentPage==='articles'?'current':''}">Articles</a>
+          </nav>
+        </div>
+      </header>
+    `;
+  }
+
+  // ========== Footer ==========
+  const footer = document.querySelector('[data-mw="footer"]');
+  if (footer) {
+    const pathPrefix = footer.dataset.prefix || '';
+    footer.outerHTML = `
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div>
+            <div class="footer-brand">Metric<em>Mech</em></div>
+            <p class="footer-about">A free reference for working manufacturing engineers — calculators, standards, GD&amp;T, FAI templates, and articles. Written and reviewed by people who've spent their careers on shop floors and audit rooms.</p>
+            <div class="footer-supported">Supported by <a href="https://cadnexa.com">CadNexa</a> — browser CAD platform for QA, estimation &amp; sourcing teams</div>
+          </div>
+          <div class="footer-col">
+            <h5>Calculators</h5>
+            <a href="${pathPrefix}calculators/tolerance-stack.html">Tolerance Stack</a>
+            <a href="${pathPrefix}calculators/position-tolerance.html">Position Tolerance</a>
+            <a href="${pathPrefix}calculators/cp-cpk.html">Cp / Cpk</a>
+            <a href="${pathPrefix}calculators/surface-finish.html">Surface Finish</a>
+            <a href="${pathPrefix}calculators.html">All calculators →</a>
+          </div>
+          <div class="footer-col">
+            <h5>Standards</h5>
+            <a href="${pathPrefix}standards/as9102.html">AS9102</a>
+            <a href="${pathPrefix}standards.html">PPAP</a>
+            <a href="${pathPrefix}standards.html">ISO 13485</a>
+            <a href="${pathPrefix}standards.html">ASME Y14.5</a>
+            <a href="${pathPrefix}standards.html">All standards →</a>
+          </div>
+          <div class="footer-col">
+            <h5>Topics</h5>
+            <a href="${pathPrefix}gdt.html">GD&amp;T Reference</a>
+            <a href="${pathPrefix}articles.html">FAI Reports</a>
+            <a href="${pathPrefix}articles.html">CMM Inspection</a>
+            <a href="${pathPrefix}articles.html">Materials</a>
+            <a href="${pathPrefix}articles.html">All topics →</a>
+          </div>
+          <div class="footer-col">
+            <h5>About</h5>
+            <a href="#">Editorial Standards</a>
+            <a href="#">Contributors</a>
+            <a href="#">Suggest a Topic</a>
+            <a href="#">Contact</a>
+            <a href="https://cadnexa.com">CadNexa</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 MetricMech · Made in India</span>
+          <span>Free to use · Citation appreciated</span>
+        </div>
+      </footer>
+    `;
+  }
+
+  // ========== CadNexa Sidebar Promo (rotates) ==========
+  const sidebarVariants = {
+    balloon: {
+      eyebrow: 'USED BY READERS OF THIS HUB',
+      title: 'Stop ballooning drawings <em>by hand.</em>',
+      body: 'CadNexa auto-detects every dimension on any PDF drawing and generates AS9102, PPAP, or ISO 13485 reports in under 10 minutes.',
+      cta: 'Try free for 14 days →',
+      foot: 'No credit card · Indian MSME pricing'
+    },
+    viewer: {
+      eyebrow: 'USED BY READERS OF THIS HUB',
+      title: 'Open STEP &amp; IGES files <em>in your browser.</em>',
+      body: 'CadNexa is a 3D CAD viewer that runs in any browser — no SolidWorks license, no installs. Measure features, isolate parts, take section cuts.',
+      cta: 'Try free for 14 days →',
+      foot: 'STEP · IGES · BREP · STL · 14 formats'
+    },
+    bom: {
+      eyebrow: 'USED BY READERS OF THIS HUB',
+      title: 'Auto-BOM with <em>Indian material prices.</em>',
+      body: 'Drop a STEP file. CadNexa extracts every part, calculates volume + weight, applies live ₹/kg rates for steel, aluminium, copper, and 40+ Indian materials.',
+      cta: 'Try free for 14 days →',
+      foot: 'No spreadsheet maintenance'
+    },
+    estimator: {
+      eyebrow: 'USED BY READERS OF THIS HUB',
+      title: 'Machining cost in <em>under 60 seconds.</em>',
+      body: 'CadNexa estimates CNC cycle time and cost from a 3D model — Indian shop rates, tooling allowances, setup time. Send quotes in minutes, not hours.',
+      cta: 'Try free for 14 days →',
+      foot: 'India-specific shop rates'
+    }
+  };
+
+  function pickByPath(variants) {
+    const keys = Object.keys(variants);
+    const path = window.location.pathname;
+    let h = 0;
+    for (let i = 0; i < path.length; i++) h = (h * 31 + path.charCodeAt(i)) & 0xffffffff;
+    return variants[keys[Math.abs(h) % keys.length]];
+  }
+
+  document.querySelectorAll('[data-mw="cn-sidebar"]').forEach(el => {
+    const explicit = el.dataset.variant;
+    const m = (explicit && sidebarVariants[explicit]) ? sidebarVariants[explicit] : pickByPath(sidebarVariants);
+    el.outerHTML = `
+      <div class="cn-promo-card">
+        <div class="cn-promo-eyebrow">${m.eyebrow}</div>
+        <h3>${m.title}</h3>
+        <p>${m.body}</p>
+        <a href="https://cadnexa.com" class="cn-promo-cta">${m.cta}</a>
+        <div class="cn-promo-foot">${m.foot}</div>
+      </div>
+    `;
+  });
+
+  // ========== CadNexa Inline Banner — covers ALL CadNexa features ==========
+  document.querySelectorAll('[data-mw="cn-inline"]').forEach(el => {
+    const variant = el.dataset.variant || 'default';
+    const messages = {
+      // ===== Default / general =====
+      default: {
+        title: 'Spending hours on FAI reports? <em>CadNexa does it in 10 minutes.</em>',
+        sub: 'Browser-based CAD platform: 3D viewer, ballooning, AS9102 / PPAP / ISO 13485, auto-BOM, machining estimator.',
+        cta: 'Try CadNexa free →'
+      },
+
+      // ===== Ballooning / inspection =====
+      tolerance: {
+        title: 'Run this stack-up on your <em>actual 3D model.</em>',
+        sub: 'CadNexa opens STEP/IGES in browser, measures features, exports inspection plans.',
+        cta: 'Try free for 14 days →'
+      },
+      gdt: {
+        title: 'See GD&amp;T applied to <em>your real drawings.</em>',
+        sub: 'CadNexa parses feature control frames with Smart Detect — no manual entry.',
+        cta: 'Try free →'
+      },
+      surface: {
+        title: 'Capture surface finish callouts <em>automatically.</em>',
+        sub: 'CadNexa auto-extracts Ra/Rz callouts from PDF drawings into your FAI report.',
+        cta: 'Try free →'
+      },
+      ppap: {
+        title: 'Tata, Mahindra, Bajaj PPAPs — <em>standardised in CadNexa.</em>',
+        sub: 'Pre-built PPAP variation packs for major Indian OEMs. No more re-formatting.',
+        cta: 'Try free →'
+      },
+      as9102: {
+        title: 'Boeing &amp; Airbus FAIs — <em>built into CadNexa.</em>',
+        sub: 'AS9102 Form 1, 2, 3 generated automatically from your drawing + measured data.',
+        cta: 'Try CadNexa free →'
+      },
+      cmm: {
+        title: 'CMM data merged with drawing balloons <em>automatically.</em>',
+        sub: 'CadNexa imports CMM exports and auto-fills measured columns in AS9102 Form 3.',
+        cta: 'Try free →'
+      },
+
+      // ===== 3D viewer =====
+      viewer: {
+        title: 'Open STEP/IGES files <em>without SolidWorks.</em>',
+        sub: 'CadNexa\'s browser-based 3D viewer handles 14 CAD formats. Measure, section, isolate parts.',
+        cta: 'Try CadNexa free →'
+      },
+      step: {
+        title: 'Receive a STEP file from a customer? <em>Open it in 5 seconds.</em>',
+        sub: 'CadNexa loads STEP, IGES, BREP, STL, OBJ in your browser — no install, no license needed.',
+        cta: 'Try free →'
+      },
+
+      // ===== BOM =====
+      bom: {
+        title: 'BOM in 30 seconds — <em>with Indian material prices.</em>',
+        sub: 'Drop a STEP file in CadNexa. Get a complete BOM with weight, material, and live ₹/kg costs.',
+        cta: 'Try free →'
+      },
+      material: {
+        title: 'From material weight to <em>full assembly costing.</em>',
+        sub: 'CadNexa\'s auto-BOM applies live Indian material rates across the full assembly — steel, Al, Cu, brass, plastics.',
+        cta: 'Try free →'
+      },
+
+      // ===== Machining estimator =====
+      machining: {
+        title: 'CNC quote in <em>under a minute.</em>',
+        sub: 'CadNexa\'s estimator reads your 3D model, calculates cycle time + Indian shop rates, exports a customer quote.',
+        cta: 'Try free →'
+      },
+      cycletime: {
+        title: 'Cycle time + cost from a <em>3D file.</em>',
+        sub: 'CadNexa estimates machining time, setup, and tooling — Indian shop rates by default. Tweak and quote.',
+        cta: 'Try free →'
+      },
+      production: {
+        title: 'OEE + cost data flows into <em>quotation packs.</em>',
+        sub: 'CadNexa auto-BOM with weight + cost from Indian material prices, plus machining cost estimator built in.',
+        cta: 'Try free →'
+      },
+      bolt: {
+        title: 'Going from bolt calc to <em>full assembly inspection?</em>',
+        sub: 'CadNexa generates AS9102 reports for the entire assembly — bolts, brackets, every feature.',
+        cta: 'Try CadNexa free →'
+      },
+
+      // ===== Sheet metal =====
+      sheet: {
+        title: 'Sheet metal FAI reports in <em>under 10 minutes.</em>',
+        sub: 'CadNexa auto-balloons every dimension on press-brake parts — flat patterns and bent.',
+        cta: 'Try free →'
+      },
+
+      // ===== 2D drawing =====
+      drawing2d: {
+        title: 'Need a 2D drawing from a STEP? <em>One click.</em>',
+        sub: 'CadNexa generates dimensioned 2D drawings (front, top, side, iso) from any 3D model. Export PDF or DXF.',
+        cta: 'Try free →'
+      },
+
+      // ===== RFQ =====
+      rfq: {
+        title: 'Send drawings to <em>5 vendors with one click.</em>',
+        sub: 'CadNexa\'s RFQ marketplace: secure links, password protection, expiry, audit trail. Compare quotes side-by-side.',
+        cta: 'Try free →'
+      },
+
+      // ===== Quality / SPC =====
+      quality: {
+        title: 'Capability data goes into <em>FAI reports too.</em>',
+        sub: 'CadNexa lets you attach Cp/Cpk, MSA, and inspection data to characteristic reports.',
+        cta: 'Try free →'
+      }
+    };
+    const m = messages[variant] || messages.default;
+    el.outerHTML = `
+      <div class="cn-inline-banner">
+        <div class="cn-inline-banner-text">
+          <strong>${m.title}</strong>
+          <span>${m.sub}</span>
+        </div>
+        <a href="https://cadnexa.com" class="btn btn-amber btn-sm">${m.cta}</a>
+      </div>
+    `;
+  });
+
+  // ========== CadNexa Big Mid-Page Banner ==========
+  document.querySelectorAll('[data-mw="cn-big"]').forEach(el => {
+    el.outerHTML = `
+      <div class="cn-big-banner">
+        <div class="cn-big-banner-inner">
+          <div class="cn-big-content">
+            <div class="cn-big-eyebrow">SUPPORTED BY CADNEXA</div>
+            <h2>This hub is free because <em>CadNexa pays for it.</em></h2>
+            <p>CadNexa is a browser-based CAD platform for Indian manufacturing engineers — STEP/IGES viewer, AI-powered ballooning, AS9102/PPAP/ISO 13485 reports, auto-BOM with Indian material prices, machining cost estimator, and a secure RFQ marketplace. No installs, no SolidWorks licence, no Western pricing.</p>
+          </div>
+          <div class="cn-big-cta">
+            <a href="https://cadnexa.com" class="btn btn-amber btn-lg">Try CadNexa free →</a>
+            <span>14-day trial · No card · From ₹399/mo</span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  // ========== Sticky Scroll CTA — rotates 3 messages ==========
+  if (sessionStorage.getItem('mm_cta_dismissed') !== '1') {
+    const stickyVariants = [
+      {
+        eyebrow: 'Built by CadNexa',
+        title: 'Stop ballooning by hand.',
+        sub: 'AS9102 / PPAP reports from any PDF drawing — in 10 minutes.',
+        cta: 'Try free →'
+      },
+      {
+        eyebrow: 'Built by CadNexa',
+        title: 'STEP files in your browser.',
+        sub: '3D viewer, auto-BOM, machining estimator — no SolidWorks needed.',
+        cta: 'Try free →'
+      },
+      {
+        eyebrow: 'Built by CadNexa',
+        title: 'CNC quotes in 60 seconds.',
+        sub: 'Drop a 3D file. Get cycle time, cost, and a quote — Indian shop rates.',
+        cta: 'Try free →'
+      }
+    ];
+    const path = window.location.pathname;
+    let h = 0;
+    for (let i = 0; i < path.length; i++) h = (h * 31 + path.charCodeAt(i)) & 0xffffffff;
+    const v = stickyVariants[Math.abs(h) % stickyVariants.length];
+
+    const stickyHTML = `
+      <div id="mm-sticky-cta" class="mm-sticky-cta" role="complementary" aria-label="CadNexa promo">
+        <button class="mm-sticky-close" aria-label="Dismiss" onclick="document.getElementById('mm-sticky-cta').remove(); sessionStorage.setItem('mm_cta_dismissed','1');">×</button>
+        <div class="mm-sticky-eyebrow">${v.eyebrow}</div>
+        <div class="mm-sticky-title">${v.title}</div>
+        <div class="mm-sticky-sub">${v.sub}</div>
+        <a href="https://cadnexa.com" class="mm-sticky-cta-btn">${v.cta}</a>
+      </div>
+    `;
+    let shown = false;
+    const showStickyCTA = () => {
+      if (shown) return;
+      shown = true;
+      const div = document.createElement('div');
+      div.innerHTML = stickyHTML;
+      document.body.appendChild(div.firstElementChild);
+      requestAnimationFrame(() => {
+        const el = document.getElementById('mm-sticky-cta');
+        if (el) el.classList.add('mm-sticky-show');
+      });
+    };
+    setTimeout(showStickyCTA, 45000);
+    window.addEventListener('scroll', () => {
+      const scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+      if (scrolled > 0.6) showStickyCTA();
+    }, { passive: true });
+  }
+
+});

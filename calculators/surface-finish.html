@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surface Finish Converter — Ra ↔ Rz ↔ Rt ↔ µin ↔ N-Grade | MetricMech</title>
+<meta name="description" content="Free surface finish converter. Convert between Ra, Rz, Rt, Rmax, microinches, and ISO N-grade. Process capability map for turning, milling, grinding, lapping." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.input-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 18px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 22px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus { border-color: var(--blueprint); }
+.input-card .unit { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-top: 4px; }
+.results-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 24px; }
+.result-card { padding: 18px; background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); text-align: center; }
+.result-card .lbl { font-family: var(--mono); font-size: 10px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+.result-card .val { font-family: var(--display); font-size: 24px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-card .unt { font-family: var(--mono); font-size: 10px; color: rgba(245,242,236,0.5); margin-top: 4px; }
+@media (max-width: 900px) { .results-grid { grid-template-columns: repeat(3, 1fr); } .input-row { grid-template-columns: 1fr; } }
+.process-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+.process-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.process-table td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.process-table tr:nth-child(even) td { background: var(--paper-2); }
+.process-table .typ { color: var(--blueprint); font-weight: 600; }
+.process-table .name { font-family: var(--display); font-weight: 600; }
+.legend-box { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 20px; margin: 16px 0; font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Surface Finish</div>
+  <h1 class="page-title">Surface Finish <em>Converter.</em></h1>
+  <p class="page-lede">Convert between Ra, Rz, Rt, Rmax, microinches, and ISO N-grade. Plus a process capability map for choosing the right machining method.</p>
+</div>
+
+<div class="calc-layout">
+
+  <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 16px;">Enter any value — others update instantly</h3>
+
+  <div class="input-row">
+    <div class="input-card">
+      <label>Ra (arithmetic mean)</label>
+      <input type="number" step="any" id="ra" value="1.6" oninput="updateFrom('ra')">
+      <div class="unit">µm — most common spec</div>
+    </div>
+    <div class="input-card">
+      <label>Ra (microinch)</label>
+      <input type="number" step="any" id="rauin" value="63" oninput="updateFrom('rauin')">
+      <div class="unit">µin — US/ASME standard</div>
+    </div>
+    <div class="input-card">
+      <label>N-Grade (ISO)</label>
+      <input type="number" id="ngrade" value="7" min="1" max="12" oninput="updateFrom('ngrade')">
+      <div class="unit">ISO 1302 grade number</div>
+    </div>
+  </div>
+
+  <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 12px;">Equivalent values</h3>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="lbl">Ra</div>
+      <div class="val" id="r_ra">1.60</div>
+      <div class="unt">µm</div>
+    </div>
+    <div class="result-card">
+      <div class="lbl">Ra</div>
+      <div class="val" id="r_uin">63</div>
+      <div class="unt">µin</div>
+    </div>
+    <div class="result-card">
+      <div class="lbl">Rz (DIN)</div>
+      <div class="val" id="r_rz">8.0</div>
+      <div class="unt">µm</div>
+    </div>
+    <div class="result-card">
+      <div class="lbl">Rmax / Rt</div>
+      <div class="val" id="r_rmax">10.0</div>
+      <div class="unt">µm</div>
+    </div>
+    <div class="result-card">
+      <div class="lbl">CLA</div>
+      <div class="val" id="r_cla">63</div>
+      <div class="unt">µin</div>
+    </div>
+    <div class="result-card">
+      <div class="lbl">N-Grade</div>
+      <div class="val" id="r_n">N7</div>
+      <div class="unt">ISO 1302</div>
+    </div>
+  </div>
+
+  <div class="legend-box">
+    <strong>Conversion ratios used:</strong> Ra → Rz ≈ 5×Ra (typical for ground/turned). Ra → Rmax ≈ 6.4×Ra. CLA = Ra (microinch). N-grade = log₂(Ra) + 7. These are approximations — actual ratios vary with profile shape and process.
+  </div>
+
+  <div data-mw="cn-inline" data-variant="surface" style="margin: 24px 0;"></div>
+
+  <h3 style="font-family: var(--display); font-size: 22px; font-weight: 600; margin: 32px 0 12px;">Process capability — what gets you what finish</h3>
+  <p style="font-size: 14px; color: var(--ink-2); margin-bottom: 16px;">Typical Ra ranges achievable by common manufacturing processes. Use this to pick the right process or validate a drawing call-out is realistic.</p>
+
+  <table class="process-table">
+    <thead>
+      <tr>
+        <th>Process</th>
+        <th>Ra Range (µm)</th>
+        <th>Ra Range (µin)</th>
+        <th>Typical N-Grade</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">Flame cutting</td><td>25 – 50</td><td>1000 – 2000</td><td>N12</td><td>Rough; needs further machining</td></tr>
+      <tr><td class="name">Sawing</td><td>12.5 – 25</td><td>500 – 1000</td><td>N11</td><td>Rough cut-off; chamfer required</td></tr>
+      <tr><td class="name">Rough turning</td><td>6.3 – 12.5</td><td>250 – 500</td><td>N10</td><td>Roughing pass on lathe</td></tr>
+      <tr><td class="name">Drilling</td><td>3.2 – 6.3</td><td>125 – 250</td><td>N9</td><td>HSS drill, standard speeds</td></tr>
+      <tr><td class="name">Rough milling</td><td>3.2 – 6.3</td><td>125 – 250</td><td>N9</td><td>End mill, face mill heavy cut</td></tr>
+      <tr><td class="name">Reaming</td><td class="typ">1.6 – 3.2</td><td>63 – 125</td><td>N7 – N8</td><td>Hole finishing</td></tr>
+      <tr><td class="name">Finish turning</td><td class="typ">0.8 – 1.6</td><td>32 – 63</td><td>N6 – N7</td><td>Carbide insert finish pass</td></tr>
+      <tr><td class="name">Finish milling</td><td class="typ">0.8 – 1.6</td><td>32 – 63</td><td>N6 – N7</td><td>Light cut, sharp tool</td></tr>
+      <tr><td class="name">Boring (finish)</td><td class="typ">0.4 – 1.6</td><td>16 – 63</td><td>N5 – N7</td><td>Single-point or boring head</td></tr>
+      <tr><td class="name">Grinding (rough)</td><td class="typ">0.4 – 1.6</td><td>16 – 63</td><td>N5 – N7</td><td>Surface or cylindrical</td></tr>
+      <tr><td class="name">Grinding (finish)</td><td class="typ">0.1 – 0.4</td><td>4 – 16</td><td>N3 – N5</td><td>Precision surface, OD/ID</td></tr>
+      <tr><td class="name">Honing</td><td class="typ">0.1 – 0.4</td><td>4 – 16</td><td>N3 – N5</td><td>Bores, cylinders, hydraulic</td></tr>
+      <tr><td class="name">Lapping</td><td class="typ">0.025 – 0.2</td><td>1 – 8</td><td>N1 – N4</td><td>Mirror finish, gauge blocks</td></tr>
+      <tr><td class="name">Polishing / superfinish</td><td class="typ">0.012 – 0.1</td><td>0.5 – 4</td><td>N1 – N3</td><td>Optical, bearing races</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family: var(--display); font-size: 22px; font-weight: 600; margin: 32px 0 12px;">N-Grade ↔ Ra reference</h3>
+  <table class="process-table">
+    <thead><tr><th>N-Grade</th><th>Ra (µm)</th><th>Ra (µin)</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td class="name">N1</td><td>0.025</td><td>1</td><td>Mirror — lapped/superfinished</td></tr>
+      <tr><td class="name">N2</td><td>0.05</td><td>2</td><td>Lapped</td></tr>
+      <tr><td class="name">N3</td><td>0.1</td><td>4</td><td>Honed / fine ground</td></tr>
+      <tr><td class="name">N4</td><td>0.2</td><td>8</td><td>Fine ground</td></tr>
+      <tr><td class="name">N5</td><td>0.4</td><td>16</td><td>Finish ground / bored</td></tr>
+      <tr><td class="name">N6</td><td>0.8</td><td>32</td><td>Finish turning / milling</td></tr>
+      <tr><td class="name">N7</td><td>1.6</td><td>63</td><td>Standard finish turning</td></tr>
+      <tr><td class="name">N8</td><td>3.2</td><td>125</td><td>Reamed / smooth machined</td></tr>
+      <tr><td class="name">N9</td><td>6.3</td><td>250</td><td>Rough milling / drilling</td></tr>
+      <tr><td class="name">N10</td><td>12.5</td><td>500</td><td>Rough turning</td></tr>
+      <tr><td class="name">N11</td><td>25</td><td>1000</td><td>Sawing / rough cut</td></tr>
+      <tr><td class="name">N12</td><td>50</td><td>2000</td><td>Flame cut / forged</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+
+<script>
+const N_RA = { 1: 0.025, 2: 0.05, 3: 0.1, 4: 0.2, 5: 0.4, 6: 0.8, 7: 1.6, 8: 3.2, 9: 6.3, 10: 12.5, 11: 25, 12: 50 };
+
+function raToN(ra) {
+  let bestN = 7, bestDiff = Infinity;
+  for (let n = 1; n <= 12; n++) {
+    const d = Math.abs(Math.log(N_RA[n]) - Math.log(ra));
+    if (d < bestDiff) { bestDiff = d; bestN = n; }
+  }
+  return bestN;
+}
+
+let updating = false;
+function updateFrom(src) {
+  if (updating) return;
+  updating = true;
+  let ra; // µm
+  if (src === 'ra') ra = parseFloat(document.getElementById('ra').value);
+  else if (src === 'rauin') ra = parseFloat(document.getElementById('rauin').value) * 0.0254;
+  else if (src === 'ngrade') {
+    const n = Math.max(1, Math.min(12, Math.round(parseFloat(document.getElementById('ngrade').value))));
+    ra = N_RA[n];
+  }
+
+  if (isNaN(ra) || ra <= 0) { updating = false; return; }
+
+  const rauin = ra / 0.0254;
+  const n = raToN(ra);
+  const rz = ra * 5;
+  const rmax = ra * 6.4;
+
+  if (src !== 'ra') document.getElementById('ra').value = ra.toFixed(3);
+  if (src !== 'rauin') document.getElementById('rauin').value = rauin.toFixed(1);
+  if (src !== 'ngrade') document.getElementById('ngrade').value = n;
+
+  document.getElementById('r_ra').textContent = ra.toFixed(3);
+  document.getElementById('r_uin').textContent = rauin.toFixed(1);
+  document.getElementById('r_rz').textContent = rz.toFixed(2);
+  document.getElementById('r_rmax').textContent = rmax.toFixed(2);
+  document.getElementById('r_cla').textContent = rauin.toFixed(1);
+  document.getElementById('r_n').textContent = 'N' + n;
+
+  updating = false;
+}
+updateFrom('ra');
+</script>
+
+</body>
+</html>

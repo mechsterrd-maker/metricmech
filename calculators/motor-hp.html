@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Motor HP Calculator — Power, Torque, RPM Conversion | MetricMech</title>
+<meta name="description" content="Free motor power calculator. Convert between HP, kW, torque, and RPM. Size electric motors for pumps, conveyors, fans, and machine tools. Indian + IEC + NEMA standards." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.tabs button { font-family: var(--mono); font-size: 11px; padding: 10px 18px; background: var(--paper-2); color: var(--ink); border: 1px solid var(--rule); text-transform: uppercase; letter-spacing: 0.1em; border-radius: var(--rad); cursor: pointer; }
+.tabs button.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input, .input-card select { width: 100%; padding: 10px 12px; font-family: var(--display); font-size: 20px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 52px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.result-card { padding: 16px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+.result-card .v { font-family: var(--display); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.m-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.m-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.m-table td { padding: 8px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.m-table tr:nth-child(even) td { background: var(--paper-2); }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Motor HP / Power</div>
+  <h1 class="page-title">Motor HP &amp; <em>Power Calculator.</em></h1>
+  <p class="page-lede">Convert between motor power, torque, and RPM in any unit. Compute electrical input power and current for 1-phase and 3-phase induction motors. Sized for Indian 415V / 50Hz and IEC / NEMA standards.</p>
+</div>
+
+<div class="calc-layout">
+
+  <div class="tabs">
+    <button class="active" data-mode="torque" onclick="setMode('torque')">Power ↔ Torque ↔ RPM</button>
+    <button data-mode="electrical" onclick="setMode('electrical')">Electrical (V, A, η)</button>
+  </div>
+
+  <div class="calc-grid" id="torqueCalc">
+    <div>
+      <div class="input-card">
+        <label>Power</label>
+        <input type="number" id="power" value="5.5" step="0.1" oninput="calcTorque('power')">
+        <select id="powerUnit" onchange="calcTorque('power')" style="margin-top: 8px;">
+          <option value="kW" selected>kW</option>
+          <option value="HP">HP (mechanical)</option>
+          <option value="PS">PS / metric HP</option>
+          <option value="W">W</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Speed</label>
+        <input type="number" id="rpm" value="1440" step="10" oninput="calcTorque('rpm')">
+        <div class="hint">RPM — typical: 750, 1000, 1440, 2880 (for 50 Hz Indian motors)</div>
+      </div>
+
+      <div class="input-card">
+        <label>Torque</label>
+        <input type="number" id="torque" value="" step="0.1" oninput="calcTorque('torque')" placeholder="auto">
+        <select id="torqueUnit" onchange="calcTorque('torque')" style="margin-top: 8px;">
+          <option value="Nm" selected>N·m</option>
+          <option value="kgfm">kgf·m</option>
+          <option value="lbft">lb·ft</option>
+        </select>
+        <div class="hint">Leave blank to auto-compute, or enter to find required power</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">TORQUE</div>
+        <div class="val" id="r_torque">—</div>
+        <div class="unit">N·m</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Power (kW)</div><div class="v" id="r_kw">—</div></div>
+        <div class="result-card"><div class="l">Power (HP)</div><div class="v" id="r_hp">—</div></div>
+        <div class="result-card"><div class="l">Torque (kgf·m)</div><div class="v" id="r_kgfm">—</div></div>
+        <div class="result-card"><div class="l">Torque (lb·ft)</div><div class="v" id="r_lbft">—</div></div>
+        <div class="result-card"><div class="l">Angular speed</div><div class="v" id="r_rads">—</div></div>
+        <div class="result-card"><div class="l">Frequency</div><div class="v" id="r_hz">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formula</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          P (kW) = T (N·m) × n (RPM) / 9550<br>
+          P (HP) = T (lb·ft) × n (RPM) / 5252<br>
+          1 HP = 0.7457 kW &nbsp;|&nbsp; 1 PS = 0.7355 kW
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="calc-grid" id="electricalCalc" style="display: none;">
+    <div>
+      <div class="input-card">
+        <label>Motor power (kW shaft)</label>
+        <input type="number" id="e_power" value="5.5" step="0.1" oninput="calcElec()">
+      </div>
+
+      <div class="input-card">
+        <label>Phase</label>
+        <select id="e_phase" onchange="calcElec()">
+          <option value="3" selected>3-phase</option>
+          <option value="1">1-phase</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Voltage</label>
+        <select id="e_volt" onchange="calcElec()">
+          <option value="415" selected>415 V (Indian 3-phase)</option>
+          <option value="230">230 V (Indian 1-phase)</option>
+          <option value="400">400 V (European 3-phase)</option>
+          <option value="380">380 V</option>
+          <option value="440">440 V</option>
+          <option value="480">480 V (US 3-phase)</option>
+          <option value="220">220 V</option>
+          <option value="120">120 V</option>
+        </select>
+      </div>
+
+      <div class="input-card">
+        <label>Power factor (cos φ)</label>
+        <input type="number" id="e_pf" value="0.85" step="0.01" min="0.5" max="1.0" oninput="calcElec()">
+        <div class="hint">Typical: 0.80–0.90 at full load for induction motors</div>
+      </div>
+
+      <div class="input-card">
+        <label>Efficiency (η)</label>
+        <input type="number" id="e_eff" value="88" step="1" min="50" max="99" oninput="calcElec()">
+        <div class="hint">% — IE2 ≈ 85, IE3 ≈ 90, IE4 ≈ 93 for 5 kW motors</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="result-big">
+        <div class="lbl">FULL LOAD CURRENT</div>
+        <div class="val" id="r_amps">—</div>
+        <div class="unit">amperes (A)</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Input kW (electrical)</div><div class="v" id="r_inputkW">—</div></div>
+        <div class="result-card"><div class="l">Apparent power</div><div class="v" id="r_kva">—</div></div>
+        <div class="result-card"><div class="l">Reactive power</div><div class="v" id="r_kvar">—</div></div>
+        <div class="result-card"><div class="l">Losses</div><div class="v" id="r_loss">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          P<sub>in</sub> = P<sub>shaft</sub> / η<br>
+          3-phase: I = P<sub>in</sub> / (√3 × V × cos φ)<br>
+          1-phase: I = P<sub>in</sub> / (V × cos φ)<br>
+          kVA = P<sub>in</sub> / cos φ
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Synchronous speed reference (50 Hz / 60 Hz)</h3>
+  <table class="m-table">
+    <thead><tr><th>Poles</th><th>Sync RPM (50 Hz)</th><th>Typical full-load (50 Hz)</th><th>Sync RPM (60 Hz)</th><th>Typical full-load (60 Hz)</th></tr></thead>
+    <tbody>
+      <tr><td>2-pole</td><td>3000</td><td>2880</td><td>3600</td><td>3450</td></tr>
+      <tr><td>4-pole</td><td>1500</td><td>1440</td><td>1800</td><td>1750</td></tr>
+      <tr><td>6-pole</td><td>1000</td><td>960</td><td>1200</td><td>1150</td></tr>
+      <tr><td>8-pole</td><td>750</td><td>720</td><td>900</td><td>860</td></tr>
+      <tr><td>12-pole</td><td>500</td><td>480</td><td>600</td><td>575</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="default" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+function setMode(m) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.getElementById('torqueCalc').style.display = m === 'torque' ? '' : 'none';
+  document.getElementById('electricalCalc').style.display = m === 'electrical' ? '' : 'none';
+  if (m === 'torque') calcTorque('power'); else calcElec();
+}
+const PUNITS = { kW: 1, HP: 0.7457, PS: 0.7355, W: 0.001 };
+const TUNITS = { Nm: 1, kgfm: 9.80665, lbft: 1.35582 };
+function calcTorque(driver) {
+  const pVal = +document.getElementById('power').value;
+  const pUnit = document.getElementById('powerUnit').value;
+  const rpm = +document.getElementById('rpm').value;
+  const tVal = +document.getElementById('torque').value;
+  const tUnit = document.getElementById('torqueUnit').value;
+  let kW;
+  if (driver === 'torque' && tVal > 0 && rpm > 0) {
+    const Nm = tVal * TUNITS[tUnit];
+    kW = Nm * rpm / 9550;
+    document.getElementById('power').value = (kW / PUNITS[pUnit]).toFixed(2);
+  } else {
+    kW = pVal * PUNITS[pUnit];
+  }
+  if (!kW || !rpm) return;
+  const Nm = kW * 9550 / rpm;
+  if (driver !== 'torque') document.getElementById('torque').value = (Nm / TUNITS[tUnit]).toFixed(2);
+  document.getElementById('r_torque').textContent = Nm.toFixed(1);
+  document.getElementById('r_kw').textContent = kW.toFixed(3) + ' kW';
+  document.getElementById('r_hp').textContent = (kW / 0.7457).toFixed(2) + ' HP';
+  document.getElementById('r_kgfm').textContent = (Nm / 9.80665).toFixed(2);
+  document.getElementById('r_lbft').textContent = (Nm / 1.35582).toFixed(1);
+  document.getElementById('r_rads').textContent = (rpm * 2 * Math.PI / 60).toFixed(2) + ' rad/s';
+  // Pole/freq estimate
+  const pole_50 = Math.round(120 * 50 / rpm);
+  document.getElementById('r_hz').textContent = pole_50 + '-pole @ 50Hz';
+}
+function calcElec() {
+  const P = +document.getElementById('e_power').value;
+  const phase = +document.getElementById('e_phase').value;
+  const V = +document.getElementById('e_volt').value;
+  const pf = +document.getElementById('e_pf').value;
+  const eff = +document.getElementById('e_eff').value / 100;
+  if (!P || !V || !pf || !eff) return;
+  const Pin = P / eff;
+  const I = phase === 3 ? Pin*1000 / (Math.sqrt(3) * V * pf) : Pin*1000 / (V * pf);
+  const kVA = Pin / pf;
+  const kVAR = kVA * Math.sin(Math.acos(pf));
+  const loss = Pin - P;
+  document.getElementById('r_amps').textContent = I.toFixed(1);
+  document.getElementById('r_inputkW').textContent = Pin.toFixed(2) + ' kW';
+  document.getElementById('r_kva').textContent = kVA.toFixed(2) + ' kVA';
+  document.getElementById('r_kvar').textContent = kVAR.toFixed(2) + ' kVAR';
+  document.getElementById('r_loss').textContent = loss.toFixed(2) + ' kW';
+}
+calcTorque('power');
+</script>
+</body>
+</html>

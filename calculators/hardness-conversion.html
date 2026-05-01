@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hardness Conversion Calculator — HRC, HRB, HV, HB, HK, Tensile | MetricMech</title>
+<meta name="description" content="Free hardness converter. Convert between Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and tensile strength. Based on ASTM E140 conversion table." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.scale-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.scale-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 16px; cursor: pointer; transition: all 0.15s; }
+.scale-card:hover { border-color: var(--blueprint); }
+.scale-card.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.scale-card.active .lbl { color: var(--amber); }
+.scale-card .lbl { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 6px; }
+.scale-card .scale { font-family: var(--display); font-weight: 600; font-size: 16px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; margin-bottom: 24px; }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 8px; }
+.input-card input { width: 100%; padding: 14px 16px; font-family: var(--display); font-size: 32px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card input:focus { border-color: var(--blueprint); }
+.results-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.result-card { padding: 18px; background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); text-align: center; }
+.result-card .lbl { font-family: var(--mono); font-size: 10px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+.result-card .val { font-family: var(--display); font-size: 26px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.result-card .unt { font-family: var(--mono); font-size: 10px; color: rgba(245,242,236,0.5); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em; }
+@media (max-width: 900px) { .results-grid { grid-template-columns: repeat(2, 1fr); } .scale-row { grid-template-columns: 1fr 1fr; } }
+.h-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+.h-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 10px 12px; text-align: left; }
+.h-table td { padding: 8px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); font-variant-numeric: tabular-nums; }
+.h-table tr:nth-child(even) td { background: var(--paper-2); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Hardness Conversion</div>
+  <h1 class="page-title">Hardness <em>Conversion.</em></h1>
+  <p class="page-lede">Convert between Rockwell C (HRC), Rockwell B (HRB), Vickers (HV), Brinell (HB), Knoop (HK), and tensile strength. Based on ASTM E140 standard conversion table for steels.</p>
+</div>
+
+<div class="calc-layout">
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 18px; margin-bottom: 14px;">Pick input scale</h3>
+  <div class="scale-row">
+    <div class="scale-card active" data-scale="hrc" onclick="setScale('hrc')"><div class="lbl">Rockwell C</div><div class="scale">HRC</div></div>
+    <div class="scale-card" data-scale="hrb" onclick="setScale('hrb')"><div class="lbl">Rockwell B</div><div class="scale">HRB</div></div>
+    <div class="scale-card" data-scale="hv" onclick="setScale('hv')"><div class="lbl">Vickers</div><div class="scale">HV</div></div>
+    <div class="scale-card" data-scale="hb" onclick="setScale('hb')"><div class="lbl">Brinell</div><div class="scale">HB (3000 kgf)</div></div>
+    <div class="scale-card" data-scale="hk" onclick="setScale('hk')"><div class="lbl">Knoop</div><div class="scale">HK</div></div>
+    <div class="scale-card" data-scale="tensile" onclick="setScale('tensile')"><div class="lbl">Tensile</div><div class="scale">UTS (MPa)</div></div>
+  </div>
+
+  <div class="input-card">
+    <label id="inputLabel">Enter Rockwell C (HRC) value</label>
+    <input type="number" id="value" value="45" step="1" oninput="calc()">
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 18px; margin-bottom: 14px;">Equivalent values</h3>
+  <div class="results-grid">
+    <div class="result-card"><div class="lbl">HRC</div><div class="val" id="r_hrc">—</div><div class="unt">Rockwell C</div></div>
+    <div class="result-card"><div class="lbl">HRB</div><div class="val" id="r_hrb">—</div><div class="unt">Rockwell B</div></div>
+    <div class="result-card"><div class="lbl">HV</div><div class="val" id="r_hv">—</div><div class="unt">Vickers</div></div>
+    <div class="result-card"><div class="lbl">HB</div><div class="val" id="r_hb">—</div><div class="unt">Brinell 3000 kgf</div></div>
+    <div class="result-card"><div class="lbl">HK</div><div class="val" id="r_hk">—</div><div class="unt">Knoop 500 gf</div></div>
+    <div class="result-card"><div class="lbl">UTS</div><div class="val" id="r_uts">—</div><div class="unt">MPa (≈3.45·HB)</div></div>
+  </div>
+
+  <div style="background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 32px 0; font-size: 13px; line-height: 1.6;">
+    <strong style="font-family: var(--display); font-size: 15px;">Note on accuracy.</strong> Hardness conversion is approximate. Values are based on ASTM E140 for non-austenitic steels. For non-ferrous materials (aluminium, copper, brass), conversions are less reliable — measure on the correct scale where possible. Reading errors of ±2 HRC and ±20 HV are normal between scales.
+  </div>
+
+  <h3 style="font-family: var(--display); font-weight: 600; font-size: 22px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid var(--ink);">Common reference points</h3>
+  <table class="h-table">
+    <thead><tr><th>Material / Condition</th><th>HRC</th><th>HV</th><th>HB</th><th>UTS (MPa)</th></tr></thead>
+    <tbody>
+      <tr><td>Mild steel — annealed</td><td>—</td><td>120</td><td>114</td><td>390</td></tr>
+      <tr><td>EN8 — normalised</td><td>20</td><td>240</td><td>228</td><td>790</td></tr>
+      <tr><td>EN24 — Q&amp;T</td><td>32</td><td>319</td><td>304</td><td>1050</td></tr>
+      <tr><td>Spring steel — tempered</td><td>45</td><td>446</td><td>424</td><td>1465</td></tr>
+      <tr><td>Tool steel D2 — hardened</td><td>60</td><td>697</td><td>—</td><td>2400</td></tr>
+      <tr><td>HSS M2 — hardened</td><td>64</td><td>800</td><td>—</td><td>2750</td></tr>
+      <tr><td>Carbide insert</td><td>72+</td><td>1500+</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div data-mw="cn-inline" data-variant="quality" style="margin-top: 40px;"></div>
+
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script>
+// ASTM E140 conversion table (subset, keyed by HRC)
+const TABLE = [
+  // [HRC, HRB, HV, HB, HK, UTS_MPa]
+  [-5, 80, 124, 117, 144, 393],
+  [0, 85, 145, 137, 165, 462],
+  [5, 90, 165, 156, 184, 540],
+  [10, 95, 187, 178, 204, 624],
+  [15, 100, 213, 205, 226, 717],
+  [20, 105, 240, 228, 256, 814],
+  [22, 107, 253, 242, 271, 855],
+  [24, 109, 269, 257, 287, 904],
+  [25, 110, 278, 266, 296, 931],
+  [26, 111, 286, 274, 305, 959],
+  [28, 113, 304, 292, 324, 1020],
+  [30, 115, 326, 313, 346, 1083],
+  [32, 117, 350, 333, 369, 1148],
+  [34, 119, 376, 354, 393, 1215],
+  [36, 120, 405, 376, 419, 1283],
+  [38, 122, 437, 401, 449, 1351],
+  [40, 123, 471, 425, 480, 1419],
+  [42, 124, 510, 451, 514, 1488],
+  [44, 125, 552, 477, 549, 1558],
+  [45, 126, 575, 491, 568, 1593],
+  [46, 127, 595, 506, 584, 1629],
+  [48, 128, 643, 538, 625, 1701],
+  [50, 129, 697, 566, 668, 1773],
+  [52, 130, 758, 599, 717, 1847],
+  [54, 131, 825, 626, 770, 1924],
+  [55, 131, 862, 638, 798, 1962],
+  [56, 132, 900, 654, 828, 2002],
+  [58, 132, 990, 682, 893, 2086],
+  [60, 133, 1090, 712, 967, 2174],
+  [62, 134, 1220, 742, 1054, 2266],
+  [64, 135, 1370, 776, 1156, 2362],
+  [65, 135, 1455, 793, 1213, 2412],
+  [66, 136, 1545, 809, 1276, 2462],
+  [68, 137, 1750, null, 1410, 2566],
+];
+let currentScale = 'hrc';
+function setScale(s) {
+  currentScale = s;
+  document.querySelectorAll('.scale-card').forEach(el => el.classList.toggle('active', el.dataset.scale === s));
+  const labels = { hrc: 'Rockwell C (HRC)', hrb: 'Rockwell B (HRB)', hv: 'Vickers (HV)', hb: 'Brinell (HB, 3000 kgf)', hk: 'Knoop (HK, 500 gf)', tensile: 'Tensile strength (MPa)' };
+  const defaults = { hrc: 45, hrb: 90, hv: 575, hb: 491, hk: 568, tensile: 1593 };
+  document.getElementById('inputLabel').textContent = 'Enter ' + labels[s] + ' value';
+  document.getElementById('value').value = defaults[s];
+  calc();
+}
+function interp(table, idx, val) {
+  // Find HRC row given any column value
+  for (let i = 0; i < table.length - 1; i++) {
+    const v1 = table[i][idx], v2 = table[i+1][idx];
+    if (typeof v1 !== 'number' || typeof v2 !== 'number') continue;
+    if ((val >= v1 && val <= v2) || (val <= v1 && val >= v2)) {
+      const t = (val - v1) / (v2 - v1);
+      return table[i].map((c, j) => typeof c === 'number' ? c + t * (table[i+1][j] - c) : c);
+    }
+  }
+  return null;
+}
+function calc() {
+  const v = +document.getElementById('value').value;
+  const idxMap = { hrc: 0, hrb: 1, hv: 2, hb: 3, hk: 4, tensile: 5 };
+  const idx = idxMap[currentScale];
+  const row = interp(TABLE, idx, v);
+  const out = id => document.getElementById(id);
+  if (!row) { ['r_hrc','r_hrb','r_hv','r_hb','r_hk','r_uts'].forEach(i => out(i).textContent = '—'); return; }
+  out('r_hrc').textContent = typeof row[0] === 'number' ? row[0].toFixed(1) : '—';
+  out('r_hrb').textContent = typeof row[1] === 'number' && row[1] <= 100 ? row[1].toFixed(1) : (row[1] > 100 ? '>HRB max' : '—');
+  out('r_hv').textContent = typeof row[2] === 'number' ? Math.round(row[2]) : '—';
+  out('r_hb').textContent = typeof row[3] === 'number' ? Math.round(row[3]) : '—';
+  out('r_hk').textContent = typeof row[4] === 'number' ? Math.round(row[4]) : '—';
+  out('r_uts').textContent = typeof row[5] === 'number' ? Math.round(row[5]) : '—';
+}
+// Fix em dash literal in TABLE - replace with null
+for (let i = 0; i < TABLE.length; i++) {
+  for (let j = 0; j < TABLE[i].length; j++) {
+    if (typeof TABLE[i][j] !== 'number') TABLE[i][j] = null;
+  }
+}
+calc();
+</script>
+</body>
+</html>
