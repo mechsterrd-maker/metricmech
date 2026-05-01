@@ -528,4 +528,120 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => clearInterval(checkInterval), 60000);
   }
 
+
+  // ========== PWA: Service worker + Install pill ==========
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(siteRoot + 'sw.js').catch(() => {});
+  }
+
+  const _isStandalone = window.matchMedia('(display-mode: standalone)').matches
+                     || window.navigator.standalone === true;
+
+  if (!_isStandalone && sessionStorage.getItem('mm_install_dismissed') !== '1') {
+    let _deferredPrompt = null;
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPhone|iPad|iPod/i.test(ua) && !window.MSStream;
+    const isAndroid = /Android/i.test(ua);
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      _deferredPrompt = e;
+      buildPill();
+    });
+
+    if (isIOS) setTimeout(buildPill, 3000);
+    if (!isIOS && !isAndroid) {
+      setTimeout(() => {
+        if (!document.getElementById('mm-install-pill') && !_deferredPrompt) buildPill();
+      }, 5000);
+    }
+
+    function buildPill() {
+      if (document.getElementById('mm-install-pill')) return;
+      const pill = document.createElement('div');
+      pill.id = 'mm-install-pill';
+      pill.className = 'mm-install-pill';
+      pill.innerHTML = `
+        <button class="mm-install-close" aria-label="Dismiss">×</button>
+        <div class="mm-install-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="mm-install-text">
+          <strong>Install MetricMech</strong>
+          <span>One-tap reference on your home screen</span>
+        </div>
+        <button class="mm-install-btn">Install</button>
+      `;
+      document.body.appendChild(pill);
+      requestAnimationFrame(() => pill.classList.add('mm-install-show'));
+
+      pill.querySelector('.mm-install-close').addEventListener('click', () => {
+        pill.classList.remove('mm-install-show');
+        setTimeout(() => pill.remove(), 300);
+        sessionStorage.setItem('mm_install_dismissed', '1');
+      });
+
+      pill.querySelector('.mm-install-btn').addEventListener('click', async () => {
+        if (_deferredPrompt) {
+          _deferredPrompt.prompt();
+          const { outcome } = await _deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            pill.classList.remove('mm-install-show');
+            setTimeout(() => pill.remove(), 300);
+            sessionStorage.setItem('mm_install_dismissed', '1');
+          }
+          _deferredPrompt = null;
+        } else if (isIOS) {
+          showInstructions('ios');
+        } else {
+          showInstructions('desktop');
+        }
+      });
+    }
+
+    function showInstructions(platform) {
+      const modal = document.createElement('div');
+      modal.className = 'mm-install-modal';
+      const inner = platform === 'ios' ? `
+        <h3>Install on iPhone / iPad</h3>
+        <ol>
+          <li>Tap the <strong>Share</strong> icon at the bottom of Safari</li>
+          <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+          <li>Tap <strong>"Add"</strong> in the top-right corner</li>
+        </ol>
+        <p class="mm-install-modal-foot">MetricMech will appear on your home screen like a native app.</p>
+      ` : `
+        <h3>Install on Desktop</h3>
+        <p><strong>Chrome / Edge:</strong> Click the install icon at the right side of the address bar (looks like a small computer with an arrow).</p>
+        <p><strong>Safari (Mac):</strong> File menu → Add to Dock</p>
+        <p><strong>Firefox:</strong> Doesn\'t support installing yet — please bookmark instead (Ctrl/Cmd+D).</p>
+        <p class="mm-install-modal-foot">Once installed, MetricMech opens in its own window — no browser tabs needed.</p>
+      `;
+      modal.innerHTML = `
+        <div class="mm-install-modal-card">
+          <button class="mm-install-modal-close" aria-label="Close">×</button>
+          <div class="mm-install-modal-icon"><img src="${siteRoot}icons/icon-192.png" alt="MetricMech" width="64" height="64"></div>
+          ${inner}
+        </div>
+      `;
+      document.body.appendChild(modal);
+      requestAnimationFrame(() => modal.classList.add('mm-install-modal-show'));
+      const close = () => {
+        modal.classList.remove('mm-install-modal-show');
+        setTimeout(() => modal.remove(), 250);
+      };
+      modal.querySelector('.mm-install-modal-close').addEventListener('click', close);
+      modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      const pill = document.getElementById('mm-install-pill');
+      if (pill) {
+        pill.classList.remove('mm-install-show');
+        setTimeout(() => pill.remove(), 300);
+      }
+      sessionStorage.setItem('mm_install_dismissed', '1');
+    });
+  }
+
 });

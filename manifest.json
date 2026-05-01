@@ -1,0 +1,31 @@
+{
+  "name": "MetricMech — Engineering Reference",
+  "short_name": "MetricMech",
+  "description": "Free engineering calculators, GD&T, and FAI templates for manufacturing engineers.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f2ec",
+  "theme_color": "#0a1628",
+  "categories": ["productivity", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "Calculators", "url": "/calculators.html", "icons": [{"src": "/icons/icon-192.png", "sizes": "192x192"}] },
+    { "name": "GD&T Reference", "url": "/gdt.html", "icons": [{"src": "/icons/icon-192.png", "sizes": "192x192"}] },
+    { "name": "Standards", "url": "/standards.html", "icons": [{"src": "/icons/icon-192.png", "sizes": "192x192"}] }
+  ]
+}

@@ -103,6 +103,26 @@
     const clone = source.cloneNode(true);
     stripSelectors.forEach(sel => clone.querySelectorAll(sel).forEach(n => n.remove()));
 
+    // Force single-column layout for clean PDF — overrides 2-column calc-layout/grid
+    const layoutOverride = document.createElement('style');
+    layoutOverride.textContent = `
+      .calc-layout, .calc-grid, .builder-grid, .results, .symbol-grid, .mod-grid {
+        display: block !important;
+        grid-template-columns: none !important;
+      }
+      .calc-layout > *, .calc-grid > *, .builder-grid > *, .symbol-grid > *, .mod-grid > * {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 16px !important;
+      }
+      .results { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+      .result-card, .stat-mini {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+    `;
+
     // Convert form inputs/selects/textareas to plain text spans (so values are captured)
     clone.querySelectorAll('input, select, textarea').forEach(el => {
       const span = document.createElement('span');
@@ -127,7 +147,41 @@
     const wrap = document.createElement('div');
     wrap.dataset.mmTemp = '1';
     wrap.style.cssText = 'position: absolute; left: -10000px; top: 0; width: 800px; padding: 40px; background: #fff; font-family: \"Inter Tight\", system-ui, sans-serif; color: #1a1f2e;';
-    wrap.innerHTML = `
+
+    // Force single-column layout in clone — overrides any grid/flex layouts that look bad in portrait PDF
+    const styleOverride = document.createElement('style');
+    styleOverride.textContent = `
+      [data-mm-temp="1"] .calc-layout,
+      [data-mm-temp="1"] .builder-grid,
+      [data-mm-temp="1"] .results,
+      [data-mm-temp="1"] [class*="grid-template"] {
+        display: block !important;
+        grid-template-columns: none !important;
+      }
+      [data-mm-temp="1"] .calc-layout > div,
+      [data-mm-temp="1"] .builder-grid > div {
+        margin-bottom: 16px;
+      }
+      [data-mm-temp="1"] .results {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      [data-mm-temp="1"] .result-card,
+      [data-mm-temp="1"] .res-tile,
+      [data-mm-temp="1"] .stat-mini {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      [data-mm-temp="1"] .method-box,
+      [data-mm-temp="1"] table {
+        margin-top: 16px;
+      }
+    `;
+    wrap.appendChild(styleOverride);
+
+    wrap.innerHTML += `
       <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 2px solid #1a1f2e; margin-bottom: 22px;">
         <div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; margin-bottom: 6px;">${escapeHtml(opts.kicker || 'MetricMech Calculator')}</div>
@@ -138,6 +192,7 @@
         </div>
       </div>
     `;
+    wrap.appendChild(layoutOverride);
     wrap.appendChild(clone);
 
     document.body.appendChild(wrap);
@@ -184,30 +239,50 @@
     const imgRatio = canvas.height / canvas.width;
     const imgH = usableW * imgRatio;
 
-    const imgData = canvas.toDataURL('image/png');
-
     // If content fits on one page, just add it.
     if (imgH <= usableH) {
+      const imgData = canvas.toDataURL('image/png');
       pdf.addImage(imgData, 'PNG', margin, margin, usableW, imgH);
     } else {
-      // Multi-page: place the SAME image on each page at progressively higher Y offsets,
-      // and clip via page boundaries. This is the standard reliable approach for jsPDF + html2canvas.
-      let heightLeft = imgH;
-      let position = 0; // current Y offset on page (negative as we go down the canvas)
+      // Multi-page: slice canvas into chunks, each fitting one page
+      // Convert page-usable-height (mm) to canvas pixels
+      const pxPerMm = canvas.width / usableW;
+      const sliceHpx = Math.floor(usableH * pxPerMm);
+
+      let yPx = 0;
       let pageNum = 0;
 
-      while (heightLeft > 0) {
+      while (yPx < canvas.height) {
+        const remainingPx = canvas.height - yPx;
+        const thisSliceHpx = Math.min(sliceHpx, remainingPx);
+
+        // Create a slice canvas containing just this page's worth of content
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = thisSliceHpx;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
+        // Copy the slice from main canvas
+        ctx.drawImage(
+          canvas,
+          0, yPx,                    // source x, y
+          canvas.width, thisSliceHpx, // source width, height
+          0, 0,                       // dest x, y
+          canvas.width, thisSliceHpx  // dest width, height
+        );
+
+        const sliceData = sliceCanvas.toDataURL('image/png');
+        // Convert this slice's height back to mm
+        const sliceHmm = (thisSliceHpx / pxPerMm);
+
         if (pageNum > 0) pdf.addPage();
-        // Place the full image, with top-Y shifted up by `position` so the next strip is visible
-        pdf.addImage(imgData, 'PNG', margin, margin + position, usableW, imgH);
-        // Mask the area outside usableH on this page (jsPDF doesn't auto-clip — but image overflow is fine,
-        // it just gets clipped to the page edge). Each page shows usableH worth of content.
-        heightLeft -= usableH;
-        position -= usableH;
+        pdf.addImage(sliceData, 'PNG', margin, margin, usableW, sliceHmm);
+
+        yPx += thisSliceHpx;
         pageNum++;
 
-        // Safety break — no PDF should be > 50 pages from a calculator
-        if (pageNum > 50) break;
+        if (pageNum > 50) break; // safety
       }
     }
 
