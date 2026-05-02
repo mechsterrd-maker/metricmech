@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CNC Speeds &amp; Feeds Calculator — RPM, MRR, HP for Milling | MetricMech</title>
-<meta name="description" content="Free CNC milling speeds and feeds calculator. Compute spindle RPM, feed rate, chip load, MRR, and spindle horsepower for steel, aluminium, stainless, and titanium." />
+<title>Machining Speeds and Feeds Calculator with Power and Force</title>
+<meta name="description" content="Free CNC speeds and feeds calculator for milling and turning. RPM, feed rate, MRR, cutting force, spindle power per material.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -188,6 +188,61 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Speeds and Feeds for CNC Machining</h2>
+<p>Speeds and feeds are the cutting parameters that govern tool life, surface finish, dimensional accuracy, and machining time. Get them right and parts come off the machine clean and to size; get them wrong and you scrap parts, break tools, and trash spindle bearings.</p>
+
+<h3>Core Formulas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>RPM = (1000 × Vc) / (π × D)</strong><br><strong>Feed rate (mm/min) = RPM × Z × fz</strong><br><strong>MRR (cm³/min) = ap × ae × Feed / 1000</strong><br><strong>Cutting power (kW) = MRR × Kc / 60000</strong></p>
+<p>Where Vc = cutting speed (m/min), D = tool diameter (mm), Z = number of flutes, fz = feed per tooth (mm), ap = axial depth of cut, ae = radial depth of cut, Kc = specific cutting force (N/mm²).</p>
+
+<h3>Typical Cutting Speeds (Vc) by Material</h3>
+<ul>
+  <li><strong>Aluminum 6061</strong> — 300-600 m/min (carbide), 100-200 m/min (HSS)</li>
+  <li><strong>Mild steel C1018</strong> — 100-180 m/min (carbide)</li>
+  <li><strong>Stainless 304</strong> — 60-90 m/min (carbide)</li>
+  <li><strong>Titanium Ti-6Al-4V</strong> — 30-60 m/min (carbide, with coolant)</li>
+  <li><strong>Tool steel D2 hardened</strong> — 25-50 m/min (CBN preferred)</li>
+  <li><strong>Brass / Bronze</strong> — 200-400 m/min</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>10 mm 4-flute carbide endmill, mild steel, Vc = 150 m/min, fz = 0.04 mm/tooth, ap = 5 mm, ae = 3 mm.</p>
+<ul>
+  <li>RPM = (1000 × 150) / (π × 10) = <strong>4,775 RPM</strong></li>
+  <li>Feed = 4,775 × 4 × 0.04 = <strong>764 mm/min</strong></li>
+  <li>MRR = 5 × 3 × 764 / 1000 = <strong>11.5 cm³/min</strong></li>
+  <li>Power (with Kc ≈ 2400 N/mm² for mild steel) = 11.5 × 2400 / 60000 = <strong>0.46 kW</strong></li>
+</ul>
+
+<h3>Common Speed/Feed Mistakes</h3>
+<ul>
+  <li><strong>Using HSS speeds for carbide</strong> — carbide runs 3-5× faster. Slow carbide rubs and dulls quickly.</li>
+  <li><strong>Ignoring chipload (fz)</strong> — too low causes tool rubbing and work-hardening; too high causes tool breakage.</li>
+  <li><strong>Forgetting coolant in difficult materials</strong> — titanium and stainless need flood coolant or MQL.</li>
+  <li><strong>Not adjusting for radial engagement</strong> — high-speed machining (HSM) uses light radial (~10% D) at higher feeds.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>Combine speeds/feeds with <a href="cycle-time.html">Cycle Time Calculator</a> for full part costing. Track production efficiency with <a href="oee.html">OEE Calculator</a>. For surface finish prediction, see <a href="surface-finish.html">Surface Finish</a>. To estimate ROI on faster machining, see <a href="cadnexa-roi.html">CadNexa ROI</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -261,6 +316,11 @@ function calc() {
              headline: 'Estimate machining cost for this part.',
              sub: 'CadNexa lets you upload the STEP file, auto-detect features, and add machining operations with these speeds/feeds — generating a per-part cost in seconds.',
              ctaText: 'Estimate cost in CadNexa →' },
+      nextSteps: [
+        { href: 'cycle-time.html', text: "Calculate cycle time", sub: "Total time per part" },
+        { href: 'oee.html', text: "Track OEE", sub: "Equipment effectiveness" },
+        { href: 'cadnexa-roi.html', text: "Estimate cost in CadNexa", sub: "Full quotation" },
+      ],
       related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE Calculator' }, { href: 'cadnexa-roi.html', text: 'CadNexa ROI' } ]
     });
   })();

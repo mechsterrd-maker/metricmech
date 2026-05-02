@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Gauge R&amp;R Calculator — MSA Type 1 Quick Study | MetricMech</title>
-<meta name="description" content="Free Gauge R&amp;R Type 1 study calculator. Determine if your measurement system is fit for purpose using Cg and Cgk capability indices. AIAG MSA-compliant." />
+<title>Gauge R&R Calculator (AIAG MSA) with Cg Cgk and Interpretation</title>
+<meta name="description" content="Free Gauge R&R / MSA calculator. Cg, Cgk, %EV, bias detection per AIAG MSA 4th edition. Worked example, formulas, and pass/fail interpretation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -76,10 +76,10 @@
   </div>
 </a>
 
-<div class="calc-layout">
+<div class="calc-layout" data-mm-report data-mm-kicker="Gauge R&R · MSA Type 1 Study" data-mm-title="Gauge R&R Capability Report">
   <div class="calc-grid">
 
-    <div>
+    <div data-mm-section="input">
       <div class="input-card">
         <label>Reference / Master value</label>
         <input type="number" id="ref" value="50.000" step="0.001" oninput="calc()">
@@ -136,7 +136,7 @@
       </div>
     </div>
 
-    <div>
+    <div data-mm-section="result">
       <div class="result-big">
         <div class="lbl">Cg — REPEATABILITY</div>
         <div class="val" id="cg">—</div>
@@ -190,6 +190,61 @@
 </div>
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is Gauge R&amp;R (Repeatability and Reproducibility)?</h2>
+<p>Gauge R&amp;R is a Measurement System Analysis (MSA) study that tells you how much of your observed variation comes from the <strong>measurement system itself</strong> versus the actual part variation. If your gauge is contributing too much noise, your Cp/Cpk numbers are lying to you.</p>
+
+<h3>Cg and Cgk Formulas (AIAG MSA)</h3>
+<p>The AIAG MSA 4th edition uses these formulas for gauge capability:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Cg = (0.2 × Tolerance) / (6 × s)</strong><br><strong>Cgk = (0.1 × Tolerance − |Bias|) / (3 × s)</strong></p>
+<p>Where s is the standard deviation of repeated measurements on a reference standard, and Bias = (mean of measurements) − (reference value).</p>
+
+<h3>Pass / Fail Criteria</h3>
+<ul>
+  <li><strong>Cg ≥ 1.33 AND Cgk ≥ 1.33</strong> — Gauge capable. Use for production.</li>
+  <li><strong>1.00 ≤ Cg or Cgk &lt; 1.33</strong> — Marginal. Non-critical features only.</li>
+  <li><strong>&lt; 1.00</strong> — Not capable. Replace gauge or upgrade procedure.</li>
+</ul>
+
+<h3>Worked Gauge R&amp;R Example</h3>
+<p>You're verifying a digital caliper used to measure a 50.00 mm shaft (tolerance ±0.020 mm, so Tolerance = 0.040 mm). You measure a calibrated reference (50.000 mm) 25 times.</p>
+<ul>
+  <li>Mean of measurements: 50.0008 mm</li>
+  <li>Standard deviation: 0.0014 mm</li>
+  <li>Bias: 50.0008 − 50.000 = 0.0008 mm</li>
+  <li><strong>Cg</strong> = (0.2 × 0.040) / (6 × 0.0014) = <strong>0.95</strong> — fails!</li>
+  <li><strong>Cgk</strong> = (0.1 × 0.040 − 0.0008) / (3 × 0.0014) = <strong>0.76</strong> — fails!</li>
+</ul>
+<p>The gauge resolution is too coarse for this tolerance. You'd need either a tighter tolerance or a higher-resolution instrument (digital micrometer or air gauge).</p>
+
+<h3>Common Causes of Gauge R&amp;R Failure</h3>
+<ul>
+  <li><strong>Insufficient resolution</strong> — gauge readability should be 1/10th of tolerance.</li>
+  <li><strong>Temperature variation</strong> — steel parts grow ~12 µm/m/°C. Critical for tight specs.</li>
+  <li><strong>Operator technique differences</strong> — clamping force, alignment, reading angle.</li>
+  <li><strong>Gauge wear</strong> — anvils, jaws, and reference surfaces wear over time.</li>
+</ul>
+
+<h3>Workflow After Gauge R&amp;R</h3>
+<p>Once your gauge passes MSA, you can confidently run a <a href="cp-cpk.html">Cp/Cpk capability study</a>. Document the MSA results in your <a href="ppap-checklist.html">PPAP submission</a> as Element 10. For aerospace, attach the study to your <a href="as9102-form3.html">AS9102 Form 3</a>. Verify any final dimensions with <a href="measurement-uncertainty.html">measurement uncertainty analysis</a> for high-precision parts.</p>
+
+</section>
 
 </main>
 
@@ -274,7 +329,11 @@ function calc() {
   mmInterpret.render('grrInterpret', {
     verdict: v,
     recommendations: recs,
-    cta: cta,
+    cta: cta,      nextSteps: [
+        { href: 'cp-cpk.html', text: 'Run capability study', sub: 'Cp / Cpk on the part' },
+        { href: 'as9102-form3.html', text: 'Attach to FAI', sub: 'Document MSA in Form 3' },
+        { href: 'ppap-checklist.html', text: 'Build PPAP', sub: 'Element 10 — MSA' },
+      ],
     related: [
       { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
       { href: 'as9102-form3.html', text: 'AS9102 Form 3 Builder' },

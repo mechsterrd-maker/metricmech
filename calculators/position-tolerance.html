@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Position Tolerance Calculator with MMC / LMC Bonus | MetricMech</title>
-<meta name="description" content="Free position tolerance calculator. Compute true position from X/Y deviations, with MMC and LMC bonus tolerance from feature size. ASME Y14.5 compliant." />
+<title>Position Tolerance Calculator with MMC LMC Bonus Tolerance</title>
+<meta name="description" content="Free position tolerance calculator per ASME Y14.5. Compute true position with MMC, LMC, and RFS modifiers. Bonus tolerance, deviation, pass/fail.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -168,6 +168,69 @@
 
 <div id="posInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is Position Tolerance?</h2>
+<p><strong>True position</strong> is a GD&amp;T (Geometric Dimensioning and Tolerancing) callout that controls the location of a feature (typically a hole, pin, or slot) relative to specified datums. It's defined by <strong>ASME Y14.5</strong> in the US and <strong>ISO 1101</strong> internationally.</p>
+
+<h3>Position Tolerance Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Actual position = 2 × √(ΔX² + ΔY²)</strong><br><strong>Total allowed = Position tolerance + Bonus tolerance</strong><br><strong>PASS if Actual ≤ Total allowed</strong></p>
+
+<h3>MMC, LMC, and RFS Modifiers</h3>
+<p>The "modifier" applied to a position tolerance changes how much extra tolerance you get based on the actual size of the feature:</p>
+<ul>
+  <li><strong>RFS (Regardless of Feature Size)</strong> — No bonus. Position tolerance applies regardless of hole/pin size. The most restrictive.</li>
+  <li><strong>MMC (Maximum Material Condition)</strong> — Bonus tolerance accumulates as the feature departs from MMC. Most common modifier; gives manufacturing flexibility.</li>
+  <li><strong>LMC (Least Material Condition)</strong> — Bonus accumulates as the feature departs from LMC. Used for wall thickness or minimum stock material concerns.</li>
+</ul>
+
+<h3>Bonus Tolerance Worked Example</h3>
+<p>Hole specified ⌀10 +0.05/-0 with position ⌀0.1 (M).</p>
+<ul>
+  <li>MMC of hole = 10.00 (smallest hole)</li>
+  <li>Actual hole measured: 10.04</li>
+  <li>Bonus tolerance = 10.04 − 10.00 = <strong>0.04 mm</strong></li>
+  <li>Total position allowed = 0.1 + 0.04 = <strong>⌀0.14</strong></li>
+  <li>Measured deviation: ΔX = 0.04, ΔY = 0.03 → Actual = 2 × √(0.04² + 0.03²) = <strong>⌀0.10</strong></li>
+  <li>PASS — actual ⌀0.10 is within total allowed ⌀0.14 (0.04 mm headroom)</li>
+</ul>
+
+<h3>Common Position Tolerance Mistakes</h3>
+<ul>
+  <li>Forgetting bonus tolerance only applies with M or L modifier in the feature control frame.</li>
+  <li>Confusing MMC of hole (smallest) with MMC of pin (largest).</li>
+  <li>Reporting deviation as ΔX or ΔY only — true position is the diametrical spec, must use 2× √sum-of-squares.</li>
+  <li>Measuring without proper datum simulation — surface plate setup must replicate the drawing's DRF.</li>
+</ul>
+
+<h3>When Position Tolerance Fails</h3>
+<p>Most position failures come from one dominant axis. If ΔX is much larger than ΔY (or vice versa), the issue is usually:</p>
+<ul>
+  <li>Fixture clamping in the dominant direction</li>
+  <li>Tool offset error in that axis</li>
+  <li>Machine backlash or thermal growth</li>
+</ul>
+<p>Investigate the dominant axis first — fixing that often saves the part.</p>
+
+<h3>Related Tools</h3>
+<p>For multi-feature analysis, use the <a href="tolerance-stack.html">Tolerance Stack-up calculator</a>. For hole/shaft fits, see <a href="iso-286-fits.html">ISO 286 Fits</a>. Document the position result in your <a href="as9102-form3.html">AS9102 Form 3</a>. For full GD&amp;T symbol reference, visit the <a href="../gdt.html">GD&amp;T Reference page</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -302,6 +365,15 @@ function recalc() {
         : 'CadNexa lets you ballooon the position callout, link to this calculation, and generate AS9102 Form 3 with all GD&T characteristics in one workflow.',
       ctaText: isFail ? 'Fix this in CadNexa →' : 'Generate FAI in CadNexa →',
     },
+    nextSteps: isFail ? [
+      { href: 'tolerance-stack.html', text: 'Run tolerance stack analysis', desc: 'Verify root cause is in the stack' },
+      { href: 'gauge-rr.html', text: 'Verify your CMM gauge capability', desc: 'Rule out measurement error' },
+      { href: '../gdt.html', text: 'Review GD&T fundamentals', desc: 'Check MMC modifier could give bonus tolerance' }
+    ] : [
+      { href: 'as9102-form3.html', text: 'Add to AS9102 Form 3', desc: 'Document this position result in your FAI' },
+      { href: 'cp-cpk.html', text: 'Run Cp/Cpk on position values', desc: 'Verify ongoing capability' },
+      { href: 'tolerance-stack.html', text: 'Tolerance stack-up analysis', desc: 'Verify assembly fit' }
+    ],
     related: [
       { href: 'tolerance-stack.html', text: 'Tolerance Stack-Up' },
       { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Takt Time Calculator — Cycle Time, Lead Time, Line Balancing | MetricMech</title>
-<meta name="description" content="Free Takt Time calculator. Compute Takt, cycle time gap, line balancing efficiency and required workstations. Lean manufacturing line design tool for any production system." />
+<title>Takt Time Calculator with Cycle Time Comparison</title>
+<meta name="description" content="Free takt time calculator. Available time / customer demand. Match cycle time to takt for line balancing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -147,6 +147,55 @@
 
 
 <div id="tkInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Takt Time</h2>
+<p><strong>Takt time</strong> is the rate at which products must be completed to meet customer demand. It's the heartbeat of a production line — every workstation must be balanced to this beat.</p>
+
+<h3>Takt Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Takt = Available Production Time / Customer Demand</strong></p>
+
+<h3>Worked Example</h3>
+<p>One 8-hour shift, 30 min for breaks → 450 min available. Daily demand 600 units.</p>
+<ul>
+  <li>Takt = 450 × 60 / 600 = <strong>45 sec/unit</strong></li>
+  <li>Every workstation must complete its work in 45 seconds or less, or the line falls behind.</li>
+</ul>
+
+<h3>Cycle Time vs Takt Time</h3>
+<ul>
+  <li><strong>Cycle time &lt; takt</strong> — Workstation has slack. Good — slight buffer for variation.</li>
+  <li><strong>Cycle time = takt</strong> — Perfect balance. Zero buffer; any disturbance causes delay.</li>
+  <li><strong>Cycle time &gt; takt</strong> — Bottleneck. Add capacity, parallel workers, or split the operation.</li>
+</ul>
+
+<h3>Line Balancing</h3>
+<p>If you have 3 workstations with cycle times 50, 30, 40 sec and takt 45 sec, station 1 is the bottleneck. Options:</p>
+<ol>
+  <li>Move 5 sec of work from station 1 to station 2 → 45, 35, 40</li>
+  <li>Add a parallel station 1' to halve effective cycle time</li>
+  <li>Reduce setup or wait time within station 1</li>
+</ol>
+
+<h3>Related Tools</h3>
+<p>Compare to actual <a href="cycle-time.html">Cycle Time</a>. Track losses with <a href="oee.html">OEE</a>. Match production to <a href="speeds-feeds.html">Speeds &amp; Feeds</a>.</p>
+
+</section>
 
 </main>
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bolt Torque Calculator — Preload, K-Factor for Metric &amp; UNC Bolts | MetricMech</title>
-<meta name="description" content="Free bolt torque calculator. Compute tightening torque from bolt grade, diameter, friction coefficient. Metric (M3-M64) and UNC bolts, grades 4.6 to 12.9, A2/A4 stainless." />
+<title>Bolt Torque Calculator with Preload and Friction</title>
+<meta name="description" content="Free bolt torque calculator. Tightening torque, clamping force, preload per ISO 898. Grade 8.8, 10.9, 12.9 metric bolts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -173,6 +173,68 @@
 
 
 <div id="btInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Bolt Torque and Preload</h2>
+<p>Bolt joints work by <strong>preload</strong> — the tension force in the bolt that clamps the joint together. Torque is just the means to create preload. Get the torque right and the joint will hold for life; get it wrong and the joint loosens, fatigues, or strips threads.</p>
+
+<h3>Torque Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>T = K × F × d</strong></p>
+<p>Where T = tightening torque (Nm), K = nut factor (0.18-0.22 typical), F = preload (N), d = nominal diameter (m). K varies with thread condition: 0.20 dry, 0.16 lubricated, 0.12 with anti-seize.</p>
+
+<h3>Bolt Grade Strengths</h3>
+<ul>
+  <li><strong>Grade 8.8</strong>: yield 640 MPa, tensile 800 MPa — general purpose</li>
+  <li><strong>Grade 10.9</strong>: yield 940 MPa, tensile 1040 MPa — high strength</li>
+  <li><strong>Grade 12.9</strong>: yield 1100 MPa, tensile 1220 MPa — critical fasteners</li>
+  <li><strong>SAE Grade 5</strong>: yield 634 MPa, tensile 827 MPa</li>
+  <li><strong>SAE Grade 8</strong>: yield 896 MPa, tensile 1034 MPa</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>M10 × 1.5 grade 10.9 bolt, target preload 75% of yield, dry threads (K=0.20).</p>
+<ul>
+  <li>Stress area A_s for M10×1.5 = 58 mm²</li>
+  <li>Yield force = 940 × 58 = 54,520 N</li>
+  <li>Target preload = 0.75 × 54,520 = 40,890 N (~41 kN)</li>
+  <li>T = 0.20 × 40,890 × 0.010 = <strong>82 Nm</strong></li>
+</ul>
+
+<h3>Tightening Methods Compared</h3>
+<ul>
+  <li><strong>Torque only</strong>: ±25-35% scatter in preload. Standard for non-critical.</li>
+  <li><strong>Torque + Angle</strong>: ±5-10% scatter. Used in engine, transmission, structural.</li>
+  <li><strong>Torque + Yield</strong>: ±2-5% scatter. Production-line for critical joints.</li>
+  <li><strong>Hydraulic tensioner</strong>: ±2% scatter. Wind turbine, pressure vessels.</li>
+</ul>
+
+<h3>Why Bolts Loosen</h3>
+<ul>
+  <li><strong>Vibration</strong> → use Loctite, Nyloc, or split-washers</li>
+  <li><strong>Insufficient preload</strong> → re-torque to spec</li>
+  <li><strong>Embedment</strong> (gasket compression after assembly) → re-torque after first cycle</li>
+  <li><strong>Thermal cycling</strong> → check that joint stiffness ratio is correct for the application</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For pressed alternatives, see <a href="press-fit.html">Press-Fit Calculator</a>. For thread spec lookup, see <a href="thread-pitch.html">Thread Pitch</a>. Document torque values on <a href="as9102-form3.html">AS9102 Form 3</a>.</p>
+
+</section>
 
 </main>
 

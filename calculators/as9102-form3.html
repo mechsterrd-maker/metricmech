@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AS9102 Form 3 Builder — Free Aerospace FAI Generator | MetricMech</title>
-<meta name="description" content="Free AS9102 Form 3 Builder. Add characteristics, requirements, results, and inspection methods. Export as PDF for aerospace First Article Inspection submissions." />
+<title>AS9102 Form 3 Builder — Free FAI Characteristic Accountability Tool</title>
+<meta name="description" content="Free AS9102 Rev C Form 3 builder. Pass/fail per characteristic, auto-balloon support, PDF export. Used by aerospace suppliers across India.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -258,6 +258,67 @@
 
 <div id="faiInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is AS9102 Form 3?</h2>
+<p><strong>AS9102 Rev C Form 3</strong> is the Characteristic Accountability section of the aerospace First Article Inspection (FAI) report. It documents every dimension, GD&amp;T callout, material spec, and surface finish on the drawing — with the actual measured value and pass/fail status.</p>
+
+<p>Form 3 is the most data-intensive form in the AS9102 family. Forms 1 (Part Number Accountability) and 2 (Product Accountability) cover identification; <strong>Form 3 is where the engineering verification lives</strong>.</p>
+
+<h3>What Goes on AS9102 Form 3?</h3>
+<p>Every "balloon" on your drawing becomes one row on Form 3:</p>
+<ul>
+  <li>Characteristic Number (matches drawing balloon)</li>
+  <li>Reference Location (drawing zone, sheet, view)</li>
+  <li>Characteristic / Designator (e.g., "Length", "Position", "Surface Finish Ra")</li>
+  <li>Requirement (nominal + tolerance, e.g., 50.00 ±0.05)</li>
+  <li>Results / Measured Value (actual measurement)</li>
+  <li>Inspection Method (Caliper, CMM, Surface Plate, Visual...)</li>
+  <li>Pass / Fail status</li>
+</ul>
+
+<h3>Common AS9102 Mistakes That Cause Rejection</h3>
+<ul>
+  <li><strong>Missing balloons</strong> — every drawing callout must be on Form 3, including notes, material spec, heat treatment, surface treatment, and any GD&amp;T frame.</li>
+  <li><strong>Stale drawing revision</strong> — Form 3 must reference the released drawing rev that was machined.</li>
+  <li><strong>Inspection method gaps</strong> — "Visual" is rarely acceptable for dimensional features. Use measurable methods.</li>
+  <li><strong>No bias / measurement uncertainty</strong> — for tight tolerances, attach a <a href="gauge-rr.html">Gauge R&amp;R study</a>.</li>
+  <li><strong>Inconsistent units</strong> — drawing in metric, Form 3 in imperial. Use the drawing's units.</li>
+</ul>
+
+<h3>Worked Example: A Simple Bracket</h3>
+<p>For a 50 × 25 × 6 aluminum bracket with 4× ⌀5 holes:</p>
+<ol>
+  <li>Length 50.000 ±0.10, measured 50.04 (Caliper) → PASS</li>
+  <li>Width 25.000 ±0.05, measured 24.98 (Micrometer) → PASS</li>
+  <li>Thickness 6.000 ±0.05, measured 6.02 (Micrometer) → PASS</li>
+  <li>Hole ⌀ 5.000 ±0.05, measured 5.012 avg (Pin Gauge) → PASS</li>
+  <li>Hole position true position ⌀0.10, measured ⌀0.08 (CMM) → PASS</li>
+  <li>Surface Finish Ra 1.6 µm, measured 1.4 µm (Profilometer) → PASS</li>
+  <li>Material AMS 4117 verified → PASS (Cert # attached)</li>
+  <li>Heat treatment T6 hardness HRB 75±5, measured HRB 78 → PASS</li>
+</ol>
+<p>That's 8 characteristics for a simple bracket. Aerospace assemblies typically have 30-100 balloons.</p>
+
+<h3>Related Tools and Workflow</h3>
+<p>Build process capability evidence with <a href="cp-cpk.html">Cp/Cpk studies</a> and verify your measurement system via <a href="gauge-rr.html">Gauge R&amp;R</a>. For position tolerances, use the <a href="position-tolerance.html">Position Tolerance calculator</a>. Continue to full <a href="ppap-checklist.html">PPAP submission</a> for automotive customers, or use the FAI data directly for aerospace AS9100 audits.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -404,6 +465,19 @@ function updatePreview() {
       sub: 'CadNexa balloons your drawing automatically (PDF + 3D), pulls dimensions into Form 3, links Cp/Cpk and Gauge R&R studies, and exports the full AS9102 Rev C package — Forms 1, 2, and 3 — ready to send to your aerospace customer.',
       ctaText: isFail ? 'Fix this in CadNexa →' : 'Generate full FAI in CadNexa →',
     },
+    nextSteps: isFail ? [
+      { href: 'cp-cpk.html', text: 'Run capability study on failed dimension', desc: 'Find process root cause' },
+      { href: 'fmea-rpn.html', text: 'Add to FMEA log', desc: 'Document failure mode for future' },
+      { href: 'gauge-rr.html', text: 'Verify gauge is not the issue', desc: 'Rule out measurement error first' }
+    ] : (pass === total && total >= 5 ? [
+      { href: 'ppap-checklist.html', text: 'Continue to PPAP submission', desc: 'FAI is element #5 of PPAP package' },
+      { href: 'cp-cpk.html', text: 'Add Cp/Cpk capability data', desc: 'Strengthens FAI with statistical evidence' },
+      { href: 'gauge-rr.html', text: 'Attach Gauge R&R study', desc: 'AS9102 element — measurement system analysis' }
+    ] : [
+      { href: '../gdt.html', text: 'Review drawing for missed callouts', desc: 'Make sure every balloon is captured' },
+      { href: 'position-tolerance.html', text: 'Calculate any GD&T positions', desc: 'Add to Form 3' },
+      { href: 'tolerance-stack.html', text: 'Verify tolerance stack-up', desc: 'For assemblies' }
+    ]),
     related: [
       { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },
       { href: 'gauge-rr.html', text: 'Gauge R&R (MSA)' },

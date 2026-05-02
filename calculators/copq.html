@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>COPQ Calculator — Cost of Poor Quality (Rejection ₹/month) | MetricMech</title>
-<meta name="description" content="Free Cost of Poor Quality (COPQ) calculator. Convert your monthly rejection rate into rupees wasted. See where to fix it first." />
+<title>Cost of Poor Quality Calculator (COPQ) with Industry Benchmark</title>
+<meta name="description" content="Free COPQ calculator. Quantify internal failures, external failures, prevention, and appraisal costs as % of revenue. Industry benchmarks included.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -174,6 +174,66 @@
 
 <div id="copqInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is Cost of Poor Quality (COPQ)?</h2>
+<p><strong>COPQ</strong> measures the total financial impact of producing defective work — from scrap and rework to warranty claims and customer returns. Most companies don't track this systematically and are shocked when they finally measure it.</p>
+
+<h3>The Four Cost Categories</h3>
+<ul>
+  <li><strong>Internal Failure</strong> — scrap, rework, retest, downtime, sorting, expediting. Found before shipping.</li>
+  <li><strong>External Failure</strong> — warranty, returns, field service, recalls, lost customers. Found after shipping.</li>
+  <li><strong>Appraisal</strong> — inspection, testing, auditing. Cost of catching defects.</li>
+  <li><strong>Prevention</strong> — training, FMEA, Cp/Cpk studies, process design. Cost of avoiding defects.</li>
+</ul>
+
+<h3>Industry Benchmarks</h3>
+<ul>
+  <li><strong>World-class</strong>: COPQ &lt; 2% of revenue</li>
+  <li><strong>Strong manufacturing</strong>: 2-5%</li>
+  <li><strong>Average</strong>: 5-15%</li>
+  <li><strong>Crisis</strong>: &gt; 15% — typical at companies that have never tracked COPQ</li>
+</ul>
+
+<h3>The 1-10-100 Rule</h3>
+<p>A defect costs:</p>
+<ul>
+  <li><strong>₹1</strong> to prevent at design</li>
+  <li><strong>₹10</strong> to catch in inspection</li>
+  <li><strong>₹100</strong> to fix at the customer</li>
+</ul>
+<p>Most COPQ programs invest in prevention because the math overwhelmingly favors it.</p>
+
+<h3>Worked COPQ Example</h3>
+<p>A ₹10 crore/year manufacturer:</p>
+<ul>
+  <li>Internal failure: ₹40L (scrap, rework)</li>
+  <li>External failure: ₹25L (warranty, returns)</li>
+  <li>Appraisal: ₹20L (inspection labor)</li>
+  <li>Prevention: ₹5L (training, MSA studies)</li>
+  <li><strong>Total COPQ: ₹90L = 9% of revenue</strong></li>
+</ul>
+<p>Shifting ₹15L from appraisal/external into prevention typically reduces total COPQ to 4-5% within 12 months.</p>
+
+<h3>Related Tools</h3>
+<p>Track defect rates with <a href="dpmo-sigma.html">DPMO/Sigma</a>. Build risk-prioritized FMEAs at <a href="fmea-rpn.html">FMEA RPN</a>. Measure capability with <a href="cp-cpk.html">Cp/Cpk</a>. See workflow ROI in <a href="cadnexa-roi.html">CadNexa ROI Calculator</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -244,6 +304,11 @@ function recalc() {
              headline: 'Reduce COPQ with better inspection workflow.',
              sub: 'CadNexa replaces 4-hour FAI work with 10-minute auto-ballooning + report. Cuts internal failure cost dramatically.',
              ctaText: 'See ROI in CadNexa →' },
+      nextSteps: [
+        { href: 'dpmo-sigma.html', text: "Track DPMO", sub: "Defect rate metric" },
+        { href: 'cadnexa-roi.html', text: "See workflow ROI", sub: "Cut FAI cost" },
+        { href: 'fmea-rpn.html', text: "FMEA priority", sub: "Where to invest" },
+      ],
       related: [ { href: 'cadnexa-roi.html', text: 'CadNexa ROI Calculator' }, { href: 'fmea-rpn.html', text: 'FMEA RPN' }, { href: 'dpmo-sigma.html', text: 'DPMO / Sigma' } ]
     });
   })();

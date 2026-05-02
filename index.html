@@ -30,56 +30,77 @@
 
 <!-- HERO -->
 <section class="section">
-  <div class="hero-grid" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 64px; align-items: start;">
+  <div class="hero-grid" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 56px; align-items: start;">
     <div>
-      <div class="section-label fade-up">FOR QUALITY &amp; PRODUCTION ENGINEERS</div>
-      <h1 class="fade-up d1" style="font-family: var(--display); font-weight: 600; font-size: clamp(40px, 5vw, 60px); line-height: 1; letter-spacing: -0.025em; margin-bottom: 22px;">
-        The free reference for <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">manufacturing engineers.</em>
+      <div class="section-label fade-up" style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);border-radius:20px;color:#DC2626;font-weight:700;">
+        <span style="width:6px;height:6px;background:#DC2626;border-radius:50%;animation:pulse 1.6s infinite;"></span>
+        STOP GUESSING PROCESS CAPABILITY
+      </div>
+      <h1 class="fade-up d1" style="font-family: var(--display); font-weight: 700; font-size: clamp(40px, 5.6vw, 64px); line-height: 1.02; letter-spacing: -0.028em; margin-top: 18px; margin-bottom: 18px;">
+        Engineering Decisions, <em style="font-style: normal; color: var(--blueprint); font-weight: 700;">Not Just Calculations.</em>
       </h1>
-      <p class="fade-up d2" style="font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 580px; margin-bottom: 32px;">
-        33 free calculators. 14 standards explained. Practical articles. FAI templates. Built and reviewed by working engineers — for QA, production, design, and tooling teams.
+      <p class="fade-up d2" style="font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 600px; margin-bottom: 18px;">
+        Cp/Cpk, Gauge R&amp;R, PPAP &amp; GD&amp;T tools that give you the verdict — capable, marginal, or fail — plus the next step. Used for real manufacturing analysis on Indian shop floors.
       </p>
 
-      <div class="fade-up d2" style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px;">
-        <a href="calculators.html" class="btn btn-amber btn-lg">Browse calculators →</a>
-        <a href="articles.html" class="btn btn-ghost btn-lg">Read articles</a>
+      <ul class="fade-up d2" style="list-style: none; padding: 0; margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 14px 28px;">
+        <li style="font-size: 14px; color: var(--ink-2); display: flex; gap: 8px; align-items: center; font-weight: 500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blueprint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Instant decision
+        </li>
+        <li style="font-size: 14px; color: var(--ink-2); display: flex; gap: 8px; align-items: center; font-weight: 500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blueprint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Next-step recommendation
+        </li>
+        <li style="font-size: 14px; color: var(--ink-2); display: flex; gap: 8px; align-items: center; font-weight: 500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blueprint)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+          PDF report you can sign
+        </li>
+      </ul>
+
+      <div class="fade-up d2" style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;">
+        <a href="calculators/cp-cpk.html" class="btn btn-lg" style="font-size:16px;padding:14px 26px;">Start with Cp/Cpk Calculator →</a>
+        <a href="calculators.html" class="btn btn-ghost btn-lg">View all 32 tools</a>
       </div>
 
-      <div class="fade-up d3" style="display: flex; gap: 36px; padding: 24px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); flex-wrap: wrap;">
-        <div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1;">32</div>
-          <div style="font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px;">Free calculators</div>
-        </div>
-        <div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1;">14</div>
-          <div style="font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px;">Standards covered</div>
-        </div>
-        <div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1;">100%</div>
-          <div style="font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px;">Free, no signup</div>
-        </div>
-        <div>
-          <div style="font-family: var(--display); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1;">14yr</div>
-          <div style="font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 4px;">Plant-floor expertise</div>
-        </div>
+      <div class="fade-up d3" style="font-size: 13px; color: var(--ink-3); padding: 14px 18px; background: var(--blueprint-tint); border-left: 3px solid var(--blueprint); border-radius: 0 6px 6px 0; max-width: 600px; line-height:1.55;">
+        <strong style="color: var(--blueprint); font-weight: 700;">Used for real manufacturing analysis.</strong> Cp/Cpk audits, FAI submissions, PPAP packages, GD&amp;T calls — every calculator gives you the verdict, the risk, and the action. Not just numbers.
       </div>
     </div>
 
-    <aside class="fade-up d3" style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 28px;">
-      <div style="font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--blueprint); margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--rule);">Featured articles</div>
-      <ul style="list-style: none;">
-        <li style="padding: 12px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px; align-items: baseline;"><span style="font-family: var(--mono); font-size: 12px; color: var(--mute); width: 18px;">→</span><a href="articles/as9102-form3.html" style="font-family: var(--display); font-size: 16px; line-height: 1.35; color: var(--ink); flex: 1;">How to fill AS9102 Form 3 — with example</a></li>
-        <li style="padding: 12px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px; align-items: baseline;"><span style="font-family: var(--mono); font-size: 12px; color: var(--mute); width: 18px;">→</span><a href="calculators/position-tolerance.html" style="font-family: var(--display); font-size: 16px; line-height: 1.35; color: var(--ink); flex: 1;">Position tolerance — calculation walkthrough</a></li>
-        <li style="padding: 12px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px; align-items: baseline;"><span style="font-family: var(--mono); font-size: 12px; color: var(--mute); width: 18px;">→</span><a href="standards/as9102.html" style="font-family: var(--display); font-size: 16px; line-height: 1.35; color: var(--ink); flex: 1;">AS9102 standard — overview &amp; revision history</a></li>
-        <li style="padding: 12px 0; border-bottom: 1px dotted var(--rule); display: flex; gap: 12px; align-items: baseline;"><span style="font-family: var(--mono); font-size: 12px; color: var(--mute); width: 18px;">→</span><a href="calculators/cp-cpk.html" style="font-family: var(--display); font-size: 16px; line-height: 1.35; color: var(--ink); flex: 1;">Cp / Cpk / Pp / Ppk — process capability calculator</a></li>
-        <li style="padding: 12px 0; display: flex; gap: 12px; align-items: baseline;"><span style="font-family: var(--mono); font-size: 12px; color: var(--mute); width: 18px;">→</span><a href="calculators/surface-finish.html" style="font-family: var(--display); font-size: 16px; line-height: 1.35; color: var(--ink); flex: 1;">Surface finish: Ra, Rz, Rmax converter</a></li>
-      </ul>
+    <aside class="fade-up d3" style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--blueprint); padding-bottom: 10px; border-bottom: 1px solid var(--rule);">Top 3 most-used tools</div>
+
+      <a href="calculators/cp-cpk.html" style="text-decoration: none; padding: 16px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; transition: all 0.18s; display: block; position: relative;" onmouseover="this.style.borderColor='var(--blueprint)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(37,84,186,0.08)'" onmouseout="this.style.borderColor='var(--rule)';this.style.transform='';this.style.boxShadow=''">
+        <div style="font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: var(--blueprint); background: var(--blueprint-tint); padding: 2px 7px; border-radius: 3px; display: inline-block; letter-spacing: 0.1em; margin-bottom: 6px;">QC.001 · CRITICAL</div>
+        <div style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.015em;">Cp / Cpk Calculator</div>
+        <div style="font-size: 12.5px; color: var(--mute); line-height: 1.5;">Process capability with histogram, bell curve, and verdict. Find out if your process is capable.</div>
+      </a>
+
+      <a href="calculators/gauge-rr.html" style="text-decoration: none; padding: 16px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; transition: all 0.18s; display: block; position: relative;" onmouseover="this.style.borderColor='var(--blueprint)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(37,84,186,0.08)'" onmouseout="this.style.borderColor='var(--rule)';this.style.transform='';this.style.boxShadow=''">
+        <div style="font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: var(--blueprint); background: var(--blueprint-tint); padding: 2px 7px; border-radius: 3px; display: inline-block; letter-spacing: 0.1em; margin-bottom: 6px;">QC.002 · CRITICAL</div>
+        <div style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.015em;">Gauge R&amp;R (MSA)</div>
+        <div style="font-size: 12.5px; color: var(--mute); line-height: 1.5;">Cg / Cgk per AIAG MSA. Tells you if your gauge is capable — before you trust its readings.</div>
+      </a>
+
+      <a href="calculators/as9102-form3.html" style="text-decoration: none; padding: 16px 18px; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; transition: all 0.18s; display: block; position: relative;" onmouseover="this.style.borderColor='var(--blueprint)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(37,84,186,0.08)'" onmouseout="this.style.borderColor='var(--rule)';this.style.transform='';this.style.boxShadow=''">
+        <div style="font-family: var(--mono); font-size: 9.5px; font-weight: 700; color: var(--blueprint); background: var(--blueprint-tint); padding: 2px 7px; border-radius: 3px; display: inline-block; letter-spacing: 0.1em; margin-bottom: 6px;">QC.003 · CRITICAL</div>
+        <div style="font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.015em;">AS9102 Form 3 Builder</div>
+        <div style="font-size: 12.5px; color: var(--mute); line-height: 1.5;">FAI Form 3 with auto pass/fail per characteristic. Aerospace-ready submission template.</div>
+      </a>
+
+      <div style="display: flex; gap: 26px; padding-top: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--mute); letter-spacing: 0.08em;">
+        <span><strong style="color: var(--ink); font-family: var(--display); font-size: 16px; font-weight: 700;">32</strong> tools</span>
+        <span><strong style="color: var(--ink); font-family: var(--display); font-size: 16px; font-weight: 700;">14</strong> standards</span>
+        <span><strong style="color: var(--ink); font-family: var(--display); font-size: 16px; font-weight: 700;">14yr</strong> plant-floor expertise</span>
+      </div>
     </aside>
   </div>
 </section>
 
 <style>
 @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; } }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.4); } }
 </style>
 
 <!-- MODULES -->

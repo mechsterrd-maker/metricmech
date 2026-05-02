@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Motor HP Calculator — Power, Torque, RPM Conversion | MetricMech</title>
-<meta name="description" content="Free motor power calculator. Convert between HP, kW, torque, and RPM. Size electric motors for pumps, conveyors, fans, and machine tools. Indian + IEC + NEMA standards." />
+<title>Motor HP Calculator (Three-Phase, Single-Phase, Torque-RPM)</title>
+<meta name="description" content="Free motor HP / kW calculator. Three-phase electrical, mechanical torque-RPM. Power factor, efficiency built in.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -209,6 +209,56 @@
 
 
 <div id="mhInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Motor Power Calculation</h2>
+<p>Sizing motors correctly avoids both undersizing (motor burns out) and oversizing (capital waste, poor efficiency). Calculate from electrical inputs, mechanical load, or both.</p>
+
+<h3>Power Formulas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>3-phase: P (kW) = √3 × V × I × cos φ × η / 1000</strong><br><strong>Single-phase: P (kW) = V × I × cos φ × η / 1000</strong><br><strong>Mechanical: P (kW) = T (Nm) × N (RPM) / 9550</strong></p>
+
+<h3>Worked Example: Mechanical to Electrical</h3>
+<p>Pump requires 30 Nm at 1450 RPM:</p>
+<ul>
+  <li>P_shaft = 30 × 1450 / 9550 = <strong>4.55 kW</strong></li>
+  <li>With 88% motor efficiency: P_input = 4.55 / 0.88 = <strong>5.17 kW</strong></li>
+  <li>Select next standard size: <strong>5.5 kW (7.5 HP) motor</strong></li>
+</ul>
+
+<h3>Motor Sizing Considerations</h3>
+<ul>
+  <li><strong>Service factor</strong>: Continuous-rated motors run at 100% nameplate. Most have SF 1.15 for short overloads.</li>
+  <li><strong>Starting torque</strong>: Pumps and fans have low starting torque (~20% running). Conveyors and crushers can need 200-300%.</li>
+  <li><strong>Inrush current</strong>: Direct-online start draws 6-8× FLC. Verify supply transformer capacity.</li>
+  <li><strong>VFD sizing</strong>: VFD must handle peak motor current, not just average.</li>
+</ul>
+
+<h3>Indian Industrial Voltage Standards</h3>
+<ul>
+  <li><strong>415V 3-phase</strong>: standard industrial supply</li>
+  <li><strong>230V single-phase</strong>: small motors, &lt;3 HP</li>
+  <li><strong>3.3kV / 6.6kV / 11kV</strong>: large motors &gt;100 kW often run on HT</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For pump applications, see <a href="pump-power.html">Pump Power Calculator</a>. For drive systems, <a href="speeds-feeds.html">Speeds &amp; Feeds</a> and <a href="gear-calculator.html">Gear Calculator</a>.</p>
+
+</section>
 
 </main>
 

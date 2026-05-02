@@ -100,6 +100,7 @@
       'aside', '.action-bar',
       'script', 'noscript',
       '.notice-bar', '.breadcrumb',
+      '.seo-content',  // long-form SEO content — keep PDF focused on result
       '[id$="Interpret"] a[href*="cadnexa.com"]'  // strip CadNexa conditional CTAs from PDFs (footer already has them)
     ];
 
@@ -141,6 +142,23 @@
       span.textContent = val;
       span.style.cssText = 'display: inline-block; padding: 4px 8px; background: #f5f5f0; border-radius: 4px; font-family: inherit; font-weight: 600; min-width: 40px;';
       el.replaceWith(span);
+    });
+
+    // Fix SVG capture — html2canvas needs explicit width/height attributes (not just viewBox)
+    // Read live SVG dimensions from the original DOM, apply to clones
+    const liveSvgs = source.querySelectorAll('svg');
+    const cloneSvgs = clone.querySelectorAll('svg');
+    cloneSvgs.forEach((svg, i) => {
+      const live = liveSvgs[i];
+      if (live) {
+        const rect = live.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          svg.setAttribute('width', Math.round(rect.width));
+          svg.setAttribute('height', Math.round(rect.height));
+          svg.style.width = rect.width + 'px';
+          svg.style.height = rect.height + 'px';
+        }
+      }
     });
 
     // Strip interactive buttons but keep informational ones
@@ -185,13 +203,27 @@
     wrap.appendChild(styleOverride);
 
     wrap.innerHTML += `
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 2px solid #1a1f2e; margin-bottom: 22px;">
-        <div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; margin-bottom: 6px;">${escapeHtml(opts.kicker || 'MetricMech Calculator')}</div>
-          <div style="font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600;">${escapeHtml(opts.title || 'Calculation Result')}</div>
-        </div>
-        <div style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #888;">
-          MetricMech<br>metricmech.com<br><span style="font-size: 9px;">${new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+      <!-- Professional engineering report header -->
+      <div style="background: linear-gradient(135deg, #0a1628 0%, #162a45 100%); margin: -40px -40px 24px -40px; padding: 22px 40px; color: #fff; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(13,148,136,0.22) 0%, transparent 70%); pointer-events: none;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; position: relative;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="width: 26px; height: 26px; border: 1.5px solid #74d9b6; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                <div style="width: 9px; height: 9px; background: #74d9b6;"></div>
+              </div>
+              <div style="font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: -0.02em;">MetricMech</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 6px; border: 1px solid rgba(255,255,255,0.25); border-radius: 3px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em;">FREE REFERENCE</div>
+            </div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #74d9b6; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">${escapeHtml(opts.kicker || 'MetricMech Calculator')}</div>
+            <div style="font-family: 'Inter', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.025em; color: #fff;">${escapeHtml(opts.title || 'Engineering Calculation Report')}</div>
+          </div>
+          <div style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.7); line-height: 1.6;">
+            <div style="font-weight: 700; color: #74d9b6; letter-spacing: 0.1em;">REPORT DATE</div>
+            <div>${new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+            <div style="margin-top: 6px; font-weight: 700; color: #74d9b6; letter-spacing: 0.1em;">SOURCE</div>
+            <div>metricmech.com</div>
+          </div>
         </div>
       </div>
     `;
@@ -208,11 +240,154 @@
     return d.innerHTML;
   }
 
+  // Build a structured Engineering Report from a [data-mm-report] container.
+  // Looks for child elements with [data-mm-section="input|result|interpretation|graph"].
+  // Each section becomes a labelled block in the PDF.
+  function buildReportCapture(source, opts) {
+    const wrap = document.createElement('div');
+    wrap.dataset.mmTemp = '1';
+    wrap.style.cssText = 'position:absolute;left:-10000px;top:0;width:800px;background:#fff;font-family:"Inter",system-ui,sans-serif;color:#0F172A;';
+
+    const reportDate = new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+    const reportTime = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    // Audit-ready: unique report ID (timestamp-based + 4 random chars)
+    const reportId = 'MM-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+    const isoStamp = new Date().toISOString();
+    const kicker = escapeHtml(opts.kicker || source.dataset.mmKicker || 'MetricMech Calculator');
+    const title = escapeHtml(opts.title || source.dataset.mmTitle || 'Engineering Calculation Report');
+
+    // ── HEADER · navy + mint accent + report date + report ID
+    let html = `
+      <div style="background:linear-gradient(135deg,#0a1628 0%,#162a45 100%);padding:24px 40px;color:#fff;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(13,148,136,0.22) 0%,transparent 70%);"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+              <div style="width:26px;height:26px;border:1.5px solid #74d9b6;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                <div style="width:9px;height:9px;background:#74d9b6;"></div>
+              </div>
+              <div style="font-size:17px;font-weight:700;letter-spacing:-0.02em;">MetricMech</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;border:1px solid rgba(255,255,255,0.25);border-radius:3px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">ENGINEERING REPORT</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#74d9b6;text-transform:uppercase;font-weight:600;margin-bottom:6px;">${kicker}</div>
+            <div style="font-size:24px;font-weight:700;letter-spacing:-0.025em;line-height:1.2;">${title}</div>
+          </div>
+          <div style="text-align:right;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.75);line-height:1.6;">
+            <div style="font-weight:700;color:#74d9b6;letter-spacing:0.1em;">REPORT ID</div>
+            <div style="font-size:10px;color:#fff;font-weight:600;">${reportId}</div>
+            <div style="margin-top:6px;font-weight:700;color:#74d9b6;letter-spacing:0.1em;">DATE / TIME</div>
+            <div>${reportDate}</div>
+            <div>${reportTime}</div>
+            <div style="margin-top:6px;font-weight:700;color:#74d9b6;letter-spacing:0.1em;">SOURCE</div>
+            <div>metricmech.com</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:30px 40px 40px 40px;">
+    `;
+
+    // ── SECTIONS · gather in order Input → Result → Interpretation → Graph
+    const sectionDefs = [
+      { key: 'input', label: '1 · Inputs', accent: '#2554BA' },
+      { key: 'result', label: '2 · Result', accent: '#0D9488' },
+      { key: 'interpretation', label: '3 · Interpretation', accent: '#0D9488' },
+      { key: 'graph', label: '4 · Visualization', accent: '#2554BA' }
+    ];
+
+    sectionDefs.forEach(def => {
+      const sec = source.querySelector(`[data-mm-section="${def.key}"]`);
+      if (!sec) return;
+      html += `
+        <div style="margin-bottom:26px;page-break-inside:avoid;break-inside:avoid;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid ${def.accent};">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:${def.accent};font-weight:700;text-transform:uppercase;">${def.label}</div>
+          </div>
+          <div data-mm-pdf-section="${def.key}"></div>
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+
+    // ── FOOTER STRIP
+    html += `
+      <div style="background:#F8FAFC;border-top:1px solid #E2E8F0;padding:14px 40px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:#64748B;letter-spacing:0.06em;flex-wrap:wrap;gap:8px;">
+        <div><strong style="color:#2554BA;">Generated via MetricMech.com</strong> · Free engineering reference · <span style="color:#0F172A;font-weight:700;">${reportId}</span></div>
+        <div>Need full FAI / RFQ workflow? <strong style="color:#0D9488;">cadnexa.com</strong></div>
+      </div>
+    `;
+
+    wrap.innerHTML = html;
+
+    // Inject section bodies into placeholders
+    sectionDefs.forEach(def => {
+      const sec = source.querySelector(`[data-mm-section="${def.key}"]`);
+      if (!sec) return;
+      const placeholder = wrap.querySelector(`[data-mm-pdf-section="${def.key}"]`);
+      if (!placeholder) return;
+      const clone = sec.cloneNode(true);
+
+      // Strip CadNexa promo banners + asides + share bar from report content
+      clone.querySelectorAll(
+        '[data-mw="cn-inline"], [data-mw="cn-sidebar"], [data-mw="cn-big"], ' +
+        '.cn-promo-card, .cn-inline-banner, .cn-big-banner, .cn-3d-cta, ' +
+        '.mm-share-bar, #shareBarMount, #cadnexaFixCta, #cpcpkNextSteps, ' +
+        '#mm-sticky-cta, .mm-sticky-cta, .action-row'
+      ).forEach(n => n.remove());
+
+      // Convert form inputs to plain text
+      clone.querySelectorAll('input, select, textarea').forEach(el => {
+        const span = document.createElement('span');
+        let val = '';
+        if (el.tagName === 'SELECT') {
+          const opt = el.options[el.selectedIndex];
+          val = opt ? opt.textContent : '';
+        } else if (el.type === 'checkbox' || el.type === 'radio') {
+          val = el.checked ? '✓' : '—';
+        } else {
+          val = el.value || el.placeholder || '—';
+        }
+        span.textContent = val;
+        span.style.cssText = 'display:inline-block;padding:5px 10px;background:#F1F5F9;border:1px solid #E2E8F0;border-radius:4px;font-family:"JetBrains Mono",monospace;font-weight:600;font-size:13px;color:#0F172A;min-width:50px;';
+        el.replaceWith(span);
+      });
+      // Force SVGs to fixed width/height
+      const liveSvgs = sec.querySelectorAll('svg');
+      const cloneSvgs = clone.querySelectorAll('svg');
+      cloneSvgs.forEach((svg, i) => {
+        const live = liveSvgs[i];
+        if (live) {
+          const rect = live.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            svg.setAttribute('width', Math.round(rect.width));
+            svg.setAttribute('height', Math.round(rect.height));
+            svg.style.width = rect.width + 'px';
+            svg.style.height = rect.height + 'px';
+          }
+        }
+      });
+      clone.querySelectorAll('button').forEach(b => b.remove());
+      placeholder.appendChild(clone);
+    });
+
+    document.body.appendChild(wrap);
+    return wrap;
+  }
+
   async function generatePDF(opts) {
     await loadLibs();
     const { jsPDF } = window.jspdf;
 
     let captureEl = opts.pdfElement;
+
+    // Structured-report mode: if the page has a [data-mm-report] container,
+    // build a polished engineering report from its sections (Input → Result → Interpretation → Graph)
+    if (!captureEl) {
+      const reportSrc = document.querySelector('[data-mm-report]');
+      if (reportSrc) {
+        captureEl = buildReportCapture(reportSrc, opts);
+      }
+    }
 
     // Smart-capture mode: clone <main>, strip promos, wrap in clean A4 frame
     if (!captureEl && opts.smartCapture) {
@@ -222,9 +397,9 @@
     if (!captureEl) { toast('PDF target not found'); return; }
     const isTemp = captureEl.dataset && captureEl.dataset.mmTemp === '1';
 
-    // Render element to canvas at 2x for crispness
+    // Render element to canvas — 1.6x for crispness, JPEG for size
     const canvas = await window.html2canvas(captureEl, {
-      scale: 2,
+      scale: 1.6,
       backgroundColor: '#ffffff',
       useCORS: true,
       logging: false
@@ -233,7 +408,7 @@
     if (isTemp) captureEl.remove();
 
     // Page setup — A4 portrait
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
     const margin = 10;
@@ -244,11 +419,10 @@
 
     // If content fits on one page, just add it.
     if (imgH <= usableH) {
-      const imgData = canvas.toDataURL('image/png');
-      pdf.addImage(imgData, 'PNG', margin, margin, usableW, imgH);
+      const imgData = canvas.toDataURL('image/jpeg', 0.92);
+      pdf.addImage(imgData, 'JPEG', margin, margin, usableW, imgH);
     } else {
       // Multi-page: slice canvas into chunks, each fitting one page
-      // Convert page-usable-height (mm) to canvas pixels
       const pxPerMm = canvas.width / usableW;
       const sliceHpx = Math.floor(usableH * pxPerMm);
 
@@ -259,28 +433,25 @@
         const remainingPx = canvas.height - yPx;
         const thisSliceHpx = Math.min(sliceHpx, remainingPx);
 
-        // Create a slice canvas containing just this page's worth of content
         const sliceCanvas = document.createElement('canvas');
         sliceCanvas.width = canvas.width;
         sliceCanvas.height = thisSliceHpx;
         const ctx = sliceCanvas.getContext('2d');
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
-        // Copy the slice from main canvas
         ctx.drawImage(
           canvas,
-          0, yPx,                    // source x, y
-          canvas.width, thisSliceHpx, // source width, height
-          0, 0,                       // dest x, y
-          canvas.width, thisSliceHpx  // dest width, height
+          0, yPx,
+          canvas.width, thisSliceHpx,
+          0, 0,
+          canvas.width, thisSliceHpx
         );
 
-        const sliceData = sliceCanvas.toDataURL('image/png');
-        // Convert this slice's height back to mm
+        const sliceData = sliceCanvas.toDataURL('image/jpeg', 0.92);
         const sliceHmm = (thisSliceHpx / pxPerMm);
 
         if (pageNum > 0) pdf.addPage();
-        pdf.addImage(sliceData, 'PNG', margin, margin, usableW, sliceHmm);
+        pdf.addImage(sliceData, 'JPEG', margin, margin, usableW, sliceHmm);
 
         yPx += thisSliceHpx;
         pageNum++;

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hardness Conversion Calculator — HRC, HRB, HV, HB, HK, Tensile | MetricMech</title>
-<meta name="description" content="Free hardness converter. Convert between Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and tensile strength. Based on ASTM E140 conversion table." />
+<title>Hardness Conversion Calculator (HRC HRB HB HV Shore)</title>
+<meta name="description" content="Free hardness converter between HRC (Rockwell C), HRB (Rockwell B), HB (Brinell), HV (Vickers), Shore. ASTM E140 reference.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -110,6 +110,72 @@
 
 <div id="hcInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Hardness Scales and Conversion</h2>
+<p>Material hardness is tested using several different scales depending on material type, sample geometry, and required precision. Converting between scales lets you compare specs across drawings and material certificates.</p>
+
+<h3>Common Hardness Scales</h3>
+<ul>
+  <li><strong>HRC (Rockwell C)</strong> — Hard steels, tool steels, hardened bearings. Range: 20-65 HRC.</li>
+  <li><strong>HRB (Rockwell B)</strong> — Soft steels, brass, aluminum. Range: 0-100 HRB.</li>
+  <li><strong>HB (Brinell)</strong> — Castings, forgings, large samples. Range: 50-650 HB.</li>
+  <li><strong>HV (Vickers)</strong> — Microhardness, thin sections, coatings. Range: 5-3000 HV.</li>
+  <li><strong>Shore A / D</strong> — Rubber, plastics, elastomers.</li>
+</ul>
+
+<h3>How Hardness Tests Work</h3>
+<p>Each scale presses a specific indenter (diamond cone, ball, or pyramid) into the sample with a fixed load, then measures the indentation:</p>
+<ul>
+  <li><strong>Rockwell</strong> — measures depth of penetration after preload.</li>
+  <li><strong>Brinell</strong> — measures diameter of spherical indentation.</li>
+  <li><strong>Vickers</strong> — measures diagonal of pyramidal indentation.</li>
+</ul>
+
+<h3>Hardness vs Tensile Strength</h3>
+<p>For carbon steels, there's a useful approximate relationship:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>UTS (MPa) ≈ HB × 3.45</strong> (for steel, HB &lt; 400)</p>
+<p>So a steel at 200 HB ≈ 690 MPa UTS. This breaks down for very hard steels (above ~50 HRC) where the ratio drops.</p>
+
+<h3>Typical Hardness Ranges for Manufacturing Materials</h3>
+<ul>
+  <li><strong>Aluminum 6061-T6</strong>: 95 HB</li>
+  <li><strong>Brass C36000</strong>: 95-100 HB</li>
+  <li><strong>Mild steel C1018</strong>: 130 HB (annealed)</li>
+  <li><strong>Medium carbon C1045 (normalized)</strong>: 200 HB</li>
+  <li><strong>Tool steel D2 (hardened)</strong>: 58-62 HRC</li>
+  <li><strong>Hardened bearing steel 52100</strong>: 60-64 HRC</li>
+  <li><strong>Stainless 304 (annealed)</strong>: 70 HRB</li>
+  <li><strong>Stainless 17-4PH (H900)</strong>: 44 HRC</li>
+</ul>
+
+<h3>Hardness Test Considerations</h3>
+<ul>
+  <li><strong>Sample thickness</strong> — too thin and the anvil affects reading. Rule: thickness ≥ 10× indentation depth.</li>
+  <li><strong>Surface preparation</strong> — heat-treatment scale or oxide layer falsifies readings. Grind clean.</li>
+  <li><strong>Edge effects</strong> — minimum 2.5× indentation diameter from edge.</li>
+  <li><strong>Conversion error</strong> — converted values are approximate. For specs, test with the specified scale directly.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For material identification and weight calculations, see <a href="material-weight.html">Material Weight Calculator</a>. Document hardness on FAI in <a href="as9102-form3.html">AS9102 Form 3</a>. For PPAP material verification, see <a href="ppap-checklist.html">PPAP Submission Checklist</a> Element 9.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -208,6 +274,11 @@ function calc() {
              headline: 'Document material spec in your FAI.',
              sub: 'CadNexa pulls material certs into Form 3, links them to specific characteristics, and validates against drawing callouts.',
              ctaText: 'Document in CadNexa →' },
+      nextSteps: [
+        { href: 'material-weight.html', text: "Material weight", sub: "Density-based weight" },
+        { href: 'as9102-form3.html', text: "Document hardness", sub: "FAI material spec" },
+        { href: 'ppap-checklist.html', text: "PPAP submission", sub: "Element 9" },
+      ],
       related: [ { href: 'as9102-form3.html', text: 'AS9102 Form 3' }, { href: 'material-weight.html', text: 'Material Weight' }, { href: 'ppap-checklist.html', text: 'PPAP Submission' } ]
     });
   })();

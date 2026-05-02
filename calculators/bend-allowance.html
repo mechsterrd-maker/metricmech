@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sheet Metal Bend Allowance &amp; K-Factor Calculator | MetricMech</title>
-<meta name="description" content="Free bend allowance, bend deduction, and K-factor calculator for sheet metal. Calculate flat blank size for press brake forming. Material presets for steel, aluminium, stainless." />
+<title>Sheet Metal Bend Allowance Calculator (K-Factor, Springback)</title>
+<meta name="description" content="Free bend allowance calculator. K-factor by material and thickness, springback compensation, flat blank size for sheet metal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -170,6 +170,69 @@
 
 
 <div id="baInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Sheet Metal Bend Allowance</h2>
+<p>When sheet metal is bent, the metal stretches on the outside and compresses on the inside. The <strong>neutral axis</strong> (where length is unchanged) shifts toward the inside. Bend allowance accounts for this when calculating the flat blank size.</p>
+
+<h3>Bend Allowance Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>BA = (π/180) × A × (R + K × T)</strong></p>
+<p>Where A = bend angle (degrees), R = inside bend radius, T = material thickness, K = K-factor (location of neutral axis as fraction of T).</p>
+
+<h3>Typical K-Factor Values</h3>
+<ul>
+  <li><strong>Soft brass / copper</strong>: 0.35</li>
+  <li><strong>Aluminum (annealed)</strong>: 0.40</li>
+  <li><strong>Mild steel</strong>: 0.42-0.45</li>
+  <li><strong>Stainless 304</strong>: 0.45</li>
+  <li><strong>Hard / cold-rolled</strong>: 0.50</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>1.5 mm mild steel, 90° bend, inside radius 2 mm, K = 0.44:</p>
+<ul>
+  <li>BA = (π/180) × 90 × (2 + 0.44 × 1.5) = 1.5708 × 2.66 = <strong>4.18 mm</strong></li>
+  <li>For an L-bracket with arms 50 mm and 30 mm, flat blank = 50 + 30 + 4.18 = <strong>84.18 mm</strong></li>
+</ul>
+
+<h3>Springback Compensation</h3>
+<p>After release, sheet metal springs back partially. Typical springback:</p>
+<ul>
+  <li><strong>Mild steel, 90° air bend</strong>: ~2°</li>
+  <li><strong>Aluminum 5052-H32</strong>: ~3°</li>
+  <li><strong>Stainless 304</strong>: ~3-4°</li>
+  <li><strong>High-strength steel</strong>: ~5-8°</li>
+</ul>
+<p>Solution: overbend by springback amount, or use coining (high force, plastic deformation throughout).</p>
+
+<h3>Bend Radius Limits</h3>
+<p>Minimum inside bend radius depends on material ductility:</p>
+<ul>
+  <li><strong>Soft aluminum, copper</strong>: R = 0 (zero bend)</li>
+  <li><strong>Mild steel</strong>: R = T (1× thickness)</li>
+  <li><strong>Stainless 304</strong>: R = T to 1.5T</li>
+  <li><strong>High-strength steel</strong>: R = 2T to 4T</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For material weight estimation, see <a href="material-weight.html">Material Weight Calculator</a>. For dimensional verification, <a href="tolerance-stack.html">Tolerance Stack-Up</a>.</p>
+
+</section>
 
 </main>
 

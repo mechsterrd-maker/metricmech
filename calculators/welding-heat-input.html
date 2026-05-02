@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Welding Heat Input Calculator — kJ/mm for SMAW, GMAW, GTAW, SAW | MetricMech</title>
-<meta name="description" content="Free welding heat input calculator. Compute heat input in kJ/mm from voltage, current, and travel speed. Process efficiency factors for SMAW, GMAW (MIG), GTAW (TIG), SAW, FCAW." />
+<title>Welding Heat Input Calculator (kJ/mm) with HAZ Guidance</title>
+<meta name="description" content="Free welding heat input calculator. kJ/mm for SMAW, GMAW, GTAW. HAZ effects, multi-pass strategy, distortion control.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -155,6 +155,63 @@
 
 
 <div id="whInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Welding Heat Input</h2>
+<p><strong>Heat input</strong> (kJ/mm) determines weld penetration, microstructure of the heat-affected zone (HAZ), distortion, and residual stress. WPS (Welding Procedure Specifications) always specify heat input limits.</p>
+
+<h3>Heat Input Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>HI (kJ/mm) = (V × I × η × 60) / (S × 1000)</strong></p>
+<p>Where V = arc voltage, I = current (A), S = travel speed (mm/min), η = arc efficiency (~0.8 SMAW, ~0.85 GMAW, ~0.6 GTAW, ~1.0 SAW).</p>
+
+<h3>Worked Example</h3>
+<p>SMAW: 25V, 130A, 200 mm/min travel, η = 0.8.</p>
+<ul>
+  <li>HI = (25 × 130 × 0.8 × 60) / (200 × 1000) = <strong>0.78 kJ/mm</strong></li>
+</ul>
+
+<h3>Typical Heat Input Ranges</h3>
+<ul>
+  <li><strong>0.3 – 0.6 kJ/mm</strong>: thin sheet metal, GTAW root passes</li>
+  <li><strong>0.6 – 1.5 kJ/mm</strong>: standard structural welding</li>
+  <li><strong>1.5 – 2.5 kJ/mm</strong>: thicker sections, multi-pass fill</li>
+  <li><strong>&gt; 2.5 kJ/mm</strong>: high heat — risk of HAZ softening, coarse grain</li>
+</ul>
+
+<h3>Effects of Heat Input</h3>
+<ul>
+  <li><strong>Too low</strong>: lack of fusion, cold cracking, poor penetration.</li>
+  <li><strong>Too high</strong>: excessive distortion, coarse grain in HAZ, reduced toughness.</li>
+  <li><strong>Multi-pass strategy</strong>: split high heat input into multiple smaller passes — refines microstructure between layers.</li>
+</ul>
+
+<h3>Materials That Care Most About Heat Input</h3>
+<ul>
+  <li><strong>Quenched and tempered steels</strong> (Q&amp;T): high HI softens HAZ permanently.</li>
+  <li><strong>HSLA steels</strong>: heat input window is narrow.</li>
+  <li><strong>Duplex stainless</strong>: too high or too low destroys phase balance.</li>
+  <li><strong>Aluminum</strong>: high conductivity needs adequate HI but distortion is severe.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For material hardness verification, see <a href="hardness-conversion.html">Hardness Conversion</a>. For weld joint sizing, <a href="material-weight.html">Material Weight</a>. Document WPS/PQR data in <a href="as9102-form3.html">AS9102 Form 3</a>.</p>
+
+</section>
 
 </main>
 

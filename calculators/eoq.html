@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>EOQ Calculator — Economic Order Quantity, Reorder Point | MetricMech</title>
-<meta name="description" content="Free EOQ Economic Order Quantity calculator. Find the optimal order size that minimises total inventory cost. Plus reorder point, safety stock, and total annual cost." />
+<title>EOQ Calculator (Economic Order Quantity) with Reorder Point</title>
+<meta name="description" content="Free EOQ calculator. Optimal order quantity, total cost, reorder point. Inventory cost optimization for purchasing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -152,6 +152,61 @@
 
 
 <div id="eoInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Economic Order Quantity (EOQ)</h2>
+<p><strong>EOQ</strong> finds the order size that minimizes total inventory cost — balancing ordering costs (more frequent orders = more cost) against holding costs (larger orders = more inventory tied up).</p>
+
+<h3>EOQ Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>EOQ = √(2 × D × S / H)</strong></p>
+<p>Where D = annual demand, S = ordering cost per order, H = holding cost per unit per year.</p>
+
+<h3>Worked Example</h3>
+<p>Annual demand 12,000 units. Ordering cost ₹500 per order. Holding cost ₹15/unit/year.</p>
+<ul>
+  <li>EOQ = √(2 × 12000 × 500 / 15) = √800,000 = <strong>894 units</strong></li>
+  <li>Orders per year = 12,000 / 894 = ~13</li>
+  <li>Order roughly every 4 weeks</li>
+</ul>
+
+<h3>EOQ Assumptions and Reality</h3>
+<p>The classic EOQ assumes:</p>
+<ul>
+  <li>Constant demand (no seasonality)</li>
+  <li>Constant ordering and holding costs</li>
+  <li>Instant replenishment (no lead time variability)</li>
+  <li>No quantity discounts</li>
+</ul>
+<p>Real life violates these. Use EOQ as a starting point, then layer:</p>
+<ul>
+  <li><strong>Safety stock</strong> for demand variability</li>
+  <li><strong>Reorder point</strong> = lead-time demand + safety stock</li>
+  <li><strong>Quantity-discount adjustment</strong> if supplier offers bulk pricing</li>
+</ul>
+
+<h3>Reorder Point</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>ROP = (Daily demand × Lead time) + Safety stock</strong></p>
+<p>If lead time is 14 days and daily demand is 33 units, place order when stock reaches 14 × 33 = 462 units, plus safety stock for variability.</p>
+
+<h3>Related Tools</h3>
+<p>For demand forecasting basis, see <a href="cycle-time.html">Cycle Time</a>. For takt-driven planning, <a href="takt-time.html">Takt Time Calculator</a>.</p>
+
+</section>
 
 </main>
 

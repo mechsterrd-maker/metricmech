@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>DPMO &amp; Sigma Level Calculator — Six Sigma Quality | MetricMech</title>
-<meta name="description" content="Free Six Sigma calculator. Convert between DPMO (defects per million opportunities), yield, sigma level, and Cpk. Process capability benchmark for any quality system." />
+<title>DPMO Sigma Level Calculator with Six Sigma Conversion</title>
+<meta name="description" content="Free DPMO and Sigma level calculator. Convert defects per million opportunities to sigma, with Six Sigma benchmarks and improvement guidance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -138,6 +138,63 @@
 
 <div id="dpInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>DPMO and Sigma Level</h2>
+<p><strong>DPMO</strong> (Defects Per Million Opportunities) and <strong>Sigma Level</strong> are the two most common quality metrics in Six Sigma programs. They normalize defect rates across products and processes, making direct comparison possible.</p>
+
+<h3>DPMO Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>DPMO = (Defects × 1,000,000) / (Units × Opportunities per unit)</strong></p>
+<p>"Opportunities" is the number of distinct ways a unit can be defective. A simple bracket might have 5 opportunities (length, width, thickness, hole position, surface finish). A complex assembly might have 100+.</p>
+
+<h3>Sigma Level Conversion</h3>
+<p>Sigma level is calculated from DPMO assuming a long-term 1.5σ shift (standard Motorola convention):</p>
+<ul>
+  <li><strong>6σ</strong> ≈ 3.4 DPMO</li>
+  <li><strong>5σ</strong> ≈ 233 DPMO</li>
+  <li><strong>4σ</strong> ≈ 6,210 DPMO</li>
+  <li><strong>3σ</strong> ≈ 66,807 DPMO (industry average)</li>
+  <li><strong>2σ</strong> ≈ 308,537 DPMO</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>You inspect 500 brackets. Each has 5 opportunities for defect. You find 12 defects total.</p>
+<ul>
+  <li>DPMO = (12 × 1,000,000) / (500 × 5) = <strong>4,800 DPMO</strong></li>
+  <li>Approximate sigma level: <strong>4.1σ</strong></li>
+</ul>
+
+<h3>Industry Sigma Benchmarks</h3>
+<ul>
+  <li><strong>Airline baggage handling</strong> — 3.5σ (~25,000 DPMO)</li>
+  <li><strong>Average company processes</strong> — 3-4σ</li>
+  <li><strong>Best-in-class manufacturing</strong> — 5σ</li>
+  <li><strong>Aviation safety</strong> — &gt;6σ</li>
+  <li><strong>Pharmaceutical manufacturing</strong> — 6σ+ required</li>
+</ul>
+
+<h3>Improving Sigma Level</h3>
+<p>Each sigma level requires roughly 10× fewer defects than the previous. Going from 3σ to 4σ is ~10× improvement; 4σ to 5σ another 10×. The work shifts from "fix obvious problems" (3-4σ) to "advanced process control" (5-6σ).</p>
+
+<h3>Related Tools</h3>
+<p>For root-cause analysis on top defect modes, see <a href="fmea-rpn.html">FMEA RPN</a>. Verify capability with <a href="cp-cpk.html">Cp/Cpk</a>. Quantify the financial impact in <a href="copq.html">Cost of Poor Quality</a>. Set sampling plans with <a href="aql-sampling.html">AQL Sampling</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -210,6 +267,11 @@ function calc() {
              headline: sigma < 3 ? 'Track defects to root cause in CadNexa.' : 'Document quality KPI in your PPAP.',
              sub: 'Link DPMO to specific drawing characteristics, FMEA records, and Cp/Cpk studies.',
              ctaText: 'Track in CadNexa →' },
+      nextSteps: [
+        { href: 'cp-cpk.html', text: "Capability study", sub: "Process improvement" },
+        { href: 'fmea-rpn.html', text: "FMEA risk analysis", sub: "Top defect modes" },
+        { href: 'copq.html', text: "Cost of poor quality", sub: "Financial impact" },
+      ],
       related: [ { href: 'cp-cpk.html', text: 'Cp / Cpk' }, { href: 'fmea-rpn.html', text: 'FMEA RPN' }, { href: 'copq.html', text: 'Cost of Poor Quality' } ]
     });
   })();

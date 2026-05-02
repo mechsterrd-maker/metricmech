@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AQL Sampling Plan Calculator — ANSI Z1.4 / ISO 2859 | MetricMech</title>
-<meta name="description" content="Free AQL sampling plan calculator. ANSI/ASQ Z1.4 and ISO 2859 single sampling plans. Get sample size, accept and reject numbers from lot size and AQL level." />
+<title>AQL Sampling Plan Calculator (ANSI/ASQ Z1.4) with Interpretation</title>
+<meta name="description" content="Free AQL sampling plan calculator per ANSI/ASQ Z1.4. Get sample size, acceptance number, and inspection plan for any lot size and AQL level.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -161,6 +161,61 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is AQL Sampling?</h2>
+<p><strong>AQL</strong> (Acceptable Quality Limit / Level) sampling is a statistical method for accepting or rejecting batches of parts without inspecting every piece. It's defined by <strong>ANSI/ASQ Z1.4</strong> (formerly MIL-STD-105E) and used worldwide for incoming inspection, in-process, and final inspection.</p>
+
+<h3>How AQL Sampling Works</h3>
+<p>The standard maps <strong>lot size</strong> to a <strong>code letter</strong> (A through R), then maps the code letter and chosen <strong>AQL percentage</strong> to specific <strong>sample size</strong> and <strong>Ac/Re</strong> (Accept/Reject) values.</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Lot size + Inspection level → Code letter</strong><br><strong>Code letter + AQL% → Sample size n, Ac (accept ≤), Re (reject ≥)</strong></p>
+
+<h3>Inspection Levels Explained</h3>
+<ul>
+  <li><strong>Level II</strong> — Default for normal inspection. Use this unless your contract says otherwise.</li>
+  <li><strong>Level I</strong> — Reduced inspection. Use when supplier has consistent track record.</li>
+  <li><strong>Level III</strong> — Tightened inspection. Use when supplier has had recent rejections.</li>
+  <li><strong>Special levels S-1 to S-4</strong> — Small sample sizes for destructive testing or expensive inspections.</li>
+</ul>
+
+<h3>AQL Sampling Worked Example</h3>
+<p>You receive a batch of 500 machined parts. Inspection level II, AQL 1.0%.</p>
+<ul>
+  <li>Lot size 500 → Code letter <strong>H</strong></li>
+  <li>Code H, AQL 1.0% → Sample size <strong>n = 50</strong>, <strong>Ac = 1, Re = 2</strong></li>
+</ul>
+<p><strong>Decision rule:</strong> Inspect 50 random pieces. If 0 or 1 defects found → ACCEPT the lot. If 2 or more defects → REJECT the entire lot of 500.</p>
+
+<h3>AQL Levels for Different Industries</h3>
+<ul>
+  <li><strong>0.10% – 0.40%</strong> — Aerospace, medical devices, safety-critical.</li>
+  <li><strong>0.65% – 1.0%</strong> — Automotive (Tata, Mahindra typical).</li>
+  <li><strong>1.5% – 2.5%</strong> — Industrial machinery, general manufacturing.</li>
+  <li><strong>4.0% – 6.5%</strong> — Consumer goods, low-criticality items.</li>
+</ul>
+
+<h3>Zero-Defect Sampling Plans</h3>
+<p>When Ac = 0, the plan rejects the entire lot on the first defect found. Common in aerospace and Tier-1 automotive. Train inspectors thoroughly — at Ac=0 there is no margin for misclassification.</p>
+
+<h3>Related Tools</h3>
+<p>Combine AQL inspection with <a href="cp-cpk.html">supplier process capability data</a> to reduce inspection burden over time. Document inspection plans in your <a href="ppap-checklist.html">PPAP submission</a>. For risk-based prioritization of which features to sample, see <a href="fmea-rpn.html">FMEA RPN analysis</a>. For aerospace FAI, link the sampling plan to specific characteristics in <a href="as9102-form3.html">AS9102 Form 3</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -268,6 +323,11 @@ function calc() {
       sub: 'CadNexa lets you attach incoming inspection plans to specific characteristic numbers, link to Cp/Cpk studies, and generate full PPAP packages — Tata, Mahindra, Bajaj variations included.',
       ctaText: 'Build PPAP in CadNexa →',
     },
+    nextSteps: [
+      { href: 'cp-cpk.html', text: 'Verify supplier process capability', desc: 'Cp/Cpk above 1.33 reduces sampling burden' },
+      { href: 'ppap-checklist.html', text: 'Document plan in PPAP submission', desc: 'AQL plans go in PPAP element 14' },
+      { href: 'fmea-rpn.html', text: 'Run FMEA on critical features', desc: 'Identify high-RPN items needing tighter sampling' }
+    ],
     related: [
       { href: 'ppap-checklist.html', text: 'PPAP Submission Checklist' },
       { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },

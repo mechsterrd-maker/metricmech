@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PPAP Submission Checklist — Level 1–5 Status Tracker | MetricMech</title>
-<meta name="description" content="Free PPAP submission checklist tracker. All 18 elements with Level 1-5 requirements per AIAG manual. Track status, generate submission report." />
+<title>PPAP Submission Checklist (18 Elements, AIAG 4th Edition) — Free Tool</title>
+<meta name="description" content="Free PPAP checklist for Levels 1-5 per AIAG 4th edition. Track 18 elements, status, and submission readiness for Tata, Mahindra, Bajaj suppliers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -134,6 +134,79 @@
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
 <div data-mw="cn-big"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is PPAP?</h2>
+<p><strong>PPAP</strong> (Production Part Approval Process) is the AIAG-defined process for proving to your customer that you can consistently produce parts meeting all specifications. It's the gate between prototype and production volume — and you can't ship without it.</p>
+
+<h3>The 18 PPAP Elements (AIAG 4th Edition)</h3>
+<ol>
+  <li>Design Records</li>
+  <li>Authorized Engineering Change Documents</li>
+  <li>Customer Engineering Approval</li>
+  <li>Design FMEA</li>
+  <li>Process Flow Diagram</li>
+  <li>Process FMEA (PFMEA)</li>
+  <li>Control Plan</li>
+  <li>Measurement System Analysis (MSA / Gauge R&amp;R)</li>
+  <li>Dimensional Results</li>
+  <li>Records of Material / Performance Tests</li>
+  <li>Initial Process Studies (Cp/Cpk)</li>
+  <li>Qualified Laboratory Documentation</li>
+  <li>Appearance Approval Report (if applicable)</li>
+  <li>Sample Production Parts</li>
+  <li>Master Sample</li>
+  <li>Checking Aids</li>
+  <li>Customer-Specific Requirements</li>
+  <li>Part Submission Warrant (PSW)</li>
+</ol>
+
+<h3>PPAP Submission Levels</h3>
+<ul>
+  <li><strong>Level 1</strong> — PSW only. For low-risk changes.</li>
+  <li><strong>Level 2</strong> — PSW + product samples + limited supporting data.</li>
+  <li><strong>Level 3</strong> — Default for most parts. Full submission with samples and data.</li>
+  <li><strong>Level 4</strong> — PSW + customer-defined requirements (custom).</li>
+  <li><strong>Level 5</strong> — Full submission reviewed AT supplier site (audit).</li>
+</ul>
+
+<h3>Most Common PPAP Rejection Reasons</h3>
+<ol>
+  <li><strong>Stale drawing revision</strong> — Element 1 must match the released customer drawing exactly.</li>
+  <li><strong>Insufficient capability data</strong> — Element 11 needs Cpk ≥ 1.33 from real production runs, not a single sample.</li>
+  <li><strong>Weak MSA</strong> — Element 10 must show the gauge is capable for the tolerance being measured.</li>
+  <li><strong>Missing PFMEA links</strong> — Element 6 must connect failure modes to specific Control Plan items in Element 7.</li>
+  <li><strong>Unsigned PSW</strong> — Element 18 requires signatures from Quality, Engineering, and authorized personnel.</li>
+</ol>
+
+<h3>Indian Customer Variations</h3>
+<p>Each major Indian OEM has slightly different PPAP requirements:</p>
+<ul>
+  <li><strong>Tata Motors</strong> — TML-format PSW, additional supplier rating documents.</li>
+  <li><strong>Mahindra</strong> — Specific PFMEA template, control plan format.</li>
+  <li><strong>Bajaj Auto</strong> — Quarterly capability re-verification required.</li>
+  <li><strong>Hero MotoCorp</strong> — Heat treatment and material validation emphasis.</li>
+</ul>
+
+<h3>Workflow Tools</h3>
+<p>PPAP draws from many tools — run <a href="cp-cpk.html">Cp/Cpk studies</a> for Element 11, <a href="gauge-rr.html">Gauge R&amp;R</a> for Element 10, <a href="fmea-rpn.html">FMEA RPN analysis</a> for Element 6, and <a href="aql-sampling.html">AQL sampling plans</a> for ongoing control. For aerospace customers, the <a href="as9102-form3.html">AS9102 Form 3</a> covers similar ground.</p>
+
+</section>
 
 </main>
 
@@ -305,6 +378,15 @@ function updateProgress() {
       sub: 'Upload your STEP file, auto-balloon the drawing, attach Cp/Cpk and MSA studies, fill AS9102 Forms 1/2/3, and generate a complete Tata/Mahindra/Bajaj-formatted PPAP submission — under one workflow.',
       ctaText: pct === 100 ? 'Generate PSW in CadNexa →' : 'Build PPAP in CadNexa →',
     },
+    nextSteps: pct === 100 ? [
+      { href: 'as9102-form3.html', text: 'Verify AS9102 Form 3 (element #5)', desc: 'Final review of dimensional data' },
+      { href: 'cp-cpk.html', text: 'Check Cp/Cpk values (element #11)', desc: 'Ensure capability ≥ 1.33 on critical features' },
+      { href: 'fmea-rpn.html', text: 'Review FMEA (element #4)', desc: 'Highest RPN items addressed' }
+    ] : [
+      { href: 'as9102-form3.html', text: 'Build AS9102 Form 3', desc: 'PPAP element #5' },
+      { href: 'cp-cpk.html', text: 'Run process capability study', desc: 'PPAP element #11' },
+      { href: 'fmea-rpn.html', text: 'Build FMEA worksheet', desc: 'PPAP element #4' }
+    ],
     related: [
       { href: 'as9102-form3.html', text: 'AS9102 Form 3 Builder' },
       { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pump Power Calculator — Hydraulic kW &amp; Motor Sizing | MetricMech</title>
-<meta name="description" content="Free pump power calculator. Compute hydraulic kW, shaft kW, motor size from flow rate and head. NPSH calculation, pump efficiency, water and other fluids." />
+<title>Pump Power Calculator (Hydraulic, Shaft, Motor with Efficiency)</title>
+<meta name="description" content="Free pump power calculator. Hydraulic kW, shaft kW, motor kW from flow, head, density, and efficiency.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -151,6 +151,59 @@
 
 
 <div id="ppInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Pump Power</h2>
+<p>Pump sizing requires three sequential calculations: hydraulic power (work done on the fluid), shaft power (overcomes pump losses), and motor power (overcomes motor losses). Get any one wrong and you'll have an undersized — or oversized — installation.</p>
+
+<h3>Pump Power Formulas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Hydraulic kW = Q × H × ρ × g / 3,600,000</strong><br><strong>Shaft kW = Hydraulic kW / η_pump</strong><br><strong>Motor kW = Shaft kW / η_motor</strong></p>
+<p>Where Q = flow rate (m³/h), H = total head (m), ρ = density (kg/m³), g = 9.81 m/s², η = efficiency.</p>
+
+<h3>Worked Example</h3>
+<p>Water (ρ = 1000), Q = 50 m³/h, H = 30 m, η_pump = 65%, η_motor = 88%.</p>
+<ul>
+  <li>Hydraulic = 50 × 30 × 1000 × 9.81 / 3,600,000 = <strong>4.09 kW</strong></li>
+  <li>Shaft = 4.09 / 0.65 = <strong>6.29 kW</strong></li>
+  <li>Motor input = 6.29 / 0.88 = <strong>7.15 kW</strong></li>
+  <li>Select <strong>7.5 kW motor</strong></li>
+</ul>
+
+<h3>Total Head Components</h3>
+<p>Total head H is the sum of:</p>
+<ul>
+  <li><strong>Static lift</strong> — vertical distance from suction to discharge</li>
+  <li><strong>Pressure head</strong> — pressure required at discharge point</li>
+  <li><strong>Friction losses</strong> — pipe length, fittings, valves (often 20-40% of total)</li>
+  <li><strong>Velocity head</strong> — usually negligible</li>
+</ul>
+
+<h3>Pump Selection Cautions</h3>
+<ul>
+  <li><strong>NPSH</strong> — Net Positive Suction Head must exceed pump's required NPSH or cavitation occurs.</li>
+  <li><strong>Operating point</strong> — pump should run near Best Efficiency Point (BEP), not on the extremes of its curve.</li>
+  <li><strong>Minimum flow</strong> — running below ~30% of BEP causes recirculation damage.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For motor sizing, see <a href="motor-hp.html">Motor HP Calculator</a>. For pipe and fluid systems, hydraulic engineering references.</p>
+
+</section>
 
 </main>
 

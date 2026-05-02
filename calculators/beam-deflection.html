@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Beam Deflection Calculator — Cantilever, Simply Supported | MetricMech</title>
-<meta name="description" content="Free beam deflection calculator. Maximum deflection, slope, bending stress and reactions for cantilever, simply supported, and fixed beams under point or distributed loads." />
+<title>Beam Deflection Calculator (Cantilever, Simply Supported, Fixed)</title>
+<meta name="description" content="Free beam deflection calculator. Cantilever, simply supported, fixed-end beams. Stress, deflection, safety factor for steel and aluminum.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -189,6 +189,61 @@
 
 <div id="bdInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Beam Deflection and Stress</h2>
+<p>Beam deflection analysis predicts how much a loaded beam will sag and what stress it will experience. Get this wrong and structures fail (or pass code with no margin).</p>
+
+<h3>Core Formulas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Cantilever, end load: δ = PL³/(3EI)</strong><br><strong>Simply supported, center load: δ = PL³/(48EI)</strong><br><strong>Bending stress: σ = Mc/I</strong></p>
+<p>Where δ = deflection, P = load, L = span, E = elastic modulus, I = moment of inertia, M = bending moment, c = distance to extreme fiber.</p>
+
+<h3>Acceptable Deflection Limits</h3>
+<ul>
+  <li><strong>Floor beams</strong>: L/360 (live load), L/240 (total load)</li>
+  <li><strong>Roof beams</strong>: L/240</li>
+  <li><strong>Cantilevers</strong>: L/180</li>
+  <li><strong>Machinery frames</strong>: L/500 to L/1000 (vibration concerns)</li>
+  <li><strong>Precision instruments</strong>: L/2000 or tighter</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>Steel I-beam (W200×27), 6m simply-supported span, 5 kN center load.</p>
+<ul>
+  <li>I (W200×27) ≈ 25.8 × 10⁶ mm⁴, E_steel = 200 GPa</li>
+  <li>δ = (5000 × 6000³) / (48 × 200000 × 25.8e6) = <strong>4.4 mm</strong></li>
+  <li>L/δ = 6000/4.4 = <strong>1364</strong> — exceeds L/360 by wide margin (good)</li>
+  <li>M_max = PL/4 = 7.5 kN·m, σ_max = 7.5e6 × 100 / 25.8e6 = <strong>29 MPa</strong></li>
+  <li>Steel yield 250 MPa → SF = 8.6 (very safe)</li>
+</ul>
+
+<h3>How to Increase Stiffness</h3>
+<ul>
+  <li><strong>Increase depth</strong> — stiffness goes with depth³. Doubling depth = 8× stiffer. Cheap.</li>
+  <li><strong>I-beam shape</strong> — 5-10× stiffer than rectangular bar of same area.</li>
+  <li><strong>Reduce span</strong> — δ goes with L³. Halving span = 8× less deflection.</li>
+  <li><strong>Add intermediate supports</strong> — converts simply-supported to continuous (much stiffer).</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For pressed components, see <a href="press-fit.html">Press-Fit Calculator</a>. For bolted connections, <a href="bolt-torque.html">Bolt Torque</a>. For dimensional verification, <a href="tolerance-stack.html">Tolerance Stack-Up</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -317,6 +372,11 @@ function calc() {
              headline: 'Verify section modulus on your 3D model.',
              sub: 'Open the part in CadNexa, measure cross-section, and confirm dimensions match calculation inputs.',
              ctaText: 'Verify in CadNexa →' },
+      nextSteps: [
+        { href: 'press-fit.html', text: "Press-fit analysis", sub: "Hub stress check" },
+        { href: 'material-weight.html', text: "Material weight", sub: "Self-weight loads" },
+        { href: 'bolt-torque.html', text: "Bolt connections", sub: "Joint design" },
+      ],
       related: [ { href: 'press-fit.html', text: 'Press-Fit' }, { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' } ]
     });
   })();

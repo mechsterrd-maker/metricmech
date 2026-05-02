@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tolerance Stack-Up Calculator (Worst-Case + RSS) | MetricMech</title>
-<meta name="description" content="Free tolerance stack-up calculator. Worst-case and RSS (Root Sum Square) analysis for assembly stacks. Add up to 20 dimensions with bilateral or unilateral tolerances." />
+<title>Tolerance Stack-Up Calculator (Worst-Case + RSS) with Example</title>
+<meta name="description" content="Free tolerance stack-up calculator for assemblies. Worst-case and RSS (Root-Sum-Square) methods. Multi-dimensional analysis with worked examples.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -133,6 +133,68 @@
 
 <div id="stackInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is Tolerance Stack-Up Analysis?</h2>
+<p>Tolerance stack-up analysis predicts the cumulative dimensional variation in an assembly built from individually-toleranced parts. It answers the question: "If every part is at the edge of its tolerance, will the assembly still work?"</p>
+
+<h3>Two Methods: Worst-Case vs RSS</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Worst-Case (WC):</strong> ±T_total = Σ(±T_i)<br><strong>RSS (Root-Sum-Square):</strong> ±T_total = √(Σ T_i²)</p>
+
+<p><strong>Worst-Case</strong> assumes every dimension simultaneously hits its worst tolerance — extremely conservative but mathematically guaranteed.</p>
+<p><strong>RSS</strong> assumes dimensions are independent and normally distributed — statistically realistic for batch production. RSS gives smaller stack-up values because all-worst-simultaneously is highly improbable.</p>
+
+<h3>Stack-Up Worked Example</h3>
+<p>A pin must fit through a hole in a 4-plate assembly. Each plate has its hole position toleranced ±0.05 mm.</p>
+<ul>
+  <li><strong>Worst-Case</strong>: ±(0.05 + 0.05 + 0.05 + 0.05) = ±0.20 mm</li>
+  <li><strong>RSS</strong>: ±√(0.05² × 4) = ±0.10 mm</li>
+</ul>
+<p>For a high-volume product, RSS gives ±0.10 — half the WC envelope. You can spec a smaller pin clearance and still expect &gt;99.7% assembly success. For a one-off custom build, use WC to be safe.</p>
+
+<h3>When to Use Each Method</h3>
+<ul>
+  <li><strong>Worst-Case</strong> — Critical safety, low volume, single-piece custom assemblies. Aerospace primary structure.</li>
+  <li><strong>RSS</strong> — High-volume production, statistical assumptions are valid (normal distribution, independent contributors).</li>
+  <li><strong>Modified RSS / Six Sigma stack</strong> — RSS with safety factor (1.5×) for medium-volume safety-relevant work.</li>
+</ul>
+
+<h3>How to Reduce Stack-Up</h3>
+<p>If your stack-up is too tight:</p>
+<ol>
+  <li><strong>Tighten the largest contributors</strong> — Pareto applies. The 1-2 dimensions with the biggest ±tol drive most of the stack.</li>
+  <li><strong>Switch from WC to RSS</strong> — if production volumes justify the statistical assumption.</li>
+  <li><strong>Use selective assembly</strong> — sort parts into bins and pair tight with loose. Costly but effective for legacy designs.</li>
+  <li><strong>Datum chain redesign</strong> — sometimes fewer dimensions in the chain is better than tighter dimensions.</li>
+</ol>
+
+<h3>Common Stack-Up Mistakes</h3>
+<ul>
+  <li>Mixing absolute and signed dimensions — direction (+/-) matters in stack-ups.</li>
+  <li>Using mean tolerance instead of full range — for asymmetric tolerances (+0.10/-0.02), use the equivalent symmetric range.</li>
+  <li>Stacking GD&amp;T frames as if they were ±tolerances — bonus tolerance and projected tolerance need separate analysis.</li>
+  <li>Ignoring temperature effects — steel stacks change with thermal growth; aluminum even more.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For specific position callouts, see <a href="position-tolerance.html">Position Tolerance with MMC/LMC</a>. For hole/shaft mating, use <a href="iso-286-fits.html">ISO 286 Fits</a>. Validate process capability with <a href="cp-cpk.html">Cp/Cpk</a> before assuming RSS distribution is valid. For full GD&amp;T reference, visit the <a href="../gdt.html">GD&amp;T page</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -260,6 +322,11 @@ function recalc() {
       sub: 'Open your STEP/IGES file in CadNexa, measure the actual dimensions in the assembly, and confirm the stack-up against drawing tolerances. Catch interference issues before prototype build.',
       ctaText: 'Verify in CadNexa 3D →',
     },
+    nextSteps: [
+      { href: 'position-tolerance.html', text: 'Calculate position tolerance', desc: 'Verify hole-to-hole stack-up' },
+      { href: 'iso-286-fits.html', text: 'Check ISO 286 fits', desc: 'Verify clearance/interference at extremes' },
+      { href: 'cp-cpk.html', text: 'Run Cp/Cpk on contributors', desc: 'Verify each dimension is capable' }
+    ],
     related: [
       { href: 'position-tolerance.html', text: 'Position Tolerance & MMC' },
       { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },

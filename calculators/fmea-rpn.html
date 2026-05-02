@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FMEA RPN Calculator — Severity × Occurrence × Detection | MetricMech</title>
-<meta name="description" content="Free FMEA Risk Priority Number calculator. Compute RPN from Severity, Occurrence, and Detection ratings. AIAG-VDA 2019 Action Priority included for modern FMEA." />
+<title>FMEA RPN Calculator (Severity × Occurrence × Detection) with AP Logic</title>
+<meta name="description" content="Free FMEA RPN calculator with AIAG-VDA Action Priority. Get severity, occurrence, detection scores plus risk interpretation and corrective action guidance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -152,6 +152,73 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is FMEA RPN?</h2>
+<p><strong>FMEA</strong> (Failure Mode and Effects Analysis) systematically identifies potential failures in a product or process, ranks them by risk, and drives corrective action. <strong>RPN</strong> (Risk Priority Number) is the numerical risk score:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>RPN = Severity × Occurrence × Detection</strong></p>
+<p>Each factor is rated 1-10 per the AIAG-VDA FMEA Handbook (2019), so RPN ranges from 1 to 1000.</p>
+
+<h3>The Three Factors Explained</h3>
+<ul>
+  <li><strong>Severity (S)</strong> — How bad is the effect on the customer? 1 = no effect, 10 = injury / safety / regulatory failure.</li>
+  <li><strong>Occurrence (O)</strong> — How often does the failure mode happen? 1 = essentially never, 10 = inevitable.</li>
+  <li><strong>Detection (D)</strong> — How likely will the failure be caught before reaching the customer? 1 = certain detection, 10 = no detection possible.</li>
+</ul>
+
+<h3>RPN Worked Example</h3>
+<p>A bolted joint on a transmission housing.</p>
+<ul>
+  <li>Failure mode: Bolt loosens in service.</li>
+  <li>Effect: Oil leak, possible transmission failure → <strong>Severity = 8</strong></li>
+  <li>Occurrence: Without anti-loosening, happens 1 in 1000 → <strong>Occurrence = 4</strong></li>
+  <li>Current control: Visual final inspection → <strong>Detection = 7</strong> (poor — won't catch loose internally)</li>
+  <li><strong>RPN</strong> = 8 × 4 × 7 = <strong>224</strong> — HIGH RISK</li>
+</ul>
+<p>Corrective action: Add Loctite or torque-angle method, plus in-process torque verification. New ratings:</p>
+<ul>
+  <li>S = 8 (effect unchanged), O = 1 (Loctite eliminates), D = 3 (torque tester catches)</li>
+  <li>New RPN = 8 × 1 × 3 = <strong>24</strong> — LOW RISK</li>
+</ul>
+
+<h3>AIAG-VDA Action Priority (AP) Method</h3>
+<p>The 2019 AIAG-VDA handbook moved away from RPN-only to <strong>Action Priority</strong> (H/M/L) based on combinations of S, O, D — not just the multiplied number. Severity 9-10 is always High Priority regardless of O and D, because safety / regulatory effects can never be left unaddressed.</p>
+
+<h3>RPN Interpretation Thresholds</h3>
+<ul>
+  <li><strong>Severity ≥ 9</strong> — Action MANDATORY (safety / regulatory). Ignore RPN value.</li>
+  <li><strong>RPN ≥ 200</strong> — Critical. Redesign or replace control.</li>
+  <li><strong>RPN 120 – 199</strong> — High risk. Action required.</li>
+  <li><strong>RPN 60 – 119</strong> — Medium. Plan action.</li>
+  <li><strong>RPN &lt; 60</strong> — Low. Monitor only.</li>
+</ul>
+
+<h3>Common FMEA Mistakes</h3>
+<ul>
+  <li>Rating Severity inconsistently across team members — use the AIAG severity table.</li>
+  <li>Ignoring high-Severity / low-RPN items — Severity 9+ requires action regardless.</li>
+  <li>Treating FMEA as a one-time document — update on design change or field failure.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>FMEA feeds directly into <a href="ppap-checklist.html">PPAP Element 6</a>. Use <a href="cp-cpk.html">Cp/Cpk studies</a> to validate that your corrective action actually reduced occurrence. For inspection planning, use <a href="aql-sampling.html">AQL sampling</a> to set sample sizes proportional to risk. For cost justification, see <a href="copq.html">Cost of Poor Quality</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -247,6 +314,11 @@ function calc() {
         : 'CadNexa connects FMEA records to the drawing characteristic numbers and PPAP elements. Generate a complete submission package — Tata, Mahindra, Bajaj formats included.',
       ctaText: 'Document in CadNexa →',
     },
+    nextSteps: [
+      { href: 'ppap-checklist.html', text: 'Document FMEA in PPAP', desc: 'Element #4 of PPAP package' },
+      { href: 'cp-cpk.html', text: 'Run Cp/Cpk on failure mode', desc: 'Verify Occurrence with capability data' },
+      { href: 'gauge-rr.html', text: 'Verify Detection with MSA', desc: 'Confirm current controls actually catch failures' }
+    ],
     related: [
       { href: 'ppap-checklist.html', text: 'PPAP Submission Checklist' },
       { href: 'cp-cpk.html', text: 'Cp / Cpk Calculator' },

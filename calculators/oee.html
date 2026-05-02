@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>OEE Calculator — Overall Equipment Effectiveness for Manufacturing | MetricMech</title>
-<meta name="description" content="Free OEE calculator. Compute Availability, Performance, Quality, and Overall Equipment Effectiveness for any production machine. World-class benchmark comparison included." />
+<title>OEE Calculator (Overall Equipment Effectiveness) with World-Class Benchmark</title>
+<meta name="description" content="Free OEE calculator. Availability × Performance × Quality. Get score and improvement recommendations against world-class 85% benchmark.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -163,6 +163,72 @@
 
 <div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What is OEE?</h2>
+<p><strong>OEE</strong> (Overall Equipment Effectiveness) is the gold-standard KPI for production efficiency. It rolls three losses — downtime, slow cycles, and defects — into one number that tells you what fraction of your planned production time was perfectly productive.</p>
+
+<h3>OEE Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>OEE = Availability × Performance × Quality</strong><br><strong>Availability = Run Time / Planned Production Time</strong><br><strong>Performance = (Ideal Cycle × Total Count) / Run Time</strong><br><strong>Quality = Good Count / Total Count</strong></p>
+
+<h3>Worked OEE Example</h3>
+<p>An 8-hour shift on a CNC machine.</p>
+<ul>
+  <li>Planned Production Time = 480 min (8 hr)</li>
+  <li>Stops (changeover, breakdowns) = 60 min → Run Time = 420 min</li>
+  <li>Total parts produced in 420 min = 1,800 parts (Ideal cycle = 12 sec/part)</li>
+  <li>Defects = 90 → Good parts = 1,710</li>
+  <li><strong>Availability</strong> = 420/480 = <strong>87.5%</strong></li>
+  <li><strong>Performance</strong> = (12 × 1800) / (420 × 60) = 21,600 / 25,200 = <strong>85.7%</strong></li>
+  <li><strong>Quality</strong> = 1,710 / 1,800 = <strong>95.0%</strong></li>
+  <li><strong>OEE</strong> = 0.875 × 0.857 × 0.95 = <strong>71.2%</strong></li>
+</ul>
+
+<h3>OEE Benchmarks</h3>
+<ul>
+  <li><strong>≥ 85%</strong> — World-class. Toyota / Honda level. Very few plants reach this.</li>
+  <li><strong>60% – 85%</strong> — Industry-typical. Strong room for improvement.</li>
+  <li><strong>40% – 60%</strong> — Below average. Significant losses to recover.</li>
+  <li><strong>&lt; 40%</strong> — Crisis. Stop adding new work, fix the existing line first.</li>
+</ul>
+
+<h3>Six Big Losses That Kill OEE</h3>
+<ol>
+  <li>Equipment failures (Availability)</li>
+  <li>Setup &amp; changeover (Availability)</li>
+  <li>Idling &amp; minor stoppages (Performance)</li>
+  <li>Reduced speed (Performance)</li>
+  <li>Process defects (Quality)</li>
+  <li>Reduced yield / startup losses (Quality)</li>
+</ol>
+
+<h3>How to Improve OEE</h3>
+<ul>
+  <li><strong>Track losses, not OEE</strong> — improve specific losses; OEE follows.</li>
+  <li><strong>SMED for changeover</strong> — most plants can cut changeover 50% in 6 months.</li>
+  <li><strong>Autonomous maintenance</strong> — operator-led TPM catches issues before breakdown.</li>
+  <li><strong>SPC + Cpk</strong> — capable processes reduce quality losses dramatically.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For cycle time analysis, use <a href="cycle-time.html">Cycle Time Calculator</a>. Calculate machining parameters with <a href="speeds-feeds.html">Speeds &amp; Feeds</a>. Quality losses tie directly to <a href="cp-cpk.html">Cp/Cpk capability</a> and <a href="dpmo-sigma.html">DPMO / Sigma level</a>. To quantify the financial impact of OEE losses, use <a href="copq.html">Cost of Poor Quality</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -243,6 +309,11 @@ function calc() {
         : 'Use CadNexa to cost-estimate parts including realistic cycle times, machining operations, and overhead — turn this OEE into pricing decisions.',
       ctaText: 'Try CadNexa →',
     },
+      nextSteps: [
+        { href: 'cycle-time.html', text: "Cycle time analysis", sub: "Per-part timing" },
+        { href: 'cp-cpk.html', text: "Run capability", sub: "Quality losses" },
+        { href: 'copq.html', text: "Quantify cost impact", sub: "COPQ in rupees" },
+      ],
     related: [
       { href: 'cycle-time.html', text: 'Cycle Time Calculator' },
       { href: 'takt-time.html', text: 'Takt Time' },

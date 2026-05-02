@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>V-Belt Drive Calculator — Belt Length, Speed Ratio, Power | MetricMech</title>
-<meta name="description" content="Free V-belt drive calculator. Compute belt length, pulley speed ratio, belt speed, and power transmission for A/B/C/D V-belts. Standard ISO/IS belt sizing." />
+<title>V-Belt Length Calculator (Pulley Diameters, Center Distance)</title>
+<meta name="description" content="Free V-belt length calculator. Inside, pitch, and outside lengths from pulley diameters and center distance. Wrap angle warning.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -169,6 +169,60 @@
 
 
 <div id="vbInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>V-Belt Length Calculation</h2>
+<p>V-belt drives transmit power between pulleys via friction in a wedge groove. Belt length must match the available stock sizes; getting it within 1-2% is usually sufficient because of tensioner adjustment.</p>
+
+<h3>Belt Length Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>L = 2C + π(D₁ + D₂)/2 + (D₂ − D₁)²/(4C)</strong></p>
+<p>Where L = belt pitch length, C = center distance, D₁ = small pulley pitch diameter, D₂ = large pulley pitch diameter.</p>
+
+<h3>Worked Example</h3>
+<p>Small pulley 100 mm, large pulley 250 mm, center distance 400 mm:</p>
+<ul>
+  <li>L = 2 × 400 + π × (100+250)/2 + (250-100)²/(4 × 400)</li>
+  <li>L = 800 + 549.8 + 14.1 = <strong>1364 mm</strong></li>
+  <li>Round up to nearest stock belt: SPA 1400 or A-section 55"</li>
+</ul>
+
+<h3>Wrap Angle Warning</h3>
+<p>The arc of contact on the smaller pulley should be ≥ 120° for adequate friction:</p>
+<ul>
+  <li>θ_small = 180° − 2 × arcsin((D₂−D₁)/(2C))</li>
+  <li>If &lt;120°, use idler pulley or increase center distance</li>
+</ul>
+
+<h3>V-Belt Types</h3>
+<ul>
+  <li><strong>Classical (A, B, C, D)</strong>: imperial, general purpose</li>
+  <li><strong>Narrow (SPA, SPB, SPC, SPZ)</strong>: metric, higher power density</li>
+  <li><strong>Cogged (AX, BX, CX)</strong>: better small-pulley flexibility</li>
+  <li><strong>Banded</strong>: multiple belts joined for high-shock applications</li>
+</ul>
+
+<h3>Tensioning</h3>
+<p>Proper tension is critical. Too loose → slip and burn. Too tight → bearing damage. Use a tension gauge or measure deflection: 1% of span at recommended force.</p>
+
+<h3>Related Tools</h3>
+<p>For motor sizing, see <a href="motor-hp.html">Motor HP Calculator</a>. For gear-drive alternatives, <a href="gear-calculator.html">Gear Calculator</a>.</p>
+
+</section>
 
 </main>
 

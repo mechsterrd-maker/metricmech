@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Thread Pitch &amp; Tap Drill Chart — Metric, UNC, UNF, BSPP, NPT | MetricMech</title>
-<meta name="description" content="Free thread pitch and tap drill calculator. Metric (M3-M48), UNC, UNF, BSPP, NPT. Find correct tap drill size, pitch, major/minor diameter, and thread engagement." />
+<title>Thread Pitch Reference (ISO Metric, UN, NPT) with Tap Drill</title>
+<meta name="description" content="Free thread pitch reference: ISO metric coarse/fine, Unified UNC/UNF, NPT pipe thread. Tap drill sizes included.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -104,6 +104,65 @@
 
 
 <div id="tpInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Thread Pitch Reference</h2>
+<p>Threads are specified by <strong>diameter</strong> and <strong>pitch</strong> (or <strong>threads per inch</strong>). Mismatched thread series cross-thread under load — always verify both before assembly.</p>
+
+<h3>Thread Series Comparison</h3>
+<ul>
+  <li><strong>ISO Metric Coarse (M)</strong>: e.g., M10×1.5 — most general engineering</li>
+  <li><strong>ISO Metric Fine (Mf)</strong>: e.g., M10×1.25 — fine adjustment, vibration resistance</li>
+  <li><strong>UNC (Unified Coarse)</strong>: e.g., 3/8-16 — US general</li>
+  <li><strong>UNF (Unified Fine)</strong>: e.g., 3/8-24 — automotive, aerospace</li>
+  <li><strong>NPT (Tapered pipe)</strong>: e.g., 1/2-14 NPT — fluid sealing</li>
+  <li><strong>BSPP / BSPT</strong>: British Standard pipe — international fluid systems</li>
+</ul>
+
+<h3>When to Use Coarse vs Fine</h3>
+<ul>
+  <li><strong>Coarse</strong>: tolerates damage, faster assembly, better for soft materials. General purpose.</li>
+  <li><strong>Fine</strong>: higher preload at same torque, better fatigue resistance, thinner wall sections OK. Use for engine, hydraulic, instrument joints.</li>
+</ul>
+
+<h3>Tap Drill Selection</h3>
+<p>Tap drill diameter = nominal − pitch (approximate, ~75% thread engagement)</p>
+<ul>
+  <li>M6 × 1.0 → 5.0 mm tap drill</li>
+  <li>M8 × 1.25 → 6.8 mm tap drill</li>
+  <li>M10 × 1.5 → 8.5 mm tap drill</li>
+  <li>M12 × 1.75 → 10.2 mm tap drill</li>
+  <li>1/4-20 UNC → 0.201" (#7 drill)</li>
+  <li>3/8-16 UNC → 0.3125" (5/16" drill)</li>
+</ul>
+
+<h3>Common Thread Mistakes</h3>
+<ul>
+  <li>Mixing UNC and metric — they look similar but cross-thread.</li>
+  <li>Wrong tap drill for desired thread engagement (75% vs 65%).</li>
+  <li>NPT requires sealant or tape; BSPP requires gasket — they're not interchangeable.</li>
+  <li>Left-hand vs right-hand confusion — always specify on drawing.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For bolt strength and torque, see <a href="bolt-torque.html">Bolt Torque Calculator</a>. For drill sizes, <a href="drill-size-chart.html">Drill Size Chart</a>. Document thread spec in <a href="as9102-form3.html">AS9102 Form 3</a>.</p>
+
+</section>
 
 </main>
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Press Fit Calculator — Interference Fit, Push-Out Force, Hub Stress | MetricMech</title>
-<meta name="description" content="Free press fit / interference fit calculator. Compute interference, contact pressure, push-out force, hub stress, and required temperature for shrink-fit assembly." />
+<title>Press-Fit Interference Calculator with Stress and Insertion Force</title>
+<meta name="description" content="Free press-fit calculator. Hub stress, insertion force, holding torque per Lamé equations. Verify safety factor before assembly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -177,6 +177,69 @@
 
 <div id="pfInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Press-Fit Engineering Basics</h2>
+<p>A <strong>press-fit</strong> (also called interference fit or shrink-fit) joins two cylindrical parts by making the shaft slightly larger than the hole. Elastic deformation creates contact pressure, which provides torque transmission, axial holding, and zero backlash.</p>
+
+<h3>Lamé Equation for Hub Stress</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Contact pressure: p = E × δ / D × [(D_o² − D²) / (2 × D_o²)]</strong><br><strong>Hub max stress (tangential at bore): σ_θ = p × (D_o² + D²) / (D_o² − D²)</strong><br><strong>Axial force: F = π × D × L × p × μ</strong></p>
+<p>Where δ = diametrical interference, D = bore diameter, D_o = hub OD, E = elastic modulus, μ = friction coefficient (typically 0.10-0.15 dry steel-on-steel).</p>
+
+<h3>Safety Factor Targets</h3>
+<ul>
+  <li><strong>SF &lt; 1.0</strong> — Hub yields. Fit fails.</li>
+  <li><strong>SF 1.0 – 1.5</strong> — Marginal. Static loads only, no thermal cycling.</li>
+  <li><strong>SF ≥ 2.0</strong> — Production-acceptable. Survives manufacturing variation.</li>
+  <li><strong>SF ≥ 3.0</strong> — Safety-critical applications.</li>
+</ul>
+
+<h3>Worked Press-Fit Example</h3>
+<p>Pressing a steel pin (Ø25.020) into a steel hub (Ø25.000 bore, Ø50.000 OD), 20 mm long.</p>
+<ul>
+  <li>Interference δ = 0.020 mm</li>
+  <li>E_steel = 210,000 MPa</li>
+  <li>Contact pressure p = 210,000 × 0.020 / 25 × [(50² − 25²)/(2 × 50²)] = 168 × 0.375 ≈ 63 MPa</li>
+  <li>Hub max stress σ = 63 × (2500 + 625)/(2500 − 625) = 63 × 1.667 ≈ <strong>105 MPa</strong></li>
+  <li>If hub yield = 350 MPa → <strong>SF = 3.3</strong> (good)</li>
+  <li>Insertion force F = π × 25 × 20 × 63 × 0.1 ≈ <strong>9,900 N (1 ton)</strong></li>
+</ul>
+
+<h3>Assembly Methods</h3>
+<ol>
+  <li><strong>Cold press</strong> — direct hydraulic press. Fastest for small parts, requires high force.</li>
+  <li><strong>Heat the hub</strong> — hub expands, fit slides in, cools to interference. Standard for bearings and large hubs.</li>
+  <li><strong>Cool the shaft</strong> — dry ice or LN2. Used when hub material can't be heated.</li>
+  <li><strong>Combined</strong> — heat hub + cool shaft. Maximum thermal differential.</li>
+</ol>
+
+<h3>Common Press-Fit Mistakes</h3>
+<ul>
+  <li>Ignoring temperature change in service — different CTEs can release the fit at high temperature.</li>
+  <li>Not accounting for surface roughness — peaks crush during press, reducing effective interference by 30-50%.</li>
+  <li>Insufficient hub wall thickness — thin hubs see disproportionate stress at bore.</li>
+  <li>Press without lubrication — galling can occur, ruining both parts.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For tolerance class selection, see <a href="iso-286-fits.html">ISO 286 Fits Calculator</a>. For multi-part stack-up, use <a href="tolerance-stack.html">Tolerance Stack-Up</a>. For bolted alternatives, see <a href="bolt-torque.html">Bolt Torque Calculator</a>. Material properties for steels: see <a href="hardness-conversion.html">Hardness Conversion</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -239,6 +302,11 @@ function calc() {
              headline: 'Verify the fit on your 3D model.',
              sub: 'Open the assembly in CadNexa, measure actual hole/shaft sizes, and confirm interference matches your calculation.',
              ctaText: 'Verify in CadNexa →' },
+      nextSteps: [
+        { href: 'iso-286-fits.html', text: "Choose ISO fit", sub: "Hole/shaft tolerance" },
+        { href: 'tolerance-stack.html', text: "Verify stack-up", sub: "Multi-part assembly" },
+        { href: 'beam-deflection.html', text: "Verify hub stress", sub: "Structural check" },
+      ],
       related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' }, { href: 'bolt-torque.html', text: 'Bolt Torque' } ]
     });
   })();

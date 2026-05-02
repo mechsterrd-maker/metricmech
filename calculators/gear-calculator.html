@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Spur Gear Calculator — Module, Pitch, Center Distance | MetricMech</title>
-<meta name="description" content="Free spur gear calculator. Compute module, diametral pitch, pitch diameter, addendum, dedendum, root diameter, outside diameter, and center distance for any gear pair." />
+<title>Gear Ratio Calculator (Module, Pitch, Tooth Count, Center Distance)</title>
+<meta name="description" content="Free spur gear calculator. Module, pitch diameter, tooth count, center distance, ratio. Metric and imperial systems supported.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -147,6 +147,58 @@
 
 
 <div id="gcInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Gear Calculation Basics</h2>
+<p>Spur gears are the most common gear type. Sizing them correctly requires balancing tooth count, module/pitch, center distance, and torque/speed requirements.</p>
+
+<h3>Core Gear Formulas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Pitch diameter: D = m × Z</strong> (metric) or <strong>D = Z / DP</strong> (imperial)<br><strong>Center distance: a = (D₁ + D₂) / 2</strong><br><strong>Gear ratio: i = Z₂ / Z₁ = D₂ / D₁</strong></p>
+<p>Where m = module (mm), Z = tooth count, DP = diametral pitch (teeth/inch).</p>
+
+<h3>Common Module / DP Sizes</h3>
+<ul>
+  <li><strong>m = 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0</strong> (preferred metric series)</li>
+  <li><strong>DP = 24, 20, 16, 12, 10, 8, 6, 5, 4</strong> (imperial — coarser as DP decreases)</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>Gear ratio 3:1, module 2, pinion 20 teeth.</p>
+<ul>
+  <li>Pinion teeth Z₁ = 20</li>
+  <li>Gear teeth Z₂ = 60</li>
+  <li>Pinion D = 2 × 20 = <strong>40 mm</strong></li>
+  <li>Gear D = 2 × 60 = <strong>120 mm</strong></li>
+  <li>Center distance a = (40 + 120)/2 = <strong>80 mm</strong></li>
+</ul>
+
+<h3>Gear Design Rules of Thumb</h3>
+<ul>
+  <li><strong>Minimum pinion teeth</strong>: 17 (for 20° pressure angle, avoid undercut)</li>
+  <li><strong>Maximum single-stage ratio</strong>: 7:1 (above this, use compound gears)</li>
+  <li><strong>Face width</strong>: 8-12 × module typical</li>
+  <li><strong>Material pairing</strong>: harder pinion (small gear takes more cycles)</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For belt drive alternatives, see <a href="v-belt.html">V-Belt Calculator</a>. For motor sizing, <a href="motor-hp.html">Motor HP Calculator</a>. For shaft fits, <a href="iso-286-fits.html">ISO 286 Fits</a>.</p>
+
+</section>
 
 </main>
 

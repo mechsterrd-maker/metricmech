@@ -48,10 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="brand-name">Metric<em>Mech</em></span>
             <span class="brand-tag">FREE REFERENCE</span>
           </a>
+          <button class="mm-menu-toggle" id="mm-menu-toggle" aria-label="Toggle menu" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
           <div class="header-search">
             <input type="text" id="mm-header-search" placeholder="Search calculators…" />
           </div>
-          <nav class="header-nav">
+          <nav class="header-nav" id="mm-header-nav">
             <a href="${pathPrefix}calculators.html" class="${currentPage==='calculators'?'current':''}">Calculators</a>
             <a href="${pathPrefix}standards.html" class="${currentPage==='standards'?'current':''}">Standards</a>
             <a href="${pathPrefix}gdt.html" class="${currentPage==='gdt'?'current':''}">GD&amp;T</a>
@@ -61,6 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </header>
     `;
+
+    // Wire hamburger toggle
+    const tog = document.getElementById('mm-menu-toggle');
+    const nav = document.getElementById('mm-header-nav');
+    if (tog && nav) {
+      tog.addEventListener('click', () => nav.classList.toggle('open'));
+    }
 
     // Wire up header search — redirect to calculators page with ?q=
     setTimeout(() => {

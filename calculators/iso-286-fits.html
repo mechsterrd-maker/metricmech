@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ISO 286 Fits &amp; Tolerances Calculator — H7/g6 Hole-Shaft Lookup | MetricMech</title>
-<meta name="description" content="Free ISO 286 hole and shaft tolerance calculator. Look up H7, h6, g6, k6, p7 fits with upper and lower deviations. Hole-basis and shaft-basis fits with clearance/interference results." />
+<title>ISO 286 Hole Shaft Fits Calculator (H7 g6, H7 p6, etc)</title>
+<meta name="description" content="Free ISO 286 fits calculator. Hole/shaft tolerance combinations: clearance, transition, interference. H7 g6, H7 p6, H6 h6 — all standard fits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -163,6 +163,70 @@
 
 
 <div id="fitInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>What are ISO 286 Fits?</h2>
+<p><strong>ISO 286</strong> is the international standard for limits and fits on cylindrical features (holes and shafts). It defines a system of <strong>tolerance grades</strong> (IT01 to IT18) and <strong>fundamental deviations</strong> (letters A-Z for holes, a-z for shafts) that combine to give standard fit classes.</p>
+
+<h3>Three Types of Fit</h3>
+<ul>
+  <li><strong>Clearance Fit</strong> — Hole always larger than shaft. Free assembly. Examples: H7/g6, H7/h6.</li>
+  <li><strong>Transition Fit</strong> — Sometimes clearance, sometimes interference depending on actual sizes. Examples: H7/k6, H7/n6.</li>
+  <li><strong>Interference Fit</strong> — Shaft always larger than hole. Press-fit or shrink-fit assembly. Examples: H7/p6, H7/u6.</li>
+</ul>
+
+<h3>How ISO 286 Notation Works</h3>
+<p>Notation like <strong>⌀30 H7/g6</strong> means:</p>
+<ul>
+  <li>⌀30 — basic size (nominal)</li>
+  <li>H7 — hole tolerance: H = fundamental deviation 0 (lower limit at nominal), 7 = grade IT7</li>
+  <li>g6 — shaft tolerance: g = small clearance below nominal, 6 = grade IT6</li>
+</ul>
+<p>For ⌀30, IT6 = 13 µm and IT7 = 21 µm. Hole is 30.000 to 30.021. Shaft is 29.980 to 29.993. Clearance ranges from 0.007 to 0.041 mm.</p>
+
+<h3>Common Fit Classes Worked Examples</h3>
+
+<p><strong>H7/g6 (close running fit)</strong> — for journal bearings with oil film. Ø30 → clearance 0.007 to 0.041 mm.</p>
+<p><strong>H7/h6 (close clearance fit)</strong> — sliding fit, hand-assembled. Ø30 → clearance 0.000 to 0.034 mm.</p>
+<p><strong>H7/k6 (transition fit)</strong> — light press, mallet-assembled. Ø30 → -0.002 to +0.025 mm (sometimes interferes).</p>
+<p><strong>H7/p6 (light interference)</strong> — press-fit for small components. Ø30 → -0.022 to -0.001 mm (always interferes).</p>
+<p><strong>H7/u6 (heavy interference)</strong> — shrink-fit for high-torque hubs. Ø30 → -0.061 to -0.027 mm.</p>
+
+<h3>Choosing the Right Fit</h3>
+<ul>
+  <li><strong>Free assembly + relative motion</strong> → H8/d9, H7/g6</li>
+  <li><strong>Sliding fit, no rotation</strong> → H7/h6</li>
+  <li><strong>Locating fit, removable</strong> → H7/n6, H7/k6</li>
+  <li><strong>Press-fit, permanent</strong> → H7/p6, H7/r6</li>
+  <li><strong>Heavy interference</strong> → H7/s6, H7/u6 (requires heating to assemble)</li>
+</ul>
+
+<h3>Common Mistakes</h3>
+<ul>
+  <li>Using same letter case for hole and shaft — H is hole, h is shaft.</li>
+  <li>Forgetting that grade applies to both — H7/h6 is not the same as H6/h7.</li>
+  <li>Not accounting for surface roughness when fit is tight — peaks and valleys reduce effective interference.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For interference fit force calculation, use <a href="press-fit.html">Press-Fit Calculator</a>. For position-toleranced holes, see <a href="position-tolerance.html">Position Tolerance</a>. Stack-up multiple fits with <a href="tolerance-stack.html">Tolerance Stack-Up</a>. Document the fit on FAI Form 3 in <a href="as9102-form3.html">AS9102 Form 3 Builder</a>.</p>
+
+</section>
 
 </main>
 
@@ -377,6 +441,11 @@ function recalc() {
              headline: 'Apply this fit to your drawing.',
              sub: 'CadNexa balloons the fit callout, links to ISO 286, and generates the inspection plan automatically.',
              ctaText: 'Build inspection in CadNexa →' },
+      nextSteps: [
+        { href: 'press-fit.html', text: "Press-fit analysis", sub: "Stress and force" },
+        { href: 'tolerance-stack.html', text: "Stack-up analysis", sub: "Multi-feature variation" },
+        { href: 'position-tolerance.html', text: "Position tolerance", sub: "GD&T true position" },
+      ],
       related: [ { href: 'press-fit.html', text: 'Press-Fit Calculator' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' }, { href: 'position-tolerance.html', text: 'Position Tolerance' } ]
     });
   })();

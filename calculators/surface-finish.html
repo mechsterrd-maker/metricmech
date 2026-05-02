@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Surface Finish Converter — Ra ↔ Rz ↔ Rt ↔ µin ↔ N-Grade | MetricMech</title>
-<meta name="description" content="Free surface finish converter. Convert between Ra, Rz, Rt, Rmax, microinches, and ISO N-grade. Process capability map for turning, milling, grinding, lapping." />
+<title>Surface Finish Conversion (Ra, Rz, RMS, N-grade) with Process Guide</title>
+<meta name="description" content="Free surface finish converter: Ra, Rz, RMS, ISO N-grade. Includes typical Ra by manufacturing process and inspection method recommendations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -189,6 +189,76 @@
 
 <div id="sfiInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Understanding Surface Finish</h2>
+<p>Surface finish (or surface roughness) is the small-scale texture left on a machined surface after manufacturing. It affects friction, sealing, fatigue life, wear resistance, and aesthetic appearance. <strong>Ra</strong> (arithmetic average roughness) is the most common parameter worldwide.</p>
+
+<h3>Common Surface Finish Parameters</h3>
+<ul>
+  <li><strong>Ra</strong> — Arithmetic average. Most widely used. Insensitive to single peaks/valleys.</li>
+  <li><strong>Rz</strong> — Maximum peak-to-valley height (10-point average). Better for wear/seal-critical.</li>
+  <li><strong>RMS (Rq)</strong> — Root-mean-square average. Slightly higher than Ra (typically 1.11×).</li>
+  <li><strong>N-grade (ISO 1302)</strong> — N1 (Ra 0.025) to N12 (Ra 50). Older notation, still seen on legacy drawings.</li>
+</ul>
+
+<h3>Typical Ra Achievable by Process</h3>
+<table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+  <thead><tr style="background: var(--blueprint-tint); border-bottom: 2px solid var(--blueprint);"><th style="padding: 8px; text-align: left;">Process</th><th style="padding: 8px;">Typical Ra (µm)</th></tr></thead>
+  <tbody>
+    <tr><td style="padding: 6px 8px;">Sand casting</td><td style="padding: 6px 8px;">12.5 – 25</td></tr>
+    <tr><td style="padding: 6px 8px;">Rough turning / milling</td><td style="padding: 6px 8px;">3.2 – 12.5</td></tr>
+    <tr><td style="padding: 6px 8px;">Finish turning / milling</td><td style="padding: 6px 8px;">0.8 – 3.2</td></tr>
+    <tr><td style="padding: 6px 8px;">Grinding</td><td style="padding: 6px 8px;">0.2 – 1.6</td></tr>
+    <tr><td style="padding: 6px 8px;">Honing / lapping</td><td style="padding: 6px 8px;">0.05 – 0.4</td></tr>
+    <tr><td style="padding: 6px 8px;">Polishing / super-finishing</td><td style="padding: 6px 8px;">0.025 – 0.1</td></tr>
+  </tbody>
+</table>
+
+<h3>Surface Finish Drives Function</h3>
+<ul>
+  <li><strong>Ra ≤ 0.4 µm</strong> — Hydraulic seal seats, bearing journals, dynamic sealing surfaces.</li>
+  <li><strong>Ra 0.8 – 1.6 µm</strong> — Mating surfaces with relative motion, gear teeth, cam followers.</li>
+  <li><strong>Ra 1.6 – 3.2 µm</strong> — Mating surfaces, no relative motion. Press-fits.</li>
+  <li><strong>Ra 3.2 – 6.3 µm</strong> — Standard machined faces, non-functional.</li>
+  <li><strong>Ra ≥ 12.5 µm</strong> — Cosmetic surfaces, paint primer base.</li>
+</ul>
+
+<h3>Inspection Methods</h3>
+<ul>
+  <li><strong>Comparator block</strong> — visual/tactile reference standards. ±20% accuracy. Cheap but rough.</li>
+  <li><strong>Stylus profilometer</strong> — direct contact, most common for Ra 0.05 to 100 µm.</li>
+  <li><strong>White-light interferometry</strong> — non-contact optical, sub-nanometer for super-finishes.</li>
+  <li><strong>Confocal microscopy</strong> — 3D surface topology, used for advanced texture analysis.</li>
+</ul>
+
+<h3>Common Surface Finish Mistakes</h3>
+<ul>
+  <li>Specifying Ra without cutoff length (standard 0.8 mm for Ra 0.8-3.2). Wrong cutoff → wrong reading.</li>
+  <li>Using N-grade on new drawings — convert to Ra for clarity.</li>
+  <li>Ignoring lay direction — Ra is the same parallel vs perpendicular, but function differs.</li>
+  <li>Not measuring on representative location — sharp corners and edges read differently than the body of the surface.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>Cutting parameters affect finish — see <a href="speeds-feeds.html">Speeds &amp; Feeds Calculator</a>. Document Ra in <a href="as9102-form3.html">AS9102 Form 3</a>. For full GD&amp;T including surface texture symbols, see the <a href="../gdt.html">GD&amp;T Reference</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -262,6 +332,11 @@ function updateFrom(src) {
              headline: 'Document surface finish in your FAI.',
              sub: 'CadNexa balloons the surface-finish callout from the drawing and pulls the spec into Form 3 — no manual entry.',
              ctaText: 'Generate FAI in CadNexa →' },
+      nextSteps: [
+        { href: 'speeds-feeds.html', text: "Improve speeds/feeds", sub: "Finish driver" },
+        { href: 'as9102-form3.html', text: "Document Ra in FAI", sub: "Form 3 entry" },
+        { href: 'cp-cpk.html', text: "Capability on Ra", sub: "Process control" },
+      ],
       related: [ { href: 'as9102-form3.html', text: 'AS9102 Form 3' }, { href: 'speeds-feeds.html', text: 'Speeds & Feeds' }, { href: '../gdt.html', text: 'GD&T Reference' } ]
     });
   })();

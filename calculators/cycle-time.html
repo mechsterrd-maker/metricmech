@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cycle Time &amp; Cost Estimator — Setup, Run, Labor, Overhead | MetricMech</title>
-<meta name="description" content="Free machining cycle time and cost calculator. Estimate ₹/part from setup, run time, labor rate, machine overhead, and material cost. India-ready." />
+<title>Cycle Time and Cost Calculator for CNC Machining</title>
+<meta name="description" content="Free CNC cycle time + cost-per-part calculator. Material, machine, labor, overhead, profit. Quote parts confidently.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -222,6 +222,66 @@
 
 <div id="ctInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
 
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+<style>
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+</style>
+
+<h2>Cycle Time and Cost Estimation</h2>
+<p>Accurate cycle time and per-part cost estimation is the difference between profitable jobs and money-losing jobs. This calculator combines all the factors — setup, run, material, labor, overhead, profit — into a single quotable number.</p>
+
+<h3>Cost Per Part Formula</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Total time/part = (Setup / Batch) + (Run + Load)/Efficiency</strong><br><strong>Subtotal = Material + Setup + Labor + Machine + Tooling</strong><br><strong>Cost = Subtotal × (1 + Overhead) × (1 + SG&amp;A)</strong><br><strong>Quote = Cost × (1 + Profit margin)</strong></p>
+
+<h3>Worked Example</h3>
+<p>Quoting a batch of 100 milled aluminum brackets.</p>
+<ul>
+  <li>Setup: 60 min, Run: 5 min/part, Load: 1 min/part, Efficiency: 85%</li>
+  <li>Operator: ₹200/hr × 1, Machine: ₹600/hr</li>
+  <li>Material: ₹50/part (with 90% yield → ₹55.5)</li>
+  <li>Tool wear: ₹8/part, Consumables: ₹5/part</li>
+  <li>Overhead: 35%, SG&amp;A: 10%, Profit: 15%</li>
+</ul>
+<ul>
+  <li>Setup/part = 60/100 = 0.6 min, Cycle = (5+1)/0.85 = 7.06 min → 7.66 min/part</li>
+  <li>Setup cost = (0.6/60)(200+600) = ₹8.0/part</li>
+  <li>Labor = (7.06/60)(200) = ₹23.5/part, Machine = (7.06/60)(600) = ₹70.6/part</li>
+  <li>Subtotal = 55.5 + 8.0 + 23.5 + 70.6 + 13.0 = ₹170.6</li>
+  <li>+ Overhead (35%) = ₹230.3 → + SG&amp;A (10%) = ₹253.3 → + Profit (15%) = <strong>₹291.3/part</strong></li>
+</ul>
+
+<h3>What Most Quotes Miss</h3>
+<ul>
+  <li><strong>Efficiency &lt; 100%</strong> — real-world OEE is 60-85%. A "5-min cycle" actually takes 6-8 min on the floor.</li>
+  <li><strong>Setup amortization</strong> — 60-min setup over 100 parts = 0.6 min/part. Over 10 parts = 6 min/part. Volume matters.</li>
+  <li><strong>Tool wear cost</strong> — carbide endmills are ₹500-2000 each. Track parts-per-tool.</li>
+  <li><strong>SG&amp;A</strong> — sales, admin, finance overhead. Often forgotten by job shops.</li>
+</ul>
+
+<h3>Improving Cycle Time</h3>
+<ul>
+  <li><strong>Faster speeds/feeds</strong> — use the <a href="speeds-feeds.html">Speeds &amp; Feeds calculator</a> to optimize.</li>
+  <li><strong>Reduce changeover</strong> — SMED methods can cut setup 50%+.</li>
+  <li><strong>Improve OEE</strong> — see <a href="oee.html">OEE Calculator</a> for systematic loss analysis.</li>
+  <li><strong>Automation</strong> — pallet changers, bar feeders, robotic loading reduce load time.</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For matching cycle time to demand, see <a href="takt-time.html">Takt Time Calculator</a>. For capacity utilization, see <a href="oee.html">OEE Calculator</a>. To quantify defect costs, use <a href="copq.html">Cost of Poor Quality</a>. For quoting workflow, use <a href="cadnexa-roi.html">CadNexa ROI</a>.</p>
+
+</section>
+
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
@@ -311,6 +371,11 @@ function recalc() {
              headline: 'Quote this part with confidence.',
              sub: 'CadNexa combines cycle time, material cost, and overheads into a customer-ready GST quotation in 2 minutes.',
              ctaText: 'Generate quotation in CadNexa →' },
+      nextSteps: [
+        { href: 'takt-time.html', text: "Match to takt", sub: "Customer demand rate" },
+        { href: 'oee.html', text: "Track OEE", sub: "Find capacity losses" },
+        { href: 'cadnexa-roi.html', text: "Quote in CadNexa", sub: "Full GST quotation" },
+      ],
       related: [ { href: 'speeds-feeds.html', text: 'Speeds & Feeds' }, { href: 'oee.html', text: 'OEE' }, { href: 'takt-time.html', text: 'Takt Time' } ]
     });
   })();
