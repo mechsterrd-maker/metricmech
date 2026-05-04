@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cp Cpk Calculator with Example and Interpretation — Free Online Tool</title>
@@ -582,6 +595,9 @@ function recalc() {
   // Save & compare panel
   document.getElementById('savePanel').style.display = 'block';
   renderSavedList();
+
+  // GA4: signal a successful calculator run
+  if (typeof window.mmTrackCalc === 'function') window.mmTrackCalc();
 }
 
 // ════════════════════════════════════════════════════════════
@@ -1081,6 +1097,12 @@ function runWhatIf() {
   if (!s) return;
   const meanShiftPct = parseFloat(document.getElementById('wiMean').value); // -100..+100, % of spec width
   const sdScalePct = parseFloat(document.getElementById('wiSd').value); // 20..200
+
+  // GA4: only track when user actively moves a slider away from defaults (mean=0, sd=100)
+  if ((meanShiftPct !== 0 || sdScalePct !== 100) && typeof window.mmTrackWhatIf === 'function') {
+    window.mmTrackWhatIf();
+  }
+
   const specWidth = s.usl - s.lsl;
   const meanShift = (meanShiftPct / 100) * specWidth * 0.5;  // ±50% of spec window max
   const newMean = s.mean + meanShift;
@@ -1144,6 +1166,8 @@ function saveStudy() {
   persistStudies(arr);
   nameEl.value = '';
   renderSavedList(true);
+  // GA4: track save (power-user signal)
+  if (typeof window.mmTrackSave === 'function') window.mmTrackSave();
 }
 function deleteStudy(id) {
   const arr = loadSavedStudies().filter(x => x.id !== id);

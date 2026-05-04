@@ -1,6 +1,16 @@
 // MetricMech — Shared site components (header, footer, CadNexa promos)
 // Inject the same UI across every page.
 
+// ── Load analytics.js (GA4 event tracking) — uses data-prefix for portability
+(function () {
+  const _hdr = document.querySelector('[data-mw="header"]');
+  const prefix = (_hdr && _hdr.dataset.prefix) || '';
+  const s = document.createElement('script');
+  s.src = prefix + 'analytics.js';
+  s.async = true;
+  document.head.appendChild(s);
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   // ── EMBED MODE — clean iframe view ──
   if (/[?&]embed=1/.test(window.location.search)) {
