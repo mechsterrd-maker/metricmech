@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolt Torque Chart: Metric and Imperial Reference Tables by Grade and Lubrication | MetricMech</title>
+<meta name="description" content="Complete bolt torque chart for metric (M5-M30, grades 4.8/5.8/8.8/10.9/12.9) and imperial (1/4-inch to 1-inch, SAE Grade 2/5/8). Dry and lubricated K-factor values. Stainless steel A2-70/A4-80 included." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ref-layout { max-width: 960px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; font-family: var(--mono); }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 8px 10px; text-align: center; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout th.size-col { text-align: left; }
+.ref-layout td { padding: 8px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); text-align: center; }
+.ref-layout td.size-col { text-align: left; font-weight: 600; color: var(--ink); }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 18px 22px; margin: 18px 0; font-family: var(--mono); font-size: 16px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 8px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) { .ref-layout { padding: 20px 18px; } .ref-layout h1 { font-size: 28px; } }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference/bolt-torque-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bolt Torque Chart: Metric and Imperial Reference Tables by Grade and Lubrication | MetricMech">
+<meta property="og:description" content="Complete bolt torque chart for metric (M5-M30, grades 4.8/5.8/8.8/10.9/12.9) and imperial (1/4 to 1 inch, SAE Grade 2/5/8). Dry and lubricated values.">
+<meta property="og:url" content="https://metricmech.com/reference/bolt-torque-chart">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bolt Torque Chart: Metric and Imperial Reference Tables by Grade and Lubrication",
+  "description": "Complete bolt torque chart for metric (M5-M30, grades 4.8/5.8/8.8/10.9/12.9) and imperial (1/4-inch to 1-inch, SAE Grade 2/5/8). Dry and lubricated K-factor values.",
+  "url": "https://metricmech.com/reference/bolt-torque-chart",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": { "@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" } },
+  "mainEntityOfPage": "https://metricmech.com/reference/bolt-torque-chart",
+  "about": { "@type": "Thing", "name": "Bolt torque values by grade and lubrication" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the torque for an M10 grade 8.8 bolt?",
+      "acceptedAnswer": { "@type": "Answer", "text": "An M10 coarse-thread grade 8.8 bolt requires 59 N·m torque when dry (K=0.20) and 47 N·m when lightly lubricated (K=0.16). Values assume 75% of yield strength preload and the stress area of 58.0 mm² per ISO 898-1." }
+    },
+    {
+      "@type": "Question",
+      "name": "What torque does an M8 grade 10.9 bolt need?",
+      "acceptedAnswer": { "@type": "Answer", "text": "An M8 coarse-thread grade 10.9 bolt needs 43 N·m dry (K=0.20) or 34 N·m lubricated (K=0.16). Stress area is 36.6 mm² and yield strength is 940 MPa per ISO 898-1." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the K factor in bolt torque calculation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The K factor (nut factor) is the dimensionless coefficient in the torque-tension equation T = K × D × F. It captures friction at the bolt threads and under the head. Typical values: K = 0.20 for dry as-received steel-on-steel, K = 0.16 for light oil lubrication, K = 0.13 for moly-disulfide grease, K = 0.12 for anti-seize compound, K = 0.18 for zinc-plated bolts dry." }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are bolt torque charts?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Torque-to-preload conversion using K-factor charts has an inherent accuracy of about ±25%. This is because friction at the threads and under the head varies between fasteners even within the same lot. For critical joints (engine head bolts, pressure vessel flanges, structural connections), torque-angle or direct ultrasonic preload measurement reduces uncertainty to about ±10%." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../reference.html">Reference</a><span class="sep">/</span>Bolt Torque Chart</div>
+</div>
+
+<div class="ref-layout">
+  <h1>Bolt torque chart: <em>metric and imperial reference by grade and lubrication.</em></h1>
+  <div class="ref-meta">
+    <span>Fastener Reference</span>
+    <span>ISO 898-1 / SAE J429</span>
+    <span>Updated May 2026</span>
+  </div>
+
+  <p class="lede">Reference torque values for metric (M5–M30, ISO 898-1 grades 4.8 / 5.8 / 8.8 / 10.9 / 12.9) and imperial fasteners (1/4"–1", SAE Grade 2 / 5 / 8) at dry and lightly-lubricated conditions. Calculated from T = K × D × F at 75% of yield strength preload. ±25% accuracy band — see notes.</p>
+
+  <h2>The torque <em>formula</em></h2>
+  <p>Every value in the tables below is computed from the standard torque-tension equation:</p>
+  <div class="formula-box">
+    <div class="label">Torque-tension equation</div>
+    T = K × D × F
+  </div>
+  <ul>
+    <li><strong>T</strong>: tightening torque (N·m for metric, ft-lb for imperial)</li>
+    <li><strong>K</strong>: nut factor (dimensionless, depends on lubrication)</li>
+    <li><strong>D</strong>: nominal bolt diameter (m for metric, inches for imperial)</li>
+    <li><strong>F</strong>: target preload (N or lbf) = 0.75 × yield strength × stress area</li>
+  </ul>
+
+  <h2>K factor <em>by lubrication</em></h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Condition</th><th>K factor</th><th>Notes</th></tr>
+    <tr><td class="size-col">Dry, as-received steel-on-steel</td><td>0.20</td><td>Default for galvanized or black oxide bolts</td></tr>
+    <tr><td class="size-col">Light machine oil</td><td>0.16</td><td>Typical for assembly-line use</td></tr>
+    <tr><td class="size-col">Moly-disulfide grease</td><td>0.13</td><td>Aerospace and high-load applications</td></tr>
+    <tr><td class="size-col">Anti-seize (graphite/copper)</td><td>0.12</td><td>Stainless on stainless, high-temperature joints</td></tr>
+    <tr><td class="size-col">Zinc-plated, dry</td><td>0.18</td><td>Most commercial-grade hardware</td></tr>
+    <tr><td class="size-col">Cadmium-plated, dry</td><td>0.16</td><td>Legacy aerospace, less common in 2026</td></tr>
+    <tr><td class="size-col">Stainless on stainless (no anti-seize)</td><td>0.30+</td><td>Galling risk — always use anti-seize</td></tr>
+  </table>
+  </div>
+
+  <h2>Metric coarse thread <em>torque (N·m) — DRY, K = 0.20</em></h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Size</th><th>Pitch</th><th>Stress Area (mm²)</th><th>4.8</th><th>5.8</th><th>8.8</th><th>10.9</th><th>12.9</th></tr>
+    <tr><td class="size-col">M5</td><td>0.80</td><td>14.2</td><td>3.6</td><td>4.5</td><td>7.2</td><td>10.3</td><td>12.4</td></tr>
+    <tr><td class="size-col">M6</td><td>1.00</td><td>20.1</td><td>6.1</td><td>7.6</td><td>12.2</td><td>17.5</td><td>21.0</td></tr>
+    <tr><td class="size-col">M8</td><td>1.25</td><td>36.6</td><td>15.0</td><td>18.7</td><td>30.0</td><td>42.9</td><td>51.4</td></tr>
+    <tr><td class="size-col">M10</td><td>1.50</td><td>58.0</td><td>29.7</td><td>37.1</td><td>59.4</td><td>84.9</td><td>102</td></tr>
+    <tr><td class="size-col">M12</td><td>1.75</td><td>84.3</td><td>51.8</td><td>64.8</td><td>104</td><td>148</td><td>178</td></tr>
+    <tr><td class="size-col">M14</td><td>2.00</td><td>115</td><td>82.4</td><td>103</td><td>165</td><td>236</td><td>283</td></tr>
+    <tr><td class="size-col">M16</td><td>2.00</td><td>157</td><td>128</td><td>160</td><td>257</td><td>367</td><td>440</td></tr>
+    <tr><td class="size-col">M18</td><td>2.50</td><td>192</td><td>177</td><td>221</td><td>354</td><td>506</td><td>607</td></tr>
+    <tr><td class="size-col">M20</td><td>2.50</td><td>245</td><td>251</td><td>313</td><td>502</td><td>717</td><td>860</td></tr>
+    <tr><td class="size-col">M22</td><td>2.50</td><td>303</td><td>341</td><td>426</td><td>682</td><td>974</td><td>1170</td></tr>
+    <tr><td class="size-col">M24</td><td>3.00</td><td>353</td><td>434</td><td>542</td><td>868</td><td>1240</td><td>1490</td></tr>
+    <tr><td class="size-col">M27</td><td>3.00</td><td>459</td><td>635</td><td>793</td><td>1268</td><td>1812</td><td>2174</td></tr>
+    <tr><td class="size-col">M30</td><td>3.50</td><td>561</td><td>862</td><td>1080</td><td>1726</td><td>2466</td><td>2960</td></tr>
+  </table>
+  </div>
+  <p style="font-size: 13px; color: var(--mute);">Values in N·m. For lubricated condition (K=0.16), multiply by 0.80. For anti-seize (K=0.12), multiply by 0.60.</p>
+
+  <h2>Metric coarse thread <em>torque (N·m) — LUBRICATED, K = 0.16</em></h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Size</th><th>4.8</th><th>5.8</th><th>8.8</th><th>10.9</th><th>12.9</th></tr>
+    <tr><td class="size-col">M5</td><td>2.9</td><td>3.6</td><td>5.8</td><td>8.2</td><td>9.9</td></tr>
+    <tr><td class="size-col">M6</td><td>4.9</td><td>6.1</td><td>9.8</td><td>14.0</td><td>16.8</td></tr>
+    <tr><td class="size-col">M8</td><td>12.0</td><td>15.0</td><td>24.0</td><td>34.3</td><td>41.1</td></tr>
+    <tr><td class="size-col">M10</td><td>23.8</td><td>29.7</td><td>47.5</td><td>67.9</td><td>81.6</td></tr>
+    <tr><td class="size-col">M12</td><td>41.4</td><td>51.8</td><td>83.2</td><td>118</td><td>142</td></tr>
+    <tr><td class="size-col">M14</td><td>65.9</td><td>82.4</td><td>132</td><td>189</td><td>226</td></tr>
+    <tr><td class="size-col">M16</td><td>102</td><td>128</td><td>206</td><td>294</td><td>352</td></tr>
+    <tr><td class="size-col">M20</td><td>201</td><td>250</td><td>402</td><td>574</td><td>688</td></tr>
+    <tr><td class="size-col">M24</td><td>347</td><td>434</td><td>694</td><td>992</td><td>1192</td></tr>
+    <tr><td class="size-col">M30</td><td>690</td><td>864</td><td>1381</td><td>1973</td><td>2368</td></tr>
+  </table>
+  </div>
+
+  <h2>Imperial coarse thread <em>torque (ft-lb) — DRY, K = 0.20</em></h2>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Size</th><th>TPI</th><th>Grade 2</th><th>Grade 5</th><th>Grade 8</th></tr>
+    <tr><td class="size-col">1/4"</td><td>20</td><td>5.5</td><td>9</td><td>12</td></tr>
+    <tr><td class="size-col">5/16"</td><td>18</td><td>11</td><td>18</td><td>25</td></tr>
+    <tr><td class="size-col">3/8"</td><td>16</td><td>20</td><td>30</td><td>45</td></tr>
+    <tr><td class="size-col">7/16"</td><td>14</td><td>32</td><td>50</td><td>70</td></tr>
+    <tr><td class="size-col">1/2"</td><td>13</td><td>50</td><td>80</td><td>110</td></tr>
+    <tr><td class="size-col">9/16"</td><td>12</td><td>71</td><td>110</td><td>155</td></tr>
+    <tr><td class="size-col">5/8"</td><td>11</td><td>100</td><td>155</td><td>220</td></tr>
+    <tr><td class="size-col">3/4"</td><td>10</td><td>175</td><td>270</td><td>380</td></tr>
+    <tr><td class="size-col">7/8"</td><td>9</td><td>175</td><td>430</td><td>600</td></tr>
+    <tr><td class="size-col">1"</td><td>8</td><td>260</td><td>650</td><td>900</td></tr>
+  </table>
+  </div>
+  <p style="font-size: 13px; color: var(--mute);">Values in ft-lb. Multiply by 1.356 to convert to N·m.</p>
+
+  <h2>Stainless steel <em>torque (N·m) — A2-70 and A4-80</em></h2>
+  <p>Stainless steel fasteners have a galling risk that requires anti-seize compound. Values below assume K = 0.18 with anti-seize and 75% yield preload per ISO 3506-1.</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Size</th><th>Stress Area (mm²)</th><th>A2-70 (yield 450 MPa)</th><th>A4-80 (yield 600 MPa)</th></tr>
+    <tr><td class="size-col">M5</td><td>14.2</td><td>3.6</td><td>4.8</td></tr>
+    <tr><td class="size-col">M6</td><td>20.1</td><td>6.1</td><td>8.1</td></tr>
+    <tr><td class="size-col">M8</td><td>36.6</td><td>14.8</td><td>19.8</td></tr>
+    <tr><td class="size-col">M10</td><td>58.0</td><td>29.4</td><td>39.2</td></tr>
+    <tr><td class="size-col">M12</td><td>84.3</td><td>51.2</td><td>68.3</td></tr>
+    <tr><td class="size-col">M14</td><td>115</td><td>81.5</td><td>108.7</td></tr>
+    <tr><td class="size-col">M16</td><td>157</td><td>127</td><td>169</td></tr>
+    <tr><td class="size-col">M20</td><td>245</td><td>248</td><td>331</td></tr>
+    <tr><td class="size-col">M24</td><td>353</td><td>429</td><td>572</td></tr>
+  </table>
+  </div>
+
+  <h2>Notes on <em>accuracy</em></h2>
+  <p>Torque-to-preload conversion has irreducible noise. Even with calibrated wrenches and identical lubricant, the actual preload achieved at a given torque varies by about ±25% across the sample population. The sources of variation:</p>
+  <ul>
+    <li><strong>Friction variability.</strong> Surface finish, lubricant film thickness, and contact area all vary between fasteners. About 90% of the applied torque overcomes friction; only ~10% generates preload.</li>
+    <li><strong>Geometry tolerances.</strong> ISO 898-1 thread tolerances allow a ±5% variation in stress area at the pitch diameter.</li>
+    <li><strong>Wrench calibration drift.</strong> A click-type torque wrench loses calibration ~5–8% per year. A digital wrench is more stable but still requires annual calibration.</li>
+    <li><strong>Bolt yield strength scatter.</strong> ISO 898-1 specifies minimum yield, not actual. A grade 8.8 bolt may have actual yield 5–15% above 640 MPa.</li>
+  </ul>
+
+  <div class="warn-box">
+    <strong>For critical joints, torque is not enough</strong>
+    Engine head bolts, pressure-vessel flanges, structural-steel high-strength connections, and aerospace primary structure all require torque-angle (TTY) or direct preload measurement (ultrasonic / load cell). Torque-only assembly cannot achieve better than ±25% preload accuracy. Torque-plus-angle reduces this to ±10%. Ultrasonic measurement gets to ±3–5%.
+  </div>
+
+  <h2>5 common <em>torque mistakes</em></h2>
+  <ol>
+    <li><strong>Using dry torque on lubricated bolts.</strong> Applying a dry-condition torque value to a freshly-oiled bolt over-preloads the joint by ~25%. The bolt yields or the thread strips. Always match the table to the assembly condition.</li>
+    <li><strong>Reusing previously-torqued bolts.</strong> Grade 10.9 and 12.9 bolts are usually loaded close to yield in service. Reusing them at the same torque accumulates plastic strain. Replace structural bolts after one tightening cycle unless specified as reusable.</li>
+    <li><strong>Single-pass tightening.</strong> Torquing a flange or head in one pass causes uneven preload — the first bolts compress the gasket and reduce preload on neighboring bolts. Always use a 3-pass torque sequence: 33%, 66%, 100% of final torque, in star or cross pattern.</li>
+    <li><strong>Skipping wrench calibration.</strong> A click-type wrench can drift 8–10% in a year. Calibrate annually or after any drop, and re-zero between uses.</li>
+    <li><strong>Wrong stress-area assumption.</strong> Some shop charts use nominal cross-section instead of stress area, overstating torque by ~10%. The values in this chart use ISO 898-1 stress area, which is the standard for grade 8.8 / 10.9 / 12.9 calculation.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Need a specific value not in the chart?</strong>
+    For non-standard pitches (fine thread), custom yield assumptions, or different K factors, the MetricMech <a href="../calculators/bolt-torque.html">Bolt Torque Calculator</a> handles arbitrary inputs and produces an audit-ready PDF with the full T = K × D × F derivation, the chosen preload fraction, and lubrication selection. Useful for FAI submissions where the torque value must be traceable to a documented calculation.
+  </div>
+
+  <h2>References</h2>
+  <ul>
+    <li>ISO 898-1:2013 — Mechanical properties of fasteners made of carbon steel and alloy steel — Part 1: Bolts, screws and studs with specified property classes — Coarse thread and fine pitch thread</li>
+    <li>ISO 3506-1:2020 — Fasteners — Mechanical properties of corrosion-resistant stainless steel fasteners — Part 1: Bolts, screws and studs with specified grades and property classes</li>
+    <li>SAE J429 — Mechanical and Material Requirements for Externally Threaded Fasteners</li>
+    <li>Bickford, J.H. (2008) — Introduction to the Design and Behavior of Bolted Joints, 4th Ed.</li>
+  </ul>
+
+  <p style="margin-top: 32px; font-size: 13px; color: var(--mute);">For interactive computation with custom inputs, see the <a href="../calculators/bolt-torque.html">Bolt Torque Calculator</a>. For press fits and interference joints, see the <a href="../calculators/press-fit.html">Press / Interference Fit Calculator</a>.</p>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

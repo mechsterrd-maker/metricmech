@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hardness Conversion Chart: Rockwell, Brinell, Vickers, Knoop, Tensile (ASTM E140) | MetricMech</title>
+<meta name="description" content="Complete hardness conversion chart per ASTM E140. Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and approximate tensile strength in MPa. Steel and non-ferrous tables included." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ref-layout { max-width: 960px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; font-family: var(--mono); }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 8px 10px; text-align: center; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout th.size-col { text-align: left; }
+.ref-layout td { padding: 7px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); text-align: center; }
+.ref-layout td.size-col { text-align: left; font-weight: 600; color: var(--ink); }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 18px 22px; margin: 18px 0; font-family: var(--mono); font-size: 16px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 8px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) { .ref-layout { padding: 20px 18px; } .ref-layout h1 { font-size: 28px; } }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference/hardness-conversion-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hardness Conversion Chart: Rockwell, Brinell, Vickers, Knoop, Tensile (ASTM E140) | MetricMech">
+<meta property="og:description" content="Complete hardness conversion chart per ASTM E140. Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and approximate tensile MPa.">
+<meta property="og:url" content="https://metricmech.com/reference/hardness-conversion-chart">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hardness Conversion Chart: Rockwell, Brinell, Vickers, Knoop, Tensile (ASTM E140)",
+  "description": "Complete hardness conversion chart per ASTM E140. Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and approximate tensile strength in MPa for steels and non-ferrous metals.",
+  "url": "https://metricmech.com/reference/hardness-conversion-chart",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": { "@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" } },
+  "mainEntityOfPage": "https://metricmech.com/reference/hardness-conversion-chart",
+  "about": { "@type": "Thing", "name": "Hardness conversion per ASTM E140" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I convert HRC to Vickers?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Hardness conversion is empirical and material-dependent. For hardened steels per ASTM E140 Table 1: HRC 60 corresponds to approximately HV 697, HRC 50 to HV 513, HRC 40 to HV 392, HRC 30 to HV 305, HRC 20 to HV 244. The conversion has an inherent accuracy band of about ±20-30 HV due to differences in indentation behavior between the two scales." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert Brinell to Vickers?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For steels in the range HB 150-650, Brinell and Vickers are approximately equal (HV ≈ HB ± 5%). Above HB 650, Brinell becomes unreliable because the 10mm tungsten carbide ball begins to deform. Below HB 150, Vickers becomes less practical because the indentation is too small for accurate optical measurement at the standard 1 kg or 5 kg load." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I estimate tensile strength from hardness?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For carbon and low-alloy steels in the hardness range HV 200-650 (HRC 13-60), the empirical relationship is approximately Tensile (MPa) = 3.45 × HV, valid to within ±10%. For non-ferrous metals (aluminum, copper, brass) the relationship is different and must be calibrated material-by-material. The conversion is not valid for case-hardened parts, where surface hardness exceeds core tensile capability." }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use Knoop instead of Vickers?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Knoop hardness uses an elongated diamond indenter that creates a shallower indentation than Vickers at the same load. Use Knoop for very thin coatings (under 0.05mm), brittle materials prone to cracking under the Vickers diamond, and for measuring hardness gradients near case-hardened surfaces. Knoop and Vickers values are similar but not identical — at HV 500, HK is approximately HK 506; at HV 800, HK is approximately HK 770." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../reference.html">Reference</a><span class="sep">/</span>Hardness Conversion Chart</div>
+</div>
+
+<div class="ref-layout">
+  <h1>Hardness conversion chart: <em>Rockwell, Brinell, Vickers, Knoop, and tensile.</em></h1>
+  <div class="ref-meta">
+    <span>Materials Reference</span>
+    <span>ASTM E140 / ISO 18265</span>
+    <span>Updated May 2026</span>
+  </div>
+
+  <p class="lede">Hardness conversion tables per ASTM E140 and ISO 18265. Rockwell C (HRC), Rockwell B (HRB), Vickers (HV), Brinell (HB), Knoop (HK), and approximate ultimate tensile strength in MPa for steels. Use the right table for the right material — these conversions are empirical and material-specific.</p>
+
+  <h2>How to use this <em>chart</em></h2>
+  <p>Hardness conversion is approximate, not exact. The same metal indented with different test methods produces different numerical results because each test has different indenter geometry, load, and depth of indentation. ASTM E140 standardizes empirical conversions for specific material classes — most reliably for unalloyed and low-alloy steel in the hardness range HV 200–800.</p>
+  <p>To use the tables: find your known hardness in the leftmost column, then read across to the converted scale. The tables below cover the practically useful range for engineering materials.</p>
+
+  <h2>Tensile-from-hardness <em>approximation</em></h2>
+  <div class="formula-box">
+    <div class="label">Tensile strength from Vickers (carbon/low-alloy steel)</div>
+    Tensile (MPa) ≈ 3.45 × HV
+  </div>
+  <p>This relationship holds within ±10% for unalloyed and low-alloy steel in the hardness range HV 200–650. Outside this range (very soft annealed steel or fully martensitic case-hardened steel above HV 650), the relationship breaks down. For non-ferrous metals it is not valid at all.</p>
+
+  <h2>Hardened steels — <em>HRC primary scale</em></h2>
+  <p>Use this table for through-hardened or case-hardened carbon and alloy steels in the typical hardness range HRC 20–65. Source: ASTM E140 Table 1.</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">HRC</th><th>HV (Vickers)</th><th>HB (Brinell 3000 kg)</th><th>HK (Knoop 500 g)</th><th>Tensile (MPa, approx)</th></tr>
+    <tr><td class="size-col">68</td><td>940</td><td>—</td><td>920</td><td>—</td></tr>
+    <tr><td class="size-col">65</td><td>832</td><td>—</td><td>846</td><td>—</td></tr>
+    <tr><td class="size-col">62</td><td>746</td><td>—</td><td>763</td><td>2570</td></tr>
+    <tr><td class="size-col">60</td><td>697</td><td>—</td><td>713</td><td>2400</td></tr>
+    <tr><td class="size-col">58</td><td>653</td><td>615 (carbide)</td><td>670</td><td>2250</td></tr>
+    <tr><td class="size-col">56</td><td>613</td><td>578</td><td>630</td><td>2110</td></tr>
+    <tr><td class="size-col">54</td><td>577</td><td>543</td><td>594</td><td>1990</td></tr>
+    <tr><td class="size-col">52</td><td>544</td><td>512</td><td>561</td><td>1880</td></tr>
+    <tr><td class="size-col">50</td><td>513</td><td>481</td><td>530</td><td>1770</td></tr>
+    <tr><td class="size-col">48</td><td>484</td><td>455</td><td>502</td><td>1670</td></tr>
+    <tr><td class="size-col">46</td><td>458</td><td>432</td><td>476</td><td>1580</td></tr>
+    <tr><td class="size-col">44</td><td>434</td><td>409</td><td>452</td><td>1500</td></tr>
+    <tr><td class="size-col">42</td><td>412</td><td>390</td><td>430</td><td>1420</td></tr>
+    <tr><td class="size-col">40</td><td>392</td><td>371</td><td>410</td><td>1350</td></tr>
+    <tr><td class="size-col">38</td><td>372</td><td>353</td><td>390</td><td>1280</td></tr>
+    <tr><td class="size-col">36</td><td>354</td><td>336</td><td>372</td><td>1220</td></tr>
+    <tr><td class="size-col">34</td><td>336</td><td>319</td><td>354</td><td>1160</td></tr>
+    <tr><td class="size-col">32</td><td>319</td><td>302</td><td>337</td><td>1100</td></tr>
+    <tr><td class="size-col">30</td><td>305</td><td>286</td><td>320</td><td>1050</td></tr>
+    <tr><td class="size-col">28</td><td>291</td><td>271</td><td>305</td><td>1000</td></tr>
+    <tr><td class="size-col">26</td><td>277</td><td>258</td><td>290</td><td>955</td></tr>
+    <tr><td class="size-col">24</td><td>263</td><td>247</td><td>276</td><td>905</td></tr>
+    <tr><td class="size-col">22</td><td>253</td><td>237</td><td>263</td><td>870</td></tr>
+    <tr><td class="size-col">20</td><td>244</td><td>226</td><td>251</td><td>835</td></tr>
+  </table>
+  </div>
+
+  <h2>Softer steels — <em>HRB primary scale</em></h2>
+  <p>Use this table for unhardened steel, low-carbon steel, copper, brass, and cast iron in the range HRB 60–100. The Brinell scale (3000 kg load, 10 mm carbide ball) is typically the field method of choice in this range because the larger indentation averages out surface roughness.</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">HRB</th><th>HV (Vickers)</th><th>HB (Brinell 3000 kg)</th><th>HRC (approx)</th><th>Tensile (MPa, approx)</th></tr>
+    <tr><td class="size-col">100</td><td>240</td><td>240</td><td>22</td><td>820</td></tr>
+    <tr><td class="size-col">98</td><td>228</td><td>228</td><td>20</td><td>780</td></tr>
+    <tr><td class="size-col">96</td><td>219</td><td>219</td><td>18</td><td>750</td></tr>
+    <tr><td class="size-col">94</td><td>212</td><td>212</td><td>16</td><td>725</td></tr>
+    <tr><td class="size-col">92</td><td>203</td><td>203</td><td>14</td><td>700</td></tr>
+    <tr><td class="size-col">90</td><td>195</td><td>195</td><td>12</td><td>670</td></tr>
+    <tr><td class="size-col">88</td><td>189</td><td>189</td><td>10</td><td>650</td></tr>
+    <tr><td class="size-col">86</td><td>182</td><td>182</td><td>8</td><td>625</td></tr>
+    <tr><td class="size-col">84</td><td>176</td><td>176</td><td>6</td><td>600</td></tr>
+    <tr><td class="size-col">82</td><td>170</td><td>170</td><td>4</td><td>580</td></tr>
+    <tr><td class="size-col">80</td><td>163</td><td>163</td><td>2</td><td>560</td></tr>
+    <tr><td class="size-col">78</td><td>157</td><td>157</td><td>—</td><td>540</td></tr>
+    <tr><td class="size-col">76</td><td>153</td><td>153</td><td>—</td><td>525</td></tr>
+    <tr><td class="size-col">74</td><td>148</td><td>148</td><td>—</td><td>510</td></tr>
+    <tr><td class="size-col">72</td><td>143</td><td>143</td><td>—</td><td>495</td></tr>
+    <tr><td class="size-col">70</td><td>139</td><td>139</td><td>—</td><td>480</td></tr>
+    <tr><td class="size-col">68</td><td>134</td><td>134</td><td>—</td><td>465</td></tr>
+    <tr><td class="size-col">66</td><td>130</td><td>130</td><td>—</td><td>450</td></tr>
+    <tr><td class="size-col">64</td><td>126</td><td>126</td><td>—</td><td>435</td></tr>
+    <tr><td class="size-col">62</td><td>122</td><td>122</td><td>—</td><td>420</td></tr>
+    <tr><td class="size-col">60</td><td>118</td><td>118</td><td>—</td><td>405</td></tr>
+  </table>
+  </div>
+
+  <h2>Non-ferrous metals — <em>typical hardness ranges</em></h2>
+  <p>For non-ferrous metals, ASTM E140 conversions to Rockwell or Brinell are <em>not valid</em> across the board. Use Vickers HV directly. Reference values for common engineering alloys:</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Material</th><th>Typical HV</th><th>Typical HB</th><th>Tensile (MPa)</th></tr>
+    <tr><td class="size-col">Aluminum 1100-O (annealed)</td><td>23</td><td>23</td><td>90</td></tr>
+    <tr><td class="size-col">Aluminum 1100-H14 (work-hardened)</td><td>32</td><td>32</td><td>125</td></tr>
+    <tr><td class="size-col">Aluminum 2024-T3</td><td>137</td><td>120</td><td>470</td></tr>
+    <tr><td class="size-col">Aluminum 5052-H32</td><td>62</td><td>60</td><td>230</td></tr>
+    <tr><td class="size-col">Aluminum 6061-T6</td><td>107</td><td>95</td><td>310</td></tr>
+    <tr><td class="size-col">Aluminum 7075-T6</td><td>175</td><td>150</td><td>570</td></tr>
+    <tr><td class="size-col">Brass C26000 (annealed)</td><td>68</td><td>65</td><td>325</td></tr>
+    <tr><td class="size-col">Brass C26000 (hard)</td><td>140</td><td>130</td><td>525</td></tr>
+    <tr><td class="size-col">Copper C11000 (annealed)</td><td>48</td><td>45</td><td>220</td></tr>
+    <tr><td class="size-col">Copper C11000 (hard)</td><td>105</td><td>100</td><td>345</td></tr>
+    <tr><td class="size-col">Titanium Grade 2 (CP)</td><td>200</td><td>195</td><td>345</td></tr>
+    <tr><td class="size-col">Titanium Ti-6Al-4V (annealed)</td><td>340</td><td>320</td><td>950</td></tr>
+    <tr><td class="size-col">Stainless 304 (annealed)</td><td>180</td><td>170</td><td>515</td></tr>
+    <tr><td class="size-col">Stainless 304 (work-hardened)</td><td>240</td><td>225</td><td>725</td></tr>
+    <tr><td class="size-col">Stainless 316 (annealed)</td><td>185</td><td>175</td><td>520</td></tr>
+    <tr><td class="size-col">Stainless 410 (annealed)</td><td>155</td><td>150</td><td>485</td></tr>
+    <tr><td class="size-col">Stainless 410 (hardened)</td><td>415</td><td>—</td><td>1450</td></tr>
+  </table>
+  </div>
+
+  <h2>Indian steel grades — <em>hardness on production</em></h2>
+  <p>Production hardness for common Indian engineering steels after standard heat treatment, useful for incoming inspection acceptance ranges:</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Grade (IS / EN)</th><th>Condition</th><th>HRC</th><th>HV</th><th>Tensile (MPa)</th></tr>
+    <tr><td class="size-col">EN8 (080M40)</td><td>Normalized</td><td>—</td><td>200</td><td>620</td></tr>
+    <tr><td class="size-col">EN8</td><td>Hardened &amp; tempered</td><td>22–32</td><td>250–320</td><td>850–1100</td></tr>
+    <tr><td class="size-col">EN24 (817M40)</td><td>Hardened &amp; tempered</td><td>28–34</td><td>290–340</td><td>950–1150</td></tr>
+    <tr><td class="size-col">EN36 (655M13, case-hardening)</td><td>Case-hardened</td><td>58–62 surface, 30–35 core</td><td>650–750 surface</td><td>—</td></tr>
+    <tr><td class="size-col">EN9 (070M55)</td><td>Hardened &amp; tempered</td><td>30–40</td><td>305–410</td><td>1050–1400</td></tr>
+    <tr><td class="size-col">EN353 (815M17, case-hardening)</td><td>Case-hardened</td><td>58–63 surface</td><td>650–780 surface</td><td>—</td></tr>
+    <tr><td class="size-col">SAE 1045 / IS C45</td><td>Normalized</td><td>—</td><td>180–210</td><td>570–700</td></tr>
+    <tr><td class="size-col">SAE 4140 / EN19 (709M40)</td><td>Hardened &amp; tempered</td><td>28–35</td><td>290–345</td><td>950–1175</td></tr>
+  </table>
+  </div>
+
+  <h2>Notes on <em>accuracy</em></h2>
+  <p>Hardness conversions are statistical correlations from large empirical datasets, not exact mathematical relationships. The standard says so explicitly:</p>
+  <ul>
+    <li><strong>ASTM E140 itself warns:</strong> "These conversions are approximate only. The hardness value obtained for a specific material by one test method may differ significantly from that converted to another scale via these tables."</li>
+    <li><strong>Material composition matters.</strong> The tables above are calibrated for unalloyed and low-alloy steels. Cast irons, high-alloy steels, and case-hardened parts can deviate by ±50 HV from the table value.</li>
+    <li><strong>Surface condition matters.</strong> Decarburized surfaces read soft. Cold-worked surfaces read hard. Always test on a properly-prepared (machined or ground) surface, not as-received.</li>
+    <li><strong>Indentation size matters.</strong> Vickers at 1 kg load and Vickers at 30 kg load produce slightly different numerical results on the same material. Always cite the load with the value: HV1, HV5, HV10, HV30.</li>
+  </ul>
+
+  <div class="warn-box">
+    <strong>For acceptance criteria, test on the same scale as the spec</strong>
+    If a drawing specifies "HRC 28–32 after temper", test on Rockwell C — do not test on Vickers and convert. Conversions have ±20–30 HV uncertainty that can flip a pass/fail verdict on borderline parts. The drawing scale is the controlling scale for FAI submissions; the rest are for cross-reference only.
+  </div>
+
+  <h2>5 common <em>hardness mistakes</em></h2>
+  <ol>
+    <li><strong>Testing too close to an edge or another indentation.</strong> Each indentation needs at least 2.5× its own diagonal of clearance from any other indent or edge. Closer than that and you measure the deformed zone of the previous indent.</li>
+    <li><strong>Wrong load for the section thickness.</strong> Vickers HV30 on a 0.5mm sheet measures the supporting anvil as much as the sheet itself. Use Vickers HV1 or Knoop HK500 for thin sections.</li>
+    <li><strong>Converting case hardness to tensile.</strong> A case-hardened gear with surface HRC 60 has approximate surface tensile of 2400 MPa per the chart, but the core tensile is much lower — typically 1100 MPa for EN36. The gear will fail at core tensile, not surface tensile.</li>
+    <li><strong>Testing as-received surfaces.</strong> Rolled, drawn, or forged surfaces have cold-worked layers that read 50–100 HV harder than the bulk. Always grind or machine the surface before testing.</li>
+    <li><strong>Single-point testing for production acceptance.</strong> Hardness varies across a part. Most standards require 3–5 readings at specified locations and acceptance based on average or all-pass.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Need a specific conversion not in the chart?</strong>
+    The MetricMech <a href="../calculators/hardness-conversion.html">Hardness Conversion Calculator</a> handles arbitrary input values and material classes, applies interpolation between tabulated values, and produces a documented conversion record with the source standard reference. Useful for FAI submissions where the converted value must be traceable.
+  </div>
+
+  <h2>References</h2>
+  <ul>
+    <li>ASTM E140-12b(2019) — Standard Hardness Conversion Tables for Metals Relationship Among Brinell Hardness, Vickers Hardness, Rockwell Hardness, Superficial Hardness, Knoop Hardness, Scleroscope Hardness, and Leeb Hardness</li>
+    <li>ISO 18265:2013 — Metallic materials — Conversion of hardness values</li>
+    <li>ASTM E384-22 — Standard Test Method for Microindentation Hardness of Materials</li>
+    <li>ASTM E10-18 — Standard Test Method for Brinell Hardness of Metallic Materials</li>
+    <li>ASTM E18-22 — Standard Test Methods for Rockwell Hardness of Metallic Materials</li>
+  </ul>
+
+  <p style="margin-top: 32px; font-size: 13px; color: var(--mute);">For interactive conversion with custom inputs, see the <a href="../calculators/hardness-conversion.html">Hardness Conversion Calculator</a>. For material weight and density references, see the <a href="../calculators/material-weight.html">Material Weight Calculator</a>.</p>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

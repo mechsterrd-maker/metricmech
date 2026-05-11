@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Engineering Reference Charts — Torque, Hardness, Surface Finish, Drill Sizes | MetricMech</title>
+<meta name="description" content="Free engineering reference charts for manufacturing engineers. Bolt torque by grade, hardness conversion (Rockwell/Brinell/Vickers/tensile), surface finish by process, drill sizes, ISO 286 fits." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+
+<style>
+.ref-hub-section { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.ref-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+@media (max-width: 800px) { .ref-grid { grid-template-columns: 1fr; } }
+.ref-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 26px 28px; text-decoration: none; color: inherit; display: block; transition: all 0.2s; }
+.ref-card:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); text-decoration: none; }
+.ref-card .ref-tag { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px; font-weight: 600; }
+.ref-card h3 { font-family: var(--display); font-size: 22px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.01em; }
+.ref-card h3 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-card p { font-size: 14px; line-height: 1.55; color: var(--ink-2); margin-bottom: 14px; }
+.ref-meta { display: flex; gap: 14px; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.08em; padding-top: 12px; border-top: 1px dotted var(--rule); }
+.ref-card-coming { opacity: 0.55; pointer-events: none; }
+.ref-card-coming .ref-tag { color: var(--mute); }
+.cat-band { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 18px 26px; margin: 24px 0 16px; }
+.cat-band-eyebrow { font-family: var(--mono); font-size: 10px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 4px; }
+.cat-band h2 { font-family: var(--display); font-size: 22px; font-weight: 600; }
+.cat-band h2 em { font-style: italic; color: var(--amber); font-weight: 500; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Engineering Reference Charts — Torque, Hardness, Surface Finish, Drill Sizes | MetricMech">
+<meta property="og:description" content="Free engineering reference charts for manufacturing engineers. Bolt torque by grade, hardness conversion, surface finish by process.">
+<meta property="og:url" content="https://metricmech.com/reference">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Engineering Reference Charts — MetricMech",
+  "description": "Free engineering reference charts for manufacturing engineers — torque, hardness, surface finish, drill sizes, ISO fits.",
+  "url": "https://metricmech.com/reference",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "MetricMech engineering reference charts",
+  "url": "https://metricmech.com/reference",
+  "numberOfItems": 3,
+  "itemListOrder": "https://schema.org/ItemListUnordered",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "url": "https://metricmech.com/reference/bolt-torque-chart",        "name": "Bolt Torque Chart by Grade and Lubrication" },
+    { "@type": "ListItem", "position": 2, "url": "https://metricmech.com/reference/hardness-conversion-chart","name": "Hardness Conversion Chart (Rockwell, Brinell, Vickers, Tensile)" },
+    { "@type": "ListItem", "position": 3, "url": "https://metricmech.com/reference/surface-finish-chart",     "name": "Surface Finish Chart by Manufacturing Process" }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix=""></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>Reference</div>
+  <h1 class="page-title">Engineering reference <em>charts.</em></h1>
+  <p class="page-lede">Lookup tables for working engineers. Torque values by bolt grade, hardness across every common scale, surface finish achievable by each manufacturing process. Cited values per ISO and ASTM standards. Free, no signup.</p>
+</div>
+
+<section class="ref-hub-section">
+
+  <div class="cat-band">
+    <div class="cat-band-eyebrow">CATEGORY</div>
+    <h2>Live <em>charts</em></h2>
+  </div>
+  <div class="ref-grid">
+
+    <a class="ref-card" href="reference/bolt-torque-chart.html">
+      <div class="ref-tag">FASTENER REFERENCE</div>
+      <h3>Bolt torque chart by <em>grade and lubrication</em></h3>
+      <p>Metric (M5–M30) and imperial (1/4"–1") bolt torque tables for ISO grades 4.8 / 5.8 / 8.8 / 10.9 / 12.9 and SAE Grades 2 / 5 / 8. Dry, lubricated, and stainless variants. Computed from T = K × D × F per ISO 898-1.</p>
+      <div class="ref-meta"><span>ISO 898-1</span><span>SAE J429</span><span>5 tables</span></div>
+    </a>
+
+    <a class="ref-card" href="reference/hardness-conversion-chart.html">
+      <div class="ref-tag">MATERIALS REFERENCE</div>
+      <h3>Hardness <em>conversion chart</em></h3>
+      <p>Rockwell C, Rockwell B, Vickers, Brinell, Knoop, and approximate tensile strength conversions per ASTM E140. Steel ranges, non-ferrous metals, and Indian engineering grades (EN8, EN24, EN36, EN9, EN353) production hardness.</p>
+      <div class="ref-meta"><span>ASTM E140</span><span>ISO 18265</span><span>4 tables</span></div>
+    </a>
+
+    <a class="ref-card" href="reference/surface-finish-chart.html">
+      <div class="ref-tag">MANUFACTURING REFERENCE</div>
+      <h3>Surface finish <em>by process</em></h3>
+      <p>Typical and best-achievable Ra values for every major process — casting, forging, milling, turning, drilling, grinding, honing, lapping, EDM, electropolishing. ISO N grades (N1–N12) and Ra-to-Rz conversion factors.</p>
+      <div class="ref-meta"><span>ISO 4287</span><span>ASME B46.1</span><span>5 tables</span></div>
+    </a>
+
+  </div>
+
+  <div class="cat-band">
+    <div class="cat-band-eyebrow">COMING SOON</div>
+    <h2>In <em>progress</em></h2>
+  </div>
+  <div class="ref-grid">
+
+    <div class="ref-card ref-card-coming">
+      <div class="ref-tag">FASTENER REFERENCE</div>
+      <h3>Drill size chart — <em>tap drill, clearance, ANSI/ISO</em></h3>
+      <p>Tap drill sizes for every metric and imperial thread, clearance drill sizes by fit class, ANSI-letter and number drill cross-reference. Includes fine-thread variants.</p>
+      <div class="ref-meta"><span>ASME B1.1</span><span>ISO 261</span><span>Coming soon</span></div>
+    </div>
+
+    <div class="ref-card ref-card-coming">
+      <div class="ref-tag">GD&amp;T REFERENCE</div>
+      <h3>ISO 286 fits chart — <em>H7/g6, H7/h6, H7/k6, H7/n6, H7/s6</em></h3>
+      <p>Hole and shaft tolerance values for every common fit class. Clearance, transition, and interference fits with worst-case clearance/interference per ISO 286-1.</p>
+      <div class="ref-meta"><span>ISO 286-1</span><span>ISO 286-2</span><span>Coming soon</span></div>
+    </div>
+
+    <div class="ref-card ref-card-coming">
+      <div class="ref-tag">MATERIALS REFERENCE</div>
+      <h3>Aluminium alloy properties <em>comparison</em></h3>
+      <p>Tensile, yield, hardness, density, machinability, weldability, corrosion resistance for 1100, 2024, 5052, 6061, 6063, 7075 — the most-used wrought aluminium alloys in Indian manufacturing.</p>
+      <div class="ref-meta"><span>ASM Handbook</span><span>IS 733</span><span>Coming soon</span></div>
+    </div>
+
+    <div class="ref-card ref-card-coming">
+      <div class="ref-tag">MATERIALS REFERENCE</div>
+      <h3>Steel grade comparison — <em>Indian, SAE, ISO</em></h3>
+      <p>Cross-reference for EN8, EN9, EN19, EN24, EN36, EN353 vs SAE 1045, 4140, 4340, 8620, ISO equivalents. Heat treatment, hardness, applications, machinability.</p>
+      <div class="ref-meta"><span>IS 1570</span><span>SAE J403</span><span>Coming soon</span></div>
+    </div>
+
+  </div>
+
+</section>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix=""></div>
+<script src="site.js"></script>
+</body>
+</html>

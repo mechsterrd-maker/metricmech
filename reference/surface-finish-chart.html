@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surface Finish Chart: Ra Values by Manufacturing Process (ISO 4287, ASME B46.1) | MetricMech</title>
+<meta name="description" content="Complete surface finish chart by manufacturing process. Ra, Rz, Rq values for milling, turning, grinding, honing, lapping, casting, forging, EDM. ISO N grade equivalents and Ra-to-Rz conversion." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ref-layout { max-width: 960px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; font-family: var(--mono); }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 8px 10px; text-align: center; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout th.size-col { text-align: left; }
+.ref-layout td { padding: 7px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); text-align: center; }
+.ref-layout td.size-col { text-align: left; font-weight: 600; color: var(--ink); }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 18px 22px; margin: 18px 0; font-family: var(--mono); font-size: 16px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 8px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) { .ref-layout { padding: 20px 18px; } .ref-layout h1 { font-size: 28px; } }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference/surface-finish-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Surface Finish Chart: Ra Values by Manufacturing Process (ISO 4287, ASME B46.1) | MetricMech">
+<meta property="og:description" content="Complete surface finish chart by manufacturing process. Ra, Rz, Rq values for milling, turning, grinding, honing, lapping, casting, forging, EDM. ISO N grades.">
+<meta property="og:url" content="https://metricmech.com/reference/surface-finish-chart">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Surface Finish Chart: Ra Values by Manufacturing Process (ISO 4287, ASME B46.1)",
+  "description": "Complete surface finish chart by manufacturing process. Ra, Rz, Rq values for milling, turning, grinding, honing, lapping, casting, forging, EDM. ISO N grade equivalents.",
+  "url": "https://metricmech.com/reference/surface-finish-chart",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": { "@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" } },
+  "mainEntityOfPage": "https://metricmech.com/reference/surface-finish-chart",
+  "about": { "@type": "Thing", "name": "Surface roughness by manufacturing process" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the typical Ra surface finish for milling?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Face milling produces Ra 0.8 to 3.2 μm typically, with the best achievable around 0.4 μm using fly-cutting or insert milling with light depth-of-cut. End milling on side walls produces Ra 1.6 to 6.3 μm typically. The actual finish depends on feed per tooth, tool nose radius, runout, and material. Aluminium typically gives 30-40% better finish than steel at the same parameters." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical Ra for grinding?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Surface grinding produces Ra 0.1 to 1.6 μm depending on wheel grit and dressing. Rough grinding (24-46 grit) gives 0.4-1.6 μm; fine grinding (80-120 grit) gives 0.1-0.4 μm; precision grinding (220+ grit with diamond dressing) reaches 0.025-0.1 μm. Cylindrical grinding produces similar finish to surface grinding. Centerless grinding is slightly rougher due to support roll contact." }
+    },
+    {
+      "@type": "Question",
+      "name": "How do Ra and Rz relate?",
+      "acceptedAnswer": { "@type": "Answer", "text": "For typical machined surfaces with random roughness, Rz ≈ 4 × Ra to 7 × Ra. The ratio depends on the surface texture: ground surfaces give Rz ≈ 5-7 × Ra; turned surfaces with periodic feed marks give Rz ≈ 4-5 × Ra; lapped surfaces with random texture give Rz ≈ 6-8 × Ra. For converting between standards, ISO 4287 defines Rz as the maximum height of the profile within the sampling length, distinct from the older Rz(DIN) definition." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Ra and ISO N grades?",
+      "acceptedAnswer": { "@type": "Answer", "text": "ISO N grades are a discrete classification of surface roughness, mapping to specific Ra values: N1 = 0.025 μm, N2 = 0.05, N3 = 0.1, N4 = 0.2, N5 = 0.4, N6 = 0.8, N7 = 1.6, N8 = 3.2, N9 = 6.3, N10 = 12.5, N11 = 25, N12 = 50 μm. Each grade is double the previous. Drawings using the older 'triangle' symbol convention map to N grades. ISO 1302 also defines class symbols (▽, ▽▽, ▽▽▽, ▽▽▽▽) that correspond to N12, N10, N8, N6 respectively." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../reference.html">Reference</a><span class="sep">/</span>Surface Finish Chart</div>
+</div>
+
+<div class="ref-layout">
+  <h1>Surface finish chart: <em>Ra values by manufacturing process.</em></h1>
+  <div class="ref-meta">
+    <span>Manufacturing Reference</span>
+    <span>ISO 4287 / ASME B46.1</span>
+    <span>Updated May 2026</span>
+  </div>
+
+  <p class="lede">Typical and best-achievable surface roughness values (Ra, Rz, Rq) for every major manufacturing process — casting, forging, milling, turning, drilling, grinding, honing, lapping, EDM. ISO N grade equivalents and the standard Ra-to-Rz conversion. Pick the right finish for the function without over-specifying.</p>
+
+  <h2>The standard <em>roughness parameters</em></h2>
+  <p>Three parameters cover almost every drawing call-out:</p>
+  <ul>
+    <li><strong>Ra (arithmetic mean roughness).</strong> The average absolute deviation of the profile from the centerline, over a sampling length. The most-used parameter on drawings. Unit: μm (metric) or μin (imperial, 1 μin ≈ 0.025 μm).</li>
+    <li><strong>Rz (maximum profile height).</strong> The vertical distance from the highest peak to the lowest valley within the sampling length, averaged over multiple sampling lengths. Per ISO 4287 (the 1997 definition). Sensitive to outliers, so often used as a screening parameter for seal surfaces.</li>
+    <li><strong>Rq (RMS roughness).</strong> The root-mean-square deviation of the profile from the centerline. Used in optical applications and in older US standards. Rq ≈ 1.11 × Ra for typical machined surfaces.</li>
+  </ul>
+
+  <h2>Ra-to-Rz <em>conversion</em></h2>
+  <div class="formula-box">
+    <div class="label">Typical Ra-to-Rz relationship (ISO 4287)</div>
+    Rz ≈ 4 × Ra to 7 × Ra
+  </div>
+  <p>The exact ratio depends on the surface texture:</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Surface type</th><th>Typical Rz / Ra ratio</th><th>Notes</th></tr>
+    <tr><td class="size-col">Turned (periodic feed marks)</td><td>4–5</td><td>Lower ratio due to regular profile</td></tr>
+    <tr><td class="size-col">Milled (face)</td><td>4–6</td><td>Periodic insert marks</td></tr>
+    <tr><td class="size-col">Ground (random)</td><td>5–7</td><td>Stochastic texture</td></tr>
+    <tr><td class="size-col">Honed</td><td>5–7</td><td>Cross-hatched, dense</td></tr>
+    <tr><td class="size-col">Lapped (random)</td><td>6–8</td><td>Pure random texture</td></tr>
+    <tr><td class="size-col">EDM</td><td>5–6</td><td>Recast layer dominated</td></tr>
+    <tr><td class="size-col">Sand cast</td><td>4–5</td><td>Sand grain imprints</td></tr>
+  </table>
+  </div>
+
+  <h2>ISO N grades — <em>discrete roughness classes</em></h2>
+  <p>ISO 1302 defines a discrete grading system from N1 (mirror finish) to N12 (rough cast). Each grade is double the previous in Ra value.</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">N grade</th><th>Ra (μm)</th><th>Ra (μin)</th><th>Typical achievable by</th></tr>
+    <tr><td class="size-col">N1</td><td>0.025</td><td>1</td><td>Superfinish, lapping, polish</td></tr>
+    <tr><td class="size-col">N2</td><td>0.05</td><td>2</td><td>Lapping, fine honing</td></tr>
+    <tr><td class="size-col">N3</td><td>0.1</td><td>4</td><td>Precision grinding, honing</td></tr>
+    <tr><td class="size-col">N4</td><td>0.2</td><td>8</td><td>Fine grinding, honing</td></tr>
+    <tr><td class="size-col">N5</td><td>0.4</td><td>16</td><td>Grinding, fine turning</td></tr>
+    <tr><td class="size-col">N6</td><td>0.8</td><td>32</td><td>Fine milling, turning, grinding</td></tr>
+    <tr><td class="size-col">N7</td><td>1.6</td><td>63</td><td>Milling, turning, drilling</td></tr>
+    <tr><td class="size-col">N8</td><td>3.2</td><td>125</td><td>Rough milling, turning</td></tr>
+    <tr><td class="size-col">N9</td><td>6.3</td><td>250</td><td>Rough turning, drilling</td></tr>
+    <tr><td class="size-col">N10</td><td>12.5</td><td>500</td><td>Rough machining, hot rolling</td></tr>
+    <tr><td class="size-col">N11</td><td>25</td><td>1000</td><td>Forging, as-cast</td></tr>
+    <tr><td class="size-col">N12</td><td>50</td><td>2000</td><td>Sand casting, as-forged</td></tr>
+  </table>
+  </div>
+
+  <h2>Process-to-Ra <em>chart (typical and best achievable)</em></h2>
+  <p>The Ra ranges below represent normal production capability. "Best" represents what is achievable with optimised feeds, sharp tools, and rigid setup — at typically 30–50% higher cost.</p>
+
+  <h3>Casting and forging</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Process</th><th>Typical Ra (μm)</th><th>Best Ra (μm)</th><th>Typical applications</th></tr>
+    <tr><td class="size-col">Sand casting (as-cast)</td><td>12.5–25</td><td>6.3</td><td>Engine blocks, machine bases</td></tr>
+    <tr><td class="size-col">Permanent mould casting</td><td>3.2–6.3</td><td>1.6</td><td>Aluminium pistons</td></tr>
+    <tr><td class="size-col">Die casting</td><td>1.6–6.3</td><td>0.8</td><td>Automotive transmission housings</td></tr>
+    <tr><td class="size-col">Investment casting</td><td>1.6–3.2</td><td>0.8</td><td>Turbine blades, aerospace fittings</td></tr>
+    <tr><td class="size-col">Shell mould casting</td><td>3.2–6.3</td><td>1.6</td><td>Crankshafts, gears</td></tr>
+    <tr><td class="size-col">Hot forging (open die)</td><td>6.3–25</td><td>3.2</td><td>Crankshafts, connecting rods</td></tr>
+    <tr><td class="size-col">Hot forging (closed die)</td><td>3.2–12.5</td><td>1.6</td><td>Automotive forgings</td></tr>
+    <tr><td class="size-col">Cold forging</td><td>0.8–3.2</td><td>0.4</td><td>Fasteners, gears, bearings</td></tr>
+    <tr><td class="size-col">Powder metallurgy (as-sintered)</td><td>1.6–3.2</td><td>0.8</td><td>Bushings, gears, structural parts</td></tr>
+  </table>
+  </div>
+
+  <h3>Sheet metal and rolling</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Process</th><th>Typical Ra (μm)</th><th>Best Ra (μm)</th><th>Typical applications</th></tr>
+    <tr><td class="size-col">Hot rolling</td><td>12.5–25</td><td>6.3</td><td>Steel plate, structural sections</td></tr>
+    <tr><td class="size-col">Cold rolling</td><td>0.4–3.2</td><td>0.2</td><td>Sheet metal, strip</td></tr>
+    <tr><td class="size-col">Deep drawing</td><td>0.8–3.2</td><td>0.4</td><td>Automotive panels, cans</td></tr>
+    <tr><td class="size-col">Stamping / blanking</td><td>1.6–6.3</td><td>0.8</td><td>Brackets, washers, electrical parts</td></tr>
+    <tr><td class="size-col">Wire drawing</td><td>0.4–1.6</td><td>0.2</td><td>Wire products, bolt blanks</td></tr>
+  </table>
+  </div>
+
+  <h3>Milling and turning</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Process</th><th>Typical Ra (μm)</th><th>Best Ra (μm)</th><th>Typical applications</th></tr>
+    <tr><td class="size-col">Rough turning (carbide insert)</td><td>1.6–6.3</td><td>0.8</td><td>First pass, stock removal</td></tr>
+    <tr><td class="size-col">Finish turning (sharp carbide)</td><td>0.4–1.6</td><td>0.1</td><td>Final dimension, bearing journals</td></tr>
+    <tr><td class="size-col">Diamond turning (single-point)</td><td>0.025–0.1</td><td>0.012</td><td>Optical surfaces, lens moulds</td></tr>
+    <tr><td class="size-col">Face milling (carbide insert)</td><td>0.8–3.2</td><td>0.4</td><td>Flat surfaces, machined faces</td></tr>
+    <tr><td class="size-col">End milling (side wall)</td><td>1.6–6.3</td><td>0.4</td><td>Pockets, slots, contours</td></tr>
+    <tr><td class="size-col">Rough boring</td><td>1.6–6.3</td><td>0.8</td><td>Initial bore</td></tr>
+    <tr><td class="size-col">Finish boring</td><td>0.4–1.6</td><td>0.1</td><td>Cylinder bores, bearing seats</td></tr>
+    <tr><td class="size-col">Drilling (twist drill)</td><td>1.6–6.3</td><td>0.8</td><td>General holes</td></tr>
+    <tr><td class="size-col">Reaming</td><td>0.4–1.6</td><td>0.2</td><td>Precision bores, dowel holes</td></tr>
+    <tr><td class="size-col">Tapping</td><td>1.6–3.2</td><td>0.8</td><td>Threaded holes</td></tr>
+    <tr><td class="size-col">Broaching</td><td>0.8–1.6</td><td>0.4</td><td>Keyways, splines, profiles</td></tr>
+    <tr><td class="size-col">Hobbing (gear)</td><td>0.8–3.2</td><td>0.4</td><td>Spur and helical gears</td></tr>
+  </table>
+  </div>
+
+  <h3>Grinding and finishing</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Process</th><th>Typical Ra (μm)</th><th>Best Ra (μm)</th><th>Typical applications</th></tr>
+    <tr><td class="size-col">Rough grinding (24–46 grit)</td><td>0.4–1.6</td><td>0.2</td><td>Initial precision pass</td></tr>
+    <tr><td class="size-col">Fine grinding (80–120 grit)</td><td>0.1–0.4</td><td>0.05</td><td>Bearing seats, gauge faces</td></tr>
+    <tr><td class="size-col">Precision grinding (220+ grit)</td><td>0.025–0.1</td><td>0.012</td><td>Gauge blocks, sealing surfaces</td></tr>
+    <tr><td class="size-col">Cylindrical grinding</td><td>0.1–0.8</td><td>0.05</td><td>Shafts, pins, bushings</td></tr>
+    <tr><td class="size-col">Centerless grinding</td><td>0.2–0.8</td><td>0.1</td><td>Bar stock, pins, rollers</td></tr>
+    <tr><td class="size-col">Honing (cross-hatch)</td><td>0.05–0.4</td><td>0.013</td><td>Engine cylinders, hydraulic bores</td></tr>
+    <tr><td class="size-col">Lapping</td><td>0.013–0.1</td><td>0.006</td><td>Gauge blocks, valve faces, optical flats</td></tr>
+    <tr><td class="size-col">Polishing (mechanical)</td><td>0.025–0.4</td><td>0.012</td><td>Mould surfaces, aesthetic finish</td></tr>
+    <tr><td class="size-col">Superfinishing</td><td>0.013–0.1</td><td>0.006</td><td>Bearing raceways, cam lobes</td></tr>
+    <tr><td class="size-col">Electropolishing</td><td>0.2–0.8</td><td>0.05</td><td>Stainless steel medical / pharma</td></tr>
+  </table>
+  </div>
+
+  <h3>EDM and non-traditional</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th class="size-col">Process</th><th>Typical Ra (μm)</th><th>Best Ra (μm)</th><th>Typical applications</th></tr>
+    <tr><td class="size-col">EDM (rough)</td><td>1.6–6.3</td><td>0.8</td><td>Tooling cavities, plunge cuts</td></tr>
+    <tr><td class="size-col">EDM (finish)</td><td>0.4–1.6</td><td>0.1</td><td>Mould finishing, fine detail</td></tr>
+    <tr><td class="size-col">Wire EDM (rough)</td><td>1.6–3.2</td><td>0.8</td><td>Profile cutting, slots</td></tr>
+    <tr><td class="size-col">Wire EDM (finish, multi-cut)</td><td>0.2–0.8</td><td>0.05</td><td>Punches, dies, precision contours</td></tr>
+    <tr><td class="size-col">Laser cutting</td><td>0.8–6.3</td><td>0.4</td><td>Sheet metal cutting</td></tr>
+    <tr><td class="size-col">Waterjet cutting</td><td>3.2–6.3</td><td>1.6</td><td>Heat-sensitive materials</td></tr>
+    <tr><td class="size-col">Electrochemical machining</td><td>0.1–1.6</td><td>0.05</td><td>Aerospace blades, complex shapes</td></tr>
+    <tr><td class="size-col">Sandblasting</td><td>1.6–12.5</td><td>—</td><td>Surface preparation only</td></tr>
+    <tr><td class="size-col">Shot peening</td><td>1.6–6.3</td><td>—</td><td>Fatigue-life enhancement</td></tr>
+  </table>
+  </div>
+
+  <h2>Cost <em>vs roughness</em></h2>
+  <p>Surface finish cost rises non-linearly with tightness. The general rule for machined parts:</p>
+  <ul>
+    <li><strong>Ra ≥ 3.2 μm:</strong> baseline cost. Single-pass turning or milling. No secondary finishing required.</li>
+    <li><strong>Ra 0.8–1.6 μm:</strong> 1.5–2× baseline. Sharp tools, second finishing pass, possible reaming/boring instead of drilling.</li>
+    <li><strong>Ra 0.4–0.8 μm:</strong> 3–4× baseline. Grinding operation added after machining.</li>
+    <li><strong>Ra 0.1–0.4 μm:</strong> 5–8× baseline. Precision grinding with multiple dressing cycles, or honing operation.</li>
+    <li><strong>Ra ≤ 0.1 μm:</strong> 10×+ baseline. Lapping or superfinishing, dedicated tooling, often hand-finished. Typical only for gauge blocks, sealing surfaces, and bearing raceways.</li>
+  </ul>
+
+  <div class="warn-box">
+    <strong>Don't over-specify surface finish</strong>
+    Surface finish is one of the largest avoidable cost drivers on machined parts. Specifying Ra 0.4 on a non-sealing, non-mating surface that functionally needs Ra 1.6 doubles the operation cost. Always ask: does this surface mate with another part, seal a fluid, or carry a sliding load? If no, Ra 3.2 is usually adequate.
+  </div>
+
+  <h2>5 common <em>finish specification mistakes</em></h2>
+  <ol>
+    <li><strong>Specifying Ra without specifying parameter unit.</strong> "0.8" without "μm" is ambiguous — could mean 0.8 μm (modern ISO) or 0.8 μin (legacy US). Always include the unit on the drawing. ISO 1302 requires explicit μm on metric drawings.</li>
+    <li><strong>Specifying surface finish on cast or forged surfaces.</strong> As-cast and as-forged surfaces have texture controlled by the casting/forging process, not by a downstream operation. Specifying Ra 3.2 on an as-cast surface forces an unnecessary secondary machining step. Use the casting/forging callouts (typically a process designation, not a Ra value).</li>
+    <li><strong>Confusing Ra and Rz.</strong> Old drawings sometimes show "0.8 Rz" meaning 0.8 μm Rz, which corresponds to about 0.15 μm Ra. The shop inspects 0.8 μm Ra and ships under-finished parts. Always read which parameter the drawing specifies.</li>
+    <li><strong>Specifying finish without a measurement method.</strong> A 0.4 μm Ra spec needs a profilometer with at least 0.1 μm resolution and 0.8 mm cut-off length. Specifying the finish without specifying the inspection method (cut-off, traverse length, instrument class) makes pass/fail subjective.</li>
+    <li><strong>Treating Ra as an absolute number.</strong> Ra is statistical. Two surfaces with the same Ra can have very different functional behaviour — one may have deep valleys (poor for sealing) while the other has uniform texture (good for sealing). For functional surfaces, supplement Ra with Rz or Rp/Rv.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Need to convert between Ra, Rz, and Rq?</strong>
+    The MetricMech <a href="../calculators/surface-finish.html">Surface Finish Calculator</a> handles arbitrary conversions between Ra, Rz, Rq, RMS, and the older Rmax parameter. It also recommends the appropriate manufacturing process for a target finish, including expected operation count and cost ratio relative to the part's nominal machining cost. Useful for design-for-manufacture reviews where the QA team wants to push back on over-specified surfaces.
+  </div>
+
+  <h2>References</h2>
+  <ul>
+    <li>ISO 4287:1997 — Geometrical Product Specifications (GPS) — Surface texture: Profile method — Terms, definitions and surface texture parameters</li>
+    <li>ISO 1302:2002 — Geometrical Product Specifications (GPS) — Indication of surface texture in technical product documentation</li>
+    <li>ISO 21920-2:2021 — Geometrical product specifications (GPS) — Surface texture: Profile — Part 2: Terms, definitions and surface texture parameters (current revision)</li>
+    <li>ASME B46.1-2019 — Surface Texture (Surface Roughness, Waviness, and Lay)</li>
+  </ul>
+
+  <p style="margin-top: 32px; font-size: 13px; color: var(--mute);">For interactive Ra/Rz/Rq conversion and process recommendations, see the <a href="../calculators/surface-finish.html">Surface Finish Calculator</a>. For cycle-time and cost estimation by process, see the <a href="../calculators/cycle-time.html">Cycle Time / Cost Calculator</a>.</p>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
