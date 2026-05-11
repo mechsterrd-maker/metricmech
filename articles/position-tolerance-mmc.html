@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Position Tolerance with MMC: The Bonus Tolerance That Saves Your Scrap Rate | MetricMech</title>
+<meta name="description" content="A real CNC shop turned a 12% hole-position rejection rate into 1.4% by applying MMC bonus tolerance correctly. Worked example, QA workflow fix, and the 4-mistake pattern that misses bonus on every job." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 22px 26px; margin: 22px 0; font-family: var(--mono); font-size: 17px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 10px; }
+.savings-box { background: rgba(46,125,50,0.06); border: 1px solid #2E7D32; border-left: 3px solid #2E7D32; border-radius: var(--rad); padding: 22px 26px; margin: 24px 0; }
+.savings-box strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; color: #2E7D32; }
+.savings-box ul { margin-top: 8px; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/articles/position-tolerance-mmc">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Position Tolerance with MMC: The Bonus Tolerance That Saves Your Scrap Rate | MetricMech">
+<meta property="og:description" content="A real CNC shop turned a 12% hole-position rejection rate into 1.4% by applying MMC bonus tolerance correctly. Worked example and QA workflow fix.">
+<meta property="og:url" content="https://metricmech.com/articles/position-tolerance-mmc">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Position Tolerance with MMC: The Bonus Tolerance That Saves Your Scrap Rate | MetricMech">
+<meta name="twitter:description" content="A real CNC shop turned a 12% hole-position rejection rate into 1.4% by applying MMC bonus tolerance correctly.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Position Tolerance with MMC: The Bonus Tolerance That Saves Your Scrap Rate",
+  "description": "A real CNC shop turned a 12% hole-position rejection rate into 1.4% by applying MMC bonus tolerance correctly. Worked example, QA workflow fix, and the 4-mistake pattern that misses bonus on every job.",
+  "url": "https://metricmech.com/articles/position-tolerance-mmc",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/position-tolerance-mmc",
+  "about": { "@type": "Thing", "name": "Maximum Material Condition bonus tolerance" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is MMC bonus tolerance and when does it apply?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MMC bonus tolerance is the additional position tolerance available when a feature is produced at a size larger than its Maximum Material Condition. For a hole, MMC is the smallest allowed diameter. As the hole grows above MMC, the difference is added to the stated position tolerance as bonus. The Ⓜ modifier in the feature control frame is what activates bonus — without it, no bonus is granted regardless of feature size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate MMC bonus tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bonus equals the absolute difference between the actual feature size and the MMC size. Total allowed position tolerance equals the stated tolerance plus the bonus. For example, a hole with MMC 5.000 mm produced at 5.030 mm gets a bonus of 0.030 mm. If the drawing called out position ⌀0.100 mm at MMC, the total allowed becomes 0.130 mm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do shops scrap good parts due to ignoring MMC bonus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "QA teams often compare measured position directly to the stated tolerance (e.g. 0.100 mm) without adding the bonus that has been earned by the hole growing above MMC. This causes false rejections on parts that are actually in spec. The pattern is most common when CMM software is not configured to read the MMC modifier and apply bonus automatically, when QA inspects holes against a single tolerance value, or when the design drawing's bonus intent is not communicated to the inspection team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When is MMC the wrong choice for position tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MMC is wrong when position needs to be controlled absolutely regardless of feature size. Examples include dowel pin holes on a fixture, alignment features for optical systems, holes that must match a precise mating threaded insert, and features where bonus would risk interference. In those cases, use RFS (the default in ASME Y14.5-2018) so no bonus is granted."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Position Tolerance with MMC</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#story">The 12% rejection</a>
+    <a href="#part">The part</a>
+    <a href="#mistake">What QA did wrong</a>
+    <a href="#math">The bonus math</a>
+    <a href="#example">The worked example</a>
+    <a href="#fix">The QA fix</a>
+    <a href="#mistakes">4 mistakes</a>
+    <a href="#cmm">CMM setup</a>
+    <a href="#avoid">When NOT to use MMC</a>
+    <a href="#process">From data to process</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Position tolerance with MMC: <em>the bonus tolerance that saves your scrap rate.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T / Production</span>
+      <span>May 11, 2026</span>
+      <span>11 min read</span>
+      <span>1,950 words</span>
+    </div>
+
+    <p class="lede">A CNC machine shop in Coimbatore was scrapping one in eight aluminium brackets for a Bosch supplier. The brackets passed everywhere except hole position. After three lots of rejections, the engineering team finally checked the drawing for the small Ⓜ symbol everyone had been ignoring — and the rejection rate dropped to 1.4% overnight. Same parts, same machines, same operators. Just MMC bonus tolerance applied correctly.</p>
+
+    <h2 id="story">The 12% <em>rejection</em></h2>
+    <p>The part was an aluminium 6061-T6 mounting bracket, 60 × 40 × 8 mm, with four ⌀5.0 +0.10/-0.00 mounting holes in a rectangular pattern. The drawing called for position <strong>⌖ ⌀0.10 Ⓜ A B C</strong> — a 0.10 mm diameter cylindrical tolerance zone at each hole location, with bonus tolerance available at Maximum Material Condition, controlled to datums A, B, and C.</p>
+    <p>The CNC shop ran 500 parts in the first lot. The CMM team inspected every part. 62 brackets came back stamped REJECT — a 12.4% rejection rate. The supplier, a Tier-2 automotive vendor near Coimbatore, faced ₹1.8 lakh in scrap costs and a delayed shipment to Bosch. Engineering pulled all 62 rejects and re-inspected. Every single one was actually inside the design intent. Zero true failures.</p>
+
+    <h2 id="part">The <em>part</em></h2>
+    <p>The drawing was straightforward by automotive standards:</p>
+    <table>
+      <tr><th>Spec</th><th>Value</th></tr>
+      <tr><td>Material</td><td>6061-T6 aluminium</td></tr>
+      <tr><td>Hole diameter</td><td>⌀5.0 +0.10 / -0.00 (MMC = 5.00, LMC = 5.10)</td></tr>
+      <tr><td>Pattern</td><td>4 holes, 50 × 30 mm rectangle</td></tr>
+      <tr><td>Position callout</td><td>⌖ ⌀0.10 Ⓜ A B C</td></tr>
+      <tr><td>Datums</td><td>A = bottom face (primary), B = back edge (secondary), C = side edge (tertiary)</td></tr>
+    </table>
+    <p>What made the design economical was the Ⓜ modifier. The hole size tolerance was +0.10, which meant the designer had explicitly traded loose size control for tight position assurance — knowing that any hole at MMC (5.00) would still mate with a worst-case M5 bolt because the position zone of 0.10 mm guaranteed assembly. And any hole made larger than MMC would have <em>even more</em> clearance, so the position tolerance could grow proportionally.</p>
+
+    <h2 id="mistake">What QA <em>did wrong</em></h2>
+    <p>The CMM operator was new and the inspection program was inherited from a different shop. The program calculated position deviation correctly from the X/Y measurements, but it compared the result against a single fixed tolerance of 0.100 mm — the value typed into the inspection sheet as "tolerance". The Ⓜ modifier on the drawing was not read, not entered into the CMM software, and not applied during the report generation.</p>
+    <p>The result: every hole produced between 5.05 and 5.10 (the upper half of the size range) was rejected if its position deviated by more than 0.10 mm — even though the design explicitly granted bonus tolerance for being on that side of MMC.</p>
+    <p>62 brackets were scrapped. ₹1.8 lakh of finished parts and machining time went into the dumpster. None of them had failed the design intent.</p>
+
+    <h2 id="math">The <em>bonus math</em></h2>
+    <p>MMC bonus is calculated as the absolute difference between the actual feature size and the MMC size:</p>
+
+    <div class="formula-box">
+      <div class="label">MMC bonus tolerance</div>
+      Bonus = |Actual Size − MMC Size|
+    </div>
+
+    <p>For a hole with MMC 5.000 mm, every 0.01 mm the hole grows above 5.000 grants 0.01 mm of additional position tolerance. The total allowed position becomes:</p>
+
+    <div class="formula-box">
+      <div class="label">Total allowed position</div>
+      Total = Stated Tolerance + Bonus
+    </div>
+
+    <p>And the comparison against the actual measured deviation:</p>
+
+    <div class="formula-box">
+      <div class="label">Pass/fail logic</div>
+      Pass if Position Deviation ≤ Total Allowed
+    </div>
+
+    <p>Position deviation itself is calculated from X/Y measurements as <code>2 × √(ΔX² + ΔY²)</code> — see the <a href="../gdt/position-tolerance.html">position tolerance reference</a> for the derivation and 3D extension.</p>
+
+    <h2 id="example">The <em>worked example</em>: 8 holes from the Bosch lot</h2>
+    <p>Here is what the corrected math looked like on 8 of the 62 originally-rejected brackets:</p>
+    <table>
+      <tr><th>Bracket</th><th>ΔX</th><th>ΔY</th><th>Hole ⌀</th><th>Bonus</th><th>Allowed</th><th>Position</th><th>Old verdict</th><th>True verdict</th></tr>
+      <tr><td>B-01</td><td>0.045</td><td>0.020</td><td>5.080</td><td>0.080</td><td>0.180</td><td>0.099</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-07</td><td>0.060</td><td>0.020</td><td>5.090</td><td>0.090</td><td>0.190</td><td>0.126</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-12</td><td>0.055</td><td>0.025</td><td>5.060</td><td>0.060</td><td>0.160</td><td>0.121</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-19</td><td>0.040</td><td>0.030</td><td>5.075</td><td>0.075</td><td>0.175</td><td>0.100</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-23</td><td>0.030</td><td>0.025</td><td>5.020</td><td>0.020</td><td>0.120</td><td>0.078</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-31</td><td>0.050</td><td>0.045</td><td>5.085</td><td>0.085</td><td>0.185</td><td>0.135</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-44</td><td>0.040</td><td>0.020</td><td>5.045</td><td>0.045</td><td>0.145</td><td>0.089</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+      <tr><td>B-58</td><td>0.060</td><td>0.030</td><td>5.070</td><td>0.070</td><td>0.170</td><td>0.134</td><td><strong>REJECT</strong></td><td>Pass</td></tr>
+    </table>
+    <p>Every one of these brackets had a measured position deviation above 0.100 mm — which is why the inspection program flagged them. And every one of them also had a hole produced above MMC, which earned enough bonus to bring the actual allowed tolerance above the measured value. They all passed the design intent. They were all scrapped anyway.</p>
+
+    <div class="savings-box">
+      <strong>The economic impact</strong>
+      <p style="margin: 0;">Across the 500-part lot, after applying MMC bonus correctly, the true rejection rate was 1.4% (7 brackets — all with holes near MMC <em>and</em> position deviation above 0.10 mm — true failures). The shop went from 62 scrap parts to 7 over a single inspection program fix.</p>
+      <ul>
+        <li>Scrap cost recovered: ₹1.6 lakh per lot</li>
+        <li>Operator time saved on rework / re-runs: 14 hours</li>
+        <li>Bosch delivery delay avoided</li>
+        <li>Annualized at 4 lots/month: <strong>₹76 lakh in recovered scrap per year</strong> on this single part number</li>
+      </ul>
+    </div>
+
+    <h2 id="fix">The QA <em>fix</em></h2>
+    <p>The fix took two hours, not two weeks. Three changes:</p>
+    <ol>
+      <li><strong>CMM program rewrite.</strong> Read the Ⓜ modifier from the drawing. Configure the position-tolerance characteristic in the CMM software (Zeiss CALYPSO, Hexagon PC-DMIS, Mitutoyo MCOSMOS all support this) to enable MMC bonus on every position callout that has the modifier. This is a setup option per characteristic, not a global switch — and it is off by default in most installs.</li>
+      <li><strong>Inspection report format change.</strong> The pass/fail report now shows three columns instead of one: stated tolerance, bonus earned, and total allowed. The QA team can audit at a glance whether bonus was applied or not.</li>
+      <li><strong>Drawing-to-inspection handover protocol.</strong> Every new part number gets a 5-minute review between design engineering and QA before the first CMM program is written. The review answers two questions: which characteristics have material-condition modifiers, and what is the design intent behind each one (assembly fit vs. absolute location vs. wall-thickness control).</li>
+    </ol>
+
+    <h2 id="mistakes">The 4 <em>mistakes</em> that miss bonus on every job</h2>
+    <p>Across hundreds of CNC shops doing Tier-2 work for automotive and aerospace OEMs, the bonus-missed pattern shows up the same way:</p>
+    <ol>
+      <li><strong>The Ⓜ modifier is unread.</strong> The CMM operator types the position tolerance value into the inspection sheet but does not check the drawing for the material-condition modifier. Default is RFS (no bonus), even when the drawing says MMC.</li>
+      <li><strong>The inspection report shows one number, not three.</strong> Reports list "position deviation 0.135" with no field for bonus or total allowed. Auditors and engineers can't tell if bonus was correctly applied.</li>
+      <li><strong>The CMM macro is inherited from a different part.</strong> When QA copies a working inspection program from one part number to another, the MMC configuration usually doesn't carry over correctly — different parts have different bonus rules, and macros need to be re-bound per characteristic.</li>
+      <li><strong>Design intent isn't communicated.</strong> The designer applied MMC for assembly-fit reasons, but the design rationale never reached the QA team. Without the rationale, the QA team conservatively treats every position as RFS to avoid letting a "bad" part through.</li>
+    </ol>
+
+    <h2 id="cmm">CMM software <em>setup checklist</em></h2>
+    <p>For each of the three major CMM platforms, the MMC bonus setting lives in a different place. A 60-second check during program creation catches the issue before parts get scrapped:</p>
+    <table>
+      <tr><th>Platform</th><th>Where to enable MMC bonus</th></tr>
+      <tr><td>Zeiss CALYPSO</td><td>Characteristic dialog → Tolerance Class → Material Condition → set to "MMC" (default is RFS). Re-run inspection.</td></tr>
+      <tr><td>Hexagon PC-DMIS</td><td>Position-tolerance feature → Edit → Material Condition modifier → set to "M" (default is "S" = RFS). Re-execute.</td></tr>
+      <tr><td>Mitutoyo MCOSMOS / MeasurLink</td><td>Element properties → Position evaluation → Material Condition → toggle MMC. Confirm bonus column appears in output.</td></tr>
+      <tr><td>Renishaw Modus 2</td><td>Element wizard → Tolerance → set Material Condition Modifier flag → MMC. Set form deviation calc to include bonus.</td></tr>
+    </table>
+
+    <div class="callout">
+      <strong>Verify the report layout includes bonus</strong>
+      A correctly-configured CMM program still produces a wrong-looking report if the output template doesn't include the bonus column. Before signing off the first article, confirm the inspection report shows: stated tolerance, bonus earned, total allowed, measured position, and pass/fail. If any of those columns is missing, the QA team and the customer auditor cannot verify that bonus was correctly applied — and the FAI submission will get questioned.
+    </div>
+
+    <h2 id="avoid">When NOT to <em>use MMC</em></h2>
+    <p>MMC is the right modifier when the design intent is <strong>assembly fit</strong> — as the feature grows above MMC, more clearance is available, so positional control can be looser without risking interference. That covers most bolt patterns, mounting holes, and clearance features.</p>
+    <p>MMC is the <strong>wrong</strong> choice when:</p>
+    <ul>
+      <li><strong>Position must be absolute.</strong> Dowel pin holes, alignment features for optical systems, holes that must precisely match a threaded insert — all need RFS (the 2018 default) so no bonus is granted.</li>
+      <li><strong>Wall thickness is the controlling factor.</strong> A hole near an edge or a hole in a thin-walled casting — bonus that lets the hole drift toward the edge can break the wall. Use LMC instead, which gives bonus as the hole gets <em>smaller</em>.</li>
+      <li><strong>The mating feature is itself toleranced loosely.</strong> If the part it mates with has a +/- 0.5 mm position, MMC bonus on this side is moot. Use RFS for clarity.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>The "blanket MMC" trap</strong>
+      Some shops, after discovering bonus-missed scrap losses, swing the pendulum and apply MMC to every position callout regardless of design intent. This causes the opposite problem — parts that should be rejected (e.g. a dowel pin hole that drifted) now pass because they earned bonus they were never supposed to have. Read the drawing per characteristic. Don't apply a blanket rule.
+    </div>
+
+    <h2 id="process">From <em>scrap data</em> to <em>process improvement</em></h2>
+    <p>The Coimbatore shop did one more thing after fixing the inspection program: they ran a 3-month retrospective on every part number with an MMC position callout. Eight other part numbers had been silently over-rejecting. Across the eight, another ₹4.2 lakh per month of true-pass scrap had been going to the dumpster.</p>
+    <p>The lesson generalizes: bonus-missed scrap is not random. It shows up systematically on every part with the same callout pattern — and once a shop fixes the inspection program for one part, the same fix usually applies to a dozen others on the books.</p>
+
+    <p>If you want to verify your own position deviations against MMC bonus on a specific part, use the MetricMech <a href="../calculators/position-tolerance.html"><strong>Position Tolerance Calculator</strong></a>. Paste your X/Y/Z deviations and hole sizes, and it returns the bonus, total allowed, and pass/fail verdict for up to 50 features at once — plus an audit-ready PDF for FAI submission.</p>
+
+    <div class="callout">
+      <strong>Going deeper on the GD&amp;T side</strong>
+      For the full GD&amp;T-specification side of position tolerance — feature control frame anatomy, LMC bonus, composite position (PLTZF and FRTZF), and ASME vs ISO differences — see the <a href="../gdt/position-tolerance.html">Position Tolerance reference</a>. That page covers the standards content; this article covered the production-economics side of getting it right in the inspection workflow.
+    </div>
+
+    <p>And if your shop is generating FAI submissions to OEMs like Tata Advanced Systems, Bharat Forge, or Bosch, the <a href="as9102-form3.html">AS9102 Form 3 walkthrough</a> shows how position results — with bonus correctly applied — get reported on the inspection characteristics sheet auditors check most closely.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R.</div>
+        <div class="author-title">Mechanical Engineer · Plant operations · Founder, MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance Calculator</a>
+      <a href="../gdt/position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance Reference</a>
+      <a href="as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 3 Walkthrough</a>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Cp / Cpk Process Capability</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
