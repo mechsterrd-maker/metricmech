@@ -122,6 +122,64 @@
 }
 </script>
 
+<!-- FAQ Schema — for AI engine citation + featured snippets -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is position tolerance in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Position tolerance (symbol ⌖, also called true position) constrains the location of a feature's axis, center plane, or center point to a tolerance zone defined relative to specified datums. Unlike size tolerances, which control how big a feature is, position tolerance controls where it is. It is the most-used symbol in GD&T because a cylindrical position tolerance zone allows 57% more usable area than the equivalent rectangular tolerance zone while still guaranteeing assembly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the formula for true position?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a round feature with X and Y deviations from the basic location, the position deviation diameter equals 2 × √(ΔX² + ΔY²). The multiplier of 2 converts radial deviation to diameter, because the position tolerance zone is specified by diameter, not radius. For 3D inspection on a CMM with axis-aligned features, the formula extends to 2 × √(ΔX² + ΔY² + ΔZ²)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is MMC bonus tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Maximum Material Condition (MMC) modifier unlocks bonus tolerance as a feature deviates from its tightest condition. For a hole, MMC is the smallest allowed diameter. The bonus equals the absolute difference between actual size and MMC size, and the total allowed position becomes the stated tolerance plus the bonus. MMC is used when design intent is assembly fit — as the hole grows, more clearance is available, so positional control can be looser without risking interference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is LMC bonus tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Least Material Condition (LMC) modifier is the mirror of MMC. Bonus is granted as the feature moves away from its loosest size — that is, as a hole gets smaller, not larger. LMC is used when wall thickness or minimum material is the controlling factor, such as a hole in a thin-walled casting where breaking through the wall is the failure mode. The bonus equals the absolute difference between LMC size and actual size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is composite position tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Composite position tolerance uses two stacked feature control frames sharing the same position symbol. The upper Pattern-Locating Tolerance Zone Framework (PLTZF) locates the entire pattern to the datum reference frame with a generous zone. The lower Feature-Relating Tolerance Zone Framework (FRTZF) controls how holes locate relative to each other within a tighter zone, typically oriented only to the primary datum. This decouples assembly-to-frame tolerance from inter-hole pattern tolerance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the most common mistake in calculating position tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common mistake is forgetting the factor of 2 in the formula. Engineers calculate √(ΔX² + ΔY²) and report the result as position, but the actual position deviation diameter requires multiplying by 2. A radial calculation of 0.05 mm corresponds to a position deviation diameter of 0.10 mm. Other common mistakes include missing the ⌀ symbol in the feature control frame (which makes the zone planar instead of cylindrical), wrong datum sequence, forgetting MMC bonus when it applies, and reporting hole position relative to other holes instead of to the datum reference frame."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
 

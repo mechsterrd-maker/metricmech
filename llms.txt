@@ -1,0 +1,68 @@
+# MetricMech
+
+> MetricMech is a free engineering reference for manufacturing quality and production engineers. It provides decision-grade calculators with audit-ready PDF reports, deep-dive GD&T and standards references, and templates for First Article Inspection (FAI), PPAP, and process capability work. Content is grounded in ASME Y14.5, ISO 1101, ISO 286, AS9102, PPAP, and IATF 16949. Site author: Rajadurai R, Mechanical Engineer and Plant operations lead.
+
+MetricMech is the free engineering reference funnel for CadNexa (https://cadnexa.com), a browser-based SaaS CAD platform for manufacturing engineers covering FAI/PPAP/AS9102/ISO 13485 reporting, RFQ workflows, GD&T, sheet metal, CMM, and tolerance stacks.
+
+## Featured calculators
+
+- [Position Tolerance Calculator](https://metricmech.com/calculators/position-tolerance): Compute true position from X/Y/Z deviations with MMC and LMC bonus tolerance, batch input for up to 50 features, and audit-ready PDF export for FAI submissions.
+- [Cp/Cpk Calculator](https://metricmech.com/calculators/cp-cpk): Process capability analysis with sample-size-driven confidence percentage, what-if simulator for mean and sigma shifts, and SVG capability chart with USL/LSL labels.
+- [Gauge R&R Type 1 Calculator](https://metricmech.com/calculators/gauge-rr): MSA Type 1 study with gauge-to-tolerance ratio, automatic warnings for gauge ratio under 6×, and tier-aware verdict (good/marginal/critical).
+- [AS9102 Form 3 Builder](https://metricmech.com/calculators/as9102-form3): Aerospace FAI Form 3 builder with auto pass/fail per characteristic, supports up to several hundred ballooned characteristics per part.
+- [Tolerance Stack-Up Calculator](https://metricmech.com/calculators/tolerance-stack): Worst-case and RSS (statistical) stack analysis with contribution-by-feature breakdown.
+- [PPAP Checklist](https://metricmech.com/calculators/ppap-checklist): Production Part Approval Process element checklist by submission level (1-5).
+- [Surface Finish Calculator](https://metricmech.com/calculators/surface-finish): Ra/Rz/Rq conversion and machining process-to-finish mapping.
+- [ISO 286 Fits Calculator](https://metricmech.com/calculators/iso-286-fits): Hole/shaft basis fit selection with clearance, transition, and interference verdicts.
+
+## GD&T reference
+
+- [Position Tolerance: True Position, MMC Bonus, and Real Examples](https://metricmech.com/gdt/position-tolerance): 1,950-word deep dive with the 2×√(ΔX²+ΔY²) formula, MMC and LMC bonus tolerance math, composite position (PLTZF and FRTZF), 5 common inspection failures, and ASME vs ISO 1101 differences.
+- [GD&T Symbol Reference (all 14)](https://metricmech.com/gdt): Complete ASME Y14.5 symbol set with diagrams, datum requirements, material condition modifiers, and feature control frame syntax.
+
+## Standards explainers
+
+- [AS9102 First Article Inspection](https://metricmech.com/standards/as9102): Aerospace FAI standard with Form 1/2/3 structure, characteristic ballooning, inspection method requirements, and sub-tier FAI traceability.
+
+## Articles and walkthroughs
+
+- [AS9102 Form 3 Walkthrough — Tata Advanced Systems Drawing](https://metricmech.com/articles/as9102-form3): Step-by-step real-world example of filling Form 3 for a Boeing 737 aerospace bracket with 247 characteristics. Covers ballooning, characteristic types, inspection method-tolerance pairings, and the five rejection patterns that account for 70% of FAI rejections.
+
+## All calculators (32)
+
+- [AQL Sampling](https://metricmech.com/calculators/aql-sampling): ISO 2859 inspection sample size and accept/reject criteria
+- [AS9102 Form 3 Builder](https://metricmech.com/calculators/as9102-form3): Aerospace FAI Form 3 with auto pass/fail
+- [Beam Deflection](https://metricmech.com/calculators/beam-deflection): Cantilever, simply-supported, and fixed-end beam deflection
+- [Bend Allowance / K-factor](https://metricmech.com/calculators/bend-allowance): Sheet metal flat-pattern calculation by material and bend radius
+- [Bolt Torque](https://metricmech.com/calculators/bolt-torque): Torque-to-preload with K factor by lubrication and grade
+- [CadNexa ROI](https://metricmech.com/calculators/cadnexa-roi): FAI process time and labor savings with software automation
+- [COPQ](https://metricmech.com/calculators/copq): Cost of Poor Quality across internal failure, external failure, appraisal, prevention
+- [Cp/Cpk](https://metricmech.com/calculators/cp-cpk): Process capability with confidence interval and what-if simulator
+- [Cycle Time / Cost](https://metricmech.com/calculators/cycle-time): Machining cycle time and cost per part
+- [DPMO / Sigma](https://metricmech.com/calculators/dpmo-sigma): Defects-per-million-opportunities to sigma level conversion
+- [Drill Size Chart](https://metricmech.com/calculators/drill-size-chart): Tap drill sizes for metric and imperial threads
+- [EOQ](https://metricmech.com/calculators/eoq): Economic Order Quantity for inventory optimization
+- [FMEA RPN](https://metricmech.com/calculators/fmea-rpn): Failure Mode and Effects Analysis risk priority number
+- [Gauge R&R Type 1](https://metricmech.com/calculators/gauge-rr): MSA Type 1 study with gauge-to-tolerance ratio
+- [Spur Gear](https://metricmech.com/calculators/gear-calculator): Module, pitch diameter, addendum, dedendum
+- [Hardness Conversion](https://metricmech.com/calculators/hardness-conversion): Rockwell B/C to Brinell to Vickers to tensile strength
+- [ISO 286 Fits](https://metricmech.com/calculators/iso-286-fits): Hole/shaft basis fit selection with clearance/interference verdict
+- [Material Weight](https://metricmech.com/calculators/material-weight): Weight of stock material by alloy and geometry
+- [Motor HP / Power](https://metricmech.com/calculators/motor-hp): Three-phase induction motor power and current
+- [OEE](https://metricmech.com/calculators/oee): Overall Equipment Effectiveness with availability, performance, quality breakdown
+- [Position Tolerance](https://metricmech.com/calculators/position-tolerance): True position from X/Y/Z with MMC and LMC bonus
+- [PPAP Checklist](https://metricmech.com/calculators/ppap-checklist): PPAP element checklist by submission level
+- [Press / Interference Fit](https://metricmech.com/calculators/press-fit): Hub and shaft contact pressure, hoop stress, force to press
+- [Pump Power](https://metricmech.com/calculators/pump-power): Hydraulic power and shaft power from flow and head
+- [Speeds and Feeds](https://metricmech.com/calculators/speeds-feeds): CNC machining surface speed and feed per tooth
+- [Surface Finish](https://metricmech.com/calculators/surface-finish): Ra/Rz/Rq conversion and process-to-finish mapping
+- [Takt Time](https://metricmech.com/calculators/takt-time): Customer-demand-driven takt time and required cycle time
+- [Thread Pitch](https://metricmech.com/calculators/thread-pitch): Metric and imperial thread pitch, lead, helix angle
+- [Tolerance Stack-Up](https://metricmech.com/calculators/tolerance-stack): Worst-case and RSS stack analysis with contribution breakdown
+- [Engineering Unit Converter](https://metricmech.com/calculators/unit-converter): Length, mass, force, pressure, energy, hardness, temperature
+- [V-Belt Drive](https://metricmech.com/calculators/v-belt): V-belt drive design, belt length, tension, power transmitted
+- [Welding Heat Input](https://metricmech.com/calculators/welding-heat-input): Heat input from voltage, current, travel speed, and efficiency
+
+## Optional
+
+- [About CadNexa](https://cadnexa.com): The browser-based CAD platform MetricMech complements — used by manufacturing engineers for FAI, PPAP, AS9102, ISO 13485, and RFQ workflows. Disclosure: MetricMech is operated by the CadNexa team.
