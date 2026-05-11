@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Editorial Standards — How MetricMech Content Is Created, Reviewed, and Corrected</title>
+<meta name="description" content="MetricMech's editorial standards: source policy (ASME, ISO, AS9102), AI disclosure, review process, corrections policy, and citation requirements for every published page." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+
+<style>
+.trust-layout { max-width: 760px; margin: 0 auto; padding: 32px; }
+.trust-layout h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.trust-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.trust-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.trust-layout h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.trust-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.trust-layout h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 22px 0 10px; }
+.trust-layout p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.trust-layout p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.trust-layout ul, .trust-layout ol { margin: 0 0 18px 26px; }
+.trust-layout li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.trust-layout strong { color: var(--ink); font-weight: 600; }
+.trust-layout a { color: var(--blueprint); }
+.trust-layout table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.trust-layout th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.trust-layout td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); vertical-align: top; }
+.trust-layout tr:nth-child(even) td { background: var(--paper-2); }
+.policy-box { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.policy-box strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+</style>
+
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/editorial-standards">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Editorial Standards — How MetricMech Content Is Created, Reviewed, and Corrected">
+<meta property="og:description" content="MetricMech's editorial standards: source policy, AI disclosure, review process, corrections policy, and citation requirements for every published page.">
+<meta property="og:url" content="https://metricmech.com/editorial-standards">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Editorial Standards — How MetricMech Content Is Created, Reviewed, and Corrected",
+  "description": "MetricMech's editorial standards: source policy, AI disclosure, review process, corrections policy, and citation requirements for every published page.",
+  "url": "https://metricmech.com/editorial-standards",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "mainEntityOfPage": "https://metricmech.com/editorial-standards"
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="editorial" data-prefix=""></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>Editorial Standards</div>
+</div>
+
+<div class="trust-layout">
+  <h1>Editorial <em>standards.</em></h1>
+  <div class="trust-meta">
+    <span>Last updated 2026-05-11</span>
+    <span>Source-anchored</span>
+    <span>Engineer-reviewed</span>
+    <span>Corrections within 48h</span>
+  </div>
+
+  <p class="lede">Every page on MetricMech is grounded in a published engineering standard, reviewed by a working engineer before publication, and updated when the underlying standard changes. This page documents the editorial process, source policy, AI disclosure, and corrections workflow.</p>
+
+  <h2>Source <em>policy</em></h2>
+  <p>Every claim on MetricMech that is verifiable against a published standard is cited to that standard, by version. The site does not invent values, paraphrase from unverified secondary sources, or carry forward outdated material.</p>
+  <p>Primary sources the site relies on:</p>
+  <table>
+    <tr><th>Domain</th><th>Authoritative source</th><th>Version cited</th></tr>
+    <tr><td>GD&amp;T symbols and tolerance zones</td><td>ASME Y14.5 (US) and ISO 1101 (international)</td><td>Y14.5-2018, ISO 1101:2017</td></tr>
+    <tr><td>Fits and limits</td><td>ISO 286-1 / 286-2</td><td>ISO 286-1:2010, ISO 286-2:2010</td></tr>
+    <tr><td>General tolerances</td><td>ISO 2768</td><td>ISO 2768-1:1989, ISO 2768-2:1989</td></tr>
+    <tr><td>Aerospace First Article Inspection</td><td>AS9102 Rev C</td><td>AS9102C:2024</td></tr>
+    <tr><td>Aerospace quality management</td><td>AS9100D</td><td>AS9100D:2016</td></tr>
+    <tr><td>Automotive PPAP</td><td>AIAG PPAP 4th Edition</td><td>PPAP 4th Edition:2006</td></tr>
+    <tr><td>Automotive quality management</td><td>IATF 16949</td><td>IATF 16949:2016</td></tr>
+    <tr><td>Medical-device quality management</td><td>ISO 13485</td><td>ISO 13485:2016</td></tr>
+    <tr><td>Surface finish parameters</td><td>ISO 4287 / ISO 21920</td><td>ISO 21920-2:2021</td></tr>
+    <tr><td>Statistical process control</td><td>AIAG SPC, ISO 22514</td><td>AIAG SPC 2nd Edition:2005</td></tr>
+    <tr><td>Measurement systems analysis</td><td>AIAG MSA</td><td>AIAG MSA 4th Edition:2010</td></tr>
+    <tr><td>Material weights and properties</td><td>ASTM, Indian Standards (IS), and supplier datasheets</td><td>Cited per-page</td></tr>
+  </table>
+
+  <h2>Review <em>process</em></h2>
+  <p>Every page goes through four stages before publication:</p>
+  <ol>
+    <li><strong>Source anchoring.</strong> The author maps the topic to one or more primary sources from the table above. Pages that cannot be anchored to a published standard are not published.</li>
+    <li><strong>Drafting.</strong> First draft is produced by an engineer or AI-assisted with an engineer in the loop. Formulas, worked examples, and tolerance ranges are verified against the source standard before the draft moves forward.</li>
+    <li><strong>Technical review.</strong> A working QA, production, or aerospace engineer reviews the page for technical accuracy, real-world relevance, and clarity. Reviewer comments are addressed before publication.</li>
+    <li><strong>Publish with metadata.</strong> The page is published with the author byline, publication date, last-modified date, and the standards referenced. Schema.org metadata is added so the authorship is machine-readable.</li>
+  </ol>
+
+  <h2>AI <em>disclosure</em></h2>
+  <p>MetricMech uses AI assistance during the drafting phase. The site discloses this openly because the alternative — pretending the content is hand-typed when it is not — is dishonest, and because Google's helpful-content policies require disclosure when AI is the primary creator.</p>
+  <p>What this means in practice:</p>
+  <ul>
+    <li><strong>AI is a drafting assistant, not the author.</strong> An engineer defines the topic, the structure, the standards to cite, and the worked-example numbers. AI produces the prose; the engineer rewrites, verifies, and finalizes.</li>
+    <li><strong>AI does not invent numbers.</strong> Every formula, tolerance value, and worked-example calculation is verified by the engineer against the source standard. If a number in the article cannot be traced back to a standard or a clearly-cited source, it is removed.</li>
+    <li><strong>AI does not write under fake bylines.</strong> Author bylines are real engineers reviewing the content. They are accountable for what their name appears on.</li>
+    <li><strong>The result is held to the same accuracy standard as any other engineering reference.</strong> A page is wrong or right based on whether the math and the citations check out — not on whether AI helped draft it.</li>
+  </ul>
+
+  <h2>Corrections <em>policy</em></h2>
+  <div class="policy-box">
+    <strong>48-hour correction window</strong>
+    Confirmed calculation errors, outdated standards references, or factually wrong claims are corrected within 48 hours of a verified report. The corrected page is re-dated and a note is added to the bottom of the page recording what was changed and when.
+  </div>
+  <p>To report an error: file a <a href="https://github.com/mechsterrd-maker/metricmech/issues/new" target="_blank" rel="noopener">GitHub issue</a> with the page URL and what you observed. Public issue tracking is intentional — it lets every reader see what has been challenged, what has been corrected, and what is still in dispute.</p>
+
+  <h2>Update <em>cadence</em></h2>
+  <p>Pages are revisited on three triggers:</p>
+  <ul>
+    <li><strong>Standards revision.</strong> When a referenced standard is revised (e.g. AS9102 Rev C → D), affected pages are updated within 30 days.</li>
+    <li><strong>Reader report.</strong> Confirmed reports trigger an immediate update under the corrections policy.</li>
+    <li><strong>Annual review.</strong> Every page is reviewed at least once per year against the current source-standard version, even if no specific report has been received.</li>
+  </ul>
+
+  <h2>Citation and <em>attribution</em></h2>
+  <p>MetricMech content may be quoted and embedded with attribution. Specifically:</p>
+  <ul>
+    <li><strong>Calculators</strong> may be embedded on third-party sites via <code>?embed=1</code> with a visible "Powered by MetricMech" link to the calculator URL.</li>
+    <li><strong>Articles and reference pages</strong> may be quoted up to 200 words with a link back to the original page on MetricMech.</li>
+    <li><strong>Standards content</strong> referenced from ASME, ISO, AIAG, and SAE remains the intellectual property of the issuing body. MetricMech provides explanatory and reference content — it does not republish the standards themselves.</li>
+  </ul>
+
+  <h2>Conflicts of <em>interest</em></h2>
+  <p>MetricMech is funded by <a href="https://cadnexa.com">CadNexa</a>. This is disclosed in the site footer, the about page, and throughout the article CTAs. CadNexa references appear in editorial content when the topic is directly related to a CadNexa capability (e.g. ballooning automation, browser-based 3D viewing, FAI report generation). Editorial content is not influenced by CadNexa's marketing priorities — the calculator outputs, standards explanations, and pass/fail logic are determined by the source standards, not by what CadNexa sells.</p>
+  <p>Reviewers and contributors who work for organizations whose products are mentioned on MetricMech will disclose that affiliation in their byline.</p>
+
+  <h2>What we <em>don't do</em></h2>
+  <ul>
+    <li>Accept paid placements that are not disclosed as such</li>
+    <li>Modify calculator outputs to favor any particular product, supplier, or process</li>
+    <li>Republish proprietary standards content without licence</li>
+    <li>Use fake author personas or fabricated credentials</li>
+    <li>Publish pages we cannot anchor to a citeable source</li>
+  </ul>
+
+  <h2>How to <em>flag a concern</em></h2>
+  <p>The fastest path is a <a href="https://github.com/mechsterrd-maker/metricmech/issues/new" target="_blank" rel="noopener">GitHub issue</a>. For non-technical concerns (sponsorship questions, press inquiries, partnership proposals), use the <a href="contact.html">contact page</a>.</p>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix=""></div>
+<script src="site.js"></script>
+</body>
+</html>

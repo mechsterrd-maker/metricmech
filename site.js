@@ -133,10 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="footer-col">
             <h5>About</h5>
-            <a href="#">Editorial Standards</a>
-            <a href="#">Contributors</a>
-            <a href="#">Suggest a Topic</a>
-            <a href="#">Contact</a>
+            <a href="${pathPrefix}about.html">About MetricMech</a>
+            <a href="${pathPrefix}editorial-standards.html">Editorial Standards</a>
+            <a href="${pathPrefix}contact.html">Suggest a Topic</a>
+            <a href="${pathPrefix}contact.html">Contact</a>
             <a href="https://cadnexa.com">CadNexa</a>
           </div>
         </div>
