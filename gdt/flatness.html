@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GD&T Flatness: Tolerance Zone, Measurement, and the Rule #1 Most Engineers Miss | MetricMech</title>
+<meta name="description" content="Complete guide to GD&T flatness. Symbol, tolerance zone, measurement methods, typical values by manufacturing process, ASME Rule #1, ISO 1101 differences, and the 5 mistakes that waste tolerance budget." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.fcf-mini { display: inline-flex; border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; font-family: var(--mono); font-size: 15px; margin: 8px 0; }
+.fcf-mini span { padding: 6px 12px; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); }
+.fcf-mini span:last-child { border-right: none; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/gdt/flatness">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="GD&T Flatness: Tolerance Zone, Measurement, and the Rule #1 Most Engineers Miss | MetricMech">
+<meta property="og:description" content="Complete guide to GD&T flatness. Symbol, tolerance zone, measurement methods, typical values by process, ASME Rule #1, and the 5 mistakes that waste tolerance budget.">
+<meta property="og:url" content="https://metricmech.com/gdt/flatness">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GD&T Flatness: Tolerance Zone, Measurement, and the Rule #1 Most Engineers Miss | MetricMech">
+<meta name="twitter:description" content="Complete guide to GD&T flatness. Symbol, tolerance zone, measurement methods, typical values by process, and the mistakes that waste tolerance budget.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GD&T Flatness: Tolerance Zone, Measurement, and the Rule #1 Most Engineers Miss",
+  "description": "Complete guide to GD&T flatness. Symbol, tolerance zone, measurement methods, typical values by manufacturing process, ASME Rule #1, ISO 1101 differences, and the 5 mistakes that waste tolerance budget.",
+  "url": "https://metricmech.com/gdt/flatness",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "mainEntityOfPage": "https://metricmech.com/gdt/flatness",
+  "about": { "@type": "Thing", "name": "ASME Y14.5 Flatness Tolerance" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is flatness in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flatness (symbol ⏥) is a form tolerance that constrains an entire surface to lie between two parallel planes separated by the specified tolerance value. It references no datum and applies regardless of orientation in space — flatness is purely about how flat the surface is to itself, not about how it relates to other features."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is flatness measured?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flatness is measured by sampling many points across the surface and computing the smallest pair of parallel planes that contains all of them. Common methods are: surface plate plus a dial indicator scanning a grid of points (traditional, accurate to a few microns), CMM with surface scanning (most common for precision parts), optical flat with monochromatic light (sub-micron precision for lapped surfaces), and laser interferometry for large surfaces. Always sample at least 9 points for a small surface and proportionally more for larger surfaces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between flatness and parallelism?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Flatness controls how flat a surface is to itself with no reference to anything else — no datum. Parallelism controls how parallel a surface is to a specified datum, and inherently includes the flatness requirement at the same tolerance. If you call out parallelism of 0.05 to datum A, the surface must be both within 0.05 of parallel to A AND flat within 0.05. A separate flatness call-out is only needed when you want flatness tighter than the parallelism value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is flatness always limited by size tolerance under ASME Y14.5?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under ASME Y14.5 Rule #1 (the envelope principle), a feature of size with a size tolerance is implicitly constrained to a perfect-form envelope at Maximum Material Condition. This means the surface can never bow or wave beyond the limits the size tolerance allows. A 10 +/- 0.05 mm block automatically has flatness limited to 0.10 mm (the total size tolerance), so specifying flatness of 0.15 would be meaningless. Flatness call-outs are only useful when the requirement is tighter than the size tolerance permits. Under ISO 8015 the independence principle applies by default, so size and form are independent — making explicit flatness call-outs more common in ISO drawings."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="gdt" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../gdt.html">GD&amp;T</a><span class="sep">/</span>Flatness</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What is flatness</a>
+    <a href="#zone">The tolerance zone</a>
+    <a href="#fcf">Feature control frame</a>
+    <a href="#measure">How to measure</a>
+    <a href="#example">Worked example</a>
+    <a href="#rule1">ASME Rule #1</a>
+    <a href="#vs">Flatness vs other GD&amp;T</a>
+    <a href="#process">Typical values by process</a>
+    <a href="#causes">Why parts come out unflat</a>
+    <a href="#mistakes">5 spec mistakes</a>
+    <a href="#iso">ASME vs ISO</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>GD&amp;T flatness: <em>tolerance zone, measurement, and the Rule #1 most engineers miss.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T · Form Tolerance</span>
+      <span>May 11, 2026</span>
+      <span>10 min read</span>
+      <span>1,820 words</span>
+    </div>
+
+    <p class="lede">Flatness is the most-used form tolerance and the most often over-specified. This guide covers the tolerance zone, the feature control frame, the four practical measurement methods, ASME Rule #1 (which makes most flatness call-outs redundant), the manufacturing causes of out-of-flat parts, and the five spec mistakes that waste tolerance budget.</p>
+
+    <h2 id="what">What is <em>flatness</em></h2>
+    <p>Flatness (symbol <strong>⏥</strong>) is a form tolerance under ASME Y14.5 and ISO 1101. It constrains an entire surface to lie between two parallel planes separated by the specified tolerance value. The two planes can sit anywhere in space — flatness is about <strong>how flat the surface is to itself</strong>, not about how it relates to other features. That is why flatness call-outs have no datum compartment in the feature control frame.</p>
+    <p>It is the most economical form tolerance to specify because it requires no datum setup and the inspection method (surface plate plus dial indicator) is the cheapest in any quality lab. It is also the most frequently misused — designers add a flatness call-out to a feature that already has a tight size tolerance under ASME, making the explicit flatness spec redundant. More on this in the Rule #1 section.</p>
+
+    <h2 id="zone">The tolerance <em>zone</em></h2>
+    <p>The flatness tolerance zone is two parallel planes separated by the tolerance value. Every point on the toleranced surface must lie inside this sandwich. The orientation of the planes in space is unconstrained — the inspection algorithm rotates them freely until it finds the smallest pair that still contains all surface points.</p>
+    <p>For a flatness of ⏥ 0.05 mm, the two planes are 0.05 mm apart, and the inspection tool searches for the tightest-fitting pair. The actual flatness deviation is the smallest such gap that contains the entire surface — what metrology software calls the "minimum-zone" fit. Note the difference from a "least-squares" plane fit, which is what most inexpensive CMM software reports by default. Least-squares overstates flatness by 30 to 50% for typical machined surfaces. For ASME-compliant inspection, you need minimum-zone (also called Chebyshev) fitting.</p>
+
+    <h2 id="fcf">The <em>feature control frame</em></h2>
+    <p>Flatness has the simplest possible feature control frame: just the symbol and the tolerance value. No diameter modifier (the zone is two planes, not a cylinder), no material-condition modifier (form tolerances do not get bonus tolerance under either MMC or LMC), no datum compartments.</p>
+    <div class="fcf-mini">
+      <span>⏥</span><span>0.05</span>
+    </div>
+    <p>Translation: "Flatness, tolerance zone 0.05 mm." The tolerance value is unitless in the FCF itself; the unit comes from the title block of the drawing (millimetres for ISO and most ASME drawings, inches for legacy ASME). The toleranced surface is indicated by a leader line from the FCF to the surface or to its extension line.</p>
+    <p>Two FCF variants you will occasionally see:</p>
+    <ul>
+      <li><strong>⏥ 0.05/100×100</strong> — a unit-area flatness call-out, often seen on large surfaces. Specifies the flatness within any 100×100 mm zone of the surface (rather than across the whole surface). Useful when the surface is long enough that small-scale waviness matters more than overall warpage.</li>
+      <li><strong>⏥ 0.05 (CZ)</strong> — Common Zone modifier (ISO 1101). Applies the flatness across multiple separated surfaces as if they were one. Common on stepped or interrupted surfaces that must be coplanar.</li>
+    </ul>
+
+    <h2 id="measure">How <em>flatness is measured</em></h2>
+    <p>Four methods cover almost every shop-floor situation, in order of cost and precision:</p>
+    <table>
+      <tr><th>Method</th><th>Typical resolution</th><th>Best for</th></tr>
+      <tr><td>Surface plate + dial indicator</td><td>2–5 μm</td><td>Small to medium surfaces, ≤300 mm. Lowest cost, most common in Indian shops.</td></tr>
+      <tr><td>CMM scanning</td><td>0.5–2 μm</td><td>Precision parts, complex shapes, datum-related callouts. Standard in any AS9100-certified facility.</td></tr>
+      <tr><td>Optical flat with monochromatic light</td><td>0.05–0.1 μm</td><td>Lapped surfaces, gauge blocks, sealing faces. Very precise but only for highly-polished surfaces.</td></tr>
+      <tr><td>Laser interferometry / autocollimator</td><td>0.1–1 μm over large area</td><td>Machine bed flatness, large casting surfaces, granite plates. Used for incoming inspection of precision base plates.</td></tr>
+    </table>
+    <p>The single biggest measurement-side mistake is undersampling. A surface plate sweep with three indicator readings tells you nothing reliable about flatness. The minimum sampling density per ISO 14253 is roughly 9 points for a 100×100 mm surface, scaled by area. For a 300×300 mm machined plate, 25 to 36 grid points is the working minimum. CMM scanning solves this automatically by sweeping continuous contours, but a dial indicator inspector has to plan the grid.</p>
+
+    <h2 id="example">Worked <em>example</em>: an aluminium fixture plate</h2>
+    <p>A 100 × 100 × 20 mm aluminium 6061-T6 fixture plate has its top surface called out <strong>⏥ 0.05</strong>. The QA team inspects it with a granite surface plate and a 0.001 mm dial indicator on a 9-point grid (3×3, points at corners, midpoints, and centre).</p>
+    <table>
+      <tr><th>Grid point</th><th>Indicator reading (μm)</th></tr>
+      <tr><td>1 (corner)</td><td>+12</td></tr>
+      <tr><td>2 (midpoint)</td><td>+8</td></tr>
+      <tr><td>3 (corner)</td><td>+15</td></tr>
+      <tr><td>4 (midpoint)</td><td>−4</td></tr>
+      <tr><td>5 (centre)</td><td>−18</td></tr>
+      <tr><td>6 (midpoint)</td><td>−7</td></tr>
+      <tr><td>7 (corner)</td><td>+18</td></tr>
+      <tr><td>8 (midpoint)</td><td>+5</td></tr>
+      <tr><td>9 (corner)</td><td>+14</td></tr>
+    </table>
+    <p>The max reading is +18 μm; the min is −18 μm. The simple range-based flatness estimate is 36 μm, well within the 50 μm tolerance. For minimum-zone fitting (the ASME-correct method), the result would be slightly different — typically 5 to 10% larger than the range-based estimate for a surface like this — but still inside the 50 μm zone.</p>
+    <p>Reading the pattern: the surface bows downward in the middle, which is typical of a workpiece that was clamped at the corners during a finish-milling pass. The clamps deformed the plate elastically during machining, then the plate sprang back when unclamped, leaving the surface concave by ~36 μm. The fix is to reduce clamp pressure on the finishing pass, or to switch to vacuum workholding.</p>
+
+    <h2 id="rule1">The Rule #1 <em>most engineers miss</em></h2>
+    <p>Here is the ASME Y14.5 design rule that quietly invalidates most flatness call-outs: <strong>Rule #1 (the Envelope Principle)</strong>. It states that for a feature of size, the surface shall not extend beyond a perfect-form envelope at Maximum Material Condition. In plain language: <em>the size tolerance automatically bounds the form tolerance.</em></p>
+    <p>So a 10 ± 0.05 mm thick block has a size tolerance of 0.10 mm. Rule #1 implicitly bounds the flatness of each face to 0.10 mm — no surface can deviate from a plane by more than the gap between the two limit faces. Adding an explicit flatness call-out of 0.15 mm is redundant and ignored. An explicit call-out of 0.05 mm is meaningful only because it tightens the form below the size limit.</p>
+
+    <div class="callout">
+      <strong>When does explicit flatness add value</strong>
+      Three situations: (1) when you need form tighter than the size tolerance allows (most common reason), (2) when the surface is on a feature with no opposing face that could create a size envelope — typical of fixture pads, mating-flange ribs, sealing ridges, (3) when shipping to an ISO-conventions customer where the independence principle (ISO 8015) is the default and explicit form call-outs are required.
+    </div>
+
+    <h2 id="vs">Flatness vs <em>other GD&amp;T symbols</em></h2>
+    <p>Three GD&amp;T symbols can each control planar form, and the differences trip up engineers regularly:</p>
+    <ul>
+      <li><strong>Flatness ⏥</strong> controls form only. No datum. Cannot also enforce orientation.</li>
+      <li><strong>Parallelism ∥</strong> controls form <em>and</em> orientation to a datum. A ∥ 0.05 to A inherently includes flatness within 0.05. Explicit flatness is only needed if you want it tighter than the parallelism value.</li>
+      <li><strong>Profile of a surface ⌓</strong> can control form, orientation, and location all at once, against a basic geometry — including a plane. With datum reference, profile replaces flatness, parallelism, perpendicularity, and dimensional location simultaneously. Modern aerospace drawings tend to use profile in place of stacked flatness/parallelism call-outs.</li>
+    </ul>
+    <p>The decision rule on the design side: use the symbol that captures the design intent at the lowest cost. Flatness alone is cheapest. Parallelism is cheap if you have an obvious primary datum. Profile is most flexible but requires careful datum setup and is more expensive to inspect.</p>
+
+    <h2 id="process">Typical flatness <em>by manufacturing process</em></h2>
+    <p>Real-world flatness depends on the process. These are the working ranges Indian Tier-2 manufacturers see on production parts:</p>
+    <table>
+      <tr><th>Process</th><th>Achievable flatness (mm)</th><th>Notes</th></tr>
+      <tr><td>Lapping</td><td>0.0005–0.002</td><td>Gauge blocks, sealing faces, optical flats</td></tr>
+      <tr><td>Surface grinding</td><td>0.002–0.010</td><td>Tooling plates, precision fixtures</td></tr>
+      <tr><td>Precision milling (carbide, slow feed)</td><td>0.010–0.030</td><td>Aerospace brackets, jig plates</td></tr>
+      <tr><td>General-purpose milling (HSS, normal feed)</td><td>0.030–0.100</td><td>Automotive brackets, machine guards</td></tr>
+      <tr><td>Sheet-metal flat sections</td><td>0.1–0.5</td><td>Press-brake formed parts after flattening</td></tr>
+      <tr><td>As-machined castings</td><td>0.2–0.8</td><td>Aluminium die castings before secondary machining</td></tr>
+      <tr><td>As-forged surfaces</td><td>0.5–2.0</td><td>Carbon steel forgings, usually require secondary machining</td></tr>
+    </table>
+    <p>Specifying flatness tighter than the process easily achieves drives up part cost without functional benefit. A 0.005 mm flatness on a die-cast aluminium housing forces a secondary surface grinding operation (and a 3× cost multiple). Specifying flatness looser than the process delivers anyway is wasted spec — the size tolerance under Rule #1 already gives you the form for free.</p>
+
+    <h2 id="causes">Why parts come out <em>unflat</em></h2>
+    <p>When parts fail flatness inspection, the cause is almost always one of these six, in approximate order of frequency:</p>
+    <ol>
+      <li><strong>Workholding distortion.</strong> Vice or clamp pressure deforms the part elastically during machining; the part springs back unflat after release. The fix: reduce clamp force, redistribute pressure (use parallel rests), or switch to vacuum workholding.</li>
+      <li><strong>Thermal distortion.</strong> Machining heat warps the part during cutting. The fix: flood coolant, slower feeds, or wait for the part to equilibrate before final pass.</li>
+      <li><strong>Residual stress release.</strong> After rough machining, internal stress redistributes and warps the surface. The fix: stress-relief heat treatment between rough and finish passes, or pre-stress-relieved material stock.</li>
+      <li><strong>Tool deflection.</strong> A long end mill cutting at high feed deflects under load, leaving a wavy surface. The fix: shorter tool, lower feed per tooth, climb milling.</li>
+      <li><strong>Chatter / vibration.</strong> Self-excited vibration during machining leaves periodic surface waves. The fix: change spindle speed by 10–15% to break the resonance, stiffen workholding, balance the tool.</li>
+      <li><strong>Heat-treatment warpage.</strong> Quench-induced distortion in steels, especially for case-hardened parts. The fix: pre-grind allowance, fixture during quench, or use lower-distortion steels (e.g. EN36 instead of EN353).</li>
+    </ol>
+
+    <h2 id="mistakes">The 5 <em>spec mistakes</em></h2>
+    <ol>
+      <li><strong>Specifying flatness when parallelism is what you mean.</strong> If the surface needs to be parallel to a mating face, use parallelism. A flatness-only call-out can pass a perfectly flat surface that is tilted relative to the mating face. The assembly fails despite a passed inspection.</li>
+      <li><strong>Specifying flatness tighter than the process easily achieves.</strong> A 0.01 mm flatness on a 200×200 mm die-cast surface forces a secondary grinding pass. Loosen to 0.05 mm if the function allows, and save a process step.</li>
+      <li><strong>Specifying flatness looser than the size tolerance bounds.</strong> Under ASME Rule #1, a feature-of-size with a tight size tolerance already has form bounded. The explicit flatness call-out is redundant and confusing.</li>
+      <li><strong>Specifying flatness on a non-planar feature.</strong> Some drawings call out ⏥ on a curved surface, a stepped face, or a rounded fillet. Flatness only applies to nominally planar surfaces. For curved features use profile of a surface.</li>
+      <li><strong>Undersampling at inspection.</strong> A three-point indicator sweep is not enough to verify flatness on a 200×200 mm surface. The minimum grid is roughly 9 points for small surfaces, 25 to 36 for medium. CMM scanning is better when available.</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>The "flatness all around" trap on weldments</strong>
+      Weldments and fabrications often get a single flatness call-out on a long surface (e.g. a 1-metre machine base) without segmenting it. The result: the part has to satisfy the same tolerance across the full length, which is essentially impossible after welding distortion. The fix is to use the unit-area variant ⏥ 0.1/300×300 — flatness within any 300×300 mm zone, not across the full length.
+    </div>
+
+    <h2 id="iso">ASME <em>vs ISO</em>: when explicit flatness matters more</h2>
+    <p>The biggest practical difference between ASME Y14.5 and ISO 1101 for flatness is the default size–form relationship:</p>
+    <ul>
+      <li><strong>ASME Y14.5 (Rule #1, envelope principle).</strong> Size and form are linked by default. A feature of size with a tight size tolerance has its form automatically bounded. Explicit flatness call-outs are often redundant.</li>
+      <li><strong>ISO 1101 with ISO 8015 (independence principle).</strong> Size and form are independent by default. Tight size tolerance does <em>not</em> automatically constrain form. Explicit flatness call-outs are necessary on every feature where flatness matters.</li>
+    </ul>
+    <p>Practical impact for Indian Tier-2 suppliers: when the same machine shop quotes parts for both a US aerospace OEM (ASME-default) and a European automotive OEM (ISO-default), the same drawing geometry may need an explicit flatness call-out for the European customer that the US customer would consider redundant. Worth checking before submitting the FAI.</p>
+
+    <h2>How <em>flatness shows up</em> in FAI submissions</h2>
+    <p>On AS9102 Form 3, flatness is a standard characteristic with two reporting fields: the measured value (e.g. 0.038 mm) and the inspection method (e.g. "Surface plate + DI, 9-point grid"). Auditors check that the inspection method is appropriate for the tolerance — for example, calling out a surface plate with a 5 μm-resolution indicator on a 0.005 mm flatness spec is a mismatch the reviewer will flag. For the full Form 3 walk-through see the <a href="../articles/as9102-form3.html">AS9102 Form 3 article</a>.</p>
+
+    <div class="callout">
+      <strong>Need to inspect flatness on a complex surface?</strong>
+      For planar surfaces, the surface-plate + DI method is fast and cheap. For complex or compound features where flatness is just one of several characteristics to check, the MetricMech <a href="../calculators/tolerance-stack.html">Tolerance Stack-Up Calculator</a> can pre-budget the flatness contribution to your assembly stack — so you know how tight the spec actually needs to be before you specify it.
+    </div>
+
+    <p>For the full set of 14 GD&amp;T symbols, including parallelism and profile (which both interact with flatness), see the <a href="../gdt.html">GD&amp;T Symbol Reference</a>. The position tolerance deep-dive at <a href="position-tolerance.html">/gdt/position-tolerance</a> covers the location side of the same surface story — flatness controls how planar a face is, position controls where features <em>on</em> that face sit.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R.</div>
+        <div class="author-title">Mechanical Engineer · Plant operations · Founder, MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance</a>
+      <a href="../gdt.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">All 14 GD&amp;T Symbols</a>
+      <a href="../articles/as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 3 Walkthrough</a>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Tolerance Stack-Up</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
