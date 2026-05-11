@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Position Tolerance Explained: True Position, MMC Bonus, and Real Examples | MetricMech</title>
+<meta name="description" content="Complete guide to GD&T position tolerance. True position formula, MMC/LMC bonus tolerance, feature control frame, worked examples, and the 5 mistakes that fail inspection." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 22px 26px; margin: 22px 0; font-family: var(--mono); font-size: 17px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 10px; }
+.fcf-mini { display: inline-flex; border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; font-family: var(--mono); font-size: 15px; margin: 8px 0; }
+.fcf-mini span { padding: 6px 12px; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); }
+.fcf-mini span:last-child { border-right: none; }
+</style>
+
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/gdt/position-tolerance">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Position Tolerance Explained: True Position, MMC Bonus, and Real Examples | MetricMech">
+<meta property="og:description" content="Complete guide to GD&T position tolerance. True position formula, MMC/LMC bonus tolerance, feature control frame, worked examples, and the 5 mistakes that fail inspection.">
+<meta property="og:url" content="https://metricmech.com/gdt/position-tolerance">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Position Tolerance Explained: True Position, MMC Bonus, and Real Examples | MetricMech">
+<meta name="twitter:description" content="Complete guide to GD&T position tolerance. True position formula, MMC/LMC bonus tolerance, feature control frame, worked examples, and the 5 mistakes that fail inspection.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Position Tolerance Explained: True Position, MMC Bonus, and Real Examples",
+  "description": "Complete guide to GD&T position tolerance. True position formula, MMC/LMC bonus tolerance, feature control frame, worked examples, and the 5 mistakes that fail inspection.",
+  "url": "https://metricmech.com/gdt/position-tolerance",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "mainEntityOfPage": "https://metricmech.com/gdt/position-tolerance",
+  "about": {
+    "@type": "Thing",
+    "name": "ASME Y14.5 Position Tolerance"
+  }
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="gdt" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../gdt.html">GD&amp;T</a><span class="sep">/</span>Position Tolerance</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What is position tolerance</a>
+    <a href="#zone">The tolerance zone</a>
+    <a href="#fcf">Feature control frame</a>
+    <a href="#formula">The position formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#mmc">MMC bonus tolerance</a>
+    <a href="#lmc">LMC bonus tolerance</a>
+    <a href="#composite">Composite position</a>
+    <a href="#mistakes">5 inspection failures</a>
+    <a href="#iso">ASME vs ISO</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Position Tolerance: <em>true position, MMC bonus, and real examples.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T · ASME Y14.5</span>
+      <span>May 11, 2026</span>
+      <span>11 min read</span>
+      <span>1,950 words</span>
+    </div>
+
+    <p class="lede">Position tolerance is the most-used symbol in GD&amp;T — and the most often misread. This guide covers the cylindrical tolerance zone, the true position formula, MMC and LMC bonus calculations, composite position, and the five mistakes that cause aerospace and automotive FAI rejections.</p>
+
+    <h2 id="what">What is <em>position tolerance</em></h2>
+    <p>Position tolerance (symbol ⌖, also called <strong>true position</strong>) constrains the location of a feature's axis, center plane, or center point to a tolerance zone defined relative to specified datums. Unlike size tolerances, which control how big a feature is, position tolerance controls <strong>where it is</strong>.</p>
+    <p>It is used on virtually every machined part with mating features: bolt circles, dowel pin holes, locating slots, bearing bores, hydraulic ports. The reason it is so heavily used: a cylindrical position tolerance zone allows <strong>57% more usable area</strong> than the equivalent ±X / ±Y rectangular zone, while still guaranteeing assembly. This is the single most important reason GD&amp;T exists.</p>
+
+    <div class="callout">
+      <strong>Why ⌖ ⌀0.1 is better than ±0.05 / ±0.05</strong>
+      A ±0.05 / ±0.05 rectangular zone has area 0.01 mm². A ⌀0.1 cylindrical zone has area π × 0.05² = 0.00785 mm² — but its diameter accepts deviations a rectangle would reject (e.g. 0.06 in X with 0 in Y still passes ⌀0.1). The cylindrical zone matches how mating fasteners actually fit: through a hole, not into a square slot.
+    </div>
+
+    <h2 id="zone">The tolerance <em>zone</em></h2>
+    <p>The position tolerance zone shape depends on the feature type:</p>
+    <ul>
+      <li><strong>Round features (holes, bosses, pins):</strong> the zone is a cylinder. The axis must lie inside the cylinder. Zone is named by diameter (e.g. ⌀0.1 means a 0.1 mm diameter cylinder).</li>
+      <li><strong>Slots and elongated features:</strong> the zone is two parallel planes. The center plane of the feature must lie between the planes.</li>
+      <li><strong>Spherical features:</strong> the zone is a sphere (rare). The center point must lie inside the sphere.</li>
+    </ul>
+    <p>The zone is located at the <strong>basic dimensions</strong> from the datum reference frame. Basic dimensions are shown boxed (e.g. <span style="border:1px solid var(--ink); padding: 0 6px;">25.0</span>) and have <em>no</em> tolerance themselves — all the tolerance is captured by the position symbol.</p>
+
+    <h2 id="fcf">The feature <em>control frame</em></h2>
+    <p>The position callout sits inside a feature control frame (FCF). Reading order is left to right:</p>
+    <div class="fcf-mini">
+      <span>⌖</span><span>⌀ 0.1</span><span>Ⓜ</span><span>A</span><span>B</span><span>C</span>
+    </div>
+    <p>Translated word-for-word: "Position tolerance, cylindrical zone of diameter 0.1, applied at Maximum Material Condition, with primary datum A, secondary datum B, tertiary datum C."</p>
+    <p>Three things to notice in this frame:</p>
+    <ul>
+      <li>The <strong>⌀ symbol</strong> in the second compartment tells you the zone is cylindrical. Without it, the zone would default to two parallel planes — wrong for a hole.</li>
+      <li>The <strong>Ⓜ modifier</strong> says bonus tolerance is available as the hole grows above its smallest (MMC) size. See section below.</li>
+      <li>The <strong>datum sequence A → B → C</strong> matters. Datum A fully locks 3 degrees of freedom, B locks 2 more, C locks the last 1. Swap them and the part inspects differently.</li>
+    </ul>
+
+    <h2 id="formula">The position <em>formula</em></h2>
+    <p>For a round feature inspected with X and Y deviations from the basic location, the position deviation diameter is:</p>
+
+    <div class="formula-box">
+      <div class="label">True Position Deviation</div>
+      Position = 2 × √(ΔX² + ΔY²)
+    </div>
+
+    <p>The multiplier of 2 converts radial deviation to diameter — because the tolerance zone is specified by diameter, not radius. This is the single most common mistake in position calculation: forgetting the factor of 2.</p>
+
+    <p>For a feature inspected on a CMM with measured XYZ in 3D space, the deviation also has a Z component:</p>
+
+    <div class="formula-box">
+      <div class="label">3D Position (axis-aligned features)</div>
+      Position = 2 × √(ΔX² + ΔY² + ΔZ²)
+    </div>
+
+    <p>For most plate and bracket parts where the hole is normal to a flat face, ΔZ is zero and the 2D formula applies. The 3D formula is needed for compound-angle features and angled holes in cast or forged parts.</p>
+
+    <h2 id="example">Worked <em>example</em>: 4-hole bolt pattern</h2>
+    <p>An aluminium mounting plate has four ⌀5.0 +0.05/-0.00 holes called out at basic locations forming a 50 × 30 mm rectangle, with position tolerance ⌖ ⌀0.1 Ⓜ A B C.</p>
+    <p>After machining, the four holes are inspected on a CMM with the following measured center coordinates relative to the basic locations:</p>
+    <table>
+      <tr><th>Hole</th><th>ΔX (mm)</th><th>ΔY (mm)</th><th>Measured ⌀</th><th>Position Dev</th><th>Bonus</th><th>Allowed</th><th>Result</th></tr>
+      <tr><td>H1</td><td>+0.020</td><td>+0.015</td><td>5.012</td><td>0.050</td><td>0.012</td><td>0.112</td><td>Pass</td></tr>
+      <tr><td>H2</td><td>+0.045</td><td>-0.020</td><td>5.030</td><td>0.098</td><td>0.030</td><td>0.130</td><td>Pass</td></tr>
+      <tr><td>H3</td><td>+0.050</td><td>+0.040</td><td>5.000</td><td>0.128</td><td>0.000</td><td>0.100</td><td><strong>Fail</strong></td></tr>
+      <tr><td>H4</td><td>-0.030</td><td>+0.025</td><td>5.020</td><td>0.078</td><td>0.020</td><td>0.120</td><td>Pass</td></tr>
+    </table>
+    <p>For hole H3, deviation is 0.128 mm but allowed is only 0.100 mm because the hole was produced at MMC (5.000, the smallest allowed size) and so received zero bonus tolerance. The hole fails — even though H2, with a similar deviation, passes because it earned bonus from growing to 5.030.</p>
+    <p>This is the central insight of position with MMC: <strong>tighter holes need to be more accurately located</strong>. The math rewards consistent feature size with looser positional control.</p>
+
+    <h2 id="mmc">MMC <em>bonus tolerance</em></h2>
+    <p>The Ⓜ modifier (Maximum Material Condition) unlocks <strong>bonus tolerance</strong> as the feature deviates from its tightest condition. For a hole, MMC is the smallest allowed diameter — the hole that gives the least clearance to a mating fastener.</p>
+    <p>The bonus formula is:</p>
+
+    <div class="formula-box">
+      <div class="label">MMC Bonus Tolerance</div>
+      Bonus = |Actual Size − MMC Size|
+    </div>
+
+    <p>The total allowed position tolerance becomes:</p>
+
+    <div class="formula-box">
+      <div class="label">Total Allowed Position (MMC)</div>
+      Total = Stated Tolerance + Bonus
+    </div>
+
+    <p>From the H2 row in the table above: hole MMC is 5.000, hole was made at 5.030, so bonus = 0.030 mm. Stated tolerance was 0.100 mm. Total allowed = 0.130 mm. Measured deviation 0.098 mm — pass.</p>
+
+    <p>MMC is used when the design intent is <strong>assembly fit</strong>: the worst-case clearance between the hole and the bolt is what matters, not the absolute position of either. As the hole grows, there is more clearance available — and the geometry naturally allows looser positional control without risking interference.</p>
+
+    <div class="callout">
+      <strong>When to NOT use MMC</strong>
+      MMC is wrong when position needs to be controlled absolutely — for example, a dowel pin hole on a fixture, an alignment feature for an optical system, or a hole that must precisely match a mating threaded insert. In those cases, use Ⓢ (RFS, the default in 2018) so no bonus is granted regardless of hole size.
+    </div>
+
+    <h2 id="lmc">LMC <em>bonus tolerance</em></h2>
+    <p>The Ⓛ modifier (Least Material Condition) is the mirror of MMC. Bonus is granted as the feature moves away from its loosest size — that is, as a hole gets <em>smaller</em>, not larger.</p>
+    <p>LMC is used when <strong>wall thickness</strong> or <strong>minimum material</strong> is the controlling factor. A common example: a hole in a thin-walled casting where breaking through the wall is the failure mode. The smaller the hole, the more material remains around it, the more positional slop is acceptable.</p>
+    <p>The bonus formula is:</p>
+
+    <div class="formula-box">
+      <div class="label">LMC Bonus Tolerance</div>
+      Bonus = |LMC Size − Actual Size|
+    </div>
+
+    <p>For a hole with LMC 5.05 and actual size 5.02, bonus = 0.03 mm. The total allowed position grows as the hole shrinks from LMC.</p>
+
+    <h2 id="composite">Composite <em>position tolerance</em></h2>
+    <p>For a pattern of holes that must both <strong>locate correctly</strong> to the part datums and <strong>fit a mating part</strong> as a group, GD&amp;T uses composite position tolerance — two stacked feature control frames sharing the same ⌖ symbol:</p>
+
+    <div class="fcf-mini">
+      <span>⌖</span><span>⌀ 0.5</span><span>A B C</span>
+    </div>
+    <div class="fcf-mini">
+      <span>⌖</span><span>⌀ 0.1</span><span>A</span>
+    </div>
+
+    <p>The upper frame is the <strong>Pattern-Locating Tolerance Zone Framework (PLTZF)</strong> — it locates the entire group to A|B|C with a generous ⌀0.5 zone. The lower frame is the <strong>Feature-Relating Tolerance Zone Framework (FRTZF)</strong> — it controls how the holes locate relative to each other within a tighter ⌀0.1 zone, oriented only to datum A.</p>
+
+    <p>Practical effect: the bolt pattern <em>as a whole</em> can shift up to ⌀0.5 from nominal, but the holes <em>within the pattern</em> must match each other within ⌀0.1. This decouples assembly-to-frame tolerance from inter-hole pattern tolerance — and is how high-volume manufacturers avoid demanding ⌀0.1 absolute position when only the relative spacing matters for the mating part.</p>
+
+    <h2 id="mistakes">The five <em>inspection failures</em></h2>
+    <p>Across aerospace and automotive FAI submissions, these five position-tolerance mistakes account for the majority of rejections:</p>
+    <ol>
+      <li><strong>Forgetting the factor of 2.</strong> Engineer calculates √(0.04² + 0.03²) = 0.05 and reports "position 0.05 mm". The actual position deviation diameter is 0.10 mm — failed against a ⌀0.08 zone. Always multiply radial deviation by 2.</li>
+      <li><strong>Missing the ⌀ symbol in the FCF.</strong> Without ⌀, the zone is two parallel planes, not a cylinder. CMM software interprets the call-out literally — and reports failures or non-conformances based on a planar zone the designer never intended.</li>
+      <li><strong>Wrong datum sequence.</strong> Inspecting hole position with B as primary instead of A produces different deviations because the part is constrained from a different reference surface. Auditors check that the inspection setup matches the drawing datum sequence exactly.</li>
+      <li><strong>Forgetting MMC bonus when one applies.</strong> Hole made at 5.030 with MMC at 5.000 and Ⓜ applied — engineer reports failure against 0.100 instead of 0.130. Re-work or scrap a perfectly good part. Always check whether bonus applies before declaring a fail.</li>
+      <li><strong>Mixing pattern and feature deviation.</strong> Reporting hole position relative to a different hole in the pattern instead of to the datum reference frame. For PLTZF, position is always to the datums, not to other features.</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>The composite-position trap</strong>
+      Many CMM programs by default report position relative to the part datum frame. For composite-position drawings, the FRTZF (lower frame) requires re-orienting the inspection to the pattern itself — usually a software override the operator must enable. Missing this produces FRTZF readings that are actually PLTZF — the FAI passes for the wrong reason and fails for a different reason on the next lot.
+    </div>
+
+    <h2 id="iso">ASME <em>vs ISO</em>: small but real differences</h2>
+    <p>Position tolerance is defined in both <strong>ASME Y14.5</strong> (US, 2018 revision) and <strong>ISO 1101</strong> (international, 2017 revision). The two are mostly compatible — but three differences cause headaches when an Indian supplier ships to a US OEM, or vice versa:</p>
+    <ul>
+      <li><strong>RFS default.</strong> ASME Y14.5-2018 makes RFS the default — no symbol needed. ISO 1101 also defaults to RFS but uses the Ⓡ modifier to explicitly call it out in older drawings.</li>
+      <li><strong>Concentricity and symmetry.</strong> ASME Y14.5-2018 removed concentricity (◎) and symmetry (≡) — both are now expressed using position with a center-plane callout. ISO 1101 retains them as separate symbols.</li>
+      <li><strong>Profile substitution.</strong> ASME allows profile of a surface to replace position in many cases. ISO requires explicit position on holes that engage mating fasteners.</li>
+    </ul>
+
+    <h2>Calculating position from <em>your measurements</em></h2>
+    <p>If you have measured ΔX and ΔY (and optionally ΔZ) deviations from a CMM or other coordinate inspection, the math is straightforward but easy to get wrong by hand. MetricMech's <a href="../calculators/position-tolerance.html"><strong>Position Tolerance Calculator</strong></a> handles the formula, MMC and LMC bonus calculation, pass/fail verdict, and produces an audit-ready PDF for FAI submission. It supports up to 50 features in one batch — useful when you have a hole pattern with dozens of locations to verify.</p>
+
+    <div class="callout">
+      <strong>Building an FAI submission with position data</strong>
+      Position deviation is one of the most-recorded characteristics on AS9102 Form 3. If you are preparing an FAI submission, the <a href="../articles/as9102-form3.html">AS9102 Form 3 walkthrough</a> shows exactly how position results are reported alongside size, profile, and runout characteristics — including the inspection method column auditors check most closely. For Indian Tier-2 aerospace suppliers, this is the most common rejection point on first submission.
+    </div>
+
+    <h2>From measurement to <em>process improvement</em></h2>
+    <p>Position deviation data tells you more than pass or fail. Patterns across many parts reveal whether the deviation is random (process noise) or systematic (machine setup, fixture wear, tool deflection). A consistent +0.05 ΔX across 50 holes on the same lot points to a fixture offset — fixable with one shim. A random scatter across all four axes points to spindle deflection or chatter — fixable with feeds and speeds.</p>
+
+    <p>CadNexa's manufacturing analytics suite groups position-deviation data by feature class, fixture ID, and machine — making the systematic-vs-random pattern visible at a glance. For high-mix shops doing dozens of part numbers per shift, this is the difference between fighting fires and fixing root causes.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R.</div>
+        <div class="author-title">Mechanical Engineer · Plant operations · Founder, MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance Calculator</a>
+      <a href="../gdt.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">All 14 GD&amp;T Symbols</a>
+      <a href="../articles/as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 3 Walkthrough</a>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Tolerance Stack-Up</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
