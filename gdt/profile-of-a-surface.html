@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GD&T Profile of a Surface: The Symbol That Replaces Flatness, Position, and Parallelism | MetricMech</title>
+<meta name="description" content="Complete guide to GD&T profile of a surface. Bilateral and unilateral tolerance zones, all-around and all-over modifiers, datum-controlled vs form-only profile, composite profile, and when ⌓ replaces flatness, position, parallelism, and perpendicularity in one call-out." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.fcf-mini { display: inline-flex; border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; font-family: var(--mono); font-size: 15px; margin: 8px 0; }
+.fcf-mini span { padding: 6px 12px; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); }
+.fcf-mini span:last-child { border-right: none; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/gdt/profile-of-a-surface">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="GD&T Profile of a Surface: The Symbol That Replaces Flatness, Position, and Parallelism | MetricMech">
+<meta property="og:description" content="Complete guide to GD&T profile of a surface. Bilateral and unilateral zones, all-around modifier, datum-controlled vs form-only, composite profile, and when ⌓ replaces other GD&T call-outs.">
+<meta property="og:url" content="https://metricmech.com/gdt/profile-of-a-surface">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GD&T Profile of a Surface: The Symbol That Replaces Flatness, Position, and Parallelism | MetricMech">
+<meta name="twitter:description" content="Bilateral and unilateral zones, all-around modifier, datum-controlled vs form-only profile, composite profile.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "GD&T Profile of a Surface: The Symbol That Replaces Flatness, Position, and Parallelism",
+  "description": "Complete guide to GD&T profile of a surface. Bilateral and unilateral tolerance zones, all-around and all-over modifiers, datum-controlled vs form-only profile, composite profile, and when ⌓ replaces flatness, position, parallelism, and perpendicularity in one call-out.",
+  "url": "https://metricmech.com/gdt/profile-of-a-surface",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "mainEntityOfPage": "https://metricmech.com/gdt/profile-of-a-surface",
+  "about": { "@type": "Thing", "name": "ASME Y14.5 Profile of a Surface Tolerance" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is profile of a surface in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Profile of a surface (symbol ⌓) is the most versatile GD&T tolerance. It constrains a real surface to lie within a 3D tolerance zone bounded by two surfaces offset from the true (basic) profile. With no datum reference, it controls only form. With datum references, it simultaneously controls form, orientation, and location — effectively replacing flatness, parallelism, perpendicularity, and dimensional location in one call-out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between bilateral and unilateral profile tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bilateral profile (the ASME Y14.5 default) divides the tolerance zone equally on both sides of the basic profile. A profile of 0.2 means 0.1 outside and 0.1 inside the nominal surface. Unilateral profile, indicated with the U modifier or with phantom-line indication, places the entire tolerance on one side only. For example, ⌓ 0.2 U 0.05 means 0.05 outside and 0.15 inside the nominal surface. Unilateral is common for sealing surfaces where extra material must be on one side only."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does profile of a surface replace flatness or position?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Profile of a surface with a basic-dimensioned planar surface and full datum reference (A B C) replaces flatness, parallelism, perpendicularity, and dimensional location of that surface in one call-out. It's used when the surface must be controlled in all four ways simultaneously to a known tolerance — common on machined faces of cast or forged parts where a single composite tolerance is simpler than stacked individual call-outs. The trade-off is that inspection requires CMM with full datum setup; a simple flatness call-out can be inspected with a surface plate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the all-around modifier mean for profile of a surface?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The all-around modifier (a small circle on the FCF leader line) applies the profile tolerance to every surface visible in the view's outline, treating them as a connected boundary. Used for profile call-outs on parts where the same tolerance applies to every external surface in the view — castings, sheet-metal cutouts, stamped contours. ASME Y14.5-2018 also defines an all-over modifier (double-circle) for application to all surfaces of a 3D part, including hidden ones. All-around is 2D, all-over is 3D."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is profile of a surface measured on a CMM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Profile is measured by scanning a dense grid of points on the surface, aligning the part to its drawing datums in the CMM software, then computing the deviation of each measured point normal to the basic surface. The reported value is the smallest pair of equally-disposed offset surfaces (for bilateral) or the unilateral envelope (for the U-modifier case) that contains all measured points. Typical scanning density for aerospace profile inspection is 1 point per 10 mm² for free-form surfaces and higher for sealing faces or precision profiles."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="gdt" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../gdt.html">GD&amp;T</a><span class="sep">/</span>Profile of a Surface</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What it is</a>
+    <a href="#zone">The tolerance zone</a>
+    <a href="#bilateral">Bilateral vs unilateral</a>
+    <a href="#fcf">Feature control frame</a>
+    <a href="#allaround">All-around &amp; all-over</a>
+    <a href="#replaces">What profile replaces</a>
+    <a href="#example">Worked example</a>
+    <a href="#composite">Composite profile</a>
+    <a href="#measure">CMM measurement</a>
+    <a href="#mistakes">6 spec mistakes</a>
+    <a href="#iso">ASME vs ISO</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>GD&amp;T profile of a surface: <em>the symbol that replaces flatness, position, and parallelism.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T · Profile Tolerance</span>
+      <span>May 11, 2026</span>
+      <span>12 min read</span>
+      <span>2,050 words</span>
+    </div>
+
+    <p class="lede">Profile of a surface is the swiss-army knife of GD&amp;T. With the right datum setup it controls form, orientation, and location in one call-out — replacing flatness, parallelism, perpendicularity, and dimensional location simultaneously. This guide covers the tolerance zone, bilateral and unilateral variants, the all-around and all-over modifiers, composite profile, and when to swap out a stack of three separate GD&amp;T call-outs for a single ⌓.</p>
+
+    <h2 id="what">What profile of a surface <em>is</em></h2>
+    <p>Profile of a surface (symbol <strong>⌓</strong>) constrains a real surface to lie within a 3D tolerance zone bounded by two surfaces offset from the <em>true profile</em> — the perfect nominal geometry shown on the drawing. The true profile is defined by basic dimensions (boxed dimensions with no tolerance of their own) plus, for free-form surfaces, an underlying CAD model.</p>
+    <p>Two things make profile uniquely powerful:</p>
+    <ul>
+      <li><strong>It works on any surface shape.</strong> Planar, cylindrical, conical, spherical, or fully free-form — the same symbol applies. Flatness only works on planes, cylindricity only on cylinders. Profile of a surface handles them all.</li>
+      <li><strong>Datum reference changes its meaning.</strong> Without a datum, profile controls only form (similar to flatness, but for any surface shape). With a primary datum, it adds orientation control. With three datums (A B C), it adds location control. One symbol, three different jobs depending on how the FCF is set up.</li>
+    </ul>
+    <p>This is why aerospace and high-precision automotive drawings tend to use profile heavily — it consolidates what would otherwise be stacked flatness + parallelism + perpendicularity + dimensional call-outs into a single tolerance value.</p>
+
+    <h2 id="zone">The tolerance <em>zone</em></h2>
+    <p>The profile tolerance zone is the 3D region between two surfaces offset from the basic profile. By default under ASME Y14.5, the offset is equally disposed: half the tolerance is outside the nominal, half is inside. A profile call-out of 0.20 mm creates two surfaces, each 0.10 mm from the nominal — one on the outside (more material) and one on the inside (less material). The real surface must lie everywhere between them.</p>
+
+    <h3>The basic profile</h3>
+    <p>The basic profile is the nominal shape the part should be. For simple geometry (planes, cylinders), the basic profile is defined by the basic dimensions on the drawing. For free-form surfaces (turbine blades, automotive body panels, casting flow paths), the basic profile is the underlying CAD model — and the drawing references "see CAD" or "per math data" instead of dimensioning every contour.</p>
+
+    <h2 id="bilateral">Bilateral <em>vs unilateral</em></h2>
+    <p>By default, ASME Y14.5 profile is bilateral (equally disposed). But functional requirements often call for the tolerance to sit on one side only. Three variants you will see on production drawings:</p>
+    <table>
+      <tr><th>Variant</th><th>FCF / notation</th><th>Zone disposition</th></tr>
+      <tr><td>Bilateral (default)</td><td>⌓ 0.20 A B C</td><td>0.10 inside + 0.10 outside</td></tr>
+      <tr><td>Unilateral outside (extra material away from nominal)</td><td>⌓ 0.20 U 0.20 A B C</td><td>0.20 outside + 0.00 inside</td></tr>
+      <tr><td>Unequal unilateral</td><td>⌓ 0.20 U 0.05 A B C</td><td>0.05 outside + 0.15 inside (the "U" value is the outside portion)</td></tr>
+    </table>
+    <p>When the U modifier is used, the second value (after U) is the portion of the tolerance that sits <em>outside</em> the nominal. Everything else (total − U) sits inside. So <strong>⌓ 0.20 U 0.05</strong> means a 0.20 mm tolerance zone with 0.05 outside the nominal surface and 0.15 inside.</p>
+    <p>Pre-2018 drawings sometimes indicate unilateral profile with phantom lines on the drawing instead of the U modifier. Both notations remain valid; auditors expect to see one or the other.</p>
+
+    <div class="callout">
+      <strong>When unilateral profile matters</strong>
+      Sealing surfaces, mating cones, and casting machining stock all benefit from unilateral profile. A gasket-sealing face wants extra material on the contact side and zero deficit on the back side — a unilateral inside-only zone (U 0.00) communicates that exactly. Specifying bilateral instead allows the surface to dip below nominal, which costs sealing pressure.
+    </div>
+
+    <h2 id="fcf">The <em>feature control frame</em></h2>
+    <p>Profile FCFs come in three configurations, each with different effect:</p>
+
+    <h3>Form-only (no datum)</h3>
+    <div class="fcf-mini">
+      <span>⌓</span><span>0.10</span>
+    </div>
+    <p>Constrains form only. The real surface must lie within a 0.10 mm zone around the basic profile, but the zone is free to translate and rotate to find the best fit. Equivalent to flatness for planar surfaces, equivalent to cylindricity for cylinders.</p>
+
+    <h3>Form + orientation (one datum)</h3>
+    <div class="fcf-mini">
+      <span>⌓</span><span>0.10</span><span>A</span>
+    </div>
+    <p>The tolerance zone is now oriented to datum A. For a planar surface, this is equivalent to parallelism (or perpendicularity, depending on geometry) of 0.10 to A. For a curved surface, it controls form plus orientation to A.</p>
+
+    <h3>Form + orientation + location (three datums)</h3>
+    <div class="fcf-mini">
+      <span>⌓</span><span>0.10</span><span>A</span><span>B</span><span>C</span>
+    </div>
+    <p>The tolerance zone is fully constrained in space by A, B, and C. The surface must be flat, oriented to the datums, and located at the basic position relative to them — all within 0.10 mm. This is the configuration that replaces a stack of separate flatness + parallelism + perpendicularity + position call-outs on the same feature.</p>
+
+    <h2 id="allaround">All-around <em>and all-over</em> modifiers</h2>
+    <p>Two modifiers extend profile from a single surface to multiple:</p>
+    <ul>
+      <li><strong>All-around (circle on leader line).</strong> Applies the profile to every connected surface visible in the view. Used for 2D contours — sheet-metal cutout edges, stamped part outlines, casting outer profiles in one orthogonal view. The tolerance applies to the closed loop of surfaces as seen in that view, not to faces hidden behind it.</li>
+      <li><strong>All-over (double circle, ASME Y14.5-2018).</strong> Applies the profile to every surface of the 3D part, including hidden surfaces in any view. Used for complete-part contour control — typical on simple cast or molded parts where one tolerance bounds every surface, instead of dimensioning each face separately.</li>
+    </ul>
+    <p>Aerospace drawings use all-over profile heavily on cast brackets and molded composite parts. Automotive drawings use all-around for sheet-metal trim contours and stamped panel outlines.</p>
+
+    <h2 id="replaces">What profile <em>replaces</em></h2>
+    <p>With the right datum setup, profile of a surface can replace four other GD&amp;T call-outs simultaneously:</p>
+    <table>
+      <tr><th>If profile is</th><th>It replaces</th></tr>
+      <tr><td>⌓ 0.10 (no datum, planar surface)</td><td>Flatness ⏥ 0.10</td></tr>
+      <tr><td>⌓ 0.10 A (one datum, planar surface parallel to A)</td><td>Flatness ⏥ 0.10 + Parallelism ∥ 0.10 to A</td></tr>
+      <tr><td>⌓ 0.10 A (one datum, planar surface perpendicular to A)</td><td>Flatness ⏥ 0.10 + Perpendicularity ⟂ 0.10 to A</td></tr>
+      <tr><td>⌓ 0.10 A B C (three datums, planar surface at basic location)</td><td>Flatness + Parallelism/Perpendicularity + dimensional location ± 0.05</td></tr>
+      <tr><td>⌓ 0.10 (no datum, cylindrical surface)</td><td>Cylindricity ⌭ 0.10</td></tr>
+    </table>
+    <p>The decision rule on the design side: use the simpler symbol when only one aspect needs control. Use profile when multiple aspects need to be bounded simultaneously and individual call-outs would create allocation problems (e.g. an excessively tight stack of separate tolerances).</p>
+
+    <div class="callout">
+      <strong>The aerospace adoption pattern</strong>
+      Tier-1 aerospace OEMs like Boeing and Airbus increasingly issue drawings with profile of a surface controlling all critical features, even surfaces that would traditionally have used flatness + parallelism. The reason: it leaves no ambiguity about how the individual contributions should be allocated and inspected. Trade-off: every profile call-out requires CMM inspection with full datum setup. Surface-plate methods don't apply.
+    </div>
+
+    <h2 id="example">Worked <em>example</em>: a machined casting boss</h2>
+    <p>An aluminium die-cast bracket has a machined top boss that mates with a steel bearing housing. The drawing calls out the boss top face as <strong>⌓ 0.10 A B C</strong>, with datum A on the back face, B on the left edge, C on the bottom rim of the casting. The basic profile is a flat surface at basic height 25.0 mm above datum A.</p>
+    <p>The QA team inspects 50 brackets on a CMM. For each part:</p>
+    <ol>
+      <li>Align the part to A (primary), B (secondary), C (tertiary) using the CMM's datum-setup routine.</li>
+      <li>Scan the boss top face on a 5×5 grid of points (25 points across a ~40×40 mm surface).</li>
+      <li>Compute the deviation of each measured point from the basic surface (a plane at Z = 25.000 in the A-B-C frame).</li>
+      <li>Find the smallest pair of equally-disposed offset planes that contains all 25 points.</li>
+      <li>Report the total spread as the profile deviation. Pass if ≤ 0.10 mm.</li>
+    </ol>
+    <p>Sample result from one bracket: 25 points ranged from −0.038 to +0.041 (measured against the nominal Z = 25.000 in the A-B-C frame). Total spread = 0.079 mm. Pass.</p>
+    <p>This single 0.079 mm reading captures the surface's flatness, parallelism to A, perpendicularity to B and C, and dimensional location at Z = 25.000 — all in one number. Equivalent inspection with separate call-outs would have required four separate characteristic reports.</p>
+
+    <h2 id="composite">Composite <em>profile tolerance</em></h2>
+    <p>Like composite position, profile of a surface can be specified as two stacked feature control frames sharing the same ⌓ symbol — controlling the surface to a loose pattern-locating tolerance and a tighter form/orientation tolerance separately:</p>
+    <div class="fcf-mini">
+      <span>⌓</span><span>0.50</span><span>A B C</span>
+    </div>
+    <div class="fcf-mini">
+      <span>⌓</span><span>0.10</span><span>A</span>
+    </div>
+    <p>The upper FCF (PLTZF — Pattern-Locating Tolerance Zone Framework) controls overall location of the surface to A B C within 0.50 mm. The lower FCF (FRTZF — Feature-Relating Tolerance Zone Framework) constrains the surface to be within 0.10 mm form/orientation to A, regardless of where the whole surface sits within the 0.50 zone.</p>
+    <p>Practical effect on a casting: the machined surface can shift up to 0.50 mm relative to the cast datums (acceptable because casting datums themselves have ±0.3 mm variability), but the surface's own form and orientation must stay within 0.10 mm of correct. Tight where it matters, loose where it doesn't.</p>
+
+    <h2 id="measure">How profile is <em>measured</em></h2>
+    <p>Profile is a CMM-class measurement. Surface plates and dial indicators cannot reliably inspect profile because the tolerance is relative to a basic geometry that has to be reconstructed mathematically in the CMM software. Practical workflow:</p>
+    <ol>
+      <li><strong>Datum setup.</strong> Pick up datum A, B, C on the part in the order specified by the FCF. Build the CMM coordinate frame from the datums. This is the most error-prone step — wrong datum order produces wrong profile readings.</li>
+      <li><strong>Scan density.</strong> Aerospace surfaces: 1 point per 10 mm² for free-form surfaces, finer for sealing or precision profiles. Automotive sheet-metal contours: 100–200 points per metre of profile length.</li>
+      <li><strong>Reference to CAD or basic profile.</strong> The CMM software needs the CAD model (for free-form) or the basic dimensions (for analytic surfaces). Each measured point is projected normally onto the basic surface to find its deviation.</li>
+      <li><strong>Minimum-zone fit.</strong> The software computes the smallest pair of offset surfaces (for bilateral) or the unilateral envelope (for U-modifier) that contains all points. This is the profile deviation.</li>
+      <li><strong>Pass/fail.</strong> Compare to the tolerance value in the FCF.</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>The datum-order trap</strong>
+      Profile readings depend on the order of datum pickup. A surface inspected with B as primary instead of A will give a different deviation, even though both readings are technically "correct" given the setup. Auditors always verify that the inspection datum order matches the drawing's primary/secondary/tertiary sequence. If the FAI report shows different datum order, the report gets rejected even if the numbers look in-spec.
+    </div>
+
+    <h2 id="mistakes">The 6 <em>spec mistakes</em></h2>
+    <ol>
+      <li><strong>Using profile when flatness alone would suffice.</strong> A planar surface that only needs flatness control gets ⌓ 0.05 instead of ⏥ 0.05. The drawing is technically correct but forces CMM inspection where a surface plate would have worked. Inspection cost rises 5–10×.</li>
+      <li><strong>Missing the U modifier on sealing surfaces.</strong> Default bilateral profile allows the surface to dip below nominal. For O-ring seats, mating cones, and gasket-loaded faces, the engineer wanted unilateral with material on one side only — but forgot to add U. The surface passes profile and still leaks in service.</li>
+      <li><strong>Specifying all-around when all-over was meant.</strong> All-around applies to one view's outline only. Many drawings call out ⌓ 0.50 (all-around) on a casting and expect every external surface to be controlled — but the back faces of the part are not in the view, so they are not toleranced. Use all-over for full-part contour.</li>
+      <li><strong>Forgetting the basic dimensions.</strong> Profile requires basic dimensions to locate the basic profile. If the drawing has profile with no basic dimensions, the call-out is ambiguous and auditors will flag it. Every dimension defining the basic profile must be boxed.</li>
+      <li><strong>Inconsistent datum setup between FAI and production inspection.</strong> First Article Inspection uses datum order A→B→C correctly. Production inspection reuses an older inspection program that picks up datums in B→A→C order. Same parts measure differently. The shop has unexplained drift in profile numbers across shifts.</li>
+      <li><strong>Specifying profile for surfaces that flex.</strong> Sheet-metal cutouts and thin-walled castings can deflect during clamping for CMM inspection. A profile spec of 0.10 on a 0.8 mm sheet steel cutout is impractical — the part flexes more than the tolerance during the inspection itself. Either loosen the tolerance, use a soft-touch CMM probe, or switch to fixture-supported inspection.</li>
+    </ol>
+
+    <h2 id="iso">ASME <em>vs ISO</em></h2>
+    <p>ASME Y14.5 and ISO 1101 are mostly aligned on profile of a surface, with three differences worth knowing:</p>
+    <ul>
+      <li><strong>Default zone disposition.</strong> ASME defaults to bilateral (equal disposition). ISO 1101 also defaults to bilateral but uses an offset arrow or a CZ (Common Zone) modifier when the disposition is anything other than equal. Practical impact is minor for most drawings.</li>
+      <li><strong>All-around symbol.</strong> ASME uses a small open circle on the leader line. ISO uses a circle with a filled dot in earlier revisions and now aligns with ASME's open-circle symbol in the 2017 standard.</li>
+      <li><strong>Composite vs multi-FCF.</strong> ASME treats composite position and composite profile as a single specification with two FCFs. ISO 1101 uses a slightly different notation — a separate FCF stacked with no shared symbol — which can confuse inspectors switching between ASME and ISO drawings.</li>
+    </ul>
+
+    <h2>Profile in <em>FAI submissions</em></h2>
+    <p>On AS9102 Form 3, profile of a surface is one of the most-scrutinized characteristics for cast or forged parts. Auditors check three things: the basic dimensions are correctly listed, the datum order in the inspection report matches the FCF, and the inspection method column lists CMM (not surface plate). For the full Form 3 workflow including profile reporting see the <a href="../articles/as9102-form3.html">AS9102 Form 3 walkthrough</a>.</p>
+
+    <div class="callout">
+      <strong>Profile in your tolerance stack</strong>
+      Profile call-outs interact non-linearly with size tolerances and assembly stacks. For a machined boss controlled by ⌓ 0.10 A B C mating with a bored hole controlled by ⌖ ⌀0.10 Ⓜ A B C, the assembly clearance budget depends on both tolerances. The MetricMech <a href="../calculators/tolerance-stack.html">Tolerance Stack-Up Calculator</a> handles the contribution of profile tolerances in worst-case and RSS analyses.
+    </div>
+
+    <p>For the full GD&amp;T system including how profile interacts with the other 13 symbols, see the <a href="../gdt.html">GD&amp;T Symbol Reference</a>. Related deep-dives: <a href="flatness.html">flatness</a> (the simpler form-only analogue for planar surfaces) and <a href="position-tolerance.html">position tolerance</a> (the location-only analogue for hole patterns). Together those three pages cover most of what a working QA team needs to interpret on a modern aerospace or automotive drawing.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R.</div>
+        <div class="author-title">Mechanical Engineer · Plant operations · Founder, MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="flatness.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Flatness</a>
+      <a href="position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance</a>
+      <a href="../gdt.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">All 14 GD&amp;T Symbols</a>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Tolerance Stack-Up</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
