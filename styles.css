@@ -1204,3 +1204,365 @@ main, header, footer, section, article { position: relative; z-index: 2; }
   font-size: 12.5px;
   color: var(--mute, #7a7468);
 }
+
+/* =========================================================
+   PRINT STYLESHEET — for shop-floor printable references
+   Engineers print these tables and pin them to walls / toolboxes.
+   Goals:
+   - Hide all chrome (header, footer, CTAs, rails, breadcrumbs, embed widget)
+   - Black on white, decent contrast even with "background graphics off"
+   - Tables: repeat headers across pages, no breaks inside rows
+   - A4 portrait with sensible margins
+   - Show source URL at end so a printed sheet can be relocated online
+   ========================================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 16mm 12mm;
+  }
+
+  /* Body reset */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-family: 'Inter', Helvetica, Arial, sans-serif !important;
+    font-size: 10.5pt !important;
+    line-height: 1.42 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide all chrome and CTAs */
+  .grid-bg,
+  .site-header,
+  header.site-header,
+  .notice-bar,
+  .site-footer,
+  footer.site-footer,
+  [data-mw="footer"],
+  [data-mw="header"],
+  [data-mw="notice-bar"],
+  [data-mw="cn-big"], .cn-big-banner,
+  [data-mw="cn-sidebar"], .cn-promo-card,
+  [data-mw="cn-inline"], .cn-inline-banner,
+  .mm-rail, .mm-rail-left,
+  #mm-sticky-cta,
+  #mm-install-pill, .mm-install-pill, .mm-install-modal,
+  .mm-embed-widget, .mm-embed-attrib,
+  .breadcrumb, .page-header .breadcrumb,
+  .header-search, .mm-menu-toggle,
+  .art-toc, .art-aside,
+  .no-print,
+  .mm-share-btns {
+    display: none !important;
+  }
+
+  /* Layout reset to full page width */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .ref-layout,
+  .art-layout,
+  .art-content,
+  .trust-layout,
+  .ref-hub-section,
+  .gdt-section,
+  .std-section,
+  .tpl-section,
+  .calc-shell,
+  section.section {
+    max-width: 100% !important;
+    width: auto !important;
+    grid-template-columns: 1fr !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    display: block !important;
+  }
+
+  /* Typography */
+  h1, .page-title {
+    font-size: 20pt !important;
+    line-height: 1.15 !important;
+    margin: 0 0 6pt !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    page-break-after: avoid;
+  }
+  h2 {
+    font-size: 13pt !important;
+    line-height: 1.2 !important;
+    margin: 12pt 0 5pt !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  h3 {
+    font-size: 11.5pt !important;
+    line-height: 1.2 !important;
+    margin: 9pt 0 4pt !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    page-break-after: avoid;
+  }
+  h1 em, h2 em, h3 em, .page-title em {
+    color: #000 !important;
+    font-style: italic !important;
+    font-weight: inherit !important;
+  }
+  p, li {
+    font-size: 10.5pt !important;
+    line-height: 1.42 !important;
+    margin: 0 0 5pt !important;
+    color: #000 !important;
+    orphans: 3;
+    widows: 3;
+  }
+  p.lede, .page-lede {
+    font-size: 11.5pt !important;
+    font-weight: 500 !important;
+    margin-bottom: 8pt !important;
+    color: #000 !important;
+  }
+  ul, ol {
+    margin: 0 0 6pt 18pt !important;
+    padding: 0 !important;
+  }
+  li { margin-bottom: 3pt !important; }
+  strong { color: #000 !important; font-weight: 600 !important; }
+  a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+  /* Don't print URLs after every link — too noisy. Only show URLs at end. */
+
+  /* Meta strip (date, source, etc) */
+  .ref-meta, .art-meta-bar, .trust-meta {
+    border-top: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
+    padding: 3pt 0 !important;
+    margin: 4pt 0 8pt !important;
+    font-size: 8.5pt !important;
+    color: #222 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block !important;
+    page-break-inside: avoid;
+  }
+  .ref-meta span, .art-meta-bar span, .trust-meta span {
+    display: inline !important;
+    margin-right: 12pt;
+  }
+
+  /* Tables — the critical content for print */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 5pt 0 !important;
+    font-size: 9pt !important;
+    page-break-inside: auto !important;
+    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  }
+  thead { display: table-header-group !important; }
+  tfoot { display: table-footer-group !important; }
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+  th {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 4pt 6pt !important;
+    font-size: 8.5pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border: 0.5pt solid #000 !important;
+    text-align: center !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  th.size-col { text-align: left !important; }
+  td {
+    padding: 3pt 6pt !important;
+    border: 0.5pt solid #777 !important;
+    background: #fff !important;
+    color: #000 !important;
+    text-align: center !important;
+  }
+  td.size-col {
+    text-align: left !important;
+    font-weight: 600 !important;
+  }
+  tr:nth-child(even) td {
+    background: #f0f0f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .scroll-x { overflow: visible !important; }
+
+  /* Formula and callout boxes */
+  .formula-box {
+    background: #f4f4f4 !important;
+    color: #000 !important;
+    border: 0.5pt solid #000 !important;
+    padding: 6pt 10pt !important;
+    margin: 6pt 0 !important;
+    font-size: 11pt !important;
+    text-align: center !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .formula-box .label {
+    color: #555 !important;
+    font-size: 8pt !important;
+    margin-bottom: 4pt !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .callout, .warn-box, .savings-box {
+    background: #f8f8f8 !important;
+    border: 0.5pt solid #444 !important;
+    border-left: 2.5pt solid #000 !important;
+    padding: 6pt 10pt !important;
+    margin: 5pt 0 !important;
+    font-size: 9.5pt !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .callout strong, .warn-box strong, .savings-box strong {
+    color: #000 !important;
+    display: block;
+    margin-bottom: 3pt;
+    font-size: 10.5pt;
+  }
+  .warn-box {
+    border-left-color: #000 !important;
+    background: #fafafa !important;
+  }
+
+  /* Feature control frame mini boxes */
+  .fcf-mini {
+    border: 1pt solid #000 !important;
+    margin: 4pt 0 !important;
+    page-break-inside: avoid !important;
+    font-size: 10pt !important;
+  }
+  .fcf-mini span {
+    padding: 3pt 8pt !important;
+    border-right: 0.5pt solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Author card */
+  .author-card {
+    page-break-inside: avoid !important;
+    border: 0.5pt solid #888 !important;
+    background: #f8f8f8 !important;
+    padding: 6pt 10pt !important;
+    margin: 8pt 0 !important;
+    display: flex !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .author-avatar {
+    background: #000 !important;
+    color: #fff !important;
+    width: 32pt !important;
+    height: 32pt !important;
+    font-size: 12pt !important;
+  }
+  .author-name { font-size: 10.5pt !important; color: #000 !important; }
+  .author-title { font-size: 8.5pt !important; color: #444 !important; }
+
+  /* Hub-page grids — collapse to 2 columns and hide "Coming soon" cards */
+  .symbol-grid, .ref-grid, .std-grid-main, .tpl-grid, .mod-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6pt !important;
+    margin: 4pt 0 !important;
+  }
+  .sym-card, .ref-card, .std-card, .trust-card, .tpl-card, .mod-card {
+    border: 0.5pt solid #888 !important;
+    padding: 5pt 8pt !important;
+    page-break-inside: avoid !important;
+    background: #fff !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .sym-card-coming, .ref-card-coming, .tpl-card-coming { display: none !important; }
+  .ref-card h3, .sym-card .sym-name, .std-card h3 { font-size: 11pt !important; margin: 2pt 0 3pt !important; }
+  .ref-card p, .sym-card p, .std-card p { font-size: 9pt !important; margin: 0 0 3pt !important; }
+  .ref-tag, .std-tag, .sym-cat {
+    color: #555 !important;
+    font-size: 7.5pt !important;
+    letter-spacing: 0.1em;
+  }
+  .sym-icon {
+    background: #fff !important;
+    border: 1pt solid #000 !important;
+    color: #000 !important;
+  }
+
+  /* Category bands (dark headers in hub pages) */
+  .cat-band, .gdt-cat-band {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 4pt 8pt !important;
+    margin: 8pt 0 4pt !important;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .cat-band h2, .gdt-cat-band h2 { color: #fff !important; margin: 0 !important; font-size: 12pt !important; }
+  .cat-band-eyebrow, .gdt-cat-band .eyebrow { color: #ccc !important; font-size: 7.5pt !important; margin-bottom: 1pt !important; }
+
+  /* Hide the install / share floating buttons if any */
+  .mm-share-btn, .mm-install-btn { display: none !important; }
+
+  /* Page header tweaks */
+  .page-header {
+    margin: 0 0 4pt !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .page-lede { font-size: 11pt !important; margin: 0 0 6pt !important; }
+
+  /* Images and SVG scale */
+  img, svg, canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Force everything to use page-break-inside avoid for short content blocks */
+  .formula-box, .callout, .warn-box, .savings-box,
+  .author-card, .fcf-mini, .modifier-section {
+    break-inside: avoid;
+  }
+
+  /* Print footer: source URL appended to last page */
+  /* Use a generated content trick on body — works in most modern browsers */
+  body::after {
+    content: "Source: metricmech.com — free engineering reference. Printed " counter(page) " of " counter(pages) ".";
+    display: block;
+    margin-top: 18pt;
+    padding-top: 6pt;
+    border-top: 0.5pt solid #777;
+    font-size: 8pt;
+    color: #555;
+    text-align: center;
+    font-family: 'Inter', Helvetica, Arial, sans-serif;
+  }
+
+  /* Avoid printing the embed-mode body padding hack */
+  body.mm-embed-mode { padding-bottom: 0 !important; }
+}
