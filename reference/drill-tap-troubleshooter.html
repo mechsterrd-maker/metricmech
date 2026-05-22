@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Drill and Tap Failure Troubleshooter — Diagnose Tap Breakage, Oversize Threads, Chip Welding | MetricMech</title>
+<meta name="description" content="Free interactive troubleshooter for drilling and tapping failures. Diagnose tap breakage, oversize/undersize threads, chip welding, drill wandering, hole oversize, galling, double threading. Material-specific fixes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ts-layout { max-width: 880px; margin: 0 auto; padding: 32px; }
+.ts-stage { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 28px; }
+.ts-step-num { font-family: var(--mono); font-size: 11px; color: var(--blueprint); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px; }
+.ts-question { font-family: var(--display); font-size: 24px; font-weight: 600; line-height: 1.2; margin-bottom: 18px; }
+.ts-question em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ts-options { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .ts-options { grid-template-columns: 1fr; } }
+.ts-option { display: block; padding: 16px 18px; background: var(--paper); border: 1px solid var(--rule-strong, #ccc); border-radius: var(--rad); cursor: pointer; transition: all 0.15s; text-align: left; font-family: var(--body); font-size: 15px; color: var(--ink); font-weight: 500; }
+.ts-option:hover { border-color: var(--ink); transform: translate(-2px, -2px); box-shadow: 3px 3px 0 var(--ink); }
+.ts-option .ts-option-sub { display: block; font-size: 12px; color: var(--mute); font-weight: 400; margin-top: 4px; }
+.ts-back { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--paper); color: var(--ink-2); border: 1px solid var(--rule); border-radius: var(--rad); font-family: var(--mono); font-size: 11px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 18px; font-weight: 600; }
+.ts-back:hover { background: var(--ink); color: var(--paper); }
+.ts-trail { display: flex; gap: 8px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--mute); margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.08em; flex-wrap: wrap; }
+.ts-trail .trail-sep { color: var(--rule); }
+.ts-trail .trail-item { color: var(--ink-2); }
+.ts-result { background: var(--paper); border: 1px solid var(--ink); border-radius: var(--rad-lg); padding: 24px; margin-top: 8px; }
+.ts-diagnosis-tag { display: inline-block; background: var(--blueprint); color: white; padding: 5px 12px; border-radius: 20px; font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+.ts-diagnosis-title { font-family: var(--display); font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+.ts-diagnosis-title em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ts-causes-block { margin: 16px 0; }
+.ts-causes-block h4 { font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 700; }
+.ts-cause-list { padding-left: 20px; margin: 0; }
+.ts-cause-list li { font-size: 15px; line-height: 1.55; margin-bottom: 6px; color: var(--ink-2); }
+.ts-cause-list strong { color: var(--ink); }
+.ts-fix-block { margin: 16px 0; padding: 16px 18px; background: rgba(46,125,50,0.06); border: 1px solid #2E7D32; border-left: 3px solid #2E7D32; border-radius: var(--rad); }
+.ts-fix-block h4 { font-family: var(--mono); font-size: 11px; color: #2E7D32; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; font-weight: 700; }
+.ts-fix-list { padding-left: 20px; margin: 0; }
+.ts-fix-list li { font-size: 15px; line-height: 1.55; margin-bottom: 6px; color: var(--ink); }
+.ts-fix-list strong { color: var(--ink); }
+.ts-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.ts-restart-btn { background: var(--ink); color: var(--paper); padding: 10px 18px; font-family: var(--body); font-size: 13px; font-weight: 600; border: 1px solid var(--ink); border-radius: var(--rad); cursor: pointer; }
+.ts-restart-btn:hover { background: var(--paper); color: var(--ink); }
+.ts-link-btn { background: var(--paper); color: var(--ink); padding: 10px 18px; font-family: var(--body); font-size: 13px; font-weight: 600; border: 1px solid var(--ink); border-radius: var(--rad); cursor: pointer; text-decoration: none; display: inline-block; }
+.ts-link-btn:hover { background: var(--ink); color: var(--paper); text-decoration: none; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference/drill-tap-troubleshooter">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Drill and Tap Failure Troubleshooter — Diagnose Tap Breakage, Oversize Threads, Chip Welding">
+<meta property="og:description" content="Free interactive troubleshooter for drilling and tapping failures. Material-specific root-cause analysis and fixes.">
+<meta property="og:url" content="https://metricmech.com/reference/drill-tap-troubleshooter">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Drill and Tap Failure Troubleshooter",
+  "description": "Free interactive troubleshooter for drilling and tapping failures. Diagnose tap breakage, oversize/undersize threads, chip welding, drill wandering, hole oversize, galling, double threading. Material-specific fixes.",
+  "url": "https://metricmech.com/reference/drill-tap-troubleshooter",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../reference.html">Reference</a><span class="sep">/</span>Drill/Tap Troubleshooter</div>
+  <h1 class="page-title">Drill and tap failure <em>troubleshooter.</em></h1>
+  <p class="page-lede">Tap broke? Threads measured oversize? Chip welding on stainless? Walk through symptom → context → diagnosis. Each terminal node gives causes plus concrete shop-floor fixes for the most common drilling and tapping failure modes.</p>
+</div>
+
+<div class="ts-layout">
+
+  <div class="ts-stage" id="tsStage">
+    <!-- Content rendered by JS -->
+  </div>
+
+  <p style="font-size: 13px; color: var(--mute); margin-top: 16px; text-align: center;">
+    Built from observation across hundreds of Tier-2 machine shops in India. For specific tap drill sizes by thread, see the <a href="drill-size-chart.html">drill size chart</a>. For thread engagement math, the <a href="../calculators/thread-pitch.html">thread pitch calculator</a>.
+  </p>
+
+</div>
+
+<!-- SEO content block -->
+<div style="max-width: 880px; margin: 32px auto; padding: 0 32px;">
+  <h2 style="font-family: var(--display); font-size: 26px; font-weight: 600; margin: 24px 0 12px;">How to use <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">this troubleshooter</em></h2>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Pick the symptom you're observing. The troubleshooter asks 1–2 follow-up questions to narrow the root cause (usually material type, where on the cycle the failure occurred, or the inspection result that flagged it). The terminal node gives 2–4 most-likely causes and a matching list of fixes ranked from cheapest (re-grind, change parameter) to most-involved (change tap geometry, change workholding).
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    The 8 symptom categories cover the failures that account for over 90% of drilling/tapping problems on a typical CNC shop floor: tap breakage, oversize threads (Go gauge enters but No-Go also enters), undersize threads (Go gauge won't enter), double threading, chip welding/galling, rough finish on threads, drill wandering, and hole oversize. Material-specific fixes are surfaced for stainless steel, aluminium, mild steel, hardened steel, and brass — the five families that account for nearly all everyday Indian shop work.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    For deeper reference on tap drill sizes and thread engagement, see the <a href="drill-size-chart.html">drill size chart</a> and the <a href="../calculators/thread-pitch.html">thread pitch calculator</a>. For bolt-side specifications (torque, grade, lubrication), the <a href="bolt-torque-chart.html">bolt torque chart</a>.
+  </p>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+
+<script>
+// =================================================================
+// Decision tree for drill/tap failure troubleshooting.
+// Each node is either a question (with options) or a leaf (diagnosis).
+// =================================================================
+const TREE = {
+  root: {
+    type: 'question',
+    title: 'What problem are you seeing?',
+    options: [
+      { label: 'Tap broke', sub: 'Snapped during tapping', goto: 'tap_broke' },
+      { label: 'Oversize threads', sub: 'No-Go gauge enters', goto: 'oversize_threads' },
+      { label: 'Undersize threads', sub: 'Go gauge won\'t enter', goto: 'undersize_threads' },
+      { label: 'Chip welding / galling', sub: 'Material sticks to tap or drill', goto: 'chip_welding' },
+      { label: 'Rough finish on threads', sub: 'Visible tear, surface roughness', goto: 'rough_threads' },
+      { label: 'Double threading', sub: 'Two thread starts cut on the same hole', goto: 'double_thread' },
+      { label: 'Drill wandered / hole off-position', sub: 'Drill walked from spot location', goto: 'drill_wander' },
+      { label: 'Hole oversize', sub: 'Hole diameter exceeds tolerance', goto: 'hole_oversize' }
+    ]
+  },
+
+  tap_broke: {
+    type: 'question',
+    title: 'Where in the cycle did the tap break?',
+    options: [
+      { label: 'On entry — before threads cut', goto: 'tap_broke_entry' },
+      { label: 'Mid-tap — partway down the hole', goto: 'tap_broke_middle' },
+      { label: 'At the bottom — blind hole', goto: 'tap_broke_bottom' }
+    ]
+  },
+  tap_broke_entry: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Tap broke on <em>entry</em>',
+    causes: [
+      '<strong>Tap misalignment</strong> — tap axis not parallel to hole axis, side-load snaps the tap.',
+      '<strong>Hole too small</strong> — tap drill undersized, cutting force exceeds tap shank torque limit.',
+      '<strong>No chamfer / lead</strong> — tap point bottoms against the hole edge instead of entering smoothly.',
+      '<strong>Work-hardened surface</strong> — drilled hole left a thin hardened skin that exceeds tap capability.'
+    ],
+    fixes: [
+      '<strong>Switch to rigid tapping</strong> (CNC spindle-synchronized) so the tap is positively aligned to the hole axis. Single-point alignment fails for hard materials.',
+      '<strong>Verify tap drill size</strong> against the drill size chart — for M8 × 1.25 coarse, the drill is 6.8 mm. Smaller hole = more torque = broken tap.',
+      '<strong>Chamfer the hole 45° × 1 mm</strong> before tapping — guides the tap point and removes the work-hardened skin.',
+      '<strong>Use a 2.5-flute lead tap</strong> for the first pass in tough materials. The longer lead reduces engagement during the first turn.'
+    ]
+  },
+  tap_broke_middle: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Tap broke <em>mid-hole</em>',
+    causes: [
+      '<strong>Chip clogging</strong> — chips have nowhere to escape, packed flutes grab the tap and snap it.',
+      '<strong>No coolant penetration</strong> — heat builds, tap hardens, breaks under normal cutting force.',
+      '<strong>Wrong tap geometry for material</strong> — straight-flute tap in stainless creates long stringy chips that pack the flutes.',
+      '<strong>Tap dulled from previous use</strong> — cutting force rose 2–3× over the original sharp tap.'
+    ],
+    fixes: [
+      '<strong>Switch to a spiral-flute tap</strong> for blind holes (pulls chips up and out) or a <strong>spiral-point (gun) tap</strong> for through-holes (pushes chips ahead and out the bottom).',
+      '<strong>Use peck cycle</strong> — retract every 1–2 turns to clear chips, then re-engage. Add ~30% to cycle time but eliminates packing.',
+      '<strong>Increase coolant flow</strong> and switch to a high-EP (extreme pressure) cutting oil for stainless and hard steels.',
+      '<strong>Replace dulled taps proactively</strong> — track tap life by part count, replace at 80% of expected life rather than waiting for breakage.'
+    ]
+  },
+  tap_broke_bottom: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Tap broke at the <em>blind-hole bottom</em>',
+    causes: [
+      '<strong>Bottoming tap hit the closed end</strong> — bottoming taps have very short lead and cannot recover from over-travel.',
+      '<strong>Tap drill not deep enough</strong> — needs at least 1.5× thread depth of extra room for chips.',
+      '<strong>Chip accumulation at hole bottom</strong> — chips pack at the closed end, tap pushes through them and stalls.',
+      '<strong>CNC depth programmed too aggressive</strong> — tapping cycle reached programmed depth, then could not retract synchronously.'
+    ],
+    fixes: [
+      '<strong>Drill deeper</strong> — tap drill should be at least 1.5–2× thread depth deeper than the deepest thread. For a 10 mm deep M6 thread, drill 15–20 mm deep.',
+      '<strong>Use a plug tap first</strong> (5-flute lead) to thread most of the depth, then a bottoming tap only for the last 1–2 turns.',
+      '<strong>Peck-tap with retract</strong> — withdraw every 2 turns, blow out chips with air, re-enter.',
+      '<strong>Add a safety stop above the bottom</strong> in the CNC program — leave 0.5–1 mm of unthreaded depth at the bottom rather than threading to the floor.'
+    ]
+  },
+
+  oversize_threads: {
+    type: 'question',
+    title: 'What material are you tapping?',
+    options: [
+      { label: 'Hard steel (HRC > 35)', goto: 'oversize_hard' },
+      { label: 'Mild steel', goto: 'oversize_mild' },
+      { label: 'Stainless steel', goto: 'oversize_stainless' },
+      { label: 'Aluminium / brass / soft', goto: 'oversize_soft' }
+    ]
+  },
+  oversize_hard: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Oversize threads in <em>hard steel</em>',
+    causes: [
+      '<strong>Tap chatter</strong> — insufficient rigidity in workholding or spindle, tap vibrates and cuts oversize.',
+      '<strong>Tap wear</strong> — worn cutting edges enlarge the thread profile over a production run.',
+      '<strong>Wrong tap class</strong> — using a 6H tap when 6G is specified produces threads on the upper limit.',
+      '<strong>Coolant flooding the cutting zone</strong> — hydraulic pressure pushes tap off-axis.'
+    ],
+    fixes: [
+      '<strong>Rigid-tapping mode</strong> on the CNC (positively synchronized) instead of floating tap holder.',
+      '<strong>Reduce cutting speed by 30%</strong> — for HRC 40+ steel, surface speed should be 5–8 m/min not 15–20.',
+      '<strong>Switch to a ground-thread tap with TiCN coating</strong> — maintains size 3–5× longer than uncoated taps in hard material.',
+      '<strong>Verify tap class</strong> matches the drawing — class 6H gives standard fit, 6G gives a tighter (closer-to-nominal) thread.'
+    ]
+  },
+  oversize_mild: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Oversize threads in <em>mild steel</em>',
+    causes: [
+      '<strong>Tap reground or worn</strong> — cutting edges no longer at original profile.',
+      '<strong>Soft workholding</strong> — vise jaws or fixture flex during tapping, off-axis cut.',
+      '<strong>Lubricant film too thick</strong> — heavy cutting oil leaves a film that adds to the cut size.',
+      '<strong>Wrong tap class for the drawing</strong>.'
+    ],
+    fixes: [
+      '<strong>Replace the tap</strong> rather than re-grinding — original geometry is rarely recoverable.',
+      '<strong>Use a thinner cutting fluid</strong> — water-soluble emulsion at 5–10% instead of straight oil.',
+      '<strong>Stiffen the setup</strong> — hard jaws, tighter clamp force, vibration damping in the vise.',
+      '<strong>Verify the tap class</strong> — 6H is standard. If you need tighter, the spec might call for 4H or 5H.'
+    ]
+  },
+  oversize_stainless: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Oversize threads in <em>stainless steel</em>',
+    causes: [
+      '<strong>Material smearing under cutting edge</strong> — work-hardens before the next flute reaches it.',
+      '<strong>Tap pickup</strong> — material welds to the cutting edge, effectively enlarging the tap.',
+      '<strong>Wrong tap geometry</strong> — standard tap geometry tears stainless rather than cutting cleanly.'
+    ],
+    fixes: [
+      '<strong>Switch to a stainless-specific tap</strong> — typically with 15° rake angle, TiN or TiAlN coating, and a higher hook angle.',
+      '<strong>Use a heavy-duty cutting oil</strong> with EP and anti-galling additives — straight sulfochlorinated oil works best.',
+      '<strong>Slow the cutting speed</strong> — 4–7 m/min for 304/316 stainless. Going faster generates heat that work-hardens the surface ahead of the cut.',
+      '<strong>Don\'t dwell at depth</strong> — reverse the tap as soon as final depth is reached; dwelling allows material to spring back and grab the cutting edges.'
+    ]
+  },
+  oversize_soft: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: 'Oversize threads in <em>aluminium or brass</em>',
+    causes: [
+      '<strong>Tap pulled material</strong> — aluminium loads onto cutting edges, tearing the thread larger than the cut.',
+      '<strong>Cutting speed too high</strong> — surface burnishes rather than cuts, enlarging the hole.',
+      '<strong>Aluminium tap not used</strong> — standard steel-cutting taps are wrong for aluminium.'
+    ],
+    fixes: [
+      '<strong>Use an aluminium-specific spiral-flute tap</strong> — designed with a steeper helix and polished flutes to evacuate the soft chips cleanly.',
+      '<strong>Use a paste or wax lubricant</strong> for aluminium — straight oil tends to flood and cause loading.',
+      '<strong>Slow down to 15–25 m/min</strong> — high speed in aluminium burnishes the surface rather than cutting clean threads.'
+    ]
+  },
+
+  undersize_threads: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Undersize</em> threads',
+    causes: [
+      '<strong>Tap drill undersized</strong> — wrong drill chosen, threads cut too tall (more material engagement).',
+      '<strong>Work-hardened pilot hole</strong> — drilling at the wrong feed left a hardened skin that didn\'t fully cut.',
+      '<strong>Tap depth insufficient</strong> — tapping stopped before reaching the full thread depth.',
+      '<strong>Tap broke and was reversed before completing</strong> — partial threads measure short.'
+    ],
+    fixes: [
+      '<strong>Verify tap drill against the drill size chart</strong> — M6 × 1.0 takes a 5.0 mm tap drill, not 4.8 mm.',
+      '<strong>Use the correct feed/speed for the drill</strong> — too-light feed work-hardens many materials.',
+      '<strong>Re-tap with the same tap</strong> if the original tap is still good — chase the threads to full depth.',
+      '<strong>Inspect with a thread plug gauge</strong> — go AND no-go — to confirm whether the threads are actually undersize or just inconsistently cut.'
+    ]
+  },
+
+  chip_welding: {
+    type: 'question',
+    title: 'What material are you cutting?',
+    options: [
+      { label: 'Stainless steel', goto: 'chip_stainless' },
+      { label: 'Aluminium', goto: 'chip_alum' },
+      { label: 'Mild steel', goto: 'chip_mild' },
+      { label: 'Hardened steel', goto: 'chip_hard' }
+    ]
+  },
+  chip_stainless: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Chip welding</em> in stainless steel',
+    causes: [
+      '<strong>Stainless work-hardens under heat</strong> — chips weld to the tool then break off taking material with them.',
+      '<strong>Wrong coolant — water-only flooding</strong> dilutes the cutting oil and lets the surface harden ahead of the cut.',
+      '<strong>Speed too high</strong> — frictional heat exceeds the lubricant\'s film strength.'
+    ],
+    fixes: [
+      '<strong>Use straight sulfochlorinated cutting oil</strong> — flood, not mist. The S and Cl additives form a sacrificial film at high pressure.',
+      '<strong>Slow down to 4–7 m/min surface speed</strong> for 304/316. Above ~10 m/min, work-hardening dominates.',
+      '<strong>Use a TiN or TiAlN coated tool</strong> — coating reduces friction and prevents stainless from sticking.',
+      '<strong>Increase chip load slightly</strong> — paradoxically, too-light a chip allows the tool to rub instead of cut, creating heat.'
+    ]
+  },
+  chip_alum: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Chip welding</em> in aluminium',
+    causes: [
+      '<strong>Long stringy chips wrap around the tool</strong> and weld due to local heat from friction.',
+      '<strong>Tool not polished</strong> — aluminium sticks to rough flute surfaces.',
+      '<strong>Insufficient lubrication</strong> — aluminium has very high coefficient of friction without a barrier.'
+    ],
+    fixes: [
+      '<strong>Switch to a polished-flute tool with steep helix</strong> (40–45°) specifically designed for aluminium. Standard 30° helix tools weld badly in aluminium.',
+      '<strong>Use a wax or paste lubricant</strong> — applied to the tool before cutting. Tap Magic or RapidTap work well.',
+      '<strong>Peck cycle with full retraction</strong> — break chips into manageable lengths every 1–2 mm of travel.',
+      '<strong>Avoid water-based coolant for aluminium</strong> — straight oil or compressed-air-with-mist works better.'
+    ]
+  },
+  chip_mild: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Chip welding</em> in mild steel',
+    causes: [
+      '<strong>Insufficient coolant flow</strong> — heat builds and chips fuse to the tool.',
+      '<strong>Dull tool</strong> — rubbing rather than cutting generates excessive heat.',
+      '<strong>Cutting speed too high for the operation</strong>.'
+    ],
+    fixes: [
+      '<strong>Increase coolant flow to flood</strong> — 5–10% emulsion at high volume, directed at the cutting zone.',
+      '<strong>Sharpen or replace the tool</strong>.',
+      '<strong>Reduce speed by 20–30%</strong> — for 1018 carbon steel, surface speed 25–35 m/min for HSS taps.'
+    ]
+  },
+  chip_hard: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Chip welding</em> in hardened steel',
+    causes: [
+      '<strong>HSS or uncoated carbide insufficient</strong> for HRC > 50 material.',
+      '<strong>Heat at the cutting edge exceeds tool tempering temperature</strong> — edge softens, material welds.',
+      '<strong>No coolant at the cutting zone</strong>.'
+    ],
+    fixes: [
+      '<strong>Switch to TiAlN coated carbide tools</strong> — hot hardness extends usable cutting speed in hard steel.',
+      '<strong>Use through-coolant tooling</strong> — flood at the cutting edge, not just external.',
+      '<strong>Slow down further</strong> — for HRC 55, surface speed for HSS is 2–4 m/min, carbide 8–12 m/min.'
+    ]
+  },
+
+  rough_threads: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Rough finish</em> on tapped threads',
+    causes: [
+      '<strong>Tap dulled</strong> — torn rather than cut threads.',
+      '<strong>Wrong tap geometry for material</strong> — straight-flute tap in soft material tears the thread surface.',
+      '<strong>Insufficient lubrication</strong> — cutting edge skips and grabs.',
+      '<strong>Cutting speed too high</strong> — burnishing rather than cutting.'
+    ],
+    fixes: [
+      '<strong>Replace the tap</strong> — sharp tools cut clean threads.',
+      '<strong>Match tap geometry to material</strong> — spiral flute for blind holes in soft material, spiral point for through-holes, straight flute for cast iron only.',
+      '<strong>Improve lubrication</strong> — for stainless use sulfochlorinated oil; for aluminium use wax or specialty paste.',
+      '<strong>Slow down 20–30%</strong> if all else fails.'
+    ]
+  },
+
+  double_thread: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Double threading</em> on the same hole',
+    causes: [
+      '<strong>Tap re-entered already-cut threads at a different index</strong> — typically when manual tapping is restarted partway through.',
+      '<strong>Tap holder not self-aligning</strong> — tap drifted slightly during withdrawal then re-entered off-axis.',
+      '<strong>Non-rigid tapping cycle</strong> — spindle and feed not synchronized, tap walks the threads.'
+    ],
+    fixes: [
+      '<strong>Use CNC rigid tapping</strong> exclusively for production. Spindle synchronized to Z-axis feed; no possibility of indexing drift.',
+      '<strong>Never restart a manual tap</strong> — if a tap is removed mid-cycle, drill out the hole and re-thread fresh.',
+      '<strong>Use a self-aligning tap holder</strong> for non-rigid setups — float-type holders compensate for small misalignment.'
+    ]
+  },
+
+  drill_wander: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Drill wandered</em> off position',
+    causes: [
+      '<strong>Drill point ground asymmetric</strong> — unequal cutting forces push the drill sideways.',
+      '<strong>No spot drill or center drill</strong> — the drill is not located before plunging.',
+      '<strong>Loose or worn drill chuck</strong> — runout deflects the drill at entry.',
+      '<strong>Workpiece not flat at the drill point</strong> — the angled surface deflects the drill.'
+    ],
+    fixes: [
+      '<strong>Spot drill first</strong> — 90° spot drill 0.5–1 mm deep to locate the hole before the full drill enters.',
+      '<strong>Re-grind the drill</strong> with equal lip lengths and 118° (steel) or 135° (stainless, hard) included angle.',
+      '<strong>Check chuck runout</strong> — replace if above 0.05 mm. Worn collet chucks are a common cause.',
+      '<strong>Flatten the entry surface</strong> with a facing pass before drilling on cast or forged surfaces.',
+      '<strong>Use a stub-length drill</strong> for tighter position — long drills deflect more easily.'
+    ]
+  },
+
+  hole_oversize: {
+    type: 'leaf',
+    tag: 'Diagnosis',
+    title: '<em>Hole measured oversize</em>',
+    causes: [
+      '<strong>Drill runout</strong> — drill axis is not coincident with spindle axis; cuts an enlarged hole.',
+      '<strong>Drill point asymmetric</strong> — unequal cutting lips swing the drill in a circle, enlarging the hole.',
+      '<strong>Excessive feed</strong> — drill flexes laterally under high feed force.',
+      '<strong>Worn or dulled drill</strong> — cuts wider than nominal due to edge breakdown.'
+    ],
+    fixes: [
+      '<strong>Switch to reaming</strong> for holes that need to meet tight tolerance — drill 0.2 mm undersize, then ream to nominal.',
+      '<strong>Check spindle and chuck runout</strong> — fix or replace anything over 0.02 mm TIR for precision work.',
+      '<strong>Re-grind the drill</strong> on a competent drill grinder; symmetric lip lengths are critical.',
+      '<strong>Reduce feed</strong> — 0.1 mm/rev for a 10 mm drill in mild steel; less for harder materials.',
+      '<strong>Use a piloted drill</strong> for deep holes — the pilot section keeps the drill on axis.'
+    ]
+  }
+};
+
+// =================================================================
+// State + render
+// =================================================================
+const state = {
+  current: 'root',
+  history: [] // stack of node keys
+};
+
+function render() {
+  const node = TREE[state.current];
+  const stage = document.getElementById('tsStage');
+
+  // Breadcrumb trail
+  let trail = '<div class="ts-trail">';
+  if (state.history.length > 0) {
+    trail += `<button class="ts-back" onclick="goBack()">← Back</button>`;
+  }
+  trail += '<span class="trail-item">Start</span>';
+  state.history.forEach((h, i) => {
+    const n = TREE[h];
+    const title = (n.title || '').replace(/<[^>]*>/g, '').slice(0, 35);
+    trail += ` <span class="trail-sep">›</span> <span class="trail-item">${title}</span>`;
+  });
+  trail += '</div>';
+
+  if (node.type === 'question') {
+    stage.innerHTML = `
+      ${trail}
+      <div class="ts-step-num">Step ${state.history.length + 1}</div>
+      <h2 class="ts-question">${node.title}</h2>
+      <div class="ts-options">
+        ${node.options.map(opt => `
+          <button class="ts-option" onclick="navigate('${opt.goto}')">${opt.label}
+            ${opt.sub ? `<span class="ts-option-sub">${opt.sub}</span>` : ''}
+          </button>
+        `).join('')}
+      </div>
+    `;
+  } else if (node.type === 'leaf') {
+    stage.innerHTML = `
+      ${trail}
+      <div class="ts-result">
+        <span class="ts-diagnosis-tag">${node.tag || 'Diagnosis'}</span>
+        <h2 class="ts-diagnosis-title">${node.title}</h2>
+        <div class="ts-causes-block">
+          <h4>Likely causes</h4>
+          <ul class="ts-cause-list">${node.causes.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+        <div class="ts-fix-block">
+          <h4>Fixes (ranked easy → involved)</h4>
+          <ul class="ts-fix-list">${node.fixes.map(f => `<li>${f}</li>`).join('')}</ul>
+        </div>
+        <div class="ts-actions">
+          <button class="ts-restart-btn" onclick="restart()">Start over</button>
+          <a class="ts-link-btn" href="drill-size-chart.html">Drill size chart →</a>
+          <a class="ts-link-btn" href="../calculators/thread-pitch.html">Thread pitch calculator →</a>
+        </div>
+      </div>
+    `;
+    // GA4 event: diagnosis reached
+    if (typeof gtag === 'function') {
+      gtag('event', 'troubleshooter_diagnosis', { node: state.current });
+    }
+  }
+}
+
+function navigate(target) {
+  state.history.push(state.current);
+  state.current = target;
+  render();
+  // GA4 event: navigation
+  if (typeof gtag === 'function') {
+    gtag('event', 'troubleshooter_step', { step: target });
+  }
+}
+
+function goBack() {
+  if (state.history.length === 0) return;
+  state.current = state.history.pop();
+  render();
+}
+
+function restart() {
+  state.current = 'root';
+  state.history = [];
+  render();
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', render);
+</script>
+
+<script src="../site.js"></script>
+</body>
+</html>
