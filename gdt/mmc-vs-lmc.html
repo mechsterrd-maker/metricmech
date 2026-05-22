@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MMC vs LMC in GD&T: When to Use Each Modifier (With Bonus Tolerance Examples) | MetricMech</title>
+<meta name="description" content="MMC vs LMC GD&T modifier comparison. Maximum Material Condition gives bonus when feature grows above MMC; LMC when feature shrinks below LMC. Side-by-side table, when to use which, common mistakes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ref-layout { max-width: 880px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 28px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 9px 10px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout td { padding: 8px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); vertical-align: top; }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 16px 22px; margin: 16px 0; font-family: var(--mono); font-size: 15px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 8px; }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+@media (max-width: 700px) { .split-grid { grid-template-columns: 1fr; } }
+.split-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 18px 22px; }
+.split-card h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.split-card .modifier { font-family: var(--mono); font-size: 30px; color: var(--blueprint); font-weight: 700; line-height: 1; margin-bottom: 6px; }
+.split-card p { font-size: 14px; margin-bottom: 8px; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/gdt/mmc-vs-lmc">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="MMC vs LMC in GD&T: When to Use Each Modifier | MetricMech">
+<meta property="og:description" content="MMC vs LMC GD&T modifier comparison. Side-by-side table, when to use which, common mistakes.">
+<meta property="og:url" content="https://metricmech.com/gdt/mmc-vs-lmc">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "MMC vs LMC in GD&T: When to Use Each Modifier (With Bonus Tolerance Examples)",
+  "description": "Side-by-side comparison of Maximum Material Condition and Least Material Condition GD&T modifiers. Bonus tolerance behavior, when to use which, common spec mistakes.",
+  "url": "https://metricmech.com/gdt/mmc-vs-lmc",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": { "@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" } },
+  "mainEntityOfPage": "https://metricmech.com/gdt/mmc-vs-lmc",
+  "about": { "@type": "Thing", "name": "ASME Y14.5 material condition modifiers" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between MMC and LMC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "MMC (Maximum Material Condition) is the size where the feature has the most material — smallest hole or largest shaft. LMC (Least Material Condition) is the opposite — largest hole or smallest shaft. The MMC modifier (Ⓜ) grants bonus tolerance as the feature deviates AWAY from MMC. The LMC modifier (Ⓛ) grants bonus tolerance as the feature deviates AWAY from LMC. MMC is used when assembly fit is the design intent. LMC is used when wall thickness or minimum material is the controlling factor." }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use MMC instead of LMC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use MMC when assembly fit is the design intent — bolt holes, dowel locations, mating pin clearances, any feature where the worst-case worry is the hole being too small to fit the bolt. Use LMC when wall thickness, minimum material, or breakthrough risk is the controlling factor — holes near thin edges in castings, cooling passages where wall is critical, alignment holes near the edge of a part. The rule of thumb: MMC for assembly, LMC for material strength." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use MMC and LMC on the same feature?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Not on the same characteristic in the same feature control frame. A single position tolerance gets either Ⓜ or Ⓛ or neither (RFS). But a single feature can have multiple feature control frames stacked — for example a hole could have position tolerance at MMC plus a separate concentricity check at LMC. This is rare in practice; most features need only one material-condition modifier or none at all." }
+    },
+    {
+      "@type": "Question",
+      "name": "What does Ⓢ (RFS) mean compared to MMC and LMC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "RFS (Regardless of Feature Size) is the default condition in ASME Y14.5-2018. No bonus tolerance is granted regardless of how the feature is produced within its size limits. The Ⓢ symbol is no longer required in the 2018 standard — absence of Ⓜ or Ⓛ implies RFS. Use RFS when the function requires the same positional control whether the feature is at MMC or LMC — for example, a dowel pin hole on an optical alignment fixture must be in the right location absolutely, not relatively to the dowel size." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="gdt" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../gdt.html">GD&amp;T</a><span class="sep">/</span>MMC vs LMC</div>
+</div>
+
+<div class="ref-layout">
+  <h1>MMC vs LMC: <em>when to use each modifier.</em></h1>
+  <div class="ref-meta">
+    <span>GD&amp;T · ASME Y14.5</span>
+    <span>Material Condition Modifiers</span>
+    <span>Updated May 2026</span>
+  </div>
+
+  <p class="lede">MMC and LMC are GD&amp;T material-condition modifiers. They sound like opposites — and they are — but they solve different problems. MMC protects assembly fit. LMC protects material thickness. Picking the wrong one wastes parts or breaks function. This page covers both with side-by-side examples.</p>
+
+  <h2>The two <em>modifiers, side-by-side</em></h2>
+  <div class="split-grid">
+    <div class="split-card">
+      <div class="modifier">Ⓜ</div>
+      <h3>MMC — Maximum Material Condition</h3>
+      <p>The size at which the feature has the <strong>most material</strong>: smallest hole, largest shaft, largest pin.</p>
+      <p><strong>Bonus rule:</strong> as the feature deviates away from MMC, that deviation becomes additional positional tolerance.</p>
+      <p><strong>Design intent:</strong> assembly fit. As hole grows above MMC, more clearance — so positional control can be looser.</p>
+    </div>
+    <div class="split-card">
+      <div class="modifier">Ⓛ</div>
+      <h3>LMC — Least Material Condition</h3>
+      <p>The size at which the feature has the <strong>least material</strong>: largest hole, smallest shaft, smallest pin.</p>
+      <p><strong>Bonus rule:</strong> as the feature deviates away from LMC, that deviation becomes additional positional tolerance.</p>
+      <p><strong>Design intent:</strong> minimum-material protection. As hole shrinks below LMC, more material remains — so positional control can be looser without breaking the wall.</p>
+    </div>
+  </div>
+
+  <h2>Bonus tolerance <em>math</em></h2>
+  <p>Both modifiers work the same way mathematically, just measuring deviation from opposite ends of the size band.</p>
+  <div class="formula-box">
+    <div class="label">MMC bonus</div>
+    Bonus = |Actual Size − MMC Size|
+  </div>
+  <div class="formula-box">
+    <div class="label">LMC bonus</div>
+    Bonus = |LMC Size − Actual Size|
+  </div>
+  <p>Total allowed position equals the stated tolerance plus the bonus. Pass if measured position deviation ≤ total allowed.</p>
+
+  <h2>Worked <em>comparison</em></h2>
+  <p>A ⌀5.0 +0.10/-0.00 hole produced at various sizes, called out as ⌖ ⌀0.10 with either modifier. MMC = 5.00, LMC = 5.10.</p>
+  <table>
+    <tr><th>Actual hole ⌀</th><th>MMC bonus</th><th>Total allowed (MMC)</th><th>LMC bonus</th><th>Total allowed (LMC)</th></tr>
+    <tr><td>5.00 (at MMC)</td><td>0.00</td><td>0.10</td><td>0.10</td><td>0.20</td></tr>
+    <tr><td>5.02</td><td>0.02</td><td>0.12</td><td>0.08</td><td>0.18</td></tr>
+    <tr><td>5.05 (middle)</td><td>0.05</td><td>0.15</td><td>0.05</td><td>0.15</td></tr>
+    <tr><td>5.08</td><td>0.08</td><td>0.18</td><td>0.02</td><td>0.12</td></tr>
+    <tr><td>5.10 (at LMC)</td><td>0.10</td><td>0.20</td><td>0.00</td><td>0.10</td></tr>
+  </table>
+  <p>At the middle of the size range, both modifiers give the same total allowed (0.15). At the extremes, they diverge — MMC is loosest when the hole is largest; LMC is loosest when the hole is smallest. The choice between them is purely about <em>where in the size range you want the tightest control</em>.</p>
+
+  <h2>When to use <em>MMC</em></h2>
+  <ul>
+    <li><strong>Bolt holes and clearance holes.</strong> Worst case is the hole being too small to fit the bolt. MMC's tightest control at the smallest hole protects assembly.</li>
+    <li><strong>Mating pin clearances.</strong> Two parts joining via a dowel pin — MMC on the receiving hole guarantees the dowel always fits.</li>
+    <li><strong>Bearing seats.</strong> Inner ring on a shaft — MMC on the shaft hole protects against the shaft being too small for press fit.</li>
+    <li><strong>Sub-assembly mating features.</strong> Where the part interfaces with another part, MMC protects the worst-case assembly condition.</li>
+  </ul>
+
+  <h2>When to use <em>LMC</em></h2>
+  <ul>
+    <li><strong>Holes near a thin wall.</strong> A hole 10 mm from a casting edge with 2 mm wall thickness — LMC protects against the hole drifting toward the edge and breaking through.</li>
+    <li><strong>Cooling passages.</strong> Where wall thickness between coolant channels must stay above a minimum for pressure rating, LMC on the channel hole position protects the wall.</li>
+    <li><strong>Bosses on thin-wall castings.</strong> A mounting boss with a tapped hole near the edge — LMC on the tap protects boss material around the threads.</li>
+    <li><strong>Alignment features near an edge.</strong> Where positional drift toward the edge would compromise the part, LMC's tightest control at the loosest size protects material.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>The rule of thumb</strong>
+    MMC for <em>assembly</em> — protects the worst-case fit between mating parts.<br>
+    LMC for <em>material</em> — protects the worst-case wall thickness or minimum stock.<br>
+    RFS for <em>absolute position</em> — when neither bonus is appropriate and exact location matters.
+  </div>
+
+  <h2>The 5 spec <em>mistakes</em></h2>
+  <ol>
+    <li><strong>Using MMC on a wall-thickness-critical feature.</strong> A hole near a thin casting edge with MMC granted bonus as the hole grew — at LMC size, the hole drifted to the edge and broke through. Should have been LMC.</li>
+    <li><strong>Using LMC on a bolt clearance hole.</strong> Bonus granted as the hole shrank means the bolt may not fit. Should have been MMC.</li>
+    <li><strong>Defaulting to MMC because it's "common".</strong> MMC is the most-used modifier but it's not the right choice for every callout. Read the design intent before applying.</li>
+    <li><strong>Using RFS by accident.</strong> ASME Y14.5-2018 made RFS the default — the Ⓢ symbol is no longer required. If your drawing has neither Ⓜ nor Ⓛ on a position callout, you are getting RFS (no bonus). Confirm that's what you want; otherwise add the modifier.</li>
+    <li><strong>Misreading the bonus formula.</strong> MMC bonus = |Actual − MMC|. LMC bonus = |LMC − Actual|. Reversing these gives a wrong pass/fail verdict that may scrap good parts or pass bad ones.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Going deeper</strong>
+    For the full position-tolerance math including the cylindrical zone formula and composite position (PLTZF/FRTZF), see the <a href="position-tolerance.html">Position Tolerance reference</a>. For the production-economics story of how missing MMC bonus turned a 12% scrap rate into 1.4%, see the <a href="../articles/position-tolerance-mmc.html">MMC bonus tolerance article</a>. For computing bonus on actual measurements, the <a href="../calculators/position-tolerance.html">Position Tolerance Calculator</a> handles MMC, LMC, and RFS with up to 50 features at once.
+  </div>
+
+  <h2>ASME <em>vs ISO</em></h2>
+  <p>ASME Y14.5-2018 makes RFS the default. The Ⓢ symbol is optional — its absence implies RFS. ISO 1101 traditionally also defaults to RFS but uses different symbol conventions in older revisions. Both standards define MMC and LMC identically, so the math and the design-intent reasoning are universal across drawings issued by US, European, or Indian customers.</p>
+
+  <h2>References</h2>
+  <ul>
+    <li>ASME Y14.5-2018 — Dimensioning and Tolerancing</li>
+    <li>ISO 2692:2014 — Geometrical product specifications (GPS) — Geometrical tolerancing — Maximum material requirement (MMR), least material requirement (LMR) and reciprocity requirement (RPR)</li>
+    <li>ISO 1101:2017 — Geometrical product specifications (GPS) — Geometrical tolerancing</li>
+  </ul>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

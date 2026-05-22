@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>6g vs 6h Thread Tolerance: ISO 965 External Thread Class Comparison | MetricMech</title>
+<meta name="description" content="6g vs 6h thread tolerance comparison per ISO 965-1. 6g has allowance for plating (production standard), 6h has zero allowance (for ground threads and gauges). When to use which, with combinations and worked examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.ref-layout { max-width: 880px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 28px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; font-family: var(--mono); }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 9px 10px; text-align: center; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout th.l { text-align: left; }
+.ref-layout td { padding: 8px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); text-align: center; vertical-align: top; }
+.ref-layout td.l { text-align: left; font-weight: 600; color: var(--ink); }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+@media (max-width: 700px) { .split-grid { grid-template-columns: 1fr; } }
+.split-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 18px 22px; }
+.split-card h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+.split-card .ttag { font-family: var(--mono); font-size: 32px; color: var(--blueprint); font-weight: 700; line-height: 1; margin-bottom: 6px; }
+.split-card p { font-size: 14px; margin-bottom: 8px; }
+</style>
+
+<link rel="canonical" href="https://metricmech.com/reference/6g-vs-6h-thread">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="6g vs 6h Thread Tolerance: ISO 965 External Thread Class Comparison | MetricMech">
+<meta property="og:description" content="6g vs 6h thread tolerance comparison. 6g has allowance for plating (production); 6h has zero allowance (gauges).">
+<meta property="og:url" content="https://metricmech.com/reference/6g-vs-6h-thread">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "6g vs 6h Thread Tolerance: ISO 965 External Thread Class Comparison",
+  "description": "6g vs 6h thread tolerance comparison per ISO 965-1. 6g has allowance for plating (production standard), 6h has zero allowance for ground threads and gauges.",
+  "url": "https://metricmech.com/reference/6g-vs-6h-thread",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-11",
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Mechanical Engineer, Plant Operations" },
+  "publisher": { "@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" } },
+  "mainEntityOfPage": "https://metricmech.com/reference/6g-vs-6h-thread",
+  "about": { "@type": "Thing", "name": "ISO 965 metric thread tolerance classes" }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between 6g and 6h thread tolerance?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Both 6g and 6h are external thread tolerance classes per ISO 965. The '6' is the tolerance grade (band width) — identical between them. The letter (g or h) is the tolerance position (where the band sits relative to nominal). 'g' has a negative fundamental deviation — the upper limit is BELOW nominal — so the thread sits slightly undersize with an allowance for plating or coating. 'h' has zero fundamental deviation — the upper limit is AT nominal — used for ground threads, gauges, and uncoated parts where no allowance is wanted." }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use 6g vs 6h?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Use 6g for production fasteners that will be plated (zinc, cadmium, electroless nickel) — the allowance built into 6g leaves room for the coating thickness without forcing the assembly. Use 6h for ground threads, calibration masters, thread gauges, and any uncoated thread where the application requires the thread to be exactly at nominal. 6g/6H is the most common combination in production; 6h/6H is rare outside gauging applications." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the standard ISO thread class for bolts?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The standard metric thread combination for general-purpose bolts and nuts is 6H/6g — internal thread class 6H paired with external thread class 6g. This is the default specified by ISO 965-1 when no class is called out on the drawing. The 6g external allows for typical electroplating thickness (5-12 μm zinc plate). For loose-fit applications (e.g., after thicker plating or hot-dip galvanizing), 7H/8g is used. For tight fits or ground threads, 6H/6h." }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the allowance values for 6g thread?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The fundamental deviation 'es' (allowance) for class 6g varies by pitch: for M5x0.8 coarse, es = -19 μm; for M8x1.25, es = -28 μm; for M10x1.5, es = -32 μm; for M12x1.75, es = -34 μm; for M16x2.0, es = -38 μm; for M20x2.5, es = -42 μm; for M24x3.0, es = -48 μm. The lower deviation 'ei' = es minus the IT tolerance, which is typically 80-150 μm depending on size. Values per ISO 965-1:2013 Table 3." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="reference" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../reference.html">Reference</a><span class="sep">/</span>6g vs 6h Thread</div>
+</div>
+
+<div class="ref-layout">
+  <h1>6g vs 6h thread tolerance: <em>when to use which.</em></h1>
+  <div class="ref-meta">
+    <span>Thread Reference</span>
+    <span>ISO 965-1:2013</span>
+    <span>Updated May 2026</span>
+  </div>
+
+  <p class="lede">Both 6g and 6h are external thread tolerance classes per ISO 965-1. They have identical tolerance band width (grade 6). They differ only in <strong>position</strong> — 6g sits below nominal with an allowance for plating, 6h sits at nominal with zero allowance. Confusing them sends parts back for re-work. This page covers the difference, when to use each, and the common Indian-shop mistakes.</p>
+
+  <h2>The two parts of a <em>thread class designation</em></h2>
+  <p>An ISO 965 thread class designation like <strong>6g</strong> has two pieces:</p>
+  <ul>
+    <li><strong>The number (6)</strong> is the <em>tolerance grade</em>. It determines how wide the tolerance band is. Smaller number = tighter band. Grades 3, 4, 5, 6, 7, 8, 9 are defined; 6 is the production standard.</li>
+    <li><strong>The letter (g, h, e, f for external; G, H, E, F for internal)</strong> is the <em>tolerance position</em>. It determines where the band sits relative to nominal. Lowercase letters are external threads, uppercase are internal.</li>
+  </ul>
+  <p>So <strong>6g</strong> and <strong>6h</strong> have the same band width but different positions. The band for 6g sits below nominal; the band for 6h sits at nominal.</p>
+
+  <h2>Side-by-side <em>comparison</em></h2>
+  <div class="split-grid">
+    <div class="split-card">
+      <div class="ttag">6g</div>
+      <h3>External thread with allowance</h3>
+      <p><strong>Position:</strong> below nominal (negative fundamental deviation).</p>
+      <p><strong>Upper limit:</strong> below nominal by the fundamental deviation 'es'.</p>
+      <p><strong>Why it exists:</strong> allowance built in for plating, coating, or surface treatment.</p>
+      <p><strong>Used for:</strong> Production bolts, screws, studs (almost all commercial fasteners).</p>
+    </div>
+    <div class="split-card">
+      <div class="ttag">6h</div>
+      <h3>External thread with zero allowance</h3>
+      <p><strong>Position:</strong> at nominal (zero fundamental deviation).</p>
+      <p><strong>Upper limit:</strong> at nominal.</p>
+      <p><strong>Why it exists:</strong> theoretical class for uncoated, gauge-grade threads.</p>
+      <p><strong>Used for:</strong> Thread gauges, ground-thread shafts, master calibration parts.</p>
+    </div>
+  </div>
+
+  <h2>Fundamental deviations <em>'es' for 6g by size</em></h2>
+  <p>The "es" value is the upper deviation — how far below nominal the upper limit of the thread sits. Values from ISO 965-1:2013.</p>
+  <table>
+    <tr><th class="l">Thread</th><th>Pitch (mm)</th><th>es for 6g (μm)</th><th>IT6 (μm)</th><th>ei for 6g (μm)</th></tr>
+    <tr><td class="l">M3 × 0.5</td><td>0.50</td><td>−17</td><td>67</td><td>−84</td></tr>
+    <tr><td class="l">M4 × 0.7</td><td>0.70</td><td>−19</td><td>80</td><td>−99</td></tr>
+    <tr><td class="l">M5 × 0.8</td><td>0.80</td><td>−19</td><td>90</td><td>−109</td></tr>
+    <tr><td class="l">M6 × 1.0</td><td>1.00</td><td>−26</td><td>106</td><td>−132</td></tr>
+    <tr><td class="l">M8 × 1.25</td><td>1.25</td><td>−28</td><td>118</td><td>−146</td></tr>
+    <tr><td class="l">M10 × 1.5</td><td>1.50</td><td>−32</td><td>132</td><td>−164</td></tr>
+    <tr><td class="l">M12 × 1.75</td><td>1.75</td><td>−34</td><td>150</td><td>−184</td></tr>
+    <tr><td class="l">M14 × 2.0</td><td>2.00</td><td>−38</td><td>170</td><td>−208</td></tr>
+    <tr><td class="l">M16 × 2.0</td><td>2.00</td><td>−38</td><td>170</td><td>−208</td></tr>
+    <tr><td class="l">M20 × 2.5</td><td>2.50</td><td>−42</td><td>190</td><td>−232</td></tr>
+    <tr><td class="l">M24 × 3.0</td><td>3.00</td><td>−48</td><td>212</td><td>−260</td></tr>
+    <tr><td class="l">M30 × 3.5</td><td>3.50</td><td>−53</td><td>236</td><td>−289</td></tr>
+  </table>
+  <p style="font-size: 13px; color: var(--mute);">For 6h, the 'es' value is 0 for all sizes; 'ei' = -IT6. Values apply to pitch diameter; major and minor diameters use the same fundamental deviation but their own IT grade.</p>
+
+  <h2>The most-used <em>thread class combinations</em></h2>
+  <table>
+    <tr><th class="l">Combination</th><th class="l">Fit type</th><th class="l">Typical use</th></tr>
+    <tr><td class="l">6H/6g</td><td class="l">Medium (standard)</td><td class="l">Default for production fasteners with thin plating (zinc 5-12 μm)</td></tr>
+    <tr><td class="l">6H/6h</td><td class="l">Close (zero allowance)</td><td class="l">Ground-thread shafts, thread gauges, calibration masters</td></tr>
+    <tr><td class="l">5H/4h</td><td class="l">Fine (tight)</td><td class="l">Precision instruments, optical mounts, aerospace critical fasteners</td></tr>
+    <tr><td class="l">7H/8g</td><td class="l">Loose</td><td class="l">After heavy coating (hot-dip galvanize), high-temperature service, fast assembly</td></tr>
+    <tr><td class="l">6G/6e</td><td class="l">Loose (less common)</td><td class="l">Older drawings; replaced by 7H/8g in modern practice</td></tr>
+  </table>
+
+  <h2>When to use <em>6g</em></h2>
+  <ul>
+    <li><strong>Production bolts and screws that will be plated.</strong> Zinc plating adds 5-12 μm per surface; 6g leaves room for this without requiring the nut to be re-tapped after plating.</li>
+    <li><strong>Tapped holes in production parts (paired with 6H internal).</strong> The standard combo for everything from automotive brackets to general-purpose machinery.</li>
+    <li><strong>Default when the drawing doesn't specify a thread class.</strong> ISO 965-1 says 6H/6g is the assumed default when only thread size is given.</li>
+  </ul>
+
+  <h2>When to use <em>6h</em></h2>
+  <ul>
+    <li><strong>Thread gauges and calibration masters.</strong> Gauges must be at exactly nominal; any allowance would invalidate the gauge.</li>
+    <li><strong>Ground-thread shafts.</strong> Where the thread is the final form (no plating, no coating), 6h gives the tightest production-feasible fit.</li>
+    <li><strong>Optical instrument shafts.</strong> Where precision is more important than ease of assembly, 6h removes the play that 6g introduces.</li>
+    <li><strong>Mating with a 6H internal in a high-precision application.</strong> 6H/6h is essentially line-to-line at the upper limit — minimal backlash but requires both threads to be made well within tolerance.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>The "default" trap on imported drawings</strong>
+    Drawings from non-ISO countries (US, Japan) sometimes call out just "M8" with no class. ISO 965 assumes 6H/6g by default, but the originating designer may have meant something else. For aerospace and high-precision work, always ask for explicit thread class confirmation — never assume.
+  </div>
+
+  <h2>5 common <em>mistakes</em></h2>
+  <ol>
+    <li><strong>Using 6h on production bolts that will be zinc-plated.</strong> The plating adds material; the thread becomes too large to fit a 6H nut. The fix: switch to 6g, or tap the nut after plating.</li>
+    <li><strong>Using 6g on a thread gauge.</strong> The gauge sits below nominal, so it accepts threads that are out of spec on the small side. The fix: use 6h or 4h for gauges.</li>
+    <li><strong>Confusing 6g (external) with 6G (internal).</strong> Lowercase = external (bolt), uppercase = internal (nut). The G/g position has clearance; the H/h position is at nominal.</li>
+    <li><strong>Not specifying a class on the drawing.</strong> Leaves room for shop interpretation. ISO 965 default is 6H/6g but auditors prefer explicit callouts on drawings that go to multiple suppliers.</li>
+    <li><strong>Mixing tolerance grades and positions.</strong> A 4g external thread is valid (tight tolerance, with allowance) but unusual. Stick to standard combinations unless there's a specific functional reason for an unusual class.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Need to calculate pitch diameter or thread engagement?</strong>
+    The MetricMech <a href="../calculators/thread-pitch.html">Thread Pitch Calculator</a> handles pitch diameter, minor diameter, lead, helix angle, and stress area for any metric or imperial thread. For tap drill sizing, see the <a href="drill-size-chart.html">drill size chart</a>. For troubleshooting actual thread failures, the <a href="drill-tap-troubleshooter.html">drill/tap troubleshooter</a>.
+  </div>
+
+  <h2>References</h2>
+  <ul>
+    <li>ISO 965-1:2013 — ISO general purpose metric screw threads — Tolerances — Part 1: Principles and basic data</li>
+    <li>ISO 965-2:2013 — Part 2: Limits of sizes for general purpose external and internal screw threads — Medium quality</li>
+    <li>ISO 965-3:2013 — Part 3: Deviations for constructional screw threads</li>
+    <li>ISO 262:1998 — ISO general purpose metric screw threads — Selected sizes</li>
+  </ul>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
