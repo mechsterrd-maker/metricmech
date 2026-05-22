@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AS9102 Form 2 Builder — Free FAI Product Accountability Tool (Materials, Processes, Tests) | MetricMech</title>
+<meta name="description" content="Free AS9102 Rev C Form 2 builder for aerospace FAI Product Accountability. Material certs, special processes, functional testing, non-conformance section. Print-ready PDF output." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.builder-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 1100px) { .builder-grid { grid-template-columns: 1fr; } }
+.f2-section { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.f2-section h3 { font-family: var(--display); font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.f2-section h3 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.f2-section .section-help { font-size: 13px; color: var(--ink-2); margin-bottom: 12px; }
+.f2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f2-grid input, .f2-grid textarea { width: 100%; padding: 9px 12px; font-family: var(--mono); font-size: 13px; border: 1px solid var(--rule-strong, #ccc); background: var(--paper); border-radius: var(--rad); outline: none; box-sizing: border-box; }
+.f2-grid label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.f2-grid textarea { resize: vertical; min-height: 80px; }
+.fai-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+.fai-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 10px; padding: 8px 6px; text-align: left; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.fai-table td { border: 1px solid var(--rule); padding: 4px; vertical-align: top; background: var(--paper); }
+.fai-table input, .fai-table select { width: 100%; padding: 6px 8px; font-family: var(--mono); font-size: 12px; border: none; background: transparent; outline: none; }
+.fai-table input:focus, .fai-table select:focus { background: var(--blueprint-tint, #e0eaf7); }
+.fai-table .verdict-pass { color: var(--ok, #2E7D32); font-weight: 600; }
+.fai-table .verdict-fail { color: var(--alert, #c64b2a); font-weight: 600; }
+.del-btn { background: none; border: none; color: var(--alert, #c64b2a); cursor: pointer; font-size: 16px; padding: 4px 8px; font-family: var(--mono); }
+.add-row-btn { background: var(--blueprint, #1565C0); color: white; border: none; padding: 7px 14px; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; border-radius: var(--rad); cursor: pointer; margin-top: 8px; }
+.add-row-btn:hover { background: #0c4ca0; }
+.action-bar { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.action-btn { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 10px 18px; font-family: var(--body); font-size: 13px; font-weight: 600; border-radius: var(--rad); cursor: pointer; transition: all 0.15s; }
+.action-btn:hover { background: var(--paper); color: var(--ink); }
+.action-btn.secondary { background: var(--paper); color: var(--ink); }
+.action-btn.secondary:hover { background: var(--ink); color: var(--paper); }
+.action-btn.warn { background: var(--paper); color: var(--alert, #c64b2a); border-color: var(--alert, #c64b2a); }
+.preview-section { background: var(--paper); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; position: sticky; top: 80px; align-self: start; }
+.preview-header { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; }
+.preview-form-title { font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.preview-form-sub { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.08em; }
+.preview-block { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px dotted var(--rule); }
+.preview-block:last-child { border-bottom: none; }
+.preview-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; margin-bottom: 6px; }
+.preview-row .lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-bottom: 2px; display: block; }
+.preview-row .val { font-family: var(--mono); font-size: 13px; color: var(--ink); padding: 4px 0; border-bottom: 1px solid var(--rule); }
+.preview-row .val.empty { color: var(--mute); font-style: italic; }
+.preview-section h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 8px; font-weight: 700; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 10px; margin: 8px 0; }
+.preview-table th { background: var(--ink); color: var(--paper); padding: 5px 6px; font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; }
+.preview-table td { border: 1px solid var(--rule); padding: 4px 6px; font-family: var(--mono); font-size: 10px; }
+.preview-table .pass { color: var(--ok, #2E7D32); font-weight: 600; }
+.preview-table .fail { color: var(--alert, #c64b2a); font-weight: 600; }
+.empty-tbl { font-size: 11px; color: var(--mute); font-style: italic; padding: 6px 0; }
+.report-id { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-bottom: 6px; }
+.stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 10px 0; }
+.stat-mini { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad); padding: 10px 8px; text-align: center; }
+.stat-mini .num { font-family: var(--display); font-size: 18px; font-weight: 600; line-height: 1; }
+.stat-mini .lbl { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-top: 4px; }
+
+/* Print */
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  body { background: white !important; }
+  .grid-bg, .site-header, .notice-bar, .site-footer, [data-mw="footer"], [data-mw="header"], [data-mw="notice-bar"], [data-mw="cn-big"], .cn-big-banner, [data-mw="cn-sidebar"], .cn-promo-card, [data-mw="cn-inline"], .cn-inline-banner, .mm-rail, .mm-rail-left, #mm-sticky-cta, #mm-install-pill, .breadcrumb, .page-header, .builder-grid > div:first-child, .mm-embed-widget, .action-bar { display: none !important; }
+  .builder-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .preview-section { position: static !important; box-shadow: none !important; border: 1pt solid #000 !important; padding: 14pt !important; }
+  .preview-form-title { font-size: 18pt !important; }
+  .preview-form-sub { font-size: 8pt !important; }
+  .preview-block { page-break-inside: avoid; }
+  .preview-table { font-size: 8.5pt !important; }
+  .preview-table tr { page-break-inside: avoid !important; }
+  .preview-table thead { display: table-header-group !important; }
+  .preview-row { font-size: 10pt !important; }
+  .preview-row .val { color: #000 !important; }
+  .preview-row .val.empty { display: none; }
+  body::after { content: "Source: metricmech.com/calculators/as9102-form2 — Free AS9102 Rev C Form 2 builder."; display: block; margin-top: 18pt; padding-top: 6pt; border-top: 0.5pt solid #777; font-size: 8pt; color: #555; text-align: center; }
+}
+</style>
+
+<link rel="canonical" href="https://metricmech.com/calculators/as9102-form2">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="AS9102 Form 2 Builder — Free FAI Product Accountability Tool (Materials, Processes, Tests)">
+<meta property="og:description" content="Free AS9102 Rev C Form 2 builder. Material certs, special processes, functional testing.">
+<meta property="og:url" content="https://metricmech.com/calculators/as9102-form2">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AS9102 Form 2 Builder — Free FAI Product Accountability Tool",
+  "description": "Free AS9102 Rev C Form 2 builder for aerospace FAI Product Accountability. Material certifications, special processes, functional testing, non-conformance.",
+  "url": "https://metricmech.com/calculators/as9102-form2",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "10" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>AS9102 Form 2</div>
+  <h1 class="page-title">AS9102 Form 2 <em>builder.</em></h1>
+  <p class="page-lede">Product Accountability — material certifications, special process certs, functional testing, and non-conformance documentation. The middle sheet of the AS9102 Rev C FAI package, bridging Form 1 (part identity) and Form 3 (characteristic results).</p>
+</div>
+
+<div class="calc-layout">
+<div class="builder-grid">
+
+  <!-- LEFT: form -->
+  <div>
+
+    <div class="f2-section">
+      <h3>Part <em>identification</em></h3>
+      <p class="section-help">Carry over the part identification from Form 1 — keeps the package consistent.</p>
+      <div class="f2-grid">
+        <div><label>Part Number</label><input type="text" id="i_partNum" data-key="partNum" placeholder="e.g. 7050-1234-A"></div>
+        <div><label>Part Name</label><input type="text" id="i_partName" data-key="partName" placeholder="e.g. Mounting Bracket"></div>
+        <div><label>Serial Number</label><input type="text" id="i_serial" data-key="serial" placeholder="e.g. SN-2026-0142"></div>
+        <div><label>FAIR Identifier</label><input type="text" id="i_fairId" data-key="fairId" placeholder="e.g. FAIR-2026-042"></div>
+      </div>
+    </div>
+
+    <div class="f2-section">
+      <h3>1. Raw <em>materials</em></h3>
+      <p class="section-help">Each raw material (steel, aluminium, alloy stock) used in the part needs a certification record. Lot/heat traceability is mandatory for aerospace FAI.</p>
+      <table class="fai-table" id="materialsTable">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Material Designation</th>
+            <th style="width: 22%;">Material Specification</th>
+            <th style="width: 18%;">Lot / Heat #</th>
+            <th style="width: 18%;">Source / Supplier</th>
+            <th style="width: 19%;">Certification #</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody id="materialsBody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addMaterialRow()">+ Add Material</button>
+    </div>
+
+    <div class="f2-section">
+      <h3>2. Special <em>processes</em></h3>
+      <p class="section-help">Heat treatment, plating, anodizing, NDT (FPI/MPI/UT/RT), passivation, conversion coating, painting — every special process applied to the part needs a process certification from a NADCAP-approved (or customer-approved) source.</p>
+      <table class="fai-table" id="processesTable">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Process</th>
+            <th style="width: 22%;">Process Specification</th>
+            <th style="width: 18%;">Source / Supplier</th>
+            <th style="width: 18%;">Cert #</th>
+            <th style="width: 15%;">NADCAP Accred?</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody id="processesBody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addProcessRow()">+ Add Process</button>
+    </div>
+
+    <div class="f2-section">
+      <h3>3. Functional <em>testing</em></h3>
+      <p class="section-help">Pressure test, leak test, load test, electrical continuity, hardness verification — any functional test required by the drawing or PO. Each test row records the spec, the acceptance criterion, and the measured result.</p>
+      <table class="fai-table" id="testsTable">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Test Name</th>
+            <th style="width: 22%;">Test Specification</th>
+            <th style="width: 20%;">Acceptance Criterion</th>
+            <th style="width: 20%;">Measured Result</th>
+            <th style="width: 11%;">Pass/Fail</th>
+            <th style="width: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody id="testsBody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addTestRow()">+ Add Test</button>
+    </div>
+
+    <div class="f2-section">
+      <h3>4. Non-conformance <em>documentation</em></h3>
+      <p class="section-help">Any deviation, MRB disposition, ECN, or supplier-initiated change applied during manufacture. If none, write "No non-conformances applied."</p>
+      <div class="f2-grid">
+        <div style="grid-column: 1 / -1;"><label>Non-conformance summary</label><textarea id="i_ncSummary" data-key="ncSummary" placeholder="e.g. NCR-2026-018: Surface finish on feature 14 measured Ra 1.8 against spec 1.6. Customer-approved deviation per email 2026-04-22. Approval reference attached."></textarea></div>
+        <div style="grid-column: 1 / -1;"><label>Additional comments / notes</label><textarea id="i_comments" data-key="comments" placeholder="Optional — any special handling, supplier notes, or process notes that don't fit elsewhere"></textarea></div>
+      </div>
+    </div>
+
+    <div class="f2-section">
+      <h3>Signatures and <em>approvals</em></h3>
+      <div class="f2-grid">
+        <div><label>Prepared by</label><input type="text" id="i_preparedBy" data-key="preparedBy" placeholder="Name and title"></div>
+        <div><label>Date prepared</label><input type="date" id="i_preparedDate" data-key="preparedDate"></div>
+        <div><label>Reviewed by</label><input type="text" id="i_reviewedBy" data-key="reviewedBy" placeholder="Name and title"></div>
+        <div><label>Date reviewed</label><input type="date" id="i_reviewedDate" data-key="reviewedDate"></div>
+        <div><label>Customer Approval (if required)</label><input type="text" id="i_custApprovedBy" data-key="custApprovedBy" placeholder="Customer rep name"></div>
+        <div><label>Customer Approval Date</label><input type="date" id="i_custApprovedDate" data-key="custApprovedDate"></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="action-btn" onclick="window.print()">Print / Save PDF</button>
+      <button class="action-btn secondary" onclick="saveToStorage()">Save Draft</button>
+      <button class="action-btn secondary" onclick="loadFromStorage()">Load Draft</button>
+      <button class="action-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="action-btn warn" onclick="resetForm()">Reset</button>
+    </div>
+
+    <p style="font-size: 12px; color: var(--mute); margin-top: 8px;">
+      Drafts save to your browser's local storage — private to this device, not uploaded. For the part-identification header sheet, see the <a href="as9102-form1.html">AS9102 Form 1 Builder</a>. For the characteristic-level inspection sheet, see the <a href="as9102-form3.html">AS9102 Form 3 Builder</a>.
+    </p>
+
+  </div>
+
+  <!-- RIGHT: preview -->
+  <div>
+    <div class="preview-section" id="previewPane">
+      <div class="preview-header">
+        <span>AS9102 Rev C — Form 2</span>
+        <span id="reportId" class="report-id"></span>
+      </div>
+      <div class="preview-form-title">First Article Inspection Report</div>
+      <div class="preview-form-sub">FORM 2: PRODUCT ACCOUNTABILITY</div>
+
+      <div class="preview-block">
+        <div class="preview-row">
+          <div><span class="lbl">Part Number</span><span class="val" id="p_partNum"></span></div>
+          <div><span class="lbl">Part Name</span><span class="val" id="p_partName"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Serial Number</span><span class="val" id="p_serial"></span></div>
+          <div><span class="lbl">FAIR Identifier</span><span class="val" id="p_fairId"></span></div>
+        </div>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat-mini"><div class="num" id="s_materials">0</div><div class="lbl">Materials</div></div>
+        <div class="stat-mini"><div class="num" id="s_processes">0</div><div class="lbl">Processes</div></div>
+        <div class="stat-mini"><div class="num" id="s_tests">0</div><div class="lbl">Tests</div></div>
+      </div>
+
+      <div class="preview-block">
+        <h4>1. Raw Materials</h4>
+        <div id="p_materialsContainer"><div class="empty-tbl">No materials added</div></div>
+      </div>
+
+      <div class="preview-block">
+        <h4>2. Special Processes</h4>
+        <div id="p_processesContainer"><div class="empty-tbl">No processes added</div></div>
+      </div>
+
+      <div class="preview-block">
+        <h4>3. Functional Tests</h4>
+        <div id="p_testsContainer"><div class="empty-tbl">No tests added</div></div>
+      </div>
+
+      <div class="preview-block">
+        <h4>4. Non-conformance</h4>
+        <div class="preview-row" style="grid-template-columns: 1fr;">
+          <div><span class="val" id="p_ncSummary"></span></div>
+        </div>
+        <div class="preview-row" id="commentsBlock" style="grid-template-columns: 1fr; display: none;">
+          <div><span class="lbl">Comments</span><span class="val" id="p_comments"></span></div>
+        </div>
+      </div>
+
+      <div class="preview-block">
+        <h4>Signatures</h4>
+        <div class="preview-row">
+          <div><span class="lbl">Prepared by</span><span class="val" id="p_preparedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_preparedDate"></span></div>
+          <div><span class="lbl">Reviewed by</span><span class="val" id="p_reviewedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_reviewedDate"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Customer Approval</span><span class="val" id="p_custApprovedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_custApprovedDate"></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div data-mw="cn-sidebar" data-variant="as9102" style="margin-top: 16px;"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- SEO content block -->
+<div style="max-width: 880px; margin: 32px auto; padding: 0 32px;">
+  <h2 style="font-family: var(--display); font-size: 26px; font-weight: 600; margin: 24px 0 12px;">About <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">AS9102 Form 2</em></h2>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Form 2 of AS9102 Rev C — <strong>Product Accountability</strong> — documents the materials, special processes, and functional tests applied to the first article part. Where Form 1 identifies <em>what</em> the part is and Form 3 records <em>how it was inspected dimensionally</em>, Form 2 records <em>what was put into the part during manufacture</em>: certified raw material, certified heat treatment, certified surface treatment, certified test results.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    The four sections an auditor will check on Form 2:
+  </p>
+  <ul style="font-size: 16px; line-height: 1.7; color: var(--ink-2); margin: 0 0 16px 24px;">
+    <li><strong>Raw material certifications</strong> — every material in the part must have a cert tracing back to a lot or heat number from a recognized supplier. Aerospace requires full traceability from melt to part.</li>
+    <li><strong>Special process certifications</strong> — heat treatment, plating, NDT, painting, conversion coating, and similar processes must come from NADCAP-accredited (or customer-approved) sources. The cert number on Form 2 must match the cert document attached to the FAI package.</li>
+    <li><strong>Functional testing</strong> — any test required by the drawing notes (e.g. pressure test 2,000 psi for 5 minutes, leak rate &lt; 0.01 cc/min, hardness Rockwell C 58 minimum). Each test row records the measured result and a pass/fail verdict.</li>
+    <li><strong>Non-conformance documentation</strong> — any deviation, MRB disposition, or supplier-initiated change applied during manufacture. If a deviation was customer-approved, the approval reference goes here.</li>
+  </ul>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Common Form 2 rejections by Tata Advanced Systems, Bharat Forge, HAL, and Mahindra Aerospace quality teams: missing NADCAP accreditation reference for heat treatment, lot/heat number on Form 2 not matching the attached material cert, functional test recorded as "pass" without the actual measured value, and special process source code missing for sub-tier suppliers.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Complete your FAI package with <a href="as9102-form1.html">Form 1 (Part Number Accountability)</a> and <a href="as9102-form3.html">Form 3 (Characteristic Accountability)</a>. For a step-by-step walkthrough of Form 3 with a real Tata Advanced Systems aerospace bracket example, see the <a href="../articles/as9102-form3.html">AS9102 Form 3 article</a>.
+  </p>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+
+<script>
+// ============ State ============
+const F = {
+  partNum: '', partName: '', serial: '', fairId: '',
+  materials: [],
+  processes: [],
+  tests: [],
+  ncSummary: '', comments: '',
+  preparedBy: '', preparedDate: '', reviewedBy: '', reviewedDate: '',
+  custApprovedBy: '', custApprovedDate: ''
+};
+
+// ============ Report ID ============
+function genReportId() {
+  const ts = Date.now().toString(36).toUpperCase().slice(-5);
+  const rand = Math.random().toString(36).toUpperCase().slice(2, 6);
+  return `MM-F2-${ts}-${rand}`;
+}
+document.getElementById('reportId').textContent = genReportId();
+
+function escape(s) { return (s || '').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+
+// ============ Live preview ============
+function updatePreview() {
+  ['partNum','partName','serial','fairId','ncSummary','comments',
+   'preparedBy','reviewedBy','custApprovedBy'].forEach(k => {
+    const el = document.getElementById('p_' + k);
+    if (!el) return;
+    const v = F[k];
+    if (v && v.trim()) {
+      el.textContent = v;
+      el.classList.remove('empty');
+    } else {
+      el.textContent = (k === 'ncSummary') ? 'No non-conformances applied.' : '—';
+      if (k !== 'ncSummary') el.classList.add('empty');
+    }
+  });
+
+  ['preparedDate','reviewedDate','custApprovedDate'].forEach(k => {
+    const el = document.getElementById('p_' + k);
+    if (el) el.textContent = F[k] || '';
+  });
+
+  document.getElementById('commentsBlock').style.display = F.comments && F.comments.trim() ? '' : 'none';
+
+  // Counts
+  document.getElementById('s_materials').textContent = F.materials.length;
+  document.getElementById('s_processes').textContent = F.processes.length;
+  document.getElementById('s_tests').textContent = F.tests.length;
+
+  // Materials preview
+  const mc = document.getElementById('p_materialsContainer');
+  if (F.materials.length === 0) {
+    mc.innerHTML = '<div class="empty-tbl">No materials added</div>';
+  } else {
+    mc.innerHTML = `<table class="preview-table">
+      <thead><tr><th>Material</th><th>Spec</th><th>Lot/Heat</th><th>Source</th><th>Cert #</th></tr></thead>
+      <tbody>${F.materials.map(r => `<tr><td>${escape(r.designation)}</td><td>${escape(r.spec)}</td><td>${escape(r.lot)}</td><td>${escape(r.source)}</td><td>${escape(r.cert)}</td></tr>`).join('')}</tbody>
+    </table>`;
+  }
+
+  // Processes preview
+  const pc = document.getElementById('p_processesContainer');
+  if (F.processes.length === 0) {
+    pc.innerHTML = '<div class="empty-tbl">No processes added</div>';
+  } else {
+    pc.innerHTML = `<table class="preview-table">
+      <thead><tr><th>Process</th><th>Spec</th><th>Source</th><th>Cert #</th><th>NADCAP</th></tr></thead>
+      <tbody>${F.processes.map(r => `<tr><td>${escape(r.name)}</td><td>${escape(r.spec)}</td><td>${escape(r.source)}</td><td>${escape(r.cert)}</td><td>${escape(r.nadcap)}</td></tr>`).join('')}</tbody>
+    </table>`;
+  }
+
+  // Tests preview
+  const tc = document.getElementById('p_testsContainer');
+  if (F.tests.length === 0) {
+    tc.innerHTML = '<div class="empty-tbl">No tests added</div>';
+  } else {
+    tc.innerHTML = `<table class="preview-table">
+      <thead><tr><th>Test</th><th>Spec</th><th>Criterion</th><th>Result</th><th>Verdict</th></tr></thead>
+      <tbody>${F.tests.map(r => {
+        const verdict = (r.verdict || '').toLowerCase();
+        const cls = verdict === 'pass' ? 'pass' : (verdict === 'fail' ? 'fail' : '');
+        return `<tr><td>${escape(r.name)}</td><td>${escape(r.spec)}</td><td>${escape(r.criterion)}</td><td>${escape(r.result)}</td><td class="${cls}">${escape(r.verdict)}</td></tr>`;
+      }).join('')}</tbody>
+    </table>`;
+  }
+}
+
+// ============ Input binding ============
+function bindInputs() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    el.addEventListener('input', () => { F[k] = el.value; updatePreview(); });
+  });
+}
+
+// ============ Row management ============
+function addMaterialRow(prefill) {
+  F.materials.push(prefill || { designation: '', spec: '', lot: '', source: '', cert: '' });
+  renderMaterials();
+  updatePreview();
+}
+function delMaterialRow(i) { F.materials.splice(i, 1); renderMaterials(); updatePreview(); }
+function renderMaterials() {
+  const body = document.getElementById('materialsBody');
+  body.innerHTML = F.materials.map((r, i) => `
+    <tr>
+      <td><input type="text" data-tbl="materials" data-idx="${i}" data-field="designation" value="${escape(r.designation)}" placeholder="e.g. 6061-T6 Al"></td>
+      <td><input type="text" data-tbl="materials" data-idx="${i}" data-field="spec" value="${escape(r.spec)}" placeholder="e.g. AMS 4027"></td>
+      <td><input type="text" data-tbl="materials" data-idx="${i}" data-field="lot" value="${escape(r.lot)}" placeholder="e.g. H2026-441"></td>
+      <td><input type="text" data-tbl="materials" data-idx="${i}" data-field="source" value="${escape(r.source)}" placeholder="e.g. Hindalco"></td>
+      <td><input type="text" data-tbl="materials" data-idx="${i}" data-field="cert" value="${escape(r.cert)}" placeholder="e.g. CERT-441"></td>
+      <td><button class="del-btn" onclick="delMaterialRow(${i})" title="Delete">×</button></td>
+    </tr>
+  `).join('');
+  bindTableInputs();
+}
+
+function addProcessRow(prefill) {
+  F.processes.push(prefill || { name: '', spec: '', source: '', cert: '', nadcap: '' });
+  renderProcesses();
+  updatePreview();
+}
+function delProcessRow(i) { F.processes.splice(i, 1); renderProcesses(); updatePreview(); }
+function renderProcesses() {
+  const body = document.getElementById('processesBody');
+  body.innerHTML = F.processes.map((r, i) => `
+    <tr>
+      <td><input type="text" data-tbl="processes" data-idx="${i}" data-field="name" value="${escape(r.name)}" placeholder="e.g. Anodize Type II"></td>
+      <td><input type="text" data-tbl="processes" data-idx="${i}" data-field="spec" value="${escape(r.spec)}" placeholder="e.g. MIL-A-8625"></td>
+      <td><input type="text" data-tbl="processes" data-idx="${i}" data-field="source" value="${escape(r.source)}" placeholder="e.g. Aero Finish"></td>
+      <td><input type="text" data-tbl="processes" data-idx="${i}" data-field="cert" value="${escape(r.cert)}" placeholder="e.g. PC-AF-22"></td>
+      <td><select data-tbl="processes" data-idx="${i}" data-field="nadcap">
+        <option value="">—</option>
+        <option value="Yes" ${r.nadcap==='Yes'?'selected':''}>Yes</option>
+        <option value="No (cust-approved)" ${r.nadcap==='No (cust-approved)'?'selected':''}>No (cust-approved)</option>
+        <option value="N/A" ${r.nadcap==='N/A'?'selected':''}>N/A</option>
+      </select></td>
+      <td><button class="del-btn" onclick="delProcessRow(${i})" title="Delete">×</button></td>
+    </tr>
+  `).join('');
+  bindTableInputs();
+}
+
+function addTestRow(prefill) {
+  F.tests.push(prefill || { name: '', spec: '', criterion: '', result: '', verdict: '' });
+  renderTests();
+  updatePreview();
+}
+function delTestRow(i) { F.tests.splice(i, 1); renderTests(); updatePreview(); }
+function renderTests() {
+  const body = document.getElementById('testsBody');
+  body.innerHTML = F.tests.map((r, i) => `
+    <tr>
+      <td><input type="text" data-tbl="tests" data-idx="${i}" data-field="name" value="${escape(r.name)}" placeholder="e.g. Pressure Test"></td>
+      <td><input type="text" data-tbl="tests" data-idx="${i}" data-field="spec" value="${escape(r.spec)}" placeholder="e.g. DWG Note 4"></td>
+      <td><input type="text" data-tbl="tests" data-idx="${i}" data-field="criterion" value="${escape(r.criterion)}" placeholder="e.g. 2000 psi, 5 min, no leak"></td>
+      <td><input type="text" data-tbl="tests" data-idx="${i}" data-field="result" value="${escape(r.result)}" placeholder="e.g. 2050 psi, 5 min, leak-free"></td>
+      <td><select data-tbl="tests" data-idx="${i}" data-field="verdict">
+        <option value="">—</option>
+        <option value="Pass" ${r.verdict==='Pass'?'selected':''}>Pass</option>
+        <option value="Fail" ${r.verdict==='Fail'?'selected':''}>Fail</option>
+        <option value="N/A" ${r.verdict==='N/A'?'selected':''}>N/A</option>
+      </select></td>
+      <td><button class="del-btn" onclick="delTestRow(${i})" title="Delete">×</button></td>
+    </tr>
+  `).join('');
+  bindTableInputs();
+}
+
+function bindTableInputs() {
+  document.querySelectorAll('[data-tbl]').forEach(el => {
+    el.addEventListener('input', () => {
+      const tbl = el.dataset.tbl;
+      const i = parseInt(el.dataset.idx, 10);
+      const f = el.dataset.field;
+      F[tbl][i][f] = el.value;
+      updatePreview();
+    });
+    el.addEventListener('change', () => {
+      const tbl = el.dataset.tbl;
+      const i = parseInt(el.dataset.idx, 10);
+      const f = el.dataset.field;
+      F[tbl][i][f] = el.value;
+      updatePreview();
+    });
+  });
+}
+
+// ============ Save / load / reset ============
+const STORAGE_KEY = 'mm_as9102_form2';
+function saveToStorage() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(F)); flash('Saved to browser ✓'); }
+  catch (e) { flash('Save failed'); }
+}
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) { flash('No saved draft found'); return; }
+    Object.assign(F, JSON.parse(raw));
+    applyState();
+    flash('Draft loaded ✓');
+  } catch (e) { flash('Load failed'); }
+}
+function applyState() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    el.value = F[el.dataset.key] || '';
+  });
+  renderMaterials();
+  renderProcesses();
+  renderTests();
+  updatePreview();
+}
+function resetForm() {
+  if (!confirm('Reset all form fields? This cannot be undone.')) return;
+  ['partNum','partName','serial','fairId','ncSummary','comments','preparedBy','preparedDate','reviewedBy','reviewedDate','custApprovedBy','custApprovedDate'].forEach(k => F[k] = '');
+  F.materials = []; F.processes = []; F.tests = [];
+  applyState();
+  document.getElementById('reportId').textContent = genReportId();
+}
+function loadSample() {
+  Object.assign(F, {
+    partNum: '7050-1234-A', partName: 'Mounting Bracket', serial: 'SN-2026-0142', fairId: 'FAIR-2026-042',
+    materials: [
+      { designation: '6061-T6 Aluminium', spec: 'AMS 4027', lot: 'H2026-441', source: 'Hindalco Industries', cert: 'CERT-HI-441' },
+      { designation: 'A2-70 Stainless Bolts', spec: 'ISO 3506-1', lot: 'F-2026-093', source: 'Sundram Fasteners', cert: 'CERT-SF-093' }
+    ],
+    processes: [
+      { name: 'Anodize Type II', spec: 'MIL-A-8625 Type II Class 2', source: 'Aero Finishing Pvt Ltd', cert: 'PC-AF-22-441', nadcap: 'Yes' },
+      { name: 'Penetrant Inspection (FPI)', spec: 'ASTM E1417 Type 1 Method A', source: 'NDT Solutions Bangalore', cert: 'PC-ND-22-441', nadcap: 'Yes' }
+    ],
+    tests: [
+      { name: 'Hardness Verification', spec: 'DWG Note 4 — HV 95 min', criterion: 'HV ≥ 95', result: 'HV 107', verdict: 'Pass' },
+      { name: 'Functional Load Test', spec: 'DWG Note 6 — 2.5 kN axial', criterion: '2.5 kN for 30s, no permanent deformation', result: '2.5 kN, deflection 0.04mm recoverable', verdict: 'Pass' }
+    ],
+    ncSummary: 'NCR-2026-018: Surface finish on feature 14 measured Ra 1.8 against spec Ra 1.6. Customer-approved deviation per TASL approval email dated 2026-04-22 (ref TASL-QA-2026-0118). Cert attached.',
+    comments: 'All special processes from NADCAP-accredited sources. Material lot fully traced to Hindalco melt 2026-Q1.',
+    preparedBy: 'R. Kumar, QA Engineer', preparedDate: '2026-05-08',
+    reviewedBy: 'S. Patel, QA Lead', reviewedDate: '2026-05-09',
+    custApprovedBy: '', custApprovedDate: ''
+  });
+  applyState();
+  flash('Sample loaded — TASL aerospace bracket example');
+}
+
+function flash(msg) {
+  const el = document.createElement('div');
+  el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,0.2);';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+
+// ============ Init ============
+document.addEventListener('DOMContentLoaded', () => {
+  bindInputs();
+  updatePreview();
+});
+</script>
+
+<script src="../site.js"></script>
+</body>
+</html>

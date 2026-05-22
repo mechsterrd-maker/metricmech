@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AS9102 Form 1 Builder — Free FAI Part Number Accountability Tool | MetricMech</title>
+<meta name="description" content="Free AS9102 Rev C Form 1 builder for aerospace FAI Part Number Accountability. Fill the header form, get a print-ready PDF. Detail/Assembly, Full/Partial FAI variants supported." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.builder-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 1100px) { .builder-grid { grid-template-columns: 1fr; } }
+.f1-section { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.f1-section h3 { font-family: var(--display); font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+.f1-section h3 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.f1-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.f1-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.f1-full { grid-column: 1 / -1; }
+.f1-grid input, .f1-grid-3 input, .f1-grid textarea, .f1-grid select { width: 100%; padding: 9px 12px; font-family: var(--mono); font-size: 13px; border: 1px solid var(--rule-strong, #ccc); background: var(--paper); border-radius: var(--rad); outline: none; box-sizing: border-box; }
+.f1-grid label, .f1-grid-3 label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; }
+.f1-grid textarea { resize: vertical; min-height: 60px; }
+.f1-radio-row { display: flex; gap: 18px; padding: 4px 0; flex-wrap: wrap; }
+.f1-radio-row label { font-size: 13px !important; text-transform: none !important; letter-spacing: 0 !important; font-weight: 500 !important; cursor: pointer; display: flex; align-items: center; gap: 6px; margin: 0 !important; }
+.f1-radio-row input[type="radio"], .f1-radio-row input[type="checkbox"] { width: auto !important; }
+.fai-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+.fai-table th { background: var(--ink); color: var(--paper); font-family: var(--mono); font-size: 10px; padding: 8px 6px; text-align: left; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.fai-table td { border: 1px solid var(--rule); padding: 4px; vertical-align: top; background: var(--paper); }
+.fai-table input { width: 100%; padding: 6px 8px; font-family: var(--mono); font-size: 12px; border: none; background: transparent; outline: none; }
+.fai-table input:focus { background: var(--blueprint-tint, #e0eaf7); }
+.del-btn { background: none; border: none; color: var(--alert, #c64b2a); cursor: pointer; font-size: 16px; padding: 4px 8px; font-family: var(--mono); }
+.add-row-btn { background: var(--blueprint, #1565C0); color: white; border: none; padding: 7px 14px; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; border-radius: var(--rad); cursor: pointer; margin-top: 8px; }
+.add-row-btn:hover { background: #0c4ca0; }
+.action-bar { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.action-btn { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 10px 18px; font-family: var(--body); font-size: 13px; font-weight: 600; border-radius: var(--rad); cursor: pointer; transition: all 0.15s; }
+.action-btn:hover { background: var(--paper); color: var(--ink); }
+.action-btn.secondary { background: var(--paper); color: var(--ink); }
+.action-btn.secondary:hover { background: var(--ink); color: var(--paper); }
+.action-btn.warn { background: var(--paper); color: var(--alert, #c64b2a); border-color: var(--alert, #c64b2a); }
+.preview-section { background: var(--paper); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; position: sticky; top: 80px; align-self: start; }
+.preview-header { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; }
+.preview-form-title { font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.preview-form-sub { font-family: var(--mono); font-size: 11px; color: var(--mute); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.08em; }
+.preview-block { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px dotted var(--rule); }
+.preview-block:last-child { border-bottom: none; }
+.preview-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; margin-bottom: 6px; }
+.preview-row .lbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mute); margin-bottom: 2px; display: block; }
+.preview-row .val { font-family: var(--mono); font-size: 13px; color: var(--ink); padding: 4px 0; border-bottom: 1px solid var(--rule); }
+.preview-row .val.empty { color: var(--mute); font-style: italic; }
+.preview-section h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 8px; font-weight: 700; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 8px 0; }
+.preview-table th { background: var(--ink); color: var(--paper); padding: 6px 8px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; text-align: left; }
+.preview-table td { border: 1px solid var(--rule); padding: 4px 8px; font-family: var(--mono); font-size: 11px; }
+.report-id { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-bottom: 6px; }
+
+/* Print: only the preview section, full width */
+@media print {
+  @page { size: A4 portrait; margin: 12mm; }
+  body { background: white !important; }
+  .grid-bg, .site-header, .notice-bar, .site-footer, [data-mw="footer"], [data-mw="header"], [data-mw="notice-bar"], [data-mw="cn-big"], .cn-big-banner, [data-mw="cn-sidebar"], .cn-promo-card, [data-mw="cn-inline"], .cn-inline-banner, .mm-rail, .mm-rail-left, #mm-sticky-cta, #mm-install-pill, .breadcrumb, .page-header, .builder-grid > div:first-child, .mm-embed-widget, .action-bar { display: none !important; }
+  .builder-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .preview-section { position: static !important; box-shadow: none !important; border: 1pt solid #000 !important; padding: 14pt !important; page-break-inside: auto; }
+  .preview-form-title { font-size: 18pt !important; }
+  .preview-form-sub { font-size: 8pt !important; }
+  .preview-block { page-break-inside: avoid; }
+  .preview-table { font-size: 9pt !important; page-break-inside: auto; }
+  .preview-table tr { page-break-inside: avoid !important; }
+  .preview-row { font-size: 10pt !important; }
+  .preview-row .val { color: #000 !important; }
+  .preview-row .val.empty { display: none; }
+  body::after { content: "Source: metricmech.com/calculators/as9102-form1 — Free AS9102 Rev C Form 1 builder."; display: block; margin-top: 18pt; padding-top: 6pt; border-top: 0.5pt solid #777; font-size: 8pt; color: #555; text-align: center; }
+}
+</style>
+
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/as9102-form1">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="AS9102 Form 1 Builder — Free FAI Part Number Accountability Tool | MetricMech">
+<meta property="og:description" content="Free AS9102 Rev C Form 1 builder. Detail/Assembly, Full/Partial FAI variants. Print-ready PDF output.">
+<meta property="og:url" content="https://metricmech.com/calculators/as9102-form1">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AS9102 Form 1 Builder — Free FAI Part Number Accountability Tool",
+  "description": "Free AS9102 Rev C Form 1 builder. Detail/Assembly, Full/Partial FAI variants. Print-ready PDF output for aerospace First Article Inspection submissions.",
+  "url": "https://metricmech.com/calculators/as9102-form1",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "10" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>AS9102 Form 1</div>
+  <h1 class="page-title">AS9102 Form 1 <em>builder.</em></h1>
+  <p class="page-lede">Part Number Accountability — the FAI header sheet that identifies the part, the revision, the supplier, and the type of FAI submission. Fill the form, get a print-ready PDF. AS9102 Rev C compliant.</p>
+</div>
+
+<div class="calc-layout">
+<div class="builder-grid">
+
+  <!-- LEFT: form -->
+  <div>
+
+    <div class="f1-section">
+      <h3>Part <em>identification</em></h3>
+      <div class="f1-grid">
+        <div><label>1. Part Number</label><input type="text" id="i_partNum" data-key="partNum" placeholder="e.g. 7050-1234-A"></div>
+        <div><label>2. Part Name</label><input type="text" id="i_partName" data-key="partName" placeholder="e.g. Mounting Bracket"></div>
+        <div><label>3. Serial Number</label><input type="text" id="i_serial" data-key="serial" placeholder="e.g. SN-2026-0142"></div>
+        <div><label>4. FAIR Identifier</label><input type="text" id="i_fairId" data-key="fairId" placeholder="e.g. FAIR-2026-042"></div>
+        <div><label>5. Part Revision Level</label><input type="text" id="i_partRev" data-key="partRev" placeholder="e.g. C"></div>
+        <div><label>6. Drawing Number</label><input type="text" id="i_drawingNum" data-key="drawingNum" placeholder="e.g. 7050-1234"></div>
+        <div><label>7. Drawing Revision Level</label><input type="text" id="i_drawingRev" data-key="drawingRev" placeholder="e.g. C"></div>
+        <div><label>8. Manufacturing Process Reference</label><input type="text" id="i_procRef" data-key="procRef" placeholder="e.g. MPS-2026-042"></div>
+        <div class="f1-full"><label>9. Additional Changes</label><textarea id="i_addlChanges" data-key="addlChanges" placeholder="List any deviations, ECNs, or non-conformances applied to this part"></textarea></div>
+      </div>
+    </div>
+
+    <div class="f1-section">
+      <h3>Supplier and <em>customer information</em></h3>
+      <div class="f1-grid">
+        <div><label>10. Organization Name</label><input type="text" id="i_orgName" data-key="orgName" placeholder="e.g. Acme Precision Mfg Pvt Ltd"></div>
+        <div><label>11. Supplier Code</label><input type="text" id="i_supplierCode" data-key="supplierCode" placeholder="e.g. CAGE-12345"></div>
+        <div><label>12. P.O. Number</label><input type="text" id="i_poNumber" data-key="poNumber" placeholder="e.g. PO-TASL-2026-789"></div>
+        <div><label>Customer Name</label><input type="text" id="i_customerName" data-key="customerName" placeholder="e.g. Tata Advanced Systems"></div>
+      </div>
+    </div>
+
+    <div class="f1-section">
+      <h3>FAI <em>type</em></h3>
+      <div style="margin-bottom: 14px;">
+        <label style="font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; display: block;">13a. FAI type — detail or assembly</label>
+        <div class="f1-radio-row">
+          <label><input type="radio" name="faiScope" value="Detail" data-key="faiScope" checked> Detail FAI</label>
+          <label><input type="radio" name="faiScope" value="Assembly" data-key="faiScope"> Assembly FAI</label>
+        </div>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label style="font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; display: block;">13b. FAI scope — full or partial</label>
+        <div class="f1-radio-row">
+          <label><input type="radio" name="faiType" value="Full" data-key="faiType" checked> Full FAI</label>
+          <label><input type="radio" name="faiType" value="Partial" data-key="faiType"> Partial FAI</label>
+        </div>
+      </div>
+      <div class="f1-grid">
+        <div><label>14a. Baseline Part Number (including rev — Partial FAI only)</label><input type="text" id="i_baselinePN" data-key="baselinePN" placeholder="e.g. 7050-1234-A Rev B"></div>
+        <div class="f1-full"><label>14b. Reason for Partial FAI</label><textarea id="i_partialReason" data-key="partialReason" placeholder="e.g. ECN-2026-15 added new chamfer feature; only that characteristic re-inspected"></textarea></div>
+      </div>
+    </div>
+
+    <div class="f1-section" id="assemblySection" style="display: none;">
+      <h3>Index of part numbers <em>(Assembly FAI only)</em></h3>
+      <p style="font-size: 13px; color: var(--ink-2); margin-bottom: 10px;">List all sub-assembly and detail part numbers included in this Assembly FAI. Each row must have its own FAIR identifier.</p>
+      <table class="fai-table" id="assemblyTable">
+        <thead>
+          <tr>
+            <th style="width: 26%;">Part Number</th>
+            <th style="width: 28%;">Part Name</th>
+            <th style="width: 22%;">Serial Number</th>
+            <th style="width: 20%;">FAIR Identifier</th>
+            <th style="width: 4%;"></th>
+          </tr>
+        </thead>
+        <tbody id="assemblyBody"></tbody>
+      </table>
+      <button class="add-row-btn" onclick="addAssemblyRow()">+ Add Row</button>
+    </div>
+
+    <div class="f1-section">
+      <h3>Signatures and <em>approvals</em></h3>
+      <div class="f1-grid">
+        <div><label>15a. Prepared by</label><input type="text" id="i_preparedBy" data-key="preparedBy" placeholder="Name and title"></div>
+        <div><label>15b. Date prepared</label><input type="date" id="i_preparedDate" data-key="preparedDate"></div>
+        <div><label>16a. Reviewed by</label><input type="text" id="i_reviewedBy" data-key="reviewedBy" placeholder="Name and title"></div>
+        <div><label>16b. Date reviewed</label><input type="date" id="i_reviewedDate" data-key="reviewedDate"></div>
+        <div><label>17a. Approved by</label><input type="text" id="i_approvedBy" data-key="approvedBy" placeholder="Name and title"></div>
+        <div><label>17b. Date approved</label><input type="date" id="i_approvedDate" data-key="approvedDate"></div>
+        <div><label>18a. Customer Approval (if required)</label><input type="text" id="i_custApprovedBy" data-key="custApprovedBy" placeholder="Customer rep name"></div>
+        <div><label>18b. Customer Approval Date</label><input type="date" id="i_custApprovedDate" data-key="custApprovedDate"></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="action-btn" onclick="window.print()">Print / Save PDF</button>
+      <button class="action-btn secondary" onclick="saveToStorage()">Save Draft</button>
+      <button class="action-btn secondary" onclick="loadFromStorage()">Load Draft</button>
+      <button class="action-btn secondary" onclick="loadSample()">Load Sample</button>
+      <button class="action-btn warn" onclick="resetForm()">Reset</button>
+    </div>
+
+    <p style="font-size: 12px; color: var(--mute); margin-top: 8px;">
+      Drafts save to your browser's local storage — private to this device, not uploaded. For audit-grade PDF output with unique report ID and full Form 3 characteristics, see the <a href="as9102-form3.html">AS9102 Form 3 Builder</a> and the <a href="../articles/as9102-form3.html">AS9102 Form 3 walkthrough</a> for the Tata Advanced Systems example.
+    </p>
+
+  </div>
+
+  <!-- RIGHT: preview -->
+  <div>
+    <div class="preview-section" id="previewPane">
+      <div class="preview-header">
+        <span>AS9102 Rev C — Form 1</span>
+        <span id="reportId" class="report-id"></span>
+      </div>
+      <div class="preview-form-title">First Article Inspection Report</div>
+      <div class="preview-form-sub">FORM 1: PART NUMBER ACCOUNTABILITY</div>
+
+      <div class="preview-block">
+        <div class="preview-row">
+          <div><span class="lbl">Part Number</span><span class="val" id="p_partNum"></span></div>
+          <div><span class="lbl">Part Name</span><span class="val" id="p_partName"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Serial Number</span><span class="val" id="p_serial"></span></div>
+          <div><span class="lbl">FAIR Identifier</span><span class="val" id="p_fairId"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Part Revision</span><span class="val" id="p_partRev"></span></div>
+          <div><span class="lbl">Drawing Number</span><span class="val" id="p_drawingNum"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Drawing Revision</span><span class="val" id="p_drawingRev"></span></div>
+          <div><span class="lbl">Manufacturing Process Ref</span><span class="val" id="p_procRef"></span></div>
+        </div>
+        <div class="preview-row" style="grid-template-columns: 1fr;">
+          <div><span class="lbl">Additional Changes</span><span class="val" id="p_addlChanges"></span></div>
+        </div>
+      </div>
+
+      <div class="preview-block">
+        <h4>Supplier and Customer</h4>
+        <div class="preview-row">
+          <div><span class="lbl">Organization Name</span><span class="val" id="p_orgName"></span></div>
+          <div><span class="lbl">Supplier Code</span><span class="val" id="p_supplierCode"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">P.O. Number</span><span class="val" id="p_poNumber"></span></div>
+          <div><span class="lbl">Customer Name</span><span class="val" id="p_customerName"></span></div>
+        </div>
+      </div>
+
+      <div class="preview-block">
+        <h4>FAI Type</h4>
+        <div class="preview-row">
+          <div><span class="lbl">Detail or Assembly</span><span class="val" id="p_faiScope"></span></div>
+          <div><span class="lbl">Full or Partial</span><span class="val" id="p_faiType"></span></div>
+        </div>
+        <div class="preview-row" id="partialBlock" style="grid-template-columns: 1fr; display: none;">
+          <div><span class="lbl">Baseline Part Number</span><span class="val" id="p_baselinePN"></span></div>
+        </div>
+        <div class="preview-row" id="partialReasonBlock" style="grid-template-columns: 1fr; display: none;">
+          <div><span class="lbl">Reason for Partial FAI</span><span class="val" id="p_partialReason"></span></div>
+        </div>
+      </div>
+
+      <div class="preview-block" id="assemblyPreview" style="display: none;">
+        <h4>Assembly Index</h4>
+        <table class="preview-table">
+          <thead>
+            <tr><th>Part Number</th><th>Part Name</th><th>Serial</th><th>FAIR ID</th></tr>
+          </thead>
+          <tbody id="p_assemblyBody"></tbody>
+        </table>
+      </div>
+
+      <div class="preview-block">
+        <h4>Signatures</h4>
+        <div class="preview-row">
+          <div><span class="lbl">Prepared by</span><span class="val" id="p_preparedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_preparedDate"></span></div>
+          <div><span class="lbl">Reviewed by</span><span class="val" id="p_reviewedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_reviewedDate"></span></div>
+        </div>
+        <div class="preview-row">
+          <div><span class="lbl">Approved by</span><span class="val" id="p_approvedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_approvedDate"></span></div>
+          <div><span class="lbl">Customer Approval</span><span class="val" id="p_custApprovedBy"></span><span style="font-size: 10px; color: var(--mute);" id="p_custApprovedDate"></span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div data-mw="cn-sidebar" data-variant="as9102" style="margin-top: 16px;"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- SEO content block + CTA + reference -->
+<div style="max-width: 880px; margin: 32px auto; padding: 0 32px;">
+  <h2 style="font-family: var(--display); font-size: 26px; font-weight: 600; margin: 24px 0 12px;">About <em style="font-style: italic; color: var(--blueprint); font-weight: 500;">AS9102 Form 1</em></h2>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Form 1 of AS9102 Rev C — <strong>Part Number Accountability</strong> — is the first sheet of every aerospace First Article Inspection Report. It identifies the part, the revision, the manufacturing organization, the customer purchase order, and the type of FAI being submitted (detail or assembly, full or partial). For partial FAIs, it documents the baseline part and the reason for re-submission.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Tier-2 and Tier-3 aerospace suppliers in India submitting to TASL (Tata Advanced Systems), Bharat Forge, HAL, Mahindra Aerospace, and direct-to-OEM (Boeing, Airbus) all require Form 1, 2, and 3 as a complete package. This builder produces a print-ready Form 1 that can be saved as PDF via your browser (Ctrl/Cmd + P → Save as PDF). For the characteristic-level Form 3, use the <a href="as9102-form3.html">AS9102 Form 3 Builder</a>.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    Five Form 1 mistakes auditors flag most often: (1) Partial FAI without a baseline part number reference, (2) FAI submitted against a drawing revision that doesn't match the part revision in field 5/7, (3) missing customer approval signature when the contract requires it, (4) no manufacturing process reference (field 8) for parts with special processes (heat treat, NDT, plating), and (5) Assembly FAI without a sub-tier index — required when the assembly contains parts from suppliers other than the FAI-issuing organization.
+  </p>
+  <p style="font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px;">
+    For the step-by-step Form 3 walkthrough with a real Tata Advanced Systems aerospace bracket example, see the <a href="../articles/as9102-form3.html">AS9102 Form 3 article</a>. For position tolerance reporting on Form 3 (with MMC bonus), see <a href="../articles/position-tolerance-mmc.html">Position Tolerance with MMC</a>.
+  </p>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+
+<script>
+// ============ Form state ============
+const F = {
+  partNum: '', partName: '', serial: '', fairId: '', partRev: '',
+  drawingNum: '', drawingRev: '', procRef: '', addlChanges: '',
+  orgName: '', supplierCode: '', poNumber: '', customerName: '',
+  faiScope: 'Detail', faiType: 'Full',
+  baselinePN: '', partialReason: '',
+  preparedBy: '', preparedDate: '', reviewedBy: '', reviewedDate: '',
+  approvedBy: '', approvedDate: '', custApprovedBy: '', custApprovedDate: '',
+  assembly: []
+};
+
+// ============ Report ID ============
+function genReportId() {
+  const ts = Date.now().toString(36).toUpperCase().slice(-5);
+  const rand = Math.random().toString(36).toUpperCase().slice(2, 6);
+  return `MM-F1-${ts}-${rand}`;
+}
+document.getElementById('reportId').textContent = genReportId();
+
+// ============ Live preview ============
+function updatePreview() {
+  // Simple fields
+  ['partNum','partName','serial','fairId','partRev','drawingNum','drawingRev','procRef','addlChanges',
+   'orgName','supplierCode','poNumber','customerName',
+   'baselinePN','partialReason',
+   'preparedBy','reviewedBy','approvedBy','custApprovedBy'].forEach(k => {
+    const el = document.getElementById('p_' + k);
+    if (!el) return;
+    const v = F[k];
+    if (v && v.trim()) {
+      el.textContent = v;
+      el.classList.remove('empty');
+    } else {
+      el.textContent = '—';
+      el.classList.add('empty');
+    }
+  });
+
+  // Date fields
+  ['preparedDate','reviewedDate','approvedDate','custApprovedDate'].forEach(k => {
+    const el = document.getElementById('p_' + k);
+    if (el) el.textContent = F[k] || '';
+  });
+
+  // Scope + type
+  document.getElementById('p_faiScope').textContent = F.faiScope + ' FAI';
+  document.getElementById('p_faiType').textContent = F.faiType + ' FAI';
+  document.getElementById('partialBlock').style.display = F.faiType === 'Partial' ? '' : 'none';
+  document.getElementById('partialReasonBlock').style.display = F.faiType === 'Partial' ? '' : 'none';
+
+  // Assembly section visibility
+  const isAssembly = F.faiScope === 'Assembly';
+  document.getElementById('assemblySection').style.display = isAssembly ? '' : 'none';
+  document.getElementById('assemblyPreview').style.display = (isAssembly && F.assembly.length > 0) ? '' : 'none';
+
+  // Assembly preview rows
+  const tbody = document.getElementById('p_assemblyBody');
+  tbody.innerHTML = F.assembly.map(r => `<tr><td>${escape(r.pn)}</td><td>${escape(r.name)}</td><td>${escape(r.sn)}</td><td>${escape(r.fairId)}</td></tr>`).join('');
+}
+
+function escape(s) { return (s || '').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])); }
+
+// ============ Input binding ============
+function bindInputs() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    el.addEventListener('input', () => {
+      F[k] = el.type === 'checkbox' ? el.checked : el.value;
+      updatePreview();
+    });
+    el.addEventListener('change', () => {
+      F[k] = el.type === 'checkbox' ? el.checked : el.value;
+      updatePreview();
+    });
+  });
+}
+
+// ============ Assembly row management ============
+function addAssemblyRow(prefill) {
+  const idx = F.assembly.length;
+  F.assembly.push(prefill || { pn: '', name: '', sn: '', fairId: '' });
+  renderAssemblyRows();
+  updatePreview();
+}
+
+function renderAssemblyRows() {
+  const body = document.getElementById('assemblyBody');
+  body.innerHTML = F.assembly.map((row, i) => `
+    <tr>
+      <td><input type="text" data-asm-idx="${i}" data-asm-field="pn" value="${escape(row.pn)}" placeholder="Sub PN"></td>
+      <td><input type="text" data-asm-idx="${i}" data-asm-field="name" value="${escape(row.name)}" placeholder="Sub Name"></td>
+      <td><input type="text" data-asm-idx="${i}" data-asm-field="sn" value="${escape(row.sn)}" placeholder="Serial"></td>
+      <td><input type="text" data-asm-idx="${i}" data-asm-field="fairId" value="${escape(row.fairId)}" placeholder="FAIR ID"></td>
+      <td><button class="del-btn" onclick="delAssemblyRow(${i})" title="Delete">×</button></td>
+    </tr>
+  `).join('');
+  // Re-bind inputs in the table
+  body.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const i = parseInt(inp.dataset.asmIdx, 10);
+      const f = inp.dataset.asmField;
+      F.assembly[i][f] = inp.value;
+      updatePreview();
+    });
+  });
+}
+
+function delAssemblyRow(i) {
+  F.assembly.splice(i, 1);
+  renderAssemblyRows();
+  updatePreview();
+}
+
+// ============ Save / load / reset ============
+const STORAGE_KEY = 'mm_as9102_form1';
+function saveToStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(F));
+    flash('Saved to browser ✓');
+  } catch (e) { flash('Save failed — storage full or disabled'); }
+}
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) { flash('No saved draft found'); return; }
+    const obj = JSON.parse(raw);
+    Object.assign(F, obj);
+    applyFormStateToInputs();
+    renderAssemblyRows();
+    updatePreview();
+    flash('Draft loaded ✓');
+  } catch (e) { flash('Load failed'); }
+}
+function applyFormStateToInputs() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    if (el.type === 'radio') {
+      el.checked = (F[k] === el.value);
+    } else if (el.type === 'checkbox') {
+      el.checked = !!F[k];
+    } else {
+      el.value = F[k] || '';
+    }
+  });
+}
+function resetForm() {
+  if (!confirm('Reset all form fields? This cannot be undone.')) return;
+  Object.keys(F).forEach(k => F[k] = Array.isArray(F[k]) ? [] : (k === 'faiScope' ? 'Detail' : (k === 'faiType' ? 'Full' : '')));
+  applyFormStateToInputs();
+  renderAssemblyRows();
+  updatePreview();
+  document.getElementById('reportId').textContent = genReportId();
+}
+function loadSample() {
+  Object.assign(F, {
+    partNum: '7050-1234-A', partName: 'Mounting Bracket', serial: 'SN-2026-0142', fairId: 'FAIR-2026-042',
+    partRev: 'C', drawingNum: '7050-1234', drawingRev: 'C', procRef: 'MPS-2026-042',
+    addlChanges: 'ECN-2026-15 — added 0.5×45° chamfer to feature 22',
+    orgName: 'Acme Precision Mfg Pvt Ltd', supplierCode: 'CAGE-12345',
+    poNumber: 'PO-TASL-2026-789', customerName: 'Tata Advanced Systems',
+    faiScope: 'Detail', faiType: 'Partial',
+    baselinePN: '7050-1234-A Rev B', partialReason: 'ECN-2026-15 added new chamfer feature; only characteristic 22 re-inspected.',
+    preparedBy: 'R. Kumar, QA Engineer', preparedDate: '2026-05-08',
+    reviewedBy: 'S. Patel, QA Lead', reviewedDate: '2026-05-09',
+    approvedBy: 'M. Iyer, Plant Head', approvedDate: '2026-05-10',
+    custApprovedBy: '', custApprovedDate: '',
+    assembly: []
+  });
+  applyFormStateToInputs();
+  renderAssemblyRows();
+  updatePreview();
+  flash('Sample loaded — try changing fields to see the preview update');
+}
+
+function flash(msg) {
+  const el = document.createElement('div');
+  el.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:6px;font-family:Inter,sans-serif;font-size:13px;z-index:99999;box-shadow:0 4px 14px rgba(0,0,0,0.2);';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+
+// ============ Init ============
+document.addEventListener('DOMContentLoaded', () => {
+  bindInputs();
+  applyFormStateToInputs();
+  updatePreview();
+});
+</script>
+
+<script src="../site.js"></script>
+</body>
+</html>
