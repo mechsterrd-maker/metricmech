@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>First Article Inspection Report: Fast FAI Guide | MetricMech</title>
+<meta name="description" content="A practical guide to the first article inspection report (FAI): what goes in it, AS9102 forms explained, and how to build one fast from a balloon drawing." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/first-article-inspection-report">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="First Article Inspection Report: Fast FAI Guide | MetricMech">
+<meta property="og:description" content="A practical guide to the first article inspection report (FAI): what goes in it, AS9102 forms explained, and how to build one fast from a balloon drawing.">
+<meta property="og:url" content="https://metricmech.com/articles/first-article-inspection-report">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="First Article Inspection Report: Fast FAI Guide | MetricMech">
+<meta name="twitter:description" content="A practical guide to the first article inspection report (FAI): what goes in it, AS9102 forms explained, and how to build one fast from a balloon drawing.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "First article inspection report: what it is and how to build one fast",
+  "name": "First Article Inspection Report: Fast FAI Guide | MetricMech",
+  "description": "A practical guide to the first article inspection report (FAI): what goes in it, AS9102 forms explained, and how to build one fast from a balloon drawing.",
+  "url": "https://metricmech.com/articles/first-article-inspection-report",
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech & CadNexa"},
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "datePublished": "2026-06-13",
+  "dateModified": "2026-06-13",
+  "mainEntityOfPage": "https://metricmech.com/articles/first-article-inspection-report"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between FAI and PPAP?", "acceptedAnswer": {"@type": "Answer", "text": "FAI (AS9102) verifies the first article against the drawing and is common in aerospace. PPAP (AIAG) is the automotive equivalent and bundles control plan, MSA, capability study, and PSW across Levels 1 to 5. FAI is often part of a PPAP package."}},
+    {"@type": "Question", "name": "Who signs off the first article inspection report?", "acceptedAnswer": {"@type": "Answer", "text": "Usually the supplier quality engineer prepares and signs it, and the customer quality team reviews and approves. Some customers require source inspection first."}},
+    {"@type": "Question", "name": "How long does an FAI report take?", "acceptedAnswer": {"@type": "Answer", "text": "By hand a 150-characteristic part can take a full day. Auto-ballooning and flowing data into the report can cut the paperwork to under an hour."}},
+    {"@type": "Question", "name": "Do I need an FAI for a non-aerospace part?", "acceptedAnswer": {"@type": "Answer", "text": "Not always mandated, but a first article check is good practice for any new part, supplier, or process change, and the AS9102 structure works as a template."}},
+    {"@type": "Question", "name": "What is the fastest way to balloon the drawing for an FAI?", "acceptedAnswer": {"@type": "Answer", "text": "Upload the PDF to an auto-ballooning tool, run automatic detection, review, and export the numbered characteristics to the report."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>First Article Inspection Report</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What it is</a>
+    <a href="#why">Why it exists</a>
+    <a href="#forms">The three forms</a>
+    <a href="#fast">The fast path</a>
+    <a href="#steps">Step by step</a>
+    <a href="#mistakes">Common rejections</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>First article inspection report: what it is and how to <em>build one fast.</em></h1>
+    <div class="art-meta-bar">
+      <span>FAI / Quality</span>
+      <span>June 13, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">A first article inspection report (FAIR) proves the first production part off a new process meets every requirement on the drawing. The report is not the hard part &mdash; getting every characteristic numbered, measured, and recorded without errors is. Here is how to do that fast.</p>
+
+    <h2 id="what">What a first article inspection report actually is</h2>
+    <p>A <strong>first article inspection report</strong> is a documented check that part number one conforms to every callout on the drawing &mdash; each dimension, tolerance, material, finish, and note &mdash; with the actual measured reading recorded next to each requirement. In aerospace it follows the <strong>AS9102</strong> standard and uses three forms. In automotive it is usually folded into PPAP; in medical devices it sits under ISO 13485 process validation.</p>
+    <p>The key word is <strong>documented</strong>. "It looks fine" is not an FAI. Every characteristic gets a number, a stated requirement, and a measured result &mdash; signed and traceable.</p>
+
+    <h2 id="why">Why the FAI exists</h2>
+    <p>Your customer is about to trust you with a production run. Before they release the PO, they want proof that the first article is correct. A clean FAI builds that trust; a sloppy one gets bounced, and each bounce costs days.</p>
+    <p>FAI is triggered by a new part, a new supplier, a process or tooling change, or a long gap in production. It is mandatory in aerospace and defence and good practice everywhere precision matters.</p>
+
+    <h2 id="forms">What goes into the report: AS9102 Forms 1, 2, 3</h2>
+    <p>Even outside aerospace, the AS9102 Rev B three-form structure is a solid template:</p>
+    <table>
+      <thead><tr><th>Form</th><th>Purpose</th><th>What it captures</th></tr></thead>
+      <tbody>
+        <tr><td>Form 1</td><td>Part Number Accountability</td><td>Part number, revision, drawing, sub-assemblies, FAIR identity</td></tr>
+        <tr><td>Form 2</td><td>Product Accountability</td><td>Materials, special processes, functional tests, certifications</td></tr>
+        <tr><td>Form 3</td><td>Characteristic Accountability</td><td>Every ballooned characteristic, its requirement, measured result, and tool used</td></tr>
+      </tbody>
+    </table>
+    <p>Form 3 is where the hours go. A part with 187 characteristics means 187 rows &mdash; each one a chance for a transcription slip. For a line-by-line Form 3 walkthrough, see our <a href="as9102-form3.html">AS9102 Form 3 example</a>, or jump straight to the free <a href="../calculators/as9102-form3.html">AS9102 Form 3 Builder</a>.</p>
+
+    <h2 id="fast">The fast path: balloon first, then measure</h2>
+    <p>Teams that turn FAIs around in an afternoon all do the same thing: they split the job into two clean stages and let software carry each one.</p>
+
+    <h3>Stage 1 &mdash; Balloon the drawing automatically</h3>
+    <p>Instead of circling and numbering callouts by hand, auto-balloon the PDF. CadNexa's <a href="https://cadnexa.com/balloon">Smart Detect ballooning</a> scans the sheet, places numbered balloons on detected dimensions and tolerances, and reads each value with OCR. You review, fix what it missed, and you have a numbered characteristic list in minutes instead of hours.</p>
+
+    <h3>Stage 2 &mdash; Capture the measurements cleanly</h3>
+    <p>With the characteristic list ready, inspection becomes a structured fill-in: requirement on the left, measured reading on the right, pass/fail computed for you. The <a href="../calculators/as9102-form3.html">Form 3 Builder</a> handles the pass/fail logic and PDF export; pair it with a <a href="../calculators/cp-cpk.html">Cp/Cpk check</a> where the customer wants capability evidence on Form 2.</p>
+
+    <div class="callout">
+      <strong>One principle</strong>
+      Never type the same number twice. Ballooned data flows into the inspection sheet; measured data flows into the report. Every manual re-keying is a future rejection waiting to happen.
+    </div>
+
+    <h2 id="steps">How to build the report, step by step</h2>
+    <ol>
+      <li><strong>Lock the revision.</strong> Confirm the exact drawing revision on the PO before you start.</li>
+      <li><strong>Balloon every characteristic.</strong> Auto-balloon the PDF, then check the title block and notes by hand &mdash; material, finish, and general tolerances are characteristics too.</li>
+      <li><strong>Plan the inspection.</strong> Assign the right tool to each characteristic: CMM for position and profile, micrometer for diameters, gauge for threads, profilometer for finish.</li>
+      <li><strong>Measure and record.</strong> Capture each reading against its requirement. Note non-conformances honestly &mdash; a flagged deviation with a disposition beats a hidden one.</li>
+      <li><strong>Complete Forms 1, 2, 3.</strong> Part accountability, materials and special processes, then the full characteristic table.</li>
+      <li><strong>Review and submit.</strong> Have a second person check the report, then send it through a secure, traceable link &mdash; not a loose email attachment.</li>
+    </ol>
+
+    <h2 id="mistakes">Common mistakes that cause rejections</h2>
+    <div class="warn-box">
+      <strong>The five that bounce FAIs</strong>
+      Missed characteristics (notes, title-block specs, GD&amp;T frames) &middot; wrong revision &middot; vague non-conformances with no value or disposition &middot; re-typed values between spreadsheets &middot; out-of-calibration gauges with no recorded cal status.
+    </div>
+    <p>Auto-ballooning plus a manual notes check kills the first one. Moving data instead of re-typing it kills the fourth &mdash; the single most common source of FAI errors.</p>
+
+    <h2 id="faq">FAQ</h2>
+    <h3>What is the difference between FAI and PPAP?</h3>
+    <p>FAI (AS9102) verifies the first article against the drawing and is common in aerospace. PPAP (AIAG) is the automotive equivalent and bundles control plan, MSA, capability study, and PSW across Levels 1 to 5. FAI is often one part of a PPAP package. Our <a href="../calculators/ppap-checklist.html">PPAP checklist</a> covers the full submission.</p>
+    <h3>Who signs off the report?</h3>
+    <p>Usually the supplier's quality engineer prepares and signs it, and the customer's quality team reviews and approves. Some customers require source inspection first.</p>
+    <h3>How long does an FAI report take?</h3>
+    <p>By hand, a 150-characteristic part can take a full day. Auto-ballooning the drawing and flowing data straight into the report can cut the paperwork to under an hour, leaving time for actual measurement.</p>
+    <h3>Do I need an FAI for a non-aerospace part?</h3>
+    <p>Not always mandated, but a first article check is good practice for any new part, supplier, or process change &mdash; and the AS9102 structure works as a template.</p>
+    <h3>What is the fastest way to balloon the drawing?</h3>
+    <p>Upload the PDF to an auto-ballooning tool such as CadNexa's <a href="https://cadnexa.com/balloon">Smart Detect</a>, run automatic detection, review, and export the numbered characteristics to the report.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; Mechanical engineer, 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 3 Builder</a>
+      <a href="as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Form 3 — TASL example</a>
+      <a href="../calculators/ppap-checklist.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP Checklist</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">FAI templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
