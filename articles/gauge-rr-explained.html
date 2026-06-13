@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gauge R&R Explained: How to Run an MSA Study | MetricMech</title>
+<meta name="description" content="Gauge R&R explained: repeatability vs reproducibility, how to run an MSA study, %GRR acceptance limits, and how to fix a failing measurement system." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/gauge-rr-explained">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gauge R&R Explained: How to Run an MSA Study | MetricMech">
+<meta property="og:description" content="Gauge R&R explained: repeatability vs reproducibility, how to run an MSA study, %GRR acceptance limits, and how to fix a failing measurement system.">
+<meta property="og:url" content="https://metricmech.com/articles/gauge-rr-explained">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gauge R&R Explained: How to Run an MSA Study | MetricMech">
+<meta name="twitter:description" content="Gauge R&R explained: repeatability vs reproducibility, how to run an MSA study, %GRR acceptance limits, and how to fix a failing measurement system.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Gauge R&R explained: how to run an MSA study",
+  "description": "Repeatability vs reproducibility, how to run a Gauge R&R study, %GRR acceptance limits, and how to fix a failing measurement system.",
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech & CadNexa"},
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type":"ImageObject","url":"https://metricmech.com/icons/icon-512.png"}},
+  "datePublished": "2026-06-13",
+  "dateModified": "2026-06-13",
+  "mainEntityOfPage": "https://metricmech.com/articles/gauge-rr-explained"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is an acceptable Gauge R&R percentage?","acceptedAnswer":{"@type":"Answer","text":"Below 10% is acceptable, 10-30% is marginal depending on cost and criticality, and above 30% is unacceptable."}},
+    {"@type":"Question","name":"What is the difference between repeatability and reproducibility?","acceptedAnswer":{"@type":"Answer","text":"Repeatability is variation from one operator and gauge repeating a measurement; reproducibility is variation between different operators measuring the same parts."}},
+    {"@type":"Question","name":"How many parts and operators do I need?","acceptedAnswer":{"@type":"Answer","text":"The standard study is 10 parts, 3 operators, and 2 to 3 trials each, with parts spanning the normal range of variation."}},
+    {"@type":"Question","name":"What is ndc in Gauge R&R?","acceptedAnswer":{"@type":"Answer","text":"Number of distinct categories - how many groups the measurement system can reliably distinguish. Aim for 5 or more."}},
+    {"@type":"Question","name":"Is Gauge R&R required for PPAP?","acceptedAnswer":{"@type":"Answer","text":"Yes. MSA including Gauge R&R is a PPAP element and underpins the dimensional results you submit."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Gauge R&amp;R</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What Gauge R&amp;R is</a>
+    <a href="#rr">Repeatability vs reproducibility</a>
+    <a href="#run">How to run a study</a>
+    <a href="#criteria">Acceptance criteria</a>
+    <a href="#fix">Fixing a failing gauge</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Gauge R&amp;R explained: how to run an <em>MSA study.</em></h1>
+    <div class="art-meta-bar">
+      <span>MSA / Metrology</span>
+      <span>June 13, 2026</span>
+      <span>7 min read</span>
+      <span>1,300 words</span>
+    </div>
+
+    <p class="lede">Before you trust a single measurement, you have to trust the measuring. Gauge R&amp;R &mdash; the heart of Measurement Systems Analysis &mdash; tells you how much of your observed variation is real and how much is the gauge fooling you.</p>
+
+    <h2 id="what">What Gauge R&amp;R is</h2>
+    <p>Gauge Repeatability and Reproducibility (Gauge R&amp;R) quantifies the variation that comes from the <strong>measurement system itself</strong> &mdash; the gauge and the people using it &mdash; rather than from the parts. It is the most common MSA study and a required element of PPAP. If your gauge variation is large, your Cp/Cpk numbers, your pass/fail calls, and your FAI results are all built on sand.</p>
+
+    <h2 id="rr">Repeatability vs reproducibility</h2>
+    <ul>
+      <li><strong>Repeatability (equipment variation):</strong> the same operator measuring the same part with the same gauge gets different readings. This is the gauge's own scatter.</li>
+      <li><strong>Reproducibility (appraiser variation):</strong> different operators measuring the same part get different readings. This is the human/method scatter.</li>
+    </ul>
+    <p>Gauge R&amp;R combines both into one figure, expressed as a percentage of either the tolerance or the total process variation.</p>
+
+    <h2 id="run">How to run a study</h2>
+    <p>The standard crossed study is <strong>10 parts &times; 3 operators &times; 2&ndash;3 trials</strong>:</p>
+    <ol>
+      <li>Pick 10 parts that span the normal range of variation &mdash; not 10 identical good ones.</li>
+      <li>Have 3 operators each measure all 10 parts, in random order, without seeing prior results.</li>
+      <li>Repeat for 2 or 3 trials per operator.</li>
+      <li>Feed the readings into a Gauge R&amp;R calculation to get %GRR and the number of distinct categories (ndc).</li>
+    </ol>
+    <p>The free <a href="../calculators/gauge-rr.html">Gauge R&amp;R calculator</a> does the arithmetic and returns %GRR and ndc from your pasted data.</p>
+
+    <h2 id="criteria">Acceptance criteria</h2>
+    <table>
+      <thead><tr><th>%GRR</th><th>Verdict</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>&lt; 10%</td><td>Acceptable</td><td>Use the gauge with confidence</td></tr>
+        <tr><td>10% &ndash; 30%</td><td>Marginal</td><td>May be acceptable depending on cost/criticality</td></tr>
+        <tr><td>&gt; 30%</td><td>Unacceptable</td><td>Fix before trusting any data</td></tr>
+      </tbody>
+    </table>
+    <p>Also check <strong>ndc &ge; 5</strong> &mdash; the measurement system should resolve at least five distinct categories across the part range. Below 5, the gauge cannot reliably tell parts apart.</p>
+
+    <div class="callout">
+      <strong>Why it comes first</strong>
+      A failing gauge inflates &sigma;, which crushes your Cpk and can reject good parts (or pass bad ones). Always validate the measurement system before reading anything into capability or inspection numbers.
+    </div>
+
+    <h2 id="fix">Fixing a failing gauge</h2>
+    <div class="warn-box">
+      <strong>Where the variation hides</strong>
+      High repeatability &rarr; the gauge itself: worn anvils, low resolution, poor fixturing, calibration drift. High reproducibility &rarr; the people/method: unclear datum, inconsistent clamping force, no written measurement procedure, operators not trained the same way.
+    </div>
+    <p>Fix repeatability with a better-resolution or better-maintained gauge and proper fixturing; fix reproducibility with a clear, written method and operator training so everyone measures the same feature the same way.</p>
+
+    <h2 id="faq">FAQ</h2>
+    <h3>What is an acceptable Gauge R&amp;R percentage?</h3>
+    <p>Below 10% is acceptable, 10&ndash;30% is marginal (acceptable depending on cost and criticality), and above 30% is unacceptable.</p>
+    <h3>What is the difference between repeatability and reproducibility?</h3>
+    <p>Repeatability is variation from one operator and gauge repeating a measurement; reproducibility is variation between different operators measuring the same parts.</p>
+    <h3>How many parts and operators do I need?</h3>
+    <p>The standard study is 10 parts, 3 operators, and 2 to 3 trials each, with parts spanning the normal range of variation.</p>
+    <h3>What is ndc?</h3>
+    <p>Number of distinct categories &mdash; how many groups the measurement system can reliably distinguish. Aim for 5 or more.</p>
+    <h3>Is Gauge R&amp;R required for PPAP?</h3>
+    <p>Yes. MSA, including Gauge R&amp;R, is one of the PPAP elements and underpins the dimensional results you submit.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; Mechanical engineer, 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Calculator</a>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp/Cpk Calculator</a>
+      <a href="cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp vs Cpk explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4;  color: var(--ink); text-decoration: none;">MSA templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

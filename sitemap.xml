@@ -49,6 +49,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://metricmech.com/articles/cp-cpk-explained</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://metricmech.com/articles/gauge-rr-explained</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://metricmech.com/calculators/aql-sampling</loc>
     <lastmod>2026-05-04</lastmod>
     <changefreq>weekly</changefreq>
