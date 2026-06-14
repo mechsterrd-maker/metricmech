@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tolerance Stack-Up: A Worked Example | MetricMech</title>
+<meta name="description" content="A step-by-step tolerance stack-up worked example: build the loop, run worst-case and RSS, read the result, and decide which tolerance to tighten." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/tolerance-stackup-worked-example">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tolerance Stack-Up: A Worked Example | MetricMech">
+<meta property="og:description" content="A step-by-step tolerance stack-up worked example: build the loop, run worst-case and RSS, read the result, and decide which tolerance to tighten.">
+<meta property="og:url" content="https://metricmech.com/articles/tolerance-stackup-worked-example">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tolerance Stack-Up: A Worked Example | MetricMech">
+<meta name="twitter:description" content="A step-by-step tolerance stack-up worked example: build the loop, run worst-case and RSS, read the result, and decide which tolerance to tighten.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Tolerance Stack-Up: A Worked Example Using Worst-Case and RSS",
+  "description": "A step-by-step tolerance stack-up worked example: build the loop, run worst-case and RSS, read the result, and decide which tolerances to tighten.",
+  "url": "https://metricmech.com/articles/tolerance-stackup-worked-example",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-14",
+  "mainEntityOfPage": "https://metricmech.com/articles/tolerance-stackup-worked-example"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between worst-case and RSS tolerance stack-up?", "acceptedAnswer": {"@type": "Answer", "text": "Worst-case sums the individual tolerances arithmetically and guarantees assembly even if every part is at its extreme limit, but it is conservative and forces tight tolerances. RSS (Root Sum Square) takes the square root of the sum of the squared tolerances, which is statistically realistic for parts in normal production and gives a wider, more economical gap."}},
+    {"@type": "Question", "name": "When should I use worst-case instead of RSS?", "acceptedAnswer": {"@type": "Answer", "text": "Use worst-case for safety-critical assemblies, low-volume production where statistics do not apply, and any interface where a single failure is unacceptable. Use RSS for high-volume production with capable, normally distributed processes where occasional extreme parts are improbable."}},
+    {"@type": "Question", "name": "How do I decide the sign of each dimension in the loop?", "acceptedAnswer": {"@type": "Answer", "text": "Walk the loop in one direction. Dimensions that move you toward the gap are positive, dimensions that move you away are negative. The nominal gap is the algebraic sum of the signed dimensions; the tolerances always add regardless of sign."}},
+    {"@type": "Question", "name": "What is a good acceptance criterion for the resulting gap?", "acceptedAnswer": {"@type": "Answer", "text": "The minimum gap must stay above zero (no interference) with margin, and the maximum gap must stay within the functional limit. If worst-case fails but RSS passes, the assembly will usually work in volume but carries some risk of rare misfits."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Tolerance stack-up worked example</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why stack-up</a>
+    <a href="#assembly">The assembly</a>
+    <a href="#loop">Build the loop</a>
+    <a href="#worstcase">Worst-case</a>
+    <a href="#rss">RSS method</a>
+    <a href="#decide">What to tighten</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Tolerance stack-up: a worked example using <em>worst-case and RSS.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T / Tolerancing</span>
+      <span>June 14, 2026</span>
+      <span>10 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">A tolerance stack-up tells you whether a stack of toleranced parts will still fit together at the extremes of production. This is a full worked example &mdash; real dimensions, both the worst-case and RSS methods, and the decision of which tolerance to tighten when the gap fails.</p>
+
+    <h2 id="why">Why a stack-up <em>matters</em></h2>
+    <p>Every dimension on a drawing carries a tolerance, and tolerances add up across an assembly. A shaft sitting in a housing, a stack of shims, a connector seating in a bore &mdash; each interface depends on the sum of several toleranced features. If you only check individual parts, you can have every component in spec and still end up with assemblies that bind or rattle. A stack-up analysis catches that before you cut metal.</p>
+
+    <h2 id="assembly">The <em>assembly</em></h2>
+    <p>Take a simple, common case: a spacer and a retaining ring assembled into a housing bore, and we want to know the axial gap that remains. The four contributors:</p>
+    <table>
+      <tr><th>Feature</th><th>Nominal (mm)</th><th>Tolerance (mm)</th></tr>
+      <tr><td>A &mdash; Housing bore depth</td><td>40.00</td><td>&plusmn;0.10</td></tr>
+      <tr><td>B &mdash; Spacer length</td><td>25.00</td><td>&plusmn;0.05</td></tr>
+      <tr><td>C &mdash; Retaining ring thickness</td><td>2.00</td><td>&plusmn;0.03</td></tr>
+      <tr><td>D &mdash; Shoulder height</td><td>10.00</td><td>&plusmn;0.05</td></tr>
+    </table>
+    <p>The gap G is what is left of the bore depth after the spacer, ring, and shoulder are seated. We want to confirm G never goes negative (parts interfere) and never opens beyond 1.0 mm (the ring loses retention).</p>
+
+    <h2 id="loop">Building the <em>loop</em></h2>
+    <p>Walk the dimension loop in one direction and assign signs. The bore depth opens the gap, so it is positive; the parts that fill the bore close the gap, so they are negative.</p>
+    <p><strong>Nominal gap = A &minus; B &minus; C &minus; D = 40.00 &minus; 25.00 &minus; 2.00 &minus; 10.00 = 3.00 mm.</strong></p>
+    <p>So at nominal, the gap is a comfortable 3.00 mm. The question is what the tolerances do to it. Note the rule that catches beginners: regardless of the plus or minus sign you gave each dimension in the loop, the <strong>tolerances always add</strong>. Variation never cancels.</p>
+
+    <h2 id="worstcase">Method 1: <em>worst-case</em></h2>
+    <p>Worst-case (also called arithmetic stack) assumes every part is simultaneously at its worst limit. Sum the tolerances:</p>
+    <p><strong>Total tolerance = 0.10 + 0.05 + 0.03 + 0.05 = &plusmn;0.23 mm.</strong></p>
+    <p>So the gap ranges from 3.00 &minus; 0.23 = <strong>2.77 mm</strong> to 3.00 + 0.23 = <strong>3.23 mm</strong>. Both ends are comfortably above zero and below 1.0 mm... except the maximum 3.23 mm exceeds our 1.0 mm retention limit badly. In this example the nominal was deliberately oversized to show the point: worst-case says this design does not work, because the gap can open far past the functional maximum.</p>
+    <div class="callout">
+      <strong>Worst-case is a guarantee, not a prediction</strong>
+      If a worst-case stack passes, the assembly is guaranteed to fit even if every part is at its limit on the same day. That certainty is why aerospace and safety-critical interfaces use it. The cost is that it forces tight component tolerances, which raise piece price.
+    </div>
+
+    <h2 id="rss">Method 2: <em>RSS</em></h2>
+    <p>RSS (Root Sum Square) recognises that all parts being at their extreme at once is statistically rare. Instead of adding tolerances, you take the square root of the sum of their squares:</p>
+    <p><strong>RSS tolerance = &radic;(0.10&sup2; + 0.05&sup2; + 0.03&sup2; + 0.05&sup2;) = &radic;(0.0100 + 0.0025 + 0.0009 + 0.0025) = &radic;0.0159 = &plusmn;0.126 mm.</strong></p>
+    <p>The RSS gap ranges from 2.87 mm to 3.13 mm &mdash; noticeably tighter than the worst-case &plusmn;0.23 mm. RSS assumes each dimension is centred and normally distributed (roughly &plusmn;3 sigma at the tolerance limits). It predicts the spread of real assemblies rather than the impossible all-at-once extreme.</p>
+    <table>
+      <tr><th>Method</th><th>Stack tolerance</th><th>Min gap</th><th>Max gap</th></tr>
+      <tr><td>Worst-case</td><td>&plusmn;0.23 mm</td><td>2.77 mm</td><td>3.23 mm</td></tr>
+      <tr><td>RSS</td><td>&plusmn;0.126 mm</td><td>2.87 mm</td><td>3.13 mm</td></tr>
+    </table>
+    <div class="warn-box">
+      <strong>RSS only holds if your processes are actually capable and centred</strong>
+      RSS quietly assumes each feature is produced on a centred, capable process (Cpk near or above 1.33). If a process drifts or runs to one side of tolerance, the real stack behaves closer to worst-case. Validate the assumption with capability data before you bank the wider RSS gap.
+    </div>
+
+    <h2 id="decide">Which tolerance to <em>tighten</em></h2>
+    <p>Suppose the gap must be reduced. Do not tighten every tolerance equally &mdash; in RSS, the largest tolerance dominates because it is squared. Here, A (the bore depth, &plusmn;0.10) contributes 0.0100 of the 0.0159 total, about 63%. Halving A to &plusmn;0.05 drops the RSS tolerance to &radic;(0.0025+0.0025+0.0009+0.0025) = &radic;0.0084 = &plusmn;0.092 mm &mdash; a big gain from one change. Tightening C (&plusmn;0.03) would barely move the result. <strong>Spend your tolerance budget on the biggest contributor.</strong></p>
+    <p>Rather than do this by hand each time, drop the loop into the <a href="../calculators/tolerance-stack.html">tolerance stack-up calculator</a> &mdash; it runs both worst-case and RSS, ranks the contributors, and shows the sensitivity of each dimension instantly.</p>
+
+    <h2 id="mistakes">Common stack-up <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Cancelling tolerances by sign.</strong> A minus sign on a dimension flips its nominal contribution, never its tolerance. Tolerances always add.</li>
+      <li><strong>Mixing equal-bilateral and unequal limits.</strong> Convert every limit dimension to an equal-bilateral &plusmn; form (shift the nominal) before stacking, or the arithmetic drifts.</li>
+      <li><strong>Using RSS on a low-volume or uncentred process.</strong> Without capability data, RSS over-promises. When in doubt, run worst-case.</li>
+      <li><strong>Forgetting GD&amp;T bonus tolerance.</strong> At MMC, position callouts gain bonus tolerance that belongs in the stack &mdash; ignoring it makes you tighten parts that did not need it.</li>
+      <li><strong>Not verifying parts to the loop.</strong> A stack-up is only as good as the measured dimensions. Balloon the drawing and capture the real characteristics first.</li>
+    </ol>
+    <p>That last point ties back to inspection: the dimensions feeding your stack-up should come from a controlled, ballooned drawing, not a memory of the print. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers every characteristic and exports them, so the loop you analyse matches the part you actually measure.</p>
+
+    <div class="callout">
+      <strong>Run your own loop</strong>
+      Plug these four dimensions &mdash; or your own &mdash; into the <a href="../calculators/tolerance-stack.html">tolerance stack-up calculator</a> and compare worst-case against RSS in seconds. Pair it with the <a href="../calculators/cp-cpk.html">Cp/Cpk calculator</a> to check the RSS assumption holds.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance Stack-Up Calculator</a>
+      <a href="../calculators/iso-286-fits.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits Calculator</a>
+      <a href="position-tolerance-mmc.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance with MMC</a>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Cp / Cpk Calculator</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
