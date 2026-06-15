@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISO 286 Fits and Tolerances Explained | MetricMech</title>
+<meta name="description" content="ISO 286 fits and tolerances explained: the hole and shaft system, IT grades, clearance, transition and interference fits, and reading H7/g6 callouts." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/iso-286-fits-tolerances">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISO 286 Fits and Tolerances Explained | MetricMech">
+<meta property="og:description" content="ISO 286 fits and tolerances explained: the hole and shaft system, IT grades, clearance, transition and interference fits, and reading H7/g6 callouts.">
+<meta property="og:url" content="https://metricmech.com/articles/iso-286-fits-tolerances">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 286 Fits and Tolerances Explained | MetricMech">
+<meta name="twitter:description" content="ISO 286 fits and tolerances explained: the hole and shaft system, IT grades, clearance, transition and interference fits, and reading H7/g6 callouts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ISO 286 Fits and Tolerances Explained",
+  "description": "ISO 286 fits and tolerances explained: how the hole-basis and shaft-basis system works, IT grades, clearance, transition and interference fits, and reading H7/g6 callouts.",
+  "url": "https://metricmech.com/articles/iso-286-fits-tolerances",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-15",
+  "mainEntityOfPage": "https://metricmech.com/articles/iso-286-fits-tolerances"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What does H7/g6 mean in ISO 286?", "acceptedAnswer": {"@type": "Answer", "text": "H7/g6 is a hole-basis fit. The capital H7 is the hole tolerance: H means its lower limit sits on the nominal size with a grade 7 tolerance band above it. The lowercase g6 is the shaft: g places the shaft just below nominal with a grade 6 band. Together they give a close running clearance fit used for precision sliding parts like spindles and guide pins."}},
+    {"@type": "Question", "name": "What is the difference between hole-basis and shaft-basis fits?", "acceptedAnswer": {"@type": "Answer", "text": "In hole-basis the hole is fixed at H and the shaft letter is varied to set the fit. In shaft-basis the shaft is fixed at h and the hole letter is varied. Hole-basis is preferred for most work because holes are made with standard reamers and gauges, so it is cheaper to keep the hole constant and adjust the shaft on the lathe."}},
+    {"@type": "Question", "name": "What are clearance, transition, and interference fits?", "acceptedAnswer": {"@type": "Answer", "text": "A clearance fit always leaves a gap so the parts move freely. A transition fit may give a slight clearance or slight interference depending on where the actual sizes fall, giving accurate location. An interference fit always has the shaft larger than the hole so the joint is held by press or shrink and transmits load without keys."}},
+    {"@type": "Question", "name": "What is an IT grade in ISO 286?", "acceptedAnswer": {"@type": "Answer", "text": "IT (International Tolerance) grade sets the width of the tolerance band. Lower numbers are tighter: IT01 to IT4 are gauge and high-precision work, IT5 to IT7 cover precision fits, IT8 to IT11 are general machining, and IT12 and coarser are rough or as-cast features. The same IT grade gives a larger absolute tolerance as the part size grows."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>ISO 286 fits and tolerances</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why ISO 286</a>
+    <a href="#system">The system</a>
+    <a href="#letters">Letters and grades</a>
+    <a href="#basis">Hole vs shaft basis</a>
+    <a href="#types">Three fit types</a>
+    <a href="#common">Common fits</a>
+    <a href="#read">Reading H7/g6</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>ISO 286 fits and tolerances <em>explained.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T / Tolerancing</span>
+      <span>June 15, 2026</span>
+      <span>10 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">ISO 286 is the system behind callouts like &empty;25 H7/g6. It turns a plain diameter into a precise fit between a hole and a shaft. This guide explains the hole and shaft system, IT grades, the three families of fits, and how to read a fit callout without reaching for the table every time.</p>
+
+    <h2 id="why">Why ISO 286 <em>exists</em></h2>
+    <p>Without a standard, "make this shaft fit that hole" is an argument waiting to happen. ISO 286 (the ISO system of limits and fits) replaces guesswork with a shared language: a couple of letters and numbers that tell the machinist exactly how much clearance or interference the designer wants, and tell the inspector exactly what limits to check. It is used worldwide and is the metric backbone of nearly every drawing coming through an Indian or global machine shop.</p>
+
+    <h2 id="system">How the <em>system</em> works</h2>
+    <p>Every fit combines two tolerances: one on the hole and one on the shaft. Each tolerance has two parts &mdash; a <strong>fundamental deviation</strong> (a letter) that fixes where the tolerance band sits relative to the nominal size, and an <strong>IT grade</strong> (a number) that fixes how wide the band is. Capital letters are holes, lowercase letters are shafts. So in &empty;25 H7/g6, both parts share the 25 mm nominal, the hole is H7, and the shaft is g6.</p>
+
+    <h2 id="letters">Letters and <em>grades</em></h2>
+    <p>The letter positions the band. For holes, letters A to H sit progressively closer to nominal from above, with H placing the lower limit exactly on the nominal size. For shafts, a to h sit below nominal, with h placing the upper limit on nominal; letters past h (j, k, n, p, s, u) push the shaft into and past the nominal for interference.</p>
+    <p>The IT grade sets the band width:</p>
+    <table>
+      <tr><th>IT grade</th><th>Typical use</th></tr>
+      <tr><td>IT01 &ndash; IT4</td><td>Gauges, high-precision instruments</td></tr>
+      <tr><td>IT5 &ndash; IT7</td><td>Precision fits (bearings, spindles)</td></tr>
+      <tr><td>IT8 &ndash; IT11</td><td>General machining</td></tr>
+      <tr><td>IT12 &ndash; IT16</td><td>Rough machining, as-cast, as-forged</td></tr>
+    </table>
+    <p>A key point: the same IT grade is a wider absolute tolerance on a bigger part. IT7 on a 10 mm feature is about 15 um; on a 100 mm feature it is about 35 um. The standard scales the band with size so precision stays proportionate.</p>
+
+    <h2 id="basis">Hole basis vs shaft <em>basis</em></h2>
+    <p>You set the fit by holding one member constant and varying the other.</p>
+    <ul>
+      <li><strong>Hole basis (preferred):</strong> the hole is always H, and you change the shaft letter to set clearance or interference. Holes are made with standard reamers and checked with standard plug gauges, so keeping the hole constant is the cheaper route.</li>
+      <li><strong>Shaft basis:</strong> the shaft is always h, and you change the hole letter. Used where a single shaft (such as a length of ground bar) runs through several different fits.</li>
+    </ul>
+
+    <h2 id="types">The three <em>fit types</em></h2>
+    <p>Every combination falls into one of three families:</p>
+    <table>
+      <tr><th>Fit type</th><th>Behaviour</th><th>Example</th></tr>
+      <tr><td>Clearance</td><td>Always a gap; parts move freely</td><td>H7/g6, H8/f7</td></tr>
+      <tr><td>Transition</td><td>Slight clearance or slight interference</td><td>H7/k6, H7/n6</td></tr>
+      <tr><td>Interference</td><td>Shaft always larger; press or shrink fit</td><td>H7/p6, H7/s6</td></tr>
+    </table>
+    <div class="callout">
+      <strong>Pick the fit from function, not habit</strong>
+      Decide what the joint must do first: free rotation wants a clearance fit; accurate location with easy assembly wants a transition fit; permanent torque transfer without a key wants an interference fit. Then read off the standard pairing rather than copying whatever the last drawing used.
+    </div>
+
+    <h2 id="common">Common fits you will actually use</h2>
+    <table>
+      <tr><th>Callout</th><th>Type</th><th>Where it is used</th></tr>
+      <tr><td>H7/g6</td><td>Close running clearance</td><td>Precision spindles, guide pins</td></tr>
+      <tr><td>H8/f7</td><td>Running clearance</td><td>General rotating shafts, bushings</td></tr>
+      <tr><td>H11/c11</td><td>Loose clearance</td><td>Pivots, agricultural pins</td></tr>
+      <tr><td>H7/k6</td><td>Transition</td><td>Located gears, pulleys with key</td></tr>
+      <tr><td>H7/p6</td><td>Light interference</td><td>Dowel pins, bushes</td></tr>
+      <tr><td>H7/s6</td><td>Medium interference</td><td>Press-fit bushings, collars</td></tr>
+    </table>
+
+    <h2 id="read">Reading <em>H7/g6</em></h2>
+    <p>Take &empty;25 H7/g6. For the 25 mm size band, H7 gives the hole limits 25.000 to 25.021 mm (lower limit on nominal, IT7 band of 21 um). The shaft g6 gives 24.993 to 24.980 mm (g offsets the band 7 um below nominal, IT6 band of 13 um). The maximum clearance is 25.021 &minus; 24.980 = 0.041 mm; the minimum clearance is 25.000 &minus; 24.993 = 0.007 mm. The joint always has a gap between 7 and 41 um &mdash; a clean running fit. Rather than look these limits up by hand, the <a href="../calculators/iso-286-fits.html">ISO 286 fits calculator</a> returns the hole and shaft limits and the resulting clearance for any size and fit instantly.</p>
+    <p>Those computed limits become inspection characteristics on the part. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers each toleranced diameter and exports the limits, so the fit you designed is the fit the inspector verifies.</p>
+
+    <div class="callout">
+      <strong>From callout to checked part</strong>
+      Resolve any fit with the <a href="../calculators/iso-286-fits.html">ISO 286 fits calculator</a>, then feed the resulting limits into a <a href="tolerance-stackup-worked-example.html">tolerance stack-up</a> if the fit sits in an assembly chain. Pull inspection rows from the <a href="../templates.html">free templates</a>.
+    </div>
+
+    <h2 id="mistakes">Common ISO 286 <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Mixing case.</strong> H is a hole, h is a shaft. Writing the wrong case inverts the entire fit.</li>
+      <li><strong>Assuming the IT number is the tolerance in microns.</strong> It is a grade; the actual band depends on the size band too.</li>
+      <li><strong>Choosing interference without checking stress.</strong> A press fit on a thin hub can crack it &mdash; check hoop stress before specifying H7/s6.</li>
+      <li><strong>Ignoring temperature.</strong> Clearance fits on dissimilar metals can close or open with heat; allow for it on engines and pumps.</li>
+      <li><strong>Specifying tighter than needed.</strong> Going from IT7 to IT5 can multiply cost for no functional benefit. Match the grade to the job.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/iso-286-fits.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits Calculator</a>
+      <a href="../calculators/press-fit.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Press Fit Calculator</a>
+      <a href="tolerance-stackup-worked-example.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance Stack-Up Worked Example</a>
+      <a href="surface-finish-ra-rz.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Surface Finish: Ra vs Rz</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

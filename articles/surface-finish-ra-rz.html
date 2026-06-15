@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Surface Finish: Ra vs Rz Explained | MetricMech</title>
+<meta name="description" content="Surface finish explained: what Ra and Rz mean, how they differ, the rough Ra-to-Rz conversion, ISO N grades, and how to read finish symbols on a drawing." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/surface-finish-ra-rz">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Surface Finish: Ra vs Rz Explained | MetricMech">
+<meta property="og:description" content="Surface finish explained: what Ra and Rz mean, how they differ, the rough Ra-to-Rz conversion, ISO N grades, and how to read finish symbols on a drawing.">
+<meta property="og:url" content="https://metricmech.com/articles/surface-finish-ra-rz">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Surface Finish: Ra vs Rz Explained | MetricMech">
+<meta name="twitter:description" content="Surface finish explained: what Ra and Rz mean, how they differ, the rough Ra-to-Rz conversion, ISO N grades, and how to read finish symbols on a drawing.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Surface Finish: Ra vs Rz Explained for Engineers",
+  "description": "Surface finish explained: what Ra and Rz mean, how they differ, the approximate Ra-to-Rz conversion, ISO N grades, and how to read finish symbols on a drawing.",
+  "url": "https://metricmech.com/articles/surface-finish-ra-rz",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-15",
+  "mainEntityOfPage": "https://metricmech.com/articles/surface-finish-ra-rz"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between Ra and Rz?", "acceptedAnswer": {"@type": "Answer", "text": "Ra is the arithmetic average roughness over the sampling length, so it smooths out individual peaks and is stable and easy to measure. Rz is the average of the largest peak-to-valley heights across several sampling lengths, so it is far more sensitive to isolated scratches and defects. Ra describes the overall texture; Rz catches the worst features."}},
+    {"@type": "Question", "name": "How do I convert Ra to Rz?", "acceptedAnswer": {"@type": "Answer", "text": "There is no exact conversion because they measure different things, but a common rule of thumb for turned and ground surfaces is Rz is roughly 4 to 7 times Ra. A frequently used quick estimate is Rz is about 4 times Ra, but you should never use a conversion to certify a part where the drawing specifies one parameter and you measured the other."}},
+    {"@type": "Question", "name": "What does an Ra of 1.6 micrometres mean?", "acceptedAnswer": {"@type": "Answer", "text": "Ra 1.6 um (about 63 microinch) is a typical machined finish from finish turning or milling, equivalent to the old ISO grade N7. It is smooth enough for most general mating surfaces but not for sealing faces or precision sliding fits, which usually call for Ra 0.8 um or finer."}},
+    {"@type": "Question", "name": "Which surface finish parameter should a drawing specify?", "acceptedAnswer": {"@type": "Answer", "text": "Specify the parameter that controls function. Use Ra for general texture control on most machined parts because it is repeatable and widely understood. Use Rz when isolated peaks or valleys matter, such as sealing surfaces, fatigue-critical fillets, or coatings, because Rz is sensitive to the extreme features Ra averages away."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Surface finish Ra vs Rz</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why finish matters</a>
+    <a href="#ra">What Ra is</a>
+    <a href="#rz">What Rz is</a>
+    <a href="#diff">Ra vs Rz</a>
+    <a href="#convert">Converting</a>
+    <a href="#grades">ISO N grades</a>
+    <a href="#symbols">Reading symbols</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Surface finish: <em>Ra vs Rz</em> explained.</h1>
+    <div class="art-meta-bar">
+      <span>Metrology / Surface</span>
+      <span>June 15, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Ra and Rz are the two surface roughness parameters you see most on drawings, and they are not interchangeable. Ra is the average roughness; Rz is the average peak-to-valley height. This guide explains what each measures, how they differ, the rough conversion between them, and how to read the finish symbol on a print.</p>
+
+    <h2 id="why">Why surface finish <em>matters</em></h2>
+    <p>Two parts can hold the same dimensional tolerance and behave completely differently in service because of their surface texture. Finish drives how a seal seats, how a bearing journal wears, how a coating adheres, how a fatigue crack starts, and how two faces slide. In my years on the shop floor, more warranty returns traced back to a wrong or unverified finish than to a missed diameter &mdash; because finish is the spec people forget to measure. Get it wrong and a perfectly in-tolerance part still leaks, seizes, or fails early.</p>
+
+    <h2 id="ra">What <em>Ra</em> is</h2>
+    <p>Ra (arithmetic average roughness) is the average of the absolute distances of the surface profile from its mean line, taken over the sampling length. Picture the profile trace of a machined surface: Ra is the average height of all the peaks and valleys, ignoring their sign. It is reported in micrometres (um) in metric and microinches (uin) elsewhere.</p>
+    <p>Because Ra averages everything, it is stable and repeatable &mdash; one deep scratch barely moves the number. That is its strength for general texture control and its weakness when a single defect matters. Ra is by far the most specified parameter worldwide.</p>
+
+    <h2 id="rz">What <em>Rz</em> is</h2>
+    <p>Rz (per ISO 4287) is the average maximum height of the profile. The instrument divides the evaluation length into five sampling lengths, finds the single largest peak-to-valley height in each, and averages those five values. Because it works from the extremes rather than the average, Rz responds strongly to isolated peaks, deep valleys, and tool chatter that Ra would smooth away.</p>
+    <p>Rz is always numerically larger than Ra for the same surface, and it is the parameter of choice when the worst feature, not the average, controls function &mdash; sealing faces, fatigue-loaded fillets, and surfaces about to be plated or coated.</p>
+
+    <h2 id="diff">Ra vs Rz at a <em>glance</em></h2>
+    <table>
+      <tr><th>Aspect</th><th>Ra</th><th>Rz</th></tr>
+      <tr><td>What it measures</td><td>Average roughness from mean line</td><td>Average of 5 max peak-to-valley heights</td></tr>
+      <tr><td>Sensitivity to defects</td><td>Low (averages them out)</td><td>High (driven by extremes)</td></tr>
+      <tr><td>Repeatability</td><td>Very stable</td><td>More variable</td></tr>
+      <tr><td>Typical use</td><td>General texture control</td><td>Seals, fatigue, coatings</td></tr>
+      <tr><td>Standard</td><td>ISO 4287 / ASME B46.1</td><td>ISO 4287 / ASME B46.1</td></tr>
+    </table>
+
+    <h2 id="convert">Converting between Ra and Rz</h2>
+    <p>There is no exact mathematical conversion because the two parameters describe different things. For common turned and ground surfaces, Rz typically falls between 4 and 7 times Ra, and a widely used quick estimate is:</p>
+    <p><strong>Rz &asymp; 4 &times; Ra</strong> (rough, surface-dependent).</p>
+    <p>So an Ra of 1.6 um maps to an Rz somewhere around 6.4 um, often higher on a coarse or interrupted cut. Use this only to sanity-check, never to certify. To convert a real measured value quickly, drop the number into the <a href="../calculators/surface-finish.html">surface finish calculator</a>, which handles Ra, Rz, and microinch conversions together.</p>
+    <div class="warn-box">
+      <strong>Never certify a part using a converted value</strong>
+      If the drawing calls out Rz 6.3 and your gauge reports Ra, you have not measured the specified parameter. Conversions are estimates that vary with the machining process. Measure the parameter the drawing actually specifies, or get the customer to agree the substitution in writing.
+    </div>
+
+    <h2 id="grades">ISO roughness grade numbers (N grades)</h2>
+    <p>Older drawings and many Indian shop standards still use ISO N grade numbers, which map to specific Ra values:</p>
+    <table>
+      <tr><th>ISO grade</th><th>Ra (um)</th><th>Ra (uin)</th><th>Typical process</th></tr>
+      <tr><td>N5</td><td>0.4</td><td>16</td><td>Fine grinding, honing</td></tr>
+      <tr><td>N6</td><td>0.8</td><td>32</td><td>Grinding, fine turning</td></tr>
+      <tr><td>N7</td><td>1.6</td><td>63</td><td>Finish turning, milling</td></tr>
+      <tr><td>N8</td><td>3.2</td><td>125</td><td>Medium machining</td></tr>
+      <tr><td>N9</td><td>6.3</td><td>250</td><td>Rough machining</td></tr>
+      <tr><td>N10</td><td>12.5</td><td>500</td><td>Coarse turning, casting clean-up</td></tr>
+    </table>
+
+    <h2 id="symbols">Reading the finish symbol</h2>
+    <p>The surface texture symbol (ISO 1302) is the open tick mark you see pointing at a surface. The roughness value sits to the upper left: a bare number is the Ra limit in micrometres, while a value prefixed with Rz (for example "Rz 6.3") calls out the peak-to-valley parameter instead. A horizontal bar added to the tick means material removal is required; a circle in the vee means no machining allowed. Always read whether the callout is Ra or Rz before you set the gauge &mdash; mixing them up is the single most common finish error on the floor.</p>
+    <p>Finish callouts live alongside dimensions and GD&amp;T on the print, so they need to be captured in inspection just like any other characteristic. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers surface-finish callouts together with the dimensions and exports them, so the finish spec does not slip through the cracks during first article.</p>
+
+    <div class="callout">
+      <strong>Check your value fast</strong>
+      Use the <a href="../calculators/surface-finish.html">surface finish calculator</a> to move between Ra, Rz, microinch, and ISO N grade, then grab the matching inspection rows from the <a href="../templates.html">free templates</a>. For tolerance work that pairs with finish, see the <a href="iso-286-fits-tolerances.html">ISO 286 fits guide</a>.
+    </div>
+
+    <h2 id="mistakes">Common surface finish <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Treating Ra and Rz as the same.</strong> They are not. Measure the parameter the drawing names, not the one your gauge defaults to.</li>
+      <li><strong>Converting to certify.</strong> Rz &asymp; 4 Ra is a sanity check, not a measurement. The factor swings with the process.</li>
+      <li><strong>Ignoring the cut-off length.</strong> Roughness values are meaningless without the correct sampling cut-off; a wrong cut-off changes the reading.</li>
+      <li><strong>Over-specifying finish.</strong> Demanding Ra 0.4 where Ra 1.6 works can double the machining cost for no functional gain.</li>
+      <li><strong>Skipping finish in inspection.</strong> Finish is a characteristic. If it is not ballooned and measured, it is not controlled.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/surface-finish.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Surface Finish Calculator</a>
+      <a href="../calculators/iso-286-fits.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits Calculator</a>
+      <a href="tolerance-stackup-worked-example.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance Stack-Up Worked Example</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
