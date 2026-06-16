@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AQL Sampling Explained: Tables, Levels, Examples | MetricMech</title>
+<meta name="description" content="AQL sampling explained with ISO 2859-1: pick an inspection level, read the code letter, find sample size and acceptance number, with a worked lot example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/aql-sampling-explained">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="AQL Sampling Explained: Tables, Levels, Examples | MetricMech">
+<meta property="og:description" content="AQL sampling explained using ISO 2859-1: pick an inspection level, read the code letter, find sample size and acceptance number, with a worked lot example.">
+<meta property="og:url" content="https://metricmech.com/articles/aql-sampling-explained">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AQL Sampling Explained: Tables, Levels, Examples | MetricMech">
+<meta name="twitter:description" content="AQL sampling explained using ISO 2859-1: inspection levels, code letters, sample size and acceptance number, with a worked lot example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AQL Sampling Explained: Tables, Levels and Worked Examples",
+  "description": "AQL sampling explained using ISO 2859-1: pick an inspection level, read the code letter, find sample size and acceptance number, with a worked lot example.",
+  "url": "https://metricmech.com/articles/aql-sampling-explained",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-06-16",
+  "mainEntityOfPage": "https://metricmech.com/articles/aql-sampling-explained"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What does AQL mean?", "acceptedAnswer": {"@type": "Answer", "text": "AQL stands for Acceptable Quality Level. It is the maximum percent defective that is still considered acceptable as a process average for a sampling plan. An AQL of 1.0 means a lot averaging 1.0 percent defective has a high probability of acceptance."}},
+    {"@type": "Question", "name": "How do you calculate AQL sample size?", "acceptedAnswer": {"@type": "Answer", "text": "Use ISO 2859-1 or ANSI/ASQ Z1.4. Find the lot size and inspection level to get a code letter, then look up that code letter in the single sampling table to read the sample size, plus the accept and reject numbers for your chosen AQL."}},
+    {"@type": "Question", "name": "What is the difference between general inspection levels I, II and III?", "acceptedAnswer": {"@type": "Answer", "text": "Levels I, II and III set how much you inspect relative to lot size. Level II is the default. Level I uses smaller samples with less discrimination and lower cost, while Level III uses larger samples for tighter protection when defects are costly."}},
+    {"@type": "Question", "name": "What is the acceptance number in an AQL plan?", "acceptedAnswer": {"@type": "Answer", "text": "The acceptance number, Ac, is the maximum number of defectives allowed in the sample for the lot to be accepted. If defects found are at or below Ac, accept the lot. The reject number, Re, is one more than Ac, and finding that many rejects the lot."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>AQL sampling explained</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What AQL means</a>
+    <a href="#how">How a plan is built</a>
+    <a href="#levels">Inspection levels</a>
+    <a href="#codeletter">Code letters</a>
+    <a href="#example">Worked example</a>
+    <a href="#switching">Switching rules</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>AQL sampling <em>explained:</em> levels, tables and a worked lot.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / Inspection</span>
+      <span>June 16, 2026</span>
+      <span>10 min read</span>
+      <span>2,100 words</span>
+    </div>
+
+    <p class="lede">You receive a lot of 3,200 machined parts. You cannot measure all of them, but you must decide accept or reject. AQL sampling, codified in ISO 2859-1 and ANSI/ASQ Z1.4, tells you exactly how many to inspect and how many defects you are allowed to find. Here is how the system works, end to end.</p>
+
+    <h2 id="what">What <em>AQL</em> actually means</h2>
+    <p>AQL stands for Acceptable Quality Level. It is the maximum percent defective that is still treated as an acceptable process average. An AQL of 1.0 means a supplier whose long-run process runs at 1.0 percent defective should see almost all of their lots accepted. It is a property of the sampling plan, not a target you give the operator and not a promise that every accepted lot is below that level.</p>
+    <p>Three numbers drive every plan: the <strong>lot size</strong>, the <strong>inspection level</strong>, and the <strong>AQL</strong> you agree with the customer. From those three you derive a sample size and an acceptance number. That is the whole machine.</p>
+
+    <div class="callout">
+      <strong>AQL is a producer-risk anchor, not a guarantee</strong>
+      A sampling plan is built so that a lot exactly at the AQL has roughly a 90 to 95 percent chance of acceptance. Lots much worse than the AQL are likely, but not certain, to be rejected. Sampling trades inspection cost for a controlled, known risk &mdash; it never eliminates risk.
+    </div>
+
+    <h2 id="how">How a sampling plan is built</h2>
+    <p>The standard turns your three inputs into a plan in two lookups:</p>
+    <ol>
+      <li><strong>Lot size + inspection level &rarr; code letter.</strong> A table maps the lot-size range and the chosen level to a single letter, A through R.</li>
+      <li><strong>Code letter + AQL &rarr; sample size, Ac, Re.</strong> The single sampling table gives the sample size n, the acceptance number Ac, and the reject number Re for that letter and AQL.</li>
+    </ol>
+    <p>You then pull a random sample of n pieces, inspect them, and count defectives. If defectives are at or below Ac, accept the lot. If they reach Re (always Ac plus one), reject it.</p>
+
+    <h2 id="levels">General and special inspection levels</h2>
+    <p>The inspection level decides how hard you look relative to lot size. ISO 2859-1 gives three general levels and four special levels:</p>
+    <table>
+      <tr><th>Level</th><th>Use it when</th><th>Sample vs lot</th></tr>
+      <tr><td>General I</td><td>Defects are cheap, you want lower inspection cost</td><td>Smaller</td></tr>
+      <tr><td>General II (default)</td><td>Most situations, the standard starting point</td><td>Medium</td></tr>
+      <tr><td>General III</td><td>Defects are costly, you want tighter discrimination</td><td>Larger</td></tr>
+      <tr><td>Special S-1 to S-4</td><td>Destructive or expensive tests where small samples are unavoidable</td><td>Very small</td></tr>
+    </table>
+    <p>If nobody specifies a level, use General Level II. Move to Level III for safety-critical or warranty-sensitive parts, and to Level I only when the cost of an escaped defect is genuinely low.</p>
+
+    <h2 id="codeletter">Reading the code letter</h2>
+    <p>The first table converts lot size and level into a letter. A few anchor points for General Level II:</p>
+    <table>
+      <tr><th>Lot size</th><th>Code letter (Level II)</th></tr>
+      <tr><td>91 to 150</td><td>F</td></tr>
+      <tr><td>151 to 280</td><td>G</td></tr>
+      <tr><td>281 to 500</td><td>H</td></tr>
+      <tr><td>501 to 1,200</td><td>J</td></tr>
+      <tr><td>1,201 to 3,200</td><td>K</td></tr>
+      <tr><td>3,201 to 10,000</td><td>L</td></tr>
+    </table>
+    <p>The letter is just an index into the second table. It does not by itself tell you the sample size until you combine it with the AQL.</p>
+
+    <h2 id="example">A worked example: 3,200-piece lot</h2>
+    <p>Suppose a Pune CNC shop ships a lot of 3,200 turned shafts. The customer agreement is General Level II, single sampling, normal inspection, with AQL 1.0 for major defects and AQL 2.5 for minor defects.</p>
+    <ol>
+      <li><strong>Code letter.</strong> Lot 3,200 at Level II lands at the top of the 1,201 to 3,200 band, giving code letter <strong>K</strong>.</li>
+      <li><strong>Sample size.</strong> Code letter K corresponds to a sample of <strong>125</strong> pieces.</li>
+      <li><strong>Acceptance numbers.</strong> At AQL 1.0, the K row gives Ac = 3, Re = 4. At AQL 2.5, it gives Ac = 7, Re = 8.</li>
+    </ol>
+    <p>So you pull 125 random shafts. If you find 3 or fewer major defects, the lot passes on majors; 4 rejects it. Separately, 7 or fewer minor defects passes on minors; 8 rejects. A lot can pass minors but fail majors, or the reverse &mdash; each class is judged on its own line.</p>
+
+    <div class="callout">
+      <strong>Skip the tables &mdash; use the calculator</strong>
+      Our free <a href="../calculators/aql-sampling.html">AQL sampling calculator</a> does both lookups for you: enter lot size, level and AQL, and it returns the code letter, sample size, and the accept and reject numbers, including separate lines for critical, major and minor defects. It matches ISO 2859-1 single sampling, normal inspection.
+    </div>
+
+    <h2 id="switching">Normal, tightened and reduced inspection</h2>
+    <p>AQL sampling is not static. The switching rules move you between three regimes based on recent history, which is what gives the scheme its teeth:</p>
+    <ul>
+      <li><strong>Normal:</strong> the default starting point.</li>
+      <li><strong>Tightened:</strong> triggered when 2 of 5 consecutive lots are rejected. Sample sizes stay similar but acceptance numbers drop, so it is harder to pass. If 5 consecutive tightened lots pass, you switch back to normal.</li>
+      <li><strong>Reduced:</strong> allowed after a run of good lots under defined conditions. Smaller samples lower your cost, rewarding a proven supplier.</li>
+    </ul>
+    <div class="warn-box">
+      <strong>Do not skip the switching rules</strong>
+      Many plants run permanent normal inspection and ignore switching. That removes the main mechanism that protects you from a drifting supplier. If two of the last five lots failed and you are still on normal, your real consumer risk is far higher than the plan implies.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Treating AQL as a pass mark per lot.</strong> AQL describes a process average and producer risk, not a guarantee about any single accepted lot.</li>
+      <li><strong>Non-random sampling.</strong> Pulling the top tray or the easy-to-reach parts breaks the statistics. The 125 must be drawn at random across the lot.</li>
+      <li><strong>Wrong defect classification.</strong> Mixing a critical defect into the major line understates risk. Critical defects usually run at a far tighter AQL, often 0 acceptance.</li>
+      <li><strong>Ignoring switching rules.</strong> As above, staying on normal forever defeats the purpose.</li>
+      <li><strong>Forgetting that sampling cannot improve a lot.</strong> If the process is bad, sampling just decides accept or reject. Fixing the process is a separate job &mdash; capability studies and FMEA, not more inspection.</li>
+    </ul>
+
+    <h2>Where ballooning and inspection meet</h2>
+    <p>Sampling tells you how many parts to inspect; the inspection itself still needs a numbered, traceable characteristic list for each part you pull. If you are inspecting against a drawing, balloon every characteristic first so each measured feature ties back to a number on the report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> detects dimensions and GD&amp;T frames on a PDF drawing and exports a numbered inspection sheet, which pairs neatly with an AQL plan for incoming or in-process inspection.</p>
+
+    <p>For related reading, see our guides to <a href="../articles/cp-cpk-explained.html">Cp and Cpk</a> for judging whether the process behind the lot is even capable, and <a href="../articles/ppap-indian-oems.html">PPAP for Indian OEMs</a> for where sampling plans sit inside a full submission. Ready-to-use forms are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/aql-sampling.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AQL Sampling Calculator</a>
+      <a href="../calculators/dpmo-sigma.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">DPMO &amp; Sigma Level</a>
+      <a href="../articles/cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp/Cpk explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

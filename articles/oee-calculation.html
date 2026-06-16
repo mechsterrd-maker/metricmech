@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OEE Calculation: Formula and Worked Example | MetricMech</title>
+<meta name="description" content="OEE calculation explained: the availability, performance and quality formula, a full worked shift example, world-class benchmarks, and the six big losses." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/oee-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="OEE Calculation: Formula and Worked Example | MetricMech">
+<meta property="og:description" content="OEE calculation explained: the availability, performance and quality formula, a full worked shift example, world-class benchmarks, and the six big losses.">
+<meta property="og:url" content="https://metricmech.com/articles/oee-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OEE Calculation: Formula and Worked Example | MetricMech">
+<meta name="twitter:description" content="The OEE formula explained with a full worked shift example, world-class benchmarks, and the six big losses that drag the number down.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "OEE Calculation: Formula and a Worked Shift Example",
+  "description": "OEE calculation explained: the availability, performance and quality formula, a full worked shift example, world-class benchmarks, and the six big losses.",
+  "url": "https://metricmech.com/articles/oee-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-06-16",
+  "mainEntityOfPage": "https://metricmech.com/articles/oee-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the OEE formula?", "acceptedAnswer": {"@type": "Answer", "text": "OEE equals Availability multiplied by Performance multiplied by Quality. Availability is run time divided by planned production time, Performance is actual output divided by the output theoretically possible in that run time, and Quality is good pieces divided by total pieces produced."}},
+    {"@type": "Question", "name": "What is a good OEE score?", "acceptedAnswer": {"@type": "Answer", "text": "World-class OEE for discrete manufacturing is around 85 percent, made of roughly 90 percent availability, 95 percent performance and 99 percent quality. A typical unmeasured plant runs near 60 percent, so 60 to 85 percent is the usual improvement journey."}},
+    {"@type": "Question", "name": "What is the difference between OEE and TEEP?", "acceptedAnswer": {"@type": "Answer", "text": "OEE measures performance against planned production time, so planned downtime is excluded. TEEP, Total Effective Equipment Performance, measures against all calendar time including unscheduled hours, so it also captures utilisation of the asset across the full 24 by 7."}},
+    {"@type": "Question", "name": "Does planned downtime lower OEE?", "acceptedAnswer": {"@type": "Answer", "text": "No. Planned downtime such as scheduled maintenance, changeovers booked in the plan, and breaks is removed from planned production time before OEE is calculated. Only unplanned stops reduce the availability factor."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>OEE calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What OEE is</a>
+    <a href="#formula">The three factors</a>
+    <a href="#example">Worked shift example</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#losses">The six big losses</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>OEE calculation: the <em>formula,</em> a worked shift, and the six losses.</h1>
+    <div class="art-meta-bar">
+      <span>Production / Lean</span>
+      <span>June 16, 2026</span>
+      <span>9 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Overall Equipment Effectiveness is the single number that tells you how much of your planned production time turned into good parts at full speed. It is three simple ratios multiplied together &mdash; but most plants compute it wrong by mishandling planned downtime and speed loss. Here is the formula, a full worked example, and the losses behind a low score.</p>
+
+    <h2 id="what">What OEE <em>is</em></h2>
+    <p>OEE compresses three questions into one percentage: was the machine running when it should have been, did it run at full speed, and did it make good parts? A score of 100 percent would mean only good parts, made as fast as the machine can go, with zero stop time during planned production. No real line hits that, which is why OEE is a tracking and improvement tool rather than a pass-fail gate.</p>
+    <p>The power of OEE is that it multiplies. A line at 90 percent availability, 90 percent performance and 90 percent quality is not at 90 percent &mdash; it is at 0.9 x 0.9 x 0.9 = 72.9 percent. Small losses in three places stack fast.</p>
+
+    <h2 id="formula">The three factors</h2>
+    <p>OEE = Availability &times; Performance &times; Quality. Each factor is a ratio between 0 and 1:</p>
+    <table>
+      <tr><th>Factor</th><th>Formula</th><th>Captures</th></tr>
+      <tr><td>Availability</td><td>Run Time / Planned Production Time</td><td>Unplanned stops, breakdowns, setup</td></tr>
+      <tr><td>Performance</td><td>(Ideal Cycle Time &times; Total Count) / Run Time</td><td>Slow cycles, minor stops</td></tr>
+      <tr><td>Quality</td><td>Good Count / Total Count</td><td>Scrap, rework, startup rejects</td></tr>
+    </table>
+    <p>Two definitions decide everything. <strong>Planned Production Time</strong> is the shift length minus planned downtime such as scheduled breaks, planned maintenance and booked changeovers. <strong>Ideal Cycle Time</strong> is the fastest sustainable cycle the machine is designed for, not the average you happen to see.</p>
+
+    <h2 id="example">A worked shift example</h2>
+    <p>Take a single CNC machining cell on an 8-hour shift in a Coimbatore auto-component plant.</p>
+    <table>
+      <tr><th>Input</th><th>Value</th></tr>
+      <tr><td>Shift length</td><td>480 min</td></tr>
+      <tr><td>Planned breaks</td><td>30 min</td></tr>
+      <tr><td>Planned Production Time</td><td>450 min</td></tr>
+      <tr><td>Unplanned downtime (breakdown + setup)</td><td>47 min</td></tr>
+      <tr><td>Run Time</td><td>403 min</td></tr>
+      <tr><td>Ideal cycle time</td><td>0.5 min/piece</td></tr>
+      <tr><td>Total pieces produced</td><td>760</td></tr>
+      <tr><td>Reject pieces</td><td>18</td></tr>
+      <tr><td>Good pieces</td><td>742</td></tr>
+    </table>
+    <p>Now the three factors:</p>
+    <ul>
+      <li><strong>Availability</strong> = 403 / 450 = <strong>0.896</strong> (89.6%)</li>
+      <li><strong>Performance</strong> = (0.5 &times; 760) / 403 = 380 / 403 = <strong>0.943</strong> (94.3%)</li>
+      <li><strong>Quality</strong> = 742 / 760 = <strong>0.976</strong> (97.6%)</li>
+    </ul>
+    <p><strong>OEE</strong> = 0.896 &times; 0.943 &times; 0.976 = <strong>0.825</strong>, or <strong>82.5 percent</strong>. That cell is close to world class. The biggest single lever here is availability: the 47 minutes of unplanned stops cost more OEE than speed and quality losses combined.</p>
+
+    <div class="callout">
+      <strong>Let the tool do the arithmetic</strong>
+      Enter your shift, downtime, cycle time and counts into the free <a href="../calculators/oee.html">OEE calculator</a> and it returns availability, performance, quality and OEE instantly, plus the equivalent good-parts-per-shift. Useful for comparing shifts, lines or before-and-after a kaizen.
+    </div>
+
+    <h2 id="benchmarks">What counts as a good score</h2>
+    <table>
+      <tr><th>OEE</th><th>Verdict</th></tr>
+      <tr><td>100%</td><td>Theoretical perfection &mdash; only good parts, full speed, no stops</td></tr>
+      <tr><td>85%</td><td>World-class for discrete manufacturing (90% A &times; 95% P &times; 99% Q)</td></tr>
+      <tr><td>60%</td><td>Typical for a plant that has just started measuring</td></tr>
+      <tr><td>40%</td><td>Common but low &mdash; large, recoverable losses present</td></tr>
+    </table>
+    <p>Do not chase the 85 percent figure blindly. A line making low-margin parts may rationally run below it; a bottleneck constraint should be pushed hard. OEE is most useful as a trend on the same line over time, not as a league table across different machines.</p>
+
+    <h2 id="losses">The six big losses</h2>
+    <p>Every point of lost OEE maps to one of six losses, grouped under the three factors:</p>
+    <ol>
+      <li><strong>Breakdowns</strong> (availability) &mdash; equipment failure, the classic unplanned stop.</li>
+      <li><strong>Setup and adjustment</strong> (availability) &mdash; changeover and warm-up time; target with SMED.</li>
+      <li><strong>Idling and minor stops</strong> (performance) &mdash; jams, misfeeds, brief halts under five minutes that rarely get logged.</li>
+      <li><strong>Reduced speed</strong> (performance) &mdash; running below ideal cycle time because of wear, tooling or caution.</li>
+      <li><strong>Startup rejects</strong> (quality) &mdash; scrap made while the process stabilises after a start.</li>
+      <li><strong>Production rejects</strong> (quality) &mdash; scrap and rework during steady-state running.</li>
+    </ol>
+    <div class="warn-box">
+      <strong>Minor stops are the hidden killer</strong>
+      Idling and minor stops are the loss most plants under-record because each one is too short to write down. They surface only as a performance factor below 90 percent with no obvious breakdown. If your availability looks fine but performance is poor, hunt for minor stops before blaming cycle time.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Counting planned downtime against availability.</strong> Breaks and scheduled maintenance come out of planned production time first. Including them double-penalises the line.</li>
+      <li><strong>Using average cycle time as ideal.</strong> Performance must be measured against the fastest sustainable cycle, or speed loss disappears from the number.</li>
+      <li><strong>Excluding rework from rejects.</strong> Quality should count only first-pass good parts; reworked pieces are a loss even if they eventually ship.</li>
+      <li><strong>Comparing OEE across different machines.</strong> Different ideal cycle times make cross-machine comparison meaningless. Trend each asset against itself.</li>
+      <li><strong>Gaming the number.</strong> Inflating planned downtime to lift availability hides the very losses OEE exists to expose.</li>
+    </ul>
+
+    <h2>Connecting OEE to quality data</h2>
+    <p>The quality factor in OEE is only as good as your reject counting, and reject counting depends on disciplined inspection. If your scrap and rework numbers come from a clean, ballooned inspection process, your quality factor is trustworthy. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns a PDF drawing into a numbered inspection sheet, so every defect maps to a specific characteristic &mdash; which makes the quality losses in your OEE traceable rather than a guess.</p>
+
+    <p>For the wider picture, pair OEE with <a href="../articles/cp-cpk-explained.html">Cp and Cpk</a> to judge process capability, and use the <a href="../calculators/takt-time.html">takt time calculator</a> to check whether your run rate actually meets demand. Standard production-tracking forms are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/oee.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE Calculator</a>
+      <a href="../calculators/takt-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Takt Time Calculator</a>
+      <a href="../calculators/cycle-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cycle Time Calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Production templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
