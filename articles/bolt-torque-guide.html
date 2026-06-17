@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolt Torque Guide: Formula, Charts & Method | MetricMech</title>
+<meta name="description" content="Bolt torque guide: the T = K·F·d formula, nut factor K, property class 8.8/10.9/12.9 torque charts, and how to set preload without snapping bolts." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bolt-torque-guide">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bolt Torque Guide: Formula, Charts & Method | MetricMech">
+<meta property="og:description" content="The T = K·F·d formula, nut factor K explained, property class 8.8/10.9/12.9 torque charts, and how to set preload without snapping bolts.">
+<meta property="og:url" content="https://metricmech.com/articles/bolt-torque-guide">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bolt Torque Guide: Formula, Charts & Method | MetricMech">
+<meta name="twitter:description" content="The T = K·F·d formula, nut factor K explained, property class torque charts, and how to set preload without snapping bolts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Bolt Torque Guide: Formula, Charts & Method | MetricMech",
+  "description": "Bolt torque guide: the T = K·F·d formula, nut factor K, property class 8.8/10.9/12.9 torque charts, and how to set preload without snapping bolts.",
+  "url": "https://metricmech.com/articles/bolt-torque-guide",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "headline": "Bolt Torque Guide: Formula, Charts & Method",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Mechanical Engineer — 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-17",
+  "mainEntityOfPage": "https://metricmech.com/articles/bolt-torque-guide"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the bolt torque formula?", "acceptedAnswer": {"@type": "Answer", "text": "The standard short-form equation is T = K x F x d, where T is tightening torque, K is the nut factor (about 0.20 for dry steel), F is the target preload, and d is the nominal bolt diameter. Keep units consistent: F in newtons, d in metres gives T in newton-metres."}},
+    {"@type": "Question", "name": "What torque does an M12 property class 8.8 bolt need?", "acceptedAnswer": {"@type": "Answer", "text": "A dry M12 class 8.8 bolt at about 75 percent of proof load needs roughly 86 N·m. Lubrication lowers the nut factor and the required torque by 20 to 30 percent, so always state the friction condition."}},
+    {"@type": "Question", "name": "Why does lubrication change bolt torque?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 90 percent of tightening torque is consumed by friction under the bolt head and in the threads. Lubrication lowers the nut factor K, so the same torque produces more preload. Apply a lubricated torque value when threads are oiled or coated."}},
+    {"@type": "Question", "name": "What is preload and why does it matter?", "acceptedAnswer": {"@type": "Answer", "text": "Preload is the clamping tension created in the bolt by tightening. Adequate preload keeps the joint clamped, resists loosening from vibration, and carries fatigue loads. Too little preload lets the joint separate; too much yields or snaps the bolt."}},
+    {"@type": "Question", "name": "Should I torque to a value or to an angle?", "acceptedAnswer": {"@type": "Answer", "text": "Torque control is simplest and common in general assembly. Angle control (snug torque plus a measured rotation) gives more consistent preload and is standard for critical joints such as cylinder heads. Torque-to-yield uses the bolt's yield point for the highest, most repeatable clamp."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bolt torque guide</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why torque, not feel</a>
+    <a href="#formula">The torque formula</a>
+    <a href="#k">The nut factor K</a>
+    <a href="#preload">Setting preload</a>
+    <a href="#charts">Torque charts</a>
+    <a href="#method">Torque vs angle</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bolt torque guide: the <em>formula, the charts, and the method</em></h1>
+    <div class="art-meta-bar">
+      <span>Fasteners / Design</span>
+      <span>June 17, 2026</span>
+      <span>10 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Most loose or snapped bolts trace back to one thing: someone tightened by feel instead of by number. This guide gives you the torque formula, the nut factor that makes or breaks it, property-class torque charts for 8.8, 10.9 and 12.9, and the method choices that decide whether your joint survives vibration.</p>
+
+    <h2 id="why">Why torque matters more than "good and tight"</h2>
+    <p>A bolt is a spring. When you tighten it, you stretch it, and that stretch creates <strong>preload</strong> — the clamping force that holds the joint together. The whole point of torque is to reach a target preload reliably. In 14 years on the plant floor I've seen the same failure twice a week: an operator runs a joint "good and tight" by hand, the preload scatters by ±40%, and three months later the assembly rattles loose on a delivery truck.</p>
+    <p>Torque is simply the easiest proxy for preload we can measure with a wrench. It isn't perfect — friction eats most of it — but with the right number and a calibrated wrench it gets you within a usable band.</p>
+
+    <h2 id="formula">The bolt torque formula</h2>
+    <p>The working equation every designer should know is the short form:</p>
+    <div class="callout">
+      <strong>T = K × F × d</strong>
+      T = tightening torque (N·m), K = nut factor (dimensionless), F = target preload (N), d = nominal bolt diameter (m). Keep units consistent — preload in newtons and diameter in metres give torque in newton-metres.
+    </div>
+    <p>So three things set the torque: the diameter of the bolt, the preload you want, and a friction term K. Diameter and preload are straightforward. The friction term is where engineers get burned, because it hides three separate effects: thread friction, friction under the bolt head, and the geometry of the thread helix.</p>
+
+    <h2 id="k">The nut factor K — the number that ruins joints</h2>
+    <p>K bundles all the friction and geometry into one coefficient. Typical values:</p>
+    <table>
+      <tr><th>Condition</th><th>Nut factor K</th></tr>
+      <tr><td>Dry, plain steel (as-received)</td><td>0.20</td></tr>
+      <tr><td>Zinc plated</td><td>0.22</td></tr>
+      <tr><td>Light machine oil</td><td>0.18</td></tr>
+      <tr><td>Moly / anti-seize paste</td><td>0.10–0.15</td></tr>
+      <tr><td>PTFE / wax coated</td><td>0.12</td></tr>
+    </table>
+    <p>Here is the trap: up to <strong>90% of the torque you apply is spent on friction</strong>, and only about 10% becomes useful preload. So if you take a dry torque value and apply it to a lubricated bolt, you cut K nearly in half and the same torque produces far more preload — often enough to yield or snap the bolt. Always match the torque value to the friction condition stated.</p>
+
+    <div class="warn-box">
+      <strong>Never apply a dry torque value to a lubricated bolt</strong>
+      A dry M12 8.8 takes ~86 N·m. Apply that to an oiled bolt (K drops from 0.20 to 0.18) and preload jumps roughly 10%; apply it to an anti-seize bolt (K = 0.12) and preload jumps ~65% — straight past yield. Use the lubricated column when threads are coated.
+    </div>
+
+    <h2 id="preload">Setting the target preload</h2>
+    <p>You don't tighten to an arbitrary force. The convention is to preload to <strong>75% of the bolt's proof load</strong> for reusable joints (and up to 90% for permanent ones). Proof load is roughly 90% of the yield strength, so 75% of proof keeps a comfortable margin below yield while maximising clamp.</p>
+    <p>Preload is what actually carries the job: it keeps faces clamped under external load, resists self-loosening under vibration (the Junker mechanism), and dramatically improves fatigue life because the bolt sees only a fraction of the fluctuating external load. Under-preload is the enemy — a loose joint fatigues and fails fast.</p>
+
+    <h2 id="charts">Torque charts by property class</h2>
+    <p>Property class marks the strength: an 8.8 bolt has 800 MPa tensile, 640 MPa yield; 10.9 is 1040/940; 12.9 is 1220/1100. Coarse-thread dry torque values at 75% proof load, K = 0.2:</p>
+    <table>
+      <tr><th>Size</th><th>8.8 (N·m)</th><th>10.9 (N·m)</th><th>12.9 (N·m)</th></tr>
+      <tr><td>M6</td><td>10</td><td>14</td><td>17</td></tr>
+      <tr><td>M8</td><td>25</td><td>35</td><td>41</td></tr>
+      <tr><td>M10</td><td>49</td><td>69</td><td>83</td></tr>
+      <tr><td>M12</td><td>86</td><td>120</td><td>145</td></tr>
+      <tr><td>M16</td><td>210</td><td>295</td><td>355</td></tr>
+      <tr><td>M20</td><td>410</td><td>580</td><td>690</td></tr>
+    </table>
+    <p>These are indicative dry values — your exact figure depends on thread pitch, friction, and joint material. Run your own numbers in the <a href="../calculators/bolt-torque.html">bolt torque calculator</a>, which lets you set property class, diameter, friction condition, and preload percentage and returns the torque directly. For thread dimensions, the <a href="../calculators/thread-pitch.html">thread pitch reference</a> gives the pitch you'll need.</p>
+
+    <h2 id="method">Torque control vs angle control vs torque-to-yield</h2>
+    <p>How you tighten matters as much as the number:</p>
+    <ul>
+      <li><strong>Torque control.</strong> Set a torque wrench, pull to the click. Simplest, most common, but preload scatter is ±25–35% because friction varies bolt to bolt.</li>
+      <li><strong>Angle (turn-of-nut) control.</strong> Snug to a low seating torque, then rotate a defined angle (e.g., 90°). Because stretch is proportional to rotation past snug, preload scatter drops to ±10–15%. Standard for cylinder heads and structural steel.</li>
+      <li><strong>Torque-to-yield.</strong> Tighten into the plastic region using torque-plus-angle to the yield point. Highest, most repeatable preload — but the bolt is single-use and must be replaced after disassembly.</li>
+    </ul>
+
+    <h2 id="mistakes">Common bolt-torque mistakes</h2>
+    <ol>
+      <li><strong>Mixing dry and lubricated values.</strong> The single biggest cause of over-tightening and snapped bolts.</li>
+      <li><strong>Uncalibrated wrenches.</strong> A click wrench drifts; calibrate annually and never use it to loosen.</li>
+      <li><strong>Re-using torque-to-yield bolts.</strong> They've already yielded — re-using them gives unpredictable, low preload.</li>
+      <li><strong>Ignoring tightening sequence.</strong> On flanges and heads, cross-pattern in two or three passes; tightening in order warps the joint.</li>
+      <li><strong>Wrong property class.</strong> Substituting an 8.8 where a 10.9 was specified can halve the clamp capacity. Verify head markings.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Inspecting fasteners on a drawing?</strong>
+      If you're verifying bolt sizes, thread callouts, and torque notes against a customer print, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the dimensions and notes straight off the PDF and numbers them for your inspection sheet — useful when a fastener schedule has dozens of callouts to check.
+    </div>
+
+    <p>Cross-check related topics in the <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances guide</a> for clearance-hole sizing, and grab a ready sheet from the <a href="../templates.html">templates library</a> for your assembly torque spec.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa — 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/bolt-torque.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt Torque Calculator</a>
+      <a href="../calculators/thread-pitch.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Thread Pitch Reference</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Torque spec templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

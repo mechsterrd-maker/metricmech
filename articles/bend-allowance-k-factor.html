@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech</title>
+<meta name="description" content="Bend allowance and K-factor explained for sheet metal: the formulas, how to find K, bend deduction, and a worked flat-pattern example for a steel bracket." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bend-allowance-k-factor">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech">
+<meta property="og:description" content="Bend allowance and K-factor explained: the formulas, how to find K, bend deduction, and a worked flat-pattern example for a steel bracket.">
+<meta property="og:url" content="https://metricmech.com/articles/bend-allowance-k-factor">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech">
+<meta name="twitter:description" content="Bend allowance and K-factor explained: the formulas, how to find K, bend deduction, and a worked flat-pattern example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech",
+  "description": "Bend allowance and K-factor explained for sheet metal: the formulas, how to find K, bend deduction, and a worked flat-pattern example for a steel bracket.",
+  "url": "https://metricmech.com/articles/bend-allowance-k-factor",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "headline": "Bend Allowance & K-Factor: Sheet Metal Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Mechanical Engineer — 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-17",
+  "mainEntityOfPage": "https://metricmech.com/articles/bend-allowance-k-factor"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the K-factor in sheet metal?", "acceptedAnswer": {"@type": "Answer", "text": "The K-factor is the ratio of the distance from the inside bend surface to the neutral axis, divided by the material thickness. It ranges from about 0.3 to 0.5 and captures how far the neutral axis shifts toward the inside of the bend during forming."}},
+    {"@type": "Question", "name": "What is the bend allowance formula?", "acceptedAnswer": {"@type": "Answer", "text": "Bend allowance BA = (pi / 180) x angle x (R + K x T), where angle is the bend angle in degrees, R is the inside bend radius, K is the K-factor, and T is material thickness. It is the arc length of the neutral axis through the bend."}},
+    {"@type": "Question", "name": "What is the difference between bend allowance and bend deduction?", "acceptedAnswer": {"@type": "Answer", "text": "Bend allowance is added to the flat lengths to get the total flat-pattern length. Bend deduction is subtracted from the sum of the outside dimensions. Both give the same flat length; they are just two methods of accounting."}},
+    {"@type": "Question", "name": "What K-factor should I use for mild steel?", "acceptedAnswer": {"@type": "Answer", "text": "A K-factor of about 0.4 to 0.44 is a common starting point for mild steel air bending. The exact value depends on material, radius-to-thickness ratio, and tooling, so verify with a test bend before committing a production flat pattern."}},
+    {"@type": "Question", "name": "Why is my flat pattern coming out the wrong length?", "acceptedAnswer": {"@type": "Answer", "text": "The usual cause is a wrong K-factor or using outside dimensions without bend deduction. Material stretches at the bend, so you cannot simply add the leg lengths. Use the bend allowance or bend deduction method with a verified K-factor."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bend allowance &amp; K-factor</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#neutral">The neutral axis</a>
+    <a href="#kfactor">The K-factor</a>
+    <a href="#ba">Bend allowance</a>
+    <a href="#bd">Bend deduction</a>
+    <a href="#worked">Worked example</a>
+    <a href="#findk">Finding your K</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bend allowance and the K-factor: <em>getting the flat pattern right</em></h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal / Design</span>
+      <span>June 17, 2026</span>
+      <span>9 min read</span>
+      <span>1,850 words</span>
+    </div>
+
+    <p class="lede">Cut a flat blank by simply adding the leg lengths and your folded part comes out long every time. Sheet metal stretches at the bend, and bend allowance plus the K-factor is how you account for it. Here are the formulas, a worked bracket example, and how to find the K-factor your press brake actually produces.</p>
+
+    <h2 id="neutral">Why a folded part isn't the sum of its sides</h2>
+    <p>When you bend a sheet, the outside of the bend stretches and the inside compresses. Somewhere between them is a line that neither stretches nor compresses — the <strong>neutral axis</strong>. The true developed (flat) length of the part is the length measured along that neutral axis, not along the outside or the centreline of the material.</p>
+    <p>If you ignore this and cut a blank equal to the sum of the outside legs, the finished part will be too long, because you've double-counted material in the bend region. On a simple 90° bracket the error is small; on a part with eight bends it stacks up fast and scraps the job.</p>
+
+    <h2 id="kfactor">The K-factor: where the neutral axis sits</h2>
+    <p>The neutral axis does not sit at the middle of the thickness — bending pushes it toward the inside of the bend. The <strong>K-factor</strong> locates it:</p>
+    <div class="callout">
+      <strong>K = t / T</strong>
+      where t is the distance from the inside bend surface to the neutral axis, and T is the material thickness. K is always between 0 and 0.5; in practice it runs from about 0.3 to 0.45 for most metals and tooling.
+    </div>
+    <p>A K of 0.5 would mean the neutral axis stays at mid-thickness (no shift). Real bends shift it inward, so K is below 0.5. Thicker material and tighter inside radii push K lower; generous radii push it back toward 0.5.</p>
+
+    <h2 id="ba">The bend allowance formula</h2>
+    <p>Bend allowance (BA) is the arc length of the neutral axis through the bend — the amount of flat material consumed by the bend itself:</p>
+    <div class="callout">
+      <strong>BA = (π / 180) × A × (R + K × T)</strong>
+      A = bend angle in degrees, R = inside bend radius, K = K-factor, T = thickness. The flat length = sum of the flat (non-bent) leg lengths + the bend allowance of each bend.
+    </div>
+
+    <h2 id="bd">Bend deduction — the shop-floor alternative</h2>
+    <p>Many press-brake operators prefer bend deduction (BD) because it works directly from the outside dimensions on the drawing:</p>
+    <div class="callout">
+      <strong>Flat length = (sum of outside dimensions) − BD per bend</strong>
+      where BD = 2 × OSSB − BA, and the outside setback OSSB = (R + T) × tan(A / 2). Both methods give the same flat length — pick whichever matches how your dimensions are called out.
+    </div>
+
+    <h2 id="worked">A worked example: a 2 mm steel bracket</h2>
+    <p>Take an L-bracket in 2 mm mild steel, single 90° bend, inside radius R = 2 mm, K-factor 0.42. The two legs measured to the outside are 40 mm and 30 mm.</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Bend allowance</td><td>(π/180) × 90 × (2 + 0.42×2)</td><td>4.46 mm</td></tr>
+      <tr><td>Outside setback (OSSB)</td><td>(2 + 2) × tan(45°)</td><td>4.00 mm</td></tr>
+      <tr><td>Bend deduction</td><td>2 × 4.00 − 4.46</td><td>3.54 mm</td></tr>
+      <tr><td>Flat by deduction</td><td>(40 + 30) − 3.54</td><td>66.46 mm</td></tr>
+    </table>
+    <p>So the flat blank is <strong>66.46 mm</strong>, not 70 mm. That 3.54 mm difference is exactly the material the bend "eats." Get it wrong and every bracket is 3.5 mm too long. You can run these numbers instantly in the <a href="../calculators/bend-allowance.html">bend allowance calculator</a> — enter thickness, radius, angle and K-factor and it returns BA, BD and the flat length.</p>
+
+    <h2 id="findk">Finding the K-factor your machine actually produces</h2>
+    <p>Published K-factors are starting points, not gospel. Your real K depends on material batch, grain direction, die width, and punch radius. The reliable method:</p>
+    <ol>
+      <li>Cut a test strip of known flat length in the production material and thickness.</li>
+      <li>Bend it 90° on the actual press brake and tooling you'll use.</li>
+      <li>Measure the finished outside legs precisely.</li>
+      <li>Back-calculate the bend allowance, then solve the BA formula for K.</li>
+    </ol>
+    <p>Do this once per material-thickness-tooling combination and record it. A shop that keeps a K-factor table cuts first-article scrap dramatically.</p>
+
+    <table>
+      <tr><th>Material</th><th>Typical K (air bend)</th></tr>
+      <tr><td>Soft / annealed aluminium</td><td>0.33–0.40</td></tr>
+      <tr><td>Mild steel</td><td>0.40–0.44</td></tr>
+      <tr><td>Stainless steel</td><td>0.42–0.45</td></tr>
+      <tr><td>Hard / heat-treated alloys</td><td>0.38–0.42</td></tr>
+    </table>
+
+    <div class="warn-box">
+      <strong>Radius-to-thickness ratio changes everything</strong>
+      When the inside radius is smaller than the material thickness, the neutral axis shifts hard toward the inside and K can drop below 0.33. A single fixed K across all your parts is the classic cause of flat patterns that are right on big radii and wrong on tight ones.
+    </div>
+
+    <h2 id="mistakes">Common bend-allowance mistakes</h2>
+    <ul>
+      <li><strong>Using one K-factor for everything.</strong> K varies with radius/thickness ratio and material — keep a table.</li>
+      <li><strong>Adding leg lengths directly.</strong> Always subtract bend deduction or add bend allowance; never just sum the outside dimensions.</li>
+      <li><strong>Mixing inside and outside radius.</strong> The formula uses the <em>inside</em> radius R; confuse it with outside radius and BA is wrong by one thickness.</li>
+      <li><strong>Ignoring grain direction.</strong> Bending parallel to the grain changes springback and effective K, especially in aluminium.</li>
+      <li><strong>Trusting CAD defaults blind.</strong> CAD ships with a generic K (often 0.5 or 0.44); verify against a test bend before production.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Checking a sheet-metal drawing before quoting?</strong>
+      When a customer print lists a dozen bend callouts, flat sizes and tolerances, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the dimensions straight off the PDF and numbers them — handy for building an inspection sheet or a quick takeoff before you commit to a flat pattern.
+    </div>
+
+    <p>For the dimensional tolerances that govern your formed features, see the <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances guide</a>, or pull a ready sheet from the <a href="../templates.html">templates library</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa — 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/bend-allowance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend Allowance Calculator</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances</a>
+      <a href="../articles/surface-finish-ra-rz.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Surface Finish Ra vs Rz</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Sheet metal templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
