@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech</title>
+<meta name="description" content="Thread pitch reference for engineers: metric coarse and fine pitch charts, UNC/UNF TPI tables, tap drill sizes, and how to identify a thread fast." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/thread-pitch-reference">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech">
+<meta property="og:description" content="Thread pitch reference for engineers: metric coarse and fine pitch charts, UNC/UNF TPI tables, tap drill sizes, and how to identify a thread fast.">
+<meta property="og:url" content="https://metricmech.com/articles/thread-pitch-reference">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech">
+<meta name="twitter:description" content="Thread pitch reference for engineers: metric coarse and fine pitch charts, UNC/UNF TPI tables, tap drill sizes, and how to identify a thread fast.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech",
+  "description": "Thread pitch reference for engineers: metric coarse and fine pitch charts, UNC/UNF TPI tables, tap drill sizes, and how to identify a thread fast.",
+  "url": "https://metricmech.com/articles/thread-pitch-reference",
+  "datePublished": "2026-06-18",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, Plant Head (14 years experience)"},
+  "mainEntityOfPage": "https://metricmech.com/articles/thread-pitch-reference"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do I find the pitch of a thread without a gauge?", "acceptedAnswer": {"@type": "Answer", "text": "Lay the fastener against a steel rule, count the gaps between crests over a 10 mm span, and divide: pitch = 10 divided by number of gaps. For an inch thread, count crests over one inch to read threads per inch directly."}},
+    {"@type": "Question", "name": "What is the difference between coarse and fine thread?", "acceptedAnswer": {"@type": "Answer", "text": "Coarse threads have larger pitch and fewer threads per inch, so they assemble faster and tolerate damage better. Fine threads have smaller pitch, more threads per inch, a larger stress area, and better vibration resistance, but cross-thread more easily."}},
+    {"@type": "Question", "name": "How do I convert TPI to metric pitch?", "acceptedAnswer": {"@type": "Answer", "text": "Pitch in millimetres equals 25.4 divided by threads per inch. A 1/4-20 UNC has a pitch of 25.4 / 20 = 1.27 mm."}},
+    {"@type": "Question", "name": "What tap drill do I use for M8?", "acceptedAnswer": {"@type": "Answer", "text": "For M8x1.25 coarse, use a 6.8 mm tap drill for about 75% engagement (major diameter minus pitch, 8 - 1.25 = 6.75 mm rounded to 6.8). For M8x1.0 fine, use a 7.0 mm drill."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Thread pitch reference</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What thread pitch means</a>
+    <a href="#metric">Metric pitch chart</a>
+    <a href="#unified">UNC / UNF TPI chart</a>
+    <a href="#identify">Identify an unknown thread</a>
+    <a href="#tapdrill">Tap drill sizes</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Thread pitch reference: <em>metric and unified charts</em> you can actually use.</h1>
+    <div class="art-meta-bar">
+      <span>Fasteners / Reference</span>
+      <span>June 18, 2026</span>
+      <span>9 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">A working thread pitch reference for the shop floor and the design desk: metric coarse and fine pitch, UNC and UNF threads per inch, tap drill sizes, and a quick method to identify a thread you are holding in your hand.</p>
+
+    <p>Pick up an unmarked bolt and the first question is always the same: what thread is this? Get the pitch wrong and the tap drill is wrong, the nut will not run, and a &#8377;5 fastener can stall a &#8377;5 lakh assembly. This reference pulls the numbers you need into one place, with the logic behind them so you are not just copying a chart.</p>
+
+    <h2 id="what">What thread pitch actually means</h2>
+    <p>For metric threads, <strong>pitch</strong> is the distance from one thread crest to the next, in millimetres. An M10&times;1.5 has 1.5 mm between threads. For unified (inch) threads we instead quote <strong>threads per inch (TPI)</strong> &mdash; a 3/8-16 UNC has 16 threads in one inch. They describe the same thing from opposite directions: pitch in mm versus a count per inch.</p>
+    <p>One trap worth clearing up early: <strong>pitch is not lead</strong>. On a single-start thread (almost everything you meet) pitch and lead are equal. On a two-start thread the lead is twice the pitch, so the nut advances two pitches per turn. Power screws and some quick-action clamps use multi-start threads; standard fasteners do not.</p>
+
+    <h2 id="metric">Metric thread pitch chart (ISO 261 / ISO 965)</h2>
+    <p>Standard metric fasteners follow ISO 261 for the coarse series and ISO 965 for tolerances. Coarse pitch is the default &mdash; if a drawing says M12 with no pitch, it means M12&times;1.75. Fine pitches are called out explicitly, e.g. M12&times;1.25.</p>
+    <table>
+      <tr><th>Size</th><th>Coarse pitch (mm)</th><th>Common fine pitch (mm)</th><th>Tap drill, coarse (mm)</th></tr>
+      <tr><td>M3</td><td>0.50</td><td>0.35</td><td>2.50</td></tr>
+      <tr><td>M4</td><td>0.70</td><td>0.50</td><td>3.30</td></tr>
+      <tr><td>M5</td><td>0.80</td><td>0.50</td><td>4.20</td></tr>
+      <tr><td>M6</td><td>1.00</td><td>0.75</td><td>5.00</td></tr>
+      <tr><td>M8</td><td>1.25</td><td>1.00</td><td>6.80</td></tr>
+      <tr><td>M10</td><td>1.50</td><td>1.25</td><td>8.50</td></tr>
+      <tr><td>M12</td><td>1.75</td><td>1.25</td><td>10.20</td></tr>
+      <tr><td>M16</td><td>2.00</td><td>1.50</td><td>14.00</td></tr>
+      <tr><td>M20</td><td>2.50</td><td>1.50</td><td>17.50</td></tr>
+      <tr><td>M24</td><td>3.00</td><td>2.00</td><td>21.00</td></tr>
+    </table>
+    <p>The tap drill column above is for a standard ~70&ndash;75% thread engagement, which is the usual target for steel. Need an exact value for a different size, material, or thread percentage? The <a href="../calculators/thread-pitch.html">thread pitch and tap drill calculator</a> returns the drill diameter for any metric or unified thread without you reading across a chart.</p>
+
+    <h2 id="unified">Unified thread chart: UNC and UNF (TPI)</h2>
+    <p>Inch threads come mainly in two series: UNC (Unified National Coarse) and UNF (Unified National Fine), defined in ASME B1.1. Coarse is the general-purpose default; fine gives more threads per inch, higher tensile stress area, and better resistance to loosening under vibration &mdash; at the cost of being easier to cross-thread.</p>
+    <table>
+      <tr><th>Size</th><th>UNC (TPI)</th><th>UNF (TPI)</th><th>Major dia (in)</th></tr>
+      <tr><td>#6</td><td>32</td><td>40</td><td>0.138</td></tr>
+      <tr><td>#8</td><td>32</td><td>36</td><td>0.164</td></tr>
+      <tr><td>#10</td><td>24</td><td>32</td><td>0.190</td></tr>
+      <tr><td>1/4"</td><td>20</td><td>28</td><td>0.250</td></tr>
+      <tr><td>5/16"</td><td>18</td><td>24</td><td>0.3125</td></tr>
+      <tr><td>3/8"</td><td>16</td><td>24</td><td>0.375</td></tr>
+      <tr><td>1/2"</td><td>13</td><td>20</td><td>0.500</td></tr>
+      <tr><td>5/8"</td><td>11</td><td>18</td><td>0.625</td></tr>
+      <tr><td>3/4"</td><td>10</td><td>16</td><td>0.750</td></tr>
+      <tr><td>1"</td><td>8</td><td>12</td><td>1.000</td></tr>
+    </table>
+    <p>To convert TPI to pitch in millimetres: pitch (mm) = 25.4 &divide; TPI. So a 1/2-13 UNC has a pitch of 25.4 &divide; 13 = 1.95 mm. That conversion is how you sanity-check whether a thread gauge reading is metric or inch when the numbers look close.</p>
+
+    <div class="callout">
+      <strong>Coarse or fine &mdash; which to specify</strong>
+      Use coarse (UNC / metric coarse) as the default for most assembly work: it is faster to run, more tolerant of minor thread damage, and stronger in soft materials like aluminium and cast iron. Choose fine (UNF / metric fine) for thin-walled parts, fine adjustment, or vibration-prone joints where the shallower helix angle resists self-loosening.
+    </div>
+
+    <h2 id="identify">How to identify an unknown thread</h2>
+    <p>You have a fastener and no markings. Work through this in order:</p>
+    <ol>
+      <li><strong>Measure the major diameter</strong> with a caliper across the crests. ~6 mm points to M6; ~0.25 in (6.35 mm) points to 1/4 inch. This first reading tells you which family you are in.</li>
+      <li><strong>Check the pitch with a thread pitch gauge.</strong> Try leaves until one seats with no rocking and no light gap. Metric leaves read in mm (1.0, 1.25, 1.5); inch leaves read in TPI (20, 18, 16).</li>
+      <li><strong>Confirm against the chart.</strong> M10 measures ~10 mm major; if the gauge reads 1.5 mm it is M10&times;1.5 coarse, if 1.25 mm it is M10&times;1.25 fine.</li>
+      <li><strong>If you have no gauge,</strong> count threads over a known length. Lay the bolt on a rule, count crests across 10 mm, and pitch = 10 &divide; (number of gaps). For inch, count over one inch to get TPI directly.</li>
+    </ol>
+
+    <div class="warn-box">
+      <strong>Metric vs inch look-alikes</strong>
+      M6&times;1.0 and 1/4-20 UNC are close enough in diameter to be mistaken on a quick glance, but the pitch differs (1.0 mm vs 1.27 mm). Forcing the wrong one strips the thread. When the diameter is borderline, always confirm with a gauge before tapping or assembling.
+    </div>
+
+    <h2 id="tapdrill">Tap drill size: the quick rule</h2>
+    <p>For metric threads a fast approximation is: <strong>tap drill &asymp; major diameter &minus; pitch</strong>. M8&times;1.25 gives 8 &minus; 1.25 = 6.75 mm, and the standard drill is 6.8 mm. That rule targets roughly 75% thread engagement, which balances strength against tapping torque &mdash; chasing 100% engagement only adds a few percent of strength while sharply raising the chance of a broken tap.</p>
+    <p>For unified threads the arithmetic is messier, so a chart or calculator is faster. In every case, harder materials and deeper holes are reasons to drop to a lower thread percentage (a slightly larger drill) to keep the tap from binding.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Assuming coarse on a fine-thread part.</strong> A drawing that calls M10&times;1.25 will not accept a standard M10&times;1.5 nut. Read the callout, do not assume.</li>
+      <li><strong>Confusing pitch with TPI.</strong> A larger pitch number is a coarser thread; a larger TPI number is a finer thread. They run in opposite directions.</li>
+      <li><strong>Ignoring lead on multi-start screws.</strong> On a 2-start leadscrew the nut moves two pitches per turn &mdash; size feeds and stops accordingly.</li>
+      <li><strong>Tapping with the wrong drill.</strong> Undersized drill means high torque and broken taps; oversized means weak, stripped threads.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Get the exact drill, every time</strong>
+      Skip the chart-reading. The <a href="../calculators/thread-pitch.html">MetricMech thread pitch &amp; tap drill calculator</a> takes any metric or unified thread, your target engagement percentage, and the material, then returns the pitch, tap drill, and stress area in one go.
+    </div>
+
+    <p>Once a threaded part is made, the inspection drawing still has to be ballooned and checked &mdash; thread callouts included. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads a PDF drawing with Smart Detect and Box+Balloon OCR, numbers every dimension and thread spec, and exports an inspection sheet. For the design side, pair this reference with the <a href="../articles/bolt-torque-guide.html">bolt torque guide</a> for clamp load, the <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits guide</a> for the mating holes, and the ready-made <a href="../templates.html">engineering templates</a>.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>How do I find the pitch of a thread without a gauge?</h3>
+    <p>Lay the fastener against a steel rule, count the gaps between crests over a 10 mm span, and divide: pitch = 10 &divide; number of gaps. For an inch thread, count the crests over one inch to read threads per inch directly. A thread pitch gauge is faster and more reliable, but the rule method works in a pinch.</p>
+    <h3>What is the difference between coarse and fine thread?</h3>
+    <p>Coarse threads (UNC, metric coarse) have larger pitch and fewer threads per inch &mdash; faster to assemble and more damage-tolerant. Fine threads (UNF, metric fine) have smaller pitch, more threads per inch, a larger stress area, and better vibration resistance, but they cross-thread more easily and need cleaner handling.</p>
+    <h3>How do I convert TPI to metric pitch?</h3>
+    <p>Pitch in millimetres equals 25.4 divided by threads per inch. A 1/4-20 UNC therefore has a pitch of 25.4 &divide; 20 = 1.27 mm. Use this to compare an inch thread against the metric chart when a gauge reading is ambiguous.</p>
+    <h3>What tap drill do I use for M8?</h3>
+    <p>For M8&times;1.25 coarse, the standard tap drill is 6.8 mm, which gives about 75% thread engagement. The quick rule is major diameter minus pitch: 8 &minus; 1.25 = 6.75 mm, rounded to the nearest standard drill at 6.8 mm. For M8&times;1.0 fine, use a 7.0 mm drill.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

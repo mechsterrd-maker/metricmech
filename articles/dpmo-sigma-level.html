@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DPMO and Sigma Level: Formula, Table & Example | MetricMech</title>
+<meta name="description" content="DPMO and sigma level explained: the defects per million opportunities formula, the sigma conversion table with the 1.5 shift, and a worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/dpmo-sigma-level">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="DPMO and Sigma Level: Formula, Table & Example | MetricMech">
+<meta property="og:description" content="DPMO and sigma level explained: the defects per million opportunities formula, the sigma conversion table with the 1.5 shift, and a worked example.">
+<meta property="og:url" content="https://metricmech.com/articles/dpmo-sigma-level">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DPMO and Sigma Level: Formula, Table & Example | MetricMech">
+<meta name="twitter:description" content="DPMO and sigma level explained: the defects per million opportunities formula, the sigma conversion table with the 1.5 shift, and a worked example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "DPMO and Sigma Level: Formula, Table & Example | MetricMech",
+  "description": "DPMO and sigma level explained: the defects per million opportunities formula, the sigma conversion table with the 1.5 shift, and a worked example.",
+  "url": "https://metricmech.com/articles/dpmo-sigma-level",
+  "datePublished": "2026-06-18",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, Plant Head (14 years experience)"},
+  "mainEntityOfPage": "https://metricmech.com/articles/dpmo-sigma-level"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is a good DPMO?", "acceptedAnswer": {"@type": "Answer", "text": "Above 66,807 DPMO (below 3 sigma) is poor, around 6,210 DPMO (4 sigma) is typical for manufacturing, and 3.4 DPMO (6 sigma) is world-class. Automotive PPAP work generally targets 4.5 sigma or better, which is 1,350 DPMO."}},
+    {"@type": "Question", "name": "How do you calculate sigma level from DPMO?", "acceptedAnswer": {"@type": "Answer", "text": "Convert DPMO to a defect rate per opportunity (DPMO / 1,000,000), find the z-value of the normal distribution for that tail area, then add the 1.5 shift to express process sigma. Most people read it from a table or calculator."}},
+    {"@type": "Question", "name": "Why is Six Sigma 3.4 defects per million and not 2 per billion?", "acceptedAnswer": {"@type": "Answer", "text": "A perfectly centred 6 sigma process gives about 2 defects per billion. Six Sigma allows a 1.5 sigma long-term drift of the mean to account for real variation, which gives 3.4 defects per million as the long-term rate."}},
+    {"@type": "Question", "name": "What is the difference between DPMO and PPM?", "acceptedAnswer": {"@type": "Answer", "text": "PPM counts defective units per million units, ignoring opportunities. DPMO counts defects per million opportunities, normalising for product complexity, so it compares simple and complex parts fairly."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>DPMO and sigma level</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What DPMO measures</a>
+    <a href="#formula">The DPMO formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#table">DPMO to sigma table</a>
+    <a href="#shift">The 1.5 sigma shift</a>
+    <a href="#cpk">DPMO vs Cp/Cpk</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>DPMO and sigma level: <em>the formula, the table,</em> and a worked example.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / Six Sigma</span>
+      <span>June 18, 2026</span>
+      <span>9 min read</span>
+      <span>1,750 words</span>
+    </div>
+
+    <p class="lede">DPMO &mdash; defects per million opportunities &mdash; is how Six Sigma puts a number on quality so a stamping line and a software process can be compared on one scale. This explains the formula, converts DPMO to a sigma level, and works a real example end to end.</p>
+
+    <p>A 2% reject rate sounds bad on a press shop and fine on an assembly line, but those words mean nothing across processes. DPMO replaces the adjectives with a count: how many defects you would expect per million chances to make one. From that single number you read a sigma level, and a "3.2 sigma process" tells everyone the same thing whether they run machines or write code.</p>
+
+    <h2 id="what">What DPMO actually measures</h2>
+    <p>Three terms have to be clear before the formula makes sense:</p>
+    <ul>
+      <li><strong>Defect:</strong> any failure to meet a requirement. One part can carry several defects.</li>
+      <li><strong>Defective:</strong> a unit with one or more defects. This is the difference people miss &mdash; 50 defects might sit on 30 defective units.</li>
+      <li><strong>Opportunity:</strong> each independent chance to create a defect on a unit. A bracket checked on 5 characteristics has 5 opportunities.</li>
+    </ul>
+    <p>DPMO scales the defect count by both the number of units and the opportunities per unit. That is why it travels across processes: a part with 5 inspection points and a form with 20 fields are put on the same per-opportunity footing.</p>
+
+    <h2 id="formula">The DPMO formula</h2>
+    <p>The formula is:</p>
+    <div class="callout">
+      <strong>DPMO = (Defects &divide; (Units &times; Opportunities per unit)) &times; 1,000,000</strong>
+      The middle term &mdash; units multiplied by opportunities &mdash; is the total number of chances to fail. Defects divided by that gives the defect rate per opportunity; multiplying by a million scales it to a readable whole number.
+    </div>
+    <p>A related figure is <strong>DPO</strong> (defects per opportunity), which is the same thing before scaling: DPO = DPMO &divide; 1,000,000. And <strong>yield</strong> at the opportunity level is simply 1 &minus; DPO, expressed as a percentage.</p>
+
+    <h2 id="example">Worked example: a machined bracket line</h2>
+    <p>Take a month on a CNC bracket line:</p>
+    <ul>
+      <li>Units produced: 1,200 brackets</li>
+      <li>Opportunities per unit: 8 inspected characteristics</li>
+      <li>Defects found: 19 (across all units and all characteristics)</li>
+    </ul>
+    <p>Total opportunities = 1,200 &times; 8 = 9,600. Then:</p>
+    <p>DPMO = (19 &divide; 9,600) &times; 1,000,000 = <strong>1,979 DPMO</strong>.</p>
+    <p>Reading the conversion table below, ~1,979 DPMO sits just above the 4.5 sigma line (which is 1,350 DPMO) and below 4.0 sigma (6,210 DPMO), so this line runs at roughly <strong>4.3 sigma</strong>. The opportunity-level yield is 1 &minus; (1,979 &divide; 1,000,000) = 99.80%. The <a href="../calculators/dpmo-sigma.html">DPMO and sigma level calculator</a> does this conversion both ways &mdash; enter defects, units and opportunities to get DPMO and sigma, or enter a target sigma to see the DPMO you must hit.</p>
+
+    <h2 id="table">DPMO to sigma level conversion table</h2>
+    <p>These values include the standard 1.5 sigma shift used in Six Sigma practice (explained next), so they are "process sigma" figures.</p>
+    <table>
+      <tr><th>Sigma level</th><th>DPMO</th><th>Yield</th></tr>
+      <tr><td>1.0</td><td>691,462</td><td>30.9%</td></tr>
+      <tr><td>2.0</td><td>308,538</td><td>69.1%</td></tr>
+      <tr><td>3.0</td><td>66,807</td><td>93.3%</td></tr>
+      <tr><td>3.5</td><td>22,750</td><td>97.7%</td></tr>
+      <tr><td>4.0</td><td>6,210</td><td>99.38%</td></tr>
+      <tr><td>4.5</td><td>1,350</td><td>99.87%</td></tr>
+      <tr><td>5.0</td><td>233</td><td>99.977%</td></tr>
+      <tr><td>5.5</td><td>32</td><td>99.997%</td></tr>
+      <tr><td>6.0</td><td>3.4</td><td>99.99966%</td></tr>
+    </table>
+    <p>The famous headline &mdash; "Six Sigma means 3.4 defects per million" &mdash; is the bottom row. Note how steep the climb is at the top: moving from 5 to 6 sigma cuts DPMO from 233 to 3.4, nearly 70-fold, which is why the last sigma is by far the hardest and most expensive to win.</p>
+
+    <h2 id="shift">The 1.5 sigma shift, explained</h2>
+    <p>Here is the part that confuses people. A true &plusmn;6 sigma spread under a perfectly centred normal curve gives about 2 defects per <em>billion</em>, not 3.4 per million. The 3.4 figure comes from deliberately allowing the process mean to drift by <strong>1.5 sigma</strong> over the long term.</p>
+    <p>The reasoning, from Motorola's original work, is that no process stays perfectly centred forever &mdash; tool wear, material lots, shift changes and temperature all nudge the mean. So Six Sigma builds in a 1.5 sigma long-term drift as a safety margin. The result: a process that is 6 sigma in the short term is treated as 4.5 sigma long-term, and 4.5 sigma centred is the 3.4 DPMO you see quoted.</p>
+    <div class="warn-box">
+      <strong>Short-term vs long-term sigma</strong>
+      Always know which sigma you are quoting. "Short-term" (or Z-short) describes the process at its best, centred. "Long-term" or "process sigma" (Z-long = Z-short &minus; 1.5) describes what the customer actually receives over time. The table above is long-term. Mixing the two makes a process look 1.5 sigma better or worse than it is.</div>
+
+    <h2 id="cpk">How DPMO relates to Cp and Cpk</h2>
+    <p>DPMO and process capability describe the same reality from two directions. Capability indices like Cp and Cpk work from the spread and centring of measured data; DPMO works from counted defects. They line up: a centred process with Cpk = 1.0 corresponds to about 3 sigma (66,807 DPMO), Cpk = 1.33 to about 4 sigma, and Cpk = 1.5 to about 4.5 sigma &mdash; the common automotive PPAP target.</p>
+    <p>Use whichever you can measure. For dimensional features with variable data, Cpk from the <a href="../articles/cp-cpk-explained.html">process capability method</a> is richer because it sees the distribution. For attribute data &mdash; pass/fail, present/absent, paperwork errors &mdash; you cannot compute Cpk, so DPMO is the right tool.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Confusing defects with defectives.</strong> Three defects on one unit is three defects but one defective. DPMO uses the defect count; first-pass yield uses defectives.</li>
+      <li><strong>Inflating opportunities.</strong> Counting every conceivable feature as an opportunity quietly lowers your DPMO and flatters the sigma. Fix the opportunity definition once and keep it stable, or trends become meaningless.</li>
+      <li><strong>Forgetting the 1.5 shift.</strong> Comparing a short-term sigma to a long-term target overstates performance by 1.5 sigma.</li>
+      <li><strong>Reading DPMO as a percentage.</strong> 6,210 DPMO is 0.62%, not 6.2%. The "per million" base trips people up.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Convert in one step</strong>
+      The <a href="../calculators/dpmo-sigma.html">DPMO to sigma calculator</a> takes defects, units and opportunities and returns DPMO, DPO, yield and process sigma &mdash; with the 1.5 shift handled for you. It also runs the reverse for setting a target.
+    </div>
+
+    <p>DPMO tells you how often a process fails; it does not tell you where the defects come from. Pair it with the <a href="../articles/cp-cpk-explained.html">Cp/Cpk guide</a> for variable data, the <a href="../articles/aql-sampling-explained.html">AQL sampling guide</a> for inspection planning, and a way to catch defects at source &mdash; CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads a PDF drawing with Smart Detect and Box+Balloon OCR and builds the inspection sheet that feeds your defect counts. Ready-made <a href="../templates.html">quality templates</a> round out the workflow.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is a good DPMO?</h3>
+    <p>It depends on the industry, but as a rule of thumb: above 66,807 DPMO (below 3 sigma) is poor, around 6,210 DPMO (4 sigma) is typical for many manufacturing lines, and 3.4 DPMO (6 sigma) is world-class. Automotive PPAP work generally targets 4.5 sigma or better, which is 1,350 DPMO.</p>
+    <h3>How do you calculate sigma level from DPMO?</h3>
+    <p>Convert DPMO to a defect rate per opportunity (DPMO / 1,000,000), find the corresponding z-value of the normal distribution for that tail area, then add the 1.5 shift to express it as process sigma. In practice you read it from a DPMO-to-sigma table or a calculator rather than computing the z-value by hand.</p>
+    <h3>Why is Six Sigma 3.4 defects per million and not 2 per billion?</h3>
+    <p>A perfectly centred 6 sigma process gives about 2 defects per billion. Six Sigma deliberately allows a 1.5 sigma long-term drift of the process mean to account for real-world variation, which moves the figure to 3.4 defects per million &mdash; the long-term, customer-experienced rate.</p>
+    <h3>What is the difference between DPMO and PPM?</h3>
+    <p>PPM (parts per million) counts defective units per million units, ignoring how many opportunities each unit has. DPMO counts defects per million opportunities, normalising for product complexity. DPMO lets you compare a simple part and a complex one fairly; PPM does not.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
