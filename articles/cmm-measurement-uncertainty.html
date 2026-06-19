@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CMM Measurement Uncertainty: A Practical Guide | MetricMech</title>
+<meta name="description" content="Where CMM measurement uncertainty comes from, how to estimate it with a budget, the 4:1 rule, guard-banding, and why it decides borderline pass or fail." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cmm-measurement-uncertainty">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMM Measurement Uncertainty: A Practical Guide | MetricMech">
+<meta property="og:description" content="Where CMM measurement uncertainty comes from, how to build an uncertainty budget, the 4:1 rule, guard-banding, and how it decides borderline pass or fail.">
+<meta property="og:url" content="https://metricmech.com/articles/cmm-measurement-uncertainty">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CMM Measurement Uncertainty: A Practical Guide | MetricMech">
+<meta name="twitter:description" content="Where CMM measurement uncertainty comes from, how to build an uncertainty budget, the 4:1 rule, guard-banding, and how it decides borderline pass or fail.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "CMM Measurement Uncertainty: A Practical Guide | MetricMech",
+  "description": "Where CMM measurement uncertainty comes from, how to build an uncertainty budget, the 4:1 rule, guard-banding, and how it decides borderline pass or fail.",
+  "url": "https://metricmech.com/articles/cmm-measurement-uncertainty",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "CMM Measurement Uncertainty: A Practical Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/cmm-measurement-uncertainty"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is measurement uncertainty on a CMM?", "acceptedAnswer": {"@type": "Answer", "text": "Measurement uncertainty is the range around a CMM reading within which the true value is expected to lie, at a stated confidence level (usually 95%). It combines the machine's own error (MPE_E), probing error, environment, part fixturing, operator and form error into a single expanded uncertainty U, reported as result plus or minus U."}},
+    {"@type": "Question", "name": "What is the 4:1 rule in measurement?", "acceptedAnswer": {"@type": "Answer", "text": "The 4:1 rule, also called the test accuracy ratio, says the measurement system's uncertainty should be no more than one quarter of the tolerance band being verified. For a 0.05 mm tolerance the expanded uncertainty should be 0.0125 mm or better, so the gauge does not eat your tolerance."}},
+    {"@type": "Question", "name": "How do I reduce CMM measurement uncertainty?", "acceptedAnswer": {"@type": "Answer", "text": "Control temperature near 20 C, use a qualified stylus with adequate points, fixture the part rigidly to its datums, increase measurement points on form features, requalify the probe, and account for the largest contributors first using an uncertainty budget."}},
+    {"@type": "Question", "name": "What is guard-banding?", "acceptedAnswer": {"@type": "Answer", "text": "Guard-banding shrinks the acceptance limits by the measurement uncertainty so that a part is only accepted if it is conformant even after accounting for measurement error. It shifts the risk of wrong decisions away from shipping bad parts, at the cost of rejecting some marginal good parts."}},
+    {"@type": "Question", "name": "Is MPE the same as measurement uncertainty?", "acceptedAnswer": {"@type": "Answer", "text": "No. MPE (maximum permissible error) is the manufacturer's specified limit for the CMM's indication error, written as a formula such as MPE_E = 2.5 + L/300 micrometres. Measurement uncertainty for a specific task is usually larger than MPE because it also includes probing, environment, fixturing and part effects."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>CMM measurement uncertainty</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What it means</a>
+    <a href="#sources">Sources of uncertainty</a>
+    <a href="#budget">Building a budget</a>
+    <a href="#rule">The 4:1 rule</a>
+    <a href="#decision">Pass/fail decisions</a>
+    <a href="#reduce">How to reduce it</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>CMM measurement uncertainty: <em>a practical guide for quality engineers.</em></h1>
+    <div class="art-meta-bar">
+      <span>Metrology / CMM</span>
+      <span>June 19, 2026</span>
+      <span>12 min read</span>
+      <span>2,100 words</span>
+    </div>
+
+    <p class="lede">Your CMM reads 5.012 mm. The drawing says ⌀5.00 ±0.05. It passes — but does it really? Not until you know the uncertainty of that 5.012. This guide shows where CMM measurement uncertainty comes from, how to estimate it, and how it decides every borderline call you make.</p>
+
+    <h2 id="what">What CMM measurement uncertainty actually <em>means</em></h2>
+    <p>Every measurement is an estimate, not a perfect truth. Measurement uncertainty is the band around your CMM reading within which the true value is expected to lie, at a stated confidence — almost always 95%. You report it as <strong>result ± U</strong>, where U is the expanded uncertainty. A reading of 5.012 mm with U = 0.004 mm means the true size is very likely between 5.008 and 5.016 mm.</p>
+    <p>This matters because a CMM does not hand you the true value. It hands you a number with a fog around it. If the fog is wide compared to your tolerance, you cannot trust the pass/fail decision — and in my 14 years running plants, the borderline characteristics are exactly the ones that come back as customer rejections.</p>
+
+    <div class="callout">
+      <strong>MPE is not uncertainty</strong>
+      The MPE_E figure on a CMM datasheet — for example MPE_E = 2.5 + L/300 µm under ISO 10360-2 — is the maximum permissible indication error for a length measurement. Your task-specific uncertainty is usually larger, because it also includes probing, temperature, fixturing and the part itself. Never quote MPE as if it were your measurement uncertainty.
+    </div>
+
+    <h2 id="sources">Where the uncertainty <em>comes from</em></h2>
+    <p>An uncertainty budget adds up independent contributors. For a typical shop-floor CMM measurement, these are the ones that matter:</p>
+    <table>
+      <tr><th>Source</th><th>Typical contributor</th><th>What drives it</th></tr>
+      <tr><td>Machine geometry (MPE_E)</td><td>Largest at long lengths</td><td>Scale, squareness, calibration</td></tr>
+      <tr><td>Probing error (MPE_P)</td><td>1–3 µm</td><td>Stylus, qualification, point count</td></tr>
+      <tr><td>Temperature</td><td>Often dominant in India</td><td>Deviation from 20 °C, part vs scale CTE</td></tr>
+      <tr><td>Fixturing / datum setup</td><td>2–10 µm</td><td>Rigidity, datum realisation</td></tr>
+      <tr><td>Part form error</td><td>Varies</td><td>Roundness, surface finish, sampling</td></tr>
+      <tr><td>Operator / strategy</td><td>2–8 µm</td><td>Point density, filtering, alignment</td></tr>
+    </table>
+    <p>The single biggest contributor on most Indian shop floors is <strong>temperature</strong>. The CMM is specified at 20 °C. A workshop at 32 °C, with a steel part whose coefficient of thermal expansion is about 11.7 µm per metre per °C, can drift several micrometres on a 200 mm feature before you touch anything. This is why accredited labs are air-conditioned to 20 ±1 °C.</p>
+
+    <h2 id="budget">Building an uncertainty <em>budget</em></h2>
+    <p>You combine contributors in quadrature — root sum of squares — because they are independent. The recipe follows ISO/IEC Guide 98 (the GUM):</p>
+    <ol>
+      <li><strong>List each source</strong> and estimate its standard uncertainty u_i. Convert any "± limit" Type B value to a standard uncertainty by dividing by √3 for a rectangular distribution.</li>
+      <li><strong>Combine</strong>: u_c = √(u_1² + u_2² + … + u_n²).</li>
+      <li><strong>Expand</strong>: U = k × u_c, with coverage factor k = 2 for roughly 95% confidence.</li>
+    </ol>
+    <p>A worked example for a 100 mm length on a workshop CMM:</p>
+    <table>
+      <tr><th>Source</th><th>Limit / spec</th><th>u_i (µm)</th></tr>
+      <tr><td>Machine (MPE_E at 100 mm)</td><td>±2.8 µm</td><td>1.62</td></tr>
+      <tr><td>Probing</td><td>±2.0 µm</td><td>1.15</td></tr>
+      <tr><td>Temperature (±3 °C, steel)</td><td>±3.5 µm</td><td>2.02</td></tr>
+      <tr><td>Fixturing</td><td>±3.0 µm</td><td>1.73</td></tr>
+      <tr><td>Operator / strategy</td><td>±2.0 µm</td><td>1.15</td></tr>
+    </table>
+    <p>Combined: u_c = √(1.62² + 1.15² + 2.02² + 1.73² + 1.15²) ≈ 3.5 µm. Expanded: U = 2 × 3.5 ≈ <strong>7 µm (0.007 mm)</strong>. So your 100 mm reading should be reported as value ± 0.007 mm at 95% confidence.</p>
+
+    <h2 id="rule">The 4:1 rule and why it <em>protects you</em></h2>
+    <p>The classic test accuracy ratio says the measurement uncertainty should be no more than a quarter of the tolerance you are verifying. For a ±0.05 mm tolerance (0.10 mm band), you want U ≤ 0.0125 mm. Our 0.007 mm budget passes comfortably. For a tight ±0.005 mm feature, the same CMM would fail the 4:1 rule — you would need a better environment or a more capable machine.</p>
+
+    <div class="warn-box">
+      <strong>When the gauge eats the tolerance</strong>
+      If uncertainty is half the tolerance band (a 2:1 ratio), measurement error alone can flip a pass to a fail. Parts get scrapped that were good, and bad parts slip through. This is the same logic behind a Gauge R&amp;R study — verify the measurement system before you trust its verdicts.
+    </div>
+    <p>Uncertainty and gauge capability are two views of the same problem. Run a <a href="../calculators/gauge-rr.html">Gauge R&amp;R study with our calculator</a> to quantify how much of your observed variation is the measurement system rather than the part. A %GRR under 10% is good; over 30% means the system cannot be trusted for that tolerance.</p>
+
+    <h2 id="decision">Uncertainty and the <em>pass/fail</em> decision</h2>
+    <p>ISO 14253-1 governs how uncertainty enters conformance decisions. The key idea is the <strong>guard band</strong>. Instead of accepting any reading inside the tolerance, you shrink the acceptance limits inward by the expanded uncertainty U:</p>
+    <ul>
+      <li><strong>Accept</strong> only if the reading lies inside (tolerance limit − U).</li>
+      <li><strong>Reject</strong> only if it lies outside (tolerance limit + U).</li>
+      <li><strong>Uncertain zone</strong> within ±U of the limit — neither proven conformant nor proven non-conformant.</li>
+    </ul>
+    <p>Take ⌀5.00 +0.05/−0.05 with U = 0.007 mm. A reading of 5.049 is inside tolerance, but it sits within U of the upper limit, so guard-banding flags it as not proven conformant. By default the supplier carries the uncertainty: you only accept what you can prove good. This is exactly why borderline FAI characteristics should be noted, not silently passed.</p>
+
+    <div class="callout">
+      <strong>Feed measured results into your FAI cleanly</strong>
+      Once you trust a CMM result, it still has to land in the inspection report against the right balloon. Capture every characteristic from the drawing first with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR reads the dimensions and tolerances — then record your CMM results and uncertainty against each one. No transcription gaps between the drawing and the report.
+    </div>
+
+    <h2 id="reduce">How to reduce CMM <em>uncertainty</em></h2>
+    <ul>
+      <li><strong>Fix the environment first.</strong> Temperature usually dominates. Soak parts to room temperature, get as close to 20 °C as you can, and avoid measuring a part fresh off a hot machine.</li>
+      <li><strong>Qualify the probe properly.</strong> Requalify the stylus with the calibration sphere before a critical job; a stale qualification inflates probing error.</li>
+      <li><strong>Add points on form features.</strong> Three points define a circle but tell you nothing about roundness. Use enough points to capture the real form.</li>
+      <li><strong>Fixture to the datums.</strong> Realise the datum reference frame the drawing specifies, rigidly, so the alignment matches the design intent.</li>
+      <li><strong>Tackle the biggest contributor first.</strong> The budget tells you where to spend effort — halving a small term is wasted work.</li>
+    </ul>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Quoting MPE_E as uncertainty.</strong> It is one term in the budget, not the whole answer.</li>
+      <li><strong>Ignoring temperature.</strong> The most common and most expensive omission on a non-air-conditioned floor.</li>
+      <li><strong>Passing borderline readings silently.</strong> A reading 1 µm inside the limit with 7 µm uncertainty is not a clean pass — guard-band it.</li>
+      <li><strong>Under-sampling form features.</strong> Too few points understate roundness and cylindricity error.</li>
+      <li><strong>Never running a Gauge R&amp;R.</strong> Without it you are trusting a measurement system you have never validated.</li>
+    </ol>
+
+    <p>For tolerance interpretation behind these decisions, see our guides on <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances</a> and <a href="../articles/position-tolerance-mmc.html">position tolerance with MMC</a>. For ready-to-use inspection forms, browse the <a href="../templates.html">MetricMech templates library</a>.</p>
+
+    <div class="callout">
+      <strong>Quantify your measurement system</strong>
+      Use the free <a href="../calculators/gauge-rr.html">Gauge R&amp;R calculator</a> to find out how much of your variation is the gauge, then act on the largest contributor in your uncertainty budget.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

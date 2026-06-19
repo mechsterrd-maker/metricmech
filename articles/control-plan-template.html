@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control Plan Template: Free Guide with Example | MetricMech</title>
+<meta name="description" content="A control plan template explained column by column, with a worked machined-part example, the three control plan phases, and how it links to PFMEA and PPAP." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/control-plan-template">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Control Plan Template: Free Guide with Example | MetricMech">
+<meta property="og:description" content="A control plan template explained column by column, with a worked machined-part example, the three control plan phases, and how it links to PFMEA and PPAP.">
+<meta property="og:url" content="https://metricmech.com/articles/control-plan-template">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Control Plan Template: Free Guide with Example | MetricMech">
+<meta name="twitter:description" content="A control plan template explained column by column, with a worked machined-part example, the three control plan phases, and how it links to PFMEA and PPAP.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Control Plan Template: Free Guide with Example | MetricMech",
+  "description": "A control plan template explained column by column, with a worked machined-part example, the three control plan phases, and how it links to PFMEA and PPAP.",
+  "url": "https://metricmech.com/articles/control-plan-template",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Control Plan Template: A Free Guide with Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/control-plan-template"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is a control plan in manufacturing?", "acceptedAnswer": {"@type": "Answer", "text": "A control plan is a structured document that lists every process step, the product and process characteristics to be controlled, the specification, the measurement method, the sample size and frequency, the control method, and the reaction plan if something goes out of control. It is a core element of APQP and a required PPAP submission element."}},
+    {"@type": "Question", "name": "What are the three types of control plan?", "acceptedAnswer": {"@type": "Answer", "text": "The three phases are prototype, pre-launch, and production. A prototype control plan covers dimensional and material checks during early builds, pre-launch adds enhanced controls before full production, and the production control plan governs ongoing mass production with its established control methods and frequencies."}},
+    {"@type": "Question", "name": "What is the difference between a control plan and a PFMEA?", "acceptedAnswer": {"@type": "Answer", "text": "A PFMEA identifies how a process can fail and ranks the risk; the control plan defines the controls that detect or prevent those failures in production. The PFMEA feeds the control plan: high-risk characteristics and their recommended actions become controls, sample sizes and reaction plans in the control plan."}},
+    {"@type": "Question", "name": "Is a control plan required for PPAP?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The control plan is one of the standard PPAP elements required by the AIAG PPAP manual. For most submission levels the customer expects a current, signed production control plan that is consistent with the PFMEA and the process flow diagram."}},
+    {"@type": "Question", "name": "What columns should a control plan have?", "acceptedAnswer": {"@type": "Answer", "text": "A standard control plan includes part and process step, machine or device, product characteristic, process characteristic, special characteristic class, specification and tolerance, evaluation or measurement technique, sample size and frequency, control method, and reaction plan."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Control plan template</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What it is</a>
+    <a href="#phases">Three phases</a>
+    <a href="#columns">Every column</a>
+    <a href="#example">Worked example</a>
+    <a href="#pfmea">Link to PFMEA</a>
+    <a href="#ppap">Link to PPAP</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Control plan template: <em>a free guide with a worked example.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality / APQP</span>
+      <span>June 19, 2026</span>
+      <span>11 min read</span>
+      <span>2,000 words</span>
+    </div>
+
+    <p class="lede">A control plan is the one document that turns "we know how to make this part" into "we can prove we control how we make this part." Here is every column explained, a worked machined-part example, and how it ties to your PFMEA and PPAP submission.</p>
+
+    <h2 id="what">What a control plan <em>is</em></h2>
+    <p>A control plan is a structured table that, for every step of your process, states what you control, how tightly, how you measure it, how often, and what you do when it drifts. It is a living document under the APQP framework and a required element of every PPAP submission. Done well, it is the operating manual for quality on the line; done badly, it is a binder nobody opens until an auditor asks for it.</p>
+    <p>In my 14 years as a plant head, the difference between a plant that holds its quality and one that fights fires was almost always the control plan. A real control plan tells the operator exactly which three dimensions to check, with which gauge, every twentieth part — and what to do the moment one goes out.</p>
+
+    <h2 id="phases">The three <em>phases</em></h2>
+    <p>AIAG defines three control plan phases that track the life of a part:</p>
+    <table>
+      <tr><th>Phase</th><th>When</th><th>Focus</th></tr>
+      <tr><td>Prototype</td><td>Early builds</td><td>Dimensional and material checks to prove the design</td></tr>
+      <tr><td>Pre-launch</td><td>Before mass production</td><td>Enhanced controls, higher sampling, capability studies</td></tr>
+      <tr><td>Production</td><td>Ongoing manufacturing</td><td>Established controls, normal frequency, reaction plans</td></tr>
+    </table>
+    <p>Most of the control plans you maintain day to day are <strong>production</strong> control plans. Pre-launch typically runs tighter sampling until you have demonstrated process capability — for example, holding a Cpk study before relaxing to a routine frequency.</p>
+
+    <h2 id="columns">Every column, <em>explained</em></h2>
+    <p>The AIAG control plan format has a standard set of columns. Here is what each one means and how to fill it:</p>
+    <ul>
+      <li><strong>Part / process number &amp; name:</strong> the operation, keyed to your process flow diagram (e.g., OP30 Drilling).</li>
+      <li><strong>Machine / device / jig:</strong> the specific equipment used, so the control is traceable to a workstation.</li>
+      <li><strong>Product characteristic:</strong> a feature of the part — ⌀5.00 hole, 50 mm length, surface finish.</li>
+      <li><strong>Process characteristic:</strong> the process setting that drives the product characteristic — spindle speed, feed, coolant pressure.</li>
+      <li><strong>Special characteristic class:</strong> the customer symbol for critical/significant features (e.g., a diamond or the letters CC/SC).</li>
+      <li><strong>Specification / tolerance:</strong> the drawing requirement with its tolerance band.</li>
+      <li><strong>Evaluation / measurement technique:</strong> the gauge or method — pin gauge, micrometre, CMM, profilometer.</li>
+      <li><strong>Sample size &amp; frequency:</strong> how many and how often — 3 pieces every 2 hours, 100% on the first-off.</li>
+      <li><strong>Control method:</strong> how the process is held — SPC chart, error-proofing (poka-yoke), checklist, first-off approval.</li>
+      <li><strong>Reaction plan:</strong> what the operator does when a result is out — quarantine, adjust, inform supervisor, raise an NCR.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>The reaction plan is the column auditors test</strong>
+      Most control plans look complete until you ask the operator what they do when a reading is out of tolerance. If the reaction plan is blank or generic ("inform quality"), the control plan is not controlling anything. Make it specific: what to contain, who to call, and whether to stop the machine.
+    </div>
+
+    <h2 id="example">Worked example: <em>a machined bracket</em></h2>
+    <p>Here is a trimmed production control plan for OP30 (drilling) of a steel bracket:</p>
+    <table>
+      <tr><th>Characteristic</th><th>Spec</th><th>Method</th><th>Sample / freq</th><th>Control</th><th>Reaction</th></tr>
+      <tr><td>⌀5.00 hole (CC)</td><td>+0.05 / −0.00</td><td>Pin gauge go/no-go</td><td>5 pcs / hour</td><td>SPC + first-off</td><td>Quarantine lot, change drill, re-check</td></tr>
+      <tr><td>Hole position</td><td>⌀0.1 to A|B|C</td><td>CMM</td><td>1 pc / shift</td><td>X-bar &amp; R chart</td><td>Stop, verify fixture, contain</td></tr>
+      <tr><td>Deburr / finish</td><td>No sharp edge</td><td>Visual + comparator</td><td>100%</td><td>Operator check</td><td>Rework edge, re-inspect</td></tr>
+    </table>
+    <p>Notice how the special characteristic (the critical ⌀5.00 hole, marked CC) gets the tightest sampling and an SPC control method, while a lower-risk visual feature gets a 100% visual check with a simpler reaction. Effort follows risk — that is the whole point.</p>
+
+    <h2 id="pfmea">How it links to <em>PFMEA</em></h2>
+    <p>The control plan does not invent its controls from nothing. It inherits them from the Process FMEA. The PFMEA identifies failure modes, scores severity, occurrence and detection, and computes a risk priority number. The high-RPN items and their recommended actions become the controls, sample sizes and reaction plans in your control plan.</p>
+    <p>Quantify that risk first with our <a href="../calculators/fmea-rpn.html">FMEA RPN calculator</a>, then carry the worst offenders into the control plan as tightened controls. If you are new to the link between the two documents, our <a href="../articles/gauge-rr-explained.html">guide to Gauge R&amp;R</a> shows why your measurement method choice in the control plan has to be capable enough for the tolerance it verifies.</p>
+
+    <h2 id="ppap">How it links to <em>PPAP</em></h2>
+    <p>The control plan is a mandatory PPAP element. For an Indian OEM submission it must be current, signed, and consistent with the process flow diagram and the PFMEA — auditors cross-check all three. Build and track the full submission with our <a href="../calculators/ppap-checklist.html">PPAP checklist tool</a>, which lists every element by submission level so nothing is missing on the day you submit.</p>
+    <p>For the wider context on Indian OEM expectations, read <a href="../articles/ppap-indian-oems.html">PPAP for Indian OEMs</a>, and use the ready-made forms in the <a href="../templates.html">MetricMech templates library</a> to start from a compliant layout rather than a blank sheet.</p>
+
+    <div class="callout">
+      <strong>From drawing to control plan without re-typing</strong>
+      Your control plan's product characteristics come straight off the drawing. Capture them once with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR reads every dimension and tolerance — then export to CSV and drop the characteristics into your control plan. No manual transcription, no missed special characteristics.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Generic reaction plans.</strong> "Inform quality" controls nothing. Spell out contain, adjust, escalate.</li>
+      <li><strong>Inconsistent with the PFMEA.</strong> A high-RPN failure mode with no matching control is the first thing an auditor finds.</li>
+      <li><strong>Incapable measurement method.</strong> A caliper listed against a ±0.005 mm feature fails the 4:1 rule before you measure anything.</li>
+      <li><strong>Frozen document.</strong> The process changed but the control plan did not. Revision control matters here as much as on the drawing.</li>
+      <li><strong>Missing special characteristics.</strong> Customer critical/significant symbols not carried through from the drawing to the plan.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Build your PPAP package right</strong>
+      Use the free <a href="../calculators/ppap-checklist.html">PPAP checklist tool</a> to confirm your control plan, PFMEA and process flow are all present and consistent for your submission level.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/ppap-checklist.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP Checklist Tool</a>
+      <a href="../calculators/fmea-rpn.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">FMEA RPN Calculator</a>
+      <a href="../articles/ppap-indian-oems.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP for Indian OEMs</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
