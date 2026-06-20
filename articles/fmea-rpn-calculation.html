@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FMEA RPN Calculation Guide & Formula | MetricMech</title>
+<meta name="description" content="FMEA RPN calculation explained: how severity, occurrence and detection multiply, a worked PFMEA example, action priority in AIAG-VDA, and rating tables." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/fmea-rpn-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="FMEA RPN Calculation Guide & Formula | MetricMech">
+<meta property="og:description" content="FMEA RPN calculation explained: how severity, occurrence and detection multiply, a worked PFMEA example, action priority in AIAG-VDA, and rating tables.">
+<meta property="og:url" content="https://metricmech.com/articles/fmea-rpn-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FMEA RPN Calculation Guide & Formula | MetricMech">
+<meta name="twitter:description" content="How to calculate FMEA RPN from severity, occurrence and detection, with a worked PFMEA example and the AIAG-VDA Action Priority method that is replacing it.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "FMEA RPN Calculation: Severity, Occurrence and Detection",
+  "description": "FMEA RPN calculation explained: how severity, occurrence and detection multiply, a worked PFMEA example, action priority in AIAG-VDA, and rating tables.",
+  "url": "https://metricmech.com/articles/fmea-rpn-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}
+  },
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech"},
+  "datePublished": "2026-06-20",
+  "mainEntityOfPage": "https://metricmech.com/articles/fmea-rpn-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the FMEA RPN formula?", "acceptedAnswer": {"@type": "Answer", "text": "RPN equals Severity multiplied by Occurrence multiplied by Detection. Each factor is rated 1 to 10, so RPN ranges from 1 to 1000. A higher number indicates higher risk, but RPN is a ranking tool and has no universal pass threshold."}},
+    {"@type": "Question", "name": "What is a good or acceptable RPN value?", "acceptedAnswer": {"@type": "Answer", "text": "There is no universal acceptable RPN. RPN ranks failure modes against each other rather than certifying them. Setting a fixed threshold like 100 encourages teams to manipulate ratings. Instead, act on the highest RPNs and always review any item with severity 9 or 10 regardless of its number."}},
+    {"@type": "Question", "name": "What is the difference between RPN and Action Priority?", "acceptedAnswer": {"@type": "Answer", "text": "RPN multiplies severity, occurrence and detection into one number, treating all three equally. Action Priority, introduced in the 2019 AIAG-VDA handbook, uses a lookup table that weights severity first and outputs High, Medium or Low. AP stops a high-severity failure from hiding behind a low RPN."}},
+    {"@type": "Question", "name": "Should I reduce occurrence or detection to lower RPN?", "acceptedAnswer": {"@type": "Answer", "text": "Reduce occurrence first. Lowering occurrence attacks the root cause so the failure happens less often, while lowering detection only catches the failure after it occurs. Improving detection is the weakest of the three improvements because the defect is still produced."}},
+    {"@type": "Question", "name": "Can a low RPN still be high priority?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A failure with severity 9, occurrence 2 and detection 2 has an RPN of only 36 but is High priority under Action Priority, because a severity-9 effect cannot be ignored just because it is rare. Always review every high-severity item regardless of its RPN."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>FMEA RPN calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What RPN is</a>
+    <a href="#formula">The RPN formula</a>
+    <a href="#ratings">Rating the three factors</a>
+    <a href="#example">Worked PFMEA example</a>
+    <a href="#ap">RPN vs Action Priority</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>FMEA RPN calculation: <em>severity</em> &times; occurrence &times; detection, done right.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / FMEA</span>
+      <span>June 20, 2026</span>
+      <span>9 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">The Risk Priority Number is how a FMEA turns a list of possible failures into a ranked action list. It is three 1-to-10 ratings multiplied together &mdash; but the number is only as honest as the ratings behind it, and a high RPN is not always the failure you should fix first. Here is the formula, a worked example, and why AIAG-VDA replaced RPN with Action Priority.</p>
+
+    <h2 id="what">What RPN is</h2>
+    <p>RPN stands for Risk Priority Number. In a Failure Mode and Effects Analysis you list every way a process or product can fail, and for each failure mode you score three things: how bad the effect is (severity), how often the cause happens (occurrence), and how likely your controls are to catch it before it reaches the customer (detection). RPN multiplies the three into a single risk score that lets the team rank where to act.</p>
+    <p>The whole point is prioritisation. A process FMEA on a machined part can throw up forty failure modes; you cannot fix all forty at once. RPN sorts them so engineering effort goes where the risk is highest rather than where the loudest person in the room wants it.</p>
+
+    <h2 id="formula">The RPN formula</h2>
+    <div class="callout">
+      <strong>RPN = Severity &times; Occurrence &times; Detection</strong>
+      Each factor is rated 1 to 10, so RPN ranges from 1 (1&times;1&times;1) to 1000 (10&times;10&times;10). A higher number means higher risk. There is no universal "pass" threshold &mdash; RPN is a ranking tool, not a gate.
+    </div>
+    <p>Because all three factors share the same 1-to-10 scale but mean very different things, two failure modes can reach the same RPN by completely different routes. An RPN of 200 from severity 10 is a safety problem; an RPN of 200 from detection 10 is an inspection problem. The number alone hides which &mdash; which is exactly the weakness that Action Priority was created to fix.</p>
+
+    <h2 id="ratings">Rating the three factors</h2>
+    <p>Consistent ratings are everything. A team that scores severity loosely produces RPNs that cannot be compared across failure modes. Use defined rating tables and agree them before scoring:</p>
+    <table>
+      <tr><th>Rating</th><th>Severity</th><th>Occurrence</th><th>Detection</th></tr>
+      <tr><td>1</td><td>No noticeable effect</td><td>Failure unlikely (&lt;1 in 1,500,000)</td><td>Control almost certainly detects</td></tr>
+      <tr><td>2&ndash;3</td><td>Minor, slight annoyance</td><td>Low (1 in 150,000)</td><td>High chance of detection</td></tr>
+      <tr><td>4&ndash;6</td><td>Moderate, customer dissatisfied</td><td>Moderate (1 in 2,000)</td><td>Moderate chance</td></tr>
+      <tr><td>7&ndash;8</td><td>High, loss of primary function</td><td>High (1 in 50)</td><td>Low chance of detection</td></tr>
+      <tr><td>9&ndash;10</td><td>Safety / regulatory, no warning</td><td>Very high (1 in 8)</td><td>Control cannot detect</td></tr>
+    </table>
+    <p>Severity is fixed by the effect and can only be reduced by a design change, not by better inspection. Occurrence is reduced by attacking the root cause. Detection is reduced by better controls &mdash; but adding inspection is the weakest of the three improvements because it catches failures instead of preventing them.</p>
+
+    <h2 id="example">A worked PFMEA example</h2>
+    <p>Take a drilling operation on a Pune auto-component line. The failure mode is "hole drilled undersize", the effect is "bolt will not assemble", and the cause is "drill wear not detected".</p>
+    <table>
+      <tr><th>Factor</th><th>Rating</th><th>Reasoning</th></tr>
+      <tr><td>Severity</td><td>7</td><td>Loss of assembly function at the customer</td></tr>
+      <tr><td>Occurrence</td><td>6</td><td>Drill wear is moderately common without a change schedule</td></tr>
+      <tr><td>Detection</td><td>8</td><td>Only a final visual check; no in-process bore gauge</td></tr>
+    </table>
+    <p><strong>RPN</strong> = 7 &times; 6 &times; 8 = <strong>336</strong>. That is high. Now look at where the leverage is: severity (7) is locked unless the design changes, but detection (8) and occurrence (6) are both addressable. Adding an in-process go/no-go bore gauge pulls detection from 8 to 3, and a tool-change schedule pulls occurrence from 6 to 3. New RPN = 7 &times; 3 &times; 3 = <strong>63</strong> &mdash; an 81 percent risk reduction without touching the design.</p>
+
+    <div class="callout">
+      <strong>Let the tool rank for you</strong>
+      Enter severity, occurrence and detection into the free <a href="../calculators/fmea-rpn.html">FMEA RPN calculator</a> and it returns the RPN and the AIAG-VDA Action Priority (High / Medium / Low) side by side, so you see both the old number and the modern recommendation at once.
+    </div>
+
+    <h2 id="ap">RPN vs Action Priority (AIAG-VDA)</h2>
+    <p>The 2019 AIAG-VDA FMEA handbook replaced RPN with Action Priority (AP) for a reason: a raw RPN treats all three factors as equal, but they are not. A failure with severity 10 deserves attention even at a low RPN, because the consequence is catastrophic. AP is a lookup table that weights severity first, then occurrence, then detection, and outputs a priority of High, Medium or Low.</p>
+    <table>
+      <tr><th>Method</th><th>Output</th><th>Weakness it fixes</th></tr>
+      <tr><td>RPN</td><td>Number 1&ndash;1000</td><td>&mdash; (the legacy method)</td></tr>
+      <tr><td>Action Priority</td><td>High / Medium / Low</td><td>Stops a high-severity item hiding behind a low RPN</td></tr>
+    </table>
+    <div class="warn-box">
+      <strong>A low RPN can still be a High priority.</strong>
+      A failure with severity 9, occurrence 2 and detection 2 has an RPN of only 36 &mdash; but under Action Priority it is High, because a severity-9 effect cannot be ignored just because it is rare. If you still use RPN, always review every severity 9&ndash;10 item regardless of its number.
+    </div>
+
+    <h2 id="mistakes">Common FMEA RPN mistakes</h2>
+    <ul>
+      <li><strong>Treating RPN as a pass/fail gate.</strong> There is no magic threshold; RPN ranks, it does not certify. Chasing "RPN below 100" invites rating manipulation.</li>
+      <li><strong>Improving detection instead of occurrence.</strong> Adding inspection lowers the number but the failure still happens. Attack the cause first.</li>
+      <li><strong>Inconsistent rating scales.</strong> Different teams scoring severity differently make RPNs incomparable. Use one agreed rating table.</li>
+      <li><strong>Ignoring high-severity, low-RPN items.</strong> The exact failure Action Priority was built to catch.</li>
+      <li><strong>Never updating the FMEA.</strong> RPN is a living estimate; recalculate after every process change or field failure.</li>
+    </ul>
+
+    <h2>Connecting FMEA to inspection and control</h2>
+    <p>The detection rating in a FMEA is a direct claim about your inspection system &mdash; and that claim is only credible if the inspection is real and traceable. When a high-detection-rating failure mode demands a new check, that check has to land on the inspection sheet against a specific characteristic. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns a drawing into a numbered characteristic list, so the controls your FMEA promises actually exist on the floor rather than on paper.</p>
+    <p>FMEA feeds directly into the <a href="../articles/control-plan-template.html">control plan</a>, and the detection ratings depend on capable measurement &mdash; verify yours with a <a href="../articles/gauge-rr-explained.html">Gauge R&amp;R study</a>. Standard FMEA and control-plan forms are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/fmea-rpn.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">FMEA RPN Calculator</a>
+      <a href="../articles/control-plan-template.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Control Plan Template</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

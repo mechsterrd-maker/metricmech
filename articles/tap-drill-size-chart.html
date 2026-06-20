@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tap Drill Size Chart: Metric & Imperial | MetricMech</title>
+<meta name="description" content="A complete tap drill size chart for metric and UNC/UNF threads, the tap drill formula, how thread engagement changes the hole size, and worked examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/tap-drill-size-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tap Drill Size Chart: Metric & Imperial | MetricMech">
+<meta property="og:description" content="A complete tap drill size chart for metric and UNC/UNF threads, the tap drill formula, how thread engagement changes the hole size, and worked examples.">
+<meta property="og:url" content="https://metricmech.com/articles/tap-drill-size-chart">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tap Drill Size Chart: Metric & Imperial | MetricMech">
+<meta name="twitter:description" content="Tap drill charts for metric coarse, fine and UNC/UNF threads, plus the formula and how thread engagement percentage changes the hole you drill.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Tap Drill Size Chart: Metric and Imperial with Formula",
+  "description": "A complete tap drill size chart for metric and UNC/UNF threads, the tap drill formula, how thread engagement changes the hole size, and worked examples.",
+  "url": "https://metricmech.com/articles/tap-drill-size-chart",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}
+  },
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech"},
+  "datePublished": "2026-06-20",
+  "mainEntityOfPage": "https://metricmech.com/articles/tap-drill-size-chart"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the tap drill size formula?", "acceptedAnswer": {"@type": "Answer", "text": "For metric threads at 75 percent engagement, tap drill = major diameter minus pitch. An M8 x 1.25 needs an 8 - 1.25 = 6.75 mm drill. For imperial threads the relation is major diameter minus 1 divided by TPI, but you read the nearest standard drill from a chart."}},
+    {"@type": "Question", "name": "What size drill for an M8 tap?", "acceptedAnswer": {"@type": "Answer", "text": "An M8 x 1.25 coarse thread needs a 6.75 mm tap drill, commonly rounded to 6.8 mm. An M8 x 1.0 fine thread needs a 7.0 mm drill. The clearance hole for an M8 bolt to pass through is 9.0 mm."}},
+    {"@type": "Question", "name": "What is the difference between a tap drill and a clearance drill?", "acceptedAnswer": {"@type": "Answer", "text": "A tap drill makes the hole that is then threaded with a tap; it is smaller than the bolt. A clearance drill makes a larger plain hole that lets the bolt pass through freely without threading. Using a clearance drill to tap leaves a hole too big to hold a thread."}},
+    {"@type": "Question", "name": "Why do taps break and how does drill size affect it?", "acceptedAnswer": {"@type": "Answer", "text": "Taps break mainly from excessive cutting torque, which rises sharply as thread engagement increases. A tap drill that is too small leaves too much material and overloads the tap. In hard materials, drilling slightly larger for 60 to 65 percent engagement greatly reduces breakage with little strength loss."}},
+    {"@type": "Question", "name": "Does a fine thread need a different tap drill than coarse?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A fine thread has a smaller pitch, so it removes less material and needs a slightly larger tap drill than a coarse thread of the same nominal diameter. M10 x 1.5 coarse uses 8.5 mm while M10 x 1.25 fine uses 8.75 mm."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Tap drill size chart</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">Why tap drill size matters</a>
+    <a href="#formula">The tap drill formula</a>
+    <a href="#metric">Metric tap drill chart</a>
+    <a href="#imperial">UNC / UNF chart</a>
+    <a href="#engagement">Thread engagement %</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Tap drill size chart: <em>metric,</em> UNC/UNF, and the formula behind every hole.</h1>
+    <div class="art-meta-bar">
+      <span>Machining / Threads</span>
+      <span>June 20, 2026</span>
+      <span>8 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Drill the hole too small and the tap snaps off in the part; drill it too big and the thread strips under load. The tap drill size is the quiet decision that decides both. This chart covers metric coarse, metric fine and UNC/UNF threads, plus the simple formula so you can size any hole that is not on the chart.</p>
+
+    <h2 id="what">Why tap drill size matters</h2>
+    <p>A tapped hole is only as strong as the thread engagement it leaves behind. The tap drill makes the hole that the tap then cuts threads into. If that hole is too small, there is too much material for the tap to remove &mdash; cutting torque climbs, the tap overheats, and on smaller sizes it breaks off flush with the surface, which is one of the most expensive recoveries on the shop floor.</p>
+    <p>If the hole is too large, the tap removes too little material and the resulting thread is shallow. A thread cut to only 50 percent engagement holds far less load than one at 75 percent, and it strips long before the bolt reaches its rated torque. The chart below targets the industry-standard 75 percent thread engagement, which gives roughly 95 percent of the full thread strength for a fraction of the tapping effort.</p>
+
+    <h2 id="formula">The tap drill formula</h2>
+    <p>For metric threads at 75 percent engagement the rule is simple and worth memorising:</p>
+    <div class="callout">
+      <strong>Tap drill (metric) = Major diameter &minus; Pitch</strong>
+      An M8 &times; 1.25 needs an 8 &minus; 1.25 = <strong>6.75 mm</strong> drill. An M10 &times; 1.5 needs 10 &minus; 1.5 = <strong>8.5 mm</strong>. The formula assumes a 75 percent thread; for tougher materials you can drop engagement to 65&ndash;70 percent and drill very slightly larger.
+    </div>
+    <p>For imperial unified threads the exact relation is Tap drill = Major diameter &minus; (1 / TPI), but in practice you read the nearest fractional, number or letter drill from a chart because imperial drills come in fixed sizes rather than a continuous scale.</p>
+
+    <h2 id="metric">Metric tap drill chart (coarse &amp; fine, 75% thread)</h2>
+    <table>
+      <tr><th>Thread</th><th>Pitch (mm)</th><th>Tap drill (mm)</th><th>Clearance drill (mm)</th></tr>
+      <tr><td>M3</td><td>0.5</td><td>2.5</td><td>3.4</td></tr>
+      <tr><td>M4</td><td>0.7</td><td>3.3</td><td>4.5</td></tr>
+      <tr><td>M5</td><td>0.8</td><td>4.2</td><td>5.5</td></tr>
+      <tr><td>M6</td><td>1.0</td><td>5.0</td><td>6.6</td></tr>
+      <tr><td>M8</td><td>1.25</td><td>6.75 (6.8)</td><td>9.0</td></tr>
+      <tr><td>M8 fine</td><td>1.0</td><td>7.0</td><td>9.0</td></tr>
+      <tr><td>M10</td><td>1.5</td><td>8.5</td><td>11.0</td></tr>
+      <tr><td>M10 fine</td><td>1.25</td><td>8.75 (8.8)</td><td>11.0</td></tr>
+      <tr><td>M12</td><td>1.75</td><td>10.2</td><td>13.5</td></tr>
+      <tr><td>M16</td><td>2.0</td><td>14.0</td><td>17.5</td></tr>
+      <tr><td>M20</td><td>2.5</td><td>17.5</td><td>22.0</td></tr>
+    </table>
+    <p>The clearance-drill column is the through-hole for the bolt to pass freely &mdash; it is not a tapped hole. Mixing up the tap drill and the clearance drill is a classic drawing-read error that produces a hole far too big to thread.</p>
+
+    <h2 id="imperial">UNC / UNF tap drill chart (75% thread)</h2>
+    <table>
+      <tr><th>Thread</th><th>TPI</th><th>Tap drill</th><th>Decimal (in)</th></tr>
+      <tr><td>#8-32 UNC</td><td>32</td><td>#29</td><td>0.136</td></tr>
+      <tr><td>#10-24 UNC</td><td>24</td><td>#25</td><td>0.1495</td></tr>
+      <tr><td>1/4-20 UNC</td><td>20</td><td>#7</td><td>0.201</td></tr>
+      <tr><td>1/4-28 UNF</td><td>28</td><td>#3</td><td>0.213</td></tr>
+      <tr><td>5/16-18 UNC</td><td>18</td><td>F</td><td>0.257</td></tr>
+      <tr><td>3/8-16 UNC</td><td>16</td><td>5/16</td><td>0.3125</td></tr>
+      <tr><td>1/2-13 UNC</td><td>13</td><td>27/64</td><td>0.4219</td></tr>
+    </table>
+    <p>UNF (fine) threads use a slightly larger tap drill than UNC of the same nominal size because the finer pitch removes less material per thread. Always confirm whether the callout is coarse or fine before you pick the drill.</p>
+
+    <h2 id="engagement">How thread engagement changes the hole</h2>
+    <p>The 75 percent figure is a compromise, not a law. Higher engagement means a stronger thread but much higher tapping torque &mdash; going from 75 to 100 percent engagement roughly doubles the cutting force for only about 5 percent more strength. That is a bad trade, and it is why nobody taps to 100 percent.</p>
+    <table>
+      <tr><th>Engagement</th><th>Tap drill vs 75%</th><th>When to use</th></tr>
+      <tr><td>50&ndash;60%</td><td>Larger hole</td><td>Hard materials, deep holes, fragile small taps</td></tr>
+      <tr><td>75%</td><td>Standard</td><td>General steel and aluminium &mdash; the default</td></tr>
+      <tr><td>80&ndash;85%</td><td>Smaller hole</td><td>Soft, thin or low-strength material needing extra grip</td></tr>
+    </table>
+    <div class="warn-box">
+      <strong>Hard material? Drill bigger, not smaller.</strong>
+      In stainless or high-tensile steel, a 75 percent thread can break the tap. Dropping to 60&ndash;65 percent engagement (a slightly larger drill) sacrifices very little strength and dramatically cuts the risk of a snapped tap buried in an expensive part.
+    </div>
+
+    <div class="callout">
+      <strong>Skip the lookup</strong>
+      The free <a href="../calculators/drill-size-chart.html">tap drill size calculator</a> gives the tap drill and clearance drill for any metric or imperial thread at the engagement you choose, so you size the hole correctly even for threads not on this chart.
+    </div>
+
+    <h2 id="mistakes">Common tapping mistakes</h2>
+    <ul>
+      <li><strong>Using the clearance drill as the tap drill.</strong> The most common bench error &mdash; the hole ends up far too large and the thread strips.</li>
+      <li><strong>Ignoring fine vs coarse.</strong> M8 &times; 1.0 needs a 7.0 mm drill, not the 6.75 mm of M8 &times; 1.25.</li>
+      <li><strong>Tapping to 100 percent in hard steel.</strong> Doubles the torque for negligible strength; the usual cause of broken taps.</li>
+      <li><strong>No chamfer.</strong> A small countersink at the hole mouth guides the tap and stops the first thread tearing out.</li>
+      <li><strong>Forgetting tap drill depth allowance.</strong> A blind hole must be drilled deeper than the required thread depth to leave room for chips and the tap chamfer.</li>
+    </ul>
+
+    <h2>Where tap drill sizing meets inspection</h2>
+    <p>On a drawing, a tapped hole is a feature like any other &mdash; it gets a balloon number, a thread spec, and often a thread-depth callout that the inspector must verify with a go/no-go gauge. When you turn a print into an inspection sheet, every threaded hole should appear as a checkable characteristic. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the thread callouts off a PDF drawing and numbers them, so nothing is missed when the part is verified.</p>
+    <p>For the bolts that go into these holes, pair this chart with the <a href="../articles/bolt-torque-guide.html">bolt torque guide</a> and check fits on mating parts with the <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits</a> reference. Standard drilling and tap charts are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/drill-size-chart.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tap Drill Size Calculator</a>
+      <a href="../calculators/thread-pitch.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Thread Pitch Calculator</a>
+      <a href="../articles/bolt-torque-guide.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt Torque Guide</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
