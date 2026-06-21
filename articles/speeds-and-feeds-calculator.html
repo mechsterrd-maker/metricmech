@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Speeds and Feeds Calculator: Formula & Charts | MetricMech</title>
+<meta name="description" content="How to calculate machining speeds and feeds: cutting speed, RPM, feed rate and chip load formulas, with a worked turning and milling example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/speeds-and-feeds-calculator">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Speeds and Feeds Calculator: Formula & Charts | MetricMech">
+<meta property="og:description" content="Calculate machining speeds and feeds: cutting speed, RPM, feed rate and chip load formulas, a worked turning and milling example, and surface-speed charts.">
+<meta property="og:url" content="https://metricmech.com/articles/speeds-and-feeds-calculator">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Speeds and Feeds Calculator: Formula & Charts | MetricMech">
+<meta name="twitter:description" content="Calculate machining speeds and feeds: cutting speed, RPM, feed rate and chip load formulas, a worked turning and milling example, and surface-speed charts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Speeds and Feeds Calculator: Formula & Charts | MetricMech",
+  "description": "How to calculate machining speeds and feeds: cutting speed, RPM, feed rate and chip load formulas, a worked turning and milling example, and surface-speed charts.",
+  "url": "https://metricmech.com/articles/speeds-and-feeds-calculator",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Speeds and Feeds Calculator: Formula and Charts",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/speeds-and-feeds-calculator"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do you calculate spindle RPM from cutting speed?", "acceptedAnswer": {"@type": "Answer", "text": "RPM equals cutting speed in metres per minute times 1000, divided by pi times the diameter in millimetres. For example, a 50 mm tool at a cutting speed of 120 m/min gives RPM = 1000 x 120 / (3.1416 x 50), which is about 764 rev/min."}},
+    {"@type": "Question", "name": "What is chip load in machining?", "acceptedAnswer": {"@type": "Answer", "text": "Chip load, or feed per tooth, is the thickness of material each cutting edge removes per revolution. Feed rate equals RPM times the number of teeth times the feed per tooth. Too low a chip load rubs and work-hardens the part; too high overloads the edge and breaks the tool."}},
+    {"@type": "Question", "name": "What cutting speed should I use for mild steel?", "acceptedAnswer": {"@type": "Answer", "text": "For mild steel a typical cutting speed is about 90 to 130 m/min with an uncoated carbide tool, rising to 150 to 250 m/min with a coated insert. Always start from the tooling supplier's recommendation for the specific grade and adjust for rigidity and coolant."}},
+    {"@type": "Question", "name": "What is the difference between speed and feed?", "acceptedAnswer": {"@type": "Answer", "text": "Speed is the surface cutting speed, set by spindle RPM and tool diameter, and it controls heat and tool wear. Feed is how fast the tool advances into the work, set by feed per tooth and RPM, and it controls material removal rate and surface finish."}},
+    {"@type": "Question", "name": "Does coolant let me run higher speeds and feeds?", "acceptedAnswer": {"@type": "Answer", "text": "Coolant mainly removes heat and chips, which can allow a higher cutting speed before the tool overheats, especially in steels and stainless. It has less effect on feed, which is limited by edge strength and machine rigidity. Push speed with good coolant, but raise feed cautiously."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Speeds and feeds calculator</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">Speed vs feed</a>
+    <a href="#speed">Cutting speed &amp; RPM</a>
+    <a href="#feed">Feed rate &amp; chip load</a>
+    <a href="#example">Worked example</a>
+    <a href="#charts">Speed charts</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Speeds and feeds calculator: <em>the formulas that keep tools alive.</em></h1>
+    <div class="art-meta-bar">
+      <span>Machining / Cutting</span>
+      <span>June 21, 2026</span>
+      <span>11 min read</span>
+      <span>1,950 words</span>
+    </div>
+
+    <p class="lede">A snapped end mill is almost never the machine's fault. It is wrong speeds and feeds — a number plucked from memory instead of calculated. This guide gives you the four formulas that matter, a worked turning and milling example, and starting cutting-speed charts so the next cut runs clean.</p>
+
+    <h2 id="what">Speed and feed are <em>two different things</em></h2>
+    <p>Operators use "speeds and feeds" as one phrase, but they control two separate physical effects, and confusing them is how tools die young.</p>
+    <p><strong>Cutting speed</strong> is how fast the cutting edge moves across the material, measured in metres per minute (m/min). It is set by spindle RPM and tool diameter, and it mainly governs heat and tool wear. <strong>Feed</strong> is how fast the tool advances into the work, set by feed per tooth and RPM. It governs material removal rate and surface finish. Push speed too hard and you burn the edge; push feed too hard and you chip or snap it.</p>
+
+    <div class="callout">
+      <strong>Start from the supplier, then calculate</strong>
+      The cutting speed for a material-tool pair comes from the tooling supplier's catalogue, not from a formula. The formula's job is to convert that recommended cutting speed into the RPM and feed rate you dial into the machine. Get the input from the catalogue; get the machine numbers from the maths.
+    </div>
+
+    <h2 id="speed">Cutting speed and <em>spindle RPM</em></h2>
+    <p>The core relationship links cutting speed (Vc), tool or workpiece diameter (D), and spindle speed (N):</p>
+    <p><strong>N (RPM) = (1000 × Vc) / (π × D)</strong></p>
+    <p>where Vc is in m/min and D is in mm. Rearranged, the actual surface speed you are running is Vc = π × D × N / 1000. The diameter matters more than people expect: the same RPM gives a far higher surface speed on a 100 mm face mill than on a 6 mm drill, which is why a small drill needs high RPM and a big mill needs low RPM to sit at the same Vc.</p>
+
+    <h2 id="feed">Feed rate and <em>chip load</em></h2>
+    <p>Feed rate (Vf), the number the control actually moves at, comes from feed per tooth (fz, also called chip load), the number of teeth (z), and spindle speed:</p>
+    <p><strong>Vf (mm/min) = N × z × fz</strong></p>
+    <p>For turning, where there is effectively one cutting point, feed is given per revolution (fn) instead: Vf = N × fn. Chip load is the quiet killer. Run it too low and the edge rubs instead of cutting, work-hardening the surface and glazing the tool. Run it too high and the edge sees more force than it can carry. Every insert has a working chip-load window, usually in the catalogue.</p>
+
+    <div class="warn-box">
+      <strong>Beware radial chip thinning</strong>
+      When a milling cutter engages less than half its diameter (small radial depth), the actual chip is thinner than your programmed fz. You must increase the feed to keep the real chip load in the working range, or the tool rubs and wears fast. This single effect explains a lot of mysterious short tool life in finishing passes.
+    </div>
+
+    <h2 id="example">A worked example: <em>turning and milling</em></h2>
+    <p>Take a turning cut on EN8 steel (medium-carbon, common on Indian shop floors) at ⌀50 mm with a coated carbide insert. The catalogue suggests Vc = 200 m/min and fn = 0.20 mm/rev.</p>
+    <ul>
+      <li>RPM: N = 1000 × 200 / (π × 50) = <strong>1273 rev/min</strong></li>
+      <li>Feed rate: Vf = 1273 × 0.20 = <strong>255 mm/min</strong></li>
+    </ul>
+    <p>Now a face-milling cut on the same material with a 63 mm cutter, 5 inserts, Vc = 180 m/min, fz = 0.15 mm/tooth:</p>
+    <ul>
+      <li>RPM: N = 1000 × 180 / (π × 63) = <strong>910 rev/min</strong></li>
+      <li>Feed rate: Vf = 910 × 5 × 0.15 = <strong>682 mm/min</strong></li>
+    </ul>
+    <p>Those four numbers — two RPMs and two feed rates — are exactly what the free <a href="../calculators/speeds-feeds.html">speeds and feeds calculator</a> returns when you enter the diameter, cutting speed, teeth and chip load, so you can skip the arithmetic and sanity-check tooling on the spot.</p>
+
+    <h2 id="charts">Starting cutting-speed <em>charts</em></h2>
+    <p>These are conservative starting points for carbide tooling. Always defer to the insert grade's datasheet; treat the table as a sanity check, not gospel.</p>
+    <table>
+      <tr><th>Material</th><th>Vc, uncoated (m/min)</th><th>Vc, coated (m/min)</th></tr>
+      <tr><td>Aluminium alloys</td><td>200–400</td><td>400–800</td></tr>
+      <tr><td>Mild / low-carbon steel</td><td>90–130</td><td>150–250</td></tr>
+      <tr><td>Medium-carbon steel (EN8)</td><td>80–110</td><td>140–220</td></tr>
+      <tr><td>Alloy steel (EN24)</td><td>60–90</td><td>110–180</td></tr>
+      <tr><td>Stainless 304 / 316</td><td>50–80</td><td>100–160</td></tr>
+      <tr><td>Grey cast iron</td><td>70–110</td><td>120–200</td></tr>
+      <tr><td>Titanium alloys</td><td>20–40</td><td>40–70</td></tr>
+    </table>
+    <p>The hard materials at the bottom — stainless and titanium — are where wrong speeds cost the most, because they work-harden and trap heat at the edge. Drop the cutting speed and keep the feed up so the edge stays under the hardened layer.</p>
+
+    <h2 id="mistakes">Common speeds-and-feeds mistakes</h2>
+    <ol>
+      <li><strong>Reusing one RPM for every diameter.</strong> Surface speed changes with diameter; the RPM must change with it.</li>
+      <li><strong>Feeding too softly on stainless.</strong> Light feed rides on the work-hardened skin and destroys the edge. Commit to the cut.</li>
+      <li><strong>Ignoring chip thinning.</strong> Light radial cuts need higher feed to hold the real chip load.</li>
+      <li><strong>Forgetting machine rigidity.</strong> A flimsy setup or long tool overhang means you cannot run book numbers; reduce both speed and feed.</li>
+      <li><strong>No depth-of-cut plan.</strong> Speed and feed interact with depth of cut for total load. A heavy depth at high feed can stall the spindle even when each number looks fine alone.</li>
+    </ol>
+
+    <p>Speeds and feeds are one input to a costed job; cycle time and removal rate are the other. See the worked guides on <a href="../articles/oee-calculation.html">OEE calculation</a> to connect machining time to throughput, and on <a href="../articles/bolt-torque-guide.html">bolt torque</a> for another formula engineers get wrong from memory. For ready-to-use shop forms, browse the <a href="../templates.html">MetricMech templates library</a>.</p>
+
+    <div class="callout">
+      <strong>From the cut to the inspection report</strong>
+      Once the part is machined to those numbers, every dimension still has to be checked against the drawing. Capture all the characteristics first with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR reads the dimensions and tolerances straight off the PDF — so nothing on the print goes uninspected.
+    </div>
+
+    <div class="callout">
+      <strong>Run the numbers instantly</strong>
+      Use the free <a href="../calculators/speeds-feeds.html">speeds and feeds calculator</a> to convert any cutting speed into RPM and feed rate for turning or milling, then cross-check against the charts above before you cut.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/speeds-feeds.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Speeds &amp; Feeds Calculator</a>
+      <a href="../articles/tap-drill-size-chart.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tap drill size chart</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Shop floor templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

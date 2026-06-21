@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Material Weight Calculator: Formula & Density | MetricMech</title>
+<meta name="description" content="How to calculate material weight from volume and density: bar, plate and tube formulas, a worked steel example, and a metal density chart." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/material-weight-calculator">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Material Weight Calculator: Formula & Density | MetricMech">
+<meta property="og:description" content="Calculate material weight from volume and density: bar, plate and tube formulas, a steel worked example, a metal density chart, and costing tips.">
+<meta property="og:url" content="https://metricmech.com/articles/material-weight-calculator">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Material Weight Calculator: Formula & Density | MetricMech">
+<meta name="twitter:description" content="Calculate material weight from volume and density: bar, plate and tube formulas, a steel worked example, a metal density chart, and costing tips.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Material Weight Calculator: Formula & Density | MetricMech",
+  "description": "How to calculate material weight from volume and density: bar, plate and tube formulas, a steel density worked example, a metal density chart, and costing tips.",
+  "url": "https://metricmech.com/articles/material-weight-calculator",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Material Weight Calculator: Formula and Density",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/material-weight-calculator"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do you calculate the weight of a metal part?", "acceptedAnswer": {"@type": "Answer", "text": "Weight equals volume times density. Work out the volume from the geometry in cubic metres, multiply by the material density in kilograms per cubic metre, and you get the mass in kilograms. For steel, a quick check is volume in cubic centimetres times 0.00785 kg per cubic centimetre."}},
+    {"@type": "Question", "name": "What is the density of mild steel?", "acceptedAnswer": {"@type": "Answer", "text": "Mild and low-alloy steels have a density of about 7850 kg per cubic metre, or 7.85 grams per cubic centimetre. Stainless 304 is slightly higher at around 8000, aluminium is about 2700, and brass is about 8500. Use the specific grade's value for accurate costing."}},
+    {"@type": "Question", "name": "How do I calculate the weight of a round bar?", "acceptedAnswer": {"@type": "Answer", "text": "For a round bar, weight per metre equals pi divided by four, times diameter squared in millimetres, times length, times density, with units converted to give kilograms. A common shortcut for steel is diameter in mm squared, times 0.00617, which gives kilograms per metre."}},
+    {"@type": "Question", "name": "Why does my calculated weight differ from the actual weight?", "acceptedAnswer": {"@type": "Answer", "text": "Differences come from mill tolerance on stock dimensions, the exact alloy density, surface coatings, and rounding of the density value. For costing, calculated theoretical weight is the standard basis, but expect a few percent variation against a weighed part."}},
+    {"@type": "Question", "name": "How is material weight used in costing?", "acceptedAnswer": {"@type": "Answer", "text": "Raw material is usually priced per kilogram, so part weight times rate gives the material cost, and you add a scrap or yield factor for the stock that becomes chips. Accurate weight also drives freight cost and machine load planning."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Material weight calculator</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">The core formula</a>
+    <a href="#shapes">Weight by shape</a>
+    <a href="#example">Worked example</a>
+    <a href="#density">Density chart</a>
+    <a href="#costing">Weight and costing</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Material weight calculator: <em>volume times density, done properly.</em></h1>
+    <div class="art-meta-bar">
+      <span>Design / Costing</span>
+      <span>June 21, 2026</span>
+      <span>10 min read</span>
+      <span>1,850 words</span>
+    </div>
+
+    <p class="lede">Quoting a job without knowing the part weight is guessing. Material is priced per kilogram, so a 5% weight error is a 5% margin error on every piece you ship. This guide gives you the weight formula, ready-to-use shape equations, a metal density chart, and the costing logic behind them.</p>
+
+    <h2 id="what">The one formula <em>everything</em> reduces to</h2>
+    <p>Every material weight calculation is the same idea: <strong>weight = volume × density</strong>. Everything else is just working out the volume for a given shape and picking the right density for the material. Keep the units consistent and the answer is exact.</p>
+    <p>In SI units, volume in cubic metres (m³) times density in kilograms per cubic metre (kg/m³) gives mass in kilograms. Most shop drawings are in millimetres, so the practical trick is to work the volume in cubic centimetres (cm³) and use density in grams per cubic centimetre (g/cm³) — for steel that is 7.85 — which gives grams directly. Divide by 1000 for kilograms.</p>
+
+    <div class="callout">
+      <strong>The steel shortcut worth memorising</strong>
+      For carbon steel, weight in kilograms ≈ volume in cm³ × 0.00785. For a round steel bar specifically, kg per metre ≈ D² (mm) × 0.00617. A 25 mm bar is 25² × 0.00617 ≈ 3.86 kg/m. These two shortcuts cover most quick checks on the shop floor.
+    </div>
+
+    <h2 id="shapes">Weight equations by <em>shape</em></h2>
+    <p>Work the volume from the geometry, then multiply by density. Here are the shapes engineers price most often, with dimensions in mm and density ρ in g/cm³ (divide the volume by 1000 to convert mm³ to cm³).</p>
+    <table>
+      <tr><th>Shape</th><th>Volume</th><th>Notes</th></tr>
+      <tr><td>Round bar</td><td>(π/4) × D² × L</td><td>D = diameter, L = length</td></tr>
+      <tr><td>Square / flat bar</td><td>W × T × L</td><td>Width × thickness × length</td></tr>
+      <tr><td>Plate / sheet</td><td>L × W × T</td><td>Weight per m² = T(mm) × ρ × 0.001</td></tr>
+      <tr><td>Hollow tube</td><td>(π/4) × (D² − d²) × L</td><td>D = outer, d = inner diameter</td></tr>
+      <tr><td>Hexagon bar</td><td>0.866 × AF² × L</td><td>AF = across flats</td></tr>
+    </table>
+    <p>For a real machined part with pockets, holes and chamfers, you cannot reduce it to one shape. Either subtract the removed volume feature by feature, or take the volume straight from the 3D model, which is what a CAD-based weight tool does.</p>
+
+    <h2 id="example">Worked example: <em>a steel shaft</em></h2>
+    <p>Price the raw stock for a turned shaft from EN8 steel, machined from ⌀60 mm bar, 320 mm long. Density of carbon steel is 7.85 g/cm³.</p>
+    <ul>
+      <li>Volume = (π/4) × 60² × 320 = 904,779 mm³ = <strong>904.8 cm³</strong></li>
+      <li>Weight = 904.8 × 7.85 = 7102 g = <strong>7.10 kg</strong></li>
+    </ul>
+    <p>At a steel rate of ₹70/kg, the raw bar costs about ₹497 per piece — before you account for the chips. If the finished shaft weighs 5.4 kg, you are paying for 1.7 kg of material that becomes swarf, so the real material cost per good part includes that yield loss. The free <a href="../calculators/material-weight.html">material weight calculator</a> returns this in one step for bars, plates and tubes across a dozen materials.</p>
+
+    <h2 id="density">Metal density <em>chart</em></h2>
+    <p>Use the specific grade where you have it; these are representative values for quick work.</p>
+    <table>
+      <tr><th>Material</th><th>Density (g/cm³)</th><th>Density (kg/m³)</th></tr>
+      <tr><td>Carbon / mild steel</td><td>7.85</td><td>7850</td></tr>
+      <tr><td>Stainless steel 304</td><td>8.00</td><td>8000</td></tr>
+      <tr><td>Cast iron (grey)</td><td>7.20</td><td>7200</td></tr>
+      <tr><td>Aluminium 6061</td><td>2.70</td><td>2700</td></tr>
+      <tr><td>Brass</td><td>8.50</td><td>8500</td></tr>
+      <tr><td>Copper</td><td>8.96</td><td>8960</td></tr>
+      <tr><td>Titanium (Ti-6Al-4V)</td><td>4.43</td><td>4430</td></tr>
+    </table>
+    <p>Note how far apart these sit. Switching a bracket from steel to aluminium cuts weight by roughly two-thirds for the same volume, which is the whole reason aluminium dominates aerospace and EV structures despite costing more per kilogram.</p>
+
+    <h2 id="costing">Why weight <em>is</em> the cost</h2>
+    <p>Material is almost always bought per kilogram, so part weight is the spine of any cost estimate. Three numbers flow from it: raw material cost (weight × rate), scrap recovery (chip weight × scrap rate), and freight (often weight-based for metal parts). Get the weight wrong and all three are wrong.</p>
+    <p>The subtle one is yield. A part machined from bar might finish at 60% of the starting weight, so 40% is sold as scrap at a fraction of the buying price. A net-shape casting or forging starts much closer to final weight, which is why high-volume parts move to those processes even with higher tooling cost.</p>
+
+    <div class="warn-box">
+      <strong>Theoretical vs actual weight</strong>
+      Calculated weight is "theoretical" — it assumes nominal dimensions and a book density. Real stock carries mill tolerance, the alloy density varies slightly, and coatings add mass. Expect a few percent gap against a weighed part. For quoting, theoretical weight is the accepted standard; just don't treat it as exact to the gram.
+    </div>
+
+    <h2 id="mistakes">Common material-weight mistakes</h2>
+    <ol>
+      <li><strong>Mixing units.</strong> The classic error is mm³ with g/cm³ without the ÷1000. Always reconcile units before trusting the number.</li>
+      <li><strong>Using a generic density.</strong> "Steel" spans 7.75 to 8.05 g/cm³ across grades; stainless is not the same as mild steel.</li>
+      <li><strong>Forgetting the bore on tubes.</strong> Pricing a tube as solid bar massively over-estimates weight and cost.</li>
+      <li><strong>Ignoring yield loss.</strong> The finished-part weight is not the material you buy; cost the starting stock.</li>
+      <li><strong>Rounding density too hard.</strong> Using 8 for everything inflates aluminium parts threefold — pick the right value.</li>
+    </ol>
+
+    <p>Weight feeds straight into costing and procurement decisions. Pair it with the worked guides on <a href="../articles/oee-calculation.html">OEE calculation</a> for machine-time cost and <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances</a> for the stock allowance you machine away. For ready-to-use estimating forms, browse the <a href="../templates.html">MetricMech templates library</a>.</p>
+
+    <div class="callout">
+      <strong>Weigh the whole assembly, then inspect it</strong>
+      For an assembly, weight rolls up from a bill of materials. After costing, every part still has to be checked against its drawing — capture all the characteristics with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a>, where Smart Detect plus Box+Balloon OCR reads dimensions and tolerances off the PDF, so the part you weighed is the part you inspect.
+    </div>
+
+    <div class="callout">
+      <strong>Get the weight in one step</strong>
+      Use the free <a href="../calculators/material-weight.html">material weight calculator</a> to price bars, plates and tubes across steel, aluminium, brass and more — then cross-check against the density chart above.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/material-weight.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits &amp; tolerances</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Estimating templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
