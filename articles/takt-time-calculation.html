@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Takt Time Calculation: Formula and Example | MetricMech</title>
+<meta name="description" content="Takt time = available time / customer demand. The formula, takt vs cycle vs lead time, a line-balancing worked example, and the mistakes to avoid." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/takt-time-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Takt Time Calculation: Formula and Example | MetricMech">
+<meta property="og:description" content="Takt time = available time / customer demand. The formula, takt vs cycle vs lead time, a line-balancing worked example, and the mistakes to avoid.">
+<meta property="og:url" content="https://metricmech.com/articles/takt-time-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Takt Time Calculation: Formula and Example | MetricMech">
+<meta name="twitter:description" content="Takt time = available time / customer demand. The formula, takt vs cycle vs lead time, a line-balancing worked example, and the mistakes to avoid.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Takt Time Calculation: Formula and Example | MetricMech",
+  "description": "Takt time = available time / customer demand. The formula, takt vs cycle vs lead time, a line-balancing worked example, and the mistakes to avoid.",
+  "url": "https://metricmech.com/articles/takt-time-calculation",
+  "mainEntityOfPage": "https://metricmech.com/articles/takt-time-calculation",
+  "datePublished": "2026-06-22",
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder — 14 years plant-head experience"},
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the takt time formula?", "acceptedAnswer": {"@type": "Answer", "text": "Takt time = net available production time divided by customer demand for the same period. If you have 27,000 seconds of net run time in a shift and customers need 450 units, takt time is 60 seconds per unit."}},
+    {"@type": "Question", "name": "What is the difference between takt time and cycle time?", "acceptedAnswer": {"@type": "Answer", "text": "Takt time is the rate the customer buys at — it is set by demand, not by the machine. Cycle time is how fast your process actually completes one unit. To meet demand without overproducing, cycle time must be at or just below takt time."}},
+    {"@type": "Question", "name": "Should I subtract breaks from available time?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use net available time: total shift time minus planned stops such as breaks, meetings, and changeovers. Using gross shift time inflates takt and leaves you unable to meet demand once real stoppages occur."}},
+    {"@type": "Question", "name": "What happens if cycle time exceeds takt time?", "acceptedAnswer": {"@type": "Answer", "text": "The line cannot keep up with demand, so you fall behind and resort to overtime or backlog. The fix is to reduce cycle time through line balancing, add capacity, or split the bottleneck operation."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Takt time calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What takt time is</a>
+    <a href="#formula">The formula</a>
+    <a href="#vs">Takt vs cycle vs lead</a>
+    <a href="#example">Worked example</a>
+    <a href="#balance">Line balancing</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Takt time calculation: <em>pacing your line to the customer.</em></h1>
+    <div class="art-meta-bar">
+      <span>Lean / Production</span>
+      <span>Jun 22, 2026</span>
+      <span>8 min read</span>
+      <span>1,600 words</span>
+    </div>
+
+    <p class="lede">Takt time is the heartbeat of a lean line &mdash; the rhythm at which you must finish one unit to exactly match customer demand, no faster and no slower. Run quicker and you build inventory you cannot sell; run slower and you fall behind. Here is the formula, the difference from cycle time, and a worked line-balancing example.</p>
+
+    <h2 id="what">What takt time <em>actually is</em></h2>
+    <p>The word comes from the German <em>Takt</em>, the beat a conductor keeps for an orchestra. In manufacturing it is the available production time divided by the number of units the customer wants in that time. It is not a measure of how fast your machines run &mdash; it is a target rhythm set entirely by demand. Every workstation on a balanced line aims to complete its task within one takt.</p>
+
+    <h2 id="formula">The takt time <em>formula</em></h2>
+    <div class="callout">
+      <strong>Takt time = Net available production time &divide; Customer demand</strong>
+      Both terms must cover the same period &mdash; usually one shift or one day. Net available time excludes planned stops: breaks, meetings, planned maintenance, and changeovers.
+    </div>
+    <p>The single most common error is using <strong>gross</strong> shift time instead of <strong>net</strong> time. If your shift is 8 hours but operators take 45 minutes of breaks and a 15-minute handover, your net time is 7 hours, not 8. Plan to the gross figure and you are structurally short of capacity before the day even begins.</p>
+
+    <h2 id="vs">Takt vs cycle vs lead time</h2>
+    <p>These three are constantly confused. They answer different questions:</p>
+    <table>
+      <tr><th>Metric</th><th>Question it answers</th><th>Set by</th></tr>
+      <tr><td>Takt time</td><td>How often must we finish a unit?</td><td>Customer demand</td></tr>
+      <tr><td>Cycle time</td><td>How long does our process take per unit?</td><td>The process</td></tr>
+      <tr><td>Lead time</td><td>How long from order to delivery?</td><td>Whole value stream</td></tr>
+    </table>
+    <p>The golden rule: <strong>cycle time must be at or just below takt time</strong>. If cycle time creeps above takt, the line cannot keep pace with demand. If it is far below takt, you are overproducing or carrying idle capacity.</p>
+
+    <h2 id="example">Worked <em>example</em></h2>
+    <p>A pump-assembly cell runs one 8-hour shift. Operators take two 15-minute breaks and a 10-minute startup meeting. Customer demand is <strong>420 pumps per day</strong>.</p>
+    <ol>
+      <li><strong>Gross time:</strong> 8 h &times; 60 = 480 minutes.</li>
+      <li><strong>Planned stops:</strong> 15 + 15 + 10 = 40 minutes.</li>
+      <li><strong>Net available time:</strong> 480 &minus; 40 = 440 minutes = <strong>26,400 seconds</strong>.</li>
+      <li><strong>Takt time:</strong> 26,400 &divide; 420 = <strong>62.9 seconds per pump</strong>.</li>
+    </ol>
+    <p>So the cell must complete one pump every 63 seconds. If the slowest station &mdash; the bottleneck &mdash; currently takes 78 seconds, the line is 15 seconds over takt and cannot meet demand. Use the <a href="../calculators/takt-time.html">MetricMech takt time calculator</a> to test demand and shift scenarios instantly, including its built-in cycle-time comparison.</p>
+
+    <h2 id="balance">Using takt for <em>line balancing</em></h2>
+    <p>Takt time tells you the minimum number of stations you need. Divide the total manual work content by takt:</p>
+    <div class="callout">
+      <strong>Minimum stations = Total work content &divide; Takt time</strong>
+      If total assembly work is 300 seconds and takt is 63 seconds, you need at least 300 &divide; 63 = 4.8, so <strong>5 stations</strong>. You then distribute the 300 seconds across 5 stations so none exceeds 63 seconds.
+    </div>
+    <p>Real efficiency depends on how evenly you split the work. A line where stations run 60, 61, 59, 62 and 58 seconds is well balanced; one running 63, 40, 63, 35 and 60 wastes capacity at the light stations. Pairing takt-based balancing with an <a href="../articles/oee-calculation.html">OEE measurement</a> shows how much of your theoretical capacity real losses actually consume.</p>
+
+    <div class="warn-box">
+      <strong>Takt assumes stable, capable processes</strong>
+      Takt planning collapses if quality is unstable, because rework and scrap silently steal capacity. Confirm the process is capable first &mdash; see <a href="../articles/cp-cpk-explained.html">Cp and Cpk explained</a> &mdash; before you pace a line to a tight takt.
+    </div>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Using gross instead of net time</strong> &mdash; the single biggest planning error.</li>
+      <li><strong>Forgetting changeovers</strong> on mixed-model lines &mdash; every changeover eats available time.</li>
+      <li><strong>Ignoring yield</strong> &mdash; if 3% of units are scrapped, you must build to demand &divide; 0.97, which shortens effective takt.</li>
+      <li><strong>Recomputing takt too rarely</strong> &mdash; when demand shifts, takt shifts; a quarterly figure misleads a fast-moving line.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>From the line back to the drawing</strong>
+      Pacing a new product to takt starts with clean inspection data for the parts feeding the cell. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning (Smart Detect + Box+Balloon OCR)</a> turns a PDF drawing into a ready inspection sheet in minutes, so first-article checks never become the bottleneck that breaks your takt.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What is the takt time formula?</h3>
+    <p>Takt time = net available production time &divide; customer demand for the same period. With 27,000 seconds of net run time and demand of 450 units, takt time is 60 seconds per unit.</p>
+    <h3>What is the difference between takt time and cycle time?</h3>
+    <p>Takt time is the rate the customer buys at, set by demand. Cycle time is how fast your process actually completes one unit. To meet demand without overproducing, cycle time must sit at or just below takt time.</p>
+    <h3>What if cycle time exceeds takt time?</h3>
+    <p>The line cannot keep up with demand, so you fall behind and resort to overtime or backlog. Fix it by reducing cycle time through line balancing, adding capacity, or splitting the bottleneck operation.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience &middot; MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/takt-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Takt Time Calculator</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE Calculation Guide</a>
+      <a href="../articles/cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp vs Cpk Explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Production templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

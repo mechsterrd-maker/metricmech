@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech</title>
+<meta name="description" content="Convert between Rockwell (HRC, HRB), Brinell (HB), Vickers (HV) and tensile strength. Conversion tables, the ASTM E140 caveat, and a worked steel example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/hardness-conversion-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech">
+<meta property="og:description" content="Convert between Rockwell (HRC, HRB), Brinell (HB), Vickers (HV) and tensile strength. Conversion tables, the ASTM E140 caveat, and a worked steel example.">
+<meta property="og:url" content="https://metricmech.com/articles/hardness-conversion-chart">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech">
+<meta name="twitter:description" content="Convert between Rockwell (HRC, HRB), Brinell (HB), Vickers (HV) and tensile strength. Conversion tables, the ASTM E140 caveat, and a worked steel example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech",
+  "description": "Convert between Rockwell (HRC, HRB), Brinell (HB), Vickers (HV) and tensile strength. Conversion tables, the ASTM E140 caveat, and a worked steel example.",
+  "url": "https://metricmech.com/articles/hardness-conversion-chart",
+  "mainEntityOfPage": "https://metricmech.com/articles/hardness-conversion-chart",
+  "datePublished": "2026-06-22",
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder — 14 years plant-head experience"},
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Is hardness conversion accurate?", "acceptedAnswer": {"@type": "Answer", "text": "Conversions are approximations valid mainly for non-austenitic steels per ASTM E140. There is no exact physics-based relationship between scales, so converted values can differ by several points. For acceptance always measure on the scale the drawing specifies."}},
+    {"@type": "Question", "name": "How do I convert HRC to HB?", "acceptedAnswer": {"@type": "Answer", "text": "Use an ASTM E140 conversion table or a calculator. As a rough guide for steel, 20 HRC is about 226 HB, 30 HRC about 286 HB, 40 HRC about 371 HB, and 50 HRC about 481 HB. Above roughly 450 HB the Brinell scale becomes unreliable and Rockwell C or Vickers should be used."}},
+    {"@type": "Question", "name": "What is the relationship between hardness and tensile strength?", "acceptedAnswer": {"@type": "Answer", "text": "For steel, tensile strength in MPa is approximately 3.4 times the Brinell hardness number. So 200 HB corresponds to roughly 680 MPa. This is an estimate for carbon and low-alloy steels and does not apply to non-ferrous metals."}},
+    {"@type": "Question", "name": "Which hardness scale should I specify on a drawing?", "acceptedAnswer": {"@type": "Answer", "text": "Specify the scale that suits the material and section. Use HRC for hardened steel above about 20 HRC, HRB for softer steels and many non-ferrous metals, HB for castings and large sections, and HV for thin sections, surface layers, and coatings."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Hardness conversion chart</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#scales">The hardness scales</a>
+    <a href="#why">Why conversion is approximate</a>
+    <a href="#chart">Conversion chart (steel)</a>
+    <a href="#tensile">Hardness to tensile strength</a>
+    <a href="#example">Worked example</a>
+    <a href="#pick">Which scale to specify</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Hardness conversion chart: <em>HRC, HB, HV and tensile strength.</em></h1>
+    <div class="art-meta-bar">
+      <span>Materials / QA</span>
+      <span>Jun 22, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">A test certificate quotes 45 HRC, your drawing calls out 430 HB, and the customer asks for the tensile strength. All three describe the same steel. Here is how the Rockwell, Brinell and Vickers scales relate, why every conversion is an approximation, and a worked example you can trust on the shop floor.</p>
+
+    <h2 id="scales">The <em>hardness scales</em> you will meet</h2>
+    <p>Hardness is resistance to localised plastic deformation. Each scale measures it with a different indenter and load, so each produces its own number:</p>
+    <ul>
+      <li><strong>Rockwell C (HRC)</strong> &mdash; a 120&deg; diamond cone under a 150&nbsp;kgf load. The default for hardened steel, roughly 20&ndash;70 HRC.</li>
+      <li><strong>Rockwell B (HRB)</strong> &mdash; a 1.588&nbsp;mm ball under 100&nbsp;kgf. Used for softer steels, brass and aluminium alloys.</li>
+      <li><strong>Brinell (HB / HBW)</strong> &mdash; a 10&nbsp;mm tungsten-carbide ball, usually 3000&nbsp;kgf for steel. The large indent averages over a big area, so it suits castings and coarse-grained material.</li>
+      <li><strong>Vickers (HV)</strong> &mdash; a square-based diamond pyramid, any load from grams to 100&nbsp;kgf. One continuous scale from soft foil to the hardest steel, ideal for thin sections and case depth.</li>
+    </ul>
+
+    <h2 id="why">Why conversion is <em>always approximate</em></h2>
+    <p>There is no exact physical law linking the scales. Each indenter deforms the metal differently, so conversions come from empirical correlation tables, principally <strong>ASTM E140</strong> and <strong>ISO 18265</strong>. Those tables were built mostly from non-austenitic steels. Apply them to stainless, non-ferrous metals or work-hardened surfaces and the error grows quickly.</p>
+
+    <div class="warn-box">
+      <strong>Convert for reference, measure for acceptance</strong>
+      Never accept or reject a part on a converted number. If the drawing says 42&ndash;48 HRC, measure on the Rockwell C scale. A converted HRC from a Brinell reading can be off by two to four points &mdash; enough to fail a good part or pass a bad one.
+    </div>
+
+    <h2 id="chart">Conversion chart for <em>steel</em></h2>
+    <p>Approximate equivalents for carbon and low-alloy steel, consistent with ASTM E140. Use the <a href="../calculators/hardness-conversion.html">MetricMech hardness conversion calculator</a> for any value in between &mdash; it interpolates the full table for HRC, HRB, HB, HV and Shore.</p>
+
+    <table>
+      <tr><th>HRC</th><th>HV</th><th>HB</th><th>HRB</th><th>Tensile (MPa)</th></tr>
+      <tr><td>60</td><td>697</td><td>&mdash;</td><td>&mdash;</td><td>2240</td></tr>
+      <tr><td>55</td><td>595</td><td>&mdash;</td><td>&mdash;</td><td>2075</td></tr>
+      <tr><td>50</td><td>513</td><td>481</td><td>&mdash;</td><td>1740</td></tr>
+      <tr><td>45</td><td>446</td><td>421</td><td>&mdash;</td><td>1480</td></tr>
+      <tr><td>40</td><td>392</td><td>371</td><td>&mdash;</td><td>1290</td></tr>
+      <tr><td>35</td><td>345</td><td>327</td><td>&mdash;</td><td>1120</td></tr>
+      <tr><td>30</td><td>302</td><td>286</td><td>&mdash;</td><td>965</td></tr>
+      <tr><td>25</td><td>266</td><td>253</td><td>&mdash;</td><td>850</td></tr>
+      <tr><td>20</td><td>238</td><td>226</td><td>98</td><td>770</td></tr>
+      <tr><td>&mdash;</td><td>200</td><td>190</td><td>92</td><td>650</td></tr>
+      <tr><td>&mdash;</td><td>170</td><td>162</td><td>85</td><td>550</td></tr>
+    </table>
+    <p>Dashes mark regions where a scale is out of its valid range &mdash; HRC below about 20 and Brinell above about 480 HB are unreliable, which is exactly why those bands are left blank on a good chart.</p>
+
+    <h2 id="tensile">Hardness to <em>tensile strength</em></h2>
+    <p>For carbon and low-alloy steel there is a useful rule of thumb: tensile strength in MPa is approximately <strong>3.4 &times; HB</strong>. A part at 200 HB is therefore around 680&nbsp;MPa. This estimate underpins many incoming-material checks &mdash; a quick hardness test substitutes for a destructive tensile test. It does <em>not</em> hold for non-ferrous metals, austenitic stainless, or heavily cold-worked material.</p>
+
+    <h2 id="example">Worked <em>example</em></h2>
+    <p>An incoming batch of EN8 (080M40) shaft stock has a mill certificate quoting <strong>250 HB</strong>. Your drawing specifies the property as tensile strength, minimum 800&nbsp;MPa, and your hardness tester only reads Rockwell C.</p>
+    <ol>
+      <li><strong>Estimate tensile from Brinell:</strong> 3.4 &times; 250 = <strong>850&nbsp;MPa</strong> &mdash; above the 800&nbsp;MPa minimum, so the material looks compliant.</li>
+      <li><strong>Find the equivalent HRC to spot-check:</strong> 250 HB sits just under the 253 HB / 25 HRC row, so expect roughly <strong>24&ndash;25 HRC</strong> on your tester.</li>
+      <li><strong>Measure and compare:</strong> if your Rockwell reading lands near 24&ndash;25 HRC, the certificate is consistent. A reading of 18 HRC would flag a mix-up or a soft batch worth investigating before machining.</li>
+    </ol>
+    <p>This is the everyday value of conversion: cross-checking a certificate against the instrument you actually own, without scrapping a sample for a tensile test.</p>
+
+    <div class="callout">
+      <strong>Pair hardness checks with the right gauge study</strong>
+      A hardness tester is only as trustworthy as its repeatability. Before you rely on borderline readings, run a measurement-system study &mdash; see <a href="../articles/gauge-rr-explained.html">Gauge R&amp;R explained</a> &mdash; and keep your acceptance limits inside the gauge's uncertainty.
+    </div>
+
+    <h2 id="pick">Which scale should you <em>specify</em>?</h2>
+    <table>
+      <tr><th>Situation</th><th>Best scale</th><th>Why</th></tr>
+      <tr><td>Hardened steel, &gt;20 HRC</td><td>HRC</td><td>Direct, fast, repeatable</td></tr>
+      <tr><td>Soft steel, brass, aluminium</td><td>HRB or HB</td><td>HRC indenter would punch through</td></tr>
+      <tr><td>Castings, large sections</td><td>HB</td><td>Large indent averages coarse grain</td></tr>
+      <tr><td>Thin sheet, coatings, case depth</td><td>HV</td><td>Light loads, tiny indent</td></tr>
+    </table>
+    <p>Specifying the scale that matches the material and section avoids the conversion problem entirely. If you also control surface texture on the same feature, our <a href="../articles/surface-finish-ra-rz.html">Ra vs Rz guide</a> covers how those callouts interact with hardened surfaces.</p>
+
+    <div class="callout">
+      <strong>From drawing to inspection sheet</strong>
+      Hardness is just one ballooned characteristic among many. When you turn a drawing into an inspection report, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning (Smart Detect + Box+Balloon OCR)</a> reads every dimension, tolerance and material note off the PDF so nothing &mdash; including the hardness callout &mdash; is missed.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>Is hardness conversion accurate?</h3>
+    <p>Conversions are approximations valid mainly for non-austenitic steels per ASTM E140. Because there is no exact relationship between scales, converted values can differ by several points. For acceptance, always measure on the scale the drawing specifies.</p>
+    <h3>How do I convert HRC to HB?</h3>
+    <p>Use an ASTM E140 table or a calculator. As a rough guide for steel, 20 HRC &asymp; 226 HB, 30 HRC &asymp; 286 HB, 40 HRC &asymp; 371 HB, and 50 HRC &asymp; 481 HB. Above about 450 HB the Brinell scale becomes unreliable, so switch to Rockwell C or Vickers.</p>
+    <h3>What links hardness and tensile strength?</h3>
+    <p>For steel, tensile strength in MPa is roughly 3.4 &times; the Brinell number, so 200 HB &asymp; 680&nbsp;MPa. It is an estimate for carbon and low-alloy steels only and does not apply to non-ferrous metals.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience &middot; MetricMech &amp; CadNexa</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/hardness-conversion.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Hardness Conversion Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="../articles/material-weight-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
