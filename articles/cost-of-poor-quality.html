@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cost of Poor Quality (COPQ): Formula &amp; Benchmarks | MetricMech</title>
+<meta name="description" content="Cost of poor quality explained: the PAF model, the COPQ formula, the iceberg of hidden costs, industry benchmarks and a worked plant example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cost-of-poor-quality">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cost of Poor Quality (COPQ): Formula &amp; Benchmarks | MetricMech">
+<meta property="og:description" content="The PAF model, the COPQ formula, the iceberg of hidden costs, industry benchmarks and a worked plant example.">
+<meta property="og:url" content="https://metricmech.com/articles/cost-of-poor-quality">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cost of Poor Quality (COPQ): Formula &amp; Benchmarks | MetricMech">
+<meta name="twitter:description" content="The PAF model, the COPQ formula, the iceberg of hidden costs, industry benchmarks and a worked plant example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cost of Poor Quality (COPQ): Formula & Benchmarks",
+  "description": "The PAF model, the COPQ formula, the iceberg of hidden costs, industry benchmarks and a worked plant example.",
+  "url": "https://metricmech.com/articles/cost-of-poor-quality",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience" },
+  "datePublished": "2026-06-23",
+  "mainEntityOfPage": "https://metricmech.com/articles/cost-of-poor-quality"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the cost of poor quality (COPQ)?","acceptedAnswer":{"@type":"Answer","text":"COPQ is the total cost a business incurs because products and processes are not right the first time. It is the sum of internal failure costs (scrap, rework) and external failure costs (warranty, returns, recalls). In the wider PAF model it is grouped with appraisal and prevention costs as the total cost of quality."}},
+    {"@type":"Question","name":"What is the formula for COPQ?","acceptedAnswer":{"@type":"Answer","text":"COPQ = Internal Failure Costs + External Failure Costs. The total cost of quality adds the cost of control: Total CoQ = Prevention + Appraisal + Internal Failure + External Failure. COPQ is usually expressed as a percentage of sales."}},
+    {"@type":"Question","name":"What is a good COPQ percentage?","acceptedAnswer":{"@type":"Answer","text":"Many manufacturers run a total cost of quality of 15 to 20 percent of sales. World-class operations hold it below about 5 percent, with failure costs the smallest slice because they invest in prevention."}},
+    {"@type":"Question","name":"How do you reduce COPQ?","acceptedAnswer":{"@type":"Answer","text":"Shift spend from failure to prevention: error-proof processes, improve first-pass yield, control incoming quality, and remove transcription errors from inspection and FAI documentation. Every rupee moved into prevention typically returns several in avoided failure."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Cost of poor quality</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What COPQ is</a>
+    <a href="#paf">The PAF model</a>
+    <a href="#formula">The formula</a>
+    <a href="#iceberg">The hidden iceberg</a>
+    <a href="#example">Worked example</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#reduce">How to reduce it</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Cost of poor quality: <em>the number your P&amp;L hides.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality / Cost</span>
+      <span>June 23, 2026</span>
+      <span>9 min read</span>
+      <span>1,750 words</span>
+    </div>
+
+    <p class="lede">Most plants know their scrap number. Far fewer know their cost of poor quality — the full bill for everything that was not right the first time. In my 14 years running plants, that gap between the two numbers was usually three to five times bigger than the finance team assumed.</p>
+
+    <h2 id="what">What cost of poor quality means</h2>
+    <p><strong>Cost of poor quality (COPQ)</strong> is the total cost a business carries because products and processes fail to meet requirements. It is not just scrap. It is the rework labour, the re-inspection, the warranty claims, the expedited freight to recover a late shipment, the customer who quietly stops ordering. COPQ is the money you would get back if everything ran right the first time.</p>
+    <p>The reason it matters: scrap shows up on a report, but the larger share of COPQ is scattered across operations, logistics and sales where no one adds it up. Put a single number on it and quality stops being a cost centre and starts being the biggest improvement opportunity in the plant.</p>
+
+    <h2 id="paf">The PAF model: where the costs live</h2>
+    <p>The standard framework, the <strong>Prevention–Appraisal–Failure (PAF) model</strong>, splits all quality-related spend into four buckets:</p>
+    <table>
+      <tr><th>Category</th><th>What it covers</th><th>Examples</th></tr>
+      <tr><td>Prevention</td><td>Stopping defects before they happen</td><td>Training, FMEA, process control, error-proofing</td></tr>
+      <tr><td>Appraisal</td><td>Finding defects through inspection</td><td>Incoming inspection, CMM, FAI, gauging, audits</td></tr>
+      <tr><td>Internal failure</td><td>Defects caught before the customer</td><td>Scrap, rework, re-test, downtime, sorting</td></tr>
+      <tr><td>External failure</td><td>Defects that reach the customer</td><td>Warranty, returns, recalls, lost goodwill</td></tr>
+    </table>
+    <p>The first two are the <strong>cost of control</strong> — money spent on purpose. The last two are the <strong>cost of failure</strong> — money lost by accident. COPQ is that failure half.</p>
+
+    <h2 id="formula">The COPQ formula</h2>
+    <div class="callout">
+      <strong>The formulas</strong>
+      COPQ = Internal Failure Costs + External Failure Costs
+      <br><br>
+      Total Cost of Quality = Prevention + Appraisal + Internal Failure + External Failure
+      <br><br>
+      Both are usually reported as a <strong>percentage of sales</strong>, so they can be tracked over time and compared across plants.
+    </div>
+    <p>Reporting COPQ as a share of revenue is what makes it land in a management review. "We scrapped 4,000 parts" means little to a CFO. "Poor quality cost us 4.2 percent of sales this quarter" starts a budget conversation.</p>
+
+    <h2 id="iceberg">The hidden iceberg</h2>
+    <p>The classic mistake is counting only the visible costs. Scrap, rework and warranty sit above the waterline because they hit a ledger. Below the surface sits the larger mass:</p>
+    <ul>
+      <li><strong>Excess inventory</strong> held as a buffer against unreliable quality</li>
+      <li><strong>Expediting and premium freight</strong> to recover defect-driven delays</li>
+      <li><strong>Lost capacity</strong> on machines re-running rejected work</li>
+      <li><strong>Engineering time</strong> spent on corrective action instead of new products</li>
+      <li><strong>Lost sales and customer churn</strong> — the hardest to measure and often the largest</li>
+    </ul>
+    <p>Quality thinkers have long argued the hidden costs run several times the visible ones. You will never cost them to the rupee, but a defensible estimate beats pretending they are zero.</p>
+
+    <h2 id="example">Worked example: a ₹50 crore plant</h2>
+    <p>Take a mid-size precision component plant with annual sales of <strong>₹50 crore</strong>. Pulling the year's numbers into the PAF buckets:</p>
+    <table>
+      <tr><th>Category</th><th>Annual cost</th><th>% of sales</th></tr>
+      <tr><td>Prevention</td><td>₹20 lakh</td><td>0.4%</td></tr>
+      <tr><td>Appraisal</td><td>₹55 lakh</td><td>1.1%</td></tr>
+      <tr><td>Internal failure (scrap ₹1 cr + rework ₹40 L)</td><td>₹1.40 cr</td><td>2.8%</td></tr>
+      <tr><td>External failure (warranty + returns)</td><td>₹60 lakh</td><td>1.2%</td></tr>
+    </table>
+    <p><strong>COPQ = ₹1.40 cr + ₹0.60 cr = ₹2.00 crore = 4.0% of sales.</strong></p>
+    <p>Add the cost of control and the <strong>total cost of quality is ₹2.75 crore, or 5.5% of sales</strong>. Notice the imbalance: the plant spends only ₹20 lakh on prevention while losing ₹2 crore to failure — a 1:10 ratio. That is the signature of a plant that inspects quality in rather than building it in, and it is exactly where the easy money sits.</p>
+
+    <h2 id="benchmarks">Industry benchmarks</h2>
+    <ul>
+      <li><strong>Typical manufacturer:</strong> total cost of quality of 15–20% of sales, dominated by failure costs.</li>
+      <li><strong>Average performer:</strong> roughly 8–12% of sales.</li>
+      <li><strong>World-class:</strong> below ~5% of sales, with failure costs the smallest slice because prevention is funded properly.</li>
+    </ul>
+    <p>COPQ also tracks with process capability and sigma level — a process running at higher <a href="../articles/dpmo-sigma-level.html">DPMO and sigma level</a> generates fewer failures and so a lower COPQ. The two metrics tell the same story in different currencies. If you want the statistical side, our guides on <a href="../articles/cp-cpk-explained.html">Cp and Cpk</a> and <a href="../articles/oee-calculation.html">OEE</a> show where failure cost is born on the line.</p>
+
+    <h2 id="reduce">How to reduce COPQ</h2>
+    <p>The lever is the prevention-to-failure ratio. Move spend left in the PAF model and total cost falls, because preventing a defect is cheaper than scrapping, reworking or shipping it. Practical moves:</p>
+    <ol>
+      <li><strong>Error-proof the top three defect modes</strong> rather than inspecting for them.</li>
+      <li><strong>Tighten incoming quality</strong> so supplier defects never enter your process — an <a href="../articles/aql-sampling-explained.html">AQL sampling plan</a> sets the rules.</li>
+      <li><strong>Raise first-pass yield</strong> with control plans and capability studies on the critical characteristics.</li>
+      <li><strong>Kill transcription errors</strong> in inspection and FAI paperwork — a surprising slice of failure cost is rejected submissions and re-inspection caused by numbers copied wrong between drawing and report.</li>
+    </ol>
+    <div class="warn-box">
+      <strong>Appraisal is not free quality</strong>
+      Adding inspectors lowers external failure but raises appraisal cost and never improves the process. Inspection contains the problem; prevention removes it. Budget accordingly.
+    </div>
+    <p>On that fourth point: a lot of appraisal and internal-failure cost hides in manual documentation. Re-typing 200 dimensions from a drawing into an inspection sheet breeds errors that fail FAIs and trigger re-work. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads each dimension and tolerance straight off the PDF, cutting the transcription step — and the rejected-submission cost that rides on it — out of your COPQ.</p>
+
+    <div class="callout">
+      <strong>Put a number on it</strong>
+      The free <a href="../calculators/copq.html">Cost of Poor Quality Calculator</a> takes your scrap, rework, warranty and appraisal figures and returns COPQ in rupees and as a percentage of sales, against industry benchmarks. Build the supporting process numbers with the <a href="../calculators/dpmo-sigma.html">DPMO &amp; sigma calculator</a>, and grab a tracking sheet from the <a href="../templates.html">templates library</a>.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the cost of poor quality?</h3>
+    <p>The total cost incurred because products and processes are not right the first time — internal failure (scrap, rework) plus external failure (warranty, returns, recalls).</p>
+    <h3>What is the formula for COPQ?</h3>
+    <p>COPQ = Internal Failure + External Failure. Total Cost of Quality = Prevention + Appraisal + Internal Failure + External Failure, usually shown as a percentage of sales.</p>
+    <h3>What is a good COPQ percentage?</h3>
+    <p>Many plants run a total cost of quality of 15–20% of sales. World-class operations hold it below about 5%, with failure costs the smallest slice.</p>
+    <h3>How do you reduce COPQ?</h3>
+    <p>Move spend from failure to prevention — error-proofing, first-pass yield, incoming control, and removing transcription errors from inspection and FAI paperwork.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/copq.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">COPQ Calculator</a>
+      <a href="../articles/dpmo-sigma-level.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">DPMO &amp; Sigma Level</a>
+      <a href="../articles/cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp vs Cpk Explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

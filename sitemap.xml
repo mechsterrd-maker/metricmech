@@ -427,6 +427,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://metricmech.com/articles/press-fit-calculation</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://metricmech.com/articles/cost-of-poor-quality</loc>
+    <lastmod>2026-06-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://metricmech.com/articles/oee-calculation</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>

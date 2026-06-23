@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Press Fit Calculation: Interference, Force &amp; Stress | MetricMech</title>
+<meta name="description" content="Press fit calculation: interference fit formula, contact pressure, insertion force, holding torque and shrink-fit temperature, with a worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/press-fit-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Press Fit Calculation: Interference, Force &amp; Stress | MetricMech">
+<meta property="og:description" content="The interference fit formula, contact pressure, insertion force, holding torque and shrink-fit temperature, with a worked H7/s6 example.">
+<meta property="og:url" content="https://metricmech.com/articles/press-fit-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Press Fit Calculation: Interference, Force &amp; Stress | MetricMech">
+<meta name="twitter:description" content="The interference fit formula, contact pressure, insertion force, holding torque and shrink-fit temperature, with a worked H7/s6 example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Press Fit Calculation: Interference, Force & Stress",
+  "description": "The interference fit formula, contact pressure, insertion force, holding torque and shrink-fit temperature, with a worked H7/s6 example.",
+  "url": "https://metricmech.com/articles/press-fit-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience" },
+  "datePublished": "2026-06-23",
+  "mainEntityOfPage": "https://metricmech.com/articles/press-fit-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the formula for a press fit?","acceptedAnswer":{"@type":"Answer","text":"For a solid shaft and hub of the same material, contact pressure p = (E x delta / d) x (do^2 - d^2) / (2 x do^2), where delta is the diametral interference, d the interface diameter, do the hub outer diameter and E the elastic modulus. Insertion force is F = mu x pi x d x L x p."}},
+    {"@type":"Question","name":"How much interference does a press fit need?","acceptedAnswer":{"@type":"Answer","text":"A typical medium press fit is ISO 286 H7/s6. At 50 mm that gives 0.018 to 0.059 mm of interference. Always design from the minimum interference for holding capacity and check the maximum interference for hub stress."}},
+    {"@type":"Question","name":"How do you calculate press fit insertion force?","acceptedAnswer":{"@type":"Answer","text":"Insertion force F = mu x pi x d x L x p, where mu is the friction coefficient (about 0.1 to 0.15 for dry steel), d the interface diameter, L the engagement length and p the contact pressure from the interference."}},
+    {"@type":"Question","name":"What temperature is needed for a shrink fit?","acceptedAnswer":{"@type":"Answer","text":"The temperature rise to open the bore by the interference is delta-T = delta / (alpha x d), plus a clearance margin. For 0.04 mm interference on a 50 mm steel bore, that is about 70 C above the shaft temperature."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Press fit calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What a press fit is</a>
+    <a href="#formula">The formula</a>
+    <a href="#interference">Choosing interference</a>
+    <a href="#example">Worked example</a>
+    <a href="#force">Force &amp; torque</a>
+    <a href="#thermal">Shrink fit</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Press fit calculation: <em>interference, force and stress.</em></h1>
+    <div class="art-meta-bar">
+      <span>Design / Machine Elements</span>
+      <span>June 23, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">A press fit holds parts together with nothing but elastic squeeze. Get the interference right and a gear stays on its shaft for a decade; get it wrong and you either crack the hub on assembly or watch it spin loose under load. Here is the calculation that keeps you on the right side of that line.</p>
+
+    <h2 id="what">What a press fit actually is</h2>
+    <p>A <strong>press fit</strong> (also called an interference or shrink fit) is a joint where the shaft is deliberately made larger than the hole it goes into. The difference is the <strong>interference</strong>. When you force the two together, the hub bore stretches and the shaft compresses. That elastic strain creates a contact pressure at the interface, and friction against that pressure is what transmits torque or axial load — no key, no weld, no adhesive.</p>
+    <p>It is the standard way to mount gears, bearings, bushings, railway wheels, turbine discs and pulleys. The whole design problem comes down to one trade-off: enough interference to hold the load, but not so much that the hub yields or cracks.</p>
+
+    <h2 id="formula">The interference fit formula</h2>
+    <p>The contact pressure comes from Lamé's thick-cylinder equations. For the common case of a <strong>solid shaft in a hub of the same material</strong>, the equation simplifies to:</p>
+    <div class="callout">
+      <strong>Contact pressure</strong>
+      p = (E &times; &delta; / d) &times; (d<sub>o</sub><sup>2</sup> &minus; d<sup>2</sup>) / (2 &times; d<sub>o</sub><sup>2</sup>)
+      <br><br>
+      where <strong>&delta;</strong> = diametral interference (mm), <strong>d</strong> = nominal interface diameter (mm), <strong>d<sub>o</sub></strong> = hub outside diameter (mm), <strong>E</strong> = Young's modulus (N/mm&sup2;).
+    </div>
+    <p>Two more equations finish the job. The hub experiences a maximum tangential (hoop) stress at its bore:</p>
+    <p><strong>&sigma;<sub>&theta;</sub> = p &times; (d<sub>o</sub><sup>2</sup> + d<sup>2</sup>) / (d<sub>o</sub><sup>2</sup> &minus; d<sup>2</sup>)</strong> — this must stay safely below the material yield strength.</p>
+    <p>And the friction at the interface gives the <strong>insertion force</strong> F = &mu; &times; &pi; &times; d &times; L &times; p, where &mu; is the friction coefficient and L the engagement length.</p>
+
+    <h2 id="interference">Choosing the interference from ISO 286</h2>
+    <p>You do not pick interference out of thin air — you pick a fit class and let the tolerance bands set the range. For medium-duty press fits, <strong>H7/s6</strong> is the workhorse. Heavier fits use H7/u6; lighter, more frequently dismantled joints use H7/p6 or H7/r6. Read the full background in our guide to <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances</a>.</p>
+    <p>For a 50 mm interface, H7/s6 gives:</p>
+    <table>
+      <tr><th>Member</th><th>Tolerance (mm)</th><th>Limits (mm)</th></tr>
+      <tr><td>Hole H7</td><td>0 / +0.025</td><td>50.000 / 50.025</td></tr>
+      <tr><td>Shaft s6</td><td>+0.043 / +0.059</td><td>50.043 / 50.059</td></tr>
+      <tr><td>Interference</td><td>min 0.018 / max 0.059</td><td>&mdash;</td></tr>
+    </table>
+    <p>Design rule: size the holding capacity from the <strong>minimum</strong> interference (worst case for grip), and check hub stress from the <strong>maximum</strong> interference (worst case for cracking). A part that works only at mean interference is a part that fails half the time.</p>
+
+    <h2 id="example">Worked example: a gear on a shaft</h2>
+    <p>Take a steel gear pressed onto a steel shaft. Interface diameter d = 50 mm, hub outside diameter d<sub>o</sub> = 80 mm, engagement length L = 40 mm. Material is steel: E = 210,000 N/mm&sup2;, yield &asymp; 250 N/mm&sup2;, friction &mu; = 0.12, thermal expansion &alpha; = 11.5 &times; 10<sup>&minus;6</sup>/&deg;C. We use a working interference &delta; = 0.040 mm (comfortably inside the H7/s6 band).</p>
+    <p><strong>Step 1 — contact pressure:</strong></p>
+    <p>p = (210000 &times; 0.040 / 50) &times; (80&sup2; &minus; 50&sup2;) / (2 &times; 80&sup2;)<br>
+    p = 168 &times; (3900 / 12800) = 168 &times; 0.3047 = <strong>51.2 N/mm&sup2;</strong> (MPa).</p>
+    <p><strong>Step 2 — hub stress check:</strong></p>
+    <p>&sigma;<sub>&theta;</sub> = 51.2 &times; (6400 + 2500) / 3900 = 51.2 &times; 2.282 = <strong>117 N/mm&sup2;</strong>. Against a 250 N/mm&sup2; yield that is a safety factor of about 2.1 — acceptable. At the maximum interference of 0.059 mm the stress rises to about 172 N/mm&sup2;, still below yield, so the design survives its worst case.</p>
+
+    <h2 id="force">Insertion force and holding torque</h2>
+    <p><strong>Insertion force:</strong> F = &mu; &times; &pi; &times; d &times; L &times; p = 0.12 &times; &pi; &times; 50 &times; 40 &times; 51.2 = <strong>38,600 N &asymp; 38.6 kN</strong>. That is the press tonnage you must plan for (about 4 tonnes) — and a reason most shops above a certain size assemble by heating rather than pressing.</p>
+    <p><strong>Holding torque:</strong> T = F &times; d/2 = 38,600 &times; 0.025 = <strong>965 N&middot;m</strong>. Compare this against the peak transmitted torque with a safety factor of at least 1.5 to 2. If your duty torque is 400 N&middot;m, you are well covered; if it is 700 N&middot;m, you need more interference or more length.</p>
+    <div class="warn-box">
+      <strong>Friction coefficient is the wild card</strong>
+      &mu; for dry steel-on-steel ranges roughly 0.10 to 0.15, but oil on the surfaces can drop it to 0.05 and halve your holding torque. Never press a fit with lubricated mating faces unless the calculation explicitly assumes it.
+    </div>
+
+    <h2 id="thermal">Shrink fit: assembling by temperature</h2>
+    <p>Rather than push 38 kN through a delicate hub, you can heat the hub so its bore grows past the interference, drop it onto the shaft, and let it cool to clamp. The temperature rise needed is:</p>
+    <p><strong>&Delta;T = &delta; / (&alpha; &times; d) + clearance margin</strong></p>
+    <p>For our example: &Delta;T = 0.040 / (11.5 &times; 10<sup>&minus;6</sup> &times; 50) = <strong>70 &deg;C</strong> above the shaft, plus roughly 30 &deg;C of slip clearance, so heat the hub to about 100 &deg;C over ambient. Keep below the tempering temperature of the material so you do not soften it. For the reverse approach, cooling the shaft in dry ice or liquid nitrogen works for thin shafts where heating the hub is impractical.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Designing at mean interference.</strong> Hold from the minimum, check stress at the maximum. Always.</li>
+      <li><strong>Ignoring the hub wall ratio.</strong> A thin hub (d<sub>o</sub>/d below about 1.3) needs far more interference for the same pressure and is prone to cracking. Our example ratio is 1.6, which is healthy.</li>
+      <li><strong>Forgetting surface roughness loss.</strong> Asperities flatten on assembly, so effective interference is the calculated value minus roughly 0.6 &times; (Ra<sub>shaft</sub> + Ra<sub>hub</sub>). On rough surfaces this can swallow a third of your grip.</li>
+      <li><strong>Lubricated faces under load.</strong> As noted, oil destroys friction. Assemble clean unless your &mu; assumes lubrication.</li>
+      <li><strong>No drawing-to-part verification.</strong> An interference fit lives or dies on a few microns of bore and shaft diameter, so the inspection of those features has to be exact.</li>
+    </ul>
+    <p>That last point matters more than people expect. Because the whole joint depends on a 0.018 to 0.059 mm window, ballooning the drawing and inspecting every diameter without transcription error is non-negotiable. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> tags each dimension and tolerance straight off the PDF so the press-fit features make it into your inspection sheet exactly as drawn.</p>
+
+    <div class="callout">
+      <strong>Run the numbers in seconds</strong>
+      Skip the algebra — the free <a href="../calculators/press-fit.html">Press-Fit Interference Calculator</a> computes contact pressure, insertion force, holding torque, hub stress and shrink-fit temperature from your diameters and material. Pair it with the <a href="../calculators/tolerance-stack.html">tolerance stack calculator</a> when the interface sits in an assembly, and grab a checklist from the <a href="../templates.html">templates library</a>.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the formula for a press fit?</h3>
+    <p>For a solid shaft and hub of the same material, p = (E &times; &delta; / d) &times; (d<sub>o</sub><sup>2</sup> &minus; d<sup>2</sup>) / (2 &times; d<sub>o</sub><sup>2</sup>). Insertion force is F = &mu; &times; &pi; &times; d &times; L &times; p.</p>
+    <h3>How much interference does a press fit need?</h3>
+    <p>A typical medium press fit is H7/s6. At 50 mm that is 0.018 to 0.059 mm. Design holding capacity from the minimum and check stress at the maximum.</p>
+    <h3>How do you calculate insertion force?</h3>
+    <p>F = &mu; &times; &pi; &times; d &times; L &times; p, with &mu; about 0.10 to 0.15 for dry steel. In the worked example that is 38.6 kN.</p>
+    <h3>What temperature is needed for a shrink fit?</h3>
+    <p>&Delta;T = &delta; / (&alpha; &times; d) plus a clearance margin. For 0.04 mm on a 50 mm steel bore, about 70 &deg;C above the shaft.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/press-fit.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Press-Fit Calculator</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances</a>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance Stack Calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
