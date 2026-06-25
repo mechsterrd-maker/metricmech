@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Economic Order Quantity (EOQ): Formula & Example | MetricMech</title>
+<meta name="description" content="Economic Order Quantity explained: the EOQ formula, a worked example, reorder point, the total cost curve, assumptions and limits for procurement." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/economic-order-quantity-eoq">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Economic Order Quantity (EOQ): Formula & Example | MetricMech">
+<meta property="og:description" content="Economic Order Quantity explained: the EOQ formula, a worked example, reorder point, the total cost curve, assumptions and limits for procurement.">
+<meta property="og:url" content="https://metricmech.com/articles/economic-order-quantity-eoq">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Economic Order Quantity (EOQ): Formula & Example | MetricMech">
+<meta name="twitter:description" content="The EOQ formula, a worked example with order and holding costs, reorder point, the total cost curve, and where the model breaks down in real procurement.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Economic Order Quantity (EOQ): Formula and a Worked Example",
+  "description": "Economic Order Quantity explained: the EOQ formula, a worked example, reorder point and safety stock, the total cost curve, assumptions and limits for procurement.",
+  "url": "https://metricmech.com/articles/economic-order-quantity-eoq",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-06-25",
+  "mainEntityOfPage": "https://metricmech.com/articles/economic-order-quantity-eoq"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the EOQ formula?", "acceptedAnswer": {"@type": "Answer", "text": "EOQ equals the square root of (2 times annual demand times ordering cost per order, divided by annual holding cost per unit). It returns the order quantity that minimises the combined cost of ordering and holding inventory."}},
+    {"@type": "Question", "name": "What is a worked EOQ example?", "acceptedAnswer": {"@type": "Answer", "text": "For annual demand of 12,000 units, ordering cost of 1,200 rupees per order, and holding cost of 40 rupees per unit per year, EOQ equals the square root of (2 times 12,000 times 1,200 divided by 40), which is the square root of 720,000, about 849 units per order."}},
+    {"@type": "Question", "name": "What is the reorder point?", "acceptedAnswer": {"@type": "Answer", "text": "The reorder point is average daily demand multiplied by lead time in days, plus safety stock. It tells you the inventory level at which to place a new EOQ-sized order so stock arrives before you run out."}},
+    {"@type": "Question", "name": "What are the limitations of EOQ?", "acceptedAnswer": {"@type": "Answer", "text": "EOQ assumes constant demand, fixed ordering and holding costs, instant replenishment and no quantity discounts. Real demand varies and suppliers offer price breaks, so EOQ is a strong baseline that usually needs adjustment for minimum order quantities, discounts and demand variability."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Economic Order Quantity (EOQ)</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What EOQ is</a>
+    <a href="#formula">The formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#cost">The total cost curve</a>
+    <a href="#reorder">Reorder point</a>
+    <a href="#limits">Assumptions & limits</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Economic Order Quantity: the <em>EOQ formula,</em> a worked example, and its limits.</h1>
+    <div class="art-meta-bar">
+      <span>Procurement / Inventory</span>
+      <span>June 25, 2026</span>
+      <span>8 min read</span>
+      <span>1,750 words</span>
+    </div>
+
+    <p class="lede">Order too much and cash sits dead on the shelf; order too little and you are paying a purchase officer to raise the same PO every week. Economic Order Quantity is the formula that finds the order size where those two costs balance. Here is the EOQ formula, a full worked example in rupees, the reorder point that goes with it, and the assumptions that decide whether you can trust the answer.</p>
+
+    <h2 id="what">What EOQ <em>is</em></h2>
+    <p>Economic Order Quantity is the fixed order size that minimises the total of two opposing inventory costs. <strong>Ordering cost</strong> is everything it takes to place and receive one purchase order — buyer time, approvals, freight, inward inspection, invoice processing. <strong>Holding cost</strong> is everything it costs to keep a unit on the shelf for a year — capital tied up, storage, insurance, obsolescence.</p>
+    <p>Order in big batches and you place few POs (low ordering cost) but carry high average stock (high holding cost). Order little and often and the reverse happens. EOQ is the order size where the two are balanced and the combined cost is lowest.</p>
+
+    <h2 id="formula">The formula</h2>
+    <p>The classic Wilson EOQ formula is:</p>
+    <table>
+      <tr><th>Symbol</th><th>Meaning</th></tr>
+      <tr><td>EOQ</td><td>Optimal order quantity (units)</td></tr>
+      <tr><td>D</td><td>Annual demand (units/year)</td></tr>
+      <tr><td>S</td><td>Ordering cost per order</td></tr>
+      <tr><td>H</td><td>Holding cost per unit per year</td></tr>
+    </table>
+    <p><strong>EOQ = &radic;(2DS / H)</strong>. Holding cost H is often expressed as a carrying rate i (say 20 percent) times unit cost C, so H = i &times; C. Keep D and H on the same time base — both per year — or the answer is meaningless.</p>
+
+    <h2 id="example">A worked example</h2>
+    <p>Take a bought-out bearing for an assembly line at a Coimbatore pump maker.</p>
+    <table>
+      <tr><th>Input</th><th>Value</th></tr>
+      <tr><td>Annual demand, D</td><td>12,000 units</td></tr>
+      <tr><td>Ordering cost, S</td><td>₹1,200 per order</td></tr>
+      <tr><td>Unit cost, C</td><td>₹200</td></tr>
+      <tr><td>Carrying rate, i</td><td>20% per year</td></tr>
+      <tr><td>Holding cost, H = i &times; C</td><td>₹40 per unit/year</td></tr>
+    </table>
+    <p>Drop the numbers in:</p>
+    <ul>
+      <li><strong>EOQ</strong> = &radic;(2 &times; 12,000 &times; 1,200 / 40) = &radic;(28,800,000 / 40) = &radic;720,000 &approx; <strong>849 units</strong></li>
+      <li><strong>Orders per year</strong> = 12,000 / 849 &approx; <strong>14 orders</strong></li>
+      <li><strong>Time between orders</strong> = 365 / 14 &approx; <strong>26 days</strong></li>
+    </ul>
+    <p>So the cheapest policy is to order about <strong>849 bearings roughly every 26 days</strong>. Round to a practical batch — say 850 — and check it against the supplier's minimum order quantity and any carton multiple before you commit.</p>
+
+    <div class="callout">
+      <strong>Let the tool do the arithmetic</strong>
+      Enter demand, ordering cost, unit cost and carrying rate into the free <a href="../calculators/eoq.html">EOQ calculator</a> and it returns the order quantity, orders per year, total annual cost and the reorder point in one shot — handy for sweeping a whole BOM rather than one part at a time.
+    </div>
+
+    <h2 id="cost">The total cost curve</h2>
+    <p>Why the square root? Total relevant cost is ordering cost plus holding cost: (D/Q)&times;S + (Q/2)&times;H. As order size Q rises, the first term falls and the second rises. The minimum sits exactly where the two are equal, and solving that gives the EOQ formula.</p>
+    <p>At the EOQ in our example, annual ordering cost = (12,000/849)&times;1,200 &approx; ₹16,960 and annual holding cost = (849/2)&times;40 &approx; ₹16,980 — equal, as the maths promises. The curve is also flat near the bottom: ordering 750 or 950 instead of 849 changes total cost by only a percent or two, which is why rounding to a sensible batch is safe.</p>
+
+    <h2 id="reorder">Reorder point and safety stock</h2>
+    <p>EOQ tells you <em>how much</em> to order; the reorder point tells you <em>when</em>. <strong>Reorder point = (average daily demand &times; lead time in days) + safety stock.</strong> If the bearing sells about 33 units a day (12,000 / 365), lead time is 10 days, and you hold 100 units of safety stock, the reorder point is 33 &times; 10 + 100 = 430 units. When free stock hits 430, raise the next 849-unit order.</p>
+
+    <h2 id="limits">Assumptions and where it breaks</h2>
+    <p>EOQ is a model, and its tidy answer rests on assumptions that real procurement bends:</p>
+    <ul>
+      <li><strong>Constant demand.</strong> EOQ assumes steady offtake; seasonal or lumpy demand needs period-based ordering instead.</li>
+      <li><strong>Fixed costs.</strong> S and H are taken as constant; in reality freight and carrying rates shift.</li>
+      <li><strong>Instant replenishment.</strong> The basic model ignores lead time — which is why you bolt on a reorder point.</li>
+      <li><strong>No quantity discounts.</strong> Price breaks can make a larger order cheaper overall; use the price-break EOQ variant to check.</li>
+    </ul>
+    <div class="warn-box">
+      <strong>Honour the supplier's MOQ and pack size</strong>
+      A textbook EOQ of 849 is useless if the vendor ships only in cartons of 500 or enforces a 1,000-unit minimum. Always reconcile EOQ with minimum order quantity, pack multiples and shelf life before it becomes a standing order.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Mismatched time bases.</strong> Demand per year with holding cost per month gives nonsense. Keep both annual.</li>
+      <li><strong>Forgetting carrying cost components.</strong> Holding cost is not just warehouse rent; include capital cost, insurance and obsolescence.</li>
+      <li><strong>Ignoring discounts.</strong> Running plain EOQ when the supplier offers a price break leaves money on the table.</li>
+      <li><strong>Treating EOQ as fixed forever.</strong> Demand and costs drift; re-run it at least annually, or when a price changes.</li>
+      <li><strong>Skipping the reorder point.</strong> EOQ without a reorder trigger still causes stockouts during lead time.</li>
+    </ul>
+
+    <h2>Connecting EOQ to the rest of procurement</h2>
+    <p>EOQ sits inside the bigger sourcing picture. Once you know how much and how often to buy, the next questions are who to buy from and whether the parts conform. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns a bought-out part drawing into a numbered inspection sheet, so incoming inspection of each EOQ batch maps cleanly to the drawing's characteristics rather than ad-hoc checks.</p>
+
+    <p>On the cost side, pair EOQ with the <a href="../articles/cost-of-poor-quality.html">cost of poor quality</a> view so a cheap large order does not hide a scrap problem, sanity-check throughput with the <a href="../articles/oee-calculation.html">OEE calculation</a>, and pull a standard purchase and stock register from the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/eoq.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">EOQ Calculator</a>
+      <a href="../articles/cost-of-poor-quality.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cost of Poor Quality</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE Calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Procurement templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
