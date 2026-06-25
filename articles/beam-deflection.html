@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beam Deflection Formula: Cases, Examples & Charts | MetricMech</title>
+<meta name="description" content="Beam deflection formulas for cantilever and simply supported beams, with worked examples, the EI stiffness term, and span-to-deflection limits explained." />
+<meta name="keywords" content="beam deflection formula, cantilever deflection, simply supported beam deflection, EI, second moment of area, deflection limit, span over 360" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.faq-q { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 6px; }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/beam-deflection">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R &middot; MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Beam Deflection Formula: Cases, Examples & Charts | MetricMech">
+<meta property="og:description" content="Beam deflection formulas for cantilever and simply supported beams, with worked examples, the EI stiffness term, and span-to-deflection limits explained.">
+<meta property="og:url" content="https://metricmech.com/articles/beam-deflection">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Beam Deflection Formula: Cases, Examples & Charts | MetricMech">
+<meta name="twitter:description" content="Beam deflection formulas for cantilever and simply supported beams, with worked examples, the EI stiffness term, and span-to-deflection limits explained.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Beam Deflection Formula: Standard Cases and Worked Examples",
+  "name": "Beam Deflection Formula: Cases, Examples & Charts | MetricMech",
+  "description": "Beam deflection formulas for cantilever and simply supported beams, with worked examples, the EI stiffness term, and span-to-deflection limits explained.",
+  "url": "https://metricmech.com/articles/beam-deflection",
+  "mainEntityOfPage": "https://metricmech.com/articles/beam-deflection",
+  "datePublished": "2026-06-25",
+  "dateModified": "2026-06-25",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the deflection formula for a simply supported beam with a central point load?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Maximum deflection at mid-span equals P times L cubed divided by 48 times E times I, where P is the point load, L the span, E the modulus of elasticity and I the second moment of area." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the deflection of a cantilever with a point load at the free end?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Maximum deflection at the free end equals P times L cubed divided by 3 times E times I. The cantilever deflects far more than a simply supported beam of the same span because the formula divides by 3 instead of 48." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a typical allowable deflection limit?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Common serviceability limits are span over 360 for floor beams under live load and span over 240 for total load, while machine frames and precision structures often demand span over 1000 or tighter." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does EI affect beam deflection?",
+      "acceptedAnswer": { "@type": "Answer", "text": "EI is the flexural rigidity. Deflection is inversely proportional to EI, so doubling the second moment of area I halves the deflection; increasing depth helps most because I rises with the cube of section height." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Beam deflection formula</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why deflection matters</a>
+    <a href="#ei">The EI term</a>
+    <a href="#cases">Standard formulas</a>
+    <a href="#worked">Worked example</a>
+    <a href="#limits">Deflection limits</a>
+    <a href="#stiffer">Making a beam stiffer</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Beam deflection formula: <em>the standard cases, worked, with real numbers.</em></h1>
+    <div class="art-meta-bar">
+      <span>Design / Strength of Materials</span>
+      <span>June 25, 2026</span>
+      <span>10 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">A beam can pass its stress check and still fail in service because it sags too much. Deflection is a stiffness problem, not a strength problem, and it is governed by a different set of formulas. Here are the standard cases, what the EI term really does, and a worked example you can copy onto your own section.</p>
+
+    <p>When a guard rail bounces, a conveyor frame droops, or a machine base flexes under a spindle load, the issue is almost never that the steel yielded. It is that the section was not stiff enough. Deflection scales with the <strong>cube</strong> of span and inversely with stiffness, so small changes in geometry produce large changes in sag. Understanding the deflection formula is what stops you from over-designing on strength while quietly failing on serviceability.</p>
+
+    <h2 id="why">Strength vs <em>stiffness</em></h2>
+    <p>Two checks decide whether a beam works. The strength check asks whether bending stress stays below the allowable — that protects against fracture and yield. The stiffness check asks whether deflection stays below a serviceability limit — that protects against sag, vibration, cracked finishes and the simple perception that something is too bendy. A beam can be enormously strong yet unacceptably flexible. Deflection is where the second check lives.</p>
+
+    <h2 id="ei">The <em>EI</em> term, explained</h2>
+    <p>Every deflection formula contains the product <strong>EI</strong>, called flexural rigidity:</p>
+    <ul>
+      <li><strong>E</strong> is the modulus of elasticity — a material property. Steel is about 200 GPa, aluminium about 69 GPa. So an identical aluminium section deflects roughly three times as much as steel.</li>
+      <li><strong>I</strong> is the second moment of area — a geometry property. For a rectangle, I = b&middot;h&sup3;/12, so <strong>depth dominates</strong>: doubling the height multiplies stiffness by eight.</li>
+    </ul>
+    <p>Because deflection is inversely proportional to EI, the cheapest way to halve sag is almost always to add depth, not material area.</p>
+
+    <h2 id="cases">Standard deflection <em>formulas</em></h2>
+    <p>These are the maximum-deflection formulas for the cases you meet most often. P is a point load, w is a uniformly distributed load per unit length, L is the span, and EI is flexural rigidity.</p>
+    <table>
+      <tr><th>Case</th><th>Loading</th><th>Max deflection</th></tr>
+      <tr><td>Simply supported</td><td>Central point load P</td><td>P&middot;L&sup3; / (48&middot;EI)</td></tr>
+      <tr><td>Simply supported</td><td>UDL w</td><td>5&middot;w&middot;L&#8308; / (384&middot;EI)</td></tr>
+      <tr><td>Cantilever</td><td>Point load P at free end</td><td>P&middot;L&sup3; / (3&middot;EI)</td></tr>
+      <tr><td>Cantilever</td><td>UDL w</td><td>w&middot;L&#8308; / (8&middot;EI)</td></tr>
+      <tr><td>Fixed-fixed</td><td>Central point load P</td><td>P&middot;L&sup3; / (192&middot;EI)</td></tr>
+    </table>
+    <p>Notice the denominators. A cantilever with an end load (divide by 3) sags sixteen times more than a simply supported beam of the same span and load (divide by 48). Fixing both ends (divide by 192) cuts deflection to a quarter of the simply supported value. The support condition matters as much as the section.</p>
+
+    <h2 id="worked">A worked <em>example</em></h2>
+    <p>Take a simply supported steel beam, span L = 3 m, carrying a central point load P = 10 kN. Section is a 150 &times; 75 mm rectangular bar, so I = b&middot;h&sup3;/12 = 75 &times; 150&sup3; / 12 = 21.1 &times; 10&#8310; mm&#8308;. Steel E = 200,000 N/mm&sup2;.</p>
+    <ol>
+      <li>EI = 200,000 &times; 21.1 &times; 10&#8310; = 4.22 &times; 10&sup1;&sup2; N&middot;mm&sup2;.</li>
+      <li>P = 10,000 N, L = 3000 mm, so P&middot;L&sup3; = 10,000 &times; 2.7 &times; 10&sup1;&#8304; = 2.7 &times; 10&sup1;&#8308;.</li>
+      <li>Deflection = 2.7 &times; 10&sup1;&#8308; / (48 &times; 4.22 &times; 10&sup1;&sup2;) = <strong>0.133 mm</strong>.</li>
+    </ol>
+    <p>Against a span/360 limit of 3000/360 = 8.3 mm, this beam is comfortably stiff. Now rotate the same bar so the 75 mm dimension is vertical: I collapses to 9 &times; 150 &times; 75&sup3;... in fact I = 150 &times; 75&sup3;/12 = 5.3 &times; 10&#8310; mm&#8308;, one quarter of before, and deflection quadruples to 0.53 mm. Same bar, same load, orientation alone changed the result — a reminder to always orient sections for depth in the load plane.</p>
+
+    <div class="callout">
+      <strong>Skip the longhand arithmetic</strong>
+      Use the free <a href="../calculators/beam-deflection.html">beam deflection calculator</a> for cantilever, simply supported and fixed cases. Enter load, span, E and I and it returns the maximum deflection and the slope — handy when you are comparing two candidate sections during a design review.
+    </div>
+
+    <h2 id="limits">Allowable deflection <em>limits</em></h2>
+    <p>Limits are expressed as a fraction of span. The right number depends on what the deflection would damage or annoy.</p>
+    <table>
+      <tr><th>Application</th><th>Typical limit</th></tr>
+      <tr><td>Floor beam, live load</td><td>Span / 360</td></tr>
+      <tr><td>Floor beam, total load</td><td>Span / 240</td></tr>
+      <tr><td>Roof beam, no plaster</td><td>Span / 180</td></tr>
+      <tr><td>Crane girders</td><td>Span / 600 to / 1000</td></tr>
+      <tr><td>Machine tool structures</td><td>Span / 1000 or tighter</td></tr>
+    </table>
+    <p>These are serviceability values, not safety values, but they are contractual on most projects. A floor that meets strength but violates span/360 will feel bouncy and may crack brittle finishes — and the client will reject it.</p>
+
+    <h2 id="stiffer">How to make a beam <em>stiffer</em></h2>
+    <ul>
+      <li><strong>Add depth.</strong> I rises with the cube of height, so this is the most efficient lever by far.</li>
+      <li><strong>Shorten the span.</strong> Deflection falls with L cubed (point load) or L to the fourth (UDL); an extra support is dramatic.</li>
+      <li><strong>Improve end fixity.</strong> Moving from simply supported to fixed-fixed cuts central deflection to one quarter.</li>
+      <li><strong>Change material only as a last resort.</strong> Going from aluminium to steel triples E but adds weight and cost; geometry is usually cheaper.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>Deflection limits are not optional extras</strong>
+      A beam sized purely on bending stress can still be too flexible. On long spans, deflection — not stress — frequently governs the section size. Always run both checks, and on spans over about 15 times the depth, expect stiffness to win.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing units.</strong> Keep N and mm throughout, or convert cleanly; an E in GPa with an I in mm&#8308; gives nonsense.</li>
+      <li><strong>Wrong axis for I.</strong> Use the second moment of area about the bending axis, not the larger value.</li>
+      <li><strong>Ignoring support conditions.</strong> Assuming simply supported when the real connection is partially fixed under-predicts or over-predicts sag.</li>
+      <li><strong>Checking strength only.</strong> The single most common omission — a beam that passes stress can still fail serviceability.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <div class="faq-q">What is the deflection formula for a simply supported beam with a central load?</div>
+    <p>Maximum deflection at mid-span is P&middot;L&sup3; divided by 48&middot;EI, where P is the point load, L the span, E the modulus and I the second moment of area.</p>
+    <div class="faq-q">How much does a cantilever deflect?</div>
+    <p>For a point load at the free end, deflection is P&middot;L&sup3; divided by 3&middot;EI — sixteen times more than the same load on a simply supported span, because the support offers no help at the tip.</p>
+    <div class="faq-q">What deflection limit should I use?</div>
+    <p>Span/360 for floor live load and span/240 for total load are common; machine and crane structures often require span/1000 or tighter. Check the governing code for your application.</p>
+    <div class="faq-q">Why does depth matter more than width?</div>
+    <p>Because the second moment of area I = b&middot;h&sup3;/12 grows with the cube of height. Doubling depth multiplies stiffness by eight; doubling width only doubles it.</p>
+
+    <p>When the section is finalised and the drawing goes out for inspection, ballooning every dimension by hand is the slow step. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> (Smart Detect plus Box+Balloon OCR) reads the drawing and numbers every characteristic, so the inspection sheet for your fabricated beam is ready in minutes.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/beam-deflection.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Beam Deflection Calculator</a>
+      <a href="../articles/material-weight-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../articles/bolt-torque-guide.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt Torque Guide</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Design templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

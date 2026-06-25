@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Welding Heat Input Calculation: Formula & Limits | MetricMech</title>
+<meta name="description" content="How to calculate welding heat input in kJ/mm, the AWS and ASME formula, typical limits by process, and a worked SAW example with HAZ guidance." />
+<meta name="keywords" content="welding heat input, heat input formula, heat input calculation, kJ/mm, AWS D1.1 heat input, arc energy, HAZ, welding procedure qualification" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+.faq-q { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 6px; }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/welding-heat-input">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R &middot; MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Welding Heat Input Calculation: Formula & Limits | MetricMech">
+<meta property="og:description" content="How to calculate welding heat input in kJ/mm, the AWS and ASME formula, typical limits by process, and a worked SAW example with HAZ guidance.">
+<meta property="og:url" content="https://metricmech.com/articles/welding-heat-input">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Welding Heat Input Calculation: Formula & Limits | MetricMech">
+<meta name="twitter:description" content="How to calculate welding heat input in kJ/mm, the AWS and ASME formula, typical limits by process, and a worked SAW example with HAZ guidance.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Welding Heat Input Calculation: Formula, Limits and a Worked Example",
+  "name": "Welding Heat Input Calculation: Formula & Limits | MetricMech",
+  "description": "How to calculate welding heat input in kJ/mm, the AWS and ASME formula, typical limits by process, and a worked SAW example with HAZ guidance.",
+  "url": "https://metricmech.com/articles/welding-heat-input",
+  "mainEntityOfPage": "https://metricmech.com/articles/welding-heat-input",
+  "datePublished": "2026-06-25",
+  "dateModified": "2026-06-25",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula for welding heat input?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Heat input (kJ/mm) = (Voltage x Current x 60) / (Travel speed in mm/min x 1000), multiplied by the arc efficiency factor of the process. It is the arc energy delivered per unit length of weld." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a typical heat input limit in AWS D1.1?",
+      "acceptedAnswer": { "@type": "Answer", "text": "AWS D1.1 does not fix one number; limits come from the qualified Welding Procedure Specification. Common ranges run from about 0.5 kJ/mm for thin sections to 2.5 kJ/mm or more for heavy structural welds, with the upper bound set during procedure qualification." }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does heat input matter for the HAZ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Higher heat input slows the cooling rate, widens the heat-affected zone and lowers hardness and toughness; lower heat input cools faster and can cause hard, crack-prone microstructures. Both extremes are controlled in the WPS." }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use arc efficiency in the heat input calculation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "ASME IX uses arc energy without efficiency, while AWS D1.1 Annex applies a thermal efficiency factor (about 0.8 for MIG/MAG, 0.6 for TIG, 1.0 for SAW). Always state which convention your procedure uses so reviewers compare like with like." }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Welding heat input calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What heat input is</a>
+    <a href="#formula">The formula</a>
+    <a href="#efficiency">Arc efficiency</a>
+    <a href="#worked">Worked SAW example</a>
+    <a href="#limits">Typical limits</a>
+    <a href="#haz">Effect on the HAZ</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Welding heat input calculation: the <em>formula, the limits, and a worked example.</em></h1>
+    <div class="art-meta-bar">
+      <span>Welding / Quality</span>
+      <span>June 25, 2026</span>
+      <span>11 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Heat input is the single number a welding engineer reaches for when a weld cracks, when toughness fails the Charpy test, or when an auditor asks why a procedure ran hot. Here is how to calculate it correctly in kJ/mm, which efficiency factor to apply, and where the real limits come from.</p>
+
+    <p>Welding heat input is the amount of energy the arc delivers to the joint per unit length of weld, expressed in kilojoules per millimetre (kJ/mm). It controls the cooling rate, and the cooling rate controls the microstructure in the weld metal and the heat-affected zone. Get it wrong on the high side and you soften the HAZ; get it wrong on the low side and you risk hard, hydrogen-cracking-prone structures. Most procedure qualification failures I have seen on the shop floor trace back to heat input that drifted outside the qualified band.</p>
+
+    <h2 id="what">What heat input actually <em>measures</em></h2>
+    <p>Heat input is not the same as machine power. A 250 A weld run fast delivers far less energy per millimetre than the same 250 A run slowly. That is the whole point of the metric: it ties current, voltage and <strong>travel speed</strong> together into one figure that predicts how fast the joint will cool through the critical 800-500&deg;C range. Two welds at identical amperage can have heat inputs that differ by a factor of three purely because of travel speed.</p>
+
+    <h2 id="formula">The heat input <em>formula</em></h2>
+    <p>The base equation, as used in ASME Section IX and AWS D1.1, is:</p>
+    <div class="callout">
+      <strong>Heat input (kJ/mm) = (V &times; I &times; 60) / (S &times; 1000)</strong>
+      Where V = arc voltage (volts), I = welding current (amps), and S = travel speed (mm/min). The factor 60 converts per-minute to per-second; the 1000 converts joules to kilojoules.
+    </div>
+    <p>This raw figure is called <strong>arc energy</strong>. To convert arc energy into true heat input, you multiply by the process thermal efficiency, &eta;:</p>
+    <div class="callout">
+      <strong>Heat input = &eta; &times; (V &times; I &times; 60) / (S &times; 1000)</strong>
+      &eta; depends on the process — see the table below.
+    </div>
+
+    <h2 id="efficiency">Arc efficiency by <em>process</em></h2>
+    <p>AWS D1.1 Annex and most welding metallurgy texts use these thermal efficiency factors. ASME IX historically reports arc energy with &eta; = 1, so always state which convention you are using.</p>
+    <table>
+      <tr><th>Process</th><th>Abbrev.</th><th>Thermal efficiency &eta;</th></tr>
+      <tr><td>Submerged arc</td><td>SAW</td><td>0.90 - 1.00</td></tr>
+      <tr><td>Shielded metal arc (stick)</td><td>SMAW</td><td>0.75 - 0.85</td></tr>
+      <tr><td>Gas metal arc (MIG/MAG)</td><td>GMAW</td><td>0.75 - 0.85</td></tr>
+      <tr><td>Flux-cored arc</td><td>FCAW</td><td>0.75 - 0.85</td></tr>
+      <tr><td>Gas tungsten arc (TIG)</td><td>GTAW</td><td>0.60 - 0.70</td></tr>
+    </table>
+
+    <h2 id="worked">A worked <em>SAW example</em></h2>
+    <p>Take a structural butt weld on 20 mm S355 plate, welded by submerged arc at the following parameters: 30 V, 500 A, travel speed 400 mm/min, &eta; = 1.0 for SAW.</p>
+    <ol>
+      <li><strong>Arc energy</strong> = (30 &times; 500 &times; 60) / (400 &times; 1000) = 900,000 / 400,000 = <strong>2.25 kJ/mm</strong>.</li>
+      <li><strong>Heat input</strong> = 1.0 &times; 2.25 = <strong>2.25 kJ/mm</strong>.</li>
+    </ol>
+    <p>Now run the same joint at 600 mm/min travel speed to chase productivity. Arc energy drops to (30 &times; 500 &times; 60) / (600 &times; 1000) = <strong>1.50 kJ/mm</strong>. That single change in travel speed moved the cooling rate enough to shift the HAZ hardness by a measurable amount — which is exactly why travel speed is a recorded, controlled variable on every welding procedure.</p>
+
+    <div class="callout">
+      <strong>Run the numbers without the arithmetic</strong>
+      Drop your voltage, current and travel speed into the free <a href="../calculators/welding-heat-input.html">welding heat input calculator</a>. It returns kJ/mm, applies the process efficiency factor, and flags whether you are inside a typical structural band — useful when you are qualifying a procedure or auditing a weld map.
+    </div>
+
+    <h2 id="limits">Typical heat input <em>limits</em></h2>
+    <p>There is no universal number. The qualified Welding Procedure Specification (WPS) sets the band, and the band depends on the steel, the thickness and the toughness requirement. As a rough guide for carbon and low-alloy structural steels:</p>
+    <table>
+      <tr><th>Situation</th><th>Typical heat input</th><th>Why</th></tr>
+      <tr><td>Thin sheet, root runs</td><td>0.5 - 1.0 kJ/mm</td><td>Avoid burn-through, limit distortion</td></tr>
+      <tr><td>General structural fill</td><td>1.0 - 2.5 kJ/mm</td><td>Balance of productivity and toughness</td></tr>
+      <tr><td>Heavy section, multi-pass</td><td>2.5 - 4.0 kJ/mm</td><td>Higher deposition, controlled cooling</td></tr>
+      <tr><td>Quenched &amp; tempered steels</td><td>Tight upper cap</td><td>Excess heat softens the HAZ</td></tr>
+    </table>
+    <p>For toughness-critical work, the WPS will fix a maximum heat input to preserve HAZ notch toughness, verified by Charpy V-notch testing during qualification. For hardness-sensitive applications such as sour service per NACE MR0175, a minimum heat input is often imposed to keep HAZ hardness below 248 HV.</p>
+
+    <h2 id="haz">Why it changes the <em>HAZ</em></h2>
+    <p>Heat input governs the t8/5 cooling time — the seconds the weld spends cooling from 800&deg;C to 500&deg;C. Higher heat input means a longer t8/5, a slower cool, a softer and coarser-grained HAZ with lower strength but usually better toughness up to a point. Lower heat input means a short t8/5, a fast cool, and a risk of hard martensite that is brittle and prone to hydrogen cracking. The engineering job is to keep t8/5 inside the window the steel maker specifies.</p>
+
+    <div class="warn-box">
+      <strong>Pulsed and waveform-controlled welding</strong>
+      For pulsed GMAW and advanced waveform processes, instantaneous V and I are not the average values shown on the panel. Use the true energy reported by the power source (instantaneous power integrated over time) rather than plugging in average meter readings, or your calculated heat input can be off by 15 to 25 percent.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Forgetting travel speed.</strong> Heat input is meaningless without it; amps and volts alone tell you nothing about energy per millimetre.</li>
+      <li><strong>Mixing conventions.</strong> Comparing an ASME arc-energy figure (&eta; = 1) against an AWS efficiency-corrected figure makes a TIG weld look hotter than it is.</li>
+      <li><strong>Using nominal instead of measured parameters.</strong> The WPS may say 28 V, but the weld ran at 32 V. Heat input must be computed from recorded actuals.</li>
+      <li><strong>Ignoring run-out length on stick.</strong> For SMAW, travel speed is often back-calculated from electrode run-out length; getting that wrong skews everything.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <div class="faq-q">What is the formula for welding heat input?</div>
+    <p>Heat input in kJ/mm equals voltage times current times 60, divided by travel speed in mm/min times 1000, multiplied by the process arc efficiency. It expresses the arc energy delivered per millimetre of weld.</p>
+    <div class="faq-q">What is a typical heat input limit in AWS D1.1?</div>
+    <p>AWS D1.1 does not give a single number — the limit comes from your qualified WPS. Structural welds commonly sit between roughly 0.5 and 2.5 kJ/mm, with the cap set during procedure qualification and toughness testing.</p>
+    <div class="faq-q">Why does heat input matter for the HAZ?</div>
+    <p>It sets the cooling rate. High heat input widens and softens the heat-affected zone; low heat input cools fast and can form brittle, crack-prone microstructures. The WPS keeps it inside a safe window.</p>
+    <div class="faq-q">Do I include arc efficiency or not?</div>
+    <p>It depends on the code. ASME IX reports arc energy with efficiency of 1.0; AWS D1.1 applies a thermal efficiency factor. State which one you used so reviewers compare like with like.</p>
+
+    <p>Once your weld map and inspection plan are set, the next bottleneck is usually the drawing paperwork — ballooning every characteristic for the inspection report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> (Smart Detect plus Box+Balloon OCR) tags every dimension on a weldment drawing so your inspection sheet is built in minutes, not hours.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/welding-heat-input.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Welding Heat Input Calculator</a>
+      <a href="../articles/hardness-conversion-chart.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Hardness Conversion Chart</a>
+      <a href="../articles/material-weight-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
