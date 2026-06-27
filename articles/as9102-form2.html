@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to Fill AS9102 Form 2: Product Accountability | MetricMech</title>
+<meta name="description" content="Fill AS9102 Form 2 right: materials, special processes and functional tests, raw-material traceability, Nadcap certs, and the five audit rejections." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/as9102-form2">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Fill AS9102 Form 2: Product Accountability | MetricMech">
+<meta property="og:description" content="Fill AS9102 Form 2 right: materials, special processes and functional tests, raw-material traceability, Nadcap certs, and the five audit rejections.">
+<meta property="og:url" content="https://metricmech.com/articles/as9102-form2">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Fill AS9102 Form 2: Product Accountability | MetricMech">
+<meta name="twitter:description" content="Fill AS9102 Form 2 right: materials, special processes and functional tests, raw-material traceability, Nadcap certs, and the five audit rejections.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Fill AS9102 Form 2: Product Accountability | MetricMech",
+  "description": "Fill AS9102 Form 2 right: materials, special processes and functional tests, raw-material traceability, Nadcap certs, and the five audit rejections.",
+  "url": "https://metricmech.com/articles/as9102-form2",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-06-27",
+  "mainEntityOfPage": "https://metricmech.com/articles/as9102-form2"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is AS9102 Form 2 used for?", "acceptedAnswer": {"@type": "Answer", "text": "Form 2 is the Product Accountability sheet. It records raw material specs, special processes, material and functional test certifications, and the verification that each is traceable and approved. Form 1 covers part accountability, Form 2 covers materials and processes, and Form 3 covers dimensional characteristics."}},
+    {"@type": "Question", "name": "What goes in the material specification field on Form 2?", "acceptedAnswer": {"@type": "Answer", "text": "The exact material specification called out on the drawing, for example AMS 4045 for 7075-T6 sheet, plus the certificate type and number, supplier, and lot or heat number so the raw material is traceable back to its mill certificate."}},
+    {"@type": "Question", "name": "Do special processes need to be listed on Form 2?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every special process such as heat treat, anodising, NDT, passivation or chemical conversion must be listed with the process specification, the supplier, and the certificate or approval number. Aerospace customers usually require Nadcap-accredited suppliers for these."}},
+    {"@type": "Question", "name": "What is the difference between Form 2 and Form 3?", "acceptedAnswer": {"@type": "Answer", "text": "Form 2 captures materials, special processes and functional testing. Form 3 captures every dimensional and note characteristic from the drawing with measured results. Both are required for a complete AS9102 first article inspection."}},
+    {"@type": "Question", "name": "What are the most common Form 2 rejections?", "acceptedAnswer": {"@type": "Answer", "text": "Missing or expired special-process certificates, material certs that do not trace to the heat or lot, functional tests left blank, sub-tier process suppliers not named, and a spec revision on the cert that does not match the drawing callout."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>AS9102 Form 2 walkthrough</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What Form 2 covers</a>
+    <a href="#header">Step 1 &mdash; Header</a>
+    <a href="#material">Step 2 &mdash; Materials</a>
+    <a href="#process">Step 3 &mdash; Processes</a>
+    <a href="#functional">Step 4 &mdash; Functional tests</a>
+    <a href="#trace">Traceability chain</a>
+    <a href="#mistakes">Common rejections</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>How to fill AS9102 <em>Form 2:</em> product accountability done right</h1>
+    <div class="art-meta-bar">
+      <span>FAI / Aerospace</span>
+      <span>June 27, 2026</span>
+      <span>12 min read</span>
+      <span>2,100 words</span>
+    </div>
+
+    <p class="lede">Form 3 gets all the attention, but Form 2 is where most first-time aerospace FAI submissions actually fail. It is the Product Accountability sheet: materials, special processes and functional tests, each one traceable back to a certificate. Here is every field, with a worked example and the five places auditors will reject you.</p>
+
+    <h2 id="what">What AS9102 <em>Form 2</em> covers</h2>
+    <p>AS9102 splits a first article inspection into three forms. <a href="../articles/as9102-form1.html">Form 1</a> is Part Number Accountability &mdash; the part, its drawing revision, and the sub-assembly index. <strong>Form 2 is Product Accountability</strong> &mdash; the raw materials, the special processes, and any functional testing, each proven with a certificate. <a href="../articles/as9102-form3.html">Form 3</a> is Characteristic Accountability &mdash; every dimension measured against the drawing.</p>
+    <p>Think of Form 2 as answering one question for the customer: <em>is the part made of the right material, processed by approved suppliers, and tested where the drawing demands it?</em> If any cert is missing, expired, or points to the wrong specification revision, the part is not airworthy on paper &mdash; regardless of how good the dimensions on Form 3 look.</p>
+
+    <p>For this walkthrough we use the same part as our Form 3 example: a machined 7075-T6 aluminium mounting bracket, with anodise per the drawing and a hardness check after heat treat.</p>
+
+    <h2 id="header">Step 1: <em>The header block</em></h2>
+    <p>The Form 2 header repeats the identity fields from Form 1 so each sheet stands alone in an audit. Fill these exactly as on Form 1 &mdash; a mismatch here is an instant rejection:</p>
+    <ul>
+      <li>Part Number (including dash number and revision suffix)</li>
+      <li>Part Name</li>
+      <li>Drawing Number and Revision</li>
+      <li>FAIR Number (identical across Forms 1, 2 and 3)</li>
+      <li>Page X of Y across all Form 2 sheets</li>
+    </ul>
+
+    <h2 id="material">Step 2: <em>Materials and raw stock</em></h2>
+    <p>List every raw material that goes into the part. For each one you record the specification, the certificate, and the traceability fields. The columns map like this:</p>
+    <table>
+      <tr><th>Field</th><th>What it means</th><th>Example</th></tr>
+      <tr><td>Material / Process</td><td>The raw material name</td><td>Aluminium 7075-T6 plate</td></tr>
+      <tr><td>Specification Number</td><td>Drawing-called spec</td><td>AMS 4045</td></tr>
+      <tr><td>Code</td><td>Special process / material code</td><td>RAW</td></tr>
+      <tr><td>Supplier</td><td>Mill or stockist</td><td>Hindalco / approved stockist</td></tr>
+      <tr><td>Cert Number</td><td>Mill test certificate</td><td>MTC-7075-2261</td></tr>
+      <tr><td>Heat / Lot</td><td>Traceability batch</td><td>Heat 5512-A</td></tr>
+    </table>
+    <p>The single most important rule: the <strong>specification revision on the certificate must match the drawing callout</strong>. If the drawing calls AMS 4045 and the mill cert references an older revision, you either get a customer concession or you reject the lot. Auditors check this line every time.</p>
+
+    <h2 id="process">Step 3: <em>Special processes</em></h2>
+    <p>A special process is one whose result you cannot fully verify by inspecting the finished part &mdash; heat treatment, anodising, plating, passivation, NDT, welding, and chemical conversion coatings. AS9102 requires each to be listed with its process spec and an approval reference.</p>
+    <ul>
+      <li><strong>Heat treat</strong> &mdash; spec (for example AMS 2770 for the 7075-T6 condition), supplier, and certificate number.</li>
+      <li><strong>Anodise</strong> &mdash; type and class per the drawing (for example MIL-A-8625 Type II Class 1), supplier, cert number.</li>
+      <li><strong>NDT</strong> &mdash; method (FPI, X-ray), acceptance spec, and the Level II/III sign-off reference.</li>
+    </ul>
+    <div class="callout">
+      <strong>Use Nadcap-accredited suppliers for special processes</strong>
+      Most aerospace primes flow down a requirement that heat treat, NDT, surface treatment and welding are performed by Nadcap-accredited suppliers. List the supplier's accreditation, and confirm it was valid on the date the process was performed &mdash; not just the date you wrote the FAI. An expired accreditation is one of the top five rejections.
+    </div>
+
+    <h2 id="functional">Step 4: <em>Functional tests</em></h2>
+    <p>If the drawing or a referenced spec calls for a functional or material test &mdash; tensile, hardness, conductivity, proof-load, leak &mdash; it goes on Form 2 with the acceptance criteria and the recorded result. For our bracket the drawing requires a hardness check after heat treat:</p>
+    <table>
+      <tr><th>Test</th><th>Requirement</th><th>Result</th><th>Method</th></tr>
+      <tr><td>Hardness</td><td>HRB 87 min (7075-T6)</td><td>HRB 91</td><td>Rockwell tester</td></tr>
+      <tr><td>Conductivity</td><td>32&ndash;40 %IACS</td><td>36 %IACS</td><td>Eddy current</td></tr>
+    </table>
+    <p>Conductivity testing on 7075 is a common customer requirement because it confirms the heat-treat condition indirectly &mdash; a useful cross-check when you cannot destructively test the actual part. If you also report process capability on any of these, our <a href="../calculators/cp-cpk.html">Cp and Cpk calculator</a> and the <a href="../articles/cp-cpk-explained.html">Cp vs Cpk guide</a> show how to present it cleanly.</p>
+
+    <h2 id="trace">The traceability chain auditors follow</h2>
+    <p>An aerospace auditor reads Form 2 as a chain. Each link must connect to the next, with no gaps:</p>
+    <ol>
+      <li>Drawing calls a material spec &rarr; mill cert references the same spec and revision.</li>
+      <li>Mill cert heat number &rarr; appears on your goods-inward record and the cut tag.</li>
+      <li>Special process cert &rarr; names the same part or lot, by an approved supplier.</li>
+      <li>Functional test report &rarr; references the same lot, with results inside limits.</li>
+      <li>Every certificate &rarr; dated within its validity and matching the FAIR number.</li>
+    </ol>
+    <p>Break any link &mdash; a heat number that does not carry through, a cert that names a different lot &mdash; and the submission stalls while you chase paperwork. Build the chain as you make the part, not the night before submission.</p>
+
+    <div class="warn-box">
+      <strong>The blank functional-test trap</strong>
+      Suppliers often leave the functional test rows blank when the drawing "doesn't obviously" call a test, then discover a referenced spec required one. If a test is genuinely not applicable, write "N/A" with a short reason. A blank field reads as an oversight to an auditor, never as "not required".
+    </div>
+
+    <h2 id="mistakes">Five rejections that come back to <em>Form 2</em></h2>
+    <ol>
+      <li><strong>Expired special-process certs.</strong> Valid at PO date, expired by the time the process ran.</li>
+      <li><strong>Material cert with no heat/lot trace.</strong> The cert exists but cannot be tied to the actual stock used.</li>
+      <li><strong>Spec revision mismatch.</strong> Drawing calls Rev N of a spec, cert references Rev M.</li>
+      <li><strong>Sub-tier supplier not named.</strong> Anodising sent out but the supplier and approval left off the form.</li>
+      <li><strong>Functional test left blank.</strong> A referenced spec required a test that nobody recorded.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Build Form 2 alongside the drawing characteristics</strong>
+      The cleanest FAI packages start from a fully ballooned drawing, so materials, processes and notes are captured the moment you mark them up. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> detects dimensions, notes and GD&amp;T on the PDF, which makes it easy to pull the material and process callouts straight onto Form 2 and the characteristics onto Form 3.
+    </div>
+
+    <p>When you are ready to record the dimensional side, MetricMech's free <a href="../calculators/as9102-form2.html">AS9102 Form 2 builder</a> structures the material, process and functional rows with the traceability fields above, and the <a href="../calculators/as9102-form3.html">Form 3 builder</a> handles the characteristics with auto pass/fail. Grab the matching layout from our <a href="../templates.html">FAI templates</a> to start.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/as9102-form2.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Form 2 Builder Tool</a>
+      <a href="../articles/as9102-form1.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 1 guide</a>
+      <a href="../articles/as9102-form3.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">AS9102 Form 3 walkthrough</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">FAI templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

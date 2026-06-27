@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Motor Power Calculation: HP &amp; kW Formula | MetricMech</title>
+<meta name="description" content="Motor power calculation made simple: kW and HP formulas, a worked example, power factor, efficiency, and how to size a motor without over-spending." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/motor-power-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Motor Power Calculation: HP & kW Formula | MetricMech">
+<meta property="og:description" content="Motor power calculation made simple: kW and HP formulas, a worked example, power factor, efficiency, and how to size a motor without over-spending.">
+<meta property="og:url" content="https://metricmech.com/articles/motor-power-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Motor Power Calculation: HP & kW Formula | MetricMech">
+<meta name="twitter:description" content="Motor power calculation made simple: kW and HP formulas, a worked example, power factor, efficiency, and how to size a motor without over-spending.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Motor Power Calculation: HP & kW Formula | MetricMech",
+  "description": "Motor power calculation made simple: kW and HP formulas, a worked example, power factor, efficiency, and how to size a motor without over-spending.",
+  "url": "https://metricmech.com/articles/motor-power-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-06-27",
+  "mainEntityOfPage": "https://metricmech.com/articles/motor-power-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the formula for motor power?", "acceptedAnswer": {"@type": "Answer", "text": "Mechanical power from torque and speed is P (kW) = T (Nm) x N (rpm) / 9550. Electrical input for a three-phase motor is P (kW) = 1.732 x V x I x power factor / 1000. To convert kW to horsepower, multiply by 1.341; one metric HP equals 0.7355 kW."}},
+    {"@type": "Question", "name": "How do I convert kW to HP for a motor?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply kilowatts by 1.341 to get mechanical (imperial) horsepower, or by 1.3596 for metric HP. For example, a 7.5 kW motor is about 10 HP. To go the other way, multiply HP by 0.746 to get kW."}},
+    {"@type": "Question", "name": "Is motor rating input power or output power?", "acceptedAnswer": {"@type": "Answer", "text": "The nameplate kW or HP rating is the shaft output power. The electrical input power is higher because of efficiency losses, so input = output / efficiency. A 7.5 kW motor at 90 percent efficiency draws about 8.3 kW of electrical input."}},
+    {"@type": "Question", "name": "How do I size a motor for a load?", "acceptedAnswer": {"@type": "Answer", "text": "Calculate the load power required, divide by drive and motor efficiency, add a service-factor margin of about 15 to 25 percent, then pick the next standard frame size up. Never run a motor continuously above its rated power."}},
+    {"@type": "Question", "name": "What is power factor in a motor calculation?", "acceptedAnswer": {"@type": "Answer", "text": "Power factor is the ratio of real power to apparent power, typically 0.8 to 0.9 for induction motors at full load. It appears in the three-phase input power formula and drops sharply at part load, which is why oversized motors waste energy."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Motor power calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#formulas">The formulas</a>
+    <a href="#torque">Power from torque</a>
+    <a href="#electrical">Electrical input power</a>
+    <a href="#example">Worked example</a>
+    <a href="#convert">kW to HP table</a>
+    <a href="#sizing">Sizing a motor</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Motor power calculation: <em>HP and kW</em> the simple way</h1>
+    <div class="art-meta-bar">
+      <span>Production / Utilities</span>
+      <span>June 27, 2026</span>
+      <span>11 min read</span>
+      <span>2,000 words</span>
+    </div>
+
+    <p class="lede">Whether you are sizing a conveyor drive, checking a pump motor, or converting a nameplate from kW to HP, motor power comes down to two formulas: power from torque and speed, and electrical input from voltage and current. Here is each one, a full worked example, and the efficiency and power-factor details that separate a right-sized motor from a wasteful one.</p>
+
+    <h2 id="formulas">The two formulas you actually need</h2>
+    <p>Almost every motor question is one of these:</p>
+    <ul>
+      <li><strong>Mechanical (shaft) power</strong> from torque and speed: <strong>P(kW) = T &times; N / 9550</strong>, where T is torque in Nm and N is speed in rpm.</li>
+      <li><strong>Electrical input power</strong> for a three-phase motor: <strong>P(kW) = &radic;3 &times; V &times; I &times; PF / 1000</strong>, where V is line voltage, I is line current and PF is power factor.</li>
+    </ul>
+    <p>The constant 9550 bundles the unit conversions (it is 60,000 / 2&pi;). Memorise it &mdash; it turns Nm and rpm straight into kW.</p>
+
+    <h2 id="torque">Power from torque and speed</h2>
+    <p>When you know the load torque and the running speed, mechanical power is direct. Say a mixer needs 120 Nm at 1450 rpm:</p>
+    <div class="callout">
+      <strong>P = T &times; N / 9550</strong>
+      P = 120 &times; 1450 / 9550 = <strong>18.2 kW</strong> at the shaft. That is the power the load demands; the motor must deliver at least this on its output shaft.
+    </div>
+    <p>If your speed is in rad/s rather than rpm, use the cleaner form P(W) = T(Nm) &times; &omega;(rad/s). The 9550 version simply saves you converting rpm every time.</p>
+
+    <h2 id="electrical">Electrical input power and current</h2>
+    <p>The nameplate kW is shaft <em>output</em>. The motor draws more than that from the supply because of losses, so:</p>
+    <p><strong>Input power = output power / efficiency.</strong> A 18.5 kW motor at 91% efficiency draws 18.5 / 0.91 = 20.3 kW electrical input.</p>
+    <p>To find the running current, rearrange the three-phase formula:</p>
+    <div class="callout">
+      <strong>I = P(input, W) / (&radic;3 &times; V &times; PF)</strong>
+      For 20,300 W at 415 V and PF 0.86: I = 20300 / (1.732 &times; 415 &times; 0.86) = <strong>32.8 A</strong>. This is the full-load current you size cables and overloads around.
+    </div>
+
+    <h2 id="example">Worked example: a conveyor drive</h2>
+    <p>A belt conveyor needs to move 8000 kg/h up a 4 m rise at 0.5 m/s. Work it through:</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Lifting power</td><td>m&middot;g&middot;h per second = (8000/3600) &times; 9.81 &times; 4</td><td>87 W vertical</td></tr>
+      <tr><td>Friction + belt load (allow ~3&times;)</td><td>realistic conveyor demand</td><td>~2.6 kW</td></tr>
+      <tr><td>Drive efficiency (gearbox 95%)</td><td>2.6 / 0.95</td><td>2.74 kW</td></tr>
+      <tr><td>Service factor (1.25)</td><td>2.74 &times; 1.25</td><td>3.42 kW</td></tr>
+      <tr><td>Next standard frame</td><td>round up</td><td>3.7 kW (5 HP)</td></tr>
+    </table>
+    <p>The takeaway: the raw lifting power was tiny, but friction, efficiency and a sensible margin set the real motor at 3.7 kW. Skipping those steps is how plants end up with motors that trip on start-up.</p>
+
+    <h2 id="convert">kW to HP conversion table</h2>
+    <p>To convert, multiply kW by 1.341 for imperial HP (or 1.3596 for metric HP). Common ratings:</p>
+    <table>
+      <tr><th>kW</th><th>HP (approx)</th><th>Typical use</th></tr>
+      <tr><td>0.75</td><td>1.0</td><td>Small pump, fan</td></tr>
+      <tr><td>2.2</td><td>3.0</td><td>Conveyor, blower</td></tr>
+      <tr><td>3.7</td><td>5.0</td><td>Compressor, hydraulic pack</td></tr>
+      <tr><td>7.5</td><td>10</td><td>Machine tool main drive</td></tr>
+      <tr><td>15</td><td>20</td><td>Large pump, mixer</td></tr>
+      <tr><td>37</td><td>50</td><td>Process fan, big compressor</td></tr>
+    </table>
+
+    <h2 id="sizing">Sizing a motor without over-spending</h2>
+    <p>In 14 years on the plant floor, the most common waste I saw was oversized motors. A motor running at 40% load sits at a poor power factor and lower efficiency, so it quietly burns energy for years. To size well:</p>
+    <ol>
+      <li>Calculate the true load power (torque &times; speed, or pump/fan duty).</li>
+      <li>Divide by drive efficiency and motor efficiency.</li>
+      <li>Add a service factor of 15&ndash;25% &mdash; not 100%.</li>
+      <li>Pick the next standard frame up, then check it runs near 75&ndash;100% load.</li>
+    </ol>
+    <p>A motor loaded to 75&ndash;95% of rating is in its efficiency and power-factor sweet spot. For pump and fan drives, remember the affinity laws &mdash; power rises with the cube of speed, so a small speed increase is a big power increase. If energy cost is the target, our <a href="../articles/oee-calculation.html">OEE guide</a> and <a href="../articles/cycle-time-calculation.html">cycle time guide</a> help connect motor loading to real output.</p>
+
+    <div class="warn-box">
+      <strong>Watch the part-load power factor</strong>
+      Power factor on an induction motor falls from ~0.86 at full load to ~0.5 at quarter load. An oversized motor not only wastes real power, it drags your plant power factor down and can attract a utility penalty. Size to the load, not to "just in case".
+    </div>
+
+    <h2 id="mistakes">Common motor calculation mistakes</h2>
+    <ul>
+      <li><strong>Confusing input and output.</strong> Nameplate kW is shaft output; supply draw is higher by the efficiency loss.</li>
+      <li><strong>Forgetting &radic;3.</strong> The 1.732 factor is mandatory for three-phase &mdash; leaving it out understates power by 42%.</li>
+      <li><strong>Ignoring drive losses.</strong> Gearboxes, belts and couplings each take a few percent.</li>
+      <li><strong>Sizing on running power only.</strong> Starting torque for high-inertia or loaded starts can need a larger frame.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Run the numbers in one click</strong>
+      MetricMech's free <a href="../calculators/motor-hp.html">motor HP and power calculator</a> does torque-to-power, kW-to-HP, and three-phase current in one place &mdash; enter torque and rpm, or voltage, current and power factor, and read the result.
+    </div>
+
+    <p>If your work also involves preparing inspection drawings for machined motor or pump components, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns a PDF drawing into a numbered inspection sheet in minutes &mdash; handy when the same parts need an FAI. Browse more shop-floor calculators on the <a href="../templates.html">MetricMech templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/motor-hp.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Motor HP Calculator</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE calculation guide</a>
+      <a href="../articles/cycle-time-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cycle time calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">All calculators</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
