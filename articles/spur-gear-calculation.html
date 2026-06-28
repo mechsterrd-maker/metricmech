@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spur Gear Calculation: Module, Ratio & Tooth Count | MetricMech</title>
+<meta name="description" content="Spur gear calculation explained: module, gear ratio, pitch diameter, centre distance and tooth count with formulas, a worked example and a free calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/spur-gear-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spur Gear Calculation: Module, Ratio & Tooth Count | MetricMech">
+<meta property="og:description" content="Spur gear calculation explained: module, gear ratio, pitch diameter, centre distance and tooth count with formulas, a worked example and a free calculator.">
+<meta property="og:url" content="https://metricmech.com/articles/spur-gear-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Spur Gear Calculation: Module, Ratio & Tooth Count | MetricMech">
+<meta name="twitter:description" content="Spur gear calculation explained: module, gear ratio, pitch diameter, centre distance and tooth count with formulas, a worked example and a free calculator.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Spur Gear Calculation: Module, Ratio & Tooth Count",
+  "description": "Module, gear ratio, pitch diameter, centre distance and tooth count formulas for spur gears, with a worked example and a free online calculator.",
+  "url": "https://metricmech.com/articles/spur-gear-calculation",
+  "mainEntityOfPage": "https://metricmech.com/articles/spur-gear-calculation",
+  "datePublished": "2026-06-28",
+  "dateModified": "2026-06-28",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech", "description": "Mechanical engineer with 14 years plant-head experience"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is module in a spur gear?", "acceptedAnswer": {"@type": "Answer", "text": "Module (m) is the ratio of pitch diameter to number of teeth, in millimetres: m = d / z. It defines tooth size. Two gears must share the same module to mesh. Common standard modules are 1, 1.25, 1.5, 2, 2.5, 3, 4, 5 and 6 mm."}},
+    {"@type": "Question", "name": "How do you calculate gear ratio?", "acceptedAnswer": {"@type": "Answer", "text": "Gear ratio i = number of teeth on the driven gear divided by number of teeth on the driver, i = z2 / z1. It equals the speed reduction and the torque multiplication between input and output, ignoring losses."}},
+    {"@type": "Question", "name": "What is the pitch diameter of a spur gear?", "acceptedAnswer": {"@type": "Answer", "text": "Pitch diameter d is module times number of teeth: d = m x z. It is the diameter of the imaginary pitch circle where the gears effectively roll on each other, and it sets the centre distance."}},
+    {"@type": "Question", "name": "How do you calculate centre distance between two gears?", "acceptedAnswer": {"@type": "Answer", "text": "For two meshing spur gears of the same module, centre distance a = m x (z1 + z2) / 2, which equals the sum of the two pitch radii."}},
+    {"@type": "Question", "name": "What is the difference between module and diametral pitch?", "acceptedAnswer": {"@type": "Answer", "text": "Module is the metric measure of tooth size in mm (d/z). Diametral pitch (DP) is the imperial measure in teeth per inch. They are inversely related: module = 25.4 / DP."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Spur gear calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#module">Module</a>
+    <a href="#pitch">Pitch diameter</a>
+    <a href="#ratio">Gear ratio</a>
+    <a href="#centre">Centre distance</a>
+    <a href="#dims">Tooth dimensions</a>
+    <a href="#example">Worked example</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Spur gear calculation: <em>module, ratio</em> and the numbers that make gears mesh.</h1>
+    <div class="art-meta-bar">
+      <span>Design / Machine Elements</span>
+      <span>June 28, 2026</span>
+      <span>11 min read</span>
+      <span>2,000 words</span>
+    </div>
+
+    <p class="lede">Two gears only mesh if their teeth are the same size. That single fact &mdash; captured by the module &mdash; sits behind every spur gear calculation. Here is how module, pitch diameter, gear ratio, and centre distance connect, with a worked example you can reuse.</p>
+
+    <h2 id="module">Module: the one number that decides everything</h2>
+    <p>In metric gear design, <strong>module (m)</strong> defines tooth size. It is the pitch diameter divided by the number of teeth, in millimetres:</p>
+    <div class="callout">
+      <strong>Module</strong>
+      m = d / z &nbsp; (mm)<br>
+      where d = pitch diameter (mm), z = number of teeth.
+    </div>
+    <p>The golden rule: <strong>two gears must have the same module to mesh.</strong> A module-2 pinion will not run with a module-2.5 gear, full stop. Modules are standardised &mdash; ISO 54 lists preferred values of 1, 1.25, 1.5, 2, 2.5, 3, 4, 5 and 6 mm. Always design to a standard module so you can buy stock cutters and off-the-shelf gears.</p>
+    <p>If you work in imperial units you will meet <strong>diametral pitch (DP)</strong> instead, measured in teeth per inch. The two are inversely related: module = 25.4 / DP.</p>
+
+    <h2 id="pitch">Pitch diameter</h2>
+    <p>The pitch circle is the imaginary circle where two gears effectively roll on each other without slipping. Its diameter is:</p>
+    <div class="callout">
+      <strong>Pitch diameter</strong>
+      d = m &times; z
+    </div>
+    <p>Pitch diameter is the working diameter for almost every other calculation &mdash; it sets centre distance, pitch line velocity, and the bending load on the tooth. Note it is not the outside diameter you measure with a caliper; the tips of the teeth sit one module above the pitch circle.</p>
+
+    <h2 id="ratio">Gear ratio</h2>
+    <p>The gear ratio links input and output speed and torque. For a driver (pinion) with z<sub>1</sub> teeth driving a gear with z<sub>2</sub> teeth:</p>
+    <div class="callout">
+      <strong>Gear ratio</strong>
+      i = z<sub>2</sub> / z<sub>1</sub> = n<sub>1</sub> / n<sub>2</sub> = T<sub>2</sub> / T<sub>1</sub>
+    </div>
+    <p>A ratio of 3 means the output turns at one-third the speed and roughly three times the torque (before friction losses). For the speed and torque side in depth, see our companion guide on <a href="../articles/gear-ratio-calculation.html">gear ratio calculation</a>. For a single spur pair, keep the ratio at or below about 6&ndash;8; beyond that, use a two-stage train so the gears stay a sensible size.</p>
+
+    <h2 id="centre">Centre distance</h2>
+    <p>For two meshing gears of the same module, the centre distance is simply the sum of the pitch radii:</p>
+    <div class="callout">
+      <strong>Centre distance</strong>
+      a = m &times; (z<sub>1</sub> + z<sub>2</sub>) / 2
+    </div>
+    <p>This is the number your gearbox housing has to hold to within a few hundredths of a millimetre. Get it wrong and you either jam the teeth (too close) or get backlash and noise (too far). Profile-shifted gears change this slightly, but for standard gears the formula above is exact.</p>
+
+    <h2 id="dims">Tooth dimensions (standard 20&deg; full-depth)</h2>
+    <table>
+      <tr><th>Feature</th><th>Formula</th></tr>
+      <tr><td>Addendum (a<sub>d</sub>)</td><td>1 &times; m</td></tr>
+      <tr><td>Dedendum (b<sub>d</sub>)</td><td>1.25 &times; m</td></tr>
+      <tr><td>Whole depth</td><td>2.25 &times; m</td></tr>
+      <tr><td>Outside diameter (d<sub>a</sub>)</td><td>d + 2m = m(z + 2)</td></tr>
+      <tr><td>Root diameter (d<sub>f</sub>)</td><td>d &minus; 2.5m = m(z &minus; 2.5)</td></tr>
+      <tr><td>Circular pitch (p)</td><td>&pi; &times; m</td></tr>
+      <tr><td>Base circle (d<sub>b</sub>)</td><td>d &times; cos(20&deg;)</td></tr>
+    </table>
+    <p>To avoid undercutting on a 20&deg; pressure-angle gear, keep the pinion tooth count at <strong>17 or more</strong>. Below that you need profile shift to stop the cutter gouging the tooth root.</p>
+
+    <h2 id="example">A worked example: conveyor drive</h2>
+    <p>A packaging line needs a 3:1 reduction. The motor pinion has z<sub>1</sub> = 20 teeth, and we choose module m = 2.5 mm.</p>
+    <ol>
+      <li><strong>Driven gear teeth:</strong> z<sub>2</sub> = i &times; z<sub>1</sub> = 3 &times; 20 = <strong>60 teeth</strong>.</li>
+      <li><strong>Pinion pitch diameter:</strong> d<sub>1</sub> = 2.5 &times; 20 = <strong>50 mm</strong>.</li>
+      <li><strong>Gear pitch diameter:</strong> d<sub>2</sub> = 2.5 &times; 60 = <strong>150 mm</strong>.</li>
+      <li><strong>Centre distance:</strong> a = 2.5 &times; (20 + 60) / 2 = <strong>100 mm</strong>.</li>
+      <li><strong>Pinion outside diameter:</strong> 2.5 &times; (20 + 2) = <strong>55 mm</strong>.</li>
+      <li><strong>Gear outside diameter:</strong> 2.5 &times; (60 + 2) = <strong>155 mm</strong>.</li>
+    </ol>
+    <p>The pinion has 20 teeth, comfortably above the 17-tooth undercut limit, so no profile shift is needed. The housing bore centres must be held at 100 mm &plusmn;0.03 mm to keep backlash within spec.</p>
+
+    <div class="callout">
+      <strong>Skip the hand calc</strong>
+      MetricMech's free <a href="../calculators/gear-calculator.html">Gear Ratio Calculator</a> works out module, pitch diameter, centre distance, tooth count and outside diameter from any two known inputs &mdash; useful when you are reverse-engineering an existing gear.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing module and DP.</strong> A metric module-2 and an imperial 12-DP gear look similar but will not mesh.</li>
+      <li><strong>Measuring outside diameter as pitch diameter.</strong> The OD is two modules larger than the pitch diameter; using it throws off centre distance.</li>
+      <li><strong>Fewer than 17 pinion teeth without profile shift.</strong> Causes undercutting, weakening the tooth root.</li>
+      <li><strong>Forgetting backlash.</strong> Real gearboxes need a small backlash allowance; cutting to exact centre distance with zero clearance leads to binding and heat.</li>
+    </ul>
+
+    <p>For the strength side of gear design, pair this with a <a href="../articles/bolt-torque-guide.html">fastener and torque reference</a> for the gearbox assembly, and a <a href="../articles/material-weight-calculator.html">material weight estimate</a> when costing the blanks.</p>
+
+    <div class="warn-box">
+      <strong>Bending stress is a separate check</strong>
+      These formulas give you geometry, not strength. Before committing, run a Lewis or ISO 6336 bending and contact stress check at the actual transmitted load and pitch line velocity to confirm the module is big enough for the duty.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is module in a spur gear?</h3>
+    <p>Module m = d / z is the ratio of pitch diameter to tooth count, in mm. It defines tooth size, and meshing gears must share the same module.</p>
+    <h3>How do you calculate gear ratio?</h3>
+    <p>Gear ratio i = z<sub>2</sub> / z<sub>1</sub>, the driven gear teeth divided by the driver teeth. It equals the speed reduction and the torque multiplication.</p>
+    <h3>How do you calculate centre distance?</h3>
+    <p>For equal-module gears, a = m &times; (z<sub>1</sub> + z<sub>2</sub>) / 2 &mdash; the sum of the two pitch radii.</p>
+    <h3>How many teeth avoid undercutting?</h3>
+    <p>For a standard 20&deg; pressure angle, keep the pinion at 17 teeth or more, or apply profile shift below that.</p>
+
+    <div class="callout">
+      <strong>Working from a gear drawing or 3D model?</strong>
+      Open the STEP/IGES model and balloon the gear drawing online with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> (Smart Detect + Box+Balloon OCR) to pull every dimension into an inspection sheet in minutes.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gear-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gear Ratio Calculator</a>
+      <a href="../articles/gear-ratio-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gear ratio calculation</a>
+      <a href="../articles/bolt-torque-guide.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt torque guide</a>
+      <a href="../articles/material-weight-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material weight calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

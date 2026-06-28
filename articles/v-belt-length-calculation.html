@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>V-Belt Length Calculation: Formula & Worked Example | MetricMech</title>
+<meta name="description" content="V-belt length calculation: the belt length formula, centre distance, wrap angle and standard belt selection, with a worked example and free calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/v-belt-length-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="V-Belt Length Calculation: Formula & Worked Example | MetricMech">
+<meta property="og:description" content="V-belt length calculation: the belt length formula, centre distance, wrap angle and standard belt selection, with a worked example and free calculator.">
+<meta property="og:url" content="https://metricmech.com/articles/v-belt-length-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="V-Belt Length Calculation: Formula & Worked Example | MetricMech">
+<meta name="twitter:description" content="V-belt length calculation: the belt length formula, centre distance, wrap angle and standard belt selection, with a worked example and free calculator.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "V-Belt Length Calculation: Formula & Worked Example",
+  "description": "The V-belt length formula with centre distance, wrap angle and standard belt selection, plus a worked example and a free calculator.",
+  "url": "https://metricmech.com/articles/v-belt-length-calculation",
+  "mainEntityOfPage": "https://metricmech.com/articles/v-belt-length-calculation",
+  "datePublished": "2026-06-28",
+  "dateModified": "2026-06-28",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech", "description": "Mechanical engineer with 14 years plant-head experience"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the formula for V-belt length?", "acceptedAnswer": {"@type": "Answer", "text": "Pitch length L = 2C + (pi/2)(D + d) + (D - d)^2 / (4C), where C is centre distance, D is the large pulley pitch diameter and d is the small pulley pitch diameter. Round up to the nearest standard belt and back-solve the centre distance."}},
+    {"@type": "Question", "name": "How do I calculate centre distance from belt length?", "acceptedAnswer": {"@type": "Answer", "text": "Once you pick a standard belt length, rearrange the belt length formula to solve for C. A common approximation is C = [B + sqrt(B^2 - 32(D-d)^2)] / 16, where B = 4L - 6.28(D + d)."}},
+    {"@type": "Question", "name": "What is wrap angle and why does it matter?", "acceptedAnswer": {"@type": "Answer", "text": "Wrap angle is the arc of contact on the small pulley: about 180 - 60(D-d)/C degrees. Less wrap means less grip and lower power capacity, so keep it above roughly 120 degrees, ideally near 180."}},
+    {"@type": "Question", "name": "How do I choose a standard V-belt size?", "acceptedAnswer": {"@type": "Answer", "text": "Calculate the required pitch length, then select the next standard belt (A, B, C, SPZ, SPA, SPB cross-sections) from the manufacturer table whose datum length is closest above your value, and adjust centre distance to suit."}},
+    {"@type": "Question", "name": "What is the difference between belt pitch length and outside length?", "acceptedAnswer": {"@type": "Answer", "text": "Pitch (datum) length is measured at the belt's neutral axis and is what calculations use. Outside length is measured around the belt's outer surface and is longer. Always design with pitch length to match pulley pitch diameters."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>V-belt length calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why it matters</a>
+    <a href="#formula">The formula</a>
+    <a href="#wrap">Wrap angle</a>
+    <a href="#centre">Centre distance</a>
+    <a href="#example">Worked example</a>
+    <a href="#standard">Standard belts</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>V-belt length calculation: <em>get the belt</em> that actually fits.</h1>
+    <div class="art-meta-bar">
+      <span>Design / Power Transmission</span>
+      <span>June 28, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Order a V-belt one size off and the drive either will not tension or runs slack and slips. Here is the belt length formula, how centre distance and wrap angle tie in, and a worked example you can copy straight onto the drive sheet.</p>
+
+    <h2 id="why">Why V-belt length calculation matters</h2>
+    <p>V-belts are the workhorse of plant power transmission &mdash; fans, pumps, compressors, machine tools. The belt length sets the centre distance between pulleys, and the centre distance sets the wrap angle, which decides how much power the drive can actually transmit before it slips. Get the length wrong and you are back to the stores counter, or worse, nursing a belt that squeals and burns out in weeks.</p>
+    <p>The good news: belt length is pure geometry. Two pulley diameters and a centre distance give you everything.</p>
+
+    <h2 id="formula">The V-belt length formula</h2>
+    <p>For an open belt drive (the normal case, both pulleys turning the same way), the pitch length is:</p>
+    <div class="callout">
+      <strong>Belt pitch length</strong>
+      L = 2C + (&pi;/2)(D + d) + (D &minus; d)&sup2; / (4C)<br>
+      where C = centre distance, D = large pulley pitch diameter, d = small pulley pitch diameter (all same units).
+    </div>
+    <p>The first term is the two straight runs, the second wraps the belt around both pulleys, and the third corrects for the difference in pulley sizes. Always use <strong>pitch (datum) diameters</strong>, not the outside diameter you measure with a tape &mdash; the belt's load-carrying cords sit on the pitch line.</p>
+
+    <h2 id="wrap">Wrap angle (arc of contact)</h2>
+    <p>Wrap angle is how far the belt hugs the smaller pulley. It directly limits grip:</p>
+    <div class="callout">
+      <strong>Wrap angle on small pulley</strong>
+      &theta; &asymp; 180&deg; &minus; 60(D &minus; d) / C
+    </div>
+    <p>Keep &theta; above about <strong>120&deg;</strong>; closer to 180&deg; is better. If the ratio is large and wrap drops too low, increase the centre distance or add an idler. Below 120&deg; you lose so much grip that the belt slips under load no matter how tight you set it.</p>
+
+    <h2 id="centre">Solving for centre distance</h2>
+    <p>In practice you usually pick a standard belt first, then back-solve the centre distance the drive needs:</p>
+    <div class="callout">
+      <strong>Centre distance from belt length</strong>
+      C = [ B + &radic;(B&sup2; &minus; 32(D &minus; d)&sup2;) ] / 16,&nbsp; where B = 4L &minus; 6.28(D + d)
+    </div>
+    <p>A practical sanity check: a good starting centre distance is between (D + 1.5d) and 3(D + d). Too short and wrap suffers; too long and the belt whips and flutters.</p>
+
+    <h2 id="example">A worked example: pump drive</h2>
+    <p>A motor pulley of pitch diameter <strong>d = 120 mm</strong> drives a pump pulley <strong>D = 280 mm</strong>, with a target centre distance <strong>C = 500 mm</strong>.</p>
+    <ol>
+      <li><strong>Straight runs:</strong> 2C = 2 &times; 500 = 1000 mm.</li>
+      <li><strong>Wrap term:</strong> (&pi;/2)(280 + 120) = 1.5708 &times; 400 = 628.3 mm.</li>
+      <li><strong>Correction term:</strong> (280 &minus; 120)&sup2; / (4 &times; 500) = 25,600 / 2000 = 12.8 mm.</li>
+      <li><strong>Pitch length:</strong> L = 1000 + 628.3 + 12.8 = <strong>1641 mm</strong>.</li>
+      <li><strong>Wrap angle:</strong> 180 &minus; 60(160)/500 = 180 &minus; 19.2 = <strong>160.8&deg;</strong> &mdash; healthy.</li>
+    </ol>
+    <p>You would now pick the nearest standard belt &mdash; an SPA 1650 (datum length 1650 mm) is the closest above 1641 mm. Re-solving for C with L = 1650 nudges the centre distance to about 504.5 mm, well within the adjustment range of a normal motor slide rail.</p>
+
+    <div class="callout">
+      <strong>Skip the arithmetic</strong>
+      MetricMech's free <a href="../calculators/v-belt.html">V-Belt Length Calculator</a> takes the two pulley diameters and centre distance and returns pitch length and wrap angle instantly &mdash; then helps you pick the nearest standard belt.
+    </div>
+
+    <h2 id="standard">Choosing a standard belt section</h2>
+    <table>
+      <tr><th>Section</th><th>Top width</th><th>Typical use</th></tr>
+      <tr><td>Z / SPZ</td><td>10 mm</td><td>Light fractional drives</td></tr>
+      <tr><td>A / SPA</td><td>13 mm</td><td>Pumps, fans up to ~4 kW</td></tr>
+      <tr><td>B / SPB</td><td>17 mm</td><td>General industrial, 4&ndash;30 kW</td></tr>
+      <tr><td>C / SPC</td><td>22 mm</td><td>Heavy drives, compressors</td></tr>
+    </table>
+    <p>Wedge (SP) sections carry more power per belt than classical (Z/A/B/C) for the same width, so they are preferred on new designs. Match the section to the calculated power per belt and the small pulley diameter from the manufacturer's selection chart.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Using outside diameter instead of pitch diameter.</strong> Overstates length and throws off tension.</li>
+      <li><strong>Ignoring wrap angle.</strong> A correct length with 100&deg; wrap still slips under load.</li>
+      <li><strong>No tensioning allowance.</strong> Pick a slide-rail range so you can take up belt stretch and fit/remove belts.</li>
+      <li><strong>Mixing belt and pulley sections.</strong> An A-section belt in a B-section groove rides wrong and wears fast.</li>
+    </ul>
+
+    <p>If the V-belt drives a pump, size the motor with our <a href="../articles/pump-power-calculation.html">pump power calculation</a>; for a gear-reduction stage instead of a belt, see the <a href="../articles/spur-gear-calculation.html">spur gear calculation</a> guide.</p>
+
+    <div class="warn-box">
+      <strong>Tension is a separate step</strong>
+      Belt length and wrap tell you the geometry, not the correct installed tension. Always set tension by force-deflection or frequency method per the manufacturer spec after fitting &mdash; over-tensioning kills bearings, under-tensioning slips and overheats the belt.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the formula for V-belt length?</h3>
+    <p>L = 2C + (&pi;/2)(D + d) + (D &minus; d)&sup2; / (4C), using pulley pitch diameters and centre distance C. Round up to the nearest standard belt.</p>
+    <h3>How do I find centre distance from a belt length?</h3>
+    <p>Rearrange the length formula: C = [B + &radic;(B&sup2; &minus; 32(D&minus;d)&sup2;)]/16 with B = 4L &minus; 6.28(D + d).</p>
+    <h3>What wrap angle is acceptable?</h3>
+    <p>Keep the small-pulley wrap above about 120&deg;; nearer 180&deg; gives the most grip and power capacity.</p>
+    <h3>Pitch length or outside length?</h3>
+    <p>Always design with pitch (datum) length, measured at the belt neutral axis, to match pulley pitch diameters.</p>
+
+    <div class="callout">
+      <strong>Working from a drive layout drawing?</strong>
+      Open the STEP/IGES model and balloon the GA drawing online with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> (Smart Detect + Box+Balloon OCR) to pull pulley dimensions and centre distances straight into an inspection sheet.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/v-belt.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">V-Belt Length Calculator</a>
+      <a href="../articles/pump-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump power calculation</a>
+      <a href="../articles/spur-gear-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Spur gear calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
