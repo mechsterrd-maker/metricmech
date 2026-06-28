@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gear Ratio Calculation: Speed, Torque & Teeth | MetricMech</title>
+<meta name="description" content="Gear ratio calculation made simple: the tooth-count formula, how speed and torque trade off, module and centre distance, with a worked 5:1 example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/gear-ratio-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gear Ratio Calculation: Speed, Torque and Tooth Count | MetricMech">
+<meta property="og:description" content="Gear ratio calculation made simple: the tooth-count formula, how speed and torque trade off, module and centre distance, with a worked 5:1 example.">
+<meta property="og:url" content="https://metricmech.com/articles/gear-ratio-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gear Ratio Calculation: Speed, Torque & Teeth | MetricMech">
+<meta name="twitter:description" content="Gear ratio calculation made simple: the tooth-count formula, how speed and torque trade off, module and centre distance, with a worked 5:1 example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Gear Ratio Calculation: Speed, Torque and Tooth Count",
+  "description": "Gear ratio calculation made simple: the tooth-count formula, how speed and torque trade off, module and centre distance, with a worked 5:1 example.",
+  "url": "https://metricmech.com/articles/gear-ratio-calculation",
+  "mainEntityOfPage": "https://metricmech.com/articles/gear-ratio-calculation",
+  "datePublished": "2026-06-28",
+  "keywords": [
+    "gear ratio calculation",
+    "gear ratio formula",
+    "gear torque speed",
+    "module centre distance",
+    "tooth count",
+    "gearbox ratio"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you calculate gear ratio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide the number of teeth on the driven gear by the number of teeth on the driver gear. A 60-tooth gear driven by a 20-tooth pinion has a ratio of 60 over 20 equals 3, written 3:1. The same value equals input speed divided by output speed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a higher gear ratio mean more torque?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A higher reduction ratio multiplies torque by that ratio, minus efficiency losses, while dividing output speed by the same ratio. A 5:1 reduction gives roughly five times the input torque at one-fifth the speed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find the centre distance between two gears?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Centre distance equals the module multiplied by the sum of the two tooth counts, divided by two: a = m times (N1 + N2) over 2. For module 2 with 20 and 60 teeth, that is 80 mm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why must meshing gears share the same module?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Module sets the tooth size, the pitch diameter per tooth. Two gears with different modules have differently sized teeth that cannot engage correctly, regardless of their tooth counts."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Gear ratio calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What gear ratio means</a>
+    <a href="#formula">The formula</a>
+    <a href="#torque">Torque and speed</a>
+    <a href="#module">Module and centre distance</a>
+    <a href="#example">Worked example</a>
+    <a href="#table">Quick reference</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Gear ratio calculation: <em>speed, torque and tooth count</em></h1>
+    <div class="art-meta-bar">
+      <span>Design / Power Transmission</span>
+      <span>June 28, 2026</span>
+      <span>10 min read</span>
+      <span>1,600 words</span>
+    </div>
+
+    <p class="lede">Gear ratio is the one number that links motor speed to output speed and input torque to output torque. Once you can count teeth and read it both ways, sizing a drive — gearbox, chain, or belt — stops being guesswork.</p>
+
+    <h2 id="what">What gear ratio actually means</h2>
+    <p>A gear ratio is simply the ratio of the driven (output) gear's tooth count to the driver (input) gear's tooth count. A ratio of 3:1 means the output shaft turns once for every three turns of the input — it runs a third of the speed and, ignoring losses, delivers three times the torque. That trade is the whole point of a gearbox: you buy torque with speed, or speed with torque.</p>
+
+    <h2 id="formula">The gear ratio formula</h2>
+    <div class="callout">
+      <strong>Gear ratio i = N<sub>driven</sub> / N<sub>driver</sub> = ω<sub>in</sub> / ω<sub>out</sub></strong>
+      N = number of teeth, ω = rotational speed. A pinion of 20 teeth driving a 60-tooth gear gives i = 60 / 20 = 3, a 3:1 reduction.
+    </div>
+    <p>Because meshing gears share the same module, tooth count is proportional to pitch diameter — so you can equally write the ratio as the ratio of the two pitch diameters. For a multi-stage gearbox, the total ratio is the product of the individual stage ratios: a 4:1 stage feeding a 5:1 stage gives 20:1 overall.</p>
+
+    <h2 id="torque">Speed down, torque up</h2>
+    <p>The two consequences of a reduction ratio follow directly:</p>
+    <div class="callout">
+      <strong>ω<sub>out</sub> = ω<sub>in</sub> / i &nbsp;&nbsp; T<sub>out</sub> = T<sub>in</sub> · i · η</strong>
+      η is the gearbox efficiency (≈ 0.96–0.98 per spur stage, lower for worm drives). Torque is multiplied by the ratio, then trimmed by losses.
+    </div>
+    <p>This is why a small, fast, cheap motor plus a reduction gearbox often beats a large, slow, direct-drive motor: you generate power where it is efficient and convert it to torque where you need it.</p>
+
+    <h2 id="module">Module, pitch and centre distance</h2>
+    <p>Two gears only mesh if they share the same <strong>module</strong> (m), the millimetres of pitch diameter per tooth. Pitch diameter d = m · N. From there the centre distance between two meshing gears is:</p>
+    <div class="callout">
+      <strong>Centre distance a = m · (N<sub>1</sub> + N<sub>2</sub>) / 2</strong>
+      With module 2 mm, a 20-tooth pinion and 60-tooth gear sit a = 2 × (20 + 60) / 2 = 80 mm apart.
+    </div>
+    <p>Mismatch the module and the teeth simply will not engage — a surprisingly common error when mixing gears from two suppliers.</p>
+
+    <h2 id="example">Worked example</h2>
+    <p>A 1450 rpm motor delivering 10 N·m must drive a conveyor head shaft at about 290 rpm.</p>
+    <ol>
+      <li><strong>Required ratio:</strong> i = 1450 / 290 = <strong>5:1</strong></li>
+      <li><strong>Tooth counts:</strong> a 20-tooth pinion needs a 20 × 5 = <strong>100-tooth</strong> gear</li>
+      <li><strong>Output torque:</strong> T<sub>out</sub> = 10 × 5 × 0.97 = <strong>48.5 N·m</strong></li>
+      <li><strong>Centre distance (module 2):</strong> a = 2 × (20 + 100) / 2 = <strong>120 mm</strong></li>
+    </ol>
+    <p>So a single 5:1 spur stage turns a 10 N·m, 1450 rpm motor into a 48.5 N·m, 290 rpm output — exactly the conveyor duty, with the gearbox footprint set by the 120 mm centre distance.</p>
+
+    <div class="warn-box">
+      <strong>Efficiency is not optional for worm drives</strong>
+      Spur and helical stages are 96–98% efficient, so ignoring losses is a small error. A worm gearbox can be 50–90% efficient depending on lead angle — there, the η term dominates and skipping it will badly oversize the downstream torque estimate.
+    </div>
+
+    <h2 id="table">Quick reference: common ratios</h2>
+    <table>
+      <tr><th>Pinion teeth</th><th>Gear teeth</th><th>Ratio</th><th>Output speed (1450 rpm in)</th></tr>
+      <tr><td>20</td><td>40</td><td>2:1</td><td>725 rpm</td></tr>
+      <tr><td>20</td><td>60</td><td>3:1</td><td>483 rpm</td></tr>
+      <tr><td>20</td><td>100</td><td>5:1</td><td>290 rpm</td></tr>
+      <tr><td>15</td><td>150</td><td>10:1</td><td>145 rpm</td></tr>
+      <tr><td>12</td><td>240</td><td>20:1</td><td>72.5 rpm</td></tr>
+    </table>
+    <p>Run any combination — tooth count, module, centre distance and torque — through the <a href="../calculators/gear-calculator.html">gear ratio calculator</a> to skip the arithmetic.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Inverting the ratio.</strong> Driven over driver gives reduction; flipping it gives an overdrive you did not intend.</li>
+      <li><strong>Mixing modules.</strong> Two gears of different module will not mesh, whatever their tooth counts.</li>
+      <li><strong>Ignoring worm efficiency.</strong> A 70% worm drive delivers far less output torque than the ratio alone suggests.</li>
+      <li><strong>Forgetting multi-stage multiplication.</strong> Total ratio is the product of stages, not the sum.</li>
+      <li><strong>Too few pinion teeth.</strong> Below about 17 teeth, standard 20° involute gears undercut and weaken unless profile-shifted.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Sizing the motor behind the gearbox?</strong>
+      Once you know the output torque and speed, the <a href="../articles/motor-power-calculation.html">motor power calculation</a> guide turns it into a kW rating. If your drive uses belts instead of gears, the <a href="../articles/bend-allowance-k-factor.html">sheet-metal guards</a> around the drive still need accurate flat patterns.
+    </div>
+
+    <p>If you are procuring cut gears against a drawing, balloon the tooth, bore and runout callouts before sending the print to a vendor so the FAI is unambiguous. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers every GD&T callout on a PDF gear drawing in the browser, and you can log the measured results on a ready <a href="../templates.html">inspection template</a>.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>How do you calculate gear ratio?</h3>
+    <p>Divide the number of teeth on the driven gear by the number of teeth on the driver gear. A 60-tooth gear driven by a 20-tooth pinion has a ratio of 60 / 20 = 3, written 3:1. The same value equals the ratio of input speed to output speed.</p>
+    <h3>Does a higher gear ratio mean more torque?</h3>
+    <p>Yes. A higher reduction ratio multiplies torque by that ratio (minus efficiency losses) while dividing output speed by the same ratio. A 5:1 reduction gives roughly five times the input torque at one-fifth the speed.</p>
+    <h3>How do I find the centre distance between two gears?</h3>
+    <p>Centre distance equals the module multiplied by the sum of the two tooth counts, divided by two: a = m · (N1 + N2) / 2. For module 2 with 20 and 60 teeth, that is 80 mm.</p>
+    <h3>Why must meshing gears share the same module?</h3>
+    <p>Module sets the tooth size — the pitch diameter per tooth. Two gears with different modules have differently sized teeth that cannot engage correctly, regardless of their tooth counts.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa — 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gear-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gear Ratio Calculator</a>
+      <a href="../articles/motor-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Motor Power Calculation</a>
+      <a href="../articles/pump-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump Power Calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

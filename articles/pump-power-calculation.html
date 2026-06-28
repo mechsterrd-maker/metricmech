@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pump Power Calculation: Hydraulic, Shaft & Motor kW | MetricMech</title>
+<meta name="description" content="Pump power calculation: hydraulic, shaft and motor kW formulas, a worked 50 m3/h example, a sizing table, and the mistakes that overload motors." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/pump-power-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pump Power Calculation: Hydraulic, Shaft and Motor Power | MetricMech">
+<meta property="og:description" content="Pump power calculation: hydraulic, shaft and motor kW formulas, a worked 50 m3/h example, a sizing table, and the mistakes that overload motors.">
+<meta property="og:url" content="https://metricmech.com/articles/pump-power-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pump Power Calculation: Hydraulic, Shaft & Motor kW | MetricMech">
+<meta name="twitter:description" content="Pump power calculation: hydraulic, shaft and motor kW formulas, a worked 50 m3/h example, a sizing table, and the mistakes that overload motors.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pump Power Calculation: Hydraulic, Shaft and Motor Power",
+  "description": "Pump power calculation: hydraulic, shaft and motor kW formulas, a worked 50 m3/h example, a sizing table, and the mistakes that overload motors.",
+  "url": "https://metricmech.com/articles/pump-power-calculation",
+  "mainEntityOfPage": "https://metricmech.com/articles/pump-power-calculation",
+  "datePublished": "2026-06-28",
+  "keywords": [
+    "pump power calculation",
+    "pump power formula",
+    "hydraulic power",
+    "shaft power",
+    "pump motor sizing",
+    "centrifugal pump kW"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula for pump power?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hydraulic power in kW equals rho times g times Q times H divided by 1000, where rho is density in kg/m3, g is 9.81, Q is flow in m3/s and H is total head in metres. For water with flow in m3/h it simplifies to Q times H divided by 367. Shaft power is hydraulic power divided by pump efficiency, and motor power adds drive losses and a margin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between hydraulic, shaft and motor power?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hydraulic power is the useful power delivered to the fluid. Shaft or brake power is higher because it includes pump losses. Motor power is higher still because it includes drive-transmission losses plus a service margin so the motor never runs fully loaded."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I size a pump motor in kW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Calculate hydraulic power, divide by pump efficiency for shaft power, divide by drive efficiency, multiply by a 1.15 to 1.25 margin, then round up to the next standard IEC motor size such as 5.5, 7.5 or 11 kW."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does fluid density change pump power?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Power is directly proportional to density. The Q times H over 367 shortcut assumes water near 1000 kg/m3; for slurry, brine or oil use the full formula with the real density, which can raise power by 30% or more."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Pump power calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why it matters</a>
+    <a href="#hydraulic">Hydraulic power</a>
+    <a href="#shaft">Shaft power</a>
+    <a href="#motor">Motor power</a>
+    <a href="#example">Worked example</a>
+    <a href="#table">Quick reference</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Pump power calculation: <em>hydraulic, shaft and motor power</em></h1>
+    <div class="art-meta-bar">
+      <span>Production / Utilities</span>
+      <span>June 28, 2026</span>
+      <span>10 min read</span>
+      <span>1,600 words</span>
+    </div>
+
+    <p class="lede">Sizing a pump motor is three calculations, not one: the hydraulic power the fluid actually needs, the shaft power after pump losses, and the motor rating after drive losses and a margin. Get the order wrong and you either trip the overload or pay for an oversized motor for 20 years.</p>
+
+    <h2 id="why">Why pump power calculation matters</h2>
+    <p>A pump that is undersized cannot hold the duty point and runs hot. A pump that is oversized runs throttled, wastes energy, and shortens seal life. In a plant running a 7.5 kW pump 6,000 hours a year, a single efficiency point is worth roughly ₹30,000 a year in electricity. The calculation below is the difference between a motor that lasts and one that fights its own curve.</p>
+
+    <h2 id="hydraulic">Step 1 — Hydraulic (water) power</h2>
+    <p>Hydraulic power is the useful power delivered to the fluid. It depends only on flow, head and fluid density:</p>
+    <div class="callout">
+      <strong>P<sub>hyd</sub> (kW) = ρ · g · Q · H / 1000</strong>
+      ρ = density (kg/m³), g = 9.81 m/s², Q = flow (m³/s), H = total head (m). For water (ρ = 1000) with flow in m³/h, this simplifies to P<sub>hyd</sub> (kW) = Q · H / 367.
+    </div>
+    <p>Total head H is the sum of static lift, friction losses and any pressure head at the discharge — not just the height you are pumping to. Underestimating friction loss is the most common reason a "correctly sized" pump misses its duty point.</p>
+
+    <h2 id="shaft">Step 2 — Shaft (brake) power</h2>
+    <p>The pump is not 100% efficient, so the shaft must deliver more than the hydraulic power. Divide by pump efficiency:</p>
+    <div class="callout">
+      <strong>P<sub>shaft</sub> = P<sub>hyd</sub> / η<sub>pump</sub></strong>
+      η<sub>pump</sub> typically 0.55–0.80 for centrifugal pumps depending on size and specific speed. Small pumps sit at the low end.
+    </div>
+    <p>This shaft power is what you would read on a brake test — hence "brake horsepower" (BHP). Always size the shaft from the worst-case duty point, not the rated point on the nameplate.</p>
+
+    <h2 id="motor">Step 3 — Motor power and margin</h2>
+    <p>The motor must cover the shaft power plus transmission losses, then carry a service margin so it never runs at 100% load:</p>
+    <div class="callout">
+      <strong>P<sub>motor</sub> = (P<sub>shaft</sub> / η<sub>drive</sub>) × SF</strong>
+      η<sub>drive</sub> ≈ 1.0 for a direct-coupled pump, ~0.95 for belt drive. SF = service-factor margin, typically 1.15–1.25, then round up to the next standard frame.
+    </div>
+    <p>Standard IEC motor sizes (kW) are 0.37, 0.55, 0.75, 1.1, 1.5, 2.2, 3, 4, 5.5, 7.5, 11, 15, 18.5, 22 and so on. Always round <em>up</em> to the next standard size.</p>
+
+    <h2 id="example">Worked example</h2>
+    <p>Pumping water, Q = 50 m³/h, total head H = 30 m, centrifugal pump η = 70%, direct coupled.</p>
+    <ol>
+      <li><strong>Hydraulic power:</strong> P<sub>hyd</sub> = 50 × 30 / 367 = <strong>4.09 kW</strong></li>
+      <li><strong>Shaft power:</strong> 4.09 / 0.70 = <strong>5.84 kW</strong></li>
+      <li><strong>Motor power:</strong> 5.84 / 1.0 × 1.2 = 7.01 kW → round up to a <strong>7.5 kW</strong> motor</li>
+    </ol>
+    <p>Skip the efficiency steps and you would wrongly pick a 5.5 kW motor that trips under load. Add too much margin and you would pay for an 11 kW frame that runs at half load and poor power factor.</p>
+
+    <div class="warn-box">
+      <strong>Density is not always 1000</strong>
+      The Q · H / 367 shortcut is for water at ~20 °C. For brine, slurry, oil or hot water, go back to the full formula with the real density. Pumping a 1300 kg/m³ slurry needs 30% more power than the water shortcut predicts.
+    </div>
+
+    <h2 id="table">Quick reference: motor size by duty</h2>
+    <p>Indicative direct-coupled motor sizes for water, pump efficiency 70%, 20% margin:</p>
+    <table>
+      <tr><th>Flow (m³/h)</th><th>Head (m)</th><th>Hydraulic kW</th><th>Motor size</th></tr>
+      <tr><td>10</td><td>20</td><td>0.55</td><td>1.1 kW</td></tr>
+      <tr><td>25</td><td>25</td><td>1.70</td><td>3 kW</td></tr>
+      <tr><td>50</td><td>30</td><td>4.09</td><td>7.5 kW</td></tr>
+      <tr><td>100</td><td>40</td><td>10.9</td><td>18.5 kW</td></tr>
+      <tr><td>200</td><td>50</td><td>27.2</td><td>45 kW</td></tr>
+    </table>
+    <p>Use these as a sanity check only — your real duty point, fluid and pump curve decide the final size. Run your own numbers in the <a href="../calculators/pump-power.html">pump power calculator</a> to get hydraulic, shaft and motor power in one screen.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Using static lift as total head.</strong> Friction and discharge pressure can double the head on a long pipe run.</li>
+      <li><strong>Forgetting the efficiency division.</strong> Hydraulic power is not motor power — pump and drive losses are real.</li>
+      <li><strong>Assuming water density for every fluid.</strong> Slurry, oil and hot water change the answer.</li>
+      <li><strong>Sizing at the rated point, not the worst case.</strong> The system runs at the duty point, which may be off the best-efficiency point.</li>
+      <li><strong>No service margin.</strong> A motor at 100% load has no headroom for voltage dips or fouling.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Sizing the motor, not the pump?</strong>
+      If you already have the shaft power and just need the electrical side — full-load current, kW to HP, power factor — use the companion <a href="../articles/motor-power-calculation.html">motor power calculation</a> guide. For the mechanical side of a driven shaft, the <a href="../articles/beam-deflection.html">beam deflection</a> reference helps check baseplate stiffness.
+    </div>
+
+    <p>One more practical note for anyone procuring pumps against a drawing: before you release the casting or impeller for machining, balloon the GD&T on the print so inspection is unambiguous. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns a PDF pump drawing into a numbered inspection sheet in the browser — handy when you are qualifying a new vendor. You can also grab a ready <a href="../templates.html">inspection template</a> to record the results.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the formula for pump power?</h3>
+    <p>Hydraulic power in kW equals ρ · g · Q · H / 1000, where ρ is fluid density in kg/m³, g is 9.81 m/s², Q is flow in m³/s and H is total head in metres. For water with flow in m³/h, it simplifies to Q · H / 367. Shaft power is hydraulic power divided by pump efficiency, and motor power adds drive losses and a margin.</p>
+    <h3>What is the difference between hydraulic, shaft and motor power?</h3>
+    <p>Hydraulic power is the useful power delivered to the fluid. Shaft (brake) power is higher because it includes pump losses. Motor power is higher still because it includes drive-transmission losses plus a service margin so the motor never runs fully loaded.</p>
+    <h3>How do I size a pump motor in kW?</h3>
+    <p>Calculate hydraulic power, divide by pump efficiency to get shaft power, divide by drive efficiency, multiply by a 1.15–1.25 margin, then round up to the next standard IEC motor size such as 5.5, 7.5 or 11 kW.</p>
+    <h3>Does fluid density change pump power?</h3>
+    <p>Yes. Power is directly proportional to density. The Q · H / 367 shortcut assumes water at about 1000 kg/m³; for slurry, brine or oil use the full formula with the actual density, which can raise the required power by 30% or more.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa — 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/pump-power.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump Power Calculator</a>
+      <a href="../articles/motor-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Motor Power Calculation</a>
+      <a href="../articles/beam-deflection.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Beam Deflection Guide</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
