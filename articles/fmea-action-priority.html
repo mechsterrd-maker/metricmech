@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech</title>
+<meta name="description" content="Action Priority (AP) replaced RPN in AIAG-VDA FMEA. Learn the High/Medium/Low AP logic, why RPN failed, a worked example and a free FMEA calculator." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/fmea-action-priority">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech">
+<meta property="og:description" content="Action Priority (AP) replaced RPN in AIAG-VDA FMEA. Learn the High/Medium/Low AP logic, why RPN failed, a worked example and a free FMEA calculator.">
+<meta property="og:url" content="https://metricmech.com/articles/fmea-action-priority">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech">
+<meta name="twitter:description" content="Action Priority (AP) replaced RPN in AIAG-VDA FMEA. Learn the High/Medium/Low AP logic, why RPN failed, a worked example and a free FMEA calculator.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech",
+    "description": "Action Priority (AP) replaced RPN in AIAG-VDA FMEA. Learn the High/Medium/Low AP logic, why RPN failed, a worked example and a free FMEA calculator.",
+    "url": "https://metricmech.com/articles/fmea-action-priority",
+    "mainEntityOfPage": "https://metricmech.com/articles/fmea-action-priority",
+    "author": {
+      "@type": "Person",
+      "name": "Rajadurai R",
+      "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MetricMech",
+      "url": "https://metricmech.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://metricmech.com/icons/icon-512.png"
+      }
+    },
+    "datePublished": "2026-06-29"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is RPN still used in FMEA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 2019 AIAG-VDA FMEA Handbook replaced RPN with Action Priority. Many customers still ask for RPN during the transition, so suppliers often report both, but AP is the current method for prioritising action."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Action Priority in FMEA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Action Priority (AP) is a High/Medium/Low risk ranking read from a fixed AIAG-VDA table covering all combinations of Severity, Occurrence and Detection. It weights Severity first, then Occurrence, then Detection."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is AP different from RPN?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RPN multiplies S, O and D into one number so different risks can share a value and thresholds are arbitrary. AP looks up the actual S/O/D combination and prioritises Severity, avoiding the low-RPN trap for high-severity failures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to recalculate my FMEA for AP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Re-rate S, O and D against the AIAG-VDA tables, then read AP from the Action Priority table. You can keep RPN alongside it during a transition period."
+        }
+      }
+    ]
+  }
+]
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>FMEA Action Priority</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#shift">RPN to AP</a>
+    <a href="#why">Why RPN failed</a>
+    <a href="#how">How AP works</a>
+    <a href="#example">Worked example</a>
+    <a href="#transition">Transitioning</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>FMEA Action Priority: <em>AIAG-VDA AP tables vs the old RPN.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality / FMEA</span>
+      <span>June 29, 2026</span>
+      <span>10 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">The 2019 AIAG-VDA FMEA Handbook quietly retired the Risk Priority Number. In its place is Action Priority (AP) — a High / Medium / Low ranking from a fixed lookup table. If your audits still chase RPN above 100, you are working to a superseded method. Here is what changed and how to apply AP.</p>
+
+    <h2 id="shift">From RPN to Action Priority</h2>
+    <p>For decades, FMEA risk was ranked by the <strong>Risk Priority Number</strong>: RPN = Severity &times; Occurrence &times; Detection, each rated 1–10, giving 1–1000. Teams set a threshold (often 100 or 125) and actioned anything above it. The joint <strong>AIAG-VDA FMEA Handbook (1st edition, 2019)</strong> replaced RPN with <strong>Action Priority (AP)</strong>, which classifies every failure mode as High, Medium or Low using a defined table of all 1,000 S/O/D combinations.</p>
+
+    <h2 id="why">Why RPN was abandoned</h2>
+    <ul>
+      <li><strong>Different risks, same number.</strong> S=10, O=2, D=5 gives RPN 100. So does S=2, O=10, D=5. The first is a safety hazard you ship rarely; the second is a nuisance you ship constantly. RPN treats them as equal — they are not.</li>
+      <li><strong>Arbitrary thresholds.</strong> A cut-off of 100 means RPN 99 needs no action and 100 does, despite no real difference. Worse, a high-severity item with low O and D can score below the threshold and be ignored.</li>
+      <li><strong>Severity not weighted.</strong> Multiplication lets good detection mask a deadly failure. AP deliberately weights Severity first, then Occurrence, then Detection.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>The dangerous low-RPN trap</strong>
+      A failure with Severity 9 (safety, regulatory), Occurrence 2 and Detection 2 gives RPN 36 — well under a 100 threshold, so RPN says "ignore it." The AP table rates the same combination as Medium-to-High because Severity is 9. This is exactly the case RPN got wrong and AP fixes.
+    </div>
+
+    <h2 id="how">How Action Priority works</h2>
+    <p>AP is not a calculation — it is a lookup. You still rate Severity, Occurrence and Detection 1–10 against the AIAG-VDA rating tables, then read the AP (High/Medium/Low) from the Action Priority table. The logic the table encodes:</p>
+    <table>
+      <tr><th>Severity</th><th>Occurrence</th><th>Detection</th><th>Typical AP</th></tr>
+      <tr><td>9–10 (safety/regulatory)</td><td>any &ge; 2</td><td>any</td><td>High</td></tr>
+      <tr><td>9–10</td><td>1</td><td>2–10</td><td>Medium</td></tr>
+      <tr><td>7–8</td><td>moderate–high</td><td>weak detection</td><td>High</td></tr>
+      <tr><td>4–6</td><td>moderate</td><td>moderate</td><td>Medium</td></tr>
+      <tr><td>2–3</td><td>low</td><td>strong</td><td>Low</td></tr>
+    </table>
+    <p>The priority hierarchy is explicit: <strong>Severity dominates, then Occurrence, then Detection</strong>. Two items can never share a priority just because their products match — the table looks at the actual S, O and D values.</p>
+    <p>What each level means for action:</p>
+    <ul>
+      <li><strong>High:</strong> action is required. The team must identify improvement or formally justify and document why no further action is taken.</li>
+      <li><strong>Medium:</strong> action should be taken; justify if not.</li>
+      <li><strong>Low:</strong> action could be taken; no justification required.</li>
+    </ul>
+
+    <h2 id="example">Worked example</h2>
+    <p>A pump shaft seal on an automotive water pump. Failure mode: seal leaks coolant.</p>
+    <table>
+      <tr><th>Rating</th><th>Value</th><th>Rationale</th></tr>
+      <tr><td>Severity</td><td>8</td><td>Coolant loss, engine overheat, vehicle disabled</td></tr>
+      <tr><td>Occurrence</td><td>4</td><td>Seen occasionally with current seal supplier</td></tr>
+      <tr><td>Detection</td><td>6</td><td>End-of-line leak test catches most, not all</td></tr>
+    </table>
+    <p><strong>Old RPN:</strong> 8 &times; 4 &times; 6 = 192. Above a 100 threshold &rarr; "action," but the number tells you nothing about why.</p>
+    <p><strong>New AP:</strong> with Severity 8 and moderate Occurrence and weak Detection, the AIAG-VDA table returns <strong>High</strong>. The team must act — improve the seal design or strengthen the leak test — and record the decision. AP also makes the driver obvious: detection (6) is the weakest link, so a better leak test is the first lever.</p>
+
+    <div class="callout">
+      <strong>Rate it once, get AP and RPN</strong>
+      MetricMech's free <a href="../calculators/fmea-rpn.html">FMEA RPN &amp; Action Priority calculator</a> takes your S/O/D ratings and returns both the legacy RPN and the AIAG-VDA AP level, so you can run mixed audits during the transition.
+    </div>
+
+    <h2 id="transition">Transitioning from RPN to AP</h2>
+    <p>If your control plans and customer forms still demand RPN, you do not have to choose — record both. Many Indian Tier-1 and Tier-2 suppliers run a transition period where the FMEA shows S, O, D, RPN and AP side by side. Steps:</p>
+    <ol>
+      <li>Re-rate S, O, D against the AIAG-VDA tables (the scales changed from the old AIAG 4th edition).</li>
+      <li>Read AP from the Action Priority table.</li>
+      <li>Sort and action by AP (High first), not by descending RPN.</li>
+      <li>Document the rationale for every High and Medium where no action is taken.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Close the loop with inspection</strong>
+      High-AP characteristics usually become special/critical characteristics on the control plan and the inspection drawing. Balloon those features and build the inspection sheet fast with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a>, then keep them in your <a href="../articles/control-plan-template.html">control plan</a>.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Still ranking by RPN.</strong> Sorting the FMEA by RPN descending re-introduces every flaw AP was designed to remove.</li>
+      <li><strong>Reusing old rating scales.</strong> The AIAG-VDA S/O/D tables differ from the AIAG 4th edition; rating to the old scale gives the wrong AP.</li>
+      <li><strong>Skipping the rationale.</strong> AP requires documented justification when a High or Medium item is left without action — a frequent audit finding.</li>
+      <li><strong>Chasing the AP number, not the cause.</strong> AP sets priority; the value comes from fixing the dominant S, O or D driver.</li>
+    </ol>
+
+    <p>For the cost case behind acting on high-risk failures, see <a href="../articles/cost-of-poor-quality.html">cost of poor quality</a>, and pull a ready FMEA worksheet from the <a href="../templates.html">templates library</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>Is RPN still used in FMEA?</h3>
+    <p>The 2019 AIAG-VDA FMEA Handbook replaced RPN with Action Priority. Many customers still ask for RPN during the transition, so suppliers often report both, but AP is the current method for prioritising action.</p>
+    <h3>What is Action Priority in FMEA?</h3>
+    <p>Action Priority (AP) is a High / Medium / Low risk ranking read from a fixed AIAG-VDA table covering all combinations of Severity, Occurrence and Detection. It weights Severity first, then Occurrence, then Detection.</p>
+    <h3>How is AP different from RPN?</h3>
+    <p>RPN multiplies S, O and D into one number, so different risks can share a value and thresholds are arbitrary. AP looks up the actual S/O/D combination and prioritises Severity, avoiding the low-RPN trap for high-severity failures.</p>
+    <h3>Do I need to recalculate my FMEA for AP?</h3>
+    <p>Re-rate S, O and D against the AIAG-VDA tables (the scales changed), then read AP from the Action Priority table. You can keep RPN alongside it during a transition period.</p>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/fmea-rpn.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">FMEA RPN &amp; AP Calculator</a>
+      <a href="../articles/fmea-rpn-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">RPN Calculation Guide</a>
+      <a href="../articles/control-plan-template.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Control Plan Template</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

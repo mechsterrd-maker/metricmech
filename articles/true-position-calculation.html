@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>True Position Calculation: Formula & Worked Example | MetricMech</title>
+<meta name="description" content="True position formula explained: 2 x sqrt(dx^2+dy^2), with a worked example, the diameter tolerance zone, MMC bonus tolerance and a free calculator." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/true-position-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="True Position Calculation: Formula & Worked Example | MetricMech">
+<meta property="og:description" content="True position formula explained: 2 x sqrt(dx^2+dy^2), with a worked example, the diameter tolerance zone, MMC bonus tolerance and a free calculator.">
+<meta property="og:url" content="https://metricmech.com/articles/true-position-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="True Position Calculation: Formula & Worked Example | MetricMech">
+<meta name="twitter:description" content="True position formula explained: 2 x sqrt(dx^2+dy^2), with a worked example, the diameter tolerance zone, MMC bonus tolerance and a free calculator.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "True Position Calculation: Formula & Worked Example | MetricMech",
+    "description": "True position formula explained: 2 x sqrt(dx^2+dy^2), with a worked example, the diameter tolerance zone, MMC bonus tolerance and a free calculator.",
+    "url": "https://metricmech.com/articles/true-position-calculation",
+    "mainEntityOfPage": "https://metricmech.com/articles/true-position-calculation",
+    "author": {
+      "@type": "Person",
+      "name": "Rajadurai R",
+      "jobTitle": "Founder, MetricMech — 14 years plant-head experience"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MetricMech",
+      "url": "https://metricmech.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://metricmech.com/icons/icon-512.png"
+      }
+    },
+    "datePublished": "2026-06-29"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the true position formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "True position = 2 x sqrt(dX^2 + dY^2), where dX and dY are the deviations of the actual feature centre from its basic location. The factor of 2 turns the radial error into the diameter of the tolerance zone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is true position a diameter and not a radius?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Position tolerance defines a cylindrical zone, so it is specified as a diameter. The measured radial deviation is doubled to express it on the same diameter basis as the drawing callout."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does MMC give bonus tolerance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under Maximum Material Condition the feature gains extra position tolerance equal to its departure from MMC. For a hole, bonus = actual size minus MMC size, added to the stated position tolerance."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I check true position with calipers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only roughly. Position relative to a datum reference frame is best verified on a CMM or with a functional gauge, because the part must be located on its datums in the correct order."
+        }
+      }
+    ]
+  }
+]
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>True position calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What is true position</a>
+    <a href="#formula">The formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#zone">Why a diameter zone</a>
+    <a href="#mmc">MMC bonus tolerance</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>True position calculation: the <em>formula, worked example and bonus tolerance.</em></h1>
+    <div class="art-meta-bar">
+      <span>GD&amp;T / Inspection</span>
+      <span>June 29, 2026</span>
+      <span>10 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Position tolerance is the most-used GD&amp;T control on any drawing with holes, and the one people get wrong most often. The maths is simple once you see it: true position equals twice the radial deviation from the basic location. Here is the formula, a fully worked example, and how Maximum Material Condition adds bonus tolerance.</p>
+
+    <h2 id="what">What is true position?</h2>
+    <p>"True position" is the exact, theoretically perfect location of a feature, defined by <strong>basic dimensions</strong> (the boxed numbers on the drawing). The position tolerance is a cylindrical zone, centred on that true position, within which the actual feature axis must lie. Per <strong>ASME Y14.5-2018</strong> (and ISO 1101), it is called out in a feature control frame, for example a position symbol with a tolerance of ⌀0.1 referenced to datums A, B and C.</p>
+    <p>The key idea: you do not get a square &plusmn; zone. You get a round zone of diameter equal to the stated tolerance. That round zone is what makes the calculation a radial one.</p>
+
+    <h2 id="formula">The true position formula</h2>
+    <p>Measure how far the actual hole centre deviates from its basic location in X and Y. Call those deviations &Delta;X and &Delta;Y. Then:</p>
+    <div class="callout">
+      <strong>True position = 2 &times; &radic;(&Delta;X&sup2; + &Delta;Y&sup2;)</strong>
+      The factor of 2 converts the radial error (distance from true centre) into a diameter, because the tolerance zone is specified as a diameter.
+    </div>
+    <p>The actual feature passes when:</p>
+    <ul>
+      <li>Calculated true position &le; the stated position tolerance (at RFS), or</li>
+      <li>Calculated true position &le; the stated tolerance + bonus tolerance (at MMC — see below).</li>
+    </ul>
+
+    <h2 id="example">Worked example</h2>
+    <p>A bracket has a hole with a basic location of X = 20.000, Y = 15.000 from datums B and C, and a feature control frame of position ⌀0.10 to A|B|C at RFS. On the CMM the hole axis is measured at X = 20.030, Y = 14.980.</p>
+    <table>
+      <tr><th>Step</th><th>Value</th></tr>
+      <tr><td>&Delta;X = 20.030 &minus; 20.000</td><td>+0.030 mm</td></tr>
+      <tr><td>&Delta;Y = 14.980 &minus; 15.000</td><td>&minus;0.020 mm</td></tr>
+      <tr><td>Radial deviation &radic;(0.030&sup2; + 0.020&sup2;)</td><td>&radic;(0.0009 + 0.0004) = &radic;0.0013 = 0.0361 mm</td></tr>
+      <tr><td>True position = 2 &times; 0.0361</td><td>0.0721 mm</td></tr>
+      <tr><td>Allowed tolerance</td><td>0.100 mm</td></tr>
+      <tr><td>Verdict</td><td>0.0721 &le; 0.100 &rarr; <strong>PASS</strong></td></tr>
+    </table>
+    <p>Note the part passes even though &Delta;X alone (0.030) is within 0.05 — checking X and Y separately against half the tolerance is a common shortcut that gives the wrong answer. You must combine them radially.</p>
+
+    <div class="callout">
+      <strong>Skip the arithmetic</strong>
+      Punch &Delta;X and &Delta;Y straight into MetricMech's free <a href="../calculators/position-tolerance.html">position tolerance calculator</a> and it returns true position, bonus tolerance at MMC, and a pass/fail verdict.
+    </div>
+
+    <h2 id="zone">Why a diameter zone, not a square?</h2>
+    <p>If you used a &plusmn;0.05 square tolerance on X and Y, a hole sitting at the corner of the square would actually be 0.0707 mm from true centre — 41% further than the 0.05 you intended along each axis. The square zone over-rejects good parts at the axes and under-controls at the corners. A cylindrical position zone gives a uniform allowance in every direction, which is why GD&amp;T position replaced co-ordinate tolerancing for hole patterns.</p>
+
+    <h2 id="mmc">MMC bonus tolerance</h2>
+    <p>When the feature control frame carries a circle-M modifier (Maximum Material Condition), the hole earns <strong>bonus tolerance</strong> as it departs from MMC. For a hole, MMC is the smallest allowed diameter. The bonus equals the actual hole size minus the MMC size.</p>
+    <p>Example: hole spec ⌀5.0 +0.10/0, position ⌀0.10 at MMC. MMC size = 5.00 (smallest). If the hole is actually produced at ⌀5.08:</p>
+    <ul>
+      <li>Bonus = 5.08 &minus; 5.00 = 0.08 mm</li>
+      <li>Total position allowance = 0.10 + 0.08 = 0.18 mm</li>
+      <li>The 0.0721 true position from above now has 0.18 of headroom — a comfortable pass.</li>
+    </ul>
+    <p>Bonus tolerance is free manufacturing margin. Ignoring it scraps parts that are perfectly functional. For how MMC interacts with datums and virtual condition, see our companion guide on <a href="../articles/position-tolerance-mmc.html">position tolerance at MMC</a>.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Forgetting the factor of 2.</strong> Reporting the radial deviation (0.0361) instead of the diameter (0.0721) makes a part look twice as good as it is.</li>
+      <li><strong>Treating basic dimensions as toleranced.</strong> Basic dimensions are exact; the tolerance lives only in the position zone, never on the boxed location.</li>
+      <li><strong>Measuring to the wrong datums.</strong> Position is meaningless without setting up the part on the datum reference frame in the stated order (A primary, B secondary, C tertiary).</li>
+      <li><strong>Dropping bonus tolerance.</strong> At MMC, leaving out the bonus over-rejects good holes — costly on high-volume parts.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>From drawing to inspection report</strong>
+      Position callouts have to be ballooned and listed on the FAI sheet before you measure. CadNexa's online tool auto-detects dimensions and GD&amp;T frames and numbers them for you — <a href="https://cadnexa.com/balloon">try CadNexa auto-ballooning</a> to skip the manual marking.
+    </div>
+
+    <p>For the fits that determine the MMC and LMC limits of your holes and pins, see <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances</a>, and grab ready inspection sheets from the <a href="../templates.html">MetricMech templates library</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the true position formula?</h3>
+    <p>True position = 2 &times; &radic;(&Delta;X&sup2; + &Delta;Y&sup2;), where &Delta;X and &Delta;Y are the deviations of the actual feature centre from its basic location. The factor of 2 turns the radial error into the diameter of the tolerance zone.</p>
+    <h3>Why is true position a diameter and not a radius?</h3>
+    <p>Position tolerance defines a cylindrical zone, so it is specified as a diameter. The measured radial deviation is doubled to express it on the same diameter basis as the drawing callout.</p>
+    <h3>How does MMC give bonus tolerance?</h3>
+    <p>Under Maximum Material Condition the feature gains extra position tolerance equal to its departure from MMC. For a hole, bonus = actual size &minus; MMC size, added to the stated position tolerance.</p>
+    <h3>Can I check true position with calipers?</h3>
+    <p>Only roughly. Position relative to a datum reference frame is best verified on a CMM or with a functional gauge, because it requires the part to be located on its datums in the correct order.</p>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/position-tolerance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance Calculator</a>
+      <a href="../articles/position-tolerance-mmc.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Position Tolerance at MMC</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">ISO 286 Fits & Tolerances</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
