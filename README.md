@@ -5,6 +5,12 @@ Calculators · Standards · GD&T · Articles · Templates.
 
 Cross-promotes CadNexa (https://cadnexa.com).
 
+## Links
+- **Live site: [metricmech.com](https://metricmech.com)**
+- Calculators: <https://metricmech.com/calculators>
+- Articles: <https://metricmech.com/articles>
+- Companion tool — auto-ballooning & FAI reports: **[CadNexa](https://cadnexa.com)**
+
 ## Stack
 Static HTML / CSS / JS. No build step. Deploys to Vercel.
 
