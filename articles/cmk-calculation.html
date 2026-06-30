@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cmk Calculation: Machine Capability Index Guide | MetricMech</title>
+<meta name="description" content="How to calculate Cmk, the machine capability index. Formula, a 50-part worked example, acceptance limits and how Cmk differs from Cpk in machine runoff." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cmk-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cmk Calculation: Machine Capability Index Guide | MetricMech">
+<meta property="og:description" content="How to calculate Cmk, the machine capability index. Formula, a 50-part worked example, acceptance limits and how Cmk differs from Cpk in machine runoff.">
+<meta property="og:url" content="https://metricmech.com/articles/cmk-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cmk Calculation: Machine Capability Index Guide | MetricMech">
+<meta name="twitter:description" content="How to calculate Cmk, the machine capability index. Formula, a 50-part worked example, acceptance limits and how Cmk differs from Cpk in machine runoff.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cmk Calculation: Machine Capability Index Guide",
+  "description": "How to calculate Cmk, the machine capability index, with formula, a 50-part worked example and acceptance limits.",
+  "url": "https://metricmech.com/articles/cmk-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience"},
+  "datePublished": "2026-06-30",
+  "mainEntityOfPage": "https://metricmech.com/articles/cmk-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is Cmk?", "acceptedAnswer": {"@type": "Answer", "text": "Cmk is the machine capability index. It measures how well a single machine holds a dimension over a short, uninterrupted run of around 50 consecutive parts, using one operator, one batch of material and one setup, so that only machine-related variation is captured."}},
+    {"@type": "Question", "name": "What is the formula for Cmk?", "acceptedAnswer": {"@type": "Answer", "text": "Cmk = minimum of (USL - mean) / (3 sigma) and (mean - LSL) / (3 sigma), where sigma is the standard deviation of the capability-run measurements. The potential index Cm = (USL - LSL) / (6 sigma) ignores centring."}},
+    {"@type": "Question", "name": "What is a good Cmk value?", "acceptedAnswer": {"@type": "Answer", "text": "Most machine acceptance runs require Cmk of at least 1.67. Many OEMs ask for 2.0 on new equipment. A Cmk below 1.33 normally fails the runoff and the machine is rejected or adjusted."}},
+    {"@type": "Question", "name": "How is Cmk different from Cpk?", "acceptedAnswer": {"@type": "Answer", "text": "Cmk is short term and isolates one machine over about 50 consecutive parts, so it is used for machine runoff and acceptance. Cpk is measured over a longer production period and includes shift, material and operator variation, so it reflects the ongoing process."}},
+    {"@type": "Question", "name": "How many parts do I need for a Cmk study?", "acceptedAnswer": {"@type": "Answer", "text": "The common requirement is 50 consecutive parts produced without interruption. Some standards accept a minimum of 30, but 50 gives a more reliable estimate of the standard deviation."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Cmk calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What Cmk means</a>
+    <a href="#formula">The formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#cmk-cpk">Cmk vs Cpk</a>
+    <a href="#accept">Acceptance limits</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Cmk calculation: the <em>machine capability index</em> explained</h1>
+    <div class="art-meta-bar">
+      <span>Quality / SPC</span>
+      <span>June 30, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">You bought a new CNC, the supplier wants sign-off, and the contract says "demonstrate Cmk &ge; 1.67 over 50 parts." Cmk is the number that decides whether a machine is accepted at runoff. Here is how to calculate it, with a full worked example.</p>
+
+    <h2 id="what">What Cmk <em>actually measures</em></h2>
+    <p>Cmk is the <strong>machine capability index</strong>. It answers a narrow question: can this one machine, on its own, hold the tolerance? To isolate the machine, a capability run is deliberately kept clean — around <strong>50 consecutive parts</strong>, one operator, one batch of material, one setup, no tool changes, no interruptions. That way the spread you measure comes from the machine, not from shift changes or material lots.</p>
+    <p>This is why Cmk is the index used at machine <strong>runoff</strong> and acceptance (often part of a factory acceptance test), while Cpk is reserved for the running process. Both share the same maths; they differ in what variation they capture.</p>
+
+    <h2 id="formula">The Cmk <em>formula</em></h2>
+    <p>Two indices come out of a capability run. The potential index ignores where the process sits; the real index accounts for centring:</p>
+    <ul>
+      <li><strong>Cm</strong> = (USL &minus; LSL) / (6&sigma;) &mdash; machine potential, assumes perfect centring</li>
+      <li><strong>Cmk</strong> = min[ (USL &minus; x&#772;) / (3&sigma;), (x&#772; &minus; LSL) / (3&sigma;) ] &mdash; accounts for the offset from centre</li>
+    </ul>
+    <p>Here x&#772; is the mean of the run, &sigma; is the standard deviation of all the measured parts, and USL and LSL are the upper and lower specification limits. Because Cmk takes the <strong>minimum</strong> of the two sides, an off-centre machine is penalised even if its spread is tiny.</p>
+
+    <div class="callout">
+      <strong>Use the run's own standard deviation</strong>
+      For a Cmk study you take the standard deviation of all 50 measurements directly. There are no rational subgroups as in an X&#772;-R chart, because the run is short and continuous and you want the total short-term spread of that single setup.
+    </div>
+
+    <h2 id="example">Worked <em>example</em></h2>
+    <p>A new lathe is being accepted for turning a shaft diameter specified as <strong>&empty;20.00 &plusmn;0.05 mm</strong>, so USL = 20.05 and LSL = 19.95. Fifty consecutive parts are turned and measured on a calibrated micrometer. The run gives:</p>
+    <ul>
+      <li>Mean, x&#772; = <strong>20.012 mm</strong></li>
+      <li>Standard deviation, &sigma; = <strong>0.008 mm</strong></li>
+    </ul>
+    <p>First the potential index:</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Cm</td><td>(20.05 &minus; 19.95) / (6 &times; 0.008)</td><td>2.08</td></tr>
+      <tr><td>Upper side</td><td>(20.05 &minus; 20.012) / (3 &times; 0.008)</td><td>1.58</td></tr>
+      <tr><td>Lower side</td><td>(20.012 &minus; 19.95) / (3 &times; 0.008)</td><td>2.58</td></tr>
+      <tr><td>Cmk</td><td>min(1.58, 2.58)</td><td><strong>1.58</strong></td></tr>
+    </table>
+    <p>The spread is excellent — Cm of 2.08 says the machine could comfortably hold the tolerance. But Cmk is only 1.58, below the usual 1.67 acceptance bar, because the mean sits 0.012 mm high. The fix is not a better machine, it is a tool offset. Shift the tool to centre the diameter at 20.00:</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>New mean</td><td>x&#772; = 20.001</td><td>—</td></tr>
+      <tr><td>Upper side</td><td>(20.05 &minus; 20.001) / (3 &times; 0.008)</td><td>2.04</td></tr>
+      <tr><td>Lower side</td><td>(20.001 &minus; 19.95) / (3 &times; 0.008)</td><td>2.13</td></tr>
+      <tr><td>Cmk</td><td>min(2.04, 2.13)</td><td><strong>2.04</strong></td></tr>
+    </table>
+    <p>Same machine, same spread, one offset correction, and Cmk jumps from 1.58 to 2.04. The runoff passes. You can check your own numbers with the <a href="../calculators/cp-cpk.html">Cp/Cpk calculator</a>, which uses the identical centring maths.</p>
+
+    <h2 id="cmk-cpk">Cmk vs Cpk vs Ppk</h2>
+    <table>
+      <tr><th>Index</th><th>Captures</th><th>Sample</th><th>Used for</th></tr>
+      <tr><td>Cmk</td><td>One machine, short term</td><td>~50 consecutive parts</td><td>Machine runoff / acceptance</td></tr>
+      <tr><td>Cpk</td><td>Process, within-subgroup sigma</td><td>20–25 subgroups</td><td>Ongoing capability</td></tr>
+      <tr><td>Ppk</td><td>Process, overall sigma</td><td>Full production period</td><td>PPAP performance</td></tr>
+    </table>
+    <p>The logic flows in that order: prove the machine with Cmk, then prove the process with Cpk, then report long-term performance with Ppk to the customer. For the process-side detail see <a href="../articles/cp-cpk-explained.html">Cp vs Cpk explained</a> and <a href="../articles/cpk-vs-ppk.html">Cpk vs Ppk</a>.</p>
+
+    <h2 id="accept">Acceptance <em>limits</em></h2>
+    <table>
+      <tr><th>Cmk</th><th>Verdict</th></tr>
+      <tr><td>&ge; 2.00</td><td>Often required for new equipment</td></tr>
+      <tr><td>&ge; 1.67</td><td>Standard machine acceptance bar</td></tr>
+      <tr><td>1.33 – 1.67</td><td>Conditional; adjust and re-run</td></tr>
+      <tr><td>&lt; 1.33</td><td>Reject the runoff</td></tr>
+    </table>
+    <div class="warn-box">
+      <strong>Cmk depends on a trustworthy measurement</strong>
+      A capability run is only as good as the gauge reading it. If your measurement system eats a large share of the tolerance, the Cmk is meaningless. Run a <a href="../articles/gauge-rr-explained.html">Gauge R&amp;R study</a> first and confirm the gauge consumes well under 10% of the tolerance before you trust any Cmk number.
+    </div>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Interrupting the run.</strong> A tool change or break midway adds variation that does not belong in a machine study.</li>
+      <li><strong>Mixing material lots.</strong> Two batches of bar stock inflate &sigma; and hide the machine's true capability.</li>
+      <li><strong>Reporting Cm and calling it Cmk.</strong> Cm ignores centring; an off-centre machine can look fine on Cm and fail on Cmk.</li>
+      <li><strong>Too few parts.</strong> Thirty is a floor; fifty gives a far steadier estimate of &sigma;.</li>
+      <li><strong>Non-normal data.</strong> Capability indices assume a roughly normal distribution. Check it before trusting the index.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What is Cmk?</h3>
+    <p>Cmk is the machine capability index. It measures how well one machine holds a dimension over a short, uninterrupted run of about 50 consecutive parts, so that only machine variation is captured.</p>
+    <h3>What is a good Cmk value?</h3>
+    <p>Most acceptance runs require Cmk &ge; 1.67, and many OEMs ask for 2.0 on new equipment. Below 1.33 the runoff normally fails.</p>
+    <h3>How is Cmk different from Cpk?</h3>
+    <p>Cmk is short term and isolates one machine for runoff. Cpk covers the running process over a longer period and includes shift, material and operator variation.</p>
+    <h3>How many parts do I need?</h3>
+    <p>Fifty consecutive parts is the common requirement; some standards accept a minimum of thirty.</p>
+
+    <div class="callout">
+      <strong>From capability to inspection</strong>
+      Once a machine passes runoff, the parts still need a first article report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads a PDF drawing and builds the inspection sheet in minutes, and you can grab a ready <a href="../templates.html">capability and FAI template</a> to record the numbers.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp / Cpk Calculator</a>
+      <a href="../articles/cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp vs Cpk explained</a>
+      <a href="../articles/cpk-vs-ppk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cpk vs Ppk</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Helical Gear Calculation: Formulas & Worked Example | MetricMech</title>
+<meta name="description" content="Helical gear calculation made clear: normal vs transverse module, pitch diameter, centre distance, axial thrust and virtual teeth, with a worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/helical-gear-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Helical Gear Calculation: Formulas & Worked Example | MetricMech">
+<meta property="og:description" content="Helical gear calculation made clear: normal vs transverse module, pitch diameter, centre distance, axial thrust and virtual teeth, with a worked example.">
+<meta property="og:url" content="https://metricmech.com/articles/helical-gear-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Helical Gear Calculation: Formulas & Worked Example | MetricMech">
+<meta name="twitter:description" content="Helical gear calculation made clear: normal vs transverse module, pitch diameter, centre distance, axial thrust and virtual teeth, with a worked example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Helical Gear Calculation: Formulas & Worked Example",
+  "description": "Helical gear calculation with normal and transverse module, pitch diameter, centre distance, axial thrust and virtual teeth, plus a worked example.",
+  "url": "https://metricmech.com/articles/helical-gear-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience"},
+  "datePublished": "2026-06-30",
+  "mainEntityOfPage": "https://metricmech.com/articles/helical-gear-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between normal and transverse module in a helical gear?", "acceptedAnswer": {"@type": "Answer", "text": "The normal module mn is measured perpendicular to the gear teeth and sets the cutting tool. The transverse module mt is measured in the plane of rotation and equals mn divided by the cosine of the helix angle, so mt is always larger than mn."}},
+    {"@type": "Question", "name": "How do you calculate the pitch diameter of a helical gear?", "acceptedAnswer": {"@type": "Answer", "text": "Pitch diameter d equals the number of teeth z times the normal module mn divided by the cosine of the helix angle beta, that is d = z x mn / cos(beta). It is larger than a spur gear of the same module and tooth count."}},
+    {"@type": "Question", "name": "Why do helical gears produce axial thrust?", "acceptedAnswer": {"@type": "Answer", "text": "Because the teeth are cut at an angle, the contact force has a component along the shaft axis. Axial thrust Fa equals the tangential force Ft times the tangent of the helix angle, and it must be carried by thrust bearings or cancelled with a double-helical gear."}},
+    {"@type": "Question", "name": "What is the virtual number of teeth?", "acceptedAnswer": {"@type": "Answer", "text": "The virtual or equivalent number of teeth zv equals z divided by the cosine cubed of the helix angle. It is the spur-gear tooth count used to pick the right form cutter and to check bending strength."}},
+    {"@type": "Question", "name": "Are helical gears better than spur gears?", "acceptedAnswer": {"@type": "Answer", "text": "Helical gears run more smoothly and quietly and carry more load because several teeth share contact at once. The trade-off is axial thrust and slightly lower efficiency, so spur gears still win where simplicity and zero thrust matter."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Helical gear calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why helical</a>
+    <a href="#module">Normal vs transverse module</a>
+    <a href="#geometry">Geometry formulas</a>
+    <a href="#forces">Tooth forces &amp; thrust</a>
+    <a href="#example">Worked example</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Helical gear calculation: <em>module, helix angle and thrust</em></h1>
+    <div class="art-meta-bar">
+      <span>Machine Design</span>
+      <span>June 30, 2026</span>
+      <span>10 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">A helical gear is a spur gear with the teeth cut on a slant. That one angle makes it quieter and stronger, but it also adds a force pushing along the shaft and a second module to keep track of. Here is every formula you need, with a worked example you can follow.</p>
+
+    <h2 id="why">Why <em>helical gears</em></h2>
+    <p>On a spur gear, a whole tooth meets its partner at once, which is why a fast spur train whines. On a helical gear the contact starts at one end of the tooth and rolls across, so two or three teeth are always sharing the load. The result is <strong>smoother, quieter running and higher load capacity</strong> at the same size. The price you pay is an axial thrust force and a little extra friction. The whole calculation is about quantifying both.</p>
+
+    <h2 id="module">Normal vs transverse <em>module</em></h2>
+    <p>The single biggest source of confusion in helical gears is that there are two modules. The teeth are cut perpendicular to the helix, so the cutting tool works in the <strong>normal</strong> plane. The gear runs in the <strong>transverse</strong> plane, perpendicular to the shaft.</p>
+    <ul>
+      <li><strong>Normal module</strong> m<sub>n</sub> &mdash; set by the hob; this is what you order.</li>
+      <li><strong>Transverse module</strong> m<sub>t</sub> = m<sub>n</sub> / cos&beta; &mdash; governs the running geometry.</li>
+    </ul>
+    <p>Because cos&beta; is always less than 1, the transverse module is always larger than the normal module. Mixing the two is the classic helical-gear error.</p>
+
+    <h2 id="geometry">Geometry <em>formulas</em></h2>
+    <table>
+      <tr><th>Quantity</th><th>Formula</th></tr>
+      <tr><td>Transverse module</td><td>m<sub>t</sub> = m<sub>n</sub> / cos&beta;</td></tr>
+      <tr><td>Pitch diameter</td><td>d = z &times; m<sub>n</sub> / cos&beta;</td></tr>
+      <tr><td>Centre distance</td><td>a = m<sub>n</sub>(z<sub>1</sub> + z<sub>2</sub>) / (2 cos&beta;)</td></tr>
+      <tr><td>Transverse pressure angle</td><td>&alpha;<sub>t</sub> = arctan(tan&alpha;<sub>n</sub> / cos&beta;)</td></tr>
+      <tr><td>Virtual tooth number</td><td>z<sub>v</sub> = z / cos&sup3;&beta;</td></tr>
+      <tr><td>Gear ratio</td><td>i = z<sub>2</sub> / z<sub>1</sub></td></tr>
+      <tr><td>Axial pitch</td><td>p<sub>x</sub> = &pi; m<sub>n</sub> / sin&beta;</td></tr>
+    </table>
+    <p>The virtual tooth number z<sub>v</sub> matters because it is the spur-equivalent tooth count. You use it to choose the form cutter and to run a bending-strength check, since a helical tooth behaves like a spur tooth with z<sub>v</sub> teeth.</p>
+
+    <h2 id="forces">Tooth forces and <em>axial thrust</em></h2>
+    <p>Three force components act at the tooth. Start from the tangential force, which carries the torque:</p>
+    <ul>
+      <li><strong>Tangential</strong> F<sub>t</sub> = 2T / d</li>
+      <li><strong>Radial</strong> F<sub>r</sub> = F<sub>t</sub> tan&alpha;<sub>t</sub></li>
+      <li><strong>Axial (thrust)</strong> F<sub>a</sub> = F<sub>t</sub> tan&beta;</li>
+    </ul>
+    <div class="warn-box">
+      <strong>Size the thrust bearing for F<sub>a</sub></strong>
+      The axial thrust is the helical-specific load that catches designers out. A 20&deg; helix turns roughly 36% of your tangential force into shaft thrust. Either specify a bearing that takes it, or use a double-helical (herringbone) gear, whose two opposite hands cancel the thrust internally.
+    </div>
+
+    <h2 id="example">Worked <em>example</em></h2>
+    <p>Design a helical pair: pinion z<sub>1</sub> = 20, gear z<sub>2</sub> = 40, normal module m<sub>n</sub> = 2 mm, helix angle &beta; = 20&deg;, normal pressure angle &alpha;<sub>n</sub> = 20&deg;, transmitting T = 32 N&middot;m at the pinion.</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Transverse module</td><td>2 / cos20&deg; = 2 / 0.9397</td><td>2.128 mm</td></tr>
+      <tr><td>Pinion pitch dia d<sub>1</sub></td><td>20 &times; 2 / cos20&deg;</td><td>42.57 mm</td></tr>
+      <tr><td>Gear pitch dia d<sub>2</sub></td><td>40 &times; 2 / cos20&deg;</td><td>85.14 mm</td></tr>
+      <tr><td>Centre distance a</td><td>2(20 + 40) / (2 &times; 0.9397)</td><td>63.85 mm</td></tr>
+      <tr><td>Gear ratio i</td><td>40 / 20</td><td>2.0</td></tr>
+      <tr><td>Transverse pressure angle &alpha;<sub>t</sub></td><td>arctan(tan20&deg; / cos20&deg;)</td><td>21.17&deg;</td></tr>
+      <tr><td>Virtual teeth z<sub>v1</sub></td><td>20 / cos&sup3;20&deg;</td><td>24.1</td></tr>
+    </table>
+    <p>Now the forces, using d<sub>1</sub> = 42.57 mm = 0.04257 m:</p>
+    <table>
+      <tr><th>Force</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Tangential F<sub>t</sub></td><td>2 &times; 32 / 0.04257</td><td>1503 N</td></tr>
+      <tr><td>Radial F<sub>r</sub></td><td>1503 &times; tan21.17&deg;</td><td>582 N</td></tr>
+      <tr><td>Axial F<sub>a</sub></td><td>1503 &times; tan20&deg;</td><td>547 N</td></tr>
+    </table>
+    <p>So a modest 32 N&middot;m at the pinion still throws 547 N straight down the shaft. That thrust drives the bearing choice. Run your own numbers through the <a href="../calculators/gear-calculator.html">gear calculator</a> to check the geometry instantly.</p>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Using m<sub>n</sub> where m<sub>t</sub> belongs.</strong> Centre distance and pitch diameter both run on cos&beta;; forget it and your gears will not mesh.</li>
+      <li><strong>Ignoring axial thrust.</strong> A plain deep-groove bearing will not survive a steady 500 N of thrust for long.</li>
+      <li><strong>Picking the cutter on z, not z<sub>v</sub>.</strong> Tooth form follows the virtual tooth number.</li>
+      <li><strong>Mismatched helix hands.</strong> An external pair must have opposite hands, one left and one right, to mesh.</li>
+      <li><strong>Over-steep helix.</strong> Above about 30&deg; the thrust grows faster than the smoothness gain; most power gears sit at 15&ndash;25&deg;.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What is the difference between normal and transverse module?</h3>
+    <p>Normal module m<sub>n</sub> is measured across the teeth and sets the cutter; transverse module m<sub>t</sub> is measured in the plane of rotation and equals m<sub>n</sub>/cos&beta;, so it is always larger.</p>
+    <h3>How do you find pitch diameter?</h3>
+    <p>d = z &times; m<sub>n</sub> / cos&beta;. For the same module and tooth count it is larger than a spur gear.</p>
+    <h3>Why do helical gears create thrust?</h3>
+    <p>The angled teeth give the contact force a component along the axis: F<sub>a</sub> = F<sub>t</sub> tan&beta;. Herringbone gears cancel it.</p>
+    <h3>Are helical gears stronger than spur gears?</h3>
+    <p>Yes, because more teeth share the load at once, which also makes them quieter, at the cost of axial thrust and a little efficiency.</p>
+
+    <div class="callout">
+      <strong>From gear design to the inspection sheet</strong>
+      Once the gear is drawn, the shop still needs a ballooned inspection report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the PDF drawing and numbers every characteristic in minutes, and you can start from a ready <a href="../templates.html">inspection template</a>.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gear-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gear Calculator</a>
+      <a href="../articles/spur-gear-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Spur gear calculation</a>
+      <a href="../articles/gear-ratio-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gear ratio calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
