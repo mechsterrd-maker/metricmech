@@ -559,6 +559,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://metricmech.com/articles/cpk-vs-ppk</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://metricmech.com/articles/bolt-grade-chart</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://metricmech.com/articles/true-position-calculation</loc>
     <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cpk vs Ppk: Capability vs Performance | MetricMech</title>
+<meta name="description" content="Cpk vs Ppk explained: process capability vs performance, the formulas, why Ppk uses overall sigma, and which index PPAP and your customer want." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cpk-vs-ppk">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpk vs Ppk: Capability vs Performance | MetricMech">
+<meta property="og:description" content="Cpk vs Ppk explained: process capability vs performance, the formulas, why Ppk uses overall sigma, and which index PPAP and your customer actually want.">
+<meta property="og:url" content="https://metricmech.com/articles/cpk-vs-ppk">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cpk vs Ppk: Capability vs Performance | MetricMech">
+<meta name="twitter:description" content="Cpk vs Ppk explained: process capability vs performance, the formulas, why Ppk uses overall sigma, and which index PPAP and your customer actually want.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cpk vs Ppk: Process Capability vs Performance Explained",
+  "description": "Cpk vs Ppk explained: process capability vs performance, the formulas, why Ppk uses overall sigma, and which index PPAP and your customer want.",
+  "url": "https://metricmech.com/articles/cpk-vs-ppk",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-30",
+  "mainEntityOfPage": "https://metricmech.com/articles/cpk-vs-ppk"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the difference between Cpk and Ppk?", "acceptedAnswer": {"@type": "Answer", "text": "Cpk measures short-term process capability using within-subgroup sigma, which captures only common-cause variation. Ppk measures long-term process performance using the overall standard deviation of all the data, which includes both common-cause and special-cause variation. Cpk is what the process could do if stable; Ppk is what it actually did over the whole run."}},
+    {"@type": "Question", "name": "Is Cpk always higher than Ppk?", "acceptedAnswer": {"@type": "Answer", "text": "For a stable, in-control process Cpk and Ppk are nearly equal. When the process drifts or shifts over time, the overall sigma grows larger than the within-subgroup sigma, so Ppk falls below Cpk. A large gap between Cpk and Ppk is a signal that the process is not in statistical control."}},
+    {"@type": "Question", "name": "Does PPAP require Cpk or Ppk?", "acceptedAnswer": {"@type": "Answer", "text": "AIAG PPAP normally asks for Ppk on the initial submission because the run is short and not yet proven stable, with a typical requirement of Ppk greater than or equal to 1.67 for special characteristics. Once the process is established and in control, ongoing capability is reported as Cpk, often with a target of 1.33 or higher."}},
+    {"@type": "Question", "name": "What is a good Cpk or Ppk value?", "acceptedAnswer": {"@type": "Answer", "text": "A common minimum for ongoing capability is Cpk 1.33, which is roughly 4 sigma and about 63 defects per million for a centred process. Safety or special characteristics often require 1.67 or higher. A value of 1.0 means the process spread just fills the tolerance with no margin, so it is not acceptable for most customers."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Cpk vs Ppk</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">Capability vs performance</a>
+    <a href="#cpk">What Cpk is</a>
+    <a href="#ppk">What Ppk is</a>
+    <a href="#sigma">The sigma difference</a>
+    <a href="#diff">Cpk vs Ppk</a>
+    <a href="#example">Worked example</a>
+    <a href="#which">Which one to report</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Cpk vs Ppk: <em>capability vs performance</em>.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / SPC</span>
+      <span>June 30, 2026</span>
+      <span>9 min read</span>
+      <span>1,650 words</span>
+    </div>
+
+    <p class="lede">Cpk and Ppk look almost identical and use almost the same formula, yet customers ask for different ones at different times. The difference is the sigma in the denominator: Cpk uses within-subgroup variation (short-term capability), Ppk uses the overall variation of all the data (long-term performance). This guide explains both, with a worked example and clear guidance on which to report.</p>
+
+    <h2 id="what">Capability versus <em>performance</em></h2>
+    <p>Capability is what your process could do if it stayed perfectly stable. Performance is what it actually did across the whole production run, drift and all. Cpk is the capability index; Ppk is the performance index. Both compare the spread of your process against the tolerance band, and both account for centring &mdash; the difference is entirely in how the variation is estimated.</p>
+    <p>If you already know the basics of process capability, this article is the natural next step after our <a href="cp-cpk-explained.html">Cp vs Cpk guide</a>, which covers spread versus centring. Here the question is short-term versus long-term.</p>
+
+    <h2 id="cpk">What <em>Cpk</em> is</h2>
+    <p>Cpk is the process capability index. It uses the <strong>within-subgroup</strong> standard deviation, estimated from the average range or average sigma of your rational subgroups. Because subgroups are small samples taken close together in time, this sigma captures only common-cause (random) variation &mdash; the inherent noise of the process when nothing special is happening.</p>
+    <p>The formula is the smaller of the two single-sided indices:</p>
+    <p><strong>Cpk = min[ (USL &minus; mean) / 3&sigma;<sub>within</sub> , (mean &minus; LSL) / 3&sigma;<sub>within</sub> ]</strong></p>
+    <p>Because it uses the tight within-subgroup sigma, Cpk answers: "if this process were perfectly stable, how capable would it be?"</p>
+
+    <h2 id="ppk">What <em>Ppk</em> is</h2>
+    <p>Ppk is the process performance index. It uses the <strong>overall</strong> standard deviation calculated from every data point in the study, ignoring subgroup structure. That overall sigma absorbs everything &mdash; common-cause noise plus any shifts, drifts, tool wear, and between-shift differences that happened during the run.</p>
+    <p>The formula mirrors Cpk:</p>
+    <p><strong>Ppk = min[ (USL &minus; mean) / 3&sigma;<sub>overall</sub> , (mean &minus; LSL) / 3&sigma;<sub>overall</sub> ]</strong></p>
+    <p>Ppk answers the blunter question: "regardless of why, how well did the process actually meet the tolerance over this whole run?"</p>
+
+    <h2 id="sigma">The one real difference: the sigma</h2>
+    <p>Everything turns on which standard deviation goes in the denominator.</p>
+    <table>
+      <tr><th>Term</th><th>Sigma used</th><th>Captures</th></tr>
+      <tr><td>Cpk (capability)</td><td>Within-subgroup (R-bar/d2 or S-bar/c4)</td><td>Common-cause only</td></tr>
+      <tr><td>Ppk (performance)</td><td>Overall (all data, n&minus;1)</td><td>Common + special cause</td></tr>
+    </table>
+    <p>For a process that is genuinely in statistical control, the two sigmas are close, so Cpk and Ppk land near each other. When the process drifts, the overall sigma swells while the within-subgroup sigma stays tight, and Ppk drops below Cpk. That gap is diagnostic gold &mdash; it tells you instability, not just spread, is eating your margin.</p>
+
+    <h2 id="diff">Cpk vs Ppk at a <em>glance</em></h2>
+    <table>
+      <tr><th>Aspect</th><th>Cpk</th><th>Ppk</th></tr>
+      <tr><td>Name</td><td>Capability</td><td>Performance</td></tr>
+      <tr><td>Time frame</td><td>Short-term, potential</td><td>Long-term, actual</td></tr>
+      <tr><td>Sigma</td><td>Within-subgroup</td><td>Overall</td></tr>
+      <tr><td>Needs control?</td><td>Assumes stability</td><td>No assumption</td></tr>
+      <tr><td>Typical use</td><td>Ongoing monitoring</td><td>Initial PPAP run</td></tr>
+    </table>
+
+    <h2 id="example">Worked example</h2>
+    <p>Take a shaft diameter with USL 25.10&nbsp;mm, LSL 24.90&nbsp;mm, so the tolerance is 0.20&nbsp;mm and the target is 25.00&nbsp;mm. You run 25 subgroups of 5 parts. Suppose:</p>
+    <ul>
+      <li>Process mean = 25.02&nbsp;mm</li>
+      <li>Within-subgroup sigma = 0.025&nbsp;mm</li>
+      <li>Overall sigma = 0.035&nbsp;mm (larger, because the mean drifted across shifts)</li>
+    </ul>
+    <p><strong>Cpk:</strong> the nearer limit is USL. (25.10 &minus; 25.02) / (3 &times; 0.025) = 0.08 / 0.075 = <strong>1.07</strong>.</p>
+    <p><strong>Ppk:</strong> (25.10 &minus; 25.02) / (3 &times; 0.035) = 0.08 / 0.105 = <strong>0.76</strong>.</p>
+    <p>Cpk says the process is borderline capable; Ppk says actual performance is poor. The gap (1.07 vs 0.76) is the drift. Chasing a tighter machine here would be wrong &mdash; the fix is stabilising the mean across shifts. Drop your own numbers into the <a href="../calculators/cp-cpk.html">Cp Cpk calculator</a> to see both indices side by side.</p>
+
+    <div class="warn-box">
+      <strong>A high Cpk with a low Ppk is a warning, not a pass</strong>
+      It means the machine is precise but the process is not controlled. Reporting only the flattering Cpk hides real risk that will surface as field rejections. Always look at both before you sign off.
+    </div>
+
+    <h2 id="which">Which index should you report?</h2>
+    <p>It depends on where you are in the part's life:</p>
+    <ul>
+      <li><strong>Initial PPAP / new launch:</strong> report <strong>Ppk</strong>. The run is short and stability is unproven, so the conservative overall sigma is honest. AIAG PPAP commonly requires Ppk &ge; 1.67 for special characteristics.</li>
+      <li><strong>Ongoing production:</strong> report <strong>Cpk</strong> once the process is demonstrably in control on a control chart. Typical target is Cpk &ge; 1.33.</li>
+    </ul>
+    <p>For the full automotive submission context, see our <a href="ppap-indian-oems.html">PPAP guide for Indian OEMs</a>, and remember capability numbers are only trustworthy if your measurement system is sound &mdash; validate it first with a <a href="gauge-rr-explained.html">Gauge R&amp;R study</a>.</p>
+
+    <div class="callout">
+      <strong>Run the numbers</strong>
+      Use the <a href="../calculators/cp-cpk.html">Cp Cpk calculator</a> to compute capability from your data, then grab a ready inspection sheet from the <a href="../templates.html">free templates</a>. To turn a customer drawing into a numbered characteristic list for the capability study, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads dimensions and tolerances straight off the PDF.
+    </div>
+
+    <h2 id="mistakes">Common Cpk and Ppk <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Quoting Cpk on an unstable process.</strong> Cpk assumes statistical control. If the control chart shows out-of-control points, the within-subgroup sigma is meaningless.</li>
+      <li><strong>Mixing the sigmas.</strong> Using overall sigma but calling it Cpk, or vice versa, makes the number uncomparable. Be explicit about which sigma you used.</li>
+      <li><strong>Ignoring the Cpk&ndash;Ppk gap.</strong> A wide gap is free diagnostic information about drift. Do not average it away.</li>
+      <li><strong>Reporting capability with a bad gauge.</strong> If Gauge R&amp;R is poor, the measurement noise inflates sigma and your indices are fiction.</li>
+      <li><strong>Treating 1.0 as acceptable.</strong> Cpk 1.0 leaves zero margin. Most customers want 1.33 minimum, 1.67 for special characteristics.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp Cpk Calculator</a>
+      <a href="cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp vs Cpk Explained</a>
+      <a href="gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

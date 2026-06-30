@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech</title>
+<meta name="description" content="Bolt grade chart for 8.8, 10.9 and 12.9: what the numbers mean, proof and tensile strength in MPa, head markings, and how to pick the right grade." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bolt-grade-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech">
+<meta property="og:description" content="Bolt grade chart for 8.8, 10.9 and 12.9: what the numbers mean, proof and tensile strength in MPa, head markings, and how to choose the right property class.">
+<meta property="og:url" content="https://metricmech.com/articles/bolt-grade-chart">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech">
+<meta name="twitter:description" content="Bolt grade chart for 8.8, 10.9 and 12.9: what the numbers mean, proof and tensile strength in MPa, head markings, and how to choose the right property class.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 Property Classes",
+  "description": "Bolt grade chart for 8.8, 10.9 and 12.9: what the numbers mean, proof and tensile strength in MPa, head markings, and how to pick the right grade.",
+  "url": "https://metricmech.com/articles/bolt-grade-chart",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-06-30",
+  "mainEntityOfPage": "https://metricmech.com/articles/bolt-grade-chart"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What do the numbers 8.8, 10.9 and 12.9 mean on a bolt?", "acceptedAnswer": {"@type": "Answer", "text": "They are the ISO 898-1 property class. The first number times 100 is the nominal tensile strength in MPa, and the second number is the ratio of yield to tensile strength times 10. So 8.8 means about 800 MPa tensile and yield at 80 percent of that, around 640 MPa. 10.9 means about 1000 MPa tensile, and 12.9 means about 1200 MPa tensile."}},
+    {"@type": "Question", "name": "Is a 12.9 bolt always better than 8.8?", "acceptedAnswer": {"@type": "Answer", "text": "No. A 12.9 bolt is stronger but harder and more brittle, with lower ductility and higher sensitivity to hydrogen embrittlement and notches. For high-vibration, shock, or corrosive joints an 8.8 or 10.9 bolt can perform better. Match the grade to the joint, not the highest number available."}},
+    {"@type": "Question", "name": "What is the proof load of a bolt?", "acceptedAnswer": {"@type": "Answer", "text": "Proof load is the maximum tensile force a bolt can carry without taking any permanent set. It is roughly 90 percent of the yield strength and is the practical ceiling for preload. For an 8.8 bolt the proof stress is about 580 to 600 MPa; for 10.9 about 830 MPa; for 12.9 about 970 MPa."}},
+    {"@type": "Question", "name": "What grade replaces the old Grade 8.8 in US bolts?", "acceptedAnswer": {"@type": "Answer", "text": "Metric class 8.8 is broadly comparable to SAE Grade 5, and metric 10.9 is broadly comparable to SAE Grade 8. They are not identical because the standards differ on dimensions and test methods, so never substitute on strength alone; check the drawing callout and standard."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bolt grade chart</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#meaning">What the numbers mean</a>
+    <a href="#chart">Bolt grade chart</a>
+    <a href="#strength">Strength in MPa</a>
+    <a href="#markings">Head markings</a>
+    <a href="#choose">Choosing a grade</a>
+    <a href="#sae">Metric vs SAE</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bolt grade chart: <em>8.8 vs 10.9 vs 12.9</em>.</h1>
+    <div class="art-meta-bar">
+      <span>Fasteners / Design</span>
+      <span>June 30, 2026</span>
+      <span>8 min read</span>
+      <span>1,500 words</span>
+    </div>
+
+    <p class="lede">The little numbers stamped on a bolt head &mdash; 8.8, 10.9, 12.9 &mdash; are the ISO 898-1 property class, and they tell you exactly how strong the fastener is. This chart explains what each number means, the proof and tensile strength of each grade in MPa, how to read the head marking, and how to choose the right class for your joint.</p>
+
+    <h2 id="meaning">What the numbers actually mean</h2>
+    <p>A metric property class is two numbers separated by a dot, and both are decodable on sight:</p>
+    <ul>
+      <li><strong>First number &times; 100 = nominal tensile strength in MPa.</strong> So the 8 in 8.8 means about 800&nbsp;MPa ultimate tensile strength.</li>
+      <li><strong>Second number = yield-to-tensile ratio &times; 10.</strong> The 8 after the dot in 8.8 means yield is 80% of tensile, so about 640&nbsp;MPa.</li>
+    </ul>
+    <p>That is the whole code. A 10.9 bolt is roughly 1000&nbsp;MPa tensile with yield at 90% (about 900&nbsp;MPa). A 12.9 bolt is roughly 1200&nbsp;MPa tensile with yield around 1080&nbsp;MPa. Once you internalise this, you never need to look up the basic strength again.</p>
+
+    <h2 id="chart">The bolt grade chart</h2>
+    <p>Mechanical properties per ISO 898-1 for the common steel property classes:</p>
+    <table>
+      <tr><th>Class</th><th>Tensile (MPa)</th><th>Yield (MPa)</th><th>Proof (MPa)</th><th>Hardness (HV)</th></tr>
+      <tr><td>4.6</td><td>400</td><td>240</td><td>225</td><td>120&ndash;220</td></tr>
+      <tr><td>5.8</td><td>520</td><td>415</td><td>380</td><td>155&ndash;220</td></tr>
+      <tr><td>8.8</td><td>800</td><td>640</td><td>580&ndash;600</td><td>250&ndash;320</td></tr>
+      <tr><td>10.9</td><td>1040</td><td>940</td><td>830</td><td>320&ndash;380</td></tr>
+      <tr><td>12.9</td><td>1220</td><td>1100</td><td>970</td><td>385&ndash;435</td></tr>
+    </table>
+    <p>Values are nominal minimums; exact figures vary slightly with diameter band. The proof load you care about for preload is the proof stress times the tensile stress area of the thread.</p>
+
+    <h2 id="strength">Turning strength into clamp force</h2>
+    <p>Grade sets the strength, but the usable preload depends on the thread stress area. For an M10 coarse bolt the tensile stress area is about 58&nbsp;mm&sup2;. Multiply by proof stress to get the proof load:</p>
+    <ul>
+      <li><strong>M10 8.8:</strong> 58 &times; 580 &asymp; 33.6&nbsp;kN proof load</li>
+      <li><strong>M10 10.9:</strong> 58 &times; 830 &asymp; 48.1&nbsp;kN proof load</li>
+      <li><strong>M10 12.9:</strong> 58 &times; 970 &asymp; 56.3&nbsp;kN proof load</li>
+    </ul>
+    <p>Target preload is usually 65&ndash;75% of proof load, and that preload is what your tightening torque has to deliver. To convert grade and size into a torque figure, use the <a href="../calculators/bolt-torque.html">bolt torque calculator</a>, and read the method behind it in our <a href="bolt-torque-guide.html">bolt torque guide</a>.</p>
+
+    <h2 id="markings">Reading the head marking</h2>
+    <p>Metric structural bolts are marked on the head with the property class itself &mdash; you will literally see "8.8", "10.9", or "12.9" stamped on top, often alongside the manufacturer's identifier. Stainless fasteners use a different code such as A2-70 or A4-80, where the number after the dash is one-tenth of the tensile strength in MPa (A2-70 is about 700&nbsp;MPa). If a bolt head has no marking at all, treat it as unrated and keep it out of any structural joint.</p>
+
+    <div class="warn-box">
+      <strong>Higher grade is not automatically the safe choice</strong>
+      A 12.9 bolt has the least ductility and the highest sensitivity to hydrogen embrittlement, notches, and shock. In vibrating or impact-loaded joints a tough 8.8 or 10.9 often outlasts a hard 12.9. Stronger does not mean more reliable.</div>
+
+    <h2 id="choose">Choosing the right grade</h2>
+    <p>Pick the class from the joint duty, not habit:</p>
+    <ul>
+      <li><strong>8.8</strong> &mdash; the workhorse. General machinery, structural steel, brackets, guards. Good ductility and forgiving.</li>
+      <li><strong>10.9</strong> &mdash; higher clamp load in the same size: engine mounts, drivetrain, heavily loaded flanges.</li>
+      <li><strong>12.9</strong> &mdash; maximum strength in tight envelopes: tooling, dies, hydraulic blocks, precision machine joints in clean, static conditions.</li>
+      <li><strong>Stainless A2/A4</strong> &mdash; when corrosion beats raw strength, at lower mechanical grades.</li>
+    </ul>
+    <p>Heat treatment and plating matter too: zinc-electroplated high-grade bolts can suffer hydrogen embrittlement, so 12.9 fasteners are often specified with alternative coatings. The material density and weight of the fastener stock can be checked with the <a href="material-weight-calculator.html">material weight calculator</a> when you are estimating bulk fastener loads.</p>
+
+    <h2 id="sae">Metric class vs SAE grade</h2>
+    <table>
+      <tr><th>Metric class</th><th>Rough SAE equivalent</th><th>Tensile (MPa)</th></tr>
+      <tr><td>5.8</td><td>SAE Grade 2 (approx.)</td><td>520</td></tr>
+      <tr><td>8.8</td><td>SAE Grade 5</td><td>800</td></tr>
+      <tr><td>10.9</td><td>SAE Grade 8</td><td>1040</td></tr>
+      <tr><td>12.9</td><td>No direct SAE match</td><td>1220</td></tr>
+    </table>
+    <p>These are approximate cross-references only. The standards differ on dimensions, thread tolerance, and test methods, so always work to the grade the drawing specifies rather than substituting on tensile strength alone. For thread sizing and pitch, see the <a href="thread-pitch-reference.html">thread pitch reference</a>.</p>
+
+    <div class="callout">
+      <strong>From grade to torque in seconds</strong>
+      Use the <a href="../calculators/bolt-torque.html">bolt torque calculator</a> to turn class and size into a tightening torque, then pull a ready inspection row from the <a href="../templates.html">free templates</a>. When a customer drawing calls out fastener grades and torque notes, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> captures those notes as numbered characteristics for inspection.
+    </div>
+
+    <h2 id="mistakes">Common fastener-grade <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Defaulting to 12.9 for safety.</strong> Brittleness and embrittlement risk often make a lower grade the safer engineering choice.</li>
+      <li><strong>Ignoring the nut grade.</strong> A class-8 nut on a 12.9 bolt strips before the bolt yields. Match or exceed the nut property class.</li>
+      <li><strong>Using unmarked bolts structurally.</strong> No head mark means no rating. Do not assume.</li>
+      <li><strong>Cross-substituting metric and SAE on strength.</strong> Equivalents are approximate; honour the drawing callout.</li>
+      <li><strong>Forgetting coating effects.</strong> Plating high-grade bolts can introduce hydrogen embrittlement; specify the coating with the grade.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/bolt-torque.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt Torque Calculator</a>
+      <a href="bolt-torque-guide.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bolt Torque Guide</a>
+      <a href="thread-pitch-reference.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Thread Pitch Reference</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
