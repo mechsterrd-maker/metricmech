@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Takt Time vs Cycle Time: The Difference Explained | MetricMech</title>
+<meta name="description" content="Takt time vs cycle time: what each means, the formulas, how they link to lead time, and a worked line-balancing example that keeps a line on demand." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/takt-time-vs-cycle-time">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Takt Time vs Cycle Time: The Difference Explained | MetricMech">
+<meta property="og:description" content="What takt time and cycle time mean, the formulas, how they relate to lead time, and a worked line-balancing example that keeps a line on demand.">
+<meta property="og:url" content="https://metricmech.com/articles/takt-time-vs-cycle-time">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Takt Time vs Cycle Time: The Difference Explained | MetricMech">
+<meta name="twitter:description" content="What takt time and cycle time mean, the formulas, how they relate to lead time, and a worked line-balancing example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Takt Time vs Cycle Time: The Difference Explained",
+  "description": "What takt time and cycle time mean, the formulas, how they relate to lead time, and a worked line-balancing example that keeps a line on demand.",
+  "url": "https://metricmech.com/articles/takt-time-vs-cycle-time",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech - 14 years plant-head experience" },
+  "datePublished": "2026-07-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/takt-time-vs-cycle-time"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the difference between takt time and cycle time?","acceptedAnswer":{"@type":"Answer","text":"Takt time is the rate of customer demand - available production time divided by demand. Cycle time is how long your process actually takes to make one unit. Takt is set by the customer; cycle time is set by your process. For a line to keep up, cycle time must be less than or equal to takt time."}},
+    {"@type":"Question","name":"What is the formula for takt time?","acceptedAnswer":{"@type":"Answer","text":"Takt time = available production time / customer demand. For example, 450 minutes of net available time divided by 300 units of demand gives a takt time of 1.5 minutes, or 90 seconds, per unit."}},
+    {"@type":"Question","name":"Should cycle time be higher or lower than takt time?","acceptedAnswer":{"@type":"Answer","text":"Cycle time should be lower than takt time. If cycle time exceeds takt time you cannot meet demand and fall behind. Most lean lines target cycle time at about 85 to 90 percent of takt to leave a buffer for variation and changeover."}},
+    {"@type":"Question","name":"How do takt time and cycle time relate to lead time?","acceptedAnswer":{"@type":"Answer","text":"Lead time is the total elapsed time from order to delivery, including queues and waiting. Cycle time is only the active processing time per unit, and takt time is the demand rhythm. Reducing cycle time below takt lets you cut work-in-progress, which shortens lead time."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Takt time vs cycle time</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">Two different clocks</a>
+    <a href="#takt">Takt time</a>
+    <a href="#cycle">Cycle time</a>
+    <a href="#leadtime">Where lead time fits</a>
+    <a href="#compare">Side-by-side</a>
+    <a href="#example">Worked example</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Takt time vs cycle time: <em>two clocks, one line.</em></h1>
+    <div class="art-meta-bar">
+      <span>Lean / Production</span>
+      <span>July 1, 2026</span>
+      <span>8 min read</span>
+      <span>1,600 words</span>
+    </div>
+
+    <p class="lede">Takt time and cycle time get mixed up on the shop floor every day, yet they answer completely different questions. One is set by your customer; the other is set by your process. Confuse them and you either build too slow to ship or too fast to sell. Here is the clean distinction, with the numbers that make it obvious.</p>
+
+    <h2 id="what">Two different clocks</h2>
+    <p>Think of a line running to a heartbeat. <strong>Takt time</strong> is the beat the customer demands &mdash; how often a finished unit must come off the line to exactly meet orders. <strong>Cycle time</strong> is the beat your process can actually deliver &mdash; how long it really takes to complete one unit. The whole game of line balancing is making your cycle time fit inside the takt beat.</p>
+    <p>The word takt is German for a bat&#333;n's beat or rhythm. That is the right mental image: takt is externally imposed by demand, cycle time is internally measured on the floor, and the gap between them tells you whether you are ahead of or behind the customer.</p>
+
+    <h2 id="takt">Takt time: the demand rhythm</h2>
+    <p>Takt time is pure arithmetic from demand and available time:</p>
+    <div class="callout">
+      <strong>Takt time formula</strong>
+      Takt time = Net available production time / Customer demand (units)
+    </div>
+    <p>Net available time is the shift length minus planned stoppages: breaks, meetings, planned maintenance. It is <strong>not</strong> the full clock time. If you run one 8-hour shift with 30 minutes of breaks, net available time is 450 minutes. Against a demand of 300 units, takt time is 450 / 300 = <strong>1.5 minutes (90 seconds) per unit</strong>. That is the pace the whole line must match. Compute it directly with the <a href="../calculators/takt-time.html">takt time calculator</a>.</p>
+
+    <h2 id="cycle">Cycle time: what the process actually does</h2>
+    <p>Cycle time is measured, not demanded. It is the time between one finished unit and the next at a given station or for the whole line. For a single process it is the hands-on time to complete the operation; for a line, the <strong>bottleneck cycle time</strong> (the slowest station) sets the line's true output rate.</p>
+    <p>There is an important cousin here. <strong>Machine cycle time</strong> plus load/unload and walk time gives the <strong>operator cycle time</strong>, and it is the operator cycle time that must sit under takt. Get the full method and the WIP-and-throughput link in our <a href="../articles/cycle-time-calculation.html">cycle time calculation</a> guide.</p>
+
+    <h2 id="leadtime">Where lead time fits</h2>
+    <p>People throw a third term into the mix &mdash; lead time. Keep them separate:</p>
+    <ul>
+      <li><strong>Takt time</strong> &mdash; the demand rate. Customer-driven.</li>
+      <li><strong>Cycle time</strong> &mdash; active processing time per unit. Process-driven.</li>
+      <li><strong>Lead time</strong> &mdash; total elapsed time from order to delivery, including all the queuing and waiting. This is the one the customer feels.</li>
+    </ul>
+    <p>By Little's Law, lead time = work-in-progress / throughput. Because throughput is capped by your bottleneck cycle time, cutting cycle time below takt lets you drain WIP, and less WIP directly shortens lead time. That is the chain that connects all three.</p>
+
+    <h2 id="compare">Side-by-side</h2>
+    <table>
+      <tr><th>Aspect</th><th>Takt time</th><th>Cycle time</th></tr>
+      <tr><td>Set by</td><td>Customer demand</td><td>Your process</td></tr>
+      <tr><td>Formula</td><td>Avail. time / demand</td><td>Measured per unit</td></tr>
+      <tr><td>Changes when</td><td>Demand changes</td><td>Method or resources change</td></tr>
+      <tr><td>Target relationship</td><td>The ceiling</td><td>Must stay below takt</td></tr>
+      <tr><td>Units</td><td>Time per unit</td><td>Time per unit</td></tr>
+    </table>
+
+    <h2 id="example">Worked example: balancing a sub-assembly line</h2>
+    <p>An MSME in Coimbatore assembles pump housings. One shift = 8 h = 480 min; breaks and standup meeting = 30 min, so net available time = <strong>450 min</strong>. Customer demand = <strong>300 units/shift</strong>.</p>
+    <p><strong>Step 1 &mdash; takt time:</strong> 450 min / 300 = 1.5 min = <strong>90 s/unit</strong>. A finished housing must leave the line every 90 seconds.</p>
+    <p><strong>Step 2 &mdash; measure station cycle times:</strong></p>
+    <table>
+      <tr><th>Station</th><th>Cycle time (s)</th><th>Vs takt (90 s)</th></tr>
+      <tr><td>1 Load &amp; press seal</td><td>82</td><td>OK</td></tr>
+      <tr><td>2 Fit impeller</td><td>78</td><td>OK</td></tr>
+      <tr><td>3 Torque bolts</td><td>105</td><td>Over takt</td></tr>
+      <tr><td>4 Test &amp; pack</td><td>70</td><td>OK</td></tr>
+    </table>
+    <p><strong>Step 3 &mdash; find the constraint:</strong> Station 3 at 105 s is above the 90 s takt. The line can only deliver one unit every 105 s, so real output is 450&times;60 / 105 = 257 units &mdash; <strong>43 units short</strong> of the 300 needed.</p>
+    <p><strong>Step 4 &mdash; rebalance:</strong> Move the bolt pre-fit into Station 2 (raising it to 88 s) and leave final torque in Station 3 (dropping it to 84 s). Now every station is under 90 s, the bottleneck cycle time is 88 s, and output = 450&times;60 / 88 = 306 units. Demand met, with a thin buffer. Lock the takt-to-cycle target at roughly 85&ndash;90% so variation does not push you back over the line.</p>
+
+    <div class="warn-box">
+      <strong>Do not balance to 100% of takt</strong>
+      A station running at exactly takt has zero room for a jammed fixture, a tired operator or a rework loop. Leave 10&ndash;15% headroom. A line balanced to 100% of takt on paper misses demand in practice almost every shift.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Using gross shift time for takt.</strong> Always subtract planned breaks and meetings first, or your takt is falsely generous.</li>
+      <li><strong>Balancing to average, not bottleneck.</strong> The slowest station sets output, not the line average. Fix the constraint.</li>
+      <li><strong>Confusing cycle time with lead time.</strong> A 90 s cycle time can still sit inside a three-day lead time if WIP is piled between stations.</li>
+      <li><strong>Ignoring changeover.</strong> If you build a mix, changeover eats available time and raises effective takt &mdash; account for it, or use the <a href="../calculators/oee.html">OEE calculator</a> to see where the time really goes.</li>
+      <li><strong>Chasing cycle time far below takt.</strong> Running much faster than takt just builds inventory you cannot sell. Match the beat, do not beat it.</li>
+    </ul>
+    <p>One more discipline point: the moment demand changes, takt changes, and every station target moves with it. Recompute takt whenever the order book shifts, and re-check that your measured cycle times still fit underneath.</p>
+
+    <div class="callout">
+      <strong>Run the numbers in seconds</strong>
+      Skip the mental math &mdash; the free <a href="../calculators/takt-time.html">Takt Time Calculator</a> turns shift time and demand into a takt figure, and the <a href="../calculators/cycle-time.html">Cycle Time Calculator</a> converts your station times into line output. For deeper reading see <a href="../articles/oee-calculation.html">OEE calculation</a>, and grab a line-balance sheet from the <a href="../templates.html">templates library</a>.
+    </div>
+
+    <p>Where does drawing quality touch all this? A rebalanced line only holds if every part is inspected to print. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> tags each dimension and tolerance straight off the PDF so inspection stays fast and error-free while your stations run to takt.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the difference between takt time and cycle time?</h3>
+    <p>Takt time is the customer demand rate (available time / demand). Cycle time is how long your process actually takes per unit. For a line to keep up, cycle time must be less than or equal to takt time.</p>
+    <h3>What is the formula for takt time?</h3>
+    <p>Takt time = net available production time / customer demand. For 450 minutes against 300 units, takt is 1.5 minutes (90 seconds) per unit.</p>
+    <h3>Should cycle time be higher or lower than takt time?</h3>
+    <p>Lower. If cycle time exceeds takt you cannot meet demand. Most lean lines target cycle time at about 85&ndash;90% of takt for a buffer.</p>
+    <h3>How do takt and cycle time relate to lead time?</h3>
+    <p>Lead time is total order-to-delivery time including queues. Cutting cycle time below takt lets you reduce WIP, which shortens lead time.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/takt-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Takt Time Calculator</a>
+      <a href="../calculators/cycle-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cycle Time Calculator</a>
+      <a href="../articles/cycle-time-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cycle Time Calculation</a>
+      <a href="../articles/oee-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">OEE Calculation</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

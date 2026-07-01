@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Press Fit vs Shrink Fit: Key Differences Explained | MetricMech</title>
+<meta name="description" content="Press fit vs shrink fit: same interference, different assembly. Compare cold pressing and thermal shrink fits on force, stress and when to use each." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/press-fit-vs-shrink-fit">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Press Fit vs Shrink Fit: Key Differences Explained | MetricMech">
+<meta property="og:description" content="Same interference, different assembly method. Compare cold press fits and thermal shrink fits on force, stress, tooling and when to use each.">
+<meta property="og:url" content="https://metricmech.com/articles/press-fit-vs-shrink-fit">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Press Fit vs Shrink Fit: Key Differences Explained | MetricMech">
+<meta name="twitter:description" content="Same interference, different assembly method. Compare cold press fits and thermal shrink fits on force, stress, tooling and when to use each.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Press Fit vs Shrink Fit: Key Differences Explained",
+  "description": "Same interference, different assembly method. Compare cold press fits and thermal shrink fits on force, stress, tooling and when to use each.",
+  "url": "https://metricmech.com/articles/press-fit-vs-shrink-fit",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": { "@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech - 14 years plant-head experience" },
+  "datePublished": "2026-07-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/press-fit-vs-shrink-fit"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is the difference between a press fit and a shrink fit?","acceptedAnswer":{"@type":"Answer","text":"Both use the same diametral interference to hold parts together. A press fit forces the parts together cold with axial force. A shrink fit heats the hub (or cools the shaft) so the bore opens past the interference, then clamps as temperatures equalise. The joint is identical once assembled; only the assembly method differs."}},
+    {"@type":"Question","name":"Is a shrink fit stronger than a press fit?","acceptedAnswer":{"@type":"Answer","text":"For the same interference and geometry the holding capacity is the same, because contact pressure depends on interference, not on how you assembled it. A shrink fit can be slightly better in practice because it does not scrape down the surface asperities the way cold pressing does, so it retains more effective interference."}},
+    {"@type":"Question","name":"When should you use a shrink fit instead of a press fit?","acceptedAnswer":{"@type":"Answer","text":"Use a shrink fit when the required insertion force is too high for available presses, on large or thin-walled hubs at risk of galling or cracking, or when you need maximum retained interference. Use a cold press fit for small parts and high-volume assembly where a heater adds cost and cycle time."}},
+    {"@type":"Question","name":"What temperature is needed for a shrink fit?","acceptedAnswer":{"@type":"Answer","text":"The temperature rise to open the bore by the interference is delta-T = delta / (alpha x d), plus a clearance margin. For 0.04 mm interference on a 50 mm steel bore, that is about 70 C above the shaft, so heat the hub to roughly 100 C above ambient while staying below the tempering temperature."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Press fit vs shrink fit</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#same">Same joint, two methods</a>
+    <a href="#press">Press (cold) fit</a>
+    <a href="#shrink">Shrink (thermal) fit</a>
+    <a href="#compare">Side-by-side</a>
+    <a href="#example">Worked comparison</a>
+    <a href="#choose">Which to use</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Press fit vs shrink fit: <em>same squeeze, different assembly.</em></h1>
+    <div class="art-meta-bar">
+      <span>Design / Machine Elements</span>
+      <span>July 1, 2026</span>
+      <span>8 min read</span>
+      <span>1,600 words</span>
+    </div>
+
+    <p class="lede">Press fit and shrink fit describe the same interference joint &mdash; a shaft made deliberately larger than its bore &mdash; but they get the parts together in opposite ways. One uses brute force, the other uses temperature. Pick the wrong method and you crack a hub on the press or spend money heating a part that never needed it. Here is how to choose.</p>
+
+    <h2 id="same">Same joint, two methods</h2>
+    <p>Start with what they share. Both a <strong>press fit</strong> and a <strong>shrink fit</strong> are interference fits: the contact pressure, hub stress and holding torque all come from the same diametral interference and the same Lam&eacute; thick-cylinder equations. If you specify H7/s6 on a 50 mm interface, the joint is identical whether you press it or shrink it. What changes is only <strong>how you overcome the interference during assembly</strong> &mdash; and that changes force, tooling, surface finish and risk. For the underlying maths of pressure and stress, see the full <a href="../articles/press-fit-calculation.html">press fit calculation</a> guide.</p>
+
+    <h2 id="press">Press (cold) fit: assembly by force</h2>
+    <p>A press fit is assembled cold. You put the shaft and hub in an arbor or hydraulic press and push until the shaft is home. The insertion force is:</p>
+    <div class="callout">
+      <strong>Insertion force</strong>
+      F = &mu; &times; &pi; &times; d &times; L &times; p
+      <br><br>
+      where &mu; is friction, d the interface diameter, L engagement length and p the contact pressure from the interference.
+    </div>
+    <p>It is fast, needs no heating equipment, and suits small parts and high-volume lines &mdash; bushings, small gears, dowels. The downsides: force scales with size and can reach tens of kilonewtons; the shaft <strong>scrapes down surface asperities</strong> as it slides in, so you lose some effective interference; and a thin or brittle hub can gall or crack under the axial push.</p>
+
+    <h2 id="shrink">Shrink (thermal) fit: assembly by temperature</h2>
+    <p>A shrink fit removes the force entirely. Heat the hub so its bore expands past the interference, drop the shaft in with clearance, and let it cool. As temperatures equalise the bore clamps down. The temperature rise needed is:</p>
+    <div class="callout">
+      <strong>Shrink-fit temperature</strong>
+      &Delta;T = &delta; / (&alpha; &times; d) + clearance margin
+      <br><br>
+      where &delta; is the interference, &alpha; the coefficient of thermal expansion and d the bore diameter.
+    </div>
+    <p>Because the parts never rub on assembly, a shrink fit keeps more of its designed interference and gives clean, repeatable grip &mdash; the reason railway wheels, large gears, turbine discs and bearing races are shrunk on. The trade-offs: you need a heater or oven (or dry ice / liquid nitrogen to cool the shaft instead), the cycle is slower, and overheating past the material's tempering temperature will soften it.</p>
+
+    <h2 id="compare">Side-by-side</h2>
+    <table>
+      <tr><th>Factor</th><th>Press (cold) fit</th><th>Shrink (thermal) fit</th></tr>
+      <tr><td>Assembly</td><td>Axial force, cold</td><td>Heat hub / cool shaft</td></tr>
+      <tr><td>Equipment</td><td>Press</td><td>Oven / induction / cryo</td></tr>
+      <tr><td>Insertion force</td><td>High (kN range)</td><td>Near zero</td></tr>
+      <tr><td>Surface asperities</td><td>Scraped, some loss</td><td>Preserved</td></tr>
+      <tr><td>Retained interference</td><td>Slightly lower</td><td>Full</td></tr>
+      <tr><td>Cycle time</td><td>Fast</td><td>Slower (heat/cool)</td></tr>
+      <tr><td>Best for</td><td>Small, high-volume parts</td><td>Large, thin or high-grip joints</td></tr>
+    </table>
+
+    <h2 id="example">Worked comparison: gear on a 50 mm shaft</h2>
+    <p>Take a steel gear on a steel shaft: interface d = 50 mm, hub OD d&#8338; = 80 mm, engagement L = 40 mm, working interference &delta; = 0.040 mm, E = 210,000 N/mm&sup2;, &mu; = 0.12, &alpha; = 11.5 &times; 10&#8315;&#8310;/&deg;C. Contact pressure works out to p &asymp; 51 N/mm&sup2; and holding torque to about 965 N&middot;m &mdash; identical for both methods.</p>
+    <p><strong>Press-fit route:</strong> insertion force F = 0.12 &times; &pi; &times; 50 &times; 40 &times; 51.2 = <strong>38,600 N &asymp; 3.9 tonnes</strong>. You need a press rated well above that, and roughly 0.6 &times; (Ra_shaft + Ra_hub) of interference is lost to asperity flattening.</p>
+    <p><strong>Shrink-fit route:</strong> &Delta;T = 0.040 / (11.5 &times; 10&#8315;&#8310; &times; 50) = <strong>70 &deg;C</strong> above the shaft, plus about 30 &deg;C of slip clearance &mdash; heat the hub to roughly 100 &deg;C over ambient. No press, no scraping, full interference retained.</p>
+    <p>Same joint strength, completely different shop-floor plan. On a small bushing you would never bother heating; on a 500 mm ring gear you would never dream of pressing. Confirm the numbers for your own geometry with the <a href="../calculators/press-fit.html">press-fit calculator</a>, which reports force, stress and shrink temperature together.</p>
+
+    <div class="warn-box">
+      <strong>Interference is the same &mdash; verify it either way</strong>
+      Both methods live or die on a 0.018&ndash;0.059 mm window of bore and shaft diameter. A shrink fit does not forgive a wrong diameter; it just clamps the error in. Inspect those features exactly, whichever assembly route you choose.
+    </div>
+
+    <h2 id="choose">Which one should you use?</h2>
+    <ul>
+      <li><strong>Choose a press fit</strong> for small parts, high volume, and where insertion force is comfortably within your press &mdash; bushings, dowels, small pulleys.</li>
+      <li><strong>Choose a shrink fit</strong> when force gets impractical, on large or thin-walled hubs prone to galling or cracking, or when you need maximum retained grip &mdash; railway wheels, large gears, bearing races, turbine discs.</li>
+      <li><strong>Cool the shaft instead of heating the hub</strong> when the hub carries heat-sensitive features or coatings, or on thin shafts where cryo shrink is easier than an oven.</li>
+    </ul>
+    <p>A practical middle path many shops use: design the fit as H7/s6, size grip from the minimum interference and stress from the maximum (read the fit bands in our <a href="../articles/iso-286-fits-tolerances.html">ISO 286 fits and tolerances</a> guide), then decide press vs shrink purely on the insertion force the calculator returns.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Thinking one is inherently stronger.</strong> Same interference, same holding capacity. Method does not change the physics of grip.</li>
+      <li><strong>Pressing a thin hub.</strong> If d&#8338;/d is below about 1.3, cold pressing risks cracking &mdash; shrink it instead.</li>
+      <li><strong>Overheating on a shrink fit.</strong> Exceeding the tempering temperature softens the part. Stay below it and use induction for control.</li>
+      <li><strong>Lubricating a press fit.</strong> Oil drops &mu; and can halve holding torque unless the design assumed it.</li>
+      <li><strong>Ignoring asperity loss on cold press.</strong> Subtract roughly 0.6 &times; (Ra_shaft + Ra_hub) from your interference for the press route.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Run both routes in seconds</strong>
+      The free <a href="../calculators/press-fit.html">Press-Fit Calculator</a> gives contact pressure, insertion force, hub stress and shrink-fit temperature from one set of inputs &mdash; so you can compare the press and shrink routes side by side. Pair it with the <a href="../calculators/tolerance-stack.html">tolerance stack calculator</a> for the assembly, and grab a checklist from the <a href="../templates.html">templates library</a>.
+    </div>
+
+    <p>Whichever route you take, the interference features have to be inspected exactly as drawn. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> tags each diameter and tolerance straight off the PDF so the fit-critical dimensions land in your inspection sheet without a transcription error.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What is the difference between a press fit and a shrink fit?</h3>
+    <p>Both use the same interference. A press fit forces the parts together cold; a shrink fit heats the hub (or cools the shaft) so the bore opens, then clamps on cooling. The finished joint is identical; only the assembly method differs.</p>
+    <h3>Is a shrink fit stronger than a press fit?</h3>
+    <p>For the same interference and geometry the grip is the same. A shrink fit can retain slightly more effective interference because it does not scrape surface asperities.</p>
+    <h3>When should you use a shrink fit?</h3>
+    <p>When insertion force is too high, on large or thin-walled hubs at risk of cracking, or when you need maximum retained interference.</p>
+    <h3>What temperature is needed for a shrink fit?</h3>
+    <p>&Delta;T = &delta; / (&alpha; &times; d) plus a clearance margin. For 0.04 mm on a 50 mm steel bore, about 70 &deg;C above the shaft.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/press-fit.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Press-Fit Calculator</a>
+      <a href="../articles/press-fit-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Press Fit Calculation</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances</a>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Tolerance Stack Calculator</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
