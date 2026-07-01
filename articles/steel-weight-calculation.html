@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Steel Weight Calculation: Formula, Charts & Examples | MetricMech</title>
+<meta name="description" content="Calculate steel weight for plate, round bar, pipe, sheet and angle with clear formulas, the 7850 kg/m3 density rule, and worked examples in metric units." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/steel-weight-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Steel Weight Calculation: Formula, Charts & Examples | MetricMech">
+<meta property="og:description" content="Calculate steel weight for plate, round bar, pipe, sheet and angle with clear formulas, the 7850 kg/m3 density rule, and worked examples.">
+<meta property="og:url" content="https://metricmech.com/articles/steel-weight-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Steel Weight Calculation: Formula, Charts & Examples | MetricMech">
+<meta name="twitter:description" content="Calculate steel weight for plate, round bar, pipe, sheet and angle with clear formulas, the 7850 kg/m3 density rule, and worked examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Steel Weight Calculation: Formula, Charts & Examples",
+  "description": "Calculate steel weight for plate, round bar, pipe, sheet and angle with clear formulas, the 7850 kg/m3 density rule, and worked examples.",
+  "url": "https://metricmech.com/articles/steel-weight-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience"},
+  "datePublished": "2026-07-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/steel-weight-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the density of steel used for weight calculation?", "acceptedAnswer": {"@type": "Answer", "text": "Mild and carbon steel is taken as 7850 kg/m3 (7.85 g/cm3) for weight calculation. Stainless 304 and 316 are close to 8000 kg/m3, and cast iron is about 7200 kg/m3, so use the correct density if the material is not plain carbon steel."}},
+    {"@type": "Question", "name": "How do you calculate the weight of a steel plate?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply length by width by thickness in metres to get the volume in cubic metres, then multiply by 7850 kg/m3. For a 2 m by 1 m by 10 mm plate the weight is 2 x 1 x 0.01 x 7850 = 157 kg."}},
+    {"@type": "Question", "name": "What is the formula for the weight of a steel round bar?", "acceptedAnswer": {"@type": "Answer", "text": "Weight per metre = D squared divided by 162, where D is the diameter in millimetres. A 25 mm bar weighs 25 x 25 / 162 = 3.86 kg per metre. The 162 comes from the density and the area of a circle combined."}},
+    {"@type": "Question", "name": "How do you find the weight of a steel pipe?", "acceptedAnswer": {"@type": "Answer", "text": "Weight per metre = (OD minus wall thickness) x wall thickness x 0.02466, with OD and thickness in millimetres. A 60.3 mm OD pipe with 3.9 mm wall weighs (60.3 - 3.9) x 3.9 x 0.02466 = 5.42 kg per metre."}},
+    {"@type": "Question", "name": "Does the weight formula change for stainless steel?", "acceptedAnswer": {"@type": "Answer", "text": "The geometry is the same, only the density changes. Multiply the mild-steel result by 8000/7850, about 1.019, so stainless is roughly 2 percent heavier than carbon steel of the same size."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Steel weight calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#basics">The one rule</a>
+    <a href="#plate">Plate &amp; sheet</a>
+    <a href="#bar">Round &amp; square bar</a>
+    <a href="#pipe">Pipe &amp; tube</a>
+    <a href="#angle">Angle &amp; sections</a>
+    <a href="#density">Other metals</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Steel weight calculation: <em>plate, bar, pipe and section</em></h1>
+    <div class="art-meta-bar">
+      <span>Materials</span>
+      <span>July 1, 2026</span>
+      <span>9 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">Every steel weight calculation is the same two steps: find the volume, then multiply by density. Get the density right, keep your units in metres, and a plate, a bar, a pipe or a beam all fall out of one formula. Here is that formula for each shape, with worked numbers you can trust for costing and RFQs.</p>
+
+    <h2 id="basics">The one rule <em>behind every shape</em></h2>
+    <p>Weight is volume times density. For steel the density is the number to memorise:</p>
+    <ul>
+      <li><strong>Mild / carbon steel:</strong> 7850 kg/m&sup3; (7.85 g/cm&sup3;)</li>
+    </ul>
+    <p>So the master formula is <strong>Weight (kg) = Volume (m&sup3;) &times; 7850</strong>. Everything else is just working out the volume of the shape in front of you. The single most common error is mixing millimetres and metres, so decide on metres for the final volume and convert every dimension before you multiply.</p>
+
+    <div class="callout">
+      <strong>Keep one unit system end to end</strong>
+      A 10 mm thickness is 0.01 m, not 10. If your plate weight comes out 1000 times too big or too small, you left a millimetre in a metre formula. Convert first, calculate second.
+    </div>
+
+    <h2 id="plate">Steel plate and <em>sheet</em></h2>
+    <p>A plate is a rectangular block, so the volume is length &times; width &times; thickness. Convert all three to metres and multiply by 7850.</p>
+    <p><strong>Formula:</strong> Weight = L &times; W &times; t &times; 7850, with L, W and t in metres.</p>
+    <p><strong>Example.</strong> A mild-steel plate 2 m &times; 1 m &times; 10 mm:</p>
+    <ul>
+      <li>Volume = 2 &times; 1 &times; 0.010 = 0.020 m&sup3;</li>
+      <li>Weight = 0.020 &times; 7850 = <strong>157 kg</strong></li>
+    </ul>
+    <p>A handy shortcut for sheet: weight per square metre = thickness in mm &times; 7.85. So 10 mm plate is 78.5 kg/m&sup2;, and the 2 m&sup2; plate above is 2 &times; 78.5 = 157 kg, matching exactly.</p>
+
+    <h2 id="bar">Round bar and <em>square bar</em></h2>
+    <p>For a round bar the cross-section is a circle, so volume per metre is &pi;/4 &times; D&sup2;. Combine that with 7850 and it collapses to a shop-floor classic:</p>
+    <p><strong>Round bar, weight per metre = D&sup2; / 162</strong>, with D in millimetres.</p>
+    <p>The 162 is simply 4 &times; 10&sup6; / (&pi; &times; 7850), rounded. It is exact enough for quoting.</p>
+    <p><strong>Example.</strong> A 25 mm round bar: 25&sup2; / 162 = 625 / 162 = <strong>3.86 kg/m</strong>. A 6 m length weighs 23.1 kg.</p>
+    <p>For a square bar of side A (mm), the area is A&sup2; instead of &pi;/4&times;D&sup2;, so the divisor changes: <strong>weight per metre = A&sup2; / 127</strong>. A 25 mm square bar is 625 / 127 = 4.92 kg/m.</p>
+
+    <h2 id="pipe">Pipe and <em>hollow tube</em></h2>
+    <p>A pipe is a bar with the centre removed, so subtract the bore. The clean version uses outside diameter and wall thickness:</p>
+    <p><strong>Pipe, weight per metre = (OD &minus; t) &times; t &times; 0.02466</strong>, with OD and t in millimetres.</p>
+    <p>The constant 0.02466 is &pi; &times; 7850 / 10&sup6;. It already carries the density.</p>
+    <p><strong>Example.</strong> A 60.3 mm OD pipe (2 inch NB) with 3.9 mm wall: (60.3 &minus; 3.9) &times; 3.9 &times; 0.02466 = 56.4 &times; 3.9 &times; 0.02466 = <strong>5.42 kg/m</strong>.</p>
+
+    <h2 id="angle">Angle, channel and <em>standard sections</em></h2>
+    <p>Rolled sections such as equal angles, channels and I-beams have areas that are not simple rectangles, so for these you take the weight per metre straight from the mill's section table rather than computing it by hand. Two routes work in practice:</p>
+    <ul>
+      <li><strong>From the section table:</strong> an ISA 50&times;50&times;6 equal angle is listed at 4.5 kg/m; multiply by length.</li>
+      <li><strong>From area:</strong> if you have the cross-sectional area A in mm&sup2;, then weight per metre = A &times; 7850 / 10&sup6; = A &times; 0.00785.</li>
+    </ul>
+    <p>For an angle you can also approximate the area as (leg1 + leg2 &minus; thickness) &times; thickness, which is close for equal-thickness legs.</p>
+
+    <h2 id="density">When it is not <em>mild steel</em></h2>
+    <p>Only the density changes; the geometry stays identical. Swap 7850 for the right value:</p>
+    <table>
+      <tr><th>Material</th><th>Density (kg/m&sup3;)</th><th>Factor vs mild steel</th></tr>
+      <tr><td>Mild / carbon steel</td><td>7850</td><td>1.000</td></tr>
+      <tr><td>Stainless 304 / 316</td><td>8000</td><td>1.019</td></tr>
+      <tr><td>Cast iron</td><td>7200</td><td>0.917</td></tr>
+      <tr><td>Aluminium 6061</td><td>2700</td><td>0.344</td></tr>
+      <tr><td>Brass</td><td>8500</td><td>1.083</td></tr>
+      <tr><td>Copper</td><td>8960</td><td>1.141</td></tr>
+    </table>
+    <p>To convert a mild-steel answer, just multiply by the factor. A steel bar that weighs 3.86 kg/m becomes 3.86 &times; 1.019 = 3.93 kg/m in 316 stainless.</p>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Unit mixing.</strong> Leaving thickness in mm inside a metre-based volume. Convert every dimension first.</li>
+      <li><strong>Wrong density.</strong> Using 7850 for stainless or aluminium. A 6061 part is only about a third of the steel weight.</li>
+      <li><strong>Forgetting the bore.</strong> Treating a pipe as a solid bar overstates weight badly; always subtract the inside.</li>
+      <li><strong>Using OD twice for pipe.</strong> The mean diameter (OD &minus; t) is what carries the metal, not the full OD.</li>
+      <li><strong>Ignoring mill tolerance.</strong> Plate thickness can run under nominal, so a theoretical weight is an estimate, not a weighbridge reading.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Run every shape instantly</strong>
+      Skip the hand arithmetic and use the MetricMech <a href="../calculators/material-weight.html">material weight calculator</a> for plate, bar, pipe, sheet and section in steel, stainless, aluminium and more. Pair it with the <a href="../articles/tolerance-stackup-worked-example.html">tolerance stack-up guide</a> when the weight feeds a design margin.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What density do I use for steel?</h3>
+    <p>Use 7850 kg/m&sup3; for mild and carbon steel. Stainless is about 8000, cast iron about 7200. The geometry formulas do not change, only the density.</p>
+    <h3>Where does the D&sup2;/162 bar formula come from?</h3>
+    <p>It is &pi;/4 &times; D&sup2; (area) &times; 7850 (density) with unit conversions folded in. The divisor 162 gives kilograms per metre directly from a diameter in millimetres.</p>
+    <h3>How do I weigh a pipe quickly?</h3>
+    <p>(OD &minus; wall) &times; wall &times; 0.02466 gives kg per metre. It subtracts the bore automatically, so you never treat a pipe as a solid bar.</p>
+    <h3>Is theoretical weight the same as actual weight?</h3>
+    <p>No. Rolling tolerances, mill scale and cut-length variation mean the weighbridge reading differs by a percent or two. Theoretical weight is for costing and estimating, not certification.</p>
+
+    <div class="callout">
+      <strong>From the weight to the inspection sheet</strong>
+      Once a fabrication is drawn and cut, the shop still needs a ballooned inspection report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the PDF drawing and numbers every characteristic in minutes, and you can start from a ready <a href="../templates.html">inspection template</a>.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/material-weight.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../articles/material-weight-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material weight formula</a>
+      <a href="../articles/beam-deflection.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Beam deflection formula</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

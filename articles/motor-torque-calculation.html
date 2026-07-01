@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Motor Torque Calculation: Formula & Worked Example | MetricMech</title>
+<meta name="description" content="Calculate motor torque from power and speed with the T = 9550 x kW / rpm formula, plus full load, starting and gearbox output torque worked examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/motor-torque-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Motor Torque Calculation: Formula & Worked Example | MetricMech">
+<meta property="og:description" content="Calculate motor torque from power and speed with T = 9550 x kW / rpm, plus full load, starting and gearbox output torque worked examples.">
+<meta property="og:url" content="https://metricmech.com/articles/motor-torque-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Motor Torque Calculation: Formula & Worked Example | MetricMech">
+<meta name="twitter:description" content="Calculate motor torque from power and speed with T = 9550 x kW / rpm, plus full load, starting and gearbox output torque worked examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Motor Torque Calculation: Formula & Worked Example",
+  "description": "Calculate motor torque from power and speed with the T = 9550 x kW / rpm formula, plus full load, starting and gearbox output torque worked examples.",
+  "url": "https://metricmech.com/articles/motor-torque-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech — 14 years plant-head experience"},
+  "datePublished": "2026-07-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/motor-torque-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the formula for motor torque?", "acceptedAnswer": {"@type": "Answer", "text": "Torque in newton metres equals 9550 times power in kilowatts divided by speed in rpm: T = 9550 x kW / rpm. The constant 9550 comes from 60 divided by 2 pi times 1000, folding the kW-to-watt and rev-to-radian conversions into one number."}},
+    {"@type": "Question", "name": "How do you calculate torque of a 5 HP motor?", "acceptedAnswer": {"@type": "Answer", "text": "First convert to kW: 5 HP x 0.746 = 3.73 kW. For a 4-pole motor at 1440 rpm, T = 9550 x 3.73 / 1440 = 24.7 Nm. Change the speed and the torque changes in proportion."}},
+    {"@type": "Question", "name": "What is the difference between full load torque and starting torque?", "acceptedAnswer": {"@type": "Answer", "text": "Full load torque is what the motor delivers at rated power and speed. Starting torque is what it produces at zero speed, typically 150 to 250 percent of full load torque for a standard induction motor, and it is what accelerates the load from rest."}},
+    {"@type": "Question", "name": "How does a gearbox change motor torque?", "acceptedAnswer": {"@type": "Answer", "text": "A gearbox multiplies torque by its ratio and reduces speed by the same ratio, minus efficiency losses. Output torque = motor torque x ratio x efficiency. A 24.7 Nm motor through a 10:1 box at 95 percent gives about 235 Nm at the output shaft."}},
+    {"@type": "Question", "name": "Does torque depend on the number of motor poles?", "acceptedAnswer": {"@type": "Answer", "text": "Indirectly. Poles set the synchronous speed, so a 4-pole motor runs near 1440 rpm and a 2-pole near 2880 rpm. For the same power the slower motor produces more torque, because torque is inversely proportional to speed."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Motor torque calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#formula">The core formula</a>
+    <a href="#constant">Where 9550 comes from</a>
+    <a href="#example">Full-load example</a>
+    <a href="#starting">Starting torque</a>
+    <a href="#gearbox">Gearbox output</a>
+    <a href="#poles">Poles and speed</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Motor torque calculation: <em>from kW and rpm to newton metres</em></h1>
+    <div class="art-meta-bar">
+      <span>Drives &amp; Motors</span>
+      <span>July 1, 2026</span>
+      <span>9 min read</span>
+      <span>1,800 words</span>
+    </div>
+
+    <p class="lede">Power tells you how fast work gets done; torque tells you how hard the shaft twists. Size a motor by torque, not just kW, and you stop stalling conveyors and snapping keys. This is the one formula that turns a nameplate into a torque figure, with worked examples for full load, starting and a gearbox output.</p>
+
+    <h2 id="formula">The core <em>formula</em></h2>
+    <p>Torque, power and speed are locked together. In metric units the working form is:</p>
+    <ul>
+      <li><strong>T = 9550 &times; P / n</strong></li>
+    </ul>
+    <p>where T is torque in newton metres (N&middot;m), P is power in kilowatts (kW), and n is speed in revolutions per minute (rpm). Read it and the physics is obvious: for a fixed power, torque rises as speed falls. A slow shaft carrying the same kilowatts must twist harder.</p>
+
+    <div class="callout">
+      <strong>Power is torque times speed</strong>
+      The fundamental relation is P = T &times; &omega;, where &omega; is angular speed in radians per second. Everything below is that one equation, rearranged and with the unit conversions pre-packed into a constant.
+    </div>
+
+    <h2 id="constant">Where the <em>9550</em> comes from</h2>
+    <p>The constant is not magic. Start from P (watts) = T &times; 2&pi;n / 60, with n in rpm. Rearrange for T and convert power to kilowatts:</p>
+    <ul>
+      <li>T = P &times; 60 / (2&pi;n)</li>
+      <li>With P in kW, multiply by 1000: T = 1000 &times; 60 / (2&pi;) &times; kW / n</li>
+      <li>1000 &times; 60 / (2&pi;) = <strong>9549.3</strong>, rounded to 9550</li>
+    </ul>
+    <p>If you work in horsepower instead, the equivalent constant is 7127 for T in N&middot;m from HP and rpm, since 1 HP = 0.746 kW.</p>
+
+    <h2 id="example">Full-load torque <em>worked example</em></h2>
+    <p>Take a common industrial motor: <strong>7.5 kW, 4-pole, running at 1440 rpm</strong> full load.</p>
+    <table>
+      <tr><th>Step</th><th>Calculation</th><th>Result</th></tr>
+      <tr><td>Apply the formula</td><td>9550 &times; 7.5 / 1440</td><td>49.7 N&middot;m</td></tr>
+      <tr><td>Check in HP form</td><td>7.5 kW = 10.05 HP; 7127 &times; 10.05 / 1440</td><td>49.7 N&middot;m</td></tr>
+    </table>
+    <p>So the rated shaft torque is about <strong>49.7 N&middot;m</strong>. If the same 7.5 kW ran at a 2-pole 2880 rpm, torque would halve to 24.9 N&middot;m, which is why high-torque loads use slower, higher-pole motors.</p>
+
+    <h2 id="starting">Starting and <em>breakdown torque</em></h2>
+    <p>Full-load torque is not the whole story. A load has to be accelerated from rest, and that needs more:</p>
+    <ul>
+      <li><strong>Starting (locked-rotor) torque:</strong> typically 150&ndash;250% of full-load torque for a standard induction motor. It must exceed the load's break-away torque or the motor will not start.</li>
+      <li><strong>Pull-up torque:</strong> the minimum during acceleration, which must stay above the load curve the whole way up.</li>
+      <li><strong>Breakdown torque:</strong> the peak, often 200&ndash;300% of full load, beyond which the motor stalls.</li>
+    </ul>
+    <p>For the 7.5 kW motor above, a 200% starting torque is 2.0 &times; 49.7 = 99.4 N&middot;m available to break the load away.</p>
+
+    <div class="warn-box">
+      <strong>Match motor torque to load torque, not just kW</strong>
+      A conveyor that needs 90 N&middot;m to break away will trip or overheat on a motor whose starting torque is only 80 N&middot;m, even if the kW rating looks generous. Always compare the torque curves, not the power numbers alone.
+    </div>
+
+    <h2 id="gearbox">Torque through a <em>gearbox</em></h2>
+    <p>Most drives put a reducer between motor and load. A gearbox trades speed for torque:</p>
+    <ul>
+      <li><strong>Output torque</strong> = motor torque &times; ratio &times; efficiency</li>
+      <li><strong>Output speed</strong> = motor speed / ratio</li>
+    </ul>
+    <p><strong>Example.</strong> The 49.7 N&middot;m motor drives a 10:1 worm box at 90% efficiency:</p>
+    <ul>
+      <li>Output torque = 49.7 &times; 10 &times; 0.90 = <strong>447 N&middot;m</strong></li>
+      <li>Output speed = 1440 / 10 = 144 rpm</li>
+    </ul>
+    <p>The gearbox multiplied torque nearly nine-fold after losses, which is exactly why reducers exist.</p>
+
+    <h2 id="poles">Poles, speed and <em>torque</em></h2>
+    <p>The pole count sets synchronous speed, and speed sets torque for a given power:</p>
+    <table>
+      <tr><th>Poles</th><th>Synchronous rpm (50 Hz)</th><th>Full-load rpm (approx.)</th><th>Torque for 7.5 kW</th></tr>
+      <tr><td>2</td><td>3000</td><td>2880</td><td>24.9 N&middot;m</td></tr>
+      <tr><td>4</td><td>1500</td><td>1440</td><td>49.7 N&middot;m</td></tr>
+      <tr><td>6</td><td>1000</td><td>960</td><td>74.6 N&middot;m</td></tr>
+      <tr><td>8</td><td>750</td><td>720</td><td>99.5 N&middot;m</td></tr>
+    </table>
+    <p>Same power, four different torques. Choose poles for the torque and speed the load wants, then confirm the kW.</p>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Using synchronous speed.</strong> Torque delivered comes at the actual full-load rpm (with slip), not the 1500 rpm nameplate ideal.</li>
+      <li><strong>Mixing kW and HP.</strong> Feed kW into the 9550 formula and HP into the 7127 form; never cross them.</li>
+      <li><strong>Sizing on power only.</strong> A big kW motor can still lack the starting torque a stubborn load needs.</li>
+      <li><strong>Ignoring gearbox efficiency.</strong> A worm box can lose 20&ndash;40%; assuming 100% overstates output torque.</li>
+      <li><strong>Forgetting service factor.</strong> Shock loads need a service factor of 1.25&ndash;2.0 on top of the calculated torque.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Check any motor in seconds</strong>
+      Run power, speed and poles through the MetricMech <a href="../calculators/motor-hp.html">motor power and torque calculator</a> to get full-load torque instantly. When the drive turns a pump, cross-check the load with the <a href="../articles/pump-power-calculation.html">pump power calculation</a>.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What is the quick formula for motor torque?</h3>
+    <p>T (N&middot;m) = 9550 &times; kW / rpm. From horsepower, T = 7127 &times; HP / rpm. Both give the shaft torque at the stated speed.</p>
+    <h3>Why does slower mean more torque?</h3>
+    <p>Because power is torque times speed. Hold the power fixed and torque must rise as speed falls, which is what a gearbox exploits.</p>
+    <h3>How much starting torque does an induction motor give?</h3>
+    <p>Typically 150&ndash;250% of full-load torque, depending on the NEMA or IEC design class. It must beat the load's break-away torque for a clean start.</p>
+    <h3>Do I include gearbox efficiency?</h3>
+    <p>Yes. Output torque = motor torque &times; ratio &times; efficiency. Helical boxes are 95&ndash;98%, worm boxes can drop to 60&ndash;80% at high ratios.</p>
+
+    <div class="callout">
+      <strong>From the drive to the inspection sheet</strong>
+      Once the gearbox and mounting are drawn, the shop still needs a ballooned inspection report. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> reads the PDF drawing and numbers every characteristic in minutes, and you can start from a ready <a href="../templates.html">inspection template</a>.
+    </div>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/motor-hp.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Motor Power Calculator</a>
+      <a href="../articles/motor-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Motor power calculation</a>
+      <a href="../articles/pump-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump power calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
