@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -127,7 +128,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -142,6 +143,7 @@
 </div>
 
 <div class="calc-layout">
+<div id="mmVerdictTop"></div>
 <div class="builder-grid">
 
   <!-- LEFT: form -->
@@ -436,6 +438,27 @@ function updatePreview() {
       }).join('')}</tbody>
     </table>`;
   }
+
+  // Display-only completeness banner (mm.js design system)
+  mmCompletionBanner();
+}
+
+// Counts filled required inputs from existing DOM state — display only, no form logic.
+function mmCompletionBanner() {
+  if (!window.mmVerdict || !document.getElementById('mmVerdictTop')) return;
+  const optional = ['comments', 'custApprovedBy', 'custApprovedDate'];
+  let totalRequired = 0, filledCount = 0;
+  const seen = {};
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    if (seen[k] || optional.indexOf(k) !== -1) return;
+    seen[k] = true;
+    totalRequired++;
+    if (String(el.value || '').trim()) filledCount++;
+  });
+  mmVerdict('#mmVerdictTop', filledCount === totalRequired ? 'pass' : 'info',
+    'Form 2 — ' + filledCount + ' of ' + totalRequired + ' required fields completed',
+    'Complete all required fields, then print or export.');
 }
 
 // ============ Input binding ============
@@ -611,5 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
 </body>
 </html>

@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -122,7 +123,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -144,12 +145,12 @@
         <h4>Availability — Time</h4>
         <div class="field">
           <label>Planned production time (min)</label>
-          <input type="number" id="planned" value="480" step="1" oninput="calc()">
+          <input type="number" id="planned" value="480" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Total scheduled time per shift, minus planned breaks</div>
         </div>
         <div class="field">
           <label>Total downtime (min)</label>
-          <input type="number" id="downtime" value="60" step="1" oninput="calc()">
+          <input type="number" id="downtime" value="60" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Breakdowns, changeovers, material shortage, waiting</div>
         </div>
       </div>
@@ -158,12 +159,12 @@
         <h4>Performance — Speed</h4>
         <div class="field">
           <label>Ideal cycle time (sec/part)</label>
-          <input type="number" id="ideal" value="30" step="0.1" oninput="calc()">
+          <input type="number" id="ideal" value="30" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Theoretical fastest cycle time per part</div>
         </div>
         <div class="field">
           <label>Total parts produced</label>
-          <input type="number" id="produced" value="700" step="1" oninput="calc()">
+          <input type="number" id="produced" value="700" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Total units run during operating time (good + reject)</div>
         </div>
       </div>
@@ -172,18 +173,21 @@
         <h4>Quality — Defects</h4>
         <div class="field">
           <label>Rejected / reworked parts</label>
-          <input type="number" id="rejects" value="35" step="1" oninput="calc()">
+          <input type="number" id="rejects" value="35" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Parts that did not meet quality first time</div>
         </div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="oee-big">
         <div class="lbl">OVERALL EQUIPMENT EFFECTIVENESS</div>
         <div class="val"><span id="oee">—</span><span class="pct">%</span></div>
         <div class="verdict" id="verdict">—</div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="metric-row">
         <div class="metric-card">
@@ -240,19 +244,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is OEE?</h2>
 <p><strong>OEE</strong> (Overall Equipment Effectiveness) is the gold-standard KPI for production efficiency. It rolls three losses — downtime, slow cycles, and defects — into one number that tells you what fraction of your planned production time was perfectly productive.</p>
@@ -309,6 +300,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const planned = +document.getElementById('planned').value;
@@ -329,7 +321,7 @@ function calc() {
   set('avail', availability);
   set('perf', performanceCapped);
   set('qual', quality);
-  document.getElementById('oee').textContent = (oee * 100).toFixed(1);
+  window.mmCountUp ? mmCountUp(document.getElementById('oee'), oee * 100, 1) : document.getElementById('oee').textContent = (oee * 100).toFixed(1);
   let verdict;
   if (oee >= 0.85) verdict = '★ World-class — top 5% of manufacturers';
   else if (oee >= 0.70) verdict = 'Good — established manufacturer territory';
@@ -396,6 +388,20 @@ function calc() {
       { href: 'copq.html', text: 'Cost of Poor Quality' },
     ]
   });
+
+  // Design-system visual — A / P / Q factors + OEE (uses the values already computed above)
+  if (window.mmViz) { try {
+    const oeeBarColor = oee >= 0.85 ? '#16A34A' : oee >= 0.60 ? '#D97706' : '#DC2626';
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Availability', value: availability * 100, color: '#2554BA' },
+        { label: 'Performance', value: performanceCapped * 100, color: '#3A6FD8' },
+        { label: 'Quality', value: quality * 100, color: '#0d9488' },
+        { label: 'OEE', value: oee * 100, color: oeeBarColor }
+      ],
+      max: 100, unit: '%', decimals: 1
+    });
+  } catch (e) {} }
 }
 calc();
 </script>

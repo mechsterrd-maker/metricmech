@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -118,7 +119,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -179,6 +180,7 @@
   </div>
 
   <aside>
+    <div id="mmVerdictTop"></div>
     <div class="results">
       <div class="result-card primary">
         <div class="result-label">Worst-Case Stack</div>
@@ -197,6 +199,8 @@
       </div>
     </div>
 
+    <div id="mmViz" class="mm-viz"></div>
+
     <div data-mw="cn-sidebar"></div>
   </aside>
 </div>
@@ -210,19 +214,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is Tolerance Stack-Up Analysis?</h2>
 <p>Tolerance stack-up analysis predicts the cumulative dimensional variation in an assembly built from individually-toleranced parts. It answers the question: "If every part is at the edge of its tolerance, will the assembly still work?"</p>
@@ -275,6 +266,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 const tbody = document.getElementById('dimBody');
@@ -288,9 +280,9 @@ function addDim(d = '', n = '', p = '', m = '', dir = '+') {
   tr.innerHTML = `
     <td style="font-family: var(--mono); font-size: 12px; color: var(--mute); text-align: center;">${rows.length + 1}</td>
     <td><input type="text" placeholder="e.g. Block A" value="${d}" onchange="recalc()"></td>
-    <td><input type="number" step="any" placeholder="0.00" value="${n}" onchange="recalc()"></td>
-    <td><input type="number" step="any" placeholder="0.00" value="${p}" onchange="recalc()"></td>
-    <td><input type="number" step="any" placeholder="0.00" value="${m}" onchange="recalc()"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${n}" onchange="recalc()" inputmode="decimal" autocomplete="off"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${p}" onchange="recalc()" inputmode="decimal" autocomplete="off"></td>
+    <td><input type="number" step="any" placeholder="0.00" value="${m}" onchange="recalc()" inputmode="decimal" autocomplete="off"></td>
     <td><select onchange="recalc()">
       <option value="+" ${dir==='+'?'selected':''}>+</option>
       <option value="-" ${dir==='-'?'selected':''}>−</option>
@@ -329,6 +321,7 @@ function loadExample() {
 
 function recalc() {
   let nomSum = 0, wcTol = 0, rssSq = 0;
+  const mmDims = [];
   Array.from(tbody.children).forEach(tr => {
     const n = parseFloat(tr.children[2].firstElementChild.value) || 0;
     const p = Math.abs(parseFloat(tr.children[3].firstElementChild.value) || 0);
@@ -338,6 +331,7 @@ function recalc() {
     const meanTol = (p + m) / 2;
     wcTol += meanTol;
     rssSq += meanTol * meanTol;
+    mmDims.push({ label: tr.children[1].firstElementChild.value || ('Dim ' + (mmDims.length + 1)), tol: meanTol });
   });
   const rssTol = Math.sqrt(rssSq);
 
@@ -409,6 +403,8 @@ function recalc() {
       { href: '../gdt.html', text: 'GD&T Reference' },
     ]
   });
+
+  if (window.mmViz) { try { mmViz.stack('#mmViz', { dims: mmDims, worst: wcTol, rss: rssTol, unit: 'mm' }); } catch(e){} }
 }
 
 // Init with 3 empty rows

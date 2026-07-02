@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -123,7 +124,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -157,7 +158,7 @@
     <div data-mm-section="input">
       <div class="input-card">
         <label>Reference / Master value</label>
-        <input type="number" id="ref" value="50.000" step="0.001" oninput="calc()">
+        <input type="number" id="ref" value="50.000" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Known true value of the calibration master</div>
       </div>
 
@@ -165,11 +166,11 @@
         <div class="row">
           <div>
             <label>USL</label>
-            <input type="number" id="usl" value="50.020" step="0.001" oninput="calc()">
+            <input type="number" id="usl" value="50.020" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
           </div>
           <div>
             <label>LSL</label>
-            <input type="number" id="lsl" value="49.980" step="0.001" oninput="calc()">
+            <input type="number" id="lsl" value="49.980" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
           </div>
         </div>
         <div class="hint">Specification limits of the part being measured</div>
@@ -212,6 +213,7 @@
     </div>
 
     <div data-mm-section="result">
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">Cg — REPEATABILITY</div>
         <div class="val" id="cg">—</div>
@@ -223,6 +225,8 @@
         <div class="val" id="cgk">—</div>
         <div class="verdict" id="cgkVerdict">—</div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card"><div class="l">n (samples)</div><div class="v" id="n">—</div></div>
@@ -268,19 +272,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is Gauge R&amp;R (Repeatability and Reproducibility)?</h2>
 <p>Gauge R&amp;R is a Measurement System Analysis (MSA) study that tells you how much of your observed variation comes from the <strong>measurement system itself</strong> versus the actual part variation. If your gauge is contributing too much noise, your Cp/Cpk numbers are lying to you.</p>
@@ -326,6 +317,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function parseData() {
   return document.getElementById('data').value
@@ -354,7 +346,7 @@ function calc() {
   document.getElementById('tol').textContent = fmt(tol);
   document.getElementById('ev').textContent = evPct.toFixed(1) + '%';
   document.getElementById('cg').textContent = Cg.toFixed(2);
-  document.getElementById('cgk').textContent = Cgk.toFixed(2);
+  window.mmCountUp ? mmCountUp(document.getElementById('cgk'), Cgk, 2) : document.getElementById('cgk').textContent = Cgk.toFixed(2);
   const verdict = (val, el) => {
     let v, c;
     if (val >= 1.67) { v = '★ Excellent — well capable'; c = 'ok'; }
@@ -416,6 +408,18 @@ function calc() {
       { href: 'measurement-uncertainty.html', text: 'Measurement Uncertainty' },
     ]
   });
+
+  // Design-system visual — %GRR of tolerance on a zone gauge (uses the %EV already computed above)
+  if (window.mmViz) { try {
+    mmViz.gauge('#mmViz', {
+      value: evPct, min: 0, max: 60, decimals: 1, unit: '%', label: '%GRR of tolerance',
+      zones: [
+        { to: 10, color: 'rgba(22,163,74,0.55)' },
+        { to: 30, color: 'rgba(217,119,6,0.55)' },
+        { to: 60, color: 'rgba(220,38,38,0.55)' }
+      ]
+    });
+  } catch (e) {} }
 }
 function loadEx1() {
   document.getElementById('data').value = `49.998\n50.001\n49.999\n50.002\n50.000\n49.997\n50.001\n50.000\n49.999\n50.001\n50.000\n49.998\n50.002\n49.999\n50.001\n50.000\n50.001\n49.999\n50.000\n50.001\n49.999\n50.000\n50.001\n49.998\n50.000`;

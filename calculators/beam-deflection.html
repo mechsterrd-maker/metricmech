@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -116,7 +117,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -159,19 +160,19 @@
     <div>
       <div class="input-card">
         <label>Beam length (L)</label>
-        <input type="number" id="L" value="1000" step="10" oninput="calc()">
+        <input type="number" id="L" value="1000" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm</div>
       </div>
 
       <div class="input-card" id="loadPCard">
         <label>Point load (P)</label>
-        <input type="number" id="P" value="500" step="10" oninput="calc()">
+        <input type="number" id="P" value="500" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">N — applied force</div>
       </div>
 
       <div class="input-card" id="loadWCard" style="display: none;">
         <label>Distributed load (w)</label>
-        <input type="number" id="w" value="2" step="0.1" oninput="calc()">
+        <input type="number" id="w" value="2" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">N/mm — uniform along length</div>
       </div>
 
@@ -203,40 +204,42 @@
       <div class="input-card" id="rectCard">
         <label>Width × Height</label>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <input type="number" id="b" value="40" step="1" oninput="calc()" placeholder="b">
-          <input type="number" id="h" value="60" step="1" oninput="calc()" placeholder="h">
+          <input type="number" id="b" value="40" step="1" oninput="calc()" placeholder="b" inputmode="decimal" autocomplete="off">
+          <input type="number" id="h" value="60" step="1" oninput="calc()" placeholder="h" inputmode="decimal" autocomplete="off">
         </div>
         <div class="hint">mm — b (width) × h (height in bending plane)</div>
       </div>
 
       <div class="input-card" id="roundCard" style="display: none;">
         <label>Diameter (d)</label>
-        <input type="number" id="d" value="50" step="1" oninput="calc()">
+        <input type="number" id="d" value="50" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm</div>
       </div>
 
       <div class="input-card" id="tubeCard" style="display: none;">
         <label>Outside × Inside Ø</label>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <input type="number" id="do" value="60" step="1" oninput="calc()" placeholder="d_o">
-          <input type="number" id="di" value="50" step="1" oninput="calc()" placeholder="d_i">
+          <input type="number" id="do" value="60" step="1" oninput="calc()" placeholder="d_o" inputmode="decimal" autocomplete="off">
+          <input type="number" id="di" value="50" step="1" oninput="calc()" placeholder="d_i" inputmode="decimal" autocomplete="off">
         </div>
         <div class="hint">mm</div>
       </div>
 
       <div class="input-card" id="ixCard" style="display: none;">
         <label>Moment of inertia (Ix)</label>
-        <input type="number" id="ixv" value="1000000" step="1000" oninput="calc()">
+        <input type="number" id="ixv" value="1000000" step="1000" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm⁴</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">MAX DEFLECTION (δ)</div>
         <div class="val" id="defl">—</div>
         <div style="font-family: var(--mono); font-size: 11px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em;">mm</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card"><div class="l">Max bending moment</div><div class="v" id="M">—</div></div>
@@ -266,19 +269,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Beam Deflection and Stress</h2>
 <p>Beam deflection analysis predicts how much a loaded beam will sag and what stress it will experience. Get this wrong and structures fail (or pass code with no margin).</p>
@@ -324,6 +314,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 let currentCase = 'cant_p';
 const FORMULAS = {
@@ -408,7 +399,7 @@ function calc() {
   }
   const Z = I / c;
   const stress = M * c / I;
-  document.getElementById('defl').textContent = defl.toFixed(3);
+  window.mmCountUp ? mmCountUp(document.getElementById('defl'), defl, 3) : (document.getElementById('defl').textContent = defl.toFixed(3));
   document.getElementById('M').textContent = (M / 1000).toFixed(2) + ' N·m';
   document.getElementById('stress').textContent = stress.toFixed(2) + ' MPa';
   document.getElementById('slope').textContent = (slope * 180 / Math.PI).toFixed(4) + '°';
@@ -455,6 +446,21 @@ function calc() {
       related: [ { href: 'press-fit.html', text: 'Press-Fit' }, { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' } ]
     });
   })();
+
+  // ── Visual (display-only; L/250 & L/500 are common design-guide reference marks) ──
+  if (window.mmViz) { try {
+    var vizMax = Math.max(defl * 1.3, L / 200);
+    mmViz.scaleBar('#mmViz', {
+      value: defl, min: 0, max: vizMax,
+      marks: [{ v: L / 500, label: 'L/500' }, { v: L / 250, label: 'L/250' }],
+      zones: [
+        { to: L / 500, color: 'rgba(22,163,74,0.55)', label: 'stiff' },
+        { to: L / 250, color: 'rgba(217,119,6,0.55)', label: 'typical limit' },
+        { to: vizMax, color: 'rgba(220,38,38,0.55)', label: 'excessive' }
+      ],
+      label: 'Max deflection', unit: ' mm', decimals: 3
+    });
+  } catch(e){} }
 }
 setCase('cant_p');
 </script>

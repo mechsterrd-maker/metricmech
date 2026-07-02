@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -114,7 +115,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -147,41 +148,43 @@
 
       <div class="input-card">
         <label>Driver pulley diameter (D₁)</label>
-        <input type="number" id="d1" value="100" step="5" oninput="calc()">
+        <input type="number" id="d1" value="100" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — pitch diameter of motor/drive pulley</div>
       </div>
 
       <div class="input-card">
         <label>Driven pulley diameter (D₂)</label>
-        <input type="number" id="d2" value="200" step="5" oninput="calc()">
+        <input type="number" id="d2" value="200" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — pitch diameter of load pulley</div>
       </div>
 
       <div class="input-card">
         <label>Centre distance (C)</label>
-        <input type="number" id="C" value="450" step="10" oninput="calc()">
+        <input type="number" id="C" value="450" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — distance between pulley centres</div>
       </div>
 
       <div class="input-card">
         <label>Driver speed (N₁)</label>
-        <input type="number" id="N1" value="1440" step="10" oninput="calc()">
+        <input type="number" id="N1" value="1440" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">RPM — typical motor: 1440 (4-pole) or 2880 (2-pole)</div>
       </div>
 
       <div class="input-card">
         <label>Power transmitted (P)</label>
-        <input type="number" id="P" value="5.5" step="0.5" oninput="calc()">
+        <input type="number" id="P" value="5.5" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">kW — motor rating</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">BELT LENGTH (Lp)</div>
         <div class="val" id="Lp">—</div>
         <div class="unit">mm — pitch length</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card">
@@ -247,19 +250,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>V-Belt Length Calculation</h2>
 <p>V-belt drives transmit power between pulleys via friction in a wedge groove. Belt length must match the available stock sizes; getting it within 1-2% is usually sufficient because of tensioner adjustment.</p>
@@ -304,6 +294,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const D1 = +document.getElementById('d1').value;
@@ -325,7 +316,7 @@ function calc() {
   const ratio_T = Math.exp(mu_eff * arc);
   const T2 = Te / (ratio_T - 1);
   const T1 = T2 * ratio_T;
-  document.getElementById('Lp').textContent = Math.round(Lp);
+  window.mmCountUp ? mmCountUp(document.getElementById('Lp'), Lp, 0) : (document.getElementById('Lp').textContent = Math.round(Lp));
   document.getElementById('ratio').textContent = ratio.toFixed(3) + ':1';
   document.getElementById('N2').textContent = Math.round(N2) + ' RPM';
   document.getElementById('vBelt').textContent = vBelt.toFixed(2) + ' m/s';
@@ -335,7 +326,7 @@ function calc() {
 
   // ── Interpretation ──
   (function(){
-    const lenTxt = document.getElementById('beltLen')?.textContent || '';
+    const lenTxt = document.getElementById('Lp')?.textContent || '';
     const len = parseFloat(lenTxt);
     const recs = [];
     let v;
@@ -349,6 +340,20 @@ function calc() {
       cta: { show: false }, related: [ { href: 'gear-calculator.html', text: 'Gear Calculator' }, { href: 'motor-hp.html', text: 'Motor HP' } ]
     });
   })();
+
+  // ── Visual (display-only; 120° minimum wrap is the guideline already stated on this page) ──
+  if (window.mmViz) { try {
+    mmViz.scaleBar('#mmViz', {
+      value: arcDeg, min: 0, max: 180,
+      marks: [{ v: 120, label: '120° min' }],
+      zones: [
+        { to: 120, color: 'rgba(220,38,38,0.55)', label: 'slip risk' },
+        { to: 150, color: 'rgba(217,119,6,0.55)', label: 'adequate' },
+        { to: 180, color: 'rgba(22,163,74,0.55)', label: 'good grip' }
+      ],
+      label: 'Arc of contact (driver pulley)', unit: '°', decimals: 1
+    });
+  } catch(e){} }
 }
 calc();
 </script>

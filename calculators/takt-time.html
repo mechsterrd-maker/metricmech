@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -113,7 +114,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -133,41 +134,44 @@
     <div>
       <div class="input-card">
         <label>Available work time per shift (min)</label>
-        <input type="number" id="time" value="450" step="5" oninput="calc()">
+        <input type="number" id="time" value="450" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Total shift time minus breaks, lunch, and 5S</div>
       </div>
 
       <div class="input-card">
         <label>Customer demand per shift (units)</label>
-        <input type="number" id="demand" value="300" step="1" oninput="calc()">
+        <input type="number" id="demand" value="300" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Required output rate from customer schedule</div>
       </div>
 
       <div class="input-card">
         <label>Total work content (sec/unit)</label>
-        <input type="number" id="content" value="180" step="1" oninput="calc()">
+        <input type="number" id="content" value="180" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Sum of all manual + machine task times to make 1 unit</div>
       </div>
 
       <div class="input-card">
         <label>Longest task time (sec)</label>
-        <input type="number" id="bottleneck" value="55" step="1" oninput="calc()">
+        <input type="number" id="bottleneck" value="55" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Cycle time of the slowest workstation (bottleneck)</div>
       </div>
 
       <div class="input-card">
         <label>Number of workstations (current)</label>
-        <input type="number" id="stations" value="4" step="1" oninput="calc()">
+        <input type="number" id="stations" value="4" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">How many stations on the line today</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">TAKT TIME</div>
         <div class="val" id="takt">—</div>
         <div class="unit">seconds per unit — pace of customer demand</div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card" id="cardA">
@@ -225,19 +229,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Takt Time</h2>
 <p><strong>Takt time</strong> is the rate at which products must be completed to meet customer demand. It's the heartbeat of a production line — every workstation must be balanced to this beat.</p>
@@ -277,6 +268,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const time = +document.getElementById('time').value * 60;
@@ -290,6 +282,7 @@ function calc() {
   const efficiency = content / (stations * bn);
   const bal = 1 - efficiency;
   const maxOut = Math.floor(time / bn);
+  if (window.mmCountUp) { try { mmCountUp('#takt', takt, 1); } catch(e){} }
   document.getElementById('takt').textContent = takt.toFixed(1);
   document.getElementById('reqStations').textContent = reqStations.toFixed(2);
   document.getElementById('eff').textContent = (efficiency * 100).toFixed(1) + '%';
@@ -339,6 +332,18 @@ function calc() {
       related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE' }, { href: 'speeds-feeds.html', text: 'Speeds & Feeds' } ]
     });
   })();
+
+  // ── Visual (mm.js, additive) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Takt time', value: takt, color: '#2554BA', display: takt.toFixed(1) + ' s' },
+        { label: 'Bottleneck cycle', value: bn, color: bn > takt ? 'rgba(220,38,38,0.55)' : 'rgba(22,163,74,0.55)', display: bn.toFixed(1) + ' s' }
+      ],
+      max: Math.max(takt, bn),
+      unit: ' s', decimals: 1
+    });
+  } catch(e){} }
 }
 calc();
 </script>

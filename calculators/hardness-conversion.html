@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -117,7 +118,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -145,10 +146,11 @@
 
   <div class="input-card">
     <label id="inputLabel">Enter Rockwell C (HRC) value</label>
-    <input type="number" id="value" value="45" step="1" oninput="calc()">
+    <input type="number" id="value" value="45" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
   </div>
 
   <h3 style="font-family: var(--display); font-weight: 600; font-size: 18px; margin-bottom: 14px;">Equivalent values</h3>
+  <div id="mmVerdictTop"></div>
   <div class="results-grid">
     <div class="result-card"><div class="lbl">HRC</div><div class="val" id="r_hrc">—</div><div class="unt">Rockwell C</div></div>
     <div class="result-card"><div class="lbl">HRB</div><div class="val" id="r_hrb">—</div><div class="unt">Rockwell B</div></div>
@@ -157,6 +159,8 @@
     <div class="result-card"><div class="lbl">HK</div><div class="val" id="r_hk">—</div><div class="unt">Knoop 500 gf</div></div>
     <div class="result-card"><div class="lbl">UTS</div><div class="val" id="r_uts">—</div><div class="unt">MPa (≈3.45·HB)</div></div>
   </div>
+
+  <div id="mmViz" class="mm-viz"></div>
 
   <div style="background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 32px 0; font-size: 13px; line-height: 1.6;">
     <strong style="font-family: var(--display); font-size: 15px;">Note on accuracy.</strong> Hardness conversion is approximate. Values are based on ASTM E140 for non-austenitic steels. For non-ferrous materials (aluminium, copper, brass), conversions are less reliable — measure on the correct scale where possible. Reading errors of ±2 HRC and ±20 HV are normal between scales.
@@ -187,19 +191,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Hardness Scales and Conversion</h2>
 <p>Material hardness is tested using several different scales depending on material type, sample geometry, and required precision. Converting between scales lets you compare specs across drawings and material certificates.</p>
@@ -256,6 +247,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 // ASTM E140 conversion table (subset, keyed by HRC)
 const TABLE = [
@@ -331,9 +323,18 @@ function calc() {
   out('r_hk').textContent = typeof row[4] === 'number' ? Math.round(row[4]) : '—';
   out('r_uts').textContent = typeof row[5] === 'number' ? Math.round(row[5]) : '—';
 
+  if (window.mmViz) { try {
+    const vizBars = [];
+    if (typeof row[3] === 'number') vizBars.push({ label: 'HB', value: row[3] / 650 * 100, color: 'rgba(37,84,186,0.35)', display: String(Math.round(row[3])) + ' HB' });
+    if (typeof row[0] === 'number') vizBars.push({ label: 'HRC', value: row[0] / 70 * 100, color: 'rgba(37,84,186,0.35)', display: row[0].toFixed(1) + ' HRC' });
+    if (typeof row[2] === 'number') vizBars.push({ label: 'HV', value: row[2] / 940 * 100, color: 'rgba(37,84,186,0.35)', display: String(Math.round(row[2])) + ' HV' });
+    if (vizBars.length) mmViz.compareBars('#mmViz', { bars: vizBars, max: 100 });
+    else document.getElementById('mmViz').innerHTML = '';
+  } catch(e){} }
+
   // ── Interpretation ──
   (function(){
-    const hb = parseFloat(document.getElementById('hbOut')?.textContent) || 0;
+    const hb = parseFloat(document.getElementById('r_hb')?.textContent) || 0;
     const recs = [];
     let v;
     if (hb === 0) v = { level: 'warn', label: 'Enter a hardness value', sub: '' };

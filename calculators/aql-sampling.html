@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -112,7 +113,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -132,7 +133,7 @@
     <div>
       <div class="input-card">
         <label>Lot size (N)</label>
-        <input type="number" id="lot" value="1000" step="1" oninput="calc()">
+        <input type="number" id="lot" value="1000" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Total quantity in the inspection lot</div>
       </div>
 
@@ -170,6 +171,7 @@
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-row">
         <div class="result-card">
           <div class="l">Sample Size</div>
@@ -187,6 +189,8 @@
           <div class="b">Defects: fail</div>
         </div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="input-card" style="margin-top: 16px;">
         <h4 style="font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 10px; color: var(--blueprint);">Decision rule</h4>
@@ -238,19 +242,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is AQL Sampling?</h2>
 <p><strong>AQL</strong> (Acceptable Quality Limit / Level) sampling is a statistical method for accepting or rejecting batches of parts without inspecting every piece. It's defined by <strong>ANSI/ASQ Z1.4</strong> (formerly MIL-STD-105E) and used worldwide for incoming inspection, in-process, and final inspection.</p>
@@ -296,6 +287,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 // Lot size → code letter map by inspection level
 const CODE_TABLE = [
@@ -355,10 +347,19 @@ function calc() {
   const re = ar ? ar[1] : '—';
   const set = (id, v) => document.getElementById(id).textContent = v;
   set('codeLetter', code);
-  set('sample', n);
+  if (window.mmCountUp && typeof n === 'number') { try { mmCountUp('#sample', n, 0); } catch(e) { set('sample', n); } } else { set('sample', n); }
   set('ac', ac);
   set('re', re);
   set('r_n', n); set('r_ac', ac); set('r_re', re); set('r_lot', lot.toLocaleString());
+
+  if (window.mmViz) { try {
+    mmViz.flowBar('#mmViz', { steps: [
+      { label: 'Lot size', value: lot.toLocaleString() },
+      { label: 'Sample n', value: n },
+      { label: 'Accept ≤', value: ac, color: '#F0FDF4', stroke: '#16A34A' },
+      { label: 'Reject ≥', value: re, color: '#FEF2F2', stroke: '#DC2626' }
+    ] });
+  } catch(e){} }
 
   // ── Interpretation ──
   const aqlPct = parseFloat(aql);

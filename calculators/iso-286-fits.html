@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -124,7 +125,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -143,7 +144,7 @@
   <div class="input-row">
     <div class="input-group">
       <label>Nominal size (mm)</label>
-      <input type="number" id="size" value="25" oninput="recalc()">
+      <input type="number" id="size" value="25" oninput="recalc()" inputmode="decimal" autocomplete="off">
     </div>
     <div class="input-group">
       <label>Hole tolerance (e.g. H7)</label>
@@ -169,6 +170,8 @@
     <button class="preset-btn" onclick="preset('H8','f7')">H8/f7 — running</button>
     <button class="preset-btn" onclick="preset('H11','c11')">H11/c11 — loose</button>
   </div>
+
+  <div id="mmVerdictTop"></div>
 
   <div class="results">
     <div class="fit-card">
@@ -241,19 +244,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What are ISO 286 Fits?</h2>
 <p><strong>ISO 286</strong> is the international standard for limits and fits on cylindrical features (holes and shafts). It defines a system of <strong>tolerance grades</strong> (IT01 to IT18) and <strong>fundamental deviations</strong> (letters A-Z for holes, a-z for shafts) that combine to give standard fit classes.</p>
@@ -308,6 +298,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 // ISO 286 Fundamental Tolerance values (IT grades) for size ranges, in µm
@@ -493,8 +484,8 @@ function recalc() {
 
   // ── Interpretation ──
   (function(){
-    const cMinTxt = document.getElementById('clrMin')?.textContent || '';
-    const cMaxTxt = document.getElementById('clrMax')?.textContent || '';
+    const cMinTxt = document.getElementById('minCl')?.textContent || '';
+    const cMaxTxt = document.getElementById('maxCl')?.textContent || '';
     const cMin = parseFloat(cMinTxt);
     const cMax = parseFloat(cMaxTxt);
     const recs = [];

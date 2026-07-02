@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -115,7 +116,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -150,47 +151,49 @@
 
       <div class="input-card">
         <label>Material thickness (T)</label>
-        <input type="number" id="thickness" value="2.0" step="0.1" oninput="calc()">
+        <input type="number" id="thickness" value="2.0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm</div>
       </div>
 
       <div class="input-card">
         <label>Inside bend radius (R)</label>
-        <input type="number" id="radius" value="2.0" step="0.1" oninput="calc()">
+        <input type="number" id="radius" value="2.0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — typically equals thickness for most press brakes</div>
       </div>
 
       <div class="input-card">
         <label>Bend angle (α)</label>
-        <input type="number" id="angle" value="90" step="1" oninput="calc()">
+        <input type="number" id="angle" value="90" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">degrees — angle of bend (90° = right angle)</div>
       </div>
 
       <div class="input-card">
         <label>K-factor</label>
-        <input type="number" id="kfactor" value="0.42" step="0.01" min="0" max="0.5" oninput="calc()">
+        <input type="number" id="kfactor" value="0.42" step="0.01" min="0" max="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">0 to 0.5 — neutral axis position. Default 0.42 for mild steel.</div>
       </div>
 
       <div class="input-card">
         <label>Leg A (flange before bend)</label>
-        <input type="number" id="legA" value="50" step="1" oninput="calc()">
+        <input type="number" id="legA" value="50" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — outside dimension</div>
       </div>
 
       <div class="input-card">
         <label>Leg B (flange after bend)</label>
-        <input type="number" id="legB" value="30" step="1" oninput="calc()">
+        <input type="number" id="legB" value="30" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — outside dimension</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">FLAT BLANK LENGTH</div>
         <div class="val" id="flat">—</div>
         <div class="unit">mm — leg A + leg B − bend deduction</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card">
@@ -248,19 +251,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Sheet Metal Bend Allowance</h2>
 <p>When sheet metal is bent, the metal stretches on the outside and compresses on the inside. The <strong>neutral axis</strong> (where length is unchanged) shifts toward the inside. Bend allowance accounts for this when calculating the flat blank size.</p>
@@ -314,6 +304,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 const PRESETS = {
   ms_soft: 0.33, ms_med: 0.42, ms_hard: 0.50,
@@ -365,6 +356,19 @@ function calc() {
       related: [ { href: 'material-weight.html', text: 'Material Weight' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' } ]
     });
   })();
+
+  // ── MM design system add-ons (additive) ──
+  if (window.mmCountUp) { try { mmCountUp('#flat', flat, 2); } catch (e) {} }
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Bend allowance', value: BA, color: '#2554BA' },
+        { label: 'Bend deduction', value: BD, color: '#3A6FD8' },
+        { label: 'Flat length', value: flat, color: 'rgba(37,84,186,0.55)' }
+      ],
+      unit: ' mm', decimals: 2
+    });
+  } catch (e) {} }
 }
 calc();
 </script>

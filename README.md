@@ -14,7 +14,7 @@ Cross-promotes CadNexa (https://cadnexa.com).
 ## Stack
 Static HTML / CSS / JS. No build step. Deploys to Vercel.
 
-## Live calculators (32)
+## Live calculators (34)
 Tolerance Stack-Up, Cp/Cpk, CadNexa ROI, COPQ, Surface Finish,
 Position Tolerance, ISO 286 Fits, Cycle Time/Cost, AS9102 Form 3,
 PPAP Checklist, Thread Pitch, Bend Allowance/K-factor,
@@ -29,7 +29,7 @@ Motor HP/Power, Pump Power, Press/Interference Fit.
 - Structured PDF engineering report (Inputs → Result → Interpretation → Visualization)
 - Hero with urgency badge + branded CTA
 - Tier-aware CTA (good / marginal / critical) and Continue Analysis chips
-- 32/32 calculators with 340–537 word SEO content blocks
+- 34/34 calculators with 340–537 word SEO content blocks
 
 ## Elite-Stage upgrades (May 2026)
 - **Decision confidence**: sample-size-driven confidence % displayed on verdict pill (chart + PDF)

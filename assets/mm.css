@@ -1,0 +1,354 @@
+/* ════════════════════════════════════════════════════════════════
+   MetricMech Design System — mm.css
+   Single source of truth for shared components across all pages.
+   Loads AFTER styles.css (tokens there are canonical for legacy
+   classes); the --mm-* aliases below are the component-kit palette.
+   Blueprint theme: white paper, #2554BA, Inter, subtle grid.
+   ════════════════════════════════════════════════════════════════ */
+
+:root {
+  --mm-blue: #2554BA;
+  --mm-blue-dark: #1a3f8f;
+  --mm-ink: #111827;
+  --mm-muted: #6B7280;
+  --mm-border: #E5E7EB;
+  --mm-bg: #FFFFFF;
+  --mm-green: #16A34A;
+  --mm-green-bg: #F0FDF4;
+  --mm-amber: #D97706;
+  --mm-amber-bg: #FFFBEB;
+  --mm-red: #DC2626;
+  --mm-red-bg: #FEF2F2;
+  --mm-blue-bg: #EFF4FC;
+  --mm-radius: 12px;
+  --mm-shadow: 0 1px 2px rgba(15,23,42,0.05);
+  --mm-shadow-hover: 0 8px 24px rgba(37,84,186,0.12);
+}
+
+/* ── Typography baseline (Inter loaded per-page with display=swap) ── */
+body { line-height: 1.6; }
+
+/* ── Blueprint grid as a body class (identical to legacy .grid-bg) ── */
+body.mm-grid::before {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(37,84,186,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,84,186,0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+body.mm-grid > .grid-bg { display: none; } /* avoid double grid */
+
+/* ════════════════ COMPONENTS ════════════════ */
+
+/* Card */
+.mm-card {
+  background: var(--mm-bg);
+  border: 1px solid var(--mm-border);
+  border-radius: var(--mm-radius);
+  padding: 18px 20px;
+  box-shadow: var(--mm-shadow);
+  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.mm-card:hover { box-shadow: var(--mm-shadow-hover); }
+a.mm-card { display: block; text-decoration: none; color: inherit; }
+a.mm-card:hover, .mm-card-link:hover { border-color: var(--mm-blue); transform: translateY(-2px); }
+
+/* Button */
+.mm-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 10px 22px;
+  background: var(--mm-blue); color: #fff;
+  border: 1px solid var(--mm-blue); border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.mm-btn:hover { background: var(--mm-blue-dark); border-color: var(--mm-blue-dark); }
+.mm-btn:focus-visible { outline: 3px solid rgba(37,84,186,0.35); outline-offset: 2px; }
+.mm-btn--ghost { background: transparent; color: var(--mm-blue); }
+.mm-btn--ghost:hover { background: var(--mm-blue-bg); color: var(--mm-blue-dark); }
+
+/* Input */
+.mm-input,
+.calc-layout input[type="number"],
+.calc-layout input[type="text"],
+.calc-layout select,
+.calc-layout textarea {
+  min-height: 44px;
+  border-radius: 8px;
+}
+.mm-input {
+  width: 100%; padding: 10px 14px;
+  font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 600;
+  color: var(--mm-ink); background: var(--mm-bg);
+  border: 1px solid var(--mm-border);
+  font-variant-numeric: tabular-nums;
+}
+.mm-input:focus,
+.calc-layout input:focus,
+.calc-layout select:focus,
+.calc-layout textarea:focus {
+  outline: none;
+  border-color: var(--mm-blue);
+  box-shadow: 0 0 0 3px rgba(37,84,186,0.18);
+}
+
+/* ── Verdict banner ── */
+.mm-verdict {
+  display: flex; align-items: flex-start; gap: 12px;
+  width: 100%;
+  padding: 14px 16px; margin-bottom: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--mm-border);
+  border-left-width: 5px;
+  font-family: 'Inter', sans-serif;
+  position: relative; z-index: 1;
+}
+.mm-verdict__icon {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 15px; line-height: 1;
+}
+.mm-verdict__headline { font-size: 15px; font-weight: 700; color: var(--mm-ink); line-height: 1.4; }
+.mm-verdict__detail { font-size: 13px; color: #374151; line-height: 1.5; margin-top: 2px; }
+.mm-verdict.pass     { background: var(--mm-green-bg); border-color: var(--mm-green); }
+.mm-verdict.pass     .mm-verdict__icon { background: var(--mm-green); }
+.mm-verdict.marginal { background: var(--mm-amber-bg); border-color: var(--mm-amber); }
+.mm-verdict.marginal .mm-verdict__icon { background: var(--mm-amber); }
+.mm-verdict.fail     { background: var(--mm-red-bg); border-color: var(--mm-red); }
+.mm-verdict.fail     .mm-verdict__icon { background: var(--mm-red); }
+.mm-verdict.info     { background: var(--mm-blue-bg); border-color: var(--mm-blue); }
+.mm-verdict.info     .mm-verdict__icon { background: var(--mm-blue); }
+
+/* ── Badge ── */
+.mm-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--mm-blue-bg); color: var(--mm-blue);
+  border: 1px solid rgba(37,84,186,0.25);
+}
+.mm-badge--verdict::before {
+  content: ""; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(90deg, var(--mm-green) 0 33%, var(--mm-amber) 33% 66%, var(--mm-red) 66% 100%);
+}
+
+/* ── Collapsible section ── */
+.mm-collapse { border: 1px solid var(--mm-border); border-radius: var(--mm-radius); margin: 18px 0; background: var(--mm-bg); }
+.mm-collapse__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; min-height: 48px; padding: 12px 18px;
+  background: none; border: none; cursor: pointer; text-align: left;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: var(--mm-ink);
+}
+.mm-collapse__head::after {
+  content: ""; width: 9px; height: 9px; flex-shrink: 0;
+  border-right: 2px solid var(--mm-muted); border-bottom: 2px solid var(--mm-muted);
+  transform: rotate(45deg); transition: transform 0.2s ease; margin-right: 4px;
+}
+.mm-collapse.open .mm-collapse__head::after { transform: rotate(225deg); }
+.mm-collapse__body { padding: 0 18px 18px; display: none; }
+.mm-collapse.open .mm-collapse__body { display: block; }
+/* No-JS safety: if JS never ran, show content (html.mm-js gate) */
+html:not(.mm-js) .mm-collapse__body { display: block; }
+html:not(.mm-js) .mm-collapse__head { pointer-events: none; }
+html:not(.mm-js) .mm-collapse__head::after { display: none; }
+
+/* ── Headline number + copy ── */
+.mm-headline-wrap { position: relative; }
+.mm-copy-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  min-height: 30px; padding: 4px 10px; margin-top: 8px;
+  background: rgba(255,255,255,0.12); color: inherit;
+  border: 1px solid rgba(255,255,255,0.3); border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+}
+.mm-copy-btn:hover { background: rgba(255,255,255,0.22); }
+.mm-copy-btn.mm-copied { background: var(--mm-green); border-color: var(--mm-green); color: #fff; }
+.mm-copy-btn--dark { background: var(--mm-blue-bg); border-color: rgba(37,84,186,0.3); color: var(--mm-blue); }
+.mm-copy-btn--dark:hover { background: #DBE5F8; }
+
+/* ── Visual container ── */
+.mm-viz { margin: 12px 0; }
+.mm-viz svg { display: block; width: 100%; height: auto; }
+.mm-viz text { font-family: 'Inter', sans-serif; }
+
+/* ── Sticky mobile result bar ── */
+.mm-sticky-result {
+  display: none;
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+  align-items: center; gap: 10px;
+  min-height: 48px; padding: 8px 14px;
+  background: var(--mm-bg);
+  border-top: 3px solid var(--mm-border);
+  box-shadow: 0 -4px 16px rgba(15,23,42,0.12);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.mm-sticky-result__dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background: var(--mm-muted); }
+.mm-sticky-result__num { font-size: 19px; font-weight: 700; color: var(--mm-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mm-sticky-result__label { font-size: 12px; color: var(--mm-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.mm-sticky-result__chev { flex-shrink: 0; width: 8px; height: 8px; border-right: 2px solid var(--mm-muted); border-top: 2px solid var(--mm-muted); transform: rotate(-45deg); }
+.mm-sticky-result.pass     { border-top-color: var(--mm-green); }
+.mm-sticky-result.pass     .mm-sticky-result__dot { background: var(--mm-green); }
+.mm-sticky-result.marginal { border-top-color: var(--mm-amber); }
+.mm-sticky-result.marginal .mm-sticky-result__dot { background: var(--mm-amber); }
+.mm-sticky-result.fail     { border-top-color: var(--mm-red); }
+.mm-sticky-result.fail     .mm-sticky-result__dot { background: var(--mm-red); }
+.mm-sticky-result.info     { border-top-color: var(--mm-blue); }
+.mm-sticky-result.info     .mm-sticky-result__dot { background: var(--mm-blue); }
+@media (max-width: 767px) {
+  .mm-sticky-result.mm-show { display: flex; }
+  body.mm-has-sticky-result { padding-bottom: 64px; }
+}
+
+/* ── Table scroll wrapper with edge fade ── */
+.mm-tablewrap { position: relative; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 12px 0; max-width: 100%; }
+.mm-tablewrap table { min-width: 480px; margin: 0; }
+/* Grid/flex children default to min-width:auto, which lets a wide table
+   blow the column out instead of scrolling inside the wrapper. */
+.calc-grid > *, .calc-layout > *, .calc-layout aside, .art-layout > *, .art-content,
+.builder-grid > *, .std-layout > *, .results, .mm-verdict > div { min-width: 0; }
+.fcf-example { overflow-x: auto; }
+.mm-tablewrap::after {
+  content: ""; position: sticky; display: block;
+  /* fade hint painted by inner shadow via mask on wrapper */
+}
+.mm-tablewrap.mm-fade-r { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 36px), transparent); }
+.mm-tablewrap.mm-fade-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px); mask-image: linear-gradient(90deg, transparent, #000 36px); }
+.mm-tablewrap.mm-fade-l.mm-fade-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(90deg, transparent, #000 36px, #000 calc(100% - 36px), transparent); }
+
+/* ── Calculator card icons (Phase 3) ── */
+.mm-card-icon { flex-shrink: 0; width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--mm-blue-bg); margin-bottom: 8px; }
+.mm-card-icon svg { width: 20px; height: 20px; stroke: var(--mm-blue); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── Print: result card + inputs summary + URL footer only ──
+   styles.css already hides nav/promos/footer in @media print;
+   this extends it for the verdict-UI era. */
+@media print {
+  .mm-sticky-result, .mm-copy-btn, .mm-collapse:not(.open), .mm-viz-controls { display: none !important; }
+  .mm-collapse__head::after { display: none; }
+  .mm-verdict { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .result-big { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .seo-content, [data-seo-block] { display: none !important; }
+  body::after {
+    content: "Calculated free at metricmech.com — engineering calculators for manufacturing quality.";
+    display: block; margin-top: 24px; padding-top: 10px;
+    border-top: 1px solid #999;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #555;
+  }
+}
+
+/* ════════════════ SHARED PAGE-TYPE BLOCKS (moved from inline) ════════════════ */
+
+/* ── Article layout (was byte-identical inline block on 47 article pages) ── */
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+
+/* ── Calculator SEO content block (was identical inline block on 32 calculator pages) ── */
+.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
+.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
+.seo-content p { margin-bottom: 14px; }
+.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
+.seo-content li { margin-bottom: 6px; }
+.seo-content strong { color: var(--ink); font-weight: 700; }
+.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
+.seo-content a:hover { border-bottom-style: solid; }
+.seo-content table { font-size: 13px; }
+.seo-content table th, .seo-content table td { padding: 8px; }
+
+/* ── Reference chart block (was identical inline block on 4 reference pages) ── */
+.ref-layout { max-width: 960px; margin: 0 auto; padding: 32px; }
+.ref-layout h1 { font-family: var(--display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.ref-layout h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-meta { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.ref-layout h2 { font-family: var(--display); font-size: 24px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.ref-layout h2 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.ref-layout h3 { font-family: var(--display); font-size: 18px; font-weight: 600; margin: 22px 0 8px; }
+.ref-layout p { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin-bottom: 14px; }
+.ref-layout p.lede { font-size: 18px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.ref-layout ul, .ref-layout ol { margin: 0 0 16px 24px; }
+.ref-layout li { font-size: 15px; line-height: 1.65; color: var(--ink-2); margin-bottom: 6px; }
+.ref-layout strong { color: var(--ink); font-weight: 600; }
+.ref-layout a { color: var(--blueprint); }
+.ref-layout table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 13px; font-family: var(--mono); }
+.ref-layout th { background: var(--ink); color: var(--paper); padding: 8px 10px; text-align: center; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.ref-layout th.size-col { text-align: left; }
+.ref-layout td { padding: 7px 10px; border-bottom: 1px solid var(--rule); background: var(--paper); text-align: center; }
+.ref-layout td.size-col { text-align: left; font-weight: 600; color: var(--ink); }
+.ref-layout tr:nth-child(even) td { background: var(--paper-2); }
+.formula-box { background: var(--ink); color: var(--paper); border-radius: var(--rad); padding: 18px 22px; margin: 18px 0; font-family: var(--mono); font-size: 16px; text-align: center; }
+.formula-box .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 8px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 16px 22px; margin: 18px 0; font-size: 14px; line-height: 1.55; }
+.callout strong { font-family: var(--display); font-size: 16px; display: block; margin-bottom: 4px; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) { .ref-layout { padding: 20px 18px; } .ref-layout h1 { font-size: 28px; } }
+
+/* ── Phase 3: calculator listing cards ── */
+.tool-card { transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s; }
+.tool-card:hover {
+  border-color: var(--mm-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 84, 186, 0.1);
+  text-decoration: none;
+}
+.tool-card .mm-card-icon { margin-bottom: 10px; }
+
+/* ── Phase 4: mobile touch targets ── */
+@media (max-width: 767px) {
+  .mm-copy-btn, .tabs button, .filter-tab, .mm-collapse__head,
+  .calc-layout button, .calc-layout .btn, .seg button {
+    min-height: 44px;
+  }
+  .calc-layout input, .calc-layout select, .calc-layout textarea { min-height: 44px; }
+}
+
+/* ── Phase 4: 360px overflow fixes (grids lacking mobile rules) ── */
+@media (max-width: 640px) {
+  .std-grid { grid-template-columns: 1fr 1fr !important; }
+  .article-grid { grid-template-columns: 1fr !important; }
+  .article-grid aside { min-width: 0; }
+}
+@media (max-width: 420px) {
+  .std-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  .site-header { overflow-x: clip; } /* drawer nav is vertical here; kills a 4px bleed */
+}
+@media (max-width: 640px) {
+  .search-row { grid-template-columns: 1fr !important; }
+  .summary-stats-row { flex-wrap: wrap; }
+}

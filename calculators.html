@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/mm.css">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -336,7 +337,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -347,32 +348,36 @@
 <div class="page-header">
   <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>Calculators</div>
   <h1 class="page-title">Free engineering <em>calculators.</em></h1>
-  <p class="page-lede">33 interactive calculators for QA, design, and production engineers. No signup. No paywall. Built and tested by working engineers.</p>
+  <p class="page-lede">34 interactive calculators for QA, design, and production engineers. No signup. No paywall. Built and tested by working engineers.</p>
 </div>
 
 <section class="cat-section">
 
   <!-- Stats row -->
   <div class="stat-row">
-    <div class="stat-card"><div class="stat-num">33</div><div class="stat-label">Free tools</div></div>
+    <div class="stat-card"><div class="stat-num">34</div><div class="stat-label">Free tools</div></div>
     <div class="stat-card"><div class="stat-num">14</div><div class="stat-label">Standards covered</div></div>
     <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Free, no signup</div></div>
     <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Use as you like</div></div>
   </div>
 
   <!-- Search -->
-  <div class="search-wrap">
+  <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin: 0 0 18px;">
+  <span class="mm-badge mm-badge--verdict">Instant verdict</span>
+  <span style="font-size:13px; color:var(--mute);">Every calculator now answers pass <span style="color:#16A34A;">●</span> / marginal <span style="color:#D97706;">●</span> / fail <span style="color:#DC2626;">●</span> at a glance — with a live chart.</span>
+</div>
+<div class="search-wrap">
     <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="11" cy="11" r="7"></circle>
       <path d="m21 21-4.3-4.3"></path>
     </svg>
-    <input type="text" id="searchInput" placeholder="Search 33 calculators — try 'tolerance', 'AS9102', 'cycle time'..." autocomplete="off" />
+    <input type="text" id="searchInput" placeholder="Search 34 calculators — try 'tolerance', 'AS9102', 'cycle time'..." autocomplete="off" />
     <button class="search-clear" id="searchClear" aria-label="Clear search">×</button>
   </div>
 
   <!-- Tier filter — primary discoverability -->
   <div class="tier-tabs" id="tierTabs" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
-    <button class="tier-tab active" data-tier="all" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--ink); color: #fff; border: 1px solid var(--ink); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">All tools <span style="opacity: 0.6; margin-left: 4px;">32</span></button>
+    <button class="tier-tab active" data-tier="all" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--ink); color: #fff; border: 1px solid var(--ink); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">All tools <span style="opacity: 0.6; margin-left: 4px;">34</span></button>
     <button class="tier-tab" data-tier="1" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--blueprint-tint); color: var(--blueprint); border: 1px solid var(--blueprint-tint-2); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">★ Critical Quality <span style="opacity: 0.6; margin-left: 4px;">8</span></button>
     <button class="tier-tab" data-tier="2" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--paper-2); color: var(--ink-3); border: 1px solid var(--rule); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">Production <span style="opacity: 0.6; margin-left: 4px;">10</span></button>
     <button class="tier-tab" data-tier="3" style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; padding: 7px 12px; background: var(--paper-2); color: var(--mute); border: 1px solid var(--rule); border-radius: 5px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em;">Utilities <span style="opacity: 0.6; margin-left: 4px;">14</span></button>
@@ -380,8 +385,8 @@
 
   <!-- Filter tabs (categories) -->
   <div class="filter-tabs" id="filterTabs">
-    <button class="filter-tab active" data-cat="all">All <span class="count">33</span></button>
-    <button class="filter-tab" data-cat="quality">Quality &amp; Inspection <span class="count">15</span></button>
+    <button class="filter-tab active" data-cat="all">All <span class="count">35</span></button>
+    <button class="filter-tab" data-cat="quality">Quality &amp; Inspection <span class="count">17</span></button>
     <button class="filter-tab" data-cat="design">Design &amp; Mechanics <span class="count">9</span></button>
     <button class="filter-tab" data-cat="production">Production &amp; Manufacturing <span class="count">7</span></button>
     <button class="filter-tab" data-cat="reference">Conversion &amp; Reference <span class="count">2</span></button>
@@ -392,90 +397,121 @@
 
     <!-- QUALITY (16) -->
     <a href="calculators/tolerance-stack.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="tolerance stack rss worst case assembly dim multi-dim">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="14" width="6" height="4"/><rect x="9" y="10" width="7" height="4"/><rect x="16" y="6" width="5" height="4"/><path d="M3 20h18"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Tolerance Stack-Up</h4>
       <p>Worst-case + RSS analysis. Multi-dim assembly stack.</p>
       <span class="arrow">→</span>
     </a>
+    <a href="calculators/as9102-form1.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="as9102 form 1 fai part number accountability aerospace">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+      <div class="tool-card-cat">Quality</div>
+      <h4>AS9102 Form 1 Builder</h4>
+      <p>Part number accountability — fill, print, export.</p>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="calculators/as9102-form2.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="as9102 form 2 fai product accountability materials processes">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h6"/><path d="M8 3v4"/></svg></div>
+      <div class="tool-card-cat">Quality</div>
+      <h4>AS9102 Form 2 Builder</h4>
+      <p>Materials, processes &amp; functional testing record.</p>
+      <span class="arrow">→</span>
+    </a>
+
     <a href="calculators/as9102-form3.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="as9102 form 3 fai aerospace inspection report">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6"/><path d="M9 13l1.5 1.5L14 11"/><path d="M9 17l1.5 1.5L14 15"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>AS9102 Form 3 Builder</h4>
       <p>Paste dims → editable Form 3 → PDF export.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/cp-cpk.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="cp cpk pp ppk process capability spc histogram six sigma">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19c3 0 3-11 6-11s3 8 6 8 3-5 6-5"/><path d="M6 21V8M18 21V8" stroke-dasharray="2 2"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Cp / Cpk / Pp / Ppk Calculator</h4>
       <p>Process capability + histogram from sample data.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/ppap-checklist.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="ppap submission checklist 18 elements automotive aiag">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h9a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3z"/><path d="M9 3h6v4H9z"/><path d="M9 13l2 2 4-4"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>PPAP Submission Checklist</h4>
       <p>Level 1–5 status tracker, 18 elements.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/copq.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="copq cost poor quality rejection scrap rework">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8 7h6a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h7"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Cost of Poor Quality (COPQ)</h4>
       <p>Rejection rate → ₹ wasted per month.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/position-tolerance.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="position tolerance mmc lmc bonus converter true position diameter zone gd&t feature size">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Position Tolerance &amp; MMC/LMC Bonus</h4>
       <p>True position + bonus tolerance from feature size deviation.</p>
       <span class="arrow">→</span>
     </a>
     <a href="gdt.html" class="tool-card" data-cat="quality" data-keywords="gd&t symbol reference asme y14.5 datum feature control">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>GD&amp;T Symbol Reference</h4>
       <p>14 ASME Y14.5 symbols, worked examples.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/iso-286-fits.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="iso 286 fits tolerances h7 g6 hole shaft basis clearance">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 4v4M12 16v4"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>ISO 286 Fits &amp; Tolerances</h4>
       <p>H7/g6, H8/h7, hole-basis &amp; shaft-basis.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/surface-finish.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="surface finish ra rz rt roughness micron n grade iso 4287">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M3 17h18"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Surface Finish Converter</h4>
       <p>Ra ↔ Rz ↔ Rt ↔ µin/µm ↔ N-grade.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/gauge-rr.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="gauge r&r msa cg cgk repeatability reproducibility measurement">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16l4-5"/><circle cx="12" cy="16" r="1.5"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Gauge R&amp;R (MSA Type 1)</h4>
       <p>Cg / Cgk capability study from repeated readings.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/aql-sampling.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="aql sampling plan ansi z1.4 iso 2859 lot size accept reject">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><path d="M6.5 14v3h11v-3M12 17v3"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>AQL Sampling Plan</h4>
       <p>ANSI Z1.4 / ISO 2859 — sample size, accept/reject.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/fmea-rpn.html" class="tool-card" data-tier="1" data-cat="quality" data-keywords="fmea rpn risk priority severity occurrence detection aiag vda">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>FMEA Risk Priority (RPN)</h4>
       <p>Severity × Occurrence × Detection + AIAG-VDA AP.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/dpmo-sigma.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="dpmo sigma level six sigma defects per million yield">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5H8l6 7-6 7h10"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Six Sigma DPMO / Sigma Level</h4>
       <p>Defects per million ↔ sigma ↔ yield.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/hardness-conversion.html" class="tool-card" data-tier="2" data-cat="quality" data-keywords="hardness conversion hrc hrb hv hb tensile astm e140 rockwell brinell vickers">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 5h5l-4 4 2 6-5-3-5 3 2-6-4-4h5z"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Hardness Conversion</h4>
       <p>HRC ↔ HRB ↔ HV ↔ HB ↔ tensile (ASTM E140).</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/drill-size-chart.html" class="tool-card" data-tier="3" data-cat="quality" data-keywords="drill size chart tap clearance hole metric fractional number letter">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v14"/><path d="M8 6l4-2 4 2M8 10l4-2 4 2"/><path d="M9 16l3 6 3-6"/></svg></div>
       <div class="tool-card-cat">Quality</div>
       <h4>Drill Size Chart</h4>
       <p>Tap drill, clearance hole. Metric, fractional, number, letter.</p>
@@ -484,54 +520,63 @@
 
     <!-- DESIGN (9) -->
     <a href="calculators/material-weight.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="material weight density steel aluminium copper plate bar pipe ring">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l3 12H3z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Material Weight Calculator</h4>
       <p>Plate, bar, pipe, ring weight from 60+ materials.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/bolt-torque.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="bolt torque preload vdi 2230 grade friction tightening">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17 9v6"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Bolt Torque &amp; Preload</h4>
       <p>VDI 2230 torque from bolt grade, friction, preload target.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/beam-deflection.html" class="tool-card" data-tier="2" data-cat="design" data-keywords="beam deflection bending cantilever simply supported point udl load">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18"/><path d="M3 8c4 6 14 6 18 0" stroke-dasharray="3 2"/><path d="M3 6v4M21 6v4"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Beam Deflection / Bending</h4>
       <p>Cantilever, simply-supported, point &amp; UDL loading.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/press-fit.html" class="tool-card" data-tier="2" data-cat="design" data-keywords="press fit interference shrink hub stress push out force">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="14" r="7"/><circle cx="12" cy="14" r="3"/><path d="M12 2v6"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Press / Interference Fit</h4>
       <p>Hub stress, push-out force, shrink-fit calc.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/thread-pitch.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="thread pitch tap drill metric unc unf bspp npt">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v18M16 3v18"/><path d="M8 7h8M8 12h8M8 17h8"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Thread Pitch &amp; Tap Drill</h4>
       <p>Metric, UNC, UNF, BSPP, NPT.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/motor-hp.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="motor hp power torque rpm 3 phase electrical 415v indian">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="13" height="9" rx="2"/><path d="M16 12h3l2 2v3h-5M6 18v2M13 18v2"/><path d="M7 9V6h5v3"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Motor HP / Power Calculator</h4>
       <p>Power ↔ torque ↔ RPM, 3-phase electrical, Indian 415V.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/v-belt.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="v belt drive length ratio speed tension a b c d section">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="7" cy="15" r="4"/><circle cx="17" cy="9" r="3"/><path d="M8.5 11.3L15 6.5M9.5 18.3L18.7 11"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>V-Belt Drive Calculator</h4>
       <p>Belt length, ratio, belt speed, tensions for A/B/C/D.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/gear-calculator.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="spur gear module diametral pitch dp centre distance ratio">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 5V3M12 21v-2M5 12H3M21 12h-2M7 7L5.6 5.6M18.4 18.4L17 17M7 17l-1.4 1.4M18.4 5.6L17 7"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Spur Gear Calculator</h4>
       <p>Module, DP, pitch &amp; centre distance for any gear pair.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/pump-power.html" class="tool-card" data-tier="3" data-cat="design" data-keywords="pump power hydraulic kw motor sizing flow head fluid sg">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="14" r="6"/><path d="M10 8V4h8v6h-4"/><path d="M10 11v6M7.5 14h5"/></svg></div>
       <div class="tool-card-cat">Design</div>
       <h4>Pump Power Calculator</h4>
       <p>Hydraulic kW, motor sizing from flow + head + fluid SG.</p>
@@ -540,42 +585,49 @@
 
     <!-- PRODUCTION (5) -->
     <a href="calculators/cycle-time.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="cycle time cost estimator setup run labor overhead per part">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>Cycle Time / Cost Estimator</h4>
       <p>Setup + run + labor + overhead → ₹/part.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/bend-allowance.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="sheet metal bend allowance k factor flat blank ba bd ossb">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8a4 4 0 0 1 4-4h12"/><path d="M4 14l-2 2 2 2M18 2l2 2-2 2"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>Sheet Metal Bend Allowance</h4>
       <p>Flat blank, BA, BD, OSSB by material &amp; thickness.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/speeds-feeds.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="machining speeds feeds rpm feed mrr cnc cutting tool material">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5"/><path d="M12 4a8 8 0 0 1 5.7 2.3L12 12z"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>Machining Speeds &amp; Feeds</h4>
       <p>RPM, feed, MRR, kW by material + tool.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/oee.html" class="tool-card" data-tier="2" data-cat="production" data-keywords="oee overall equipment effectiveness availability performance quality">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 12V5"/><path d="M12 12l5 3"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>OEE Calculator</h4>
       <p>Availability × Performance × Quality.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/takt-time.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="takt time line balancing cycle gap efficiency stations">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 13V8M9 2h6"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>Takt Time &amp; Line Balancing</h4>
       <p>Takt, cycle gap, line efficiency, required stations.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/welding-heat-input.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="welding heat input kj smaw gmaw gtaw saw fcaw weld">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14a5 5 0 1 1 10 0c0 3-2 4-2 6H9c0-2-2-3-2-6z"/><path d="M12 3v3M5 6l2 2M19 6l-2 2"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>Welding Heat Input</h4>
       <p>kJ/mm for SMAW, GMAW, GTAW, SAW, FCAW.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/eoq.html" class="tool-card" data-tier="3" data-cat="production" data-keywords="eoq economic order quantity rop reorder safety stock inventory">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h3l3 12h9l3-8H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></div>
       <div class="tool-card-cat">Production</div>
       <h4>EOQ (Economic Order Quantity)</h4>
       <p>Optimal order size, ROP, safety stock, total cost.</p>
@@ -584,12 +636,14 @@
 
     <!-- REFERENCE (2) -->
     <a href="calculators/cadnexa-roi.html" class="tool-card" data-tier="3" data-cat="reference" data-keywords="cadnexa roi return investment fai count saved hours money">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/><path d="M16 8l5-4"/></svg></div>
       <div class="tool-card-cat">Reference</div>
       <h4>CadNexa ROI Calculator</h4>
       <p>Monthly FAI count → ₹ saved + hours saved.</p>
       <span class="arrow">→</span>
     </a>
     <a href="calculators/unit-converter.html" class="tool-card" data-tier="3" data-cat="reference" data-keywords="unit converter length force pressure torque temperature engineering">
+      <div class="mm-card-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13M13 4l4 4-4 4"/><path d="M20 16H7M11 12l-4 4 4 4"/></svg></div>
       <div class="tool-card-cat">Reference</div>
       <h4>Engineering Unit Converter</h4>
       <p>Length, force, pressure, torque, temperature, etc.</p>
@@ -601,7 +655,7 @@
   <!-- Empty state -->
   <div class="empty-state" id="emptyState" style="display: none;">
     <h3>No calculators match</h3>
-    <p>Try a different keyword, or click <a href="#" id="resetSearch" style="color: var(--blueprint);">show all 33</a> to start fresh.</p>
+    <p>Try a different keyword, or click <a href="#" id="resetSearch" style="color: var(--blueprint);">show all 34</a> to start fresh.</p>
   </div>
 
   <div data-mw="cn-inline" data-variant="default" style="margin-top: 40px;"></div>
@@ -614,6 +668,7 @@
 
 <div data-mw="footer" data-prefix=""></div>
 <script src="site.js"></script>
+<script src="assets/mm.js"></script>
 
 <script>
 (function() {

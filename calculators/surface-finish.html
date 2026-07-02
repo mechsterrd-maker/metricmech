@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -115,7 +116,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -150,22 +151,23 @@
   <div class="input-row">
     <div class="input-card">
       <label>Ra (arithmetic mean)</label>
-      <input type="number" step="any" id="ra" value="1.6" oninput="updateFrom('ra')">
+      <input type="number" step="any" id="ra" value="1.6" oninput="updateFrom('ra')" inputmode="decimal" autocomplete="off">
       <div class="unit">µm — most common spec</div>
     </div>
     <div class="input-card">
       <label>Ra (microinch)</label>
-      <input type="number" step="any" id="rauin" value="63" oninput="updateFrom('rauin')">
+      <input type="number" step="any" id="rauin" value="63" oninput="updateFrom('rauin')" inputmode="decimal" autocomplete="off">
       <div class="unit">µin — US/ASME standard</div>
     </div>
     <div class="input-card">
       <label>N-Grade (ISO)</label>
-      <input type="number" id="ngrade" value="7" min="1" max="12" oninput="updateFrom('ngrade')">
+      <input type="number" id="ngrade" value="7" min="1" max="12" oninput="updateFrom('ngrade')" inputmode="decimal" autocomplete="off">
       <div class="unit">ISO 1302 grade number</div>
     </div>
   </div>
 
   <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 12px;">Equivalent values</h3>
+  <div id="mmVerdictTop"></div>
   <div class="results-grid">
     <div class="result-card">
       <div class="lbl">Ra</div>
@@ -198,6 +200,8 @@
       <div class="unt">ISO 1302</div>
     </div>
   </div>
+
+  <div id="mmViz" class="mm-viz"></div>
 
   <div class="legend-box">
     <strong>Conversion ratios used:</strong> Ra → Rz ≈ 5×Ra (typical for ground/turned). Ra → Rmax ≈ 6.4×Ra. CLA = Ra (microinch). N-grade = log₂(Ra) + 7. These are approximations — actual ratios vary with profile shape and process.
@@ -266,19 +270,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Understanding Surface Finish</h2>
 <p>Surface finish (or surface roughness) is the small-scale texture left on a machined surface after manufacturing. It affects friction, sealing, fatigue life, wear resistance, and aesthetic appearance. <strong>Ra</strong> (arithmetic average roughness) is the most common parameter worldwide.</p>
@@ -339,6 +330,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 const N_RA = { 1: 0.025, 2: 0.05, 3: 0.1, 4: 0.2, 5: 0.4, 6: 0.8, 7: 1.6, 8: 3.2, 9: 6.3, 10: 12.5, 11: 25, 12: 50 };
@@ -381,6 +373,22 @@ function updateFrom(src) {
   document.getElementById('r_rmax').textContent = rmax.toFixed(2);
   document.getElementById('r_cla').textContent = rauin.toFixed(1);
   document.getElementById('r_n').textContent = 'N' + n;
+
+  if (window.mmCountUp) { try { mmCountUp('#r_ra', ra, 3); } catch(e){} }
+  if (window.mmViz) { try {
+    mmViz.scaleBar('#mmViz', {
+      value: ra, min: 0.012, max: 50, log: true,
+      label: 'Ra', unit: ' µm', decimals: 2,
+      zones: [{ to: 50, color: 'rgba(37,84,186,0.35)' }],
+      marks: [
+        { v: 0.05, label: 'mirror' },
+        { v: 0.4, label: 'ground' },
+        { v: 1.6, label: 'fine mach.' },
+        { v: 6.3, label: 'machined' },
+        { v: 25, label: 'rough' }
+      ]
+    });
+  } catch(e){} }
 
   updating = false;
 

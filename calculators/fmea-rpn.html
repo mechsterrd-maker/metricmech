@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -117,7 +118,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -185,11 +186,14 @@
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big" id="rpnBox">
         <div class="lbl">RPN</div>
         <div class="val" id="rpn">—</div>
         <div class="unit" id="rpnVerdict">—</div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card"><div class="l">Severity</div><div class="v" id="sevV">—</div></div>
@@ -229,19 +233,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is FMEA RPN?</h2>
 <p><strong>FMEA</strong> (Failure Mode and Effects Analysis) systematically identifies potential failures in a product or process, ranks them by risk, and drives corrective action. <strong>RPN</strong> (Risk Priority Number) is the numerical risk score:</p>
@@ -299,6 +290,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 // AIAG-VDA 2019 AP table simplified
 function getAP(s, o, d) {
@@ -327,7 +319,7 @@ function calc() {
   const o = +document.getElementById('occ').value;
   const d = +document.getElementById('det').value;
   const rpn = s * o * d;
-  document.getElementById('rpn').textContent = rpn;
+  if (window.mmCountUp) { try { mmCountUp('#rpn', rpn, 0); } catch(e) { document.getElementById('rpn').textContent = rpn; } } else { document.getElementById('rpn').textContent = rpn; }
   document.getElementById('sevV').textContent = s;
   document.getElementById('occV').textContent = o;
   document.getElementById('detV').textContent = d;
@@ -344,6 +336,15 @@ function calc() {
   const apMap = { H: 'H — High Priority', M: 'M — Medium Priority', L: 'L — Low Priority' };
   document.getElementById('ap').textContent = apMap[ap];
   document.getElementById('apAction').textContent = action;
+
+  if (window.mmViz) { try {
+    mmViz.gauge('#mmViz', { value: rpn, min: 0, max: 1000, zones: [
+      { to: 60, color: 'rgba(22,163,74,0.55)' },
+      { to: 120, color: 'rgba(217,119,6,0.55)' },
+      { to: 200, color: 'rgba(217,119,6,0.55)' },
+      { to: 1000, color: 'rgba(220,38,38,0.55)' }
+    ], label: 'RPN', decimals: 0 });
+  } catch(e){} }
 
   // ── Interpretation engine ──
   const recs = [];

@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -129,7 +130,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -169,10 +170,14 @@
     <div class="level-desc" id="levelDesc"></div>
   </div>
 
+  <div id="mmVerdictTop"></div>
+
   <div class="progress-row">
     <div class="progress-bar"><div class="progress-fill" id="progFill" style="width: 0%"></div></div>
     <div class="progress-text" id="progText">0%</div>
   </div>
+
+  <div id="mmViz" class="mm-viz"></div>
 
   <div class="elem-list" id="elemList"></div>
 
@@ -212,19 +217,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is PPAP?</h2>
 <p><strong>PPAP</strong> (Production Part Approval Process) is the AIAG-defined process for proving to your customer that you can consistently produce parts meeting all specifications. It's the gate between prototype and production volume — and you can't ship without it.</p>
@@ -288,6 +280,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 const LEVELS = {
@@ -390,7 +383,7 @@ function updateProgress() {
   });
   const pct = req > 0 ? Math.round(done / req * 100) : 0;
   document.getElementById('progFill').style.width = pct + '%';
-  document.getElementById('progText').textContent = pct + '%';
+  if (window.mmCountUp) { try { mmCountUp('#progText', pct, 0, '%'); } catch(e) { document.getElementById('progText').textContent = pct + '%'; } } else { document.getElementById('progText').textContent = pct + '%'; }
   document.getElementById('reqCount').textContent = req;
   document.getElementById('doneCount').textContent = done;
   document.getElementById('pctNum').textContent = pct + '%';
@@ -401,6 +394,14 @@ function updateProgress() {
   else if (pct < 100) head = 'Almost ready — finalize remaining elements';
   else head = 'All required elements complete — ready to submit';
   document.getElementById('summaryHead').textContent = head;
+
+  if (window.mmViz) { try {
+    mmViz.gauge('#mmViz', { value: pct, min: 0, max: 100, zones: [
+      { to: 50, color: 'rgba(220,38,38,0.55)' },
+      { to: 99, color: 'rgba(217,119,6,0.55)' },
+      { to: 100, color: 'rgba(22,163,74,0.55)' }
+    ], label: 'PPAP readiness', unit: '%', decimals: 0 });
+  } catch(e){} }
 
   // ── Interpretation engine ──
   const recs = [];

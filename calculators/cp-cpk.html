@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -162,7 +163,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -196,21 +197,21 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
     <div class="spec-row">
       <div>
         <label>Lower Spec Limit (LSL)</label>
-        <input type="number" step="any" id="lsl" class="calc-input" placeholder="e.g. 9.95" oninput="recalcDebounced()">
+        <input type="number" step="any" id="lsl" class="calc-input" placeholder="e.g. 9.95" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
       </div>
       <div>
         <label>Upper Spec Limit (USL)</label>
-        <input type="number" step="any" id="usl" class="calc-input" placeholder="e.g. 10.05" oninput="recalcDebounced()">
+        <input type="number" step="any" id="usl" class="calc-input" placeholder="e.g. 10.05" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
       </div>
     </div>
     <div class="spec-row">
       <div>
         <label>Target (optional)</label>
-        <input type="number" step="any" id="target" class="calc-input" placeholder="e.g. 10.00" oninput="recalcDebounced()">
+        <input type="number" step="any" id="target" class="calc-input" placeholder="e.g. 10.00" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
       </div>
       <div>
         <label>Subgroup size (for Cp)</label>
-        <input type="number" id="subgroup" class="calc-input" value="5" min="2" oninput="recalcDebounced()">
+        <input type="number" id="subgroup" class="calc-input" value="5" min="2" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
       </div>
     </div>
 
@@ -228,6 +229,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
 
   <div>
     <div data-mm-section="result">
+    <div id="mmVerdictTop"></div>
     <div class="results-grid">
       <div class="result-card primary">
         <div class="result-label">Cpk</div>
@@ -380,19 +382,6 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Understanding Cp and Cpk: The Complete Guide</h2>
 
@@ -452,6 +441,7 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 function loadExample() {
@@ -505,6 +495,7 @@ function recalc() {
   document.getElementById('savePanel').style.display = 'none';
   document.getElementById('dqWarnings').style.display = 'none';
   const ns = document.getElementById('cpcpkNextSteps'); if (ns) ns.innerHTML = '';
+  const mmvt = document.getElementById('mmVerdictTop'); if (mmvt) mmvt.innerHTML = '';
   window.__cpcpkState = null;
 
   if (data.length < 2 || isNaN(lsl) || isNaN(usl) || usl <= lsl) return;
@@ -533,7 +524,7 @@ function recalc() {
   const sigmaLevel = Cpk * 3;
 
   document.getElementById('cpVal').textContent = Cp.toFixed(2);
-  document.getElementById('cpkVal').textContent = Cpk.toFixed(2);
+  window.mmCountUp ? mmCountUp(document.getElementById('cpkVal'), Cpk, 2) : document.getElementById('cpkVal').textContent = Cpk.toFixed(2);
   document.getElementById('ppVal').textContent = Pp.toFixed(2);
   document.getElementById('ppkVal').textContent = Ppk.toFixed(2);
   document.getElementById('ppmVal').textContent = ppmTotal < 1 ? ppmTotal.toFixed(2) : Math.round(ppmTotal).toLocaleString();
@@ -785,6 +776,15 @@ function renderVerdict(Cpk, ppmTotal) {
       <div style="font-size: 13px; color: var(--ink-2); line-height: 1.5;">${sub}</div>
     </div>
   `;
+
+  // Shared design-system verdict banner — mirrors the existing tier thresholds above (1.33 / 1.0)
+  if (window.mmVerdict) {
+    let mmStatus, mmHeadline;
+    if (Cpk >= 1.33) { mmStatus = 'pass'; mmHeadline = 'Process capable — meets automotive supplier requirement (Cpk ≥ 1.33)'; }
+    else if (Cpk >= 1.0) { mmStatus = 'marginal'; mmHeadline = 'Marginal — capable but no safety margin; consider 100% inspection'; }
+    else { mmStatus = 'fail'; mmHeadline = 'Not capable — expect out-of-spec parts'; }
+    mmVerdict('#mmVerdictTop', mmStatus, mmHeadline, sub);
+  }
 }
 
 // ════════════════════════════════════════════════════════════

@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -116,7 +117,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -160,24 +161,24 @@
 
       <div class="input-card">
         <label>Tool diameter (D)</label>
-        <input type="number" id="dia" value="10" step="0.5" oninput="calc()">
+        <input type="number" id="dia" value="10" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — end mill diameter</div>
       </div>
 
       <div class="input-card">
         <label>Number of flutes (Z)</label>
-        <input type="number" id="flutes" value="4" step="1" min="1" max="12" oninput="calc()">
+        <input type="number" id="flutes" value="4" step="1" min="1" max="12" oninput="calc()" inputmode="decimal" autocomplete="off">
       </div>
 
       <div class="input-card">
         <label>Surface speed (Vc)</label>
-        <input type="number" id="sfm" value="500" step="10" oninput="calc()">
+        <input type="number" id="sfm" value="500" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">m/min — auto-set by material; override if needed</div>
       </div>
 
       <div class="input-card">
         <label>Chip load (fz)</label>
-        <input type="number" id="fz" value="0.05" step="0.005" oninput="calc()">
+        <input type="number" id="fz" value="0.05" step="0.005" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm/tooth — feed per tooth</div>
       </div>
 
@@ -185,12 +186,12 @@
         <div class="row">
           <div>
             <label>Axial DOC (ap)</label>
-            <input type="number" id="ap" value="5" step="0.5" oninput="calc()">
+            <input type="number" id="ap" value="5" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
             <div class="hint">mm — depth of cut</div>
           </div>
           <div>
             <label>Radial DOC (ae)</label>
-            <input type="number" id="ae" value="5" step="0.5" oninput="calc()">
+            <input type="number" id="ae" value="5" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
             <div class="hint">mm — width of cut</div>
           </div>
         </div>
@@ -198,11 +199,13 @@
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">SPINDLE SPEED</div>
         <div class="val" id="rpm">—</div>
         <div class="unit">RPM</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-big" style="background: var(--blueprint);">
         <div class="lbl" style="color: var(--amber);">FEED RATE</div>
@@ -265,19 +268,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Speeds and Feeds for CNC Machining</h2>
 <p>Speeds and feeds are the cutting parameters that govern tool life, surface finish, dimensional accuracy, and machining time. Get them right and parts come off the machine clean and to size; get them wrong and you scrap parts, break tools, and trash spindle bearings.</p>
@@ -323,6 +313,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 // Material defaults: SFM (m/min) and chip load (mm) by tool material
 const MATS = {
@@ -399,6 +390,18 @@ function calc() {
       related: [ { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE Calculator' }, { href: 'cadnexa-roi.html', text: 'CadNexa ROI' } ]
     });
   })();
+
+  // ── MM design system add-ons (additive) ──
+  if (window.mmViz) { try {
+    const vizMax = Math.max(rpm * 1.4, 1000);
+    const marks = [{ v: 200, label: '200 min' }];
+    if (vizMax >= 30000) marks.push({ v: 30000, label: '30k check spindle' });
+    mmViz.scaleBar('#mmViz', {
+      value: rpm, min: 0, max: vizMax, decimals: 0, label: 'Spindle speed', unit: ' RPM',
+      zones: [{ to: vizMax, color: 'rgba(37,84,186,0.35)' }],
+      marks: marks
+    });
+  } catch (e) {} }
 }
 loadMat();
 </script>

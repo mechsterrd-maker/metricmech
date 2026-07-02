@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -113,7 +114,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -149,29 +150,29 @@
         <h4>Geometry</h4>
         <div class="field">
           <label>Shaft outer diameter (Df)</label>
-          <input type="number" id="Df" value="50" step="0.01" oninput="calc()">
+          <input type="number" id="Df" value="50" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">mm — nominal mating diameter</div>
         </div>
         <div class="row">
           <div>
             <label>Shaft inner dia (Di)</label>
-            <input type="number" id="Di" value="0" step="0.1" oninput="calc()">
+            <input type="number" id="Di" value="0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
             <div class="hint">mm — 0 if solid</div>
           </div>
           <div>
             <label>Hub outer dia (Do)</label>
-            <input type="number" id="Do" value="100" step="0.1" oninput="calc()">
+            <input type="number" id="Do" value="100" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
             <div class="hint">mm</div>
           </div>
         </div>
         <div class="field" style="margin-top: 12px;">
           <label>Engagement length (L)</label>
-          <input type="number" id="L" value="40" step="1" oninput="calc()">
+          <input type="number" id="L" value="40" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">mm — contact length</div>
         </div>
         <div class="field">
           <label>Diametrical interference (δ)</label>
-          <input type="number" id="delta" value="0.025" step="0.001" oninput="calc()">
+          <input type="number" id="delta" value="0.025" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">mm — typical: 0.0005·D to 0.001·D for press fit</div>
         </div>
       </div>
@@ -202,18 +203,20 @@
         </div>
         <div class="field">
           <label>Friction coefficient (μ)</label>
-          <input type="number" id="mu" value="0.15" step="0.01" oninput="calc()">
+          <input type="number" id="mu" value="0.15" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off">
           <div class="hint">Steel-steel ≈ 0.10–0.15; oiled = lower</div>
         </div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">CONTACT PRESSURE</div>
         <div class="val" id="pressure">—</div>
         <div class="unit">MPa (N/mm²)</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-big" style="background: var(--blueprint);">
         <div class="lbl" style="color: var(--amber);">PUSH-OUT / TRANSMISSIBLE FORCE</div>
@@ -254,19 +257,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Press-Fit Engineering Basics</h2>
 <p>A <strong>press-fit</strong> (also called interference fit or shrink-fit) joins two cylindrical parts by making the shaft slightly larger than the hole. Elastic deformation creates contact pressure, which provides torque transmission, axial holding, and zero backlash.</p>
@@ -320,6 +310,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const Df = +document.getElementById('Df').value;
@@ -343,7 +334,7 @@ function calc() {
   const shaftMax = Di > 0 ? p * 2 * Df*Df / (Df*Df - Di*Di) : -p; // solid: -p comp
   const dT = delta / (alphaH * Df) * 1e6 * 1e-6 * 1000; // approx ΔT for hub expansion to clear δ
   const dT_ok = (delta + 0.05) / (alphaH * Df * 1e-6); // clearance for assembly
-  document.getElementById('pressure').textContent = p.toFixed(1);
+  window.mmCountUp ? mmCountUp(document.getElementById('pressure'), p, 1) : (document.getElementById('pressure').textContent = p.toFixed(1));
   document.getElementById('force').textContent = Faxial.toFixed(1);
   document.getElementById('torque').textContent = (Trans * 1000).toFixed(1) + ' N·m';
   document.getElementById('hubStress').textContent = hubInner.toFixed(0) + ' MPa';
@@ -355,9 +346,11 @@ function calc() {
   // ── Interpretation ──
   (function(){
     const stressTxt = document.getElementById('hubStress')?.textContent || '';
-    const sfTxt = document.getElementById('safetyFactor')?.textContent || '';
     const stress = parseFloat(stressTxt);
-    const sf = parseFloat(sfTxt);
+    // SF derived from the hub material's yield (4th CSV field) vs computed stress —
+    // same values the sfBar visual uses; #safetyFactor never existed in the DOM.
+    const hubYieldMPa = parseFloat((document.getElementById('hubMat')?.value || '').split(',')[3]);
+    const sf = hubYieldMPa / stress;
     const recs = [];
     let v;
     if (isNaN(stress) || isNaN(sf)) {
@@ -385,6 +378,12 @@ function calc() {
       related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'tolerance-stack.html', text: 'Tolerance Stack' }, { href: 'bolt-torque.html', text: 'Bolt Torque' } ]
     });
   })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    var hubYield = +document.getElementById('hubMat').value.split(',')[3];
+    mmViz.sfBar('#mmViz', { sf: hubYield / hubInner, req: 1, label: 'Hub stress safety factor (yield)' });
+  } catch(e){} }
 }
 calc();
 </script>

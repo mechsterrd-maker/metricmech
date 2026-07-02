@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -114,7 +115,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -195,11 +196,13 @@
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-big">
         <div class="lbl">TIGHTENING TORQUE</div>
         <div class="val" id="torque">—</div>
         <div class="unit">N·m — apply with calibrated torque wrench</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="result-row">
         <div class="result-card"><div class="l">Torque (kgf·m)</div><div class="v" id="torque_kgf">—</div></div>
@@ -251,19 +254,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Bolt Torque and Preload</h2>
 <p>Bolt joints work by <strong>preload</strong> — the tension force in the bolt that clamps the joint together. Torque is just the means to create preload. Get the torque right and the joint will hold for life; get it wrong and the joint loosens, fatigues, or strips threads.</p>
@@ -316,6 +306,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const sz = document.getElementById('size').value.split(',').map(Number);
@@ -334,7 +325,7 @@ function calc() {
   const d_head = 1.5 * d; // bearing dia approx
   const T = F_preload * (0.16 * p + 0.58 * d2 * mu + 0.5 * d_head * mu) / 1000; // Nm
   const set = (id, v) => document.getElementById(id).textContent = v;
-  set('torque', T.toFixed(1));
+  window.mmCountUp ? mmCountUp(document.getElementById('torque'), T, 1) : set('torque', T.toFixed(1));
   set('torque_kgf', (T / 9.80665).toFixed(2));
   set('torque_lbft', (T * 0.7376).toFixed(1));
   set('preload', (F_preload/1000).toFixed(1) + ' kN');
@@ -365,6 +356,18 @@ function calc() {
       related: [ { href: 'iso-286-fits.html', text: 'ISO 286 Fits' }, { href: 'press-fit.html', text: 'Press-Fit' }, { href: 'thread-pitch.html', text: 'Thread Pitch' } ]
     });
   })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Preload (target)', value: F_preload / 1000, color: '#2554BA' },
+        { label: 'Yield force', value: F_yield / 1000, color: '#0d9488' },
+        { label: 'Breaking force', value: F_break / 1000, color: '#64748B' }
+      ],
+      unit: ' kN', decimals: 1
+    });
+  } catch(e){} }
 }
 calc();
 </script>

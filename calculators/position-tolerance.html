@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -117,7 +118,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -164,19 +165,19 @@
     <div class="input-grid-2">
       <div class="input-group">
         <label>Stated position tolerance ⌀ (mm)</label>
-        <input type="number" step="any" id="posTol" class="calc-input" value="0.1" oninput="recalc()">
+        <input type="number" step="any" id="posTol" class="calc-input" value="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Feature nominal Ø (mm)</label>
-        <input type="number" step="any" id="featNom" class="calc-input" value="10" oninput="recalc()">
+        <input type="number" step="any" id="featNom" class="calc-input" value="10" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Upper limit Ø (mm)</label>
-        <input type="number" step="any" id="featMax" class="calc-input" value="10.05" oninput="recalc()">
+        <input type="number" step="any" id="featMax" class="calc-input" value="10.05" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Lower limit Ø (mm)</label>
-        <input type="number" step="any" id="featMin" class="calc-input" value="9.95" oninput="recalc()">
+        <input type="number" step="any" id="featMin" class="calc-input" value="9.95" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
     </div>
 
@@ -184,15 +185,15 @@
     <div class="input-grid-2">
       <div class="input-group">
         <label>Measured Ø (actual size)</label>
-        <input type="number" step="any" id="featAct" class="calc-input" value="10.02" oninput="recalc()">
+        <input type="number" step="any" id="featAct" class="calc-input" value="10.02" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>X deviation from true (mm)</label>
-        <input type="number" step="any" id="devX" class="calc-input" value="0.04" oninput="recalc()">
+        <input type="number" step="any" id="devX" class="calc-input" value="0.04" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Y deviation from true (mm)</label>
-        <input type="number" step="any" id="devY" class="calc-input" value="0.03" oninput="recalc()">
+        <input type="number" step="any" id="devY" class="calc-input" value="0.03" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
     </div>
 
@@ -206,6 +207,7 @@
   </div>
 
   <div>
+    <div id="mmVerdictTop"></div>
     <div class="result-card primary" id="passCard">
       <div class="lbl">Verdict</div>
       <div class="val" id="verdict">—</div>
@@ -216,6 +218,7 @@
       <div class="val" id="actualPos" style="color: var(--blueprint);">—</div>
       <div class="sub">From X/Y deviations</div>
     </div>
+    <div id="mmViz" class="mm-viz"></div>
     <div class="result-card std">
       <div class="lbl">Bonus Tolerance ⌀</div>
       <div class="val" id="bonusTol" style="color: var(--ink);">—</div>
@@ -245,19 +248,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is Position Tolerance?</h2>
 <p><strong>True position</strong> is a GD&amp;T (Geometric Dimensioning and Tolerancing) callout that controls the location of a feature (typically a hole, pin, or slot) relative to specified datums. It's defined by <strong>ASME Y14.5</strong> in the US and <strong>ISO 1101</strong> internationally.</p>
@@ -311,6 +301,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 let modifier = 'RFS';
@@ -456,6 +447,8 @@ function recalc() {
       { href: '../gdt.html', text: 'GD&T Reference' },
     ]
   });
+
+  if (window.mmViz) { try { mmViz.gauge('#mmViz', { value: actualPos, min: 0, max: total * 1.5, zones: [ { to: total * 0.75, color: 'rgba(22,163,74,0.55)' }, { to: total, color: 'rgba(217,119,6,0.55)' }, { to: total * 1.5, color: 'rgba(220,38,38,0.55)' } ], label: 'True position vs allowed', unit: ' mm', decimals: 4 }); } catch(e){} }
 }
 recalc();
 </script>

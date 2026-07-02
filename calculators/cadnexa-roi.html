@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -122,7 +123,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -144,7 +145,7 @@
       <label>FAI / inspection reports per month</label>
       <div class="range-input">
         <input type="range" id="reports" min="1" max="200" value="20" oninput="document.getElementById('reportsN').value=this.value;recalc()">
-        <input type="number" id="reportsN" min="1" max="200" value="20" oninput="document.getElementById('reports').value=this.value;recalc()">
+        <input type="number" id="reportsN" min="1" max="200" value="20" oninput="document.getElementById('reports').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">How many drawings does your QA team balloon and document each month?</div>
     </div>
@@ -153,7 +154,7 @@
       <label>Average dimensions per drawing</label>
       <div class="range-input">
         <input type="range" id="dims" min="10" max="300" value="60" oninput="document.getElementById('dimsN').value=this.value;recalc()">
-        <input type="number" id="dimsN" min="10" max="300" value="60" oninput="document.getElementById('dims').value=this.value;recalc()">
+        <input type="number" id="dimsN" min="10" max="300" value="60" oninput="document.getElementById('dims').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">Aerospace parts: 60–150. Auto parts: 30–80. Medical: 80–200.</div>
     </div>
@@ -162,7 +163,7 @@
       <label>Manual time per report (hours)</label>
       <div class="range-input">
         <input type="range" id="hours" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hoursN').value=this.value;recalc()">
-        <input type="number" id="hoursN" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hours').value=this.value;recalc()">
+        <input type="number" id="hoursN" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hours').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">Including ballooning, typing dimensions, building Form 1/2/3, review.</div>
     </div>
@@ -171,7 +172,7 @@
       <label>QA engineer fully-loaded cost (₹/hour)</label>
       <div class="range-input">
         <input type="range" id="rate" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rateN').value=this.value;recalc()">
-        <input type="number" id="rateN" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rate').value=this.value;recalc()">
+        <input type="number" id="rateN" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rate').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">India: ₹250–500/hr typical. Salary + benefits + overhead.</div>
     </div>
@@ -180,7 +181,7 @@
       <label>Rework / rejection rate from FAI errors (%)</label>
       <div class="range-input">
         <input type="range" id="rework" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('reworkN').value=this.value;recalc()">
-        <input type="number" id="reworkN" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('rework').value=this.value;recalc()">
+        <input type="number" id="reworkN" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('rework').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">% of reports rejected by OEM/auditor due to manual errors.</div>
     </div>
@@ -189,13 +190,14 @@
       <label>Average rework cost per rejection (₹)</label>
       <div class="range-input">
         <input type="range" id="reworkCost" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCostN').value=this.value;recalc()">
-        <input type="number" id="reworkCostN" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCost').value=this.value;recalc()">
+        <input type="number" id="reworkCostN" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCost').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="hint">Re-inspection, re-submission, customer escalation handling.</div>
     </div>
   </div>
 
   <div>
+    <div id="mmVerdictTop"></div>
     <div class="savings-card">
       <div class="savings-eyebrow">YOUR ESTIMATED MONTHLY SAVINGS WITH CADNEXA</div>
       <div class="big-saving" id="bigSave">₹—</div>
@@ -217,6 +219,8 @@
         <span style="font-family: var(--mono); font-size: 11px; color: rgba(245,242,236,0.5); text-transform: uppercase; letter-spacing: 0.1em;">14-day trial · No card</span>
       </div>
     </div>
+
+    <div id="mmViz" class="mm-viz"></div>
 
     <div class="breakdown">
       <h4>Cost breakdown</h4>
@@ -272,19 +276,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>CadNexa ROI</h2>
 <p>This calculator estimates how much time and cost you save by replacing manual FAI workflows with CadNexa. Most teams see ROI in their first FAI submission.</p>
@@ -335,6 +326,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 function fmt(n) {
@@ -394,6 +386,19 @@ function recalc() {
       related: [ { href: 'copq.html', text: 'Cost of Poor Quality' }, { href: 'cycle-time.html', text: 'Cycle Time' }, { href: 'oee.html', text: 'OEE' } ]
     });
   })();
+
+  // ── Visual (mm.js, additive) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Cost before (manual)', value: currTotal, color: '#2554BA', display: fmt(currTotal) },
+        { label: 'Cost after (CadNexa)', value: newTotal, color: 'rgba(37,84,186,0.55)', display: fmt(newTotal) },
+        { label: 'Saving / month', value: Math.max(savings, 0), color: 'rgba(22,163,74,0.55)', display: fmt(savings) }
+      ],
+      max: Math.max(currTotal, newTotal),
+      decimals: 0
+    });
+  } catch(e){} }
 }
 recalc();
 </script>

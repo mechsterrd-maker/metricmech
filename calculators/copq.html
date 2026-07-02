@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -114,7 +115,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -134,27 +135,27 @@
     <div class="input-grid">
       <div class="input-group">
         <label>Parts produced / month</label>
-        <input type="number" id="qty" class="calc-input" value="5000" oninput="recalc()">
+        <input type="number" id="qty" class="calc-input" value="5000" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Average part cost (₹)</label>
-        <input type="number" id="cost" class="calc-input" value="850" oninput="recalc()">
+        <input type="number" id="cost" class="calc-input" value="850" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Internal scrap rate (%)</label>
-        <input type="number" id="scrap" class="calc-input" value="2.5" step="0.1" oninput="recalc()">
+        <input type="number" id="scrap" class="calc-input" value="2.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Rework rate (%)</label>
-        <input type="number" id="rework" class="calc-input" value="4" step="0.1" oninput="recalc()">
+        <input type="number" id="rework" class="calc-input" value="4" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Customer rejection rate (%)</label>
-        <input type="number" id="custRej" class="calc-input" value="0.8" step="0.1" oninput="recalc()">
+        <input type="number" id="custRej" class="calc-input" value="0.8" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
       <div class="input-group">
         <label>Average rework cost / part (₹)</label>
-        <input type="number" id="reworkCost" class="calc-input" value="180" oninput="recalc()">
+        <input type="number" id="reworkCost" class="calc-input" value="180" oninput="recalc()" inputmode="decimal" autocomplete="off">
       </div>
     </div>
 
@@ -162,22 +163,22 @@
     <div class="input-grid">
       <div class="input-group">
         <label>Inspection cost / month (₹)</label>
-        <input type="number" id="inspect" class="calc-input" value="35000" oninput="recalc()">
+        <input type="number" id="inspect" class="calc-input" value="35000" oninput="recalc()" inputmode="decimal" autocomplete="off">
         <div class="hint">QA staff time, gauges, CMM time</div>
       </div>
       <div class="input-group">
         <label>Customer return shipping / penalty (₹)</label>
-        <input type="number" id="penalty" class="calc-input" value="15000" oninput="recalc()">
+        <input type="number" id="penalty" class="calc-input" value="15000" oninput="recalc()" inputmode="decimal" autocomplete="off">
         <div class="hint">RMA logistics, OEM PCN penalties</div>
       </div>
       <div class="input-group">
         <label>FAI re-submission cost (₹)</label>
-        <input type="number" id="fai" class="calc-input" value="8000" oninput="recalc()">
+        <input type="number" id="fai" class="calc-input" value="8000" oninput="recalc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Per FAI rejection event × frequency</div>
       </div>
       <div class="input-group">
         <label>Customer escalation/visits (₹)</label>
-        <input type="number" id="escal" class="calc-input" value="20000" oninput="recalc()">
+        <input type="number" id="escal" class="calc-input" value="20000" oninput="recalc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Time of GM/Plant Head, travel, audit support</div>
       </div>
     </div>
@@ -186,6 +187,7 @@
   </div>
 
   <div>
+    <div id="mmVerdictTop"></div>
     <div class="copq-result">
       <div class="copq-eyebrow">YOUR MONTHLY COST OF POOR QUALITY</div>
       <div class="big-num" id="copqVal">₹—</div>
@@ -230,6 +232,8 @@
       </div>
     </div>
 
+    <div id="mmViz" class="mm-viz"></div>
+
     <div class="annual-bar">
       <span class="label">Annualized COPQ:</span>
       <span class="val" id="annual">₹—</span>
@@ -251,19 +255,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>What is Cost of Poor Quality (COPQ)?</h2>
 <p><strong>COPQ</strong> measures the total financial impact of producing defective work — from scrap and rework to warranty claims and customer returns. Most companies don't track this systematically and are shocked when they finally measure it.</p>
@@ -314,6 +305,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 
 <script>
 function fmt(n) {
@@ -357,10 +349,22 @@ function recalc() {
     document.getElementById('val' + (i+1)).textContent = fmt(v);
   });
 
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', { bars: [
+      { label: 'Internal scrap', value: c1, color: '#DC2626', display: fmt(c1) },
+      { label: 'Rework labor', value: c2, color: '#DC2626', display: fmt(c2) },
+      { label: 'Customer reject', value: c3, color: '#DC2626', display: fmt(c3) },
+      { label: 'Inspection', value: c4, color: '#0d9488', display: fmt(c4) },
+      { label: 'Penalties', value: c5, color: '#DC2626', display: fmt(c5) },
+      { label: 'FAI rework', value: c6, color: '#DC2626', display: fmt(c6) },
+      { label: 'Escalation', value: c7, color: '#DC2626', display: fmt(c7) }
+    ], max: max });
+  } catch(e){} }
+
   // ── Interpretation ──
   (function(){
-    const totalTxt = document.getElementById('totalCopq')?.textContent || '';
-    const pctTxt = document.getElementById('pctRev')?.textContent || '';
+    const totalTxt = document.getElementById('copqVal')?.textContent || '';
+    const pctTxt = document.getElementById('copqPct')?.textContent || '';
     const totalCost = parseFloat(totalTxt.replace(/[^\d.]/g,'')) || 0;
     const revPct = parseFloat(pctTxt) || 0;
     const recs = [];

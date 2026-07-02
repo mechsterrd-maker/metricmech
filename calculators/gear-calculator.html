@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -111,7 +112,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -139,13 +140,13 @@
 
       <div class="input-card" id="moduleCard">
         <label>Module (m)</label>
-        <input type="number" id="module" value="2.0" step="0.25" oninput="calc()">
+        <input type="number" id="module" value="2.0" step="0.25" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — standard: 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10</div>
       </div>
 
       <div class="input-card" id="dpCard" style="display: none;">
         <label>Diametral Pitch (DP)</label>
-        <input type="number" id="dp" value="12" step="1" oninput="calc()">
+        <input type="number" id="dp" value="12" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">teeth per inch — standard: 4, 6, 8, 10, 12, 16, 20, 24</div>
       </div>
 
@@ -162,28 +163,30 @@
         <div class="row">
           <div>
             <label>Pinion teeth (Z₁)</label>
-            <input type="number" id="z1" value="20" step="1" min="6" oninput="calc()">
+            <input type="number" id="z1" value="20" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off">
           </div>
           <div>
             <label>Gear teeth (Z₂)</label>
-            <input type="number" id="z2" value="40" step="1" min="6" oninput="calc()">
+            <input type="number" id="z2" value="40" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off">
           </div>
         </div>
       </div>
 
       <div class="input-card">
         <label>Face width (b)</label>
-        <input type="number" id="face" value="20" step="1" oninput="calc()">
+        <input type="number" id="face" value="20" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">mm — typically 8–12 × module</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="center-card">
         <div class="l">Center distance</div>
         <div class="v" id="cd">—</div>
         <div style="font-family: var(--mono); font-size: 11px; opacity: 0.6; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.1em;">mm — m × (Z₁ + Z₂) / 2</div>
       </div>
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="gear-card">
         <div class="title">Pinion (Z₁)</div>
@@ -225,19 +228,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>Gear Calculation Basics</h2>
 <p>Spur gears are the most common gear type. Sizing them correctly requires balancing tooth count, module/pitch, center distance, and torque/speed requirements.</p>
@@ -280,6 +270,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 function calc() {
   const sys = document.getElementById('system').value;
@@ -336,6 +327,23 @@ function calc() {
       related: [ { href: 'speeds-feeds.html', text: 'Speeds & Feeds' }, { href: 'bolt-torque.html', text: 'Bolt Torque' }, { href: 'beam-deflection.html', text: 'Beam Deflection' } ]
     });
   })();
+
+  // ── MM design system add-ons (additive; same 7:1 threshold as above) ──
+  const mmRatio = z2 / z1;
+  if (window.mmCountUp) { try { mmCountUp('#cd', cd, 2); } catch (e) {} }
+  if (window.mmVerdict) { try {
+    if (mmRatio > 7) mmVerdict('#mmVerdictTop', 'marginal', 'High ratio single stage: ' + mmRatio.toFixed(2) + ':1', 'Centre distance ' + cd.toFixed(2) + ' mm — consider compound gearing above 7:1.');
+    else mmVerdict('#mmVerdictTop', 'pass', 'Gear pair calculated — ratio ' + mmRatio.toFixed(2) + ':1', 'Centre distance ' + cd.toFixed(2) + ' mm, pinion PCD ' + d1.toFixed(2) + ' mm, gear PCD ' + d2.toFixed(2) + ' mm.');
+  } catch (e) {} }
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      bars: [
+        { label: 'Pinion PCD (Z=' + z1 + ')', value: d1, color: '#2554BA' },
+        { label: 'Gear PCD (Z=' + z2 + ')', value: d2, color: '#3A6FD8' }
+      ],
+      unit: ' mm', decimals: 2
+    });
+  } catch (e) {} }
 }
 calc();
 </script>

@@ -22,6 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
@@ -111,7 +112,7 @@
 </script>
 
 </head>
-<body>
+<body class="mm-grid">
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
@@ -131,23 +132,24 @@
     <div>
       <div class="input-card">
         <label>Number of units inspected</label>
-        <input type="number" id="units" value="10000" step="1" oninput="calc()">
+        <input type="number" id="units" value="10000" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
       </div>
 
       <div class="input-card">
         <label>Defect opportunities per unit</label>
-        <input type="number" id="opps" value="5" step="1" oninput="calc()">
+        <input type="number" id="opps" value="5" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Number of inspection points / characteristics per unit</div>
       </div>
 
       <div class="input-card">
         <label>Total defects observed</label>
-        <input type="number" id="defects" value="120" step="1" oninput="calc()">
+        <input type="number" id="defects" value="120" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
         <div class="hint">Defects across all units inspected</div>
       </div>
     </div>
 
     <div>
+      <div id="mmVerdictTop"></div>
       <div class="result-row">
         <div class="result-card">
           <div class="l">DPMO</div>
@@ -170,6 +172,8 @@
           <div class="b">Defects per unit</div>
         </div>
       </div>
+
+      <div id="mmViz" class="mm-viz"></div>
 
       <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
         <label style="color: var(--blueprint); font-weight: 600;">Verdict</label>
@@ -215,19 +219,6 @@
 
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
-<style>
-.seo-content { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
-.seo-content h2 { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 0; margin-bottom: 16px; }
-.seo-content h3 { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -0.015em; color: var(--ink); margin-top: 28px; margin-bottom: 10px; }
-.seo-content p { margin-bottom: 14px; }
-.seo-content ul, .seo-content ol { margin: 12px 0 18px 22px; }
-.seo-content li { margin-bottom: 6px; }
-.seo-content strong { color: var(--ink); font-weight: 700; }
-.seo-content a { color: var(--blueprint); text-decoration: none; border-bottom: 1px dashed var(--blueprint-tint-2); }
-.seo-content a:hover { border-bottom-style: solid; }
-.seo-content table { font-size: 13px; }
-.seo-content table th, .seo-content table td { padding: 8px; }
-</style>
 
 <h2>DPMO and Sigma Level</h2>
 <p><strong>DPMO</strong> (Defects Per Million Opportunities) and <strong>Sigma Level</strong> are the two most common quality metrics in Six Sigma programs. They normalize defect rates across products and processes, making direct comparison possible.</p>
@@ -275,6 +266,7 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
 <script>
 // Inverse normal CDF (Beasley-Springer/Moro algorithm)
 function normsInv(p) {
@@ -305,7 +297,7 @@ function calc() {
   else if (defectRate === 0) sigma = 6;
   const set = (id, v) => document.getElementById(id).textContent = v;
   set('dpmo', Math.round(dpmo).toLocaleString());
-  set('sigma', sigma.toFixed(2) + 'σ');
+  window.mmCountUp ? mmCountUp(document.getElementById('sigma'), sigma, 2, 'σ') : set('sigma', sigma.toFixed(2) + 'σ');
   set('yield', yieldPct.toFixed(3) + '%');
   set('dpu', dpu.toFixed(4));
   let v, a;
@@ -350,6 +342,19 @@ function calc() {
       related: [ { href: 'cp-cpk.html', text: 'Cp / Cpk' }, { href: 'fmea-rpn.html', text: 'FMEA RPN' }, { href: 'copq.html', text: 'Cost of Poor Quality' } ]
     });
   })();
+
+  // Design-system visual — sigma level on a zoned scale bar (uses the sigma already computed above)
+  if (window.mmViz) { try {
+    mmViz.scaleBar('#mmViz', {
+      value: sigma, min: 1, max: 6.5, decimals: 2, label: 'Sigma level',
+      zones: [
+        { to: 3, color: 'rgba(220,38,38,0.55)', label: '<3σ' },
+        { to: 4.5, color: 'rgba(217,119,6,0.55)', label: 'industry avg' },
+        { to: 6.5, color: 'rgba(22,163,74,0.55)', label: 'world class' }
+      ],
+      marks: [ { v: 6, label: '6σ' } ]
+    });
+  } catch (e) {} }
 }
 calc();
 </script>
