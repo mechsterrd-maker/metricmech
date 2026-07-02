@@ -225,12 +225,14 @@
     var from = o.min;
     (o.zones || []).forEach(function (z) { s += arc(from, Math.min(z.to, o.max), z.color); from = z.to; });
     if (from < o.max) s += arc(from, o.max, BORDER);
-    // ticks at zone boundaries
-    var bounds = [o.min].concat((o.zones || []).map(function (z) { return z.to; })).concat([o.max]);
+    // ticks at zone boundaries — strip float noise (0.075000000000001 → 0.075)
+    var nice = function (v) { return String(parseFloat(Number(v).toPrecision(6))); };
+    var bounds = [o.min].concat((o.zones || []).map(function (z) { return z.to; })).concat([o.max])
+      .filter(function (b, i, arr) { return arr.indexOf(b) === i; });
     bounds.forEach(function (b) {
       if (b < o.min || b > o.max) return;
       var a = ang(b), p1 = pt(a, R + 4), p2 = pt(a, R + 8);
-      s += txt(pt(a, R + 22)[0], pt(a, R + 22)[1] + 4, String(b), { anchor: 'middle', size: 12, fill: MUTED });
+      s += txt(pt(a, R + 22)[0], pt(a, R + 22)[1] + 4, nice(b), { anchor: 'middle', size: 12, fill: MUTED });
       s += '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + p2[0] + '" y2="' + p2[1] + '" stroke="' + MUTED + '" stroke-width="1.5"/>';
     });
     // needle

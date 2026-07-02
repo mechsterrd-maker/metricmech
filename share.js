@@ -101,6 +101,7 @@
       'script', 'noscript',
       '.notice-bar', '.breadcrumb',
       '.seo-content',  // long-form SEO content — keep PDF focused on result
+      '.mm-int-next', '.mm-int-related',  // web-navigation chips — not report content
       '[id$="Interpret"] a[href*="cadnexa.com"]'  // strip CadNexa conditional CTAs from PDFs (footer already has them)
     ];
 
@@ -161,7 +162,17 @@
       }
     });
 
-    // Strip interactive buttons but keep informational ones
+    // Preserve the SELECTED state of segmented controls (feature type,
+    // MMC/LMC modifier, tabs) as labeled chips before buttons are stripped —
+    // otherwise the PDF shows empty headings with no record of the selection.
+    clone.querySelectorAll('button').forEach(b => {
+      if (!/(^|\s)active(\s|$)/.test(b.className)) return;
+      const span = document.createElement('span');
+      span.textContent = b.textContent.trim();
+      span.style.cssText = 'display:inline-block;padding:4px 10px;background:#EFF4FC;border:1px solid #2554BA;border-radius:4px;font-weight:600;font-size:13px;color:#1a3f8f;';
+      b.replaceWith(span);
+    });
+    // Strip remaining interactive buttons
     clone.querySelectorAll('button').forEach(b => b.remove());
 
     // Wrap in clean A4-style frame

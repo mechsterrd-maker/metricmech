@@ -72,7 +72,7 @@
   function renderNextSteps(steps) {
     if (!steps || !steps.length) return '';
     return `
-      <div style="margin-top: 16px; padding: 16px 18px; background: linear-gradient(135deg, #EFF4FC 0%, #DBE5F8 100%); border: 1px solid #2554BA33; border-radius: 10px;">
+      <div class="mm-int-next" style="margin-top: 16px; padding: 16px 18px; background: linear-gradient(135deg, #EFF4FC 0%, #DBE5F8 100%); border: 1px solid #2554BA33; border-radius: 10px;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.14em; color: #2554BA; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           Next steps
@@ -121,7 +121,7 @@
   function renderRelatedLinks(links) {
     if (!links || !links.length) return '';
     return `
-      <div style="margin-top: 18px; padding: 14px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+      <div class="mm-int-related" style="margin-top: 18px; padding: 14px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: #64748b; font-weight: 600; margin-bottom: 8px;">Related calculators</div>
         <div style="display: flex; flex-wrap: wrap; gap: 6px;">
           ${links.map(l => `<a href="${escapeHtml(l.href)}" style="display: inline-block; padding: 5px 10px; background: #fff; border: 1px solid #e2e8f0; color: #2554BA; text-decoration: none; font-size: 12px; font-weight: 500; border-radius: 4px;">${escapeHtml(l.text)}</a>`).join('')}
@@ -134,7 +134,7 @@
   function renderNextSteps(steps) {
     if (!steps || !steps.length) return '';
     return `
-      <div style="margin-top: 18px; padding: 18px; background: linear-gradient(135deg, #EFF4FC 0%, #ECFDF5 100%); border: 1px solid #DBE5F8; border-radius: 10px;">
+      <div class="mm-int-next" style="margin-top: 18px; padding: 18px; background: linear-gradient(135deg, #EFF4FC 0%, #ECFDF5 100%); border: 1px solid #DBE5F8; border-radius: 10px;">
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em; color: #2554BA; font-weight: 700; margin-bottom: 4px;">Next steps in your workflow</div>
         <div style="font-size: 13px; color: #334155; margin-bottom: 12px;">Continue your QC process with these tools:</div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px;">

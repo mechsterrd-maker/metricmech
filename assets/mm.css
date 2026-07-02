@@ -358,3 +358,9 @@ html:not(.mm-js) .mm-collapse__head::after { display: none; }
   body.mm-has-sticky-result #mm-install-pill,
   body.mm-has-sticky-result .mm-install-pill { bottom: 72px !important; }
 }
+
+/* Verdict result-card states: label/sub were muted-gray on green/red fills — unreadable */
+.result-card.ok .lbl, .result-card.ok .sub, .result-card.ok .l,
+.result-card.warn .lbl, .result-card.warn .sub, .result-card.warn .l {
+  color: rgba(255,255,255,0.88);
+}
