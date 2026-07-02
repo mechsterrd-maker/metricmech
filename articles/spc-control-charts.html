@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SPC Control Charts: X-bar &amp; R Chart Guide | MetricMech</title>
+<meta name="description" content="SPC control charts explained: X-bar and R chart formulas with constants, a worked example, the Western Electric rules, and control vs spec limits." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/spc-control-charts">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="SPC Control Charts: X-bar & R Chart Guide | MetricMech">
+<meta property="og:description" content="SPC control charts explained: X-bar and R chart formulas with constants, a worked example, the Western Electric rules, and control vs spec limits.">
+<meta property="og:url" content="https://metricmech.com/articles/spc-control-charts">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SPC Control Charts: X-bar & R Chart Guide | MetricMech">
+<meta name="twitter:description" content="X-bar and R chart formulas with constants, a worked example, the Western Electric rules, and why control limits are not spec limits.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "SPC Control Charts: The X-bar and R Chart, Worked",
+  "description": "SPC control charts explained: X-bar and R chart formulas with constants, a worked example, the Western Electric rules, and control vs spec limits.",
+  "url": "https://metricmech.com/articles/spc-control-charts",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-07-02",
+  "mainEntityOfPage": "https://metricmech.com/articles/spc-control-charts"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is an X-bar and R chart?", "acceptedAnswer": {"@type": "Answer", "text": "It is a pair of SPC control charts for variable data collected in small subgroups. The X-bar chart tracks the subgroup averages to watch the process centre, and the R chart tracks the subgroup ranges to watch the spread. You read the R chart first, because control limits on the X-bar chart depend on the average range."}},
+    {"@type": "Question", "name": "Are control limits the same as specification limits?", "acceptedAnswer": {"@type": "Answer", "text": "No. Control limits come from the process data itself and describe what the process actually does, at plus or minus three sigma of the subgroup statistic. Specification limits come from the drawing and describe what the customer needs. A process can be in control yet out of spec, or in spec yet out of control."}},
+    {"@type": "Question", "name": "What are the Western Electric rules?", "acceptedAnswer": {"@type": "Answer", "text": "They are a set of pattern tests that flag a special cause: one point beyond three sigma, two of three points beyond two sigma on one side, four of five beyond one sigma on one side, and eight points in a row on one side of the centre line. Any of these signals the process has shifted."}},
+    {"@type": "Question", "name": "How many subgroups do I need to set up a control chart?", "acceptedAnswer": {"@type": "Answer", "text": "Use at least 20 to 25 subgroups to calculate reliable trial control limits. Fewer than that and the limits move around too much to be trustworthy. Recalculate the limits after a proven process change, not on every point."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>SPC control charts</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What SPC is</a>
+    <a href="#formula">X-bar &amp; R formulas</a>
+    <a href="#example">Worked example</a>
+    <a href="#limits">Control vs spec limits</a>
+    <a href="#rules">Western Electric rules</a>
+    <a href="#which">Which chart to use</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>SPC control charts: the <em>X-bar and R chart,</em> worked end to end.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / SPC</span>
+      <span>July 2, 2026</span>
+      <span>9 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">A control chart answers one question in real time: has my process changed, or is this just normal variation? Get that right and you stop chasing noise and catch real shifts early. The workhorse for machined and measured parts is the X-bar and R chart &mdash; here are the formulas, a full worked example, and the rules that turn a chart into a decision.</p>
+
+    <h2 id="what">What SPC <em>is</em></h2>
+    <p>Statistical Process Control separates two kinds of variation. <strong>Common-cause</strong> variation is the natural noise built into a stable process &mdash; you leave it alone. <strong>Special-cause</strong> variation is a signal that something changed: a tool wore, a new batch of material arrived, an operator adjusted a setting. The control chart is the tool that tells the two apart, so you act only when action is warranted.</p>
+    <p>The classic mistake it prevents is <em>tampering</em> &mdash; adjusting a machine after a single part drifts, which usually adds variation rather than removing it. On the shop floor I have watched a good process turned unstable by well-meaning over-correction. A control chart draws a clear line: inside the limits with no pattern, hands off; a signal, investigate.</p>
+
+    <h2 id="formula">The X-bar and R chart formulas</h2>
+    <p>You collect data in small <strong>subgroups</strong> &mdash; typically 4 or 5 consecutive parts &mdash; taken at regular intervals. For each subgroup you compute the average (X-bar) and the range (R = max &minus; min). Then:</p>
+    <table>
+      <tr><th>Chart</th><th>Centre line</th><th>Control limits</th></tr>
+      <tr><td>R chart</td><td>R-bar (mean of ranges)</td><td>UCL = D4 &times; R-bar,&nbsp; LCL = D3 &times; R-bar</td></tr>
+      <tr><td>X-bar chart</td><td>X-double-bar (grand average)</td><td>X-double-bar &plusmn; A2 &times; R-bar</td></tr>
+    </table>
+    <p>The constants A2, D3 and D4 depend only on the subgroup size <em>n</em>. Read the R chart <strong>first</strong>: if the spread is unstable, the X-bar limits (which are built from R-bar) are meaningless.</p>
+    <table>
+      <tr><th>n</th><th>A2</th><th>D3</th><th>D4</th></tr>
+      <tr><td>2</td><td>1.880</td><td>0</td><td>3.267</td></tr>
+      <tr><td>3</td><td>1.023</td><td>0</td><td>2.574</td></tr>
+      <tr><td>4</td><td>0.729</td><td>0</td><td>2.282</td></tr>
+      <tr><td>5</td><td>0.577</td><td>0</td><td>2.114</td></tr>
+    </table>
+    <p>For n of 6 or less, D3 is 0, so the R chart has no lower control limit &mdash; a range of zero is allowed.</p>
+
+    <h2 id="example">A worked example</h2>
+    <p>Take a turning operation on a shaft diameter, target ⌀25.00 mm, sampled in subgroups of <strong>n = 5</strong> every hour. After 20 subgroups you find the grand average and the average range:</p>
+    <ul>
+      <li>Grand average, X-double-bar = <strong>25.02 mm</strong></li>
+      <li>Average range, R-bar = <strong>0.06 mm</strong></li>
+    </ul>
+    <p>From the table at n = 5: A2 = 0.577, D3 = 0, D4 = 2.114. Compute the R chart first:</p>
+    <ul>
+      <li>R chart UCL = D4 &times; R-bar = 2.114 &times; 0.06 = <strong>0.127 mm</strong></li>
+      <li>R chart LCL = D3 &times; R-bar = 0 &times; 0.06 = <strong>0</strong></li>
+    </ul>
+    <p>With the spread in control, compute the X-bar chart:</p>
+    <ul>
+      <li>UCL = 25.02 + (0.577 &times; 0.06) = 25.02 + 0.0346 = <strong>25.055 mm</strong></li>
+      <li>LCL = 25.02 &minus; (0.577 &times; 0.06) = 25.02 &minus; 0.0346 = <strong>24.985 mm</strong></li>
+    </ul>
+    <p>So any subgroup average between 24.985 and 25.055 mm, with ranges under 0.127 mm and no pattern, is normal. A subgroup average of 25.07 mm is a special-cause signal &mdash; investigate the process, do not simply re-cut the part.</p>
+
+    <div class="callout">
+      <strong>From control to capability</strong>
+      A chart tells you the process is stable; capability tells you whether stable is good enough against the drawing. Once your X-bar and R chart is in control, feed the same data into the free <a href="../calculators/cp-cpk.html">Cp and Cpk calculator</a> to see how the spread compares with the tolerance. Control first, capability second &mdash; capability on an unstable process is a fiction.
+    </div>
+
+    <h2 id="limits">Control limits are not specification limits</h2>
+    <p>This is the single most misunderstood point in SPC. <strong>Control limits</strong> come from the process data &mdash; they describe what the process actually does. <strong>Specification limits</strong> come from the drawing &mdash; they describe what the customer needs. They are unrelated, and you must never draw the spec limits on a control chart.</p>
+    <div class="warn-box">
+      <strong>Never put spec limits on a control chart</strong>
+      A process can sit comfortably inside its control limits and still be out of spec, or wander outside its control limits while every part is in spec. Mixing the two lines leads operators to adjust a stable process or ignore a real shift. Judge stability with control limits; judge conformance separately with the tolerance.
+    </div>
+
+    <h2 id="rules">The Western Electric rules</h2>
+    <p>A point outside three sigma is the obvious signal, but patterns inside the limits also reveal a shift. The classic Western Electric rules flag a special cause when:</p>
+    <ol>
+      <li><strong>One point</strong> beyond a 3-sigma control limit.</li>
+      <li><strong>Two of three</strong> consecutive points beyond 2 sigma on the same side.</li>
+      <li><strong>Four of five</strong> consecutive points beyond 1 sigma on the same side.</li>
+      <li><strong>Eight points in a row</strong> on one side of the centre line.</li>
+    </ol>
+    <p>A run of eight points above the centre line, even with none outside the limits, means the process has drifted &mdash; a slowly wearing tool is the textbook cause. Catching that trend before it breaches the limit is exactly what SPC is for.</p>
+
+    <h2 id="which">Which control chart to use</h2>
+    <table>
+      <tr><th>Data type</th><th>Chart</th><th>Use when</th></tr>
+      <tr><td>Variable, subgroups of 2&ndash;9</td><td>X-bar &amp; R</td><td>Measured dimensions, standard shop case</td></tr>
+      <tr><td>Variable, subgroups of 10+</td><td>X-bar &amp; s</td><td>Larger subgroups; s estimates spread better</td></tr>
+      <tr><td>Variable, single readings</td><td>I-MR</td><td>Slow or costly measurement, one part at a time</td></tr>
+      <tr><td>Attribute, defectives</td><td>p or np</td><td>Pass/fail counts of nonconforming units</td></tr>
+      <tr><td>Attribute, defects</td><td>c or u</td><td>Counts of defects per unit or per area</td></tr>
+    </table>
+    <p>For most machined-part work with a caliper or micrometer, X-bar and R is the right default. Switch to I-MR when you can only measure one piece at a time, such as a slow CMM check.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Drawing spec limits on the chart.</strong> The most common error &mdash; keep tolerance and control limits on separate pages.</li>
+      <li><strong>Reading the X-bar chart before the R chart.</strong> X-bar limits are built from R-bar; an unstable range makes them invalid.</li>
+      <li><strong>Too few subgroups.</strong> Use 20&ndash;25 subgroups for trial limits; fewer and the limits are unreliable.</li>
+      <li><strong>Recalculating limits on every point.</strong> Fix the limits from a stable baseline and recompute only after a proven change.</li>
+      <li><strong>Ignoring in-limit patterns.</strong> A run or trend inside the limits is still a signal &mdash; apply the Western Electric rules.</li>
+      <li><strong>Subgroups that hide variation.</strong> Sample consecutive parts so within-subgroup range reflects short-term noise, not shift-to-shift drift.</li>
+    </ul>
+
+    <h2>Where control charts fit with your other quality data</h2>
+    <p>SPC is the stability layer under everything else. Pair it with <a href="../articles/cp-cpk-explained.html">Cp and Cpk</a> for capability, <a href="../articles/gauge-rr-explained.html">Gauge R&amp;R</a> to trust the measurements feeding the chart, and <a href="../articles/dpmo-sigma-level.html">DPMO and sigma level</a> to translate performance into a defect rate. The dimensional data behind your charts is only as clean as the inspection that produced it &mdash; CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers every characteristic on the drawing so each reading maps to a defined feature. Blank charting forms are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp / Cpk Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="../articles/dpmo-sigma-level.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">DPMO &amp; Sigma Level</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

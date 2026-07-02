@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PPAP Checklist: 18 Elements &amp; Submission Levels | MetricMech</title>
+<meta name="description" content="A complete PPAP checklist: all 18 elements explained, what each of the 5 submission levels needs, the PSW, and the mistakes that get a submission rejected." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/ppap-checklist">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="PPAP Checklist: 18 Elements & Submission Levels | MetricMech">
+<meta property="og:description" content="A complete PPAP checklist: all 18 elements explained, what each of the 5 submission levels needs, the PSW, and the mistakes that get a submission rejected.">
+<meta property="og:url" content="https://metricmech.com/articles/ppap-checklist">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PPAP Checklist: 18 Elements & Submission Levels | MetricMech">
+<meta name="twitter:description" content="All 18 PPAP elements, what each of the 5 submission levels requires, the PSW, and the mistakes that get a package rejected.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "PPAP Checklist: The 18 Elements and 5 Submission Levels",
+  "description": "A complete PPAP checklist: all 18 elements explained, what each of the 5 submission levels needs, the PSW, and the mistakes that get a submission rejected.",
+  "url": "https://metricmech.com/articles/ppap-checklist",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-07-02",
+  "mainEntityOfPage": "https://metricmech.com/articles/ppap-checklist"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How many elements are in a PPAP?", "acceptedAnswer": {"@type": "Answer", "text": "A full PPAP has 18 elements, from design records and FMEAs through the control plan, MSA, dimensional results and initial process studies, ending with the Part Submission Warrant. Which elements are physically submitted depends on the submission level the customer requires."}},
+    {"@type": "Question", "name": "What are the 5 PPAP submission levels?", "acceptedAnswer": {"@type": "Answer", "text": "Level 1 is the PSW only. Level 2 is PSW with product samples and limited data. Level 3, the most common default, is PSW with samples and complete supporting data. Level 4 is PSW plus other requirements defined by the customer. Level 5 is PSW with samples and complete data reviewed at the supplier's site."}},
+    {"@type": "Question", "name": "What is a PSW in PPAP?", "acceptedAnswer": {"@type": "Answer", "text": "The Part Submission Warrant is the summary cover sheet, element 18, on which the supplier declares that the parts meet all customer requirements. It records part and change-level details and is signed off; the customer approves the PPAP against it."}},
+    {"@type": "Question", "name": "Is PPAP the same as APQP?", "acceptedAnswer": {"@type": "Answer", "text": "No. APQP is the full advanced product quality planning process that runs through the whole launch. PPAP is the approval output near the end of it, the package that proves the process can make conforming parts at rate before mass production is released."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>PPAP checklist</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What PPAP is</a>
+    <a href="#elements">The 18 elements</a>
+    <a href="#levels">The 5 submission levels</a>
+    <a href="#psw">The PSW</a>
+    <a href="#build">How to build the package</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>PPAP checklist: the <em>18 elements,</em> five levels, and the PSW.</h1>
+    <div class="art-meta-bar">
+      <span>Quality / APQP</span>
+      <span>July 2, 2026</span>
+      <span>9 min read</span>
+      <span>1,850 words</span>
+    </div>
+
+    <p class="lede">PPAP &mdash; the Production Part Approval Process &mdash; is how you prove to a customer that your process can make conforming parts at rate, before mass production is released. A full package has 18 elements, but you rarely submit all 18. The trick is knowing which elements each submission level actually requires. Here is the complete checklist.</p>
+
+    <h2 id="what">What PPAP <em>is</em></h2>
+    <p>PPAP is the AIAG standard that governs how a supplier gets a new or changed part approved for production. It is the approval gate near the end of <a href="../articles/ppap-indian-oems.html">APQP</a>: the evidence bundle that says "the design is captured, the process is defined and stable, the measurement system is trustworthy, and the first parts conform." Automotive uses it as standard; aerospace uses the parallel AS9102 first article regime, and medical devices have their own validation route.</p>
+    <p>Miss one required element and the customer's supplier quality engineer sends the whole package back. In my years running plants, more PPAPs slipped on missing paperwork than on bad parts &mdash; the part was fine, but the MSA or the initial process study was absent. A checklist is the cheapest insurance you can buy.</p>
+
+    <h2 id="elements">The 18 PPAP elements</h2>
+    <p>These are the 18 elements of a full PPAP, in the standard AIAG order:</p>
+    <table>
+      <tr><th>#</th><th>Element</th><th>What it proves</th></tr>
+      <tr><td>1</td><td>Design Records</td><td>The approved drawing / CAD data at the correct revision</td></tr>
+      <tr><td>2</td><td>Engineering Change Documents</td><td>Any authorised changes since the base design</td></tr>
+      <tr><td>3</td><td>Customer Engineering Approval</td><td>Sign-off where the customer owns the design</td></tr>
+      <tr><td>4</td><td>Design FMEA (DFMEA)</td><td>Design risks identified and mitigated</td></tr>
+      <tr><td>5</td><td>Process Flow Diagram</td><td>The full sequence of manufacturing steps</td></tr>
+      <tr><td>6</td><td>Process FMEA (PFMEA)</td><td>Process risks and controls</td></tr>
+      <tr><td>7</td><td>Control Plan</td><td>What is checked, how, how often, and the reaction plan</td></tr>
+      <tr><td>8</td><td>Measurement System Analysis (MSA)</td><td>Gauges are capable &mdash; Gauge R&amp;R passed</td></tr>
+      <tr><td>9</td><td>Dimensional Results</td><td>Every characteristic measured and recorded</td></tr>
+      <tr><td>10</td><td>Material / Performance Tests</td><td>Material certs and functional test results</td></tr>
+      <tr><td>11</td><td>Initial Process Studies</td><td>Capability (Ppk / Cpk) on significant characteristics</td></tr>
+      <tr><td>12</td><td>Qualified Laboratory Documentation</td><td>Lab scope / accreditation for the tests used</td></tr>
+      <tr><td>13</td><td>Appearance Approval Report (AAR)</td><td>Colour / finish sign-off for appearance items</td></tr>
+      <tr><td>14</td><td>Sample Production Parts</td><td>Actual parts from the production process</td></tr>
+      <tr><td>15</td><td>Master Sample</td><td>A retained signed-off reference part</td></tr>
+      <tr><td>16</td><td>Checking Aids</td><td>Fixtures and gauges built for the part</td></tr>
+      <tr><td>17</td><td>Customer-Specific Requirements</td><td>Anything the customer mandates beyond AIAG</td></tr>
+      <tr><td>18</td><td>Part Submission Warrant (PSW)</td><td>The signed cover declaration &mdash; the summary</td></tr>
+    </table>
+
+    <div class="callout">
+      <strong>Track it, do not trust memory</strong>
+      Run your package against the free <a href="../calculators/ppap-checklist.html">PPAP checklist tool</a>, which lets you tick off each of the 18 elements against the required submission level and flags what is still open before you send. It beats discovering the gap in the customer's rejection email.
+    </div>
+
+    <h2 id="levels">The five submission levels</h2>
+    <p>You almost never ship all 18 elements physically. The customer specifies a <strong>submission level</strong> that decides what is sent versus what is retained on file at your plant and shown on request.</p>
+    <table>
+      <tr><th>Level</th><th>What you submit to the customer</th></tr>
+      <tr><td>Level 1</td><td>PSW only (plus AAR for appearance items)</td></tr>
+      <tr><td>Level 2</td><td>PSW with product samples and limited supporting data</td></tr>
+      <tr><td>Level 3</td><td>PSW with product samples and complete supporting data</td></tr>
+      <tr><td>Level 4</td><td>PSW and other requirements as defined by the customer</td></tr>
+      <tr><td>Level 5</td><td>PSW with samples and complete data, reviewed at your site</td></tr>
+    </table>
+    <p><strong>Level 3 is the default</strong> for a new part from a new tool, and it is what most first-time submissions land on. Level 1 is common for low-risk changes; Level 5 appears when the customer wants an on-site audit of the full record. Whatever the level, all 18 elements must still <em>exist</em> &mdash; the level only controls what physically travels to the customer.</p>
+
+    <h2 id="psw">The Part Submission Warrant</h2>
+    <p>Element 18, the PSW, is the one-page summary the customer signs against. It records the part number, revision, change level, reason for submission, and the results summary, and it carries the supplier's declaration that the parts conform. Get the revision and change level wrong here and the package is rejected on the cover sheet alone, before anyone opens the data.</p>
+    <p>Two supporting elements deserve extra care because they are the usual failure points: the <a href="../articles/gauge-rr-explained.html">MSA / Gauge R&amp;R</a> in element 8, and the initial process study in element 11. A dimensional result is only as trustworthy as the gauge that produced it, so customers scrutinise the measurement system first.</p>
+
+    <h2 id="build">How to build the package efficiently</h2>
+    <ol>
+      <li><strong>Start from the drawing.</strong> Balloon every characteristic and number it, so the dimensional results (element 9) map one-to-one to the print and nothing is missed.</li>
+      <li><strong>Reuse the risk chain.</strong> The process flow (5) feeds the <a href="../articles/fmea-rpn-calculation.html">PFMEA</a> (6), which feeds the <a href="../articles/control-plan-template.html">control plan</a> (7). Build them together so they stay consistent.</li>
+      <li><strong>Prove the gauges before the parts.</strong> Complete the MSA (8) before you record dimensional results, or the results carry no weight.</li>
+      <li><strong>Run capability on the right characteristics.</strong> Compute Ppk / Cpk (11) only on significant and critical characteristics, not every dimension.</li>
+      <li><strong>Finish with the PSW.</strong> Fill element 18 last, once the other 17 are closed, so the summary reflects reality.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Balloon the drawing first</strong>
+      Element 9 depends on a clean, numbered drawing. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> &mdash; Smart Detect plus Box+Balloon OCR &mdash; turns a PDF print into a numbered inspection sheet in minutes, so every measured value ties back to a specific characteristic. That single step keeps your dimensional results and PSW aligned.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Confusing the level with the element count.</strong> A Level 1 submission still needs all 18 elements on file; only the PSW is sent.</li>
+      <li><strong>Wrong revision on the PSW.</strong> The part number, revision and change level must match the design records exactly.</li>
+      <li><strong>Skipping the MSA.</strong> Dimensional results without a passed Gauge R&amp;R are routinely rejected.</li>
+      <li><strong>Capability on the wrong characteristics.</strong> Running Ppk on every dimension wastes effort; run it on the significant ones the customer flagged.</li>
+      <li><strong>Samples not from the real process.</strong> Element 14 parts must come from the production tooling and rate, not a prototype cell.</li>
+      <li><strong>Inconsistent risk documents.</strong> A control plan that does not match the PFMEA signals the paperwork was back-filled.</li>
+    </ul>
+
+    <h2>Where PPAP fits with your other quality data</h2>
+    <p>PPAP is the launch gate; the capability numbers inside it come from the same tools you use every day. Pair this checklist with <a href="../articles/cp-cpk-explained.html">Cp and Cpk</a> for the initial process study, the <a href="../articles/gauge-rr-explained.html">Gauge R&amp;R guide</a> for the MSA, and <a href="../articles/ppap-indian-oems.html">PPAP for Indian OEMs</a> for supplier-side logistics. Ready-to-use forms are on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/ppap-checklist.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP Checklist Tool</a>
+      <a href="../articles/control-plan-template.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Control Plan Template</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
