@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cpk to PPM Conversion: Formula, Table & Sigma | MetricMech</title>
+<meta name="description" content="Convert Cpk to PPM defect rate: the formula, a full Cpk-to-PPM table, the sigma-level link and the 1.5-sigma shift, with a worked capability example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cpk-to-ppm">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpk to PPM Conversion: Formula, Table & Sigma | MetricMech">
+<meta property="og:description" content="Convert Cpk to PPM defect rate: the formula, a full Cpk-to-PPM table, the sigma-level link and the 1.5-sigma shift, with a worked capability example.">
+<meta property="og:url" content="https://metricmech.com/articles/cpk-to-ppm">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cpk to PPM Conversion: Formula, Table & Sigma | MetricMech">
+<meta name="twitter:description" content="Convert Cpk to PPM defect rate: the formula, a full Cpk-to-PPM table, the sigma-level link and the 1.5-sigma shift, with a worked capability example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Cpk to PPM Conversion: Formula, Table and the Sigma Link",
+  "description": "Convert Cpk to a PPM defect rate: the formula, a full Cpk-to-PPM table, the sigma-level relationship and the 1.5-sigma shift, with a worked capability example.",
+  "url": "https://metricmech.com/articles/cpk-to-ppm",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech"},
+  "datePublished": "2026-07-02",
+  "mainEntityOfPage": "https://metricmech.com/articles/cpk-to-ppm"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What PPM is a Cpk of 1.33?", "acceptedAnswer": {"@type": "Answer", "text": "About 63 PPM for a centred, two-sided process, which is a 4-sigma level. With the classic 1.5-sigma shift, a 4-sigma process is quoted as about 6,210 PPM."}},
+    {"@type": "Question", "name": "How do you convert Cpk to sigma level?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply by three: sigma level equals 3 times Cpk. A Cpk of 1.67 is a 5-sigma process."}},
+    {"@type": "Question", "name": "What Cpk equals 3.4 PPM?", "acceptedAnswer": {"@type": "Answer", "text": "A 6-sigma process, a short-term Cpk of 2.0, is quoted as 3.4 PPM once the standard 1.5-sigma long-term shift is applied."}},
+    {"@type": "Question", "name": "Does the Cpk to PPM conversion assume a normal distribution?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The tail-probability method uses the normal curve. Non-normal data needs a transformation or a distribution-specific method, or the PPM estimate will be wrong."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Cpk to PPM conversion</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#link">Cpk, sigma and PPM</a>
+    <a href="#formula">The formula</a>
+    <a href="#table">Conversion table</a>
+    <a href="#shift">The 1.5-sigma shift</a>
+    <a href="#example">Worked example</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Cpk to PPM conversion: <em>formula, table and the sigma link.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality / SPC</span>
+      <span>July 2, 2026</span>
+      <span>10 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Every Cpk value maps to a defect rate in parts per million. A Cpk of 1.33 is roughly 63 PPM; a Cpk of 1.67 is under one. Here is exactly how the conversion works, the table you can read off, and the sigma-shift trap that makes two engineers quote different numbers for the same process.</p>
+
+    <h2 id="link">How Cpk, sigma level and PPM connect</h2>
+    <p>Cpk measures how many standard deviations fit between the process mean and the nearer specification limit, divided by three. Because the distance to the limit is <strong>3 &times; Cpk</strong> standard deviations, and a normal distribution ties any distance-in-sigmas to a tail probability, every Cpk implies a defect rate you can express in PPM.</p>
+    <p>The clean relationship worth memorising is: <strong>Sigma level = 3 &times; Cpk</strong>. A Cpk of 1.00 is a 3-sigma process, 1.33 is 4-sigma, 1.67 is 5-sigma, and 2.00 is the 6-sigma gold standard. For the deeper meaning of the index itself, see <a href="../articles/cp-cpk-explained.html">Cp vs Cpk explained</a>.</p>
+
+    <h2 id="formula">The formula</h2>
+    <p>For a centred process, the defect rate comes straight from the standard normal cumulative function &Phi;:</p>
+    <ul>
+      <li><strong>One-sided PPM</strong> = (1 &minus; &Phi;(3 &times; Cpk)) &times; 1,000,000</li>
+      <li><strong>Two-sided PPM</strong> = 2 &times; (1 &minus; &Phi;(3 &times; Cpk)) &times; 1,000,000</li>
+    </ul>
+    <p>Use the one-sided form when only one limit realistically produces defects (for example a minimum wall thickness). Use the two-sided form for a symmetric tolerance where the process is centred. When the process is off-centre, Cpk already reflects the nearer limit, so the one-sided estimate against that limit is the honest number.</p>
+
+    <h2 id="table">Cpk to PPM conversion table</h2>
+    <p>Read these as centred, long-term values with no distributional shift:</p>
+    <table>
+      <tr><th>Cpk</th><th>Sigma level</th><th>PPM (two-sided)</th><th>Yield</th></tr>
+      <tr><td>0.33</td><td>1.0&sigma;</td><td>317,311</td><td>68.27%</td></tr>
+      <tr><td>0.50</td><td>1.5&sigma;</td><td>133,614</td><td>86.64%</td></tr>
+      <tr><td>0.67</td><td>2.0&sigma;</td><td>45,500</td><td>95.45%</td></tr>
+      <tr><td>1.00</td><td>3.0&sigma;</td><td>2,700</td><td>99.73%</td></tr>
+      <tr><td>1.33</td><td>4.0&sigma;</td><td>63</td><td>99.9937%</td></tr>
+      <tr><td>1.50</td><td>4.5&sigma;</td><td>6.8</td><td>99.99932%</td></tr>
+      <tr><td>1.67</td><td>5.0&sigma;</td><td>0.57</td><td>99.999943%</td></tr>
+      <tr><td>2.00</td><td>6.0&sigma;</td><td>0.002</td><td>99.9999998%</td></tr>
+    </table>
+    <p>This is why automotive safety-critical characteristics usually demand Cpk &ge; 1.67: at roughly half a defect per million, containment cost collapses. A plain Cpk of 1.00 — still "capable" on paper — leaks about 2,700 defects per million, which no OEM will accept on a key characteristic.</p>
+
+    <h2 id="shift">The 1.5-sigma shift</h2>
+    <p>Here is where quotes diverge. Classic Six Sigma assumes a process drifts about 1.5 sigma over the long term, so a short-term 6-sigma process is quoted as <strong>3.4 PPM</strong> rather than 0.002 PPM. The shifted table looks different:</p>
+    <table>
+      <tr><th>Sigma level</th><th>PPM with 1.5&sigma; shift</th></tr>
+      <tr><td>3.0&sigma;</td><td>66,807</td></tr>
+      <tr><td>4.0&sigma;</td><td>6,210</td></tr>
+      <tr><td>4.5&sigma;</td><td>1,350</td></tr>
+      <tr><td>5.0&sigma;</td><td>233</td></tr>
+      <tr><td>6.0&sigma;</td><td>3.4</td></tr>
+    </table>
+    <p>Both tables are "correct" — they answer different questions. The centred table converts a measured Cpk today; the shifted table estimates long-term performance. Always state which one you are using. The distinction is really the difference between capability and performance, which is unpacked in <a href="../articles/cpk-vs-ppk.html">Cpk vs Ppk</a>.</p>
+
+    <h2 id="example">Worked example</h2>
+    <p>A turned shaft has a diameter spec of 20.00 +0.00 / &minus;0.05 mm. From 50 pieces you measure a mean of 19.976 mm and a standard deviation of 0.0067 mm.</p>
+    <ul>
+      <li>USL = 20.000, LSL = 19.950, mean = 19.976, &sigma; = 0.0067.</li>
+      <li>Cpk = min[(USL &minus; mean), (mean &minus; LSL)] / (3&sigma;) = min[0.024, 0.026] / 0.0201 = <strong>1.19</strong>.</li>
+      <li>Sigma level = 3 &times; 1.19 = 3.58; the nearer limit is the upper one.</li>
+      <li>One-sided PPM = (1 &minus; &Phi;(3.58)) &times; 1,000,000 &asymp; <strong>172 PPM</strong>.</li>
+    </ul>
+    <p>So this "capable-looking" shaft is running near 172 rejects per million against its tight upper limit — fine for a general fit, marginal for a critical one. Centre the process (shift the mean toward 19.975) and Cpk climbs while the PPM falls sharply. You can check any of these figures in the <a href="../calculators/dpmo-sigma.html">DPMO and sigma level calculator</a>, and compute Cpk itself from your data with the <a href="../calculators/cp-cpk.html">Cp/Cpk calculator</a>.</p>
+
+    <div class="warn-box">
+      <strong>PPM assumes normality</strong>
+      The whole conversion rests on a normal distribution. If your data is skewed, bounded at zero, or bi-modal, the &Phi;-based PPM will understate real defects — sometimes badly. Test for normality before you trust a sub-single-digit PPM claim.
+    </div>
+
+    <div class="callout">
+      <strong>Capability starts with clean characteristic data</strong>
+      Element 11 of a PPAP is an initial process study, and it is only as good as the ballooned characteristics behind it. Capture every dimension and tolerance from the drawing with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR — so the measurements feeding your Cpk trace cleanly to the right feature.
+    </div>
+
+    <p>For the defect-rate side of the same coin, the <a href="../articles/dpmo-sigma-level.html">DPMO and sigma level guide</a> shows how to go from counted defects back to a sigma score, and reusable study sheets live in the <a href="../templates.html">templates library</a>.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Mixing shifted and unshifted numbers.</strong> Quoting 3.4 PPM for a 6-sigma process and 0.002 PPM interchangeably. Pick one convention and label it.</li>
+      <li><strong>Using two-sided PPM on an off-centre process.</strong> Once the mean drifts, almost all defects come from the near limit; double-counting the far tail flatters the number.</li>
+      <li><strong>Reporting PPM to three decimals from 30 data points.</strong> A tiny sample cannot justify a sub-PPM claim; the confidence interval on &sigma; is enormous.</li>
+      <li><strong>Confusing Cpk with Ppk.</strong> Cpk uses within-subgroup sigma; Ppk uses overall sigma. They give different PPM for the same data.</li>
+    </ol>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>What PPM is a Cpk of 1.33?</h3>
+    <p>About 63 PPM for a centred, two-sided process (a 4-sigma level). With the classic 1.5-sigma shift, a 4-sigma process is quoted as about 6,210 PPM.</p>
+    <h3>How do you convert Cpk to sigma level?</h3>
+    <p>Multiply by three: sigma level = 3 &times; Cpk. A Cpk of 1.67 is a 5-sigma process.</p>
+    <h3>What Cpk equals 3.4 PPM?</h3>
+    <p>A 6-sigma process (short-term Cpk of 2.0) is quoted as 3.4 PPM once the standard 1.5-sigma long-term shift is applied.</p>
+    <h3>Does the Cpk to PPM conversion assume a normal distribution?</h3>
+    <p>Yes. The tail-probability method uses the normal curve. Non-normal data needs a transformation or a distribution-specific method, or the PPM estimate will be wrong.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/dpmo-sigma.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">DPMO &amp; Sigma Calculator</a>
+      <a href="../calculators/cp-cpk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp / Cpk Calculator</a>
+      <a href="../articles/cpk-vs-ppk.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cpk vs Ppk</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">SPC templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>

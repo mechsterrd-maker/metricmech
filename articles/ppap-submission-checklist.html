@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PPAP Checklist: All 18 Elements Explained | MetricMech</title>
+<meta name="description" content="A practical PPAP checklist: all 18 elements, the five submission levels, what you submit versus retain, and why submissions get rejected." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.art-layout { display: grid; grid-template-columns: 200px 1fr 280px; gap: 40px; max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+@media (max-width: 1100px) { .art-layout { grid-template-columns: 1fr; } .art-toc, .art-aside { display: none; } }
+.art-toc { position: sticky; top: 80px; align-self: start; }
+.art-toc h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.art-toc a { display: block; padding: 6px 10px; font-size: 13px; color: var(--ink-2); text-decoration: none; line-height: 1.4; border-left: 2px solid transparent; margin-left: -12px; }
+.art-toc a:hover { border-left-color: var(--blueprint); color: var(--blueprint); }
+.art-aside { position: sticky; top: 80px; align-self: start; }
+.art-content h1 { font-family: var(--display); font-size: 38px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.art-content h1 em { font-style: italic; color: var(--blueprint); font-weight: 500; }
+.art-meta-bar { display: flex; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; }
+.art-content h2 { font-family: var(--display); font-size: 26px; font-weight: 600; margin: 32px 0 12px; letter-spacing: -0.01em; }
+.art-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 24px 0 10px; }
+.art-content p { font-size: 17px; line-height: 1.7; color: var(--ink-2); margin-bottom: 16px; }
+.art-content p.lede { font-size: 19px; line-height: 1.55; color: var(--ink); margin-bottom: 22px; font-family: var(--display); }
+.art-content ul, .art-content ol { margin: 0 0 18px 26px; }
+.art-content li { font-size: 16px; line-height: 1.7; color: var(--ink-2); margin-bottom: 8px; }
+.art-content strong { color: var(--ink); font-weight: 600; }
+.art-content table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+.art-content th { background: var(--ink); color: var(--paper); padding: 10px 12px; text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.art-content td { padding: 10px 12px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.art-content tr:nth-child(even) td { background: var(--paper-2); }
+.callout { background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--amber); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; line-height: 1.65; }
+.callout strong { font-family: var(--display); font-size: 17px; display: block; margin-bottom: 6px; }
+.warn-box { background: rgba(198,75,42,0.08); border: 1px solid var(--alert); border-left: 3px solid var(--alert); border-radius: var(--rad); padding: 18px 22px; margin: 20px 0; font-size: 15px; }
+.warn-box strong { color: var(--alert); display: block; margin-bottom: 4px; font-family: var(--display); font-size: 16px; }
+.author-card { display: flex; gap: 14px; align-items: center; padding: 18px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); margin: 24px 0; }
+.author-avatar { width: 48px; height: 48px; background: var(--blueprint); color: var(--paper); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 600; font-size: 18px; }
+.author-name { font-family: var(--display); font-size: 15px; font-weight: 600; }
+.author-title { font-size: 12px; color: var(--mute); }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/ppap-submission-checklist">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="PPAP Checklist: All 18 Elements Explained | MetricMech">
+<meta property="og:description" content="A practical PPAP checklist: all 18 elements, the five submission levels, what you submit versus retain, and why submissions get rejected.">
+<meta property="og:url" content="https://metricmech.com/articles/ppap-submission-checklist">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PPAP Checklist: All 18 Elements Explained | MetricMech">
+<meta name="twitter:description" content="A practical PPAP checklist: all 18 elements, the five submission levels, what you submit versus retain, and why submissions get rejected.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "PPAP Checklist: All 18 Elements Explained",
+  "description": "A practical PPAP checklist covering all 18 elements, the five submission levels, submit-versus-retain, and the top reasons PPAP submissions get rejected.",
+  "url": "https://metricmech.com/articles/ppap-submission-checklist",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Founder, MetricMech"},
+  "datePublished": "2026-07-02",
+  "mainEntityOfPage": "https://metricmech.com/articles/ppap-submission-checklist"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How many elements are in a PPAP?", "acceptedAnswer": {"@type": "Answer", "text": "Eighteen. All must be completed and retained on file; the submission level decides which are physically sent to the customer."}},
+    {"@type": "Question", "name": "What is the most common PPAP level?", "acceptedAnswer": {"@type": "Answer", "text": "Level 3 — the PSW plus samples and complete supporting data. It is the default when the customer has not specified otherwise."}},
+    {"@type": "Question", "name": "Which PPAP elements are always submitted?", "acceptedAnswer": {"@type": "Answer", "text": "The Part Submission Warrant is always submitted at every level. Beyond that it depends on the level and the customer's specific requirements."}},
+    {"@type": "Question", "name": "What is the difference between PPAP and FAI?", "acceptedAnswer": {"@type": "Answer", "text": "PPAP is the automotive process-approval package built on the AIAG manual; FAI is the aerospace equivalent under AS9102. PPAP is broader, covering FMEAs, control plans and capability, while FAI focuses on verifying every characteristic on the first article."}}
+  ]
+}
+</script>
+
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>PPAP checklist: 18 elements</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What PPAP is</a>
+    <a href="#elements">The 18 elements</a>
+    <a href="#levels">Submission levels</a>
+    <a href="#submit">Submit vs retain</a>
+    <a href="#psw">The PSW</a>
+    <a href="#reject">Why PPAPs get rejected</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>PPAP checklist: all <em>18 elements</em> explained</h1>
+    <div class="art-meta-bar">
+      <span>Quality / PPAP</span>
+      <span>July 2, 2026</span>
+      <span>11 min read</span>
+      <span>2,000 words</span>
+    </div>
+
+    <p class="lede">A Production Part Approval Process submission has eighteen possible elements. Miss one, or submit the wrong ones for your level, and the customer bounces the whole package. This is the working checklist — every element, what it proves, and what actually leaves your building.</p>
+
+    <h2 id="what">What PPAP actually is</h2>
+    <p>PPAP is the automotive industry's way of proving, before the first production shipment, that your process can make the part to print repeatably. It sits at the end of the APQP cycle and is defined by the AIAG PPAP manual (4th edition). The idea is simple: assemble documented evidence that the design, the process and the measurements all agree, then get the customer to sign off. The hard part is that "evidence" spans eighteen distinct elements, and the customer decides which ones they want to see.</p>
+
+    <div class="callout">
+      <strong>Not every element is submitted every time</strong>
+      All eighteen elements must be completed and retained on file regardless of level. The submission level only decides which of them physically go to the customer. Confusing "complete" with "submit" is the single most common beginner mistake.
+    </div>
+
+    <h2 id="elements">The 18 PPAP elements</h2>
+    <p>Here is the full checklist in the standard AIAG order, with what each element demonstrates:</p>
+    <table>
+      <tr><th>#</th><th>Element</th><th>What it proves</th></tr>
+      <tr><td>1</td><td>Design Records</td><td>The released drawing / CAD data and every dimensioned characteristic</td></tr>
+      <tr><td>2</td><td>Engineering Change Documents</td><td>Authorised changes not yet in the drawing body</td></tr>
+      <tr><td>3</td><td>Customer Engineering Approval</td><td>Sign-off where the customer owns the design</td></tr>
+      <tr><td>4</td><td>Design FMEA (DFMEA)</td><td>Design risks and their controls (design-responsible suppliers)</td></tr>
+      <tr><td>5</td><td>Process Flow Diagram</td><td>The full sequence of operations, including rework and inspection</td></tr>
+      <tr><td>6</td><td>Process FMEA (PFMEA)</td><td>Process failure modes, effects and detection controls</td></tr>
+      <tr><td>7</td><td>Control Plan</td><td>How each characteristic is controlled in production</td></tr>
+      <tr><td>8</td><td>Measurement System Analysis (MSA)</td><td>Gauge R&amp;R and bias studies proving the gauges are trustworthy</td></tr>
+      <tr><td>9</td><td>Dimensional Results</td><td>Actual measured values for every ballooned characteristic</td></tr>
+      <tr><td>10</td><td>Material / Performance Test Results</td><td>Material certs and functional / performance test data</td></tr>
+      <tr><td>11</td><td>Initial Process Studies</td><td>Capability (Cpk / Ppk) on customer-designated characteristics</td></tr>
+      <tr><td>12</td><td>Qualified Laboratory Documentation</td><td>Scope and accreditation of the labs used</td></tr>
+      <tr><td>13</td><td>Appearance Approval Report (AAR)</td><td>Colour, grain and surface sign-off for cosmetic parts</td></tr>
+      <tr><td>14</td><td>Sample Production Parts</td><td>Physical parts from the qualified run</td></tr>
+      <tr><td>15</td><td>Master Sample</td><td>A retained, signed reference part</td></tr>
+      <tr><td>16</td><td>Checking Aids</td><td>Fixtures, gauges and templates unique to the part</td></tr>
+      <tr><td>17</td><td>Customer-Specific Requirements</td><td>Anything the customer mandates beyond the AIAG default</td></tr>
+      <tr><td>18</td><td>Part Submission Warrant (PSW)</td><td>The cover declaration that ties the whole package together</td></tr>
+    </table>
+
+    <h2 id="levels">The five submission levels</h2>
+    <p>The customer specifies a level — usually at the quote stage — that sets how much of the package they want to see:</p>
+    <ul>
+      <li><strong>Level 1</strong> — PSW only, sent to the customer.</li>
+      <li><strong>Level 2</strong> — PSW with product samples and limited supporting data.</li>
+      <li><strong>Level 3</strong> — PSW with product samples and complete supporting data. This is the default and by far the most common.</li>
+      <li><strong>Level 4</strong> — PSW and other requirements as defined by the customer.</li>
+      <li><strong>Level 5</strong> — PSW with product samples and complete supporting data reviewed at your manufacturing site.</li>
+    </ul>
+    <p>If no level is stated, assume Level 3. Our <a href="../calculators/ppap-checklist.html">PPAP checklist tool</a> lets you tick off each element against the level you have been given so nothing slips through before you post the package.</p>
+
+    <h2 id="submit">Submit versus retain</h2>
+    <p>The retain-versus-submit split is where audits are won or lost. At Level 3 a supplier typically submits the PSW, dimensional results, material and test results, initial process studies and the AAR, while retaining the FMEAs, control plan, process flow and MSA on site — available on request. Read the customer's PPAP requirement, because many OEMs override the AIAG default and ask for the control plan and PFMEA to be submitted every time. A strong <a href="../articles/control-plan-template.html">control plan</a> and a defensible <a href="../articles/aql-sampling-explained.html">sampling plan</a> are the two documents auditors most often pull, so keep them submission-ready even when they are only "retained".</p>
+
+    <h2 id="psw">The Part Submission Warrant</h2>
+    <p>The PSW (element 18) is the one-page declaration that summarises the part, the reason for submission, the results, and your statement of conformance. It references the design record revision, the number of parts run, and the submission level. Because it is the first page the customer reads, any mismatch — a revision that disagrees with element 1, a weight that disagrees with the drawing — reads as sloppiness and invites a full-package rejection. For Indian suppliers feeding domestic OEMs, our guide to <a href="../articles/ppap-indian-oems.html">PPAP for Indian OEMs</a> covers the local expectations around the PSW and sub-tier evidence.</p>
+
+    <h2 id="reject">Why PPAP submissions get rejected</h2>
+    <p>Across supplier-quality reviews, a handful of causes account for most first-round rejections:</p>
+    <ol>
+      <li><strong>Incomplete documentation.</strong> A missing element, or a section left blank, is the most common single cause.</li>
+      <li><strong>Customer-specific requirements ignored.</strong> Element 17 is skipped more than any other — and it is often mandatory.</li>
+      <li><strong>Internally inconsistent paperwork.</strong> The revision on the PSW does not match the drawing, or the dimensional results reference balloons that are not on the ballooned print.</li>
+      <li><strong>Weak capability evidence.</strong> Initial process studies below the customer's Ppk threshold (often 1.67) with no interim containment plan.</li>
+      <li><strong>Untraceable measurements.</strong> Dimensional results that cannot be tied back to a specific ballooned characteristic.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Start from a clean, ballooned drawing</strong>
+      Element 9 (dimensional results) only works if every characteristic carries a unique balloon number that matches your report. Capture them first with <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR reads the dimensions, tolerances and GD&amp;T off the PDF — then record measured values against each balloon. That single step removes the traceability gaps that sink element 9.
+    </div>
+
+    <p>Grab a reusable starting point from the MetricMech <a href="../templates.html">templates library</a>, then work the checklist top to bottom before you submit.</p>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>How many elements are in a PPAP?</h3>
+    <p>Eighteen. All must be completed and retained; the submission level decides which are physically sent to the customer.</p>
+    <h3>What is the most common PPAP level?</h3>
+    <p>Level 3 — the PSW plus samples and complete supporting data. It is the default when the customer has not specified otherwise.</p>
+    <h3>Which PPAP elements are always submitted?</h3>
+    <p>The Part Submission Warrant is always submitted at every level. Beyond that it depends on the level and the customer's specific requirements, so read the PPAP request carefully.</p>
+    <h3>What is the difference between PPAP and FAI?</h3>
+    <p>PPAP is the automotive process-approval package built on the AIAG manual; FAI (first article inspection) is the aerospace equivalent under AS9102. PPAP is broader, covering FMEAs, control plans and capability, while FAI focuses on verifying every characteristic on the first article.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/ppap-checklist.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP Checklist Tool</a>
+      <a href="../articles/ppap-indian-oems.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">PPAP for Indian OEMs</a>
+      <a href="../articles/control-plan-template.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Control Plan Template</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Quality templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+</body>
+</html>
