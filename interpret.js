@@ -112,27 +112,9 @@
   }
 
   function renderCta(cta) {
-    if (!cta || !cta.show) return '';
-    const sev = cta.severity || 'marginal';
-    const slug = cta.calc || 'general';
-    return `
-      <a href="https://cadnexa.com?utm_source=metricmech&utm_medium=${slug}_cta&utm_campaign=${sev}" target="_blank" rel="noopener"
-         style="display: block; text-decoration: none; background: linear-gradient(135deg, #0a1628 0%, #162a45 50%, #0f3a3a 100%); color: #fff; border-radius: 10px; padding: 22px 24px; position: relative; overflow: hidden; margin-top: 18px;">
-        <div style="position: absolute; top: -80px; right: -80px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(13,148,136,0.22) 0%, transparent 70%); pointer-events: none;"></div>
-        <div style="position: relative;">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-            <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #2554ba, #0d9488); display: flex; align-items: center; justify-content: center;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-            </div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #74d9b6; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600;">CadNexa · ${escapeHtml(cta.eyebrow || 'Engineering platform')}</div>
-          </div>
-          <div style="font-family: 'Inter', sans-serif; font-size: 19px; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 8px; color: #fff;">${escapeHtml(cta.headline)}</div>
-          <div style="font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.78); margin-bottom: 14px; max-width: 540px;">${escapeHtml(cta.sub || '')}</div>
-          <div style="display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; background: linear-gradient(135deg, #2554ba, #0d9488); color: #fff; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; box-shadow: 0 2px 12px rgba(13,148,136,0.32);">${escapeHtml(cta.ctaText || 'Try in CadNexa →')}</div>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.45); margin-top: 12px; letter-spacing: 0.1em; text-transform: uppercase;">14-day trial · No credit card · ₹399/mo</div>
-        </div>
-      </a>
-    `;
+    // Single-CTA policy: the results-block CadNexa card no longer renders.
+    // The page's one CTA is the inline auto-ballooning banner (site.js).
+    return '';
   }
 
   // Auto-create internal-links suggestion strip

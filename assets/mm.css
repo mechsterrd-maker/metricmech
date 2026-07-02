@@ -352,3 +352,9 @@ html:not(.mm-js) .mm-collapse__head::after { display: none; }
   .search-row { grid-template-columns: 1fr !important; }
   .summary-stats-row { flex-wrap: wrap; }
 }
+
+/* Install pill sits above the mobile sticky verdict bar instead of on it */
+@media (max-width: 767px) {
+  body.mm-has-sticky-result #mm-install-pill,
+  body.mm-has-sticky-result .mm-install-pill { bottom: 72px !important; }
+}
