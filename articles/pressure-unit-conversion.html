@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pressure Unit Conversion: bar, psi, kPa, MPa | MetricMech</title>
+<meta name="description" content="Convert pressure between bar, psi, kPa, MPa, kg/cm2 and atm. Conversion factors, a quick reference table, worked examples, and gauge vs absolute pressure." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/pressure-unit-conversion">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pressure Unit Conversion: bar, psi, kPa, MPa | MetricMech">
+<meta property="og:description" content="Convert pressure between bar, psi, kPa, MPa, kg/cm2 and atm. Conversion factors, a quick reference table, worked examples, and gauge vs absolute pressure.">
+<meta property="og:url" content="https://metricmech.com/articles/pressure-unit-conversion">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pressure Unit Conversion: bar, psi, kPa, MPa | MetricMech">
+<meta name="twitter:description" content="Convert pressure between bar, psi, kPa, MPa, kg/cm2 and atm. Conversion factors, a quick reference table, worked examples, and gauge vs absolute pressure.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pressure Unit Conversion: bar, psi, kPa, MPa and kg/cm2",
+  "description": "Convert pressure between bar, psi, kPa, MPa, kg/cm2 and atm. Conversion factors, a quick reference table, worked examples, and gauge versus absolute pressure.",
+  "url": "https://metricmech.com/articles/pressure-unit-conversion",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-07-03",
+  "mainEntityOfPage": "https://metricmech.com/articles/pressure-unit-conversion"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do I convert bar to psi?", "acceptedAnswer": {"@type": "Answer", "text": "Multiply bar by 14.5038 to get psi. So 7 bar is about 101.5 psi. To go back, divide psi by 14.5038. For quick shop-floor mental math, 1 bar is roughly 14.5 psi."}},
+    {"@type": "Question", "name": "Is kg/cm2 the same as bar?", "acceptedAnswer": {"@type": "Answer", "text": "Almost, but not exactly. One kg/cm2 equals 0.9807 bar, so they are within about 2 percent. Indian pressure gauges are often marked in kg/cm2, and treating it as equal to bar is fine for rough work but not for a certified reading."}},
+    {"@type": "Question", "name": "What is the difference between gauge and absolute pressure?", "acceptedAnswer": {"@type": "Answer", "text": "Gauge pressure is measured relative to atmospheric pressure and reads zero in open air. Absolute pressure is measured from a perfect vacuum, so it is gauge pressure plus about 1.013 bar. Units are tagged with g or a, as in barg and bara or psig and psia."}},
+    {"@type": "Question", "name": "How many kPa are in 1 MPa?", "acceptedAnswer": {"@type": "Answer", "text": "One MPa equals 1000 kPa, and it also equals 10 bar or about 145 psi. MPa is common on material strength and hydraulic drawings, while kPa suits lower pressures like ventilation and low-pressure pneumatics."}}
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Pressure unit conversion</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why so many units</a>
+    <a href="#factors">Conversion factors</a>
+    <a href="#table">Quick reference table</a>
+    <a href="#worked">Worked examples</a>
+    <a href="#gauge">Gauge vs absolute</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Pressure unit conversion: <em>bar, psi, kPa, MPa</em>.</h1>
+    <div class="art-meta-bar">
+      <span>Reference / Units</span>
+      <span>July 3, 2026</span>
+      <span>7 min read</span>
+      <span>1,500 words</span>
+    </div>
+
+    <p class="lede">A hydraulic drawing in MPa, a compressor gauge in kg/cm2, a pneumatic spec in psi, and a datasheet in bar &mdash; the same plant runs four pressure units before lunch. This guide gives you the exact conversion factors, a quick reference table, worked examples, and the gauge-versus-absolute trap that ruins readings.</p>
+
+    <h2 id="why">Why there are so many pressure units</h2>
+    <p>Pressure is force per unit area, so every measurement system invented its own version. The SI unit is the pascal (Pa), one newton per square metre, but a pascal is tiny, so engineering uses kPa, MPa, and the non-SI bar. The US works in psi (pounds per square inch), and older Indian and European gauges use kg/cm2 (technical atmosphere). They all measure the same thing; only the yardstick changes.</p>
+
+    <h2 id="factors">The conversion factors you need</h2>
+    <p>Everything below anchors to the bar, because it sits conveniently near everyday working pressures:</p>
+    <ul>
+      <li>1 bar = 100 kPa = 0.1 MPa = 100,000 Pa</li>
+      <li>1 bar = 14.5038 psi</li>
+      <li>1 bar = 1.01972 kg/cm2</li>
+      <li>1 bar = 0.98692 atm</li>
+      <li>1 MPa = 10 bar = 145.038 psi = 1000 kPa</li>
+      <li>1 psi = 0.0689476 bar = 6.89476 kPa</li>
+      <li>1 kg/cm2 = 0.980665 bar = 14.2233 psi</li>
+    </ul>
+    <p>For fast mental math on the floor: 1 bar is about 14.5 psi, kg/cm2 is close enough to bar for rough checks, and 1 MPa is 10 bar. Keep the exact factors for anything you certify.</p>
+
+    <div class="callout">
+      <strong>Convert any value instantly</strong>
+      Drop a pressure into the <a href="../calculators/unit-converter.html">engineering unit converter</a> to move between bar, psi, kPa, MPa and kg/cm2, and pair it with a fits check in the <a href="iso-286-fits-tolerances.html">ISO 286 fits guide</a> when you are sizing hydraulic bores.
+    </div>
+
+    <h2 id="table">Quick reference table</h2>
+    <table>
+      <tr><th>bar</th><th>psi</th><th>kPa</th><th>MPa</th><th>kg/cm2</th></tr>
+      <tr><td>1</td><td>14.50</td><td>100</td><td>0.10</td><td>1.02</td></tr>
+      <tr><td>2</td><td>29.01</td><td>200</td><td>0.20</td><td>2.04</td></tr>
+      <tr><td>5</td><td>72.52</td><td>500</td><td>0.50</td><td>5.10</td></tr>
+      <tr><td>7</td><td>101.53</td><td>700</td><td>0.70</td><td>7.14</td></tr>
+      <tr><td>10</td><td>145.04</td><td>1000</td><td>1.00</td><td>10.20</td></tr>
+      <tr><td>16</td><td>232.06</td><td>1600</td><td>1.60</td><td>16.32</td></tr>
+      <tr><td>100</td><td>1450.38</td><td>10000</td><td>10.0</td><td>101.97</td></tr>
+    </table>
+
+    <h2 id="worked">Worked examples</h2>
+    <h3>Compressor set to 7 kg/cm2 &mdash; what is that in psi?</h3>
+    <p>7 kg/cm2 &times; 14.2233 = 99.6 psi. If the pneumatic tool datasheet asks for 90 psi maximum, you are running slightly over and should trim the regulator.</p>
+    <h3>Hydraulic drawing calls 21 MPa &mdash; what does the bar gauge read?</h3>
+    <p>21 MPa &times; 10 = 210 bar. On a kg/cm2 gauge that is 210 &divide; 0.980665 = 214.1 kg/cm2. Same pressure, three faces.</p>
+    <h3>Relief valve stamped 150 psi &mdash; set point in bar?</h3>
+    <p>150 psi &times; 0.0689476 = 10.34 bar. Set the test bench to 10.3 bar and you have matched the stamp.</p>
+
+    <h2 id="gauge">Gauge vs absolute &mdash; the trap</h2>
+    <div class="warn-box">
+      <strong>Convert the number, then check the reference</strong>
+      Converting bar to psi never changes whether the value is gauge or absolute. Gauge pressure reads zero in open air; absolute pressure is gauge plus about 1.013 bar (14.7 psi). Mixing barg with bara, or psig with psia, throws every calculation off by one atmosphere &mdash; a large error at low pressures. Always carry the g or a suffix through the conversion.
+    </div>
+    <p>Vacuum work makes this sharper: a reading of &minus;0.9 barg is 0.113 bara, and treating the two as equal will wreck a pump or process calculation.</p>
+
+    <h2 id="mistakes">Common conversion mistakes</h2>
+    <ol>
+      <li><strong>Treating kg/cm2 as exactly 1 bar.</strong> It is 0.981 bar &mdash; fine for a rough check, wrong for a certified set point.</li>
+      <li><strong>Dropping the gauge or absolute reference.</strong> The one-atmosphere offset survives every unit change.</li>
+      <li><strong>Rounding 1 bar to 15 psi.</strong> The factor is 14.5038; 15 introduces a 3 percent error that compounds on high pressures.</li>
+      <li><strong>Confusing MPa and kPa.</strong> They differ by a factor of 1000; a slipped decimal here has caused burst test fixtures.</li>
+    </ol>
+    <p>For related shop references, see the <a href="thread-pitch-reference.html">thread pitch reference</a> and grab ready-made forms from the <a href="../templates.html">templates library</a>. And when a pressure spec sits on an inspection drawing, CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> numbers it alongside the dimensions so it is captured and measured, not overlooked.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/unit-converter.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Engineering Unit Converter</a>
+      <a href="iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances</a>
+      <a href="thread-pitch-reference.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Thread Pitch Reference</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
