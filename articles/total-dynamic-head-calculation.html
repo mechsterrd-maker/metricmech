@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Total Dynamic Head Calculation for Pumps (TDH) | MetricMech</title>
+<meta name="description" content="Total dynamic head (TDH) explained: static head, friction loss and velocity head. A worked pump head calculation with the formula and a numeric example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/total-dynamic-head-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Total Dynamic Head Calculation for Pumps (TDH) | MetricMech">
+<meta property="og:description" content="Total dynamic head (TDH) explained: static head, friction loss and velocity head. A worked pump head calculation with the formula and a numeric example.">
+<meta property="og:url" content="https://metricmech.com/articles/total-dynamic-head-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Total Dynamic Head Calculation for Pumps (TDH) | MetricMech">
+<meta name="twitter:description" content="Total dynamic head (TDH) explained: static head, friction loss and velocity head. A worked pump head calculation with the formula and a numeric example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Total Dynamic Head Calculation for Pumps (TDH) | MetricMech",
+  "description": "Total dynamic head (TDH) explained: static head, friction loss and velocity head. A worked pump head calculation with the formula and a numeric example.",
+  "url": "https://metricmech.com/articles/total-dynamic-head-calculation",
+  "datePublished": "2026-07-04",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech \u2014 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/total-dynamic-head-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is total dynamic head?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Total dynamic head is the total equivalent height of liquid a pump must add to move fluid at the required flow, equal to static head plus friction head plus pressure head plus velocity head."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the formula for total dynamic head?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TDH = static head + friction head + pressure head + velocity head, all expressed in metres of liquid column. Friction head is found from the Darcy-Weisbach or Hazen-Williams method."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between static head and dynamic head?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Static head is the vertical lift and exists even when the fluid is not moving. Dynamic head includes friction and velocity effects that only appear when the fluid flows, so total dynamic head is larger than static head alone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does TDH affect pump selection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You select a pump whose head-flow curve meets the system TDH at the design flow rate and best-efficiency point. Undersizing on head means the pump cannot reach the destination once friction is included."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Total dynamic head calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What is TDH</a>
+    <a href="#components">The four components</a>
+    <a href="#formula">The formula</a>
+    <a href="#example">Worked example</a>
+    <a href="#power">TDH to pump power</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Total dynamic head (TDH): <em>how to calculate pump head.</em></h1>
+    <div class="art-meta-bar">
+      <span>Fluids / Pumps</span>
+      <span>July 4, 2026</span>
+      <span>8 min read</span>
+      <span>1,500 words</span>
+    </div>
+
+    <p class="lede">Size a pump on flow alone and you either burn energy or fail to reach the tank. Total dynamic head (TDH) is the total resistance a pump must overcome — static lift, friction, pressure, and velocity. Get TDH right and pump selection becomes straightforward. Here is the full breakdown with a worked example.</p>
+
+    <h2 id="what">What is total dynamic head?</h2>
+    <p>Total dynamic head is the equivalent height, in metres of liquid, that a pump must add to move fluid from the source to the destination at the required flow rate. It is called <em>dynamic</em> because part of it — friction — only exists when the fluid is moving. A pump curve plots head against flow; you select the pump where its curve meets your system TDH at the design flow.</p>
+
+    <h2 id="components">The four components of TDH</h2>
+    <table>
+      <tr><th>Component</th><th>What it is</th></tr>
+      <tr><td>Static head</td><td>Vertical lift from source liquid level to discharge point</td></tr>
+      <tr><td>Friction head</td><td>Losses in pipe, fittings, and valves as fluid flows</td></tr>
+      <tr><td>Pressure head</td><td>Any pressure difference between source and destination vessels</td></tr>
+      <tr><td>Velocity head</td><td>Energy to accelerate the fluid to pipe velocity (usually small)</td></tr>
+    </table>
+    <p>For most open-tank transfer systems, static head and friction head dominate; pressure and velocity head are often negligible but must be checked for closed or pressurised systems.</p>
+
+    <h2 id="formula">The TDH formula</h2>
+    <div class="callout">
+      <strong>TDH = Static head + Friction head + Pressure head + Velocity head</strong>
+      All terms expressed in metres of liquid column. Friction head is found from the Darcy-Weisbach or Hazen-Williams method for the actual pipe run.
+    </div>
+    <p>Friction head is the term engineers most often underestimate. It rises with the square of velocity, so a slightly undersized pipe can double your friction losses and starve the system.</p>
+
+    <h2 id="example">Worked example: transfer pump</h2>
+    <p>A plant transfers water from a ground sump to an overhead tank:</p>
+    <ul>
+      <li>Vertical lift (static head) = 18 m</li>
+      <li>Pipe: 50 mm bore, 60 m total length, flow 400 L/min (0.0067 m&sup3;/s)</li>
+      <li>Friction loss (from pipe + fittings) = 6.5 m</li>
+      <li>Both sump and tank open to atmosphere &rarr; pressure head = 0</li>
+      <li>Velocity head at ~3.4 m/s &asymp; 0.6 m</li>
+    </ul>
+    <p><strong>TDH = 18 + 6.5 + 0 + 0.6 = 25.1 m.</strong></p>
+    <p>So you select a pump that delivers 400 L/min at roughly 25 m of head at its best-efficiency point. Picking a pump rated for only the 18 m static lift would leave it unable to reach the tank once friction is added.</p>
+
+    <div class="warn-box">
+      <strong>Static head is measured to the liquid surface, not the pump</strong>
+      A frequent error is measuring lift from the pump centreline instead of from the source liquid level. On a suction lift, the source is below the pump; on a flooded suction, it is above. Use the actual liquid surfaces at both ends, and account for the lowest expected sump level.
+    </div>
+
+    <h2 id="power">From TDH to pump power</h2>
+    <p>Once you have TDH and flow, hydraulic power follows directly, and shaft/motor power after dividing by pump and motor efficiency. Run the numbers with the <a href="../calculators/pump-power.html">pump power calculator</a>, and see the full derivation in our <a href="../articles/pump-power-calculation.html">pump power calculation guide</a>. Motor sizing then flows from the shaft power figure.</p>
+
+    <div class="callout">
+      <strong>Document the system, not just the pump</strong>
+      A pump datasheet is only useful when tied to accurate part and piping records. Teams that keep clean, ballooned drawings of their pump assemblies — for instance using <a href="https://cadnexa.com/balloon">CadNexa's auto-ballooning</a> to number every characteristic — spend far less time reconstructing specs during maintenance and audits.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Ignoring friction head.</strong> On long or small-bore lines it can exceed the static lift.</li>
+      <li><strong>Mixing pressure and head units.</strong> Convert bar/psi to metres of the actual liquid before adding.</li>
+      <li><strong>Using nominal flow, not design flow.</strong> Friction scales with velocity squared, so the flow assumption matters a lot.</li>
+      <li><strong>Forgetting fittings.</strong> Elbows, valves, and reducers add equivalent length that must be in the friction term.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/pump-power.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump Power Calculator</a>
+      <a href="../articles/pump-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Pump power calculation guide</a>
+      <a href="../articles/motor-power-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Motor power calculation</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>

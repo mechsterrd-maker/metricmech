@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reorder Point Calculation: Formula and Example | MetricMech</title>
+<meta name="description" content="Reorder point formula explained with a worked example: lead time demand plus safety stock. Learn how to set ROP and when to reorder without stockouts." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/reorder-point-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reorder Point Calculation: Formula and Example | MetricMech">
+<meta property="og:description" content="Reorder point formula explained with a worked example: lead time demand plus safety stock. Learn how to set ROP and when to reorder without stockouts.">
+<meta property="og:url" content="https://metricmech.com/articles/reorder-point-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reorder Point Calculation: Formula and Example | MetricMech">
+<meta name="twitter:description" content="Reorder point formula explained with a worked example: lead time demand plus safety stock. Learn how to set ROP and when to reorder without stockouts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Reorder Point Calculation: Formula and Example | MetricMech",
+  "description": "Reorder point formula explained with a worked example: lead time demand plus safety stock. Learn how to set ROP and when to reorder without stockouts.",
+  "url": "https://metricmech.com/articles/reorder-point-calculation",
+  "datePublished": "2026-07-04",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech \u2014 14 years plant-head experience"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "mainEntityOfPage": "https://metricmech.com/articles/reorder-point-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the reorder point formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reorder point = (average daily demand x lead time in days) + safety stock. The first term is lead-time demand and the second protects against demand and lead-time variability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate safety stock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A common method is safety stock = Z x standard deviation of daily demand x square root of lead time. Z is the service-level factor, for example 1.65 for a 95% service level."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between ROP and EOQ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EOQ tells you how much to order to minimise total cost; ROP tells you when to place that order. In a continuous-review system you order the EOQ quantity whenever stock falls to the reorder point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should reorder point include safety stock?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, unless demand and lead time are perfectly constant. Safety stock covers the days when demand spikes or the supplier delivers late, preventing stockouts during the lead time."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Reorder point calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What is reorder point</a>
+    <a href="#formula">The formula</a>
+    <a href="#safety">Safety stock</a>
+    <a href="#example">Worked example</a>
+    <a href="#eoq">ROP vs EOQ</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Reorder point calculation: <em>formula and a worked example.</em></h1>
+    <div class="art-meta-bar">
+      <span>Inventory / Planning</span>
+      <span>July 4, 2026</span>
+      <span>8 min read</span>
+      <span>1,500 words</span>
+    </div>
+
+    <p class="lede">Order too early and cash sits dead on the shelf. Order too late and the line stops. The reorder point (ROP) is the stock level that triggers a new purchase order at exactly the right moment. Here is the formula, the safety-stock logic, and a full numeric example from a machine shop.</p>
+
+    <h2 id="what">What is a reorder point?</h2>
+    <p>The reorder point is the inventory level at which you place a replenishment order. When on-hand stock falls to the ROP, you order — and the quantity you order is the <a href="../articles/economic-order-quantity-eoq.html">economic order quantity (EOQ)</a>. EOQ answers <em>how much</em> to order; ROP answers <em>when</em>. Both are needed to run a store without stockouts or overstock.</p>
+    <p>The ROP has to cover the demand that occurs during the <strong>lead time</strong> — the gap between raising the PO and the material arriving on your shelf — plus a buffer for the days demand or lead time run higher than average. That buffer is the safety stock.</p>
+
+    <h2 id="formula">The reorder point formula</h2>
+    <p>The core formula is simple:</p>
+    <div class="callout">
+      <strong>ROP = (Average daily demand &times; Lead time in days) + Safety stock</strong>
+      The first term is lead-time demand — what you will consume while waiting for delivery. The second term protects against variability.
+    </div>
+    <p>If demand and lead time were perfectly constant, safety stock would be zero and ROP would just equal lead-time demand. In the real world both vary, so the safety-stock term is what keeps the line running.</p>
+
+    <h2 id="safety">Calculating safety stock</h2>
+    <p>The most common statistical method sizes safety stock from demand variability and a service level:</p>
+    <div class="callout">
+      <strong>Safety stock = Z &times; &sigma;<sub>d</sub> &times; &radic;(Lead time)</strong>
+      Z is the service-level factor (1.65 for 95%, 2.33 for 99%), &sigma;<sub>d</sub> is the standard deviation of daily demand, and lead time is in days.
+    </div>
+    <p>The Z factor is a business decision: a 95% service level (Z = 1.65) means you accept a stockout risk of about 5% per replenishment cycle. Critical A-class items usually justify 98–99%; low-value C-class items can sit at 90%.</p>
+
+    <table>
+      <tr><th>Service level</th><th>Z factor</th><th>Typical use</th></tr>
+      <tr><td>90%</td><td>1.28</td><td>Low-value, non-critical items</td></tr>
+      <tr><td>95%</td><td>1.65</td><td>Standard production materials</td></tr>
+      <tr><td>98%</td><td>2.05</td><td>Important components</td></tr>
+      <tr><td>99%</td><td>2.33</td><td>Critical, long-lead, or single-source parts</td></tr>
+    </table>
+
+    <h2 id="example">Worked example: a CNC job shop</h2>
+    <p>A Pune machine shop consumes a particular bar stock steadily. From twelve months of issue data:</p>
+    <ul>
+      <li>Average daily demand = 40 bars/day</li>
+      <li>Standard deviation of daily demand (&sigma;<sub>d</sub>) = 8 bars/day</li>
+      <li>Supplier lead time = 9 days</li>
+      <li>Target service level = 95% (Z = 1.65)</li>
+    </ul>
+    <p><strong>Step 1 — lead-time demand:</strong> 40 &times; 9 = 360 bars.</p>
+    <p><strong>Step 2 — safety stock:</strong> 1.65 &times; 8 &times; &radic;9 = 1.65 &times; 8 &times; 3 = 39.6, round up to 40 bars.</p>
+    <p><strong>Step 3 — reorder point:</strong> 360 + 40 = <strong>400 bars</strong>.</p>
+    <p>So when on-hand stock drops to 400 bars, the planner raises a PO for the EOQ quantity. The 40-bar buffer absorbs the days demand spikes above 40 or the supplier runs a day late.</p>
+
+    <div class="warn-box">
+      <strong>Don't forget lead-time variability</strong>
+      The formula above assumes lead time is fixed. If your supplier's lead time itself swings (say 9 &plusmn; 3 days), a single-source or imported item needs the extended safety-stock formula that also includes lead-time standard deviation. Ignoring supplier variability is the number-one cause of "we had safety stock and still ran out."
+    </div>
+
+    <h2 id="eoq">How ROP works with EOQ</h2>
+    <p>ROP and EOQ are two halves of a continuous-review inventory system. Picture the sawtooth stock graph: stock falls as you consume it, hits the ROP line, you order EOQ, and after the lead time the stock jumps back up by the EOQ amount. Set both correctly and the shelf never runs dry and never bulges. Use the <a href="../calculators/eoq.html">EOQ calculator</a> to fix your order quantity, then apply the ROP formula above to fix the trigger level.</p>
+
+    <div class="callout">
+      <strong>Tie it back to the shop floor</strong>
+      A reorder point is only as good as your consumption data. If your inspection and dispatch records are messy, your demand average and &sigma; are wrong and the ROP is guesswork. Teams that digitise part records early — for example, generating clean ballooned inspection sheets with <a href="https://cadnexa.com/balloon">CadNexa's auto-ballooning</a> — get far more reliable demand history to feed these formulas.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ol>
+      <li><strong>Using monthly demand with daily lead time.</strong> Keep the time units consistent — daily demand with lead time in days.</li>
+      <li><strong>Zero safety stock.</strong> Only valid when demand and lead time are genuinely constant, which is almost never.</li>
+      <li><strong>Static ROP.</strong> Demand drifts with seasonality and product mix. Recalculate quarterly.</li>
+      <li><strong>One service level for everything.</strong> Segment by ABC class; you cannot afford 99% on every C-part.</li>
+    </ol>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/eoq.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">EOQ Calculator</a>
+      <a href="../articles/economic-order-quantity-eoq.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Economic Order Quantity guide</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
