@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MSA: The 5 Measurement System Studies Explained | MetricMech</title>
+<meta name="description" content="Measurement system analysis for PPAP: bias, linearity, stability, gauge R&R and attribute agreement — acceptance limits and a worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/measurement-system-analysis">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSA: The 5 Measurement System Studies Explained | MetricMech">
+<meta property="og:description" content="Measurement system analysis for PPAP: bias, linearity, stability, gauge R&R and attribute agreement — acceptance limits and a worked example.">
+<meta property="og:url" content="https://metricmech.com/articles/measurement-system-analysis">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MSA: The 5 Measurement System Studies Explained | MetricMech">
+<meta name="twitter:description" content="Measurement system analysis for PPAP: bias, linearity, stability, gauge R&R and attribute agreement — acceptance limits and a worked example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "MSA: The 5 Measurement System Studies Explained | MetricMech",
+    "name": "MSA: The 5 Measurement System Studies Explained | MetricMech",
+    "description": "Measurement system analysis for PPAP: bias, linearity, stability, gauge R&R and attribute agreement — acceptance limits and a worked example.",
+    "url": "https://metricmech.com/articles/measurement-system-analysis",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MetricMech",
+      "url": "https://metricmech.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://metricmech.com/icons/icon-512.png"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Rajadurai R",
+      "jobTitle": "Founder, MetricMech & CadNexa — 14 years plant-head experience"
+    },
+    "datePublished": "2026-07-06",
+    "mainEntityOfPage": "https://metricmech.com/articles/measurement-system-analysis"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is MSA mandatory for PPAP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Measurement system analysis studies are element 7 of the standard 18-element PPAP package, required for gauges used on characteristics in the control plan."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many parts and operators does a Gauge R&R need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The AIAG-standard crossed study uses 10 parts, 3 operators and 2-3 trials. Fewer parts is acceptable for destructive or slow tests, but confidence in %GRR drops fast."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if %GRR is between 10% and 30%?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The measurement system is conditionally acceptable — usable with documented customer approval, typically justified by gauge cost or non-criticality of the feature."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does calibration replace MSA?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Calibration checks bias against a standard at a point in time. MSA additionally quantifies repeatability, reproducibility, linearity and stability."
+        }
+      }
+    ]
+  }
+]
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Measurement system analysis (MSA)</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#why">Why MSA matters</a>
+    <a href="#model">The error model</a>
+    <a href="#five">The five studies</a>
+    <a href="#grr">Gauge R&amp;R</a>
+    <a href="#bias">Bias &amp; linearity</a>
+    <a href="#stability">Stability</a>
+    <a href="#attribute">Attribute agreement</a>
+    <a href="#accept">Acceptance criteria</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Measurement system analysis (MSA): <em>the five studies, explained.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality / SPC</span>
+      <span>Jul 6, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Before you trust a single Cpk number or reject a single part, you have to answer one question: how much of the variation you see is the part, and how much is the measurement? Measurement system analysis (MSA) answers it with five structured studies &mdash; and it is a mandatory PPAP element, not an optional extra.</p>
+
+    <h2 id="why">Why <em>MSA matters</em> (and why PPAP demands it)</h2>
+    <p>MSA is element 7 of a standard PPAP package, defined by the AIAG MSA Reference Manual (4th edition). Automotive and appliance OEMs will reject a PPAP that has capability studies but no evidence the gauges behind them were analysed. The logic is brutal and correct: a Cpk of 1.67 computed with a gauge that contributes 40% of the observed variation is fiction.</p>
+    <p>In my 14 years running plants, the most common quality "mystery" &mdash; parts that pass final inspection and fail at the customer &mdash; traced back to measurement systems nobody had ever studied. A &plusmn;0.02&nbsp;mm feature measured with a caliper reading to 0.02&nbsp;mm is a coin toss, not an inspection.</p>
+
+    <h2 id="model">The <em>error model</em></h2>
+    <p>Every reading you record is the true part value plus measurement error:</p>
+    <div class="callout">
+      <strong>Observed variation&sup2; = Part variation&sup2; + Measurement system variation&sup2;</strong>
+      Variances add. If total observed &sigma; is 0.050 and the measurement system contributes &sigma; of 0.015, the measurement system eats (0.015/0.050)&sup2; &asymp; 9% of the observed variance &mdash; and inflates every capability study you run with that gauge.
+    </div>
+    <p>MSA splits measurement error into components: <strong>bias</strong> (systematic offset), <strong>linearity</strong> (bias changing across the range), <strong>stability</strong> (drift over time), <strong>repeatability</strong> (same operator, same part, spread of repeats &mdash; the equipment), and <strong>reproducibility</strong> (operator-to-operator differences).</p>
+
+    <h2 id="five">The <em>five studies</em> at a glance</h2>
+    <table>
+      <thead><tr><th>Study</th><th>Question it answers</th><th>Typical method</th><th>PPAP-relevant?</th></tr></thead>
+      <tbody>
+        <tr><td>Bias</td><td>Does the gauge read high or low vs a reference standard?</td><td>Measure a calibrated master 10+ times, compare mean to reference</td><td>Yes</td></tr>
+        <tr><td>Linearity</td><td>Is the bias constant across the operating range?</td><td>5 masters across the range, 10 readings each, regress bias vs size</td><td>Yes</td></tr>
+        <tr><td>Stability</td><td>Does the gauge drift over days/weeks?</td><td>Measure the same master daily, plot on a control chart</td><td>Yes</td></tr>
+        <tr><td>Gauge R&amp;R (variable)</td><td>How much variation comes from equipment + operators?</td><td>Crossed study: 10 parts &times; 3 operators &times; 2&ndash;3 trials, ANOVA</td><td>Core requirement</td></tr>
+        <tr><td>Attribute agreement</td><td>Do go/no-go inspectors agree with each other and the truth?</td><td>50 parts &times; 3 appraisers &times; 2&ndash;3 trials, kappa statistics</td><td>For attribute gauges</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="grr">Gauge <em>R&amp;R</em>: the core study</h2>
+    <p>The crossed Gauge R&amp;R study is the workhorse. Ten parts chosen to span the process spread, three operators, two or three trials each, run blind and in random order. ANOVA separates the variance into equipment variation (EV, repeatability), appraiser variation (AV, reproducibility), and part variation (PV).</p>
+    <p>A worked result from a bore-gauge study on a &oslash;25H7 bore:</p>
+    <ul>
+      <li>EV = 0.012&nbsp;mm, AV = 0.009&nbsp;mm &rarr; GRR = &radic;(0.012&sup2; + 0.009&sup2;) = 0.015&nbsp;mm</li>
+      <li>PV = 0.048&nbsp;mm &rarr; TV = &radic;(0.015&sup2; + 0.048&sup2;) = 0.0503&nbsp;mm</li>
+      <li><strong>%GRR = 0.015 / 0.0503 = 29.8%</strong> &mdash; marginal, on the edge of failing</li>
+      <li><strong>ndc = 1.41 &times; PV/GRR = 1.41 &times; 3.2 = 4.5 &rarr; 4 distinct categories</strong> &mdash; fails the ndc &ge; 5 requirement</li>
+    </ul>
+    <p>Verdict: this gauge cannot support SPC on this feature even though %GRR squeaks under 30%. Run the numbers on your own study with the free <a href="../calculators/gauge-rr.html">Gauge R&amp;R calculator</a>, and see the full study walkthrough in <a href="gauge-rr-explained.html">Gauge R&amp;R explained</a>.</p>
+
+    <h2 id="bias">Bias and <em>linearity</em></h2>
+    <p>Bias is checked against a calibrated reference: measure a master 10&ndash;15 times, compare the average to the certified value, and t-test whether the difference is significant. Linearity repeats this at five points across the gauge's range &mdash; a micrometer that reads true at 5&nbsp;mm but 6&nbsp;&micro;m high at 25&nbsp;mm has a linearity problem that a single-point calibration will never catch.</p>
+
+    <h2 id="stability">Stability</h2>
+    <p>Measure the same master part once or twice a day and plot the results on an X&#772;-R control chart. Out-of-control signals mean the gauge drifts with temperature, wear, or handling &mdash; common with shop-floor air gauges and anything electronic living next to a furnace. Stability is the cheapest MSA study to run and the one most plants skip.</p>
+
+    <h2 id="attribute">Attribute <em>agreement analysis</em></h2>
+    <p>For go/no-go gauges and visual inspection, run an attribute agreement study: about 50 parts (roughly a third borderline), three appraisers, two or three blind trials. Compute within-appraiser agreement, appraiser-vs-standard agreement, and Cohen's kappa. Kappa above 0.75 is workable; below 0.4 the "inspection" is close to random. Borderline parts are the whole point &mdash; a study of obvious good and obvious scrap parts proves nothing.</p>
+
+    <h2 id="accept">Acceptance <em>criteria</em></h2>
+    <table>
+      <thead><tr><th>Metric</th><th>Acceptable</th><th>Conditional</th><th>Unacceptable</th></tr></thead>
+      <tbody>
+        <tr><td>%GRR (of total variation or tolerance)</td><td>&lt; 10%</td><td>10&ndash;30% (customer approval, cost-justified)</td><td>&gt; 30%</td></tr>
+        <tr><td>ndc (distinct categories)</td><td>&ge; 5</td><td>&mdash;</td><td>&lt; 5</td></tr>
+        <tr><td>Kappa (attribute)</td><td>&gt; 0.75</td><td>0.4&ndash;0.75</td><td>&lt; 0.4</td></tr>
+        <tr><td>Bias / linearity</td><td>Statistically zero</td><td>&mdash;</td><td>Significant at 95%</td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box">
+      <strong>%GRR vs tolerance or vs total variation?</strong>
+      Both denominators are legitimate but answer different questions. %GRR/TV tells you whether the gauge can support SPC; %GRR/tolerance tells you whether it can sort good from bad. For tight-tolerance work, report both &mdash; customers increasingly ask.
+    </div>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Hand-picking similar parts.</strong> If the 10 parts don't span real process variation, PV collapses and %GRR looks artificially terrible (or ndc artificially fine).</li>
+      <li><strong>Operators who know the study is running</strong> measure more carefully than they do at 2 a.m. on a Sunday shift. Blind the trials.</li>
+      <li><strong>Running MSA once and filing it.</strong> Gauges wear. Re-run after repair, recalibration, or annually for PPAP-controlled features.</li>
+      <li><strong>Studying the gauge but not the fixture.</strong> The clamping and datum simulation are part of the measurement system.</li>
+      <li><strong>No link back to the drawing.</strong> Every studied characteristic should trace to a ballooned drawing number, so the MSA, the control plan (see the <a href="control-plan-template.html">control plan template guide</a>) and the PPAP file tell one story. Teams that balloon drawings digitally with <a href="https://cadnexa.com/balloon">CadNexa's auto-ballooning</a> get this traceability for free &mdash; each balloon number flows into the inspection sheet the MSA references.</li>
+    </ul>
+    <p>MSA results feed directly into whether your capability numbers mean anything &mdash; if you're reporting Cp/Cpk to a customer, read <a href="cp-cpk-explained.html">Cp and Cpk explained</a> next, and see how it all fits into a submission in <a href="ppap-indian-oems.html">PPAP for Indian OEMs</a>. Blank study sheets are on the <a href="../templates.html">templates page</a>.</p>
+
+    <h2 id="faq">FAQ</h2>
+    <h3>Is MSA mandatory for PPAP?</h3>
+    <p>Yes. Measurement system analysis studies are element 7 of the standard 18-element PPAP package, required for gauges used on characteristics in the control plan.</p>
+    <h3>How many parts and operators does a Gauge R&amp;R need?</h3>
+    <p>The AIAG-standard crossed study uses 10 parts, 3 operators and 2&ndash;3 trials. Fewer parts is acceptable for destructive or slow tests, but the confidence in %GRR drops fast.</p>
+    <h3>What if %GRR is between 10% and 30%?</h3>
+    <p>The system is conditionally acceptable &mdash; usable with documented customer approval, typically justified by gauge cost or the non-criticality of the feature. Plan an improvement anyway.</p>
+    <h3>Does calibration replace MSA?</h3>
+    <p>No. Calibration checks bias against a standard at a point in time. MSA additionally quantifies repeatability, reproducibility, linearity and stability &mdash; a freshly calibrated gauge can still fail Gauge R&amp;R badly.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Calculator</a>
+      <a href="gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R explained</a>
+      <a href="cp-cpk-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cp &amp; Cpk explained</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">MSA study templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>

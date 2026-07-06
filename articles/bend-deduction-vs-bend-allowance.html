@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bend Deduction vs Bend Allowance: Which to Use | MetricMech</title>
+<meta name="description" content="Bend allowance and bend deduction explained with formulas, a worked 90-degree bend example, and when to use each for sheet metal flat pattern length." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bend Deduction vs Bend Allowance: Which to Use | MetricMech">
+<meta property="og:description" content="Bend allowance and bend deduction explained with formulas, a worked 90-degree bend example, and when to use each for sheet metal flat pattern length.">
+<meta property="og:url" content="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bend Deduction vs Bend Allowance: Which to Use | MetricMech">
+<meta name="twitter:description" content="Bend allowance and bend deduction explained with formulas, a worked 90-degree bend example, and when to use each for sheet metal flat pattern length.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Bend Deduction vs Bend Allowance: Which to Use | MetricMech",
+    "name": "Bend Deduction vs Bend Allowance: Which to Use | MetricMech",
+    "description": "Bend allowance and bend deduction explained with formulas, a worked 90-degree bend example, and when to use each for sheet metal flat pattern length.",
+    "url": "https://metricmech.com/articles/bend-deduction-vs-bend-allowance",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MetricMech",
+      "url": "https://metricmech.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://metricmech.com/icons/icon-512.png"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Rajadurai R",
+      "jobTitle": "Founder, MetricMech & CadNexa — 14 years plant-head experience"
+    },
+    "datePublished": "2026-07-06",
+    "mainEntityOfPage": "https://metricmech.com/articles/bend-deduction-vs-bend-allowance"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are bend allowance and bend deduction interchangeable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They produce the same flat length but apply to different dimension schemes: bend allowance adds to inside dimensions, bend deduction subtracts from outside dimensions. Use the one matching the drawing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can bend deduction be negative?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, for large radii and shallow angles — when the neutral-axis arc is longer than twice the outside setback, BD goes negative and effectively adds material to outside dimensions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What K-factor should I start with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For air bending mild steel with inside radius roughly equal to thickness, start at 0.42-0.44 and refine with a measured test bend."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the formula change for angles other than 90 degrees?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The BA and OSSB formulas take any bend angle; note OSSB uses tan of half the bend angle, which grows quickly past 90-degree bends."
+        }
+      }
+    ]
+  }
+]
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bend deduction vs bend allowance</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#two">Two roads to flat length</a>
+    <a href="#definitions">Definitions</a>
+    <a href="#formulas">The formulas</a>
+    <a href="#example">Worked example</a>
+    <a href="#which">Which one to use</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bend deduction vs bend allowance: <em>formulas and when to use each.</em></h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal</span>
+      <span>Jul 6, 2026</span>
+      <span>8 min read</span>
+      <span>1,400 words</span>
+    </div>
+
+    <p class="lede">Bend allowance and bend deduction both get you to the same flat pattern length &mdash; but they start from opposite ends of the geometry, and mixing them up puts every blank you cut out of tolerance by several millimetres. Here are both formulas, one worked 90&deg; example computed both ways, and a simple rule for which to use.</p>
+
+    <h2 id="two">Two roads to the <em>same flat length</em></h2>
+    <p>When sheet metal bends, the material stretches on the outside of the bend and compresses on the inside. Somewhere between the two surfaces lies the <strong>neutral axis</strong> &mdash; the fibre that keeps its original length. The flat blank must be sized from that neutral-axis length, and there are two bookkeeping systems for doing it:</p>
+    <ul>
+      <li><strong>Bend allowance (BA)</strong> works from the <em>inside</em> dimensions of the part and <em>adds</em> the arc length of the neutral axis through the bend.</li>
+      <li><strong>Bend deduction (BD)</strong> works from the <em>outside</em> (mould-line) dimensions and <em>subtracts</em> the amount the flanges "double-count" at the corner.</li>
+    </ul>
+    <p>Both are exact. They are two views of the same neutral-axis geometry, linked through the outside setback (OSSB).</p>
+
+    <h2 id="definitions">Definitions</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>BA &mdash; bend allowance</td><td>Arc length of the neutral axis through the bend region</td></tr>
+        <tr><td>BD &mdash; bend deduction</td><td>Total flange length minus flat length: what you subtract from outside dimensions</td></tr>
+        <tr><td>OSSB &mdash; outside setback</td><td>Distance from the apex of the outside mould lines to the tangent of the bend</td></tr>
+        <tr><td>K-factor</td><td>Neutral axis position as a fraction of thickness (typically 0.30&ndash;0.50)</td></tr>
+        <tr><td>R, T, &theta;</td><td>Inside bend radius, sheet thickness, bend angle (complement to the included angle)</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="formulas">The <em>formulas</em></h2>
+    <div class="callout">
+      <strong>BA = &theta; &times; (&pi;/180) &times; (R + K&middot;T)</strong>
+      <strong>OSSB = tan(&theta;/2) &times; (R + T)</strong>
+      <strong>BD = 2 &times; OSSB &minus; BA</strong>
+      Flat length from inside dims: L = &Sigma; inside flange lengths + &Sigma; BA. Flat length from outside dims: L = &Sigma; outside flange lengths &minus; &Sigma; BD.
+    </div>
+    <p>The K-factor is the only empirical number in the system &mdash; it depends on material, tooling and bending method. If you need to derive it from a test bend, the full procedure is in our <a href="bend-allowance-k-factor.html">bend allowance and K-factor guide</a>.</p>
+
+    <h2 id="example">Worked example: <em>one bracket, both methods</em></h2>
+    <p>An L-bracket in 2&nbsp;mm CRCA sheet: outside flange lengths 50&nbsp;mm and 30&nbsp;mm, inside bend radius R = 2&nbsp;mm, bend angle 90&deg;, K-factor 0.44 (air-bent, measured for this material).</p>
+    <p><strong>Method 1 &mdash; bend allowance (inside dimensions).</strong> Inside flange lengths are 50 &minus; (R+T) = 46&nbsp;mm and 30 &minus; (R+T) = 26&nbsp;mm.</p>
+    <ul>
+      <li>BA = 90 &times; (&pi;/180) &times; (2 + 0.44 &times; 2) = 1.5708 &times; 2.88 = <strong>4.524 mm</strong></li>
+      <li>Flat length = 46 + 26 + 4.524 = <strong>76.52 mm</strong></li>
+    </ul>
+    <p><strong>Method 2 &mdash; bend deduction (outside dimensions).</strong></p>
+    <ul>
+      <li>OSSB = tan(45&deg;) &times; (2 + 2) = 4.000&nbsp;mm</li>
+      <li>BD = 2 &times; 4.000 &minus; 4.524 = <strong>3.476 mm</strong></li>
+      <li>Flat length = 50 + 30 &minus; 3.476 = <strong>76.52 mm</strong></li>
+    </ul>
+    <p>Same answer, as it must be. Try your own geometry in the free <a href="../calculators/bend-allowance.html">bend allowance calculator</a>, which reports BA, OSSB and BD together.</p>
+
+    <h2 id="which">Which one should <em>you use?</em></h2>
+    <p>Use whichever matches how the drawing is dimensioned &mdash; that is the whole rule.</p>
+    <table>
+      <thead><tr><th>Drawing dimensions</th><th>Use</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Outside / mould-line dimensions (most fabrication drawings)</td><td>Bend deduction</td><td>Add the flange callouts, subtract BD per bend &mdash; no conversion step</td></tr>
+        <tr><td>Inside dimensions (boxes, enclosures that must fit over something)</td><td>Bend allowance</td><td>Inside lengths + BA per bend directly</td></tr>
+        <tr><td>CAD flat-pattern export (SolidWorks, Fusion)</td><td>K-factor</td><td>CAD computes BA internally from K &mdash; make sure K matches your press brake, not the default 0.5</td></tr>
+      </tbody>
+    </table>
+    <div class="warn-box">
+      <strong>The classic scrap-maker</strong>
+      Applying bend deduction to inside dimensions (or BA to outside dimensions) shifts every bend by roughly 2&times;OSSB &minus; BD &mdash; about 4.5&nbsp;mm per bend in the example above. On a four-bend enclosure that is an 18&nbsp;mm error, and the first article will tell you about it loudly.
+    </div>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ul>
+      <li><strong>Using the CAD-default K-factor of 0.5.</strong> Air-bent mild steel typically runs 0.40&ndash;0.46; coining pushes it lower. Measure a test bend.</li>
+      <li><strong>One K for every radius.</strong> K varies with the R/T ratio. A K measured at R/T = 1 will not hold at R/T = 4.</li>
+      <li><strong>Ignoring bend angle convention.</strong> The &theta; in these formulas is the bend (exterior) angle &mdash; a "90&deg; bend" is &theta; = 90&deg;, not the 90&deg; included angle.</li>
+      <li><strong>Tolerance stack-through.</strong> Blank-size error accumulates into hole-to-edge distances after bending &mdash; a tolerance stack problem; see the <a href="tolerance-stackup-worked-example.html">tolerance stack-up worked example</a>.</li>
+      <li><strong>Flat patterns nobody can inspect.</strong> Put the flat length and per-bend BA/BD on the drawing, balloon those characteristics, and give inspection a real sheet to check against. A digital balloon workflow like <a href="https://cadnexa.com/balloon">CadNexa's auto-ballooning</a> pulls every flat-pattern dimension into an inspection sheet in minutes.</li>
+    </ul>
+    <p>Blank-development record sheets and bend test log templates are on the <a href="../templates.html">templates page</a>.</p>
+
+    <h2 id="faq">FAQ</h2>
+    <h3>Are bend allowance and bend deduction interchangeable?</h3>
+    <p>They produce the same flat length but are applied to different dimension schemes: BA adds to inside dimensions, BD subtracts from outside dimensions. Use the one matching the drawing.</p>
+    <h3>Can bend deduction be negative?</h3>
+    <p>Yes, for large radii and shallow angles &mdash; when the neutral-axis arc is longer than twice the setback, BD goes negative and you effectively add material to the outside dimensions.</p>
+    <h3>What K-factor should I start with?</h3>
+    <p>For air bending mild steel with R &asymp; T, start at 0.42&ndash;0.44 and refine with a measured test bend. Use your press brake's tables if available &mdash; they beat any generic constant.</p>
+    <h3>Does the formula change for angles other than 90&deg;?</h3>
+    <p>No. BA and OSSB formulas take any bend angle &theta;; only remember OSSB uses tan(&theta;/2), which grows quickly past 90&deg; bends.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &amp; CadNexa &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/bend-allowance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend Allowance Calculator</a>
+      <a href="bend-allowance-k-factor.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend allowance &amp; K-factor</a>
+      <a href="tolerance-stackup-worked-example.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance stack-up example</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Sheet metal templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
