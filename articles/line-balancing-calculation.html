@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Line Balancing Calculation: Formula &amp; Worked Example | MetricMech</title>
+<meta name="description" content="Line balancing calculation: takt time, minimum workstations, line efficiency and balance delay formulas, with a full worked assembly-line example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/line-balancing-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Line Balancing Calculation: Formula &amp; Worked Example | MetricMech">
+<meta property="og:description" content="Line balancing calculation: takt time, minimum workstations, line efficiency and balance delay formulas, with a full worked assembly-line example.">
+<meta property="og:url" content="https://metricmech.com/articles/line-balancing-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Line Balancing Calculation: Formula &amp; Worked Example | MetricMech">
+<meta name="twitter:description" content="Takt time, minimum workstations, line efficiency and balance delay formulas, with a full worked assembly-line example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Line Balancing Calculation: Formulas and a Worked Assembly-Line Example",
+  "description": "Line balancing calculation: takt time, minimum workstations, line efficiency and balance delay formulas, with a full worked assembly-line example.",
+  "url": "https://metricmech.com/articles/line-balancing-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, MetricMech"
+  },
+  "datePublished": "2026-07-07",
+  "mainEntityOfPage": "https://metricmech.com/articles/line-balancing-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What is the line balancing efficiency formula?", "acceptedAnswer": {"@type": "Answer", "text": "Line efficiency equals the sum of all task times divided by the number of workstations multiplied by the bottleneck (largest) station time, expressed as a percentage. Balance delay is 100 percent minus line efficiency."}},
+    {"@type": "Question", "name": "What is a good line balancing efficiency?", "acceptedAnswer": {"@type": "Answer", "text": "Manual assembly lines typically achieve 80 to 90 percent. Above 85 percent is considered well balanced; below 75 percent means significant idle time is built into the station assignments and is worth rebalancing."}},
+    {"@type": "Question", "name": "How do you calculate the minimum number of workstations?", "acceptedAnswer": {"@type": "Answer", "text": "Divide the total work content (sum of all task times) by the takt time and round up to the next whole number. This theoretical minimum may not be achievable once task precedence and indivisible tasks are considered."}},
+    {"@type": "Question", "name": "What is the difference between takt time and cycle time in line balancing?", "acceptedAnswer": {"@type": "Answer", "text": "Takt time is the pace demand requires: available time divided by required output. Cycle time is the pace the line actually achieves, set by its slowest station. Balancing aims to bring every station's time as close to takt as possible without exceeding it."}}
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Line balancing calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What line balancing is</a>
+    <a href="#formulas">The four formulas</a>
+    <a href="#example">Worked example</a>
+    <a href="#assign">Assigning tasks</a>
+    <a href="#benchmarks">What counts as good</a>
+    <a href="#mistakes">Common mistakes</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Line balancing calculation: the <em>formulas,</em> and a worked assembly line.</h1>
+    <div class="art-meta-bar">
+      <span>Production / Lean</span>
+      <span>July 7, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">An unbalanced line hides in plain sight: every operator looks busy, yet output is set by one overloaded station while the rest wait on it. Line balancing is the arithmetic of distributing work so every station carries close to the same load, paced to demand. Four formulas cover the whole method &mdash; here they are, with a complete worked example you can copy.</p>
+
+    <h2 id="what">What line balancing is</h2>
+    <p>Assembly line balancing assigns individual tasks to workstations so that no station exceeds the takt time and idle time across stations is minimised. The inputs are simple: the list of tasks with their standard times, the precedence between them (you cannot torque the bolt before inserting it), and the demand rate. The outputs are the number of stations, which tasks go where, and two health metrics &mdash; line efficiency and balance delay.</p>
+    <p>The prize is real. Rebalancing a line from 70 to 85 percent efficiency delivers roughly a fifth more output from the same people and floor space &mdash; the cheapest capacity you will ever buy.</p>
+
+    <h2 id="formulas">The four formulas</h2>
+    <table>
+      <tr><th>Quantity</th><th>Formula</th></tr>
+      <tr><td>Takt time</td><td>Available working time / Required output</td></tr>
+      <tr><td>Minimum workstations (theoretical)</td><td>&Sigma; task times / Takt time, rounded up</td></tr>
+      <tr><td>Line efficiency</td><td>&Sigma; task times / (No. of stations &times; bottleneck station time) &times; 100%</td></tr>
+      <tr><td>Balance delay</td><td>100% &minus; line efficiency</td></tr>
+    </table>
+    <p>Two definitions to keep straight. The <strong>bottleneck station time</strong> is the largest total time assigned to any single station &mdash; it becomes the line's effective cycle time. And takt is set by demand, not by the line: if the difference between the two confuses your team, the <a href="takt-time-vs-cycle-time.html">takt time vs cycle time guide</a> settles it.</p>
+
+    <h2 id="example">A worked example</h2>
+    <p>A two-wheeler component assembly cell in a Chennai plant runs one 8-hour shift with 30 minutes of planned breaks. The customer schedule needs 300 assemblies per shift. The work content breaks into six tasks:</p>
+    <table>
+      <tr><th>Task</th><th>Description</th><th>Time (min)</th><th>Must follow</th></tr>
+      <tr><td>A</td><td>Load housing &amp; insert bearing</td><td>0.7</td><td>&mdash;</td></tr>
+      <tr><td>B</td><td>Press shaft assembly</td><td>0.9</td><td>A</td></tr>
+      <tr><td>C</td><td>Fit seals &amp; circlip</td><td>0.6</td><td>A</td></tr>
+      <tr><td>D</td><td>Torque fasteners &amp; grease fill</td><td>1.2</td><td>B, C</td></tr>
+      <tr><td>E</td><td>Leak test</td><td>0.8</td><td>D</td></tr>
+      <tr><td>F</td><td>Final inspection &amp; pack</td><td>0.5</td><td>E</td></tr>
+    </table>
+    <p><strong>Step 1 &mdash; Takt time.</strong> Available time = 480 &minus; 30 = 450 min. Takt = 450 / 300 = <strong>1.5 min per unit</strong>.</p>
+    <p><strong>Step 2 &mdash; Total work content.</strong> &Sigma;t = 0.7 + 0.9 + 0.6 + 1.2 + 0.8 + 0.5 = <strong>4.7 min</strong>.</p>
+    <p><strong>Step 3 &mdash; Minimum stations.</strong> 4.7 / 1.5 = 3.13 &rarr; round up &rarr; <strong>4 stations</strong>.</p>
+    <p><strong>Step 4 &mdash; Assign tasks</strong> respecting precedence, keeping every station at or under takt (1.5 min):</p>
+    <table>
+      <tr><th>Station</th><th>Tasks</th><th>Station time (min)</th><th>Idle vs bottleneck</th></tr>
+      <tr><td>S1</td><td>A + C</td><td>1.3</td><td>0.1</td></tr>
+      <tr><td>S2</td><td>B + F</td><td>1.4</td><td>0 (bottleneck)</td></tr>
+      <tr><td>S3</td><td>D</td><td>1.2</td><td>0.2</td></tr>
+      <tr><td>S4</td><td>E</td><td>0.8</td><td>0.6</td></tr>
+    </table>
+    <p><strong>Step 5 &mdash; Score it.</strong> Bottleneck = 1.4 min, so the line produces one unit every 1.4 minutes. Line efficiency = 4.7 / (4 &times; 1.4) = <strong>83.9%</strong>. Balance delay = <strong>16.1%</strong>. Capacity check: 450 / 1.4 = 321 units per shift &mdash; comfortably above the 300 required, with a 7% buffer for minor stops.</p>
+    <p>(One practical note: assigning F to station S2 assumes the layout returns the tested unit to that operator &mdash; a U-shaped cell does exactly this. On a straight line you would keep F at S4 with E, giving S4 = 1.3 min and the same efficiency.)</p>
+
+    <div class="callout">
+      <strong>Let the tools do the arithmetic</strong>
+      Get your takt from the free <a href="../calculators/takt-time.html">takt time calculator</a>, and check each station's achievable rate with the <a href="../calculators/cycle-time.html">cycle time calculator</a> before you commit the new layout.
+    </div>
+
+    <h2 id="assign">How to assign tasks (when it gets bigger)</h2>
+    <p>With six tasks you can balance by eye. With sixty, use the <strong>ranked positional weight (RPW)</strong> heuristic: for each task, add its own time to the times of every task that must follow it; sort descending; then assign tasks in that order to the earliest station that has room and satisfies precedence. RPW gets within a few percent of optimal for most practical lines, and a spreadsheet does it in an afternoon. Longest-task-time-first is a simpler fallback that works acceptably on short lines.</p>
+    <p>Remember the theoretical minimum is a floor, not a promise: indivisible long tasks (a 1.2-minute torque-and-fill you cannot split) and precedence chains often force one more station than the arithmetic suggests. That is normal &mdash; the metric that matters is efficiency at the station count you actually build.</p>
+
+    <h2 id="benchmarks">What counts as a good balance</h2>
+    <table>
+      <tr><th>Line efficiency</th><th>Verdict</th></tr>
+      <tr><td>&gt; 90%</td><td>Excellent &mdash; typical of mature, kaizen-ed lines</td></tr>
+      <tr><td>85&ndash;90%</td><td>Well balanced &mdash; standard target for manual assembly</td></tr>
+      <tr><td>75&ndash;85%</td><td>Acceptable &mdash; rebalance at next model or volume change</td></tr>
+      <tr><td>&lt; 75%</td><td>Money on the floor &mdash; rebalance now</td></tr>
+    </table>
+    <p>Efficiency measures the balance, not the line's overall health: a beautifully balanced line still underperforms if stations stop for quality problems or material shortages. Track it alongside <a href="oee-calculation.html">OEE</a> &mdash; balance tells you the design is right, OEE tells you the day ran right.</p>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Balancing to cycle time instead of takt.</strong> If you distribute work to match the current bottleneck rather than customer demand, you optimise yesterday's line.</li>
+      <li><strong>Using best-case task times.</strong> Standard times must include allowances (fatigue, handling); balancing on stopwatch-best times overloads every station by 10&ndash;15%.</li>
+      <li><strong>Ignoring precedence.</strong> A balance that looks perfect on paper but violates assembly order dies on day one.</li>
+      <li><strong>Loading every station to 100% of takt.</strong> Leave a small buffer (station time &le; ~95% of takt) or every minor variation becomes a missed unit.</li>
+      <li><strong>Balancing once and forgetting.</strong> Demand changes move takt; a line balanced for 300/shift is unbalanced at 240. Rebalance at every significant schedule change.</li>
+      <li><strong>Splitting inspection thin.</strong> Scattering quality checks as filler across stations destroys accountability &mdash; keep inspection tasks coherent.</li>
+    </ul>
+
+    <h2>Inspection stations need clean paperwork too</h2>
+    <p>Final-inspection stations (task F above) live or die on how fast the operator can check against the drawing. A ballooned drawing with numbered characteristics turns inspection into a checklist instead of a treasure hunt. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> converts a PDF drawing into a numbered inspection sheet in minutes &mdash; useful when the takt allows 30 seconds for the check, not 3 minutes.</p>
+
+    <p>Related reading: the full <a href="takt-time-calculation.html">takt time calculation guide</a>, <a href="cycle-time-calculation.html">cycle time calculation</a>, and standard production study formats on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, MetricMech &middot; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/takt-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Takt Time Calculator</a>
+      <a href="../calculators/cycle-time.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Cycle Time Calculator</a>
+      <a href="../calculators/oee.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">OEE Calculator</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Production templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
