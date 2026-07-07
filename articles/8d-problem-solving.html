@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>8D Problem Solving: All 8 Disciplines Explained | MetricMech</title>
+<meta name="description" content="8D problem solving step by step: D0 to D8 with a worked supplier-complaint example, root cause vs escape point, and why customer 8Ds get rejected." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/8d-problem-solving">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="8D Problem Solving: All 8 Disciplines Explained | MetricMech">
+<meta property="og:description" content="D0 to D8 walked through with a real supplier-complaint example: containment, root cause vs escape point, and how to close an 8D the customer accepts.">
+<meta property="og:url" content="https://metricmech.com/articles/8d-problem-solving">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="8D Problem Solving: All 8 Disciplines Explained | MetricMech">
+<meta name="twitter:description" content="D0 to D8 walked through with a real supplier-complaint example: containment, root cause vs escape point, and how to close an 8D the customer accepts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "8D Problem Solving: All Eight Disciplines Explained with a Worked Example",
+  "description": "8D problem solving from D0 to D8: team, problem description, interim containment, root cause and escape point, permanent corrective action, prevention, and the mistakes that get customer 8Ds rejected.",
+  "url": "https://metricmech.com/articles/8d-problem-solving",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-07-07",
+  "mainEntityOfPage": "https://metricmech.com/articles/8d-problem-solving"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "What are the 8 disciplines of 8D problem solving?", "acceptedAnswer": {"@type": "Answer", "text": "D1 build the team, D2 describe the problem, D3 interim containment, D4 root cause and escape point analysis, D5 choose permanent corrective actions, D6 implement and validate them, D7 prevent recurrence, D8 recognise the team. D0, planning and emergency response, was added later as a preparation step."}},
+    {"@type": "Question", "name": "What is the difference between root cause and escape point in an 8D?", "acceptedAnswer": {"@type": "Answer", "text": "The root cause explains why the defect was made; the escape point explains why the inspection and control system failed to catch it before it reached the customer. A complete D4 answers both, and customers routinely reject 8Ds that only address the first."}},
+    {"@type": "Question", "name": "How long should an 8D take?", "acceptedAnswer": {"@type": "Answer", "text": "Containment (D3) is expected within 24 to 72 hours of the complaint. Most OEMs expect D1 to D3 documented in about 3 days, root cause in 2 to 3 weeks, and the full 8D closed with validated corrective action in 30 to 90 days depending on complexity."}},
+    {"@type": "Question", "name": "Is operator error an acceptable root cause in an 8D report?", "acceptedAnswer": {"@type": "Answer", "text": "Almost never. Customers read operator error as the analysis stopped too early. Keep asking why the system allowed the error: missing poka-yoke, unclear work instruction, no verification step. The root cause should be something management controls."}},
+    {"@type": "Question", "name": "When is an 8D required instead of a simple corrective action?", "acceptedAnswer": {"@type": "Answer", "text": "Typically for customer complaints, safety or regulatory issues, repeat failures, and warranty returns, especially in automotive and aerospace supply chains. Minor internal one-off issues can go through the standard CAPA route without a full cross-functional 8D."}}
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>8D problem solving</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What 8D is</a>
+    <a href="#steps">The 8 disciplines</a>
+    <a href="#example">Worked example</a>
+    <a href="#rootcause">Root cause vs escape point</a>
+    <a href="#timeline">Timelines</a>
+    <a href="#mistakes">Why 8Ds get rejected</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>8D problem solving: all eight disciplines, <em>with a worked example.</em></h1>
+    <div class="art-meta-bar">
+      <span>Quality</span>
+      <span>July 7, 2026</span>
+      <span>10 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">A customer line-stop email lands at 7 am demanding an &ldquo;8D within 48 hours.&rdquo; What they actually expect in 48 hours is containment and a plan &mdash; not the root cause. Knowing what each discipline demands, and in what order, is the difference between an 8D that closes and one that bounces back three times.</p>
+
+    <h2 id="what">What 8D <em>is</em></h2>
+    <p>8D (Eight Disciplines) is a team-based, structured problem-solving method popularised by Ford in 1987 as Team Oriented Problem Solving. It is now the default corrective-action format demanded by automotive OEMs and Tier-1s worldwide, and increasingly by aerospace and general-engineering customers. The method forces three things a quick fix skips: real containment while you investigate, a verified root cause (not a guess), and proof that the fix works and cannot recur.</p>
+    <p>8D is not paperwork for its own sake. Every discipline answers a question the customer is entitled to ask: is my line protected today, why did this happen, why did it reach me, and why will it never happen again.</p>
+
+    <h2 id="steps">The eight (nine) <em>disciplines</em></h2>
+    <table>
+      <tr><th>Step</th><th>Name</th><th>The question it answers</th></tr>
+      <tr><td>D0</td><td>Plan &amp; emergency response</td><td>Is immediate action needed before the team even forms?</td></tr>
+      <tr><td>D1</td><td>Build the team</td><td>Who has the process, product and data knowledge to solve this?</td></tr>
+      <tr><td>D2</td><td>Describe the problem</td><td>What exactly is wrong &mdash; in 5W2H terms, with data, not adjectives?</td></tr>
+      <tr><td>D3</td><td>Interim containment (ICA)</td><td>How is the customer protected today, at every stock point?</td></tr>
+      <tr><td>D4</td><td>Root cause &amp; escape point</td><td>Why was it made, and why was it not caught?</td></tr>
+      <tr><td>D5</td><td>Choose permanent corrective actions (PCA)</td><td>Which fix removes the root cause without side effects?</td></tr>
+      <tr><td>D6</td><td>Implement &amp; validate PCA</td><td>Is the fix in place, and does data prove it works?</td></tr>
+      <tr><td>D7</td><td>Prevent recurrence</td><td>What systems change &mdash; FMEA, control plan, standards, similar parts?</td></tr>
+      <tr><td>D8</td><td>Recognise the team</td><td>Was the effort acknowledged and the learning captured?</td></tr>
+    </table>
+    <p>D2 deserves more respect than it gets. &ldquo;Bore oversize&rdquo; is not a problem description. &ldquo;M8&times;1.25 tapped hole, characteristic 14, no-go gauge enters on 62 of 400 pcs from lot 2406, first detected at customer assembly station 3 on 28 June&rdquo; is &mdash; and it already narrows the cause. Use 5W2H: what, where, when, who detected, how many, how big, and crucially <em>is/is-not</em> (which parts, machines, shifts and dates are unaffected).</p>
+
+    <h2 id="example">Worked example: a thread gauge <em>rejection</em></h2>
+    <p>Scenario from a machining supplier to a commercial-vehicle OEM: assembly line reports M8 no-go gauge entering on tapped holes; 62 suspect parts in a lot of 400.</p>
+    <ol>
+      <li><strong>D0/D1:</strong> Line-stop risk confirmed; team formed &mdash; production engineer (leader), tapping-cell operator, quality engineer, tooling in-charge.</li>
+      <li><strong>D2:</strong> Only holes tapped on machine T-04 after 24 June affected; second tapping cell clean. Is/is-not immediately points to one spindle, one time window.</li>
+      <li><strong>D3 (within 48 h):</strong> 100% no-go check on all stock: 1,240 pcs at supplier, 380 in transit certified at a sorting agency, 400 at customer sorted with customer approval. All cleared stock tagged with a green dot and a containment number. Sort results logged &mdash; they are D4 evidence.</li>
+      <li><strong>D4:</strong> 5-why on the making cause: no-go enters &rarr; thread oversize &rarr; tap worn past its life &rarr; tap changed &ldquo;by feel&rdquo;, no life counter on T-04 &rarr; tap-life tracking never migrated when the part moved from the old cell. Escape point: final inspection used a sampling plan tuned for dimensional drift, not tool-life failure modes; thread check was n=5 per 2 hours &mdash; too sparse to catch a wear-out that develops over ~300 parts.</li>
+      <li><strong>D5/D6:</strong> PCA chosen: tap-life counter on T-04 with forced stop at 250 holes (validated tap life 400+, safety margin), plus a hard 100% post-process thread probe at the cell. Validation: 3 consecutive lots (1,200 pcs) zero defects, Cpk on thread pitch diameter re-established, results attached.</li>
+      <li><strong>D7:</strong> PFMEA updated &mdash; occurrence and detection rescored for tap wear; control plan revised; tool-life counters audited on all 11 tapping spindles across the plant; lesson registered in the tooling standard.</li>
+      <li><strong>D8:</strong> Team recognised in the monthly review; 8D closed with customer sign-off in 41 days.</li>
+    </ol>
+    <div class="callout">
+      <strong>Count the cost while you are at it</strong>
+      Sorting, certification, premium freight and the customer debit belong in your cost-of-poor-quality ledger. Run the numbers in the <a href="../calculators/copq.html">COPQ calculator</a> &mdash; a visible rupee figure is what gets D7 budget approved.
+    </div>
+
+    <h2 id="rootcause">Root cause vs <em>escape point</em></h2>
+    <p>D4 has two halves, and customers reject 8Ds that answer only one. The <strong>root cause</strong> is why the defect was created (tap-life tracking missing). The <strong>escape point</strong> is the earliest control that should have caught it and why it did not (sampling plan blind to wear-out failure modes). Fixing the first without the second means the next different defect sails through the same hole in your detection. Tools that carry D4: 5-why for straightforward causal chains, fishbone for scoping, and your PFMEA as the map of which controls were supposed to act &mdash; the <a href="fmea-rpn-calculation.html">FMEA RPN guide</a> covers how detection scores link to exactly this failure.</p>
+
+    <h2 id="timeline">What customers expect, <em>when</em></h2>
+    <table>
+      <tr><th>Milestone</th><th>Typical expectation</th></tr>
+      <tr><td>Acknowledge complaint</td><td>Same day</td></tr>
+      <tr><td>D3 containment evidence</td><td>24&ndash;72 hours</td></tr>
+      <tr><td>D1&ndash;D3 documented</td><td>~3 working days</td></tr>
+      <tr><td>D4 root cause verified</td><td>2&ndash;3 weeks</td></tr>
+      <tr><td>Full 8D closed (D6 validated)</td><td>30&ndash;90 days</td></tr>
+    </table>
+    <p>Submitting a &ldquo;complete&rdquo; 8D in three days impresses nobody &mdash; it signals the root cause is a guess. Submit D3 fast, then take the time D4 needs.</p>
+
+    <h2 id="mistakes">Why 8Ds get <em>rejected</em></h2>
+    <ol>
+      <li><strong>&ldquo;Operator error&rdquo; as root cause.</strong> It reads as &ldquo;we stopped asking why.&rdquo; Why could the operator err &mdash; no poka-yoke, unclear standard, no verification? Root causes should be things management controls.</li>
+      <li><strong>Containment with no evidence.</strong> &ldquo;100% inspection started&rdquo; without quantities, locations, results and tagging is an intention, not containment.</li>
+      <li><strong>Retraining as the permanent action.</strong> Training decays. If D5 is only &ldquo;operator retrained,&rdquo; the 8D will bounce. Pair it with a physical or systemic control.</li>
+      <li><strong>No escape-point analysis.</strong> Half of D4 missing &mdash; the most common gap in supplier 8Ds I reviewed as a plant head.</li>
+      <li><strong>D7 skipped.</strong> If the PFMEA, control plan and similar parts are untouched, the same cause is waiting on the next line. AIAG-aligned customers check this line first.</li>
+    </ol>
+    <p>One practical enabler for D3 and D6: your sort and validation inspections are only as good as the characteristic list they run against. CadNexa's <a href="https://cadnexa.com/balloon">auto-ballooning tool</a> turns the drawing into a numbered characteristic sheet in minutes, so containment sorting and re-validation record results against the same balloon numbers the customer sees. Report formats live on the <a href="../templates.html">templates page</a>.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder &mdash; 14 years plant-head experience</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/fmea-rpn.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">FMEA RPN Calculator</a>
+      <a href="../calculators/copq.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">COPQ Calculator</a>
+      <a href="fmea-rpn-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">FMEA RPN Calculation Guide</a>
+      <a href="cost-of-poor-quality.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Cost of Poor Quality (COPQ)</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
