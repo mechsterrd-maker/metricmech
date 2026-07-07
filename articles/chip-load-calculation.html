@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chip Load Calculation: Feed Per Tooth Formula | MetricMech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/chip-load-calculation">
+<meta name="description" content="Calculate chip load (feed per tooth) from feed rate, spindle RPM and flute count, with chip-thinning correction and worked CNC milling examples." />
+<meta name="keywords" content="chip load calculation, feed per tooth, chip load formula, feed per tooth calculator, chip thinning, milling feed rate, CNC chip load, fz formula" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chip Load Calculation: Feed Per Tooth Formula | MetricMech">
+<meta property="og:description" content="Calculate chip load (feed per tooth) from feed rate, spindle RPM and flute count, with chip-thinning correction and worked CNC milling examples.">
+<meta property="og:url" content="https://metricmech.com/articles/chip-load-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chip Load Calculation: Feed Per Tooth Formula | MetricMech">
+<meta name="twitter:description" content="Calculate chip load (feed per tooth) from feed rate, spindle RPM and flute count, with chip-thinning correction and worked CNC milling examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Chip Load Calculation: Feed Per Tooth Formula and Worked Examples",
+  "description": "Calculate chip load (feed per tooth) from feed rate, spindle RPM and flute count, with chip-thinning correction and worked CNC milling examples.",
+  "url": "https://metricmech.com/articles/chip-load-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Plant Head, Mechanical Engineer"},
+  "datePublished": "2026-07-05",
+  "mainEntityOfPage": "https://metricmech.com/articles/chip-load-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do you calculate chip load?", "acceptedAnswer": {"@type": "Answer", "text": "Chip load equals feed rate divided by (spindle RPM times number of flutes). For example, 764 mm/min at 3820 RPM on a 4-flute tool gives 0.05 mm per tooth."}},
+    {"@type": "Question", "name": "What is a good chip load for steel?", "acceptedAnswer": {"@type": "Answer", "text": "For a solid-carbide end mill in mild steel, start near 0.015 mm per tooth for a 3 mm cutter and around 0.055 mm for a 10 mm cutter, then tune from the chip and finish."}},
+    {"@type": "Question", "name": "What happens if chip load is too low?", "acceptedAnswer": {"@type": "Answer", "text": "The edge rubs instead of cutting, which work-hardens the surface, generates heat and wears the tool quickly. Below about 0.025 mm per tooth on steel, wear accelerates sharply."}},
+    {"@type": "Question", "name": "What is chip thinning?", "acceptedAnswer": {"@type": "Answer", "text": "When radial depth of cut is less than half the tool diameter, the real chip is thinner than the programmed feed per tooth. You correct for it by increasing feed with the chip-thinning factor so the actual chip stays at your target."}}
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Chip load calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What chip load is</a>
+    <a href="#formula">The formula</a>
+    <a href="#worked">Worked example</a>
+    <a href="#chart">Starting values</a>
+    <a href="#thinning">Chip thinning</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Chip load calculation: <em>feed per tooth, the right way</em></h1>
+    <div class="art-meta-bar">
+      <span>Machining</span>
+      <span>July 5, 2026</span>
+      <span>9 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Chip load — the feed per tooth — is the single number that decides tool life, surface finish and whether your cutter survives the job. It links feed rate, spindle speed and flute count in one short formula. Here is how to calculate it, plus the chip-thinning correction most operators miss.</p>
+
+    <p>Push the feed too low and the tool rubs instead of cutting, work-hardening the material and burning the edge. Push it too high and the flute overloads and chips. Chip load is how you land in the middle — and it is a calculation, not a guess.</p>
+
+    <h2 id="what">What chip load actually means</h2>
+    <p>Chip load, or feed per tooth (<strong>fz</strong>), is the thickness of material each cutting edge removes per revolution. A 4-flute end mill takes four bites per turn of the spindle. Chip load is what one of those bites measures, in millimetres (or thousandths of an inch).</p>
+
+    <h2 id="formula">The chip load formula</h2>
+    <div class="callout">
+      <strong>Chip load, fz (mm) = Feed rate (mm/min) &divide; ( RPM &times; Number of flutes )</strong>
+    </div>
+    <p>Rearranged the other way, once you know the chip load you want, you solve for the feed rate to program into the machine:</p>
+    <div class="callout">
+      <strong>Feed rate (mm/min) = RPM &times; Number of flutes &times; fz</strong>
+    </div>
+    <p>Spindle RPM itself comes from cutting speed and tool diameter (RPM = 1000 &times; Vc &divide; (&pi; &times; D)). For that step and the full speeds-and-feeds picture, use the <a href="../calculators/speeds-feeds.html">speeds and feeds calculator</a>.</p>
+
+    <h2 id="worked">Worked example</h2>
+    <p>You are slotting mild steel with a 10 mm 4-flute carbide end mill. Cutting speed target 120 m/min gives a spindle speed of about 3820 RPM. You choose a starting chip load of 0.05 mm per tooth.</p>
+    <ul>
+      <li>Feed rate = RPM &times; flutes &times; fz</li>
+      <li>Feed rate = 3820 &times; 4 &times; 0.05</li>
+      <li>Feed rate = <strong>764 mm/min</strong></li>
+    </ul>
+    <p>Program 764 mm/min and each of the four edges removes a 0.05 mm chip — a healthy load that clears heat into the chip rather than into the tool.</p>
+
+    <div class="warn-box">
+      <strong>Too small a chip load kills tools faster than too large.</strong> Below roughly 0.025 mm per tooth on steel, the edge stops shearing and starts rubbing. That work-hardens the surface and wears the flank rapidly. If your tool is glazing rather than cutting, the fix is usually more feed, not less.
+    </div>
+
+    <h2 id="chart">Starting chip load values</h2>
+    <p>These are conservative starting points for solid carbide end mills; always check the tool maker's data for the exact cutter.</p>
+    <table>
+      <tr><th>Material</th><th>3 mm tool</th><th>6 mm tool</th><th>10 mm tool</th></tr>
+      <tr><td>Aluminium</td><td>0.025 mm</td><td>0.050 mm</td><td>0.090 mm</td></tr>
+      <tr><td>Mild steel</td><td>0.015 mm</td><td>0.035 mm</td><td>0.055 mm</td></tr>
+      <tr><td>Stainless 304</td><td>0.012 mm</td><td>0.028 mm</td><td>0.045 mm</td></tr>
+      <tr><td>Cast iron</td><td>0.020 mm</td><td>0.040 mm</td><td>0.065 mm</td></tr>
+    </table>
+    <p>Larger diameters take a bigger chip because the flute is stronger and clears heat better. Small end mills need a small chip load or they snap.</p>
+
+    <h2 id="thinning">Radial chip thinning</h2>
+    <p>The formula above assumes the cutter engages at least half its diameter (radial depth of cut, ae, &ge; D/2). When you take a light radial cut — trochoidal milling, finishing passes, high-speed toolpaths — the actual chip comes out <em>thinner</em> than the programmed feed per tooth. To keep the real chip at your target, increase the feed using the chip-thinning factor:</p>
+    <div class="callout">
+      <strong>Adjusted fz = target fz &divide; &radic;( 1 &minus; ( 1 &minus; 2ae/D )&sup2; )</strong><br>
+      where ae is radial depth of cut and D is tool diameter.
+    </div>
+    <p>Example: a 10 mm tool at ae = 1 mm (ae/D = 0.1). The factor is &radic;(1 &minus; (1 &minus; 0.2)&sup2;) = &radic;(1 &minus; 0.64) = 0.6. So adjusted fz = target &divide; 0.6, meaning you can feed about 1.67&times; faster and still hold the same real chip thickness. Ignore this and light-radial passes run slow and rub.</p>
+
+    <div class="callout">
+      <strong>Do it in one step</strong>
+      The MetricMech <a href="../calculators/speeds-feeds.html">speeds and feeds calculator</a> turns cutting speed, tool diameter, flute count and chip load into RPM and feed rate directly. Pair it with the <a href="../articles/speeds-and-feeds-calculator.html">speeds and feeds guide</a> for the theory behind each number.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Feeding too light.</strong> The instinct to "go gentle" causes rubbing and premature wear. Respect the minimum chip load.</li>
+      <li><strong>Wrong flute count.</strong> Using a 2-flute value for a 4-flute cutter halves your feed and doubles the heat.</li>
+      <li><strong>Ignoring chip thinning.</strong> Light radial cuts need a feed boost or the tool rubs.</li>
+      <li><strong>One chip load for every diameter.</strong> A 3 mm and a 12 mm cutter need very different values.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>How do you calculate chip load?</h3>
+    <p>Chip load equals feed rate divided by (spindle RPM times number of flutes). For example, 764 mm/min at 3820 RPM on a 4-flute tool gives 0.05 mm per tooth.</p>
+    <h3>What is a good chip load for steel?</h3>
+    <p>For a solid-carbide end mill in mild steel, start near 0.015 mm per tooth for a 3 mm cutter and around 0.055 mm for a 10 mm cutter, then tune from the chip and finish.</p>
+    <h3>What happens if chip load is too low?</h3>
+    <p>The edge rubs instead of cutting, which work-hardens the surface, generates heat and wears the tool quickly. Below about 0.025 mm per tooth on steel, wear accelerates sharply.</p>
+    <h3>What is chip thinning?</h3>
+    <p>When radial depth of cut is less than half the tool diameter, the real chip is thinner than the programmed feed per tooth. You correct for it by increasing feed with the chip-thinning factor so the actual chip stays at your target.</p>
+
+    <p style="margin-top:28px">Once the part is machined, CadNexa can <a href="https://cadnexa.com/balloon">auto-balloon the PDF drawing</a> and generate the inspection report straight from the dimensions.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder — 14 years plant-head experience</div>
+      </div>
+    </div>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/speeds-feeds.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Speeds &amp; Feeds Calculator</a>
+      <a href="../articles/speeds-and-feeds-calculator.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Speeds and Feeds Guide</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>

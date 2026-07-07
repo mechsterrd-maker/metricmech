@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pipe Weight Calculation: Formula & Chart | MetricMech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/pipe-weight-calculation">
+<meta name="description" content="Calculate pipe weight per metre from OD, wall thickness and density. Steel and SS formulas, a schedule reference chart, and worked MS pipe examples." />
+<meta name="keywords" content="pipe weight calculation, pipe weight per meter, MS pipe weight, steel pipe weight formula, pipe weight chart, SS pipe weight, pipe weight formula kg/m" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pipe Weight Calculation: Formula & Chart | MetricMech">
+<meta property="og:description" content="Calculate pipe weight per metre from OD, wall thickness and density. Steel and SS formulas, a schedule reference chart, and worked MS pipe examples.">
+<meta property="og:url" content="https://metricmech.com/articles/pipe-weight-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pipe Weight Calculation: Formula & Chart | MetricMech">
+<meta name="twitter:description" content="Calculate pipe weight per metre from OD, wall thickness and density. Steel and SS formulas, a schedule reference chart, and worked MS pipe examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Pipe Weight Calculation: Formula, Chart and Worked Examples",
+  "description": "Calculate pipe weight per metre from OD, wall thickness and density. Steel and SS formulas, a schedule reference chart, and worked MS pipe examples.",
+  "url": "https://metricmech.com/articles/pipe-weight-calculation",
+  "publisher": {"@type": "Organization", "name": "MetricMech", "url": "https://metricmech.com", "logo": {"@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png"}},
+  "author": {"@type": "Person", "name": "Rajadurai R", "jobTitle": "Plant Head, Mechanical Engineer"},
+  "datePublished": "2026-07-05",
+  "mainEntityOfPage": "https://metricmech.com/articles/pipe-weight-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How do you calculate the weight of a steel pipe?", "acceptedAnswer": {"@type": "Answer", "text": "Use weight per metre = 0.02466 x t x (OD - t), with wall thickness t and outside diameter OD in millimetres. Multiply by the pipe length in metres for total weight."}},
+    {"@type": "Question", "name": "What is the weight of a 2 inch (50 NB) MS pipe?", "acceptedAnswer": {"@type": "Answer", "text": "A 50 NB Schedule 40 mild steel pipe (OD 60.3 mm, wall 3.91 mm) weighs about 5.44 kg per metre, so a standard 6 m length is roughly 32.6 kg."}},
+    {"@type": "Question", "name": "Does pipe weight change with material?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The geometry term stays the same but density changes: stainless steel is about 2 percent heavier than mild steel, aluminium is roughly one-third the weight, and copper is heavier than steel for the same dimensions."}},
+    {"@type": "Question", "name": "How do I find pipe weight if I only know nominal bore?", "acceptedAnswer": {"@type": "Answer", "text": "Nominal bore alone is not enough - you also need the schedule, which sets the wall thickness and the true outside diameter. Look up the OD and t for that NB and schedule, then apply the formula."}}
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Pipe weight calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#formula">The formula</a>
+    <a href="#steel">Steel shortcut</a>
+    <a href="#worked">Worked example</a>
+    <a href="#chart">Schedule chart</a>
+    <a href="#density">Density values</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Pipe weight calculation: <em>formula, chart and worked examples</em></h1>
+    <div class="art-meta-bar">
+      <span>Reference</span>
+      <span>July 5, 2026</span>
+      <span>9 min read</span>
+      <span>1,900 words</span>
+    </div>
+
+    <p class="lede">Pipe weight per metre depends on three things only: outside diameter, wall thickness and material density. Get those, and one formula gives you the answer for MS pipe, SS pipe or any hollow round section. Here is the maths, a schedule chart, and the mistakes that throw estimates off.</p>
+
+    <p>Whether you are raising an RFQ for structural pipe, checking a fabrication estimate, or sizing a crane lift, you need the weight per metre before anything else. The good news: a pipe is just a hollow cylinder, so the calculation is exact — no lookup table required once you know the formula.</p>
+
+    <h2 id="formula">The pipe weight formula</h2>
+    <p>Start from the cross-sectional area of the pipe wall — a ring. For an outside diameter <strong>OD</strong> and inside diameter <strong>ID</strong> (both in mm):</p>
+    <div class="callout">
+      <strong>Weight per metre (kg/m) = (&pi; / 4) &times; (OD&sup2; &minus; ID&sup2;) &times; &rho; &times; 10<sup>&minus;6</sup></strong><br>
+      where &rho; is density in kg/m&sup3; and ID = OD &minus; 2t (t = wall thickness in mm).
+    </div>
+    <p>The <code>10<sup>&minus;6</sup></code> converts mm&sup2; &times; (kg/m&sup3;) into kg/m over a one-metre length. That single equation works for every round pipe in any material — you only swap the density.</p>
+
+    <h2 id="steel">The steel shortcut</h2>
+    <p>Because most engineers work in mild steel, the formula simplifies. Substituting ID = OD &minus; 2t and steel density 7850 kg/m&sup3;, the whole thing collapses to a clean expression:</p>
+    <div class="callout">
+      <strong>Steel pipe weight (kg/m) = 0.02466 &times; t &times; (OD &minus; t)</strong><br>
+      OD and wall thickness t both in mm. Constant 0.02466 already bakes in &pi; and steel density.
+    </div>
+    <p>For stainless steel, swap the constant: SS 304/316 has a density near 8000 kg/m&sup3;, so use <strong>0.02512</strong> instead of 0.02466 — roughly 2% heavier than mild steel for the same size.</p>
+
+    <h2 id="worked">Worked example</h2>
+    <p>Take a common 50 NB (2 inch nominal bore) Schedule 40 mild steel pipe: OD = 60.3 mm, wall t = 3.91 mm.</p>
+    <ul>
+      <li>OD &minus; t = 60.3 &minus; 3.91 = 56.39 mm</li>
+      <li>Weight = 0.02466 &times; 3.91 &times; 56.39</li>
+      <li>Weight = <strong>5.44 kg/m</strong></li>
+    </ul>
+    <p>A 6 metre length therefore weighs about 32.6 kg. Cross-check against the exact ring formula: ID = 60.3 &minus; 2(3.91) = 52.48 mm, area = (&pi;/4)(60.3&sup2; &minus; 52.48&sup2;) = 693 mm&sup2;, &times; 7850 &times; 10<sup>&minus;6</sup> = 5.44 kg/m. Both agree.</p>
+
+    <div class="warn-box">
+      <strong>Nominal bore is not the outside diameter.</strong> A "50 NB" pipe is not 50 mm OD — it is 60.3 mm OD. Nominal bore is a legacy label roughly matching the old inside diameter. Always look up the true OD for the NB size before you calculate, or your weight will be badly wrong.
+    </div>
+
+    <h2 id="chart">Common MS pipe weight chart (Schedule 40)</h2>
+    <table>
+      <tr><th>Nominal bore</th><th>OD (mm)</th><th>Wall t (mm)</th><th>Weight (kg/m)</th></tr>
+      <tr><td>15 NB (1/2")</td><td>21.3</td><td>2.77</td><td>1.27</td></tr>
+      <tr><td>25 NB (1")</td><td>33.4</td><td>3.38</td><td>2.50</td></tr>
+      <tr><td>40 NB (1.5")</td><td>48.3</td><td>3.68</td><td>4.05</td></tr>
+      <tr><td>50 NB (2")</td><td>60.3</td><td>3.91</td><td>5.44</td></tr>
+      <tr><td>80 NB (3")</td><td>88.9</td><td>5.49</td><td>11.29</td></tr>
+      <tr><td>100 NB (4")</td><td>114.3</td><td>6.02</td><td>16.07</td></tr>
+    </table>
+    <p>These match the exact formula to within rounding. For non-standard sizes, plug OD and t straight into the steel shortcut.</p>
+
+    <h2 id="density">Density values for other materials</h2>
+    <table>
+      <tr><th>Material</th><th>Density (kg/m&sup3;)</th><th>Constant (kg/m)</th></tr>
+      <tr><td>Mild / carbon steel</td><td>7850</td><td>0.02466</td></tr>
+      <tr><td>Stainless steel 304/316</td><td>8000</td><td>0.02513</td></tr>
+      <tr><td>Aluminium</td><td>2700</td><td>0.00848</td></tr>
+      <tr><td>Copper</td><td>8940</td><td>0.02808</td></tr>
+      <tr><td>Brass</td><td>8500</td><td>0.02670</td></tr>
+    </table>
+    <p>The constant is simply &pi; &times; density &times; 10<sup>&minus;6</sup>. Multiply it by t &times; (OD &minus; t) for the weight per metre in that material. To weigh solid bars, plates or other sections instead of pipe, use our <a href="../calculators/material-weight.html">material weight calculator</a>, which handles every profile.</p>
+
+    <div class="callout">
+      <strong>Skip the arithmetic</strong>
+      The MetricMech <a href="../calculators/material-weight.html">material weight calculator</a> computes pipe, bar, plate and sheet weight from dimensions and material in one step. For steel-specific plate and bar work, see the <a href="../articles/steel-weight-calculation.html">steel weight calculation</a> guide.
+    </div>
+
+    <h2 id="mistakes">Common mistakes</h2>
+    <ul>
+      <li><strong>Confusing NB with OD.</strong> The single biggest error — always convert nominal bore to the real outside diameter first.</li>
+      <li><strong>Using ID instead of OD in the shortcut.</strong> The 0.02466 formula expects OD and t, not ID.</li>
+      <li><strong>Forgetting schedule.</strong> The same NB size has different wall thickness across Sch 40, Sch 80 and Sch 160 — weight can nearly double.</li>
+      <li><strong>Wrong density for stainless.</strong> Using the steel constant for SS underestimates weight by about 2%, which adds up on large orders.</li>
+    </ul>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <h3>How do you calculate the weight of a steel pipe?</h3>
+    <p>Use weight per metre = 0.02466 &times; t &times; (OD &minus; t), with wall thickness t and outside diameter OD in millimetres. Multiply by the pipe length in metres for total weight.</p>
+    <h3>What is the weight of a 2 inch (50 NB) MS pipe?</h3>
+    <p>A 50 NB Schedule 40 mild steel pipe (OD 60.3 mm, wall 3.91 mm) weighs about 5.44 kg per metre, so a standard 6 m length is roughly 32.6 kg.</p>
+    <h3>Does pipe weight change with material?</h3>
+    <p>Yes. The geometry term stays the same but density changes: stainless steel is about 2% heavier than mild steel, aluminium is roughly one-third the weight, and copper is heavier than steel for the same dimensions.</p>
+    <h3>How do I find pipe weight if I only know nominal bore?</h3>
+    <p>Nominal bore alone is not enough — you also need the schedule, which sets the wall thickness and the true outside diameter. Look up the OD and t for that NB and schedule, then apply the formula.</p>
+
+    <p style="margin-top:28px">Working on inspection paperwork for those pipes too? CadNexa can <a href="https://cadnexa.com/balloon">auto-balloon a PDF drawing</a> and build the dimensional report in minutes.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder — 14 years plant-head experience</div>
+      </div>
+    </div>
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/material-weight.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Material Weight Calculator</a>
+      <a href="../articles/steel-weight-calculation.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Steel Weight Calculation</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Engineering templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
