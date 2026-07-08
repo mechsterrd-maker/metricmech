@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech</title>
+<meta name="description" content="Minimum bend radius rules for mild steel, stainless and aluminium: material chart, grain direction effects, and how the V-die sets your real radius." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/minimum-bend-radius">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech">
+<meta property="og:description" content="Minimum bend radius rules for mild steel, stainless and aluminium: material chart, grain direction effects, and how the V-die sets your real radius.">
+<meta property="og:url" content="https://metricmech.com/articles/minimum-bend-radius">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech">
+<meta name="twitter:description" content="Minimum bend radius rules for mild steel, stainless and aluminium: material chart, grain direction effects, and how the V-die sets your real radius.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech",
+  "description": "Minimum bend radius rules for mild steel, stainless and aluminium: material chart, grain direction effects, and how the V-die sets your real radius.",
+  "url": "https://metricmech.com/articles/minimum-bend-radius",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Minimum Bend Radius for Sheet Metal: Rules, Charts and What Actually Cracks",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-08",
+  "mainEntityOfPage": "https://metricmech.com/articles/minimum-bend-radius"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the minimum bend radius for mild steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For cold-rolled mild steel up to about 3 mm, an inside radius of 0.5t to 1t is safe. Air bending with a standard 8t V-die naturally produces about 1.3t, so specifying 1t to 1.5t removes all cracking risk at no cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you bend 6061-T6 aluminium?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but only at generous radii — plan on 2.5t to 4t, and more if the bend line runs parallel to the grain. For tight radii, bend in O temper and artificially age afterwards, or switch to 5052-H32."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does minimum bend radius change with thickness?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the multiplier creeps up with thickness. A material that bends at 1t in 1.5 mm sheet may need 1.5t to 2t at 6 mm, because thicker sections put more absolute strain on the outer fibre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if the bend radius is too small?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In escalating order: orange-peel surface texture on the outside of the bend, hairline cracking along the bend line, and complete fracture. Micro-cracked bends can still fail later in fatigue service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why doesn't the formed radius match the punch radius?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In air bending the sheet forms a natural radius of roughly 0.16 times the V-die opening regardless of punch tip radius. Only bottoming or coining forces the sheet onto the punch radius, at several times the tonnage."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Minimum bend radius</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What it means</a>
+    <a href="#chart">Material chart</a>
+    <a href="#grain">Grain direction</a>
+    <a href="#airbend">Air bending reality</a>
+    <a href="#kfactor">Flat pattern impact</a>
+    <a href="#rules">Feature placement</a>
+    <a href="#drawing">Drawing callouts</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Minimum bend radius for sheet metal: <em>rules, charts and what actually cracks.</em></h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal</span>
+      <span>July 8, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+    <p class="lede">The first article comes back with a hairline crack running along the outside of the bend, and the designer insists the drawing is fine because "R1 looked reasonable." Minimum bend radius is where design intent meets material reality: specify below it and the part cracks, orange-peels, or fails in fatigue later. Here are the rules of thumb by material, why grain direction matters, and why your press brake — not your CAD model — decides the radius you actually get.</p>
+
+    <h2 id="what">What minimum bend radius <em>means</em></h2>
+    <p>The bend radius on a drawing is the <strong>inside radius</strong> of the formed bend. When sheet metal bends, the material on the outside of the bend stretches and the inside compresses. The tighter the radius relative to thickness, the more the outer fibre stretches — and every material has a limit to how much stretch it takes before it cracks.</p>
+    <p>That limit is the minimum bend radius, and it is almost always expressed as a multiple of sheet thickness <strong>t</strong>. "1t" on 2&nbsp;mm sheet means a 2&nbsp;mm inside radius. Below the minimum you get, in order of severity: orange peel on the outside surface, hairline cracks along the bend line, and full fracture. A bend that survived forming with micro-cracks can still fail months later in vibration service — which is why aerospace and automotive drawings treat bend radius as a controlled characteristic.</p>
+
+    <h2 id="chart">Minimum bend radius <em>by material</em></h2>
+    <p>Typical air-bending values for common materials in the annealed or as-supplied condition. Always confirm against your material certificate and supplier data — temper changes everything.</p>
+    <table>
+      <tr><th>Material</th><th>Condition</th><th>Min inside radius</th><th>Notes</th></tr>
+      <tr><td>Mild steel (DC01 / IS 513 CR2)</td><td>Cold rolled</td><td>0.5t – 1t</td><td>The forgiving default</td></tr>
+      <tr><td>Mild steel (IS 2062 E250)</td><td>Hot rolled</td><td>1t – 2t</td><td>Scale and thickness variation hurt</td></tr>
+      <tr><td>HSLA / S355</td><td>As supplied</td><td>1.5t – 2.5t</td><td>Strength costs ductility</td></tr>
+      <tr><td>Stainless 304 / 304L</td><td>Annealed</td><td>1t – 1.5t</td><td>Work-hardens fast; springback is high</td></tr>
+      <tr><td>Stainless 316L</td><td>Annealed</td><td>1t – 1.5t</td><td>Similar to 304</td></tr>
+      <tr><td>Aluminium 5052</td><td>H32</td><td>1t</td><td>The sheet-metal aluminium of choice</td></tr>
+      <tr><td>Aluminium 6061</td><td>T6</td><td>2.5t – 4t</td><td>Cracks readily; see below</td></tr>
+      <tr><td>Aluminium 6061</td><td>O (annealed)</td><td>0 – 1t</td><td>Bend soft, then heat treat if possible</td></tr>
+      <tr><td>Copper</td><td>Soft</td><td>0 – 1t</td><td>Very forgiving</td></tr>
+      <tr><td>Brass (CuZn37)</td><td>Half hard</td><td>1t – 2t</td><td>Check temper before promising</td></tr>
+    </table>
+    <p>Two patterns worth memorising: <strong>strength trades against bendability</strong> (E250 bends tighter than S355; 5052-H32 bends tighter than 6061-T6), and <strong>thicker sheet needs proportionally gentler radii</strong> — a rule that works at 1.5&nbsp;mm often cracks at 6&nbsp;mm, so many handbooks step the multiplier up one class above 3&nbsp;mm thickness.</p>
+
+    <h2 id="grain">Grain direction: the crack <em>nobody designed for</em></h2>
+    <p>Rolled sheet has a grain — elongated microstructure running in the rolling direction. Bending <strong>with the bend line across the grain</strong> (perpendicular to rolling direction) is the strong orientation. Bending with the bend line parallel to the grain asks the outer fibre to stretch along its weakest axis, and the crack runs straight down the bend line.</p>
+    <p>Rules of thumb from the shop floor:</p>
+    <ul>
+      <li>For mild steel and 5052, grain direction rarely matters at 1t or gentler radii.</li>
+      <li>For 6061-T6, HSLA and any hard temper, bending parallel to grain needs roughly <strong>1.5–2× the radius</strong> of bending across it.</li>
+      <li>On parts with two perpendicular bends, one of them is always parallel to grain — nest accordingly, or specify the more generous radius for both.</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>6061-T6 is not a bending alloy</strong>
+      The single most common sheet-metal cracking complaint we see is 6061-T6 specified at R1 on 3&nbsp;mm sheet because "aluminium is soft." T6 temper has roughly 10–12% elongation. Either switch to 5052-H32, bend in O temper and age afterwards, or accept a 3t–4t radius and design around it.
+    </div>
+
+    <h2 id="airbend">Air bending: the die sets your radius, <em>not the punch</em></h2>
+    <p>Here is the part most drawings get wrong. In air bending — how the vast majority of press-brake work is done — the inside radius is <strong>not</strong> the punch tip radius. The sheet floats across the V-die opening and forms a natural radius proportional to that opening:</p>
+    <p><strong>Inside radius ≈ 0.16 × V</strong> (for mild steel), where V is the die opening width. And since the standard die selection rule is <strong>V ≈ 8 × t</strong>, the natural radius lands around <strong>1.3t</strong> whatever the drawing says.</p>
+    <p>Worked example: 2&nbsp;mm mild steel bent in a 16&nbsp;mm V-die gives an inside radius of about 0.16 × 16 ≈ <strong>2.5&nbsp;mm</strong>, i.e. 1.25t — even if the punch tip is R0.8 and the drawing says R1. To genuinely hit a smaller radius you need bottoming or coining, which takes 3–5× the tonnage and different tooling. If the function doesn't demand a tight radius, dimension the drawing to what air bending naturally produces and save the argument at FAI.</p>
+
+    <h2 id="kfactor">What the radius does to your <em>flat pattern</em></h2>
+    <p>Bend radius drives the K-factor, and the K-factor drives your developed length. At a tight radius (r &lt; t) the neutral axis sits near 33% of thickness (K ≈ 0.33); as the radius opens past 3–4t it drifts toward mid-thickness (K → 0.5). Get the radius wrong between design and shop floor and every flange dimension shifts.</p>
+    <p>Run the numbers in the free <a href="../calculators/bend-allowance.html">bend allowance calculator</a>, and if the K-factor concept is fuzzy, start with our guide to <a href="../articles/bend-allowance-k-factor.html">bend allowance and K-factor</a>, then <a href="../articles/bend-deduction-vs-bend-allowance.html">bend deduction vs bend allowance</a> for which one your CAD system is actually using.</p>
+
+    <h2 id="rules">Feature placement rules <em>near a bend</em></h2>
+    <p>Cracks are not the only failure mode — features too close to a bend distort. The standard clearance rules:</p>
+    <ul>
+      <li><strong>Holes:</strong> keep hole edge at least <strong>2t + r</strong> from the bend line, or the hole eggs into an oval.</li>
+      <li><strong>Slots parallel to the bend:</strong> at least <strong>4t + r</strong>, they distort worse than round holes.</li>
+      <li><strong>Minimum flange length:</strong> roughly <strong>4t</strong>, and never less than the die can grip — a flange shorter than about half the V opening plus the radius slips into the die.</li>
+      <li><strong>Notches at bend ends:</strong> add bend relief cuts of width ≥ t to stop tearing at the corners.</li>
+    </ul>
+    <p>Cross-check the thickness itself before any of this — nominal gauge and delivered thickness are not the same thing; our <a href="../articles/sheet-metal-gauge-chart.html">sheet metal gauge chart</a> covers the mm conversions.</p>
+
+    <h2 id="drawing">What to put on the <em>drawing</em></h2>
+    <ul>
+      <li>Specify the <strong>inside</strong> radius explicitly ("R2.0 INSIDE"), never "sharp" or R0.</li>
+      <li>Match the radius to what air bending produces for your thickness (≈1.3t for mild steel) unless function demands otherwise.</li>
+      <li>Add grain direction constraint only where it matters — it restricts nesting and raises material cost.</li>
+      <li>One radius per part where possible: every different radius is a tool change on the brake.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Bend radii are inspection characteristics too</strong>
+      On a formed-part FAI, every bend radius, flange length and hole-to-bend distance needs a balloon and a row in the report. <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR — captures the callouts from the flat-pattern or formed-part drawing directly into the inspection sheet, radius gauges results and all.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What is the minimum bend radius for mild steel?</h3>
+    <p>For cold-rolled mild steel up to about 3&nbsp;mm, 0.5t–1t inside radius is safe. In practice air bending with a standard 8t V-die naturally produces about 1.3t, so specifying 1t–1.5t costs nothing and removes all risk.</p>
+    <h3>Can you bend 6061-T6 aluminium?</h3>
+    <p>Yes, but only at generous radii — plan on 2.5t–4t, and more if the bend line runs parallel to the grain. For tight radii, bend in O temper and artificially age afterwards, or switch the design to 5052-H32.</p>
+    <h3>Does minimum bend radius change with thickness?</h3>
+    <p>The multiplier itself creeps up with thickness. A material that bends at 1t in 1.5&nbsp;mm sheet may need 1.5t–2t at 6&nbsp;mm, because thicker sections put more absolute strain on the outer fibre and carry more rolling-direction anisotropy.</p>
+    <h3>What happens if the bend radius is too small?</h3>
+    <p>In escalating order: orange-peel surface texture on the outside of the bend, hairline cracking along the bend line, and complete fracture. Micro-cracked bends that pass visual inspection can still fail later in fatigue service.</p>
+    <h3>Why doesn't my formed radius match the punch radius?</h3>
+    <p>Because in air bending the sheet forms a natural radius of roughly 0.16 × the V-die opening regardless of punch tip. Only bottoming or coining forces the sheet onto the punch radius, at several times the tonnage.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/bend-allowance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend Allowance Calculator</a>
+      <a href="../articles/bend-allowance-k-factor.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend Allowance & K-Factor</a>
+      <a href="../articles/bend-deduction-vs-bend-allowance.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Bend Deduction vs Allowance</a>
+      <a href="../articles/sheet-metal-gauge-chart.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Sheet Metal Gauge Chart</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Free templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
