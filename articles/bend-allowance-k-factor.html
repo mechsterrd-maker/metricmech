@@ -129,6 +129,10 @@
     </div>
 
     <p class="lede">Cut a flat blank by simply adding the leg lengths and your folded part comes out long every time. Sheet metal stretches at the bend, and bend allowance plus the K-factor is how you account for it. Here are the formulas, a worked bracket example, and how to find the K-factor your press brake actually produces.</p>
+    <figure style="margin: 22px 0;">
+      <img src="../assets/blog/mm-calc-bend-allowance.jpg" alt="Bend allowance calculator with K-factor input showing developed flat length for a sheet metal bend" loading="lazy" style="width: 100%; border: 1px solid var(--rule); border-radius: var(--rad-lg);">
+      <figcaption style="font-size: 12.5px; color: var(--mute); margin-top: 8px;">The bend allowance calculator computes flat length from thickness, radius, angle and K-factor.</figcaption>
+    </figure>
 
     <h2 id="neutral">Why a folded part isn't the sum of its sides</h2>
     <p>When you bend a sheet, the outside of the bend stretches and the inside compresses. Somewhere between them is a line that neither stretches nor compresses — the <strong>neutral axis</strong>. The true developed (flat) length of the part is the length measured along that neutral axis, not along the outside or the centreline of the material.</p>
@@ -236,5 +240,31 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bend allowance and the K-factor: getting the flat pattern right",
+      "item": "https://metricmech.com/articles/bend-allowance-k-factor"
+    }
+  ]
+}
+</script>
 </body>
 </html>

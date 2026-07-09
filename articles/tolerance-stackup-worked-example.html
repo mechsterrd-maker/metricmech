@@ -127,6 +127,10 @@
     </div>
 
     <p class="lede">A tolerance stack-up tells you whether a stack of toleranced parts will still fit together at the extremes of production. This is a full worked example &mdash; real dimensions, both the worst-case and RSS methods, and the decision of which tolerance to tighten when the gap fails.</p>
+    <figure style="margin: 22px 0;">
+      <img src="../assets/blog/mm-calc-tolerance-stack.jpg" alt="Tolerance stack-up calculator showing worst-case and RSS statistical stack results for an assembly chain" loading="lazy" style="width: 100%; border: 1px solid var(--rule); border-radius: var(--rad-lg);">
+      <figcaption style="font-size: 12.5px; color: var(--mute); margin-top: 8px;">The tolerance stack calculator runs worst-case and RSS methods side by side on the same dimension chain.</figcaption>
+    </figure>
 
     <h2 id="why">Why a stack-up <em>matters</em></h2>
     <p>Every dimension on a drawing carries a tolerance, and tolerances add up across an assembly. A shaft sitting in a housing, a stack of shims, a connector seating in a bore &mdash; each interface depends on the sum of several toleranced features. If you only check individual parts, you can have every component in spec and still end up with assemblies that bind or rattle. A stack-up analysis catches that before you cut metal.</p>
@@ -186,7 +190,7 @@
 
     <div class="callout">
       <strong>Run your own loop</strong>
-      Plug these four dimensions &mdash; or your own &mdash; into the <a href="../calculators/tolerance-stack.html">tolerance stack-up calculator</a> and compare worst-case against RSS in seconds. Pair it with the <a href="../calculators/cp-cpk.html">Cp/Cpk calculator</a> to check the RSS assumption holds.
+      Plug these four dimensions &mdash; or your own &mdash; into the tolerance stack-up calculator and compare worst-case against RSS in seconds. Pair it with the <a href="../calculators/cp-cpk.html">Cp/Cpk calculator</a> to check the RSS assumption holds.
     </div>
 
     <div class="author-card">
@@ -219,5 +223,31 @@
 <div data-mw="footer" data-prefix="../"></div>
 <script src="../site.js"></script>
 <script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Tolerance stack-up: a worked example using worst-case and RSS.",
+      "item": "https://metricmech.com/articles/tolerance-stackup-worked-example"
+    }
+  ]
+}
+</script>
 </body>
 </html>
