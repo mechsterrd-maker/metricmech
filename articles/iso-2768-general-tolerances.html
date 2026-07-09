@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISO 2768 General Tolerances: mK & fH Explained | MetricMech</title>
+<meta name="description" content="ISO 2768-mK decoded: full linear, angular and geometric tolerance tables for classes f, m, c, v and H, K, L — and when general tolerances actually apply." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/iso-2768-general-tolerances">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISO 2768 General Tolerances: mK & fH Explained | MetricMech">
+<meta property="og:description" content="ISO 2768-mK decoded: full linear, angular and geometric tolerance tables for classes f, m, c, v and H, K, L — and when general tolerances actually apply.">
+<meta property="og:url" content="https://metricmech.com/articles/iso-2768-general-tolerances">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 2768 General Tolerances: mK & fH Explained | MetricMech">
+<meta name="twitter:description" content="ISO 2768-mK decoded: full linear, angular and geometric tolerance tables for classes f, m, c, v and H, K, L — and when general tolerances actually apply.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "ISO 2768 General Tolerances: mK & fH Explained | MetricMech",
+  "headline": "ISO 2768 general tolerances: what mK, fH and cL actually mean",
+  "description": "ISO 2768-mK decoded: full linear, angular and geometric tolerance tables for classes f, m, c, v and H, K, L — and when general tolerances actually apply.",
+  "url": "https://metricmech.com/articles/iso-2768-general-tolerances",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-07-09",
+  "mainEntityOfPage": "https://metricmech.com/articles/iso-2768-general-tolerances",
+  "keywords": [
+    "ISO 2768",
+    "ISO 2768-mK",
+    "general tolerances",
+    "ISO 2768 tolerance chart",
+    "linear tolerances",
+    "geometric general tolerances",
+    "ISO 22081"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does ISO 2768-mK mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Medium class (m) general tolerances for linear and angular dimensions per ISO 2768-1, plus class K general geometric tolerances (flatness, perpendicularity, symmetry, run-out) per ISO 2768-2. It is the most common default note on machining drawings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is ISO 2768 still valid?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Part 1 remains current. Part 2 was withdrawn and replaced by ISO 22081:2021, but any drawing that cites 2768-2 still invokes its tables contractually. New designs increasingly reference ISO 22081 instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tolerance applies to a 50 mm dimension under ISO 2768-m?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Plus/minus 0.3 mm — the 30-to-120 mm row of the medium column. Under class f it would be plus/minus 0.15, class c plus/minus 0.8, class v plus/minus 1.5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do general tolerances apply to threads and fits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Threads follow their own designation such as 6H/6g, and mating diameters should carry ISO 286 fit callouts. General tolerances cover only dimensions with nothing else stated."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>ISO 2768 general tolerances</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">What ISO 2768 is</a>
+    <a href="#reading">Reading "ISO 2768-mK"</a>
+    <a href="#linear">Linear tolerance tables</a>
+    <a href="#angular">Angular tolerances</a>
+    <a href="#part2">Part 2 — geometric</a>
+    <a href="#apply">When it applies</a>
+    <a href="#mistakes">Common mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>ISO 2768 general tolerances: what <em>mK, fH and cL</em> actually mean</h1>
+    <div class="art-meta-bar">
+      <span>Tolerancing</span>
+      <span>Jul 9, 2026</span>
+      <span>9 min read</span>
+      <span>1,700 words</span>
+    </div>
+
+    <p class="lede">Nearly every machining drawing in India carries the note "General tolerances per ISO 2768-mK" — and a surprising number of engineers on both sides of the PO have never opened the tables behind it. Here are the full linear, angular and geometric tolerance tables, what the letters mean, and the places this note quietly decides pass or fail.</p>
+
+    <h2 id="what">What ISO 2768 <em>is</em></h2>
+    <p>ISO 2768 defines <strong>general tolerances</strong> — the default limits that apply to every dimension on a drawing that does not carry its own individual tolerance. Instead of writing ±0.2 next to 200 dimensions, the designer writes one title-block note and the standard supplies the limits based on dimension size and the chosen tolerance class.</p>
+    <p>The standard has two parts:</p>
+    <ul>
+      <li><strong>ISO 2768-1</strong> — general tolerances for <strong>linear and angular dimensions</strong>, in four classes: <strong>f</strong> (fine), <strong>m</strong> (medium), <strong>c</strong> (coarse), <strong>v</strong> (very coarse).</li>
+      <li><strong>ISO 2768-2</strong> — general tolerances for <strong>geometrical features</strong> (flatness, straightness, perpendicularity, symmetry, run-out), in three classes: <strong>H</strong>, <strong>K</strong>, <strong>L</strong> (H being the tightest).</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>ISO 2768-2 has been formally replaced</strong>
+      ISO withdrew Part 2 and replaced it with ISO 22081:2021, which requires designers to specify a general surface profile tolerance instead of the old H/K/L tables. In practice, tens of thousands of live drawings still cite 2768-2, and it remains contractually valid wherever the drawing invokes it. Inspect to what the drawing says — but expect new drawings from European OEMs to reference ISO 22081.
+    </div>
+
+    <h2 id="reading">Reading a callout like <em>"ISO 2768-mK"</em></h2>
+    <p>The letters stack in a fixed order: first the linear/angular class from Part 1 (lower-case), then the geometric class from Part 2 (upper-case).</p>
+    <ul>
+      <li><strong>ISO 2768-m</strong> — medium linear/angular tolerances only; no general geometric tolerances invoked.</li>
+      <li><strong>ISO 2768-mK</strong> — medium linear/angular <em>plus</em> class K geometric. The most common note on Indian and German machining drawings.</li>
+      <li><strong>ISO 2768-fH</strong> — fine linear/angular plus the tightest geometric class. Typical for precision-machined and ground parts.</li>
+      <li><strong>ISO 2768-cL</strong> — coarse both ways. Common on weldments and flame-cut fabrication.</li>
+    </ul>
+
+    <h2 id="linear">Linear dimension tables <em>(Part 1)</em></h2>
+    <p>Permissible deviations in mm for untoleranced linear dimensions:</p>
+    <table>
+      <tr><th>Nominal range (mm)</th><th>f (fine)</th><th>m (medium)</th><th>c (coarse)</th><th>v (very coarse)</th></tr>
+      <tr><td>0.5 to 3</td><td>±0.05</td><td>±0.1</td><td>±0.2</td><td>—</td></tr>
+      <tr><td>over 3 to 6</td><td>±0.05</td><td>±0.1</td><td>±0.3</td><td>±0.5</td></tr>
+      <tr><td>over 6 to 30</td><td>±0.1</td><td>±0.2</td><td>±0.5</td><td>±1.0</td></tr>
+      <tr><td>over 30 to 120</td><td>±0.15</td><td>±0.3</td><td>±0.8</td><td>±1.5</td></tr>
+      <tr><td>over 120 to 400</td><td>±0.2</td><td>±0.5</td><td>±1.2</td><td>±2.5</td></tr>
+      <tr><td>over 400 to 1000</td><td>±0.3</td><td>±0.8</td><td>±2.0</td><td>±4.0</td></tr>
+      <tr><td>over 1000 to 2000</td><td>±0.5</td><td>±1.2</td><td>±3.0</td><td>±6.0</td></tr>
+      <tr><td>over 2000 to 4000</td><td>—</td><td>±2.0</td><td>±4.0</td><td>±8.0</td></tr>
+    </table>
+    <p>Note the first row: below 0.5 mm the standard requires an individually stated tolerance — general tolerances do not apply.</p>
+    <p>For <strong>external radii and chamfer heights</strong> (broken edges), the limits are looser:</p>
+    <table>
+      <tr><th>Nominal range (mm)</th><th>f / m</th><th>c / v</th></tr>
+      <tr><td>0.5 to 3</td><td>±0.2</td><td>±0.4</td></tr>
+      <tr><td>over 3 to 6</td><td>±0.5</td><td>±1.0</td></tr>
+      <tr><td>over 6</td><td>±1.0</td><td>±2.0</td></tr>
+    </table>
+
+    <h2 id="angular">Angular <em>tolerances</em></h2>
+    <p>Angular general tolerances are set by the length of the <strong>shorter leg</strong> of the angle, not the angle value:</p>
+    <table>
+      <tr><th>Shorter leg (mm)</th><th>f / m</th><th>c</th><th>v</th></tr>
+      <tr><td>up to 10</td><td>±1°</td><td>±1°30′</td><td>±3°</td></tr>
+      <tr><td>over 10 to 50</td><td>±0°30′</td><td>±1°</td><td>±2°</td></tr>
+      <tr><td>over 50 to 120</td><td>±0°20′</td><td>±0°30′</td><td>±1°</td></tr>
+      <tr><td>over 120 to 400</td><td>±0°10′</td><td>±0°15′</td><td>±0°30′</td></tr>
+      <tr><td>over 400</td><td>±0°5′</td><td>±0°10′</td><td>±0°20′</td></tr>
+    </table>
+
+    <h2 id="part2">Part 2: general <em>geometric</em> tolerances</h2>
+    <p><strong>Straightness and flatness</strong>, by the length of the feature (mm):</p>
+    <table>
+      <tr><th>Feature length (mm)</th><th>H</th><th>K</th><th>L</th></tr>
+      <tr><td>up to 10</td><td>0.02</td><td>0.05</td><td>0.1</td></tr>
+      <tr><td>over 10 to 30</td><td>0.05</td><td>0.1</td><td>0.2</td></tr>
+      <tr><td>over 30 to 100</td><td>0.1</td><td>0.2</td><td>0.4</td></tr>
+      <tr><td>over 100 to 300</td><td>0.2</td><td>0.4</td><td>0.8</td></tr>
+      <tr><td>over 300 to 1000</td><td>0.3</td><td>0.6</td><td>1.2</td></tr>
+      <tr><td>over 1000 to 3000</td><td>0.4</td><td>0.8</td><td>1.6</td></tr>
+    </table>
+    <p><strong>Perpendicularity</strong>, by the length of the shorter side:</p>
+    <table>
+      <tr><th>Shorter side (mm)</th><th>H</th><th>K</th><th>L</th></tr>
+      <tr><td>up to 100</td><td>0.2</td><td>0.4</td><td>0.6</td></tr>
+      <tr><td>over 100 to 300</td><td>0.3</td><td>0.6</td><td>1.0</td></tr>
+      <tr><td>over 300 to 1000</td><td>0.4</td><td>0.8</td><td>1.5</td></tr>
+      <tr><td>over 1000 to 3000</td><td>0.5</td><td>1.0</td><td>2.0</td></tr>
+    </table>
+    <p><strong>Symmetry</strong> ranges from 0.5 (H, all sizes) up to 2 mm (L, over 1000 mm), and <strong>circular run-out</strong> is a flat 0.1 (H), 0.2 (K) or 0.5 (L) regardless of size. Roundness defaults to the diameter tolerance value, and coaxiality is not tabulated — run-out is used as its practical stand-in.</p>
+
+    <h2 id="apply">When general tolerances <em>apply — and when they don't</em></h2>
+    <ul>
+      <li>They apply <strong>only to features without an individual tolerance</strong>. Any dimension with its own ± value or a feature control frame is excluded.</li>
+      <li>They apply to dimensions produced by <strong>metal removal or forming</strong> — separate general-tolerance standards exist for castings (ISO 8062), welding (ISO 13920) and plastics (DIN 16742).</li>
+      <li>Every untoleranced dimension still gets a <strong>balloon and a row in the FAI report</strong>. On a 247-characteristic aerospace drawing, general-tolerance dimensions routinely account for half the rows — see our <a href="first-article-inspection-report.html">first article inspection guide</a>.</li>
+      <li>Per the standard, a workpiece exceeding a general tolerance is only rejectable if <strong>function is impaired</strong> — a clause worth knowing during supplier-customer disputes, though most OEM quality teams enforce the tables literally.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Where general tolerances meet stack-ups</strong>
+      A chain of ±0.3 general-tolerance dimensions accumulates fast: four links of ±0.3 is a worst-case ±1.2 on the closing gap. Run the chain through the <a href="../calculators/tolerance-stack.html">tolerance stack-up calculator</a> (worst-case and RSS) before blaming the machinist — the full method is in the <a href="tolerance-stackup-worked-example.html">worked stack-up example</a>.
+    </div>
+
+    <h2 id="mistakes">Common <em>mistakes</em></h2>
+    <ol>
+      <li><strong>Ignoring the note entirely.</strong> Quoting a job as "open tolerance" when the title block says 2768-fH prices the grinding wrong by an order of magnitude.</li>
+      <li><strong>Applying 2768 to fits.</strong> A ⌀25 bore that must take an h6 shaft needs an ISO 286 fit callout (H7, G7…), not a general tolerance. Size the fit with the <a href="../calculators/iso-286-fits.html">ISO 286 limits and fits calculator</a> and see the <a href="iso-286-fits-tolerances.html">ISO 286 guide</a> for how the two systems divide the work.</li>
+      <li><strong>Assuming mK covers position.</strong> Part 2 has no general position tolerance. Hole-pattern location defaults to the linear ± tables, which is far looser than most assemblies can tolerate.</li>
+      <li><strong>Missing general-tolerance rows in the FAI.</strong> Auditors count characteristics against the drawing — untoleranced dimensions included. This is the single most common gap in first submissions.</li>
+      <li><strong>Mixing units of class letters.</strong> "2768-Km" is not a valid callout; lower-case is always Part 1, upper-case always Part 2.</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Ballooning drawings full of general tolerances</strong>
+      Every untoleranced dimension on the drawing still needs a characteristic number and an inspection row with the correct 2768 limits filled in. <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR — captures every dimension off the PDF, including the ones with no tolerance printed, so you can apply the class limits in one pass instead of reading tables 120 times. Blank inspection sheets are on the <a href="../templates.html">templates page</a>.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>What does ISO 2768-mK mean?</h3>
+    <p>Medium class (m) general tolerances for linear and angular dimensions per ISO 2768-1, plus class K general geometric tolerances (flatness, perpendicularity, symmetry, run-out) per ISO 2768-2. It is the most common default on machining drawings.</p>
+    <h3>Is ISO 2768 still valid?</h3>
+    <p>Part 1 remains current. Part 2 was withdrawn and replaced by ISO 22081:2021, but any drawing that cites 2768-2 still invokes its tables contractually. New designs increasingly reference ISO 22081 instead.</p>
+    <h3>What tolerance applies to a 50 mm dimension under 2768-m?</h3>
+    <p>±0.3 mm — the 30-to-120 mm row of the medium column. Under class f it would be ±0.15, class c ±0.8, class v ±1.5.</p>
+    <h3>Do general tolerances apply to threads and fits?</h3>
+    <p>No. Threads follow their own designation (6H/6g), and mating diameters should carry ISO 286 fit callouts. General tolerances cover only the dimensions with nothing else stated.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/tolerance-stack.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Tolerance Stack-Up Calculator</a>
+      <a href="../calculators/iso-286-fits.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits Calculator</a>
+      <a href="iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances Guide</a>
+      <a href="tolerance-stackup-worked-example.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Tolerance Stack-Up Worked Example</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>

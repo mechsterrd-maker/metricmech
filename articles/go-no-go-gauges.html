@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech</title>
+<meta name="description" content="How go/no-go gauges work: Taylor's principle, sizing a plug gauge for a 25 H7 bore, the 10% gauge tolerance rule, wear allowance and calibration." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/go-no-go-gauges">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech">
+<meta property="og:description" content="How go/no-go gauges work: Taylor's principle, sizing a plug gauge for a 25 H7 bore, the 10% gauge tolerance rule, wear allowance and calibration.">
+<meta property="og:url" content="https://metricmech.com/articles/go-no-go-gauges">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech">
+<meta name="twitter:description" content="How go/no-go gauges work: Taylor's principle, sizing a plug gauge for a 25 H7 bore, the 10% gauge tolerance rule, wear allowance and calibration.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "name": "Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech",
+  "headline": "Go/no-go gauges: how to size them, the 10% rule, and when not to use them",
+  "description": "How go/no-go gauges work: Taylor's principle, sizing a plug gauge for a 25 H7 bore, the 10% gauge tolerance rule, wear allowance and calibration.",
+  "url": "https://metricmech.com/articles/go-no-go-gauges",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, 14 years plant-head experience"
+  },
+  "datePublished": "2026-07-09",
+  "mainEntityOfPage": "https://metricmech.com/articles/go-no-go-gauges",
+  "keywords": [
+    "go no go gauge",
+    "plug gauge",
+    "Taylor's principle",
+    "gauge tolerance 10% rule",
+    "ring gauge",
+    "snap gauge",
+    "thread plug gauge",
+    "wear allowance"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which end of a plug gauge is GO?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The longer end. GO is full-form and engages the whole bore length per Taylor's principle; NO-GO is deliberately short because it checks size at a cross-section. The NO-GO end usually carries a red ring or groove."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the 10% rule for gauge tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The gauge maker's tolerance on each end is set at roughly 10% of the workpiece tolerance, placed inside the work tolerance band so the gauge can reject good parts but never accept bad ones. A 21 micron H7 bore gets about a 2 micron gauge tolerance per end."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use go/no-go gauges for PPAP capability studies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Capability indices such as Cp, Cpk and Ppk need variable data. Use a bore gauge, micrometer, air gauge or CMM for the study, then gauge 100% in production if you wish."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does only the GO end wear out?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The GO end passes through or over every conforming part, so it sees continuous rubbing contact. The NO-GO end should rarely enter anything — if the NO-GO is wearing, the process is producing parts at the wrong end of the tolerance."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Go/no-go gauges</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what">How they work</a>
+    <a href="#taylor">Taylor's principle</a>
+    <a href="#types">Gauge types</a>
+    <a href="#sizing">Sizing a plug gauge</a>
+    <a href="#wear">Wear allowance</a>
+    <a href="#limits">What gauging can't tell you</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Go/no-go gauges: how to size them, the <em>10% rule</em>, and when not to use them</h1>
+    <div class="art-meta-bar">
+      <span>Metrology</span>
+      <span>Jul 9, 2026</span>
+      <span>8 min read</span>
+      <span>1,500 words</span>
+    </div>
+
+    <p class="lede">The fastest inspection instrument on any shop floor has no display, no batteries and no calibration drift mid-shift: a hardened plug with two ends. Here is how go/no-go gauging actually works — Taylor's principle, how gauge limits are calculated from the work tolerance, why the GO end wears out first, and the one thing attribute gauging can never tell you.</p>
+
+    <h2 id="what">How go/no-go gauging <em>works</em></h2>
+    <p>A go/no-go gauge converts a measurement into a decision. Instead of reading a value, the operator applies two fixed-limit ends:</p>
+    <ul>
+      <li>The <strong>GO end</strong> is made to the <strong>maximum material limit</strong> of the feature. It must enter (hole) or pass over (shaft) every conforming part.</li>
+      <li>The <strong>NO-GO end</strong> is made to the <strong>least material limit</strong>. It must <em>not</em> enter or pass. If it does, the feature is oversize (hole) or undersize (shaft).</li>
+    </ul>
+    <p>GO enters, NO-GO doesn't: accept. Anything else: reject. A trained operator checks a bore in 3–4 seconds, against 15–20 seconds with a bore gauge and no transcription errors. That is why high-volume machining lines still gauge 100% of critical bores decades after CMMs arrived.</p>
+
+    <h2 id="taylor">Taylor's principle: why GO is <em>full-form</em></h2>
+    <p>William Taylor's 1905 rule still governs gauge design:</p>
+    <ul>
+      <li>The <strong>GO gauge checks size and form together</strong> — it should be a full-form gauge engaging the whole feature at once (a cylindrical plug the full length of the bore). A bore can be at perfect diameter at every cross-section and still trap a bent axis; a full-form GO plug catches it.</li>
+      <li>The <strong>NO-GO gauge checks size only</strong>, ideally at individual cross-sections — which is why NO-GO ends are often shorter, or ball-ended, or a flat-anvil snap gauge. A lobed bore might rotate past a full-form NO-GO cylinder even when local diameters are out.</li>
+    </ul>
+    <p>This is the same logic behind the envelope requirement in ISO 14405 and Rule #1 in ASME Y14.5: maximum material condition demands perfect form.</p>
+
+    <h2 id="types">Gauge <em>types</em></h2>
+    <table>
+      <tr><th>Gauge</th><th>Feature checked</th><th>Typical form</th></tr>
+      <tr><td>Plain plug gauge</td><td>Bores, holes</td><td>Double-ended: long GO, short NO-GO</td></tr>
+      <tr><td>Ring gauge</td><td>Shafts, ODs</td><td>Separate GO and NO-GO rings (full form GO)</td></tr>
+      <tr><td>Snap gauge</td><td>Shafts, widths</td><td>Fixed C-frame with stepped GO/NO-GO anvils</td></tr>
+      <tr><td>Thread plug gauge</td><td>Internal threads (e.g. M10×1.5-6H)</td><td>GO full thread profile; NO-GO truncated form checking pitch diameter only</td></tr>
+      <tr><td>Thread ring gauge</td><td>External threads (6g)</td><td>Separate GO / NO-GO rings</td></tr>
+      <tr><td>Taper &amp; position gauges</td><td>Tapers, hole patterns</td><td>Application-specific fixed-limit gauges</td></tr>
+    </table>
+    <p>For thread gauges, remember the GO end verifies the <em>whole</em> thread — flank angle, lead and pitch diameter acting together — while the NO-GO checks only that the pitch diameter has not gone over the limit. Thread designations and pitch data are in the <a href="../calculators/thread-pitch.html">thread pitch calculator</a> and the <a href="thread-pitch-reference.html">thread pitch reference</a>.</p>
+
+    <h2 id="sizing">Sizing a plug gauge: <em>a ⌀25 H7 worked example</em></h2>
+    <p>A ⌀25 H7 bore has limits 25.000 / 25.021 (tolerance 21 µm — check any fit with the <a href="../calculators/iso-286-fits.html">ISO 286 fits calculator</a>). The gauge maker cannot make gauges to zero tolerance either, so gauge standards (IS 3455 / ISO 1938 practice) allocate a <strong>gauge tolerance of roughly 10% of the work tolerance</strong>, here about 2 µm per end.</p>
+    <table>
+      <tr><th>End</th><th>Nominal</th><th>Gauge tolerance direction</th><th>Result</th></tr>
+      <tr><td>GO</td><td>25.000</td><td>Into the work tolerance (plus), + wear allowance</td><td>≈ 25.002 +0.002/0</td></tr>
+      <tr><td>NO-GO</td><td>25.021</td><td>Into the work tolerance (minus)</td><td>≈ 25.021 0/−0.002</td></tr>
+    </table>
+    <p>Both gauge tolerances point <em>into</em> the work tolerance band. The consequence is deliberate: the gauge can only reject a borderline-good part, never accept a bad one. You give up a sliver of your manufacturing tolerance (2–4% here) to guarantee that anything the gauge passes is truly in specification.</p>
+
+    <h2 id="wear">Wear allowance and <em>calibration</em></h2>
+    <p>The GO end rubs the full feature surface on every single part, so it wears toward accepting bad parts — a worn GO plug shrinks and starts entering undersize bores; a worn GO ring grows and starts passing oversize shafts. To buy life, a <strong>wear allowance</strong> (typically another ~5% of work tolerance, applied only when work tolerance is generous) is added on the GO end beyond the maximum material limit direction.</p>
+    <ul>
+      <li><strong>Calibrate on a schedule driven by usage</strong>, not the calendar alone — a GO plug gauging 2,000 parts per shift needs checking monthly; a drawer gauge can run annually.</li>
+      <li><strong>Reject criterion:</strong> the GO end is scrapped when wear consumes the wear allowance; the NO-GO end almost never wears because it should rarely touch the work.</li>
+      <li><strong>Chrome-plated or carbide gauges</strong> extend GO life 5–10× in abrasive materials like cast iron — worth it above roughly 500 checks per day.</li>
+    </ul>
+
+    <h2 id="limits">What attribute gauging <em>can't tell you</em></h2>
+    <p>A go/no-go decision contains no number. That has three hard consequences:</p>
+    <ol>
+      <li><strong>No process capability.</strong> You cannot compute Cp/Cpk from pass/fail data in any useful sample size — capability studies for PPAP need variable measurements. If the customer requires Cpk ≥ 1.33 on that bore, you need a bore gauge, air gauge or CMM for the study, even if production gauging is attribute.</li>
+      <li><strong>No drift warning.</strong> The gauge tells you the process failed only after it has failed. SPC on measured values warns you while parts are still good.</li>
+      <li><strong>Attribute agreement matters.</strong> Gauge R&amp;R for attribute gauges exists (kappa studies) — two operators disagreeing on borderline parts is a real, measurable problem. The variable-gauge version is covered in our <a href="gauge-rr-explained.html">Gauge R&amp;R guide</a>.</li>
+    </ol>
+    <p>The practical split most plants land on: <strong>variable measurement for setup approval, first-off and capability; attribute gauging for 100% in-process checks</strong>.</p>
+
+    <div class="callout">
+      <strong>Gauging still needs a paper trail</strong>
+      On an FAI or PPAP submission, every gauged characteristic needs its balloon number, the gauge ID and a recorded result — "GO/NO-GO pass" with the gauge's calibration reference. <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> — Smart Detect plus Box+Balloon OCR — pulls every dimension off the PDF drawing into an inspection sheet where the method column ("Plug gauge PG-042") sits next to the requirement. Blank inspection formats are on the <a href="../templates.html">templates page</a>.
+    </div>
+
+    <h2 id="faq">Frequently asked <em>questions</em></h2>
+    <h3>Which end of a plug gauge is GO?</h3>
+    <p>The longer end. GO is full-form and engages the whole bore length per Taylor's principle; NO-GO is deliberately short because it checks size at a cross-section. On double-ended gauges the NO-GO end also usually carries a red ring or groove.</p>
+    <h3>What is the 10% rule for gauge tolerance?</h3>
+    <p>The gauge maker's tolerance on each end is set at roughly 10% of the workpiece tolerance, placed inside the work tolerance band so the gauge can reject good parts but never accept bad ones. A 21 µm H7 bore gets about a 2 µm gauge tolerance per end.</p>
+    <h3>Can I use go/no-go gauges for PPAP capability studies?</h3>
+    <p>No. Capability indices (Cp, Cpk, Ppk) need variable data. Use a bore gauge, micrometer, air gauge or CMM for the study, then gauge 100% in production if you wish.</p>
+    <h3>Why does only the GO end wear out?</h3>
+    <p>The GO end passes through or over every conforming part, so it sees continuous rubbing contact. The NO-GO end should rarely enter anything — if your NO-GO is wearing, your process is producing parts at the wrong end of the tolerance.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/iso-286-fits.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 Fits Calculator</a>
+      <a href="../calculators/thread-pitch.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Thread Pitch Calculator</a>
+      <a href="gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&amp;R Explained</a>
+      <a href="iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">ISO 286 Fits &amp; Tolerances Guide</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+</body>
+</html>
