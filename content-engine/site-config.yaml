@@ -1,0 +1,18 @@
+site: metricmech
+base_url: https://metricmech.com
+post_dir: "articles"
+post_prefix: ""
+post_url_pattern: "{base}/articles/{slug}"
+hub_file: articles.html
+hub_secondary: null
+chrome_template: articles/cmm-measurement-uncertainty.html
+sitemap_script: scripts/build_sitemap.py
+weekly_cap: 3
+daily_cap: 1
+publish_days: [Tue, Thu, Sat]
+byline: "By Rajadurai R"
+feature_truth: null
+internal_links:
+  - "../templates.html"
+cta: null
+cross_link: "https://cadnexa.com/balloon"

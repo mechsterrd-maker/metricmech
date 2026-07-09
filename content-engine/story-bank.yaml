@@ -1,0 +1,21 @@
+# STORY BANK — real first-person incidents from the founder ONLY.
+#
+# HOW TO ADD STORIES (for Rajadurai):
+#   Paste a voice-note transcript or rough notes below under `inbox:` — any format, any language.
+#   On the next run, Claude will format it into a proper entry with topic tags.
+#   A generator may use a story ONLY from `stories:` (never invents one). Each story is used once
+#   per site (tracked by `used_in`).
+#
+# Entry format:
+#   - id: unique-slug
+#     tags: [fai, ballooning, cmm, supplier, rejection, audit, ...]
+#     story: >
+#       3-6 sentences, first person, specific: part, customer type, numbers, what went wrong, what fixed it.
+#     used_in: []          # filled automatically when a post uses it
+#
+# RULE (non-negotiable): if no matching story exists for a topic, the post is written as an
+# expert explainer with ZERO fabricated personal anecdotes. No invented "I once saw..." stories, ever.
+
+inbox: []
+
+stories: []

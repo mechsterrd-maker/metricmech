@@ -1,0 +1,484 @@
+# KEYWORD QUEUE — the autopilot pops the first entry with status: queued.
+# Add new entries at the bottom. Set status: blocked to skip one; the reason goes in note.
+# template types: tutorial | explainer | comparison | checklist | reference
+queue:
+  - keyword: "thread engagement length calculation"
+    intent: informational
+    audience: design
+    secondary: ["minimum thread engagement", "engagement length steel aluminium", "thread strip strength"]
+    word_count: 2100
+    template: tutorial
+    screenshots: ["calculators/thread-pitch"]
+    status: queued
+  - keyword: "bolt shear strength calculation"
+    intent: informational
+    audience: design
+    secondary: ["single shear double shear", "bolt shear capacity 8.8", "shear vs tensile bolt"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/bolt-torque"]
+    status: queued
+  - keyword: "bolt tightening sequence flange"
+    intent: informational
+    audience: production
+    secondary: ["star pattern torque sequence", "flange bolt pattern", "multi pass tightening"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/bolt-torque"]
+    status: queued
+  - keyword: "bearing life L10 calculation"
+    intent: informational
+    audience: design
+    secondary: ["L10 rating life formula", "dynamic load rating", "bearing life hours"]
+    word_count: 2100
+    template: tutorial
+    screenshots: ["calculators/motor-hp"]
+    status: queued
+  - keyword: "shaft diameter calculation torsion"
+    intent: informational
+    audience: design
+    secondary: ["shaft sizing formula", "torsional shear stress shaft", "shaft diameter torque"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/motor-torque"]
+    status: queued
+  - keyword: "keyway dimensions standard chart"
+    intent: informational
+    audience: design
+    secondary: ["parallel key sizes", "DIN 6885 key chart", "keyway depth shaft hub"]
+    word_count: 1800
+    template: reference
+    screenshots: ["calculators/gear-calculator"]
+    status: queued
+  - keyword: "press brake tonnage calculation"
+    intent: informational
+    audience: production
+    secondary: ["bending force formula", "press brake force chart", "air bend tonnage"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/bend-allowance"]
+    status: queued
+  - keyword: "deep drawing force calculation"
+    intent: informational
+    audience: production
+    secondary: ["draw force formula", "blank holder force", "drawing ratio limits"]
+    word_count: 1900
+    template: tutorial
+    screenshots: ["calculators/bend-allowance"]
+    status: queued
+  - keyword: "punching force calculation sheet metal"
+    intent: informational
+    audience: production
+    secondary: ["blanking force formula", "punch shear force", "stripping force"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/bend-allowance"]
+    status: queued
+  - keyword: "clamping force calculation machining"
+    intent: informational
+    audience: production
+    secondary: ["fixture clamp force", "cutting force reaction", "vice clamping pressure"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/speeds-feeds"]
+    status: queued
+  - keyword: "hydraulic cylinder force calculation"
+    intent: informational
+    audience: design
+    secondary: ["cylinder push pull force", "bore pressure force", "rod side annulus"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/pump-power"]
+    status: queued
+  - keyword: "pneumatic cylinder sizing"
+    intent: informational
+    audience: design
+    secondary: ["air cylinder force", "bore selection pneumatic", "air consumption calculation"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/pump-power"]
+    status: queued
+  - keyword: "belt tension calculation v belt"
+    intent: informational
+    audience: production
+    secondary: ["belt tensioning method", "deflection force test", "v belt tension chart"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/v-belt"]
+    status: queued
+  - keyword: "chain drive selection calculation"
+    intent: informational
+    audience: design
+    secondary: ["roller chain sizing", "sprocket teeth selection", "chain pitch selection"]
+    word_count: 1900
+    template: tutorial
+    screenshots: ["calculators/gear-calculator"]
+    status: queued
+  - keyword: "gearbox service factor selection"
+    intent: informational
+    audience: design
+    secondary: ["service factor chart", "AGMA service factor", "gearbox sizing"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/gear-calculator"]
+    status: queued
+  - keyword: "motor starting torque vs full load"
+    intent: informational
+    audience: production
+    secondary: ["locked rotor torque", "starting current DOL", "breakaway torque"]
+    word_count: 1700
+    template: explainer
+    screenshots: ["calculators/motor-hp"]
+    status: queued
+  - keyword: "VFD sizing for motors"
+    intent: informational
+    audience: production
+    secondary: ["drive sizing kW", "VFD overload rating", "constant torque variable torque"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/motor-hp"]
+    status: queued
+  - keyword: "NPSH calculation for pumps"
+    intent: informational
+    audience: design
+    secondary: ["NPSHa formula", "cavitation check", "suction lift limits"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/pump-power"]
+    status: queued
+  - keyword: "pipe pressure drop calculation"
+    intent: informational
+    audience: design
+    secondary: ["friction loss formula", "Darcy Weisbach simplified", "pressure drop chart water"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/pump-power"]
+    status: queued
+  - keyword: "welding heat input limits by material"
+    intent: informational
+    audience: production
+    secondary: ["max heat input stainless", "carbon steel heat input", "interpass temperature"]
+    word_count: 1800
+    template: explainer
+    screenshots: ["calculators/welding-heat-input"]
+    status: queued
+  - keyword: "fillet weld strength calculation"
+    intent: informational
+    audience: design
+    secondary: ["weld throat stress", "fillet size selection", "weld strength formula"]
+    word_count: 2000
+    template: tutorial
+    screenshots: ["calculators/welding-heat-input"]
+    status: queued
+  - keyword: "welding electrode selection guide"
+    intent: informational
+    audience: production
+    secondary: ["E7018 vs E6013", "electrode for mild steel", "low hydrogen electrodes"]
+    word_count: 1800
+    template: explainer
+    screenshots: ["calculators/welding-heat-input"]
+    status: queued
+  - keyword: "CNC cycle time estimation"
+    intent: informational
+    audience: production
+    secondary: ["machining time formula", "cycle time per operation", "cutting time calculation"]
+    word_count: 1900
+    template: tutorial
+    screenshots: ["calculators/cycle-time"]
+    status: queued
+  - keyword: "machine hour rate calculation"
+    intent: informational
+    audience: plant-head
+    secondary: ["MHR formula India", "machine costing per hour", "overhead recovery rate"]
+    word_count: 1900
+    template: tutorial
+    screenshots: ["calculators/cycle-time"]
+    status: queued
+  - keyword: "batch size optimization"
+    intent: informational
+    audience: production
+    secondary: ["optimal lot size", "setup cost vs holding", "EBQ formula"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/eoq"]
+    status: queued
+  - keyword: "safety stock calculation"
+    intent: informational
+    audience: procurement
+    secondary: ["safety stock formula", "service level z score", "demand variability stock"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/eoq"]
+    status: queued
+  - keyword: "ABC analysis inventory"
+    intent: informational
+    audience: procurement
+    secondary: ["ABC classification steps", "pareto inventory", "ABC XYZ analysis"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/eoq"]
+    status: queued
+  - keyword: "manpower calculation assembly line"
+    intent: informational
+    audience: production
+    secondary: ["operators required formula", "manpower from takt", "line manning"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/takt-time"]
+    status: queued
+  - keyword: "line efficiency vs OEE"
+    intent: informational
+    audience: production
+    secondary: ["difference line efficiency OEE", "labour efficiency formula"]
+    word_count: 1500
+    template: explainer
+    screenshots: ["calculators/oee"]
+    status: queued
+  - keyword: "TEEP vs OEE difference"
+    intent: informational
+    audience: plant-head
+    secondary: ["TEEP formula", "utilization vs OEE", "hidden capacity"]
+    word_count: 1500
+    template: explainer
+    screenshots: ["calculators/oee"]
+    status: queued
+  - keyword: "downtime pareto analysis"
+    intent: informational
+    audience: production
+    secondary: ["downtime categories", "top losses analysis", "pareto chart downtime"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/oee"]
+    status: queued
+  - keyword: "MTBF and MTTR calculation"
+    intent: informational
+    audience: plant-head
+    secondary: ["MTBF formula example", "MTTR meaning", "availability from MTBF MTTR"]
+    word_count: 1800
+    template: tutorial
+    screenshots: ["calculators/oee"]
+    status: queued
+  - keyword: "sigma level from defect rate"
+    intent: informational
+    audience: quality
+    secondary: ["convert defect % to sigma", "sigma level shortcut", "1.5 sigma shift"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/dpmo-sigma"]
+    status: queued
+  - keyword: "Cpk sample size requirements"
+    intent: informational
+    audience: quality
+    secondary: ["minimum samples capability", "Cpk confidence interval", "30 pieces capability"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/cp-cpk"]
+    status: queued
+  - keyword: "pre-control charts explained"
+    intent: informational
+    audience: quality
+    secondary: ["pre control vs SPC", "rainbow chart rules", "pre control zones"]
+    word_count: 1500
+    template: explainer
+    screenshots: ["calculators/cp-cpk"]
+    status: queued
+  - keyword: "attribute vs variable data quality"
+    intent: informational
+    audience: quality
+    secondary: ["data types SPC", "go nogo vs measurement", "attribute data analysis"]
+    word_count: 1500
+    template: explainer
+    screenshots: ["calculators/cp-cpk"]
+    status: queued
+  - keyword: "p chart np chart c chart selection"
+    intent: informational
+    audience: quality
+    secondary: ["attribute chart selection", "defectives vs defects charts", "control chart chooser"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/cp-cpk"]
+    status: queued
+  - keyword: "c=0 sampling plans explained"
+    intent: informational
+    audience: quality
+    secondary: ["zero acceptance number", "c0 vs AQL plans", "Squeglia tables"]
+    word_count: 1700
+    template: explainer
+    screenshots: ["calculators/aql-sampling"]
+    status: queued
+  - keyword: "AQL switching rules normal tightened"
+    intent: informational
+    audience: quality
+    secondary: ["tightened inspection trigger", "reduced inspection rules", "ISO 2859 switching"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/aql-sampling"]
+    status: queued
+  - keyword: "gauge R&R acceptance criteria"
+    intent: informational
+    audience: quality
+    secondary: ["10 percent GRR rule", "ndc minimum 5", "%GRR marginal"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/gauge-rr"]
+    status: queued
+  - keyword: "attribute agreement analysis"
+    intent: informational
+    audience: quality
+    secondary: ["kappa statistic inspection", "visual inspection MSA", "go nogo gauge study"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/gauge-rr"]
+    status: queued
+  - keyword: "calibration interval determination"
+    intent: informational
+    audience: quality
+    secondary: ["how often calibrate instruments", "calibration frequency rationale", "interval extension"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/gauge-rr"]
+    status: queued
+  - keyword: "torque wrench calibration guide"
+    intent: informational
+    audience: quality
+    secondary: ["torque wrench accuracy class", "ISO 6789 calibration", "click wrench verification"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/bolt-torque"]
+    status: queued
+  - keyword: "runout measurement setup"
+    intent: informational
+    audience: quality
+    secondary: ["measuring runout dial indicator", "V block runout", "between centers runout"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/position-tolerance"]
+    status: queued
+  - keyword: "flatness measurement methods"
+    intent: informational
+    audience: quality
+    secondary: ["surface plate flatness", "height gauge flatness", "three point method"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/position-tolerance"]
+    status: queued
+  - keyword: "datum targets explained"
+    intent: informational
+    audience: design
+    secondary: ["datum target points lines areas", "casting datum targets", "datum target symbols"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/position-tolerance"]
+    status: queued
+  - keyword: "profile tolerance CMM inspection"
+    intent: informational
+    audience: quality
+    secondary: ["measuring profile of surface", "CMM profile evaluation", "profile deviation report"]
+    word_count: 1700
+    template: tutorial
+    screenshots: ["calculators/position-tolerance"]
+    status: queued
+  - keyword: "EN 10204 material certificates 3.1 vs 3.2"
+    intent: informational
+    audience: procurement
+    secondary: ["mill test certificate types", "2.1 2.2 3.1 3.2 certs", "third party witness cert"]
+    word_count: 1700
+    template: explainer
+    screenshots: ["calculators/material-weight"]
+    status: queued
+  - keyword: "steel grade equivalents IS EN ASTM"
+    intent: informational
+    audience: design
+    secondary: ["IS 2062 equivalent ASTM", "EN8 EN19 equivalents", "grade cross reference"]
+    word_count: 1900
+    template: reference
+    screenshots: ["calculators/material-weight"]
+    status: queued
+  - keyword: "aluminium 5052 vs 6061"
+    intent: informational
+    audience: design
+    secondary: ["5052 vs 6061 bending", "sheet aluminium selection", "marine grade aluminium"]
+    word_count: 1700
+    template: comparison
+    screenshots: ["calculators/material-weight"]
+    status: queued
+  - keyword: "stainless 304 vs 316 selection"
+    intent: informational
+    audience: design
+    secondary: ["304 vs 316 corrosion", "molybdenum 316 benefit", "cost difference 304 316"]
+    word_count: 1700
+    template: comparison
+    screenshots: ["calculators/material-weight"]
+    status: queued
+  - keyword: "EN8 vs EN19 vs EN24 steel"
+    intent: informational
+    audience: design
+    secondary: ["EN8 applications", "EN19 vs EN24 hardness", "medium carbon alloy steels India"]
+    word_count: 1800
+    template: comparison
+    screenshots: ["calculators/material-weight"]
+    status: queued
+  - keyword: "hardness testing method selection"
+    intent: informational
+    audience: quality
+    secondary: ["Rockwell vs Brinell vs Vickers when", "thin part hardness", "case hardness testing"]
+    word_count: 1800
+    template: explainer
+    screenshots: ["calculators/hardness-conversion"]
+    status: queued
+  - keyword: "case depth measurement methods"
+    intent: informational
+    audience: quality
+    secondary: ["effective case depth", "microhardness traverse", "case depth spec"]
+    word_count: 1600
+    template: tutorial
+    screenshots: ["calculators/hardness-conversion"]
+    status: queued
+  - keyword: "quench and temper heat treatment basics"
+    intent: informational
+    audience: production
+    secondary: ["hardening tempering steps", "tempering temperature chart", "quench media selection"]
+    word_count: 1900
+    template: explainer
+    screenshots: ["calculators/hardness-conversion"]
+    status: queued
+  - keyword: "induction vs case hardening"
+    intent: informational
+    audience: design
+    secondary: ["induction hardening depth", "carburizing vs induction", "surface hardening selection"]
+    word_count: 1700
+    template: comparison
+    screenshots: ["calculators/hardness-conversion"]
+    status: queued
+  - keyword: "shot peening basics"
+    intent: informational
+    audience: design
+    secondary: ["compressive residual stress", "almen intensity", "peening coverage"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/surface-finish"]
+    status: queued
+  - keyword: "anodising thickness classes"
+    intent: informational
+    audience: design
+    secondary: ["hard anodize vs type II", "anodize thickness measurement", "anodizing callouts"]
+    word_count: 1600
+    template: explainer
+    screenshots: ["calculators/surface-finish"]
+    status: queued
+  - keyword: "zinc plating vs hot dip galvanizing"
+    intent: informational
+    audience: procurement
+    secondary: ["electroplating vs galvanizing", "zinc coating thickness", "corrosion protection comparison"]
+    word_count: 1700
+    template: comparison
+    screenshots: ["calculators/surface-finish"]
+    status: queued
+  - keyword: "powder coating thickness measurement"
+    intent: informational
+    audience: quality
+    secondary: ["DFT measurement", "coating thickness gauge", "powder coat spec microns"]
+    word_count: 1500
+    template: tutorial
+    screenshots: ["calculators/surface-finish"]
+    status: queued
