@@ -1,0 +1,85 @@
+# Blog autopilot — publishes at most ONE post per run, ≤3/week (hard-capped in run_pipeline.py too).
+# Schedule: ~06:00 IST (30 0 * * 2,4,6 UTC). Manual run: Actions tab -> Blog Autopilot -> Run workflow.
+name: Blog Autopilot
+
+on:
+  schedule:
+    - cron: '30 0 * * 2,4,6'
+  workflow_dispatch: {}
+
+concurrency:
+  group: blog-autopilot
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Generate, QA-gate and register post
+        id: gen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python3 content-engine/scripts/run_pipeline.py | tee /tmp/pipeline.log
+          if [ -f /tmp/autopilot_result.json ]; then echo "published=true" >> $GITHUB_OUTPUT; fi
+
+      - name: Commit and push
+        if: steps.gen.outputs.published == 'true'
+        run: |
+          git config user.name "Rajadurai R"
+          git config user.email "mechsterrd@gmail.com"   # must match the Vercel account owner or Hobby-plan deploys are blocked
+          git add -A
+          git commit -m "Autopilot: $(python3 -c "import json;print(json.load(open('/tmp/autopilot_result.json'))['title'])")"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Wait for Vercel deploy, then smoke test
+        if: steps.gen.outputs.published == 'true'
+        run: |
+          URL=$(python3 -c "import json;print(json.load(open('/tmp/autopilot_result.json'))['url'])")
+          sleep 90
+          for i in 1 2 3; do
+            CODE=$(curl -s -o /tmp/live.html -w '%{http_code}' "$URL") && [ "$CODE" = "200" ] && break
+            sleep 60
+          done
+          [ "$CODE" = "200" ] || { echo "smoke test failed: $CODE $URL"; exit 1; }
+          grep -q 'application/ld+json' /tmp/live.html || { echo "schema missing on live page"; exit 1; }
+          curl -s https://metricmech.com/sitemap.xml | grep -qF "$URL" || { echo "URL missing from live sitemap"; exit 1; }
+          echo "smoke test OK: $URL"
+
+      - name: IndexNow + GSC
+        if: steps.gen.outputs.published == 'true'
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          URL=$(python3 -c "import json;print(json.load(open('/tmp/autopilot_result.json'))['url'])")
+          python3 scripts/indexnow_submit.py "$URL" "https://metricmech.com/sitemap.xml"
+          npm i --no-save googleapis > /dev/null 2>&1 && node scripts/gsc-submit-sitemap.js || true
+
+      - name: Notify founder (success)
+        if: success() && steps.gen.outputs.published == 'true'
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          R=$(cat /tmp/autopilot_result.json)
+          python3 content-engine/scripts/notify.py success "Published: $(echo $R | python3 -c 'import json,sys;print(json.load(sys.stdin)["title"])')" "$(cat /tmp/pipeline.log)"
+
+      - name: Notify founder (failure or skip)
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: python3 content-engine/scripts/notify.py failure "Blog autopilot run failed (metricmech)" "$(cat /tmp/pipeline.log 2>/dev/null || echo 'no log')"
