@@ -62,7 +62,7 @@ plant head with 14 years of experience. Follow the template exactly. ABSOLUTE RU
 - No fabricated personal anecdotes. {'Use the provided real story naturally.' if story else 'NO first-person stories at all in this post — write as an expert explainer.'}
 - Product claims only from the feature-truth file (status: live). No invented statistics or testimonials.
 - Never hyperlink competitors; naming them is fine.
-- Return ONLY valid JSON, no markdown fences."""
+- Return EXACTLY the ===META=== / ===BODY=== / ===END=== sections specified, no markdown fences."""
 
 NL = chr(10)
 truth_block = ('FEATURE TRUTH FILE:' + NL + truth) if truth else ''
@@ -76,19 +76,46 @@ TEMPLATE:\n{template}\n
 {story_block}
 EXISTING POSTS (link 2-3 relevant ones; NEVER reuse these topics):\n{existing_titles}
 
-Return JSON with keys:
-  slug (3-5 hyphenated words), title (40-65 chars incl ' | {'CadNexa' if CFG['site']=='cadnexa' else 'MetricMech'}'),
-  meta_description (120-156 chars), tag (2-3 word category), read_minutes (int),
-  h1, body_html (the full article inner HTML: h2/h3/p/table/ul/ol, internal links per template,
-  FAQ section with h3 questions; for cadnexa use classes highlight/cta-box; for metricmech use
-  classes lede/callout/warn-box and id anchors on h2 for the TOC),
-  toc (list of [anchor, label] for metricmech; empty for cadnexa),
-  faq (list of {{q, a}} for FAQPage schema), card_blurb (1-2 sentence hub-card description)"""
+Return your answer in EXACTLY this format (three sentinel lines, no markdown fences):
+===META===
+{{a JSON object with keys: slug (3-5 hyphenated words), title (40-65 chars incl ' | {'CadNexa' if CFG['site']=='cadnexa' else 'MetricMech'}'),
+  meta_description (120-156 chars), tag (2-3 word category), read_minutes (int), h1,
+  toc (list of [anchor, label] pairs for metricmech; empty list for cadnexa),
+  faq (list of objects with keys q and a, for FAQPage schema), card_blurb (1-2 sentence hub-card description)}}
+===BODY===
+the full article inner HTML (NOT inside JSON): h2/h3/p/table/ul/ol, internal links per template,
+FAQ section with h3 questions; for cadnexa use classes highlight/cta-box; for metricmech use
+classes lede/callout/warn-box and id anchors on h2 for the TOC
+===END==="""
 
 def extract_json(s):
     s = s.strip()
     if s.startswith('```'): s = re.sub(r'^```\w*\n|\n```$', '', s)
     return json.loads(s[s.index('{'):s.rindex('}')+1])
+
+def parse_generation(raw):
+    """Preferred: sentinel format — body HTML travels OUTSIDE the JSON so one bad escape
+    cannot kill the run. Falls back to the legacy single-JSON format."""
+    m = re.search(r'===META===\s*(.*?)\s*===BODY===\s*(.*?)\s*(?:===END===|\Z)', raw, re.S)
+    if m:
+        meta = m.group(1)
+        g = json.loads(meta[meta.index('{'):meta.rindex('}')+1])
+        g['body_html'] = m.group(2).strip()
+        if not g['body_html']: raise ValueError('empty body_html')
+        return g
+    return extract_json(raw)
+
+def generate(user_prompt):
+    """Call the generator; retry up to 3x if the output cannot be parsed."""
+    last = None
+    for i in range(3):
+        raw = call_claude(GEN_SYSTEM, user_prompt)
+        try:
+            return raw, parse_generation(raw)
+        except Exception as e:
+            print(f'unparseable generator output (attempt {i+1}/3): {e}')
+            last = e
+    die(f'generation failed: unparseable output after 3 attempts: {last}', 1)
 
 # ---------- 4. Build HTML on the site chrome ----------
 def build_html(g):
@@ -170,10 +197,9 @@ reference or technical fact is wrong; the intro does not answer the primary keyw
 any first-person anecdote appears that is not in the provided story bank; pricing differs from feature-truth;
 it reads like marketing copy instead of a senior engineer; a competitor is hyperlinked."""
 
-attempt, g, out_file, url = 0, None, None, None
-raw = call_claude(GEN_SYSTEM, GEN_USER)
+attempt, out_file, url = 0, None, None
+raw, g = generate(GEN_USER)
 while attempt <= 2:
-    g = extract_json(raw)
     out_file, url = build_html(g)
     lint = subprocess.run([sys.executable, f'{CE}/scripts/lint_post.py', out_file, KW, str(entry['word_count'])],
                           capture_output=True, text=True)
@@ -192,7 +218,7 @@ while attempt <= 2:
         entry['status'] = 'blocked'; entry['note'] = f'QA failed {TODAY}: ' + problems[:400]
         yaml.safe_dump(q, open(f'{CE}/keyword-queue.yaml', 'w'), sort_keys=False, allow_unicode=True)
         die(f'DO NOT PUBLISH: "{KW}" failed QA after 2 repair loops. Entry blocked, founder will be notified.', 3)
-    raw = call_claude(GEN_SYSTEM, GEN_USER + f"\n\nYOUR PREVIOUS DRAFT FAILED QA. Fix ALL of these and return the full corrected JSON:\n{problems}\n\nPREVIOUS DRAFT:\n{raw}")
+    raw, g = generate(GEN_USER + f"\n\nYOUR PREVIOUS DRAFT FAILED QA. Fix ALL of these and return the full corrected output in the same ===META===/===BODY===/===END=== format:\n{problems}\n\nPREVIOUS DRAFT:\n{raw}")
 
 if DRY: die(f'DRY RUN OK — built {out_file}, not registering.')
 
