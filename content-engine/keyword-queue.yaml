@@ -10,8 +10,7 @@ queue:
   template: tutorial
   screenshots:
   - calculators/thread-pitch
-  status: blocked
-  note: "QA failed 2026-07-14: LINT FAIL:\n  - title length 66 (need 40-65)"
+  status: queued
 - keyword: bolt shear strength calculation
   intent: informational
   audience: design

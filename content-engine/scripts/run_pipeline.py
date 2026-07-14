@@ -105,13 +105,33 @@ def parse_generation(raw):
         return g
     return extract_json(raw)
 
+def enforce_meta(g):
+    """Deterministically fix title/meta length near-misses so repair loops are not wasted on them."""
+    brand = 'CadNexa' if CFG['site'] == 'cadnexa' else 'MetricMech'
+    for _ in range(3):
+        t = g.get('title', '')
+        if 40 <= len(t) <= 65 and KW.lower() in t.lower(): break
+        g['title'] = call_claude(
+            'You fix SEO title tags. Return ONLY the corrected title text, no quotes, no explanation.',
+            f'Rewrite this title tag: "{t}"\nHARD RULES: total length 45-63 characters INCLUDING the ending '
+            f'" | {brand}"; must contain the exact phrase "{KW}" (title-case is fine); must end with " | {brand}".',
+            200).strip().strip('"')
+    for _ in range(3):
+        d = g.get('meta_description', '')
+        if 120 <= len(d) <= 156: break
+        g['meta_description'] = call_claude(
+            'You fix SEO meta descriptions. Return ONLY the corrected description text, no quotes, no explanation.',
+            f'Rewrite this meta description to 125-150 characters (hard limits). Keep the phrase "{KW}" and the meaning:\n{d}',
+            300).strip().strip('"')
+    return g
+
 def generate(user_prompt):
     """Call the generator; retry up to 3x if the output cannot be parsed."""
     last = None
     for i in range(3):
         raw = call_claude(GEN_SYSTEM, user_prompt)
         try:
-            return raw, parse_generation(raw)
+            return raw, enforce_meta(parse_generation(raw))
         except Exception as e:
             print(f'unparseable generator output (attempt {i+1}/3): {e}')
             last = e
