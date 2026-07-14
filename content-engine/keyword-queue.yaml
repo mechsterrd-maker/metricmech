@@ -10,15 +10,7 @@ queue:
   template: tutorial
   screenshots:
   - calculators/thread-pitch
-  status: blocked
-  note: 'QA failed 2026-07-14: LINT PASS (2474 words, 7 internal links)
-
-
-    Aluminium 380 die-cast Sys calculation is wrong: 0.577 × 165 = 95.2 MPa is correct,
-    but the table row states ''Tensile yield Sy = 165 MPa → Sys = 0.577 × 165'' yet
-    lists Sys as 95 — the arithmetic is fine, but verify the Sy source; more critically,
-    the Le_min of 17.3 mm does not match: 33640 ÷ (95.2 × π × 10 × 0.65) = 33640 ÷
-    1946 = 17.3 mm — this is actuall'
+  status: queued
 - keyword: bolt shear strength calculation
   intent: informational
   audience: design

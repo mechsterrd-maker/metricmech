@@ -193,6 +193,21 @@ def build_html(g):
                {"@type":"ListItem","position":3,"name":g['h1'][:80],"item":url}]}]
         blocks = '\n'.join('<script type="application/ld+json">\n'+json.dumps(o, indent=2, ensure_ascii=False)+'\n</script>' for o in ld)
         h = re.sub(r'<script type="application/ld\+json">.*</script>\n\n</head>', blocks + '\n\n</head>', h, flags=re.S)
+        # template-leftover fixes: og/twitter descriptions + the duplicate BreadcrumbList at the bottom of <body>
+        for pat in [r'(<meta property="og:description" content=")(.*?)(")', r'(<meta name="twitter:description" content=")(.*?)(")']:
+            h = re.sub(pat, lambda m: m.group(1)+g['meta_description']+m.group(3), h)
+        h = re.sub(r'(<meta property="og:url" content=")(.*?)(")', lambda m: m.group(1)+url+m.group(3), h)
+        _he = h.index('</head>')
+        def _fix_bottom_ld(m):
+            try: o = json.loads(m.group(1))
+            except Exception: return m.group(0)
+            if isinstance(o, dict) and o.get('@type') == 'BreadcrumbList':
+                for it in o.get('itemListElement', []):
+                    if it.get('position') == 3:
+                        it['name'] = g['h1'][:80]; it['item'] = url
+                return '<script type="application/ld+json">\n'+json.dumps(o, indent=2, ensure_ascii=False)+'\n</script>'
+            return m.group(0)
+        h = h[:_he] + re.sub(r'<script type="application/ld\+json">(.*?)</script>', _fix_bottom_ld, h[_he:], flags=re.S)
         bc = re.search(r'(<span class="sep">/</span>)([^<]*)(</div>)', h)
         h = h[:bc.start(2)] + g['h1'][:40] + h[bc.end(2):]
         toc = '\n'.join(f'    <a href="#{a}">{l}</a>' for a, l in g.get('toc', []))
