@@ -242,11 +242,16 @@ while attempt <= 2:
     out_file, url = build_html(g)
     lint = subprocess.run([sys.executable, f'{CE}/scripts/lint_post.py', out_file, KW, str(entry['word_count'])],
                           capture_output=True, text=True)
-    critic_raw = call_claude(CRITIC_SYSTEM,
-        f"PRIMARY KEYWORD: {KW}\n\nFEATURE TRUTH:\n{truth or '(n/a — metricmech has no product claims beyond the CadNexa cross-link)'}\n\n"
-        f"STORY BANK PROVIDED: {json.dumps(story) if story else 'none — zero anecdotes allowed'}\n\nPOST HTML:\n{open(out_file, encoding='utf-8').read()}", 2000)
-    try: critic = extract_json(critic_raw)
-    except Exception: critic = {"verdict": "FAIL", "fixes": ["critic returned unparseable output"]}
+    critic_user = (f"PRIMARY KEYWORD: {KW}\n\nFEATURE TRUTH:\n{truth or '(n/a — metricmech has no product claims beyond the CadNexa cross-link)'}\n\n"
+        f"STORY BANK PROVIDED: {json.dumps(story) if story else 'none — zero anecdotes allowed'}\n\nPOST HTML:\n{open(out_file, encoding='utf-8').read()}")
+    critic = None
+    for _ in range(3):
+        try:
+            critic = extract_json(call_claude(CRITIC_SYSTEM, critic_user, 2000)); break
+        except Exception:
+            print('critic output unparseable; retrying critic call')
+    if critic is None:
+        critic = {"verdict": "FAIL", "fixes": ["critic returned unparseable output 3x"]}
     if lint.returncode == 0 and critic['verdict'] == 'PASS':
         print(lint.stdout.strip()); print('CRITIC PASS'); break
     attempt += 1
