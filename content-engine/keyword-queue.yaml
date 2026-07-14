@@ -10,7 +10,15 @@ queue:
   template: tutorial
   screenshots:
   - calculators/thread-pitch
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-07-14: LINT PASS (2504 words, 7 internal links)
+
+
+    Correct the M10 class 8.8 proof load from 33 kN to 34.8 kN (ISO 898-1: proof load
+    stress 600 MPa × stress area 58.0 mm² = 34 800 N). Update all downstream calculations
+    in the worked example: L_e = (34 800 × 1.5) ÷ 2924 ≈ 17.9 mm, round up to 18 mm
+    (≈1.8D); F_strip at 18 mm ≈ 52 700 N vs required 52 200 N — joint passes at 18
+    mm, not 17 mm. Revise the 15 mm'
 - keyword: bolt shear strength calculation
   intent: informational
   audience: design
