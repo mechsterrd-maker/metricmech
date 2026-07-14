@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fits & Tolerances: Complete Guide | MetricMech</title>
+<meta name="description" content="A mechanical engineer's definitive overview of ISO 286 fits and tolerances—standards, types, common mistakes, and how every concept links together." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/fits-tolerances-guide">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fits & Tolerances: Complete Guide | MetricMech">
+<meta property="og:description" content="A mechanical engineer's definitive overview of ISO 286 fits and tolerances—standards, types, common mistakes, and how every concept links together.">
+<meta property="og:url" content="https://metricmech.com/articles/fits-tolerances-guide">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fits & Tolerances: Complete Guide | MetricMech">
+<meta name="twitter:description" content="A mechanical engineer's definitive overview of ISO 286 fits and tolerances—standards, types, common mistakes, and how every concept links together.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Fits & Tolerances: Complete Guide | MetricMech",
+  "description": "A mechanical engineer's definitive overview of ISO 286 fits and tolerances—standards, types, common mistakes, and how every concept links together.",
+  "url": "https://metricmech.com/articles/fits-tolerances-guide",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Fits & Tolerances: Complete Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-14",
+  "mainEntityOfPage": "https://metricmech.com/articles/fits-tolerances-guide"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between a fit and a tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A tolerance defines the permissible variation in a single dimension. A fit describes the relationship—clearance, transition, or interference—between two mating parts, which results from the combined tolerances of both."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use ISO 286 versus ISO 2768?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use ISO 286 when you need a controlled functional relationship between two mating features, such as a shaft in a bore. Use ISO 2768 for dimensions that have no critical mating requirement and where a general workshop tolerance is sufficient."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the fundamental deviation letter mean in ISO 286?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fundamental deviation letter sets the position of the tolerance zone relative to the nominal size. Uppercase letters apply to holes; lowercase letters apply to shafts. The IT number then sets the width of that zone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I mix metric and imperial tolerances on one drawing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is strongly discouraged. Mixed unit drawings create ambiguity during inspection and manufacture. If a legacy imperial dimension must appear, state both values explicitly and identify which is the controlling dimension."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What causes tolerance stack-up problems in assemblies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stack-up occurs when individual part tolerances accumulate across a chain of dimensions. Even tolerances that are acceptable in isolation can combine to produce an assembly that is outside functional limits. Worst-case and statistical analysis methods are used to manage this."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Fits & Tolerances: Complete Guide",
+      "item": "https://metricmech.com/articles/fits-tolerances-guide"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Fits & Tolerances: Complete Guide</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what-are-fits-tolerances">What are fits and tolerances?</a>
+    <a href="#why-it-matters">Why fits and tolerances matter in manufacturing</a>
+    <a href="#iso-286-framework">The ISO 286 framework</a>
+    <a href="#types-of-fit">Types of fit: clearance, transition, and interference</a>
+    <a href="#general-tolerances-iso-2768">General tolerances and ISO 2768</a>
+    <a href="#gdt-and-position-tolerance">GD&T and position tolerance</a>
+    <a href="#tolerance-stackup">Tolerance stack-up</a>
+    <a href="#common-mistakes">Common mistakes in practice</a>
+    <a href="#how-the-articles-fit-together">How the articles in this cluster fit together</a>
+    <a href="#faq">Frequently asked questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Fits & Tolerances: Complete Guide</h1>
+    <div class="art-meta-bar">
+      <span>Fits & Tolerances</span>
+      <span>July 14, 2026</span>
+      <span>7 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<nav aria-label="Table of contents">
+<ol>
+<li><a href="#what-are-fits-tolerances">What are fits and tolerances?</a></li>
+<li><a href="#why-it-matters">Why fits and tolerances matter in manufacturing</a></li>
+<li><a href="#iso-286-framework">The ISO 286 framework</a></li>
+<li><a href="#types-of-fit">Types of fit: clearance, transition, and interference</a></li>
+<li><a href="#general-tolerances-iso-2768">General tolerances and ISO 2768</a></li>
+<li><a href="#gdt-and-position-tolerance">GD&T and position tolerance</a></li>
+<li><a href="#tolerance-stackup">Tolerance stack-up</a></li>
+<li><a href="#common-mistakes">Common mistakes in practice</a></li>
+<li><a href="#how-the-articles-fit-together">How the articles in this cluster fit together</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+</ol>
+</nav>
+
+<h2 id="what-are-fits-tolerances">What are fits and tolerances?</h2>
+<p>Every manufactured dimension has variation. No cutting tool, casting mould, or forming process produces a feature at its exact nominal size every time. A <strong>tolerance</strong> is the engineered permission for that variation—the difference between the maximum and minimum acceptable sizes for a single feature. A <strong>fit</strong> is the functional relationship that results when two toleranced features are assembled together, typically a shaft inside a bore.</p>
+<p>The distinction matters in practice. A tolerance is a property of one part. A fit is a property of the interface between two parts. Designing a fit means choosing tolerances on both components simultaneously so that the assembled result—clearance, a light press, or a heavy interference—falls within limits the function demands.</p>
+
+<h2 id="why-it-matters">Why fits and tolerances matter in manufacturing</h2>
+<p>Tolerance decisions made at the drawing stage drive cost, scrap rate, and assembly reliability downstream. A tolerance that is tighter than necessary forces tighter process control, slower cycle times, and more inspection. A tolerance that is too loose produces assemblies that leak, rattle, seize, or fail in fatigue well ahead of their design life.</p>
+<p>The consequences extend beyond the pair of mating parts. Rotating shafts supported in bearings affect seal geometry and, indirectly, system efficiency. In hydraulic systems, for example, internal leakage past poorly fitted components directly increases the shaft power the pump must deliver—a relationship explored in detail in the article on <a href="/articles/pump-power-calculation">pump power calculation</a>. Getting the fit right is rarely an isolated decision.</p>
+
+<h2 id="iso-286-framework">The ISO 286 framework</h2>
+<p>ISO 286 is the international standard that defines a system of limits and fits for plain features—primarily cylindrical shafts and bores. It specifies 28 fundamental deviation positions (identified by letters: uppercase for holes, lowercase for shafts) and 20 International Tolerance grades (IT01 through IT18), which define the width of the tolerance zone as a function of nominal size.</p>
+<p>A tolerance designation such as <strong>H7</strong> for a hole or <strong>h6</strong> for a shaft encodes both pieces of information: the letter gives the position of the zone relative to zero line (nominal size), and the number gives the grade—that is, how wide the zone is. The full mechanics of the system, including how to read tolerance tables and convert designations to limit dimensions, are covered in the dedicated article on <a href="/articles/iso-286-fits-tolerances">ISO 286 fits and tolerances</a>.</p>
+<p>ISO 286 also formalises two philosophies for achieving a fit. The <strong>hole-basis system</strong> holds the hole at a standard deviation (H) and varies the shaft deviation to achieve the required fit. The <strong>shaft-basis system</strong> does the reverse. Hole-basis is the default in most workshops because standard reamers and broaches produce H-tolerance holes economically.</p>
+
+<h2 id="types-of-fit">Types of fit: clearance, transition, and interference</h2>
+<p>ISO 286 groups all fits into three categories based on the relationship between the tolerance zones of the two mating features.</p>
+<ul>
+<li><strong>Clearance fit</strong> — The shaft is always smaller than the hole across the full range of tolerance. The assembly can be made by hand with no measurable force. Used for rotating or sliding parts.</li>
+<li><strong>Transition fit</strong> — The tolerance zones overlap. Depending on where each part falls within its zone, the assembled result may have a small clearance or a small interference. Used where location accuracy is needed but disassembly must remain practical.</li>
+<li><strong>Interference fit</strong> — The shaft is always larger than the hole. Assembly requires force or thermal differential. The resulting joint transmits torque and axial load through the contact pressure at the interface.</li>
+</ul>
+<p>The choice between press fitting and shrink fitting to assemble an interference joint is not merely procedural—it affects the stress distribution in both parts and the achievable retention force. The practical differences are compared in <a href="/articles/press-fit-vs-shrink-fit">press fit vs shrink fit</a>, while the underlying interference, assembly force, and stress calculations are worked through in <a href="/articles/press-fit-calculation">press fit calculation</a>.</p>
+
+<h2 id="general-tolerances-iso-2768">General tolerances and ISO 2768</h2>
+<p>Not every dimension on a drawing controls a critical interface. Dimensions such as overall lengths, non-mating radii, and chamfer sizes still need a permissible variation, but specifying a detailed ISO 286 tolerance for each one would clutter drawings and add no functional benefit.</p>
+<p>ISO 2768 addresses this by defining general tolerances that apply by default when a drawing invokes the standard. A title block note such as <em>ISO 2768-mK</em> applies medium linear tolerances and class K geometric tolerances to all unspecified features. The grade letters and what they mean in numerical terms—including the difference between the commonly confused <em>mK</em> and <em>fH</em> combinations—are explained in the article on <a href="/articles/iso-2768-general-tolerances">ISO 2768 general tolerances</a>.</p>
+
+<h2 id="gdt-and-position-tolerance">GD&T and position tolerance</h2>
+<p>Size tolerances alone cannot fully define a feature's acceptability. A bore diameter within its H7 limits but positioned 2 mm from its true location is still a defective part. Geometric Dimensioning and Tolerancing (GD&T) extends the tolerance system to control form, orientation, and location independently of size.</p>
+<p>Position tolerance is one of the most widely applied GD&T controls in mechanical assemblies. When combined with the Maximum Material Condition (MMC) modifier, the effective position tolerance increases as the feature departs from its maximum material size—a mechanism called bonus tolerance. This concept, and how to calculate the available bonus in a real assembly, is covered in <a href="/articles/position-tolerance-mmc">position tolerance with MMC</a>.</p>
+
+<h2 id="tolerance-stackup">Tolerance stack-up</h2>
+<p>Individual tolerances do not act in isolation. In any assembly with a chain of dimensions, the tolerances accumulate. A gap that must remain positive for function—a clearance to a retaining ring, a protrusion beyond a face—can close to zero or go negative when all contributing tolerances stack in the same direction.</p>
+<p>Worst-case stack-up analysis identifies the extreme condition regardless of probability. Statistical methods, assuming tolerances are distributed and independent, give a more realistic picture of what the process will actually produce. Both methods require that you correctly identify the tolerance loop and assign signs to each contributor. A complete worked example showing how to set up the loop diagram and carry through the arithmetic is available in <a href="/articles/tolerance-stackup-worked-example">tolerance stack-up: a worked example</a>.</p>
+
+<h2 id="common-mistakes">Common mistakes in practice</h2>
+<p>After reviewing drawings and inspection reports across several production environments, a pattern of recurring errors emerges.</p>
+<ul>
+<li><strong>Specifying tighter grades than the process can hold.</strong> IT6 on a bore sounds precise, but if the machining centre thermal stability or tooling condition does not support it, the result is high scrap and 100% inspection cost with no improvement in function.</li>
+<li><strong>Ignoring surface finish in interference fits.</strong> The effective interference is reduced by the flattening of surface peaks during assembly. Omitting this in the force calculation produces unconservative retention predictions.</li>
+<li><strong>Using ISO 2768 as a substitute for critical fit callouts.</strong> ISO 2768 general tolerances are for non-critical features. Applying them to a bearing housing bore is an error that will produce inconsistent bearing preload.</li>
+<li><strong>Performing stack-up in only one direction.</strong> Most assemblies have functional requirements at both extremes of the stack. Analysing only the minimum gap and ignoring the maximum interference, or vice versa, misses half the problem.</li>
+<li><strong>Conflating dimensional and geometric tolerance.</strong> A shaft within its h6 diameter band can still fail a cylindricity or straightness requirement. These are separate controls and must be specified separately.</li>
+</ul>
+
+<h2 id="how-the-articles-fit-together">How the articles in this cluster fit together</h2>
+<p>This pillar page provides the conceptual framework. The supporting articles each develop one area in working depth:</p>
+<ul>
+<li><a href="/articles/iso-286-fits-tolerances">ISO 286 fits and tolerances</a> — complete reference for reading the standard, extracting limit dimensions, and selecting standard fits.</li>
+<li><a href="/articles/press-fit-vs-shrink-fit">Press fit vs shrink fit</a> — assembly method selection based on interference magnitude, part geometry, and production constraints.</li>
+<li><a href="/articles/press-fit-calculation">Press fit calculation</a> — quantitative treatment of contact pressure, assembly force, and hoop stress.</li>
+<li><a href="/articles/iso-2768-general-tolerances">ISO 2768 general tolerances</a> — how to apply and interpret general tolerance classes on engineering drawings.</li>
+<li><a href="/articles/position-tolerance-mmc">Position tolerance with MMC</a> — GD&T position control, MMC modifier, and bonus tolerance calculation.</li>
+<li><a href="/articles/tolerance-stackup-worked-example">Tolerance stack-up: a worked example</a> — step-by-step worst-case and RSS analysis for a real assembly.</li>
+</ul>
+<p>Read the pillar page first to establish context, then move into whichever sub-article addresses your immediate design or inspection question.</p>
+
+<h2 id="faq">Frequently asked questions</h2>
+<h3>What is the difference between a fit and a tolerance?</h3>
+<p>A tolerance defines the permissible variation in a single dimension. A fit describes the relationship—clearance, transition, or interference—between two mating parts, which results from the combined tolerances of both.</p>
+
+<h3>When should I use ISO 286 versus ISO 2768?</h3>
+<p>Use ISO 286 when you need a controlled functional relationship between two mating features, such as a shaft in a bore. Use ISO 2768 for dimensions that have no critical mating requirement and where a general workshop tolerance is sufficient.</p>
+
+<h3>What does the fundamental deviation letter mean in ISO 286?</h3>
+<p>The fundamental deviation letter sets the position of the tolerance zone relative to the nominal size. Uppercase letters apply to holes; lowercase letters apply to shafts. The IT number then sets the width of that zone.</p>
+
+<h3>Can I mix metric and imperial tolerances on one drawing?</h3>
+<p>It is strongly discouraged. Mixed unit drawings create ambiguity during inspection and manufacture. If a legacy imperial dimension must appear, state both values explicitly and identify which is the controlling dimension.</p>
+
+<h3>What causes tolerance stack-up problems in assemblies?</h3>
+<p>Stack-up occurs when individual part tolerances accumulate across a chain of dimensions. Even tolerances that are acceptable in isolation can combine to produce an assembly that is outside functional limits. Worst-case and statistical analysis methods are used to manage this.</p>
+
+  <h2 id="all-articles">All articles in this hub</h2>
+  <ul class="pillar-links">
+      <li><a href="/articles/pump-power-calculation">Pump Power Calculation: Hydraulic, Shaft &amp; Motor kW</a></li>
+      <li><a href="/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit: Key Differences Explained</a></li>
+      <li><a href="/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances Explained</a></li>
+      <li><a href="/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances: mK &amp; fH Explained</a></li>
+      <li><a href="/articles/press-fit-calculation">Press Fit Calculation: Interference, Force &amp;amp; Stress</a></li>
+      <li><a href="/articles/position-tolerance-mmc">Position Tolerance with MMC: Bonus Tolerance</a></li>
+      <li><a href="/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a></li>
+      <!-- pillar-list -->
+  </ul>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Fits & Tolerances: Complete Guide",
+      "item": "https://metricmech.com/articles/fits-tolerances-guide"
+    }
+  ]
+}
+</script>
+</body>
+</html>

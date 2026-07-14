@@ -1,0 +1,17 @@
+pillars:
+  Fits & Tolerances (ISO 286):
+    file: articles/fits-tolerances-guide.html
+    url: /articles/fits-tolerances-guide
+    title: 'Fits & Tolerances: Complete Guide'
+  Threads & Fasteners:
+    file: articles/threads-fasteners-guide.html
+    url: /articles/threads-fasteners-guide
+    title: 'Threads & Fasteners: Complete Guide'
+  Sheet Metal Design:
+    file: articles/sheet-metal-design-guide.html
+    url: /articles/sheet-metal-design-guide
+    title: 'Sheet Metal Design: Complete Guide'
+  GD&T Reference:
+    file: articles/gdt-reference-guide.html
+    url: /articles/gdt-reference-guide
+    title: 'GD&T Reference: Complete Guide'

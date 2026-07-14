@@ -31,6 +31,944 @@ queue:
   screenshots:
   - calculators/bolt-torque
   status: published
+- keyword: ISO 286 hole basis vs shaft basis system
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - hole basis fit system explained
+  - shaft basis fit when to use
+  - ISO 286 fit system selection guide
+  - fundamental deviation hole shaft
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: clearance interference transition fit difference explained
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - types of fits in engineering
+  - transition fit examples engineering
+  - clearance fit vs interference fit chart
+  - how to choose fit type for assembly
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: H7 p6 press fit interference calculation worked example
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - press fit stress calculation formula
+  - interference fit assembly force calculation
+  - H7 p6 fit tolerance values
+  - press fit holding force formula
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: tolerance stack up worst case vs RSS method
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - worst case tolerance analysis formula
+  - RSS tolerance stack-up calculation example
+  - linear tolerance stack-up tutorial
+  - 1D tolerance chain analysis steps
+  word_count: 2200
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: metric thread pitch diameter formula calculation
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - pitch diameter formula ISO metric thread
+  - how to calculate thread pitch diameter
+  - effective diameter thread measurement
+  - thread pitch diameter vs major diameter
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: bolt preload calculation formula worked example
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - fastener preload vs clamping force
+  - bolt tension from torque formula
+  - torque coefficient K factor fastener
+  - bolted joint preload calculation steps
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal bend allowance formula k factor chart
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - bend allowance calculation step by step
+  - k factor sheet metal bending table
+  - blank size calculation sheet metal bend
+  - neutral axis shift bending k factor
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: minimum bend radius sheet metal material chart
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - minimum bend radius steel aluminium stainless
+  - sheet metal bend radius to thickness ratio
+  - why minimum bend radius matters cracking
+  - bend radius chart by material thickness
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: true position tolerance GD&T formula calculation
+  cluster: GD&T Reference
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - true position formula from CMM coordinates
+  - positional tolerance calculation example
+  - GD&T position tolerance vs coordinate tolerance
+  - bonus tolerance true position calculation
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: GD&T feature control frame reading guide
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - how to read GD&T feature control frame
+  - GD&T symbols explained with examples
+  - feature control frame breakdown tutorial
+  - geometric tolerance frame interpretation
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: maximum material condition MMC LMC bonus tolerance explained
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - MMC modifier bonus tolerance calculation
+  - LMC condition GD&T example
+  - material condition modifiers GD&T
+  - when to use MMC in GD&T design
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Ra Rz surface roughness difference explained chart
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - Ra vs Rz surface finish comparison
+  - surface roughness parameters explained
+  - when to use Ra vs Rz specification
+  - surface finish measurement parameters guide
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface finish symbol drawing callout ISO 1302
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - ISO 1302 surface texture symbol explained
+  - how to read surface finish callout drawing
+  - machining allowance symbol ISO 1302
+  - surface roughness symbol on engineering drawing
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Brinell Rockwell Vickers hardness conversion formula chart
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - HRC HB HV hardness conversion table
+  - hardness scale conversion formula
+  - Rockwell to Brinell conversion chart steel
+  - Vickers to Rockwell hardness equivalent
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: hardness to tensile strength conversion steel formula
+  cluster: Materials & Hardness
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - UTS from Brinell hardness formula
+  - tensile strength estimate from HRC value
+  - hardness tensile strength relationship steel
+  - approximate tensile strength from Vickers hardness
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: control chart constants A2 D3 D4 table explained
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - SPC control chart constants by sample size
+  - X-bar R chart constants A2 D3 D4 values
+  - how control chart constants are derived
+  - control chart factor table for subgroup size
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: process capability Cp Cpk vs Pp Ppk difference
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - Cp vs Pp capability index difference
+  - Cpk vs Ppk when to use each
+  - short term vs long term process capability
+  - process performance vs process capability indices
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: X-bar R chart how to set up step by step
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - how to create X-bar R control chart
+  - subgroup size selection for X-bar chart
+  - X-bar R chart control limit calculation
+  - SPC chart setup tutorial for machining
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: OEE availability performance quality calculation example
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - OEE calculation step by step example
+  - OEE formula availability performance quality
+  - how to calculate OEE for machine shop
+  - OEE world class benchmark values
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: cutting speed feed rate formula turning milling
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - how to calculate cutting speed from RPM
+  - feed rate formula milling calculation
+  - spindle speed calculation formula CNC
+  - surface footage to RPM conversion formula
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld symbol drawing interpretation AWS ISO guide
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - how to read welding symbols on drawings
+  - AWS A2.4 weld symbol guide
+  - ISO 2553 welding symbol explained
+  - weld symbol arrow side other side meaning
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: go no-go gauge design tolerance calculation
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - plug gauge design limits calculation
+  - gauge tolerance 10% rule explained
+  - go no-go gauge maker tolerance ISO
+  - limit gauge design for H7 hole example
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sampling plan AQL table how to use
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - how to read AQL sampling table
+  - ANSI ASQ Z1.4 sampling plan explained
+  - AQL acceptance number calculation
+  - incoming inspection sample size AQL guide
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: shaft deflection calculation simply supported beam formula
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - shaft bending deflection formula example
+  - how to calculate shaft sag under load
+  - simply supported shaft midpoint deflection
+  - shaft stiffness calculation formula
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: compression spring design calculation step by step
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - helical compression spring design formula
+  - spring rate calculation wire diameter coils
+  - spring index Wahl correction factor
+  - free length solid height spring calculation
+  word_count: 2100
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: gear module pitch diameter calculation formula
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - spur gear module calculation example
+  - gear pitch diameter from module and teeth
+  - gear geometry calculation formulas
+  - how to calculate gear tooth dimensions
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: rolling element bearing selection load rating calculation
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - dynamic load rating bearing selection
+  - equivalent dynamic bearing load formula
+  - how to select bearing for radial axial load
+  - basic dynamic load rating C calculation
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: torsional stress in shaft formula worked example
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - torsion formula shear stress shaft
+  - shaft torque stress calculation example
+  - polar moment of inertia solid hollow shaft
+  - shear stress due to torsion engineering formula
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: ISO 286 tolerance grade selection guide machining
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - IT grade selection for shaft bore fit
+  - which IT grade for turning grinding
+  - tolerance grade vs manufacturing process chart
+  - IT5 IT6 IT7 IT8 comparison
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: M8 bolt torque tightening values grade 8.8 10.9
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - bolt torque chart metric grade 8.8
+  - M6 M8 M10 M12 tightening torque table
+  - torque for 10.9 bolt lubricated dry
+  - clamping force from torque metric bolt
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: minimum flange width sheet metal bending design rule
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - flange height minimum bend sheet metal
+  - sheet metal design rules for bending
+  - flange to hole distance sheet metal
+  - press brake minimum flange guideline
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal gauge thickness chart steel aluminium
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - SWG BWG gauge to mm conversion
+  - US gauge sheet steel thickness
+  - aluminium sheet gauge thickness chart
+  - stainless steel sheet gauge mm equivalent
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: datum feature selection rules GD&T best practice
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - how to choose primary secondary tertiary datum
+  - datum selection for prismatic parts GD&T
+  - functional datum vs tooling datum
+  - datum feature symbol placement rules ASME Y14.5
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface roughness Ra 0.8 vs Ra 1.6 vs Ra 3.2 applications
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - when to specify Ra 0.8 vs 1.6 surface finish
+  - surface roughness for bearing seats gears seals
+  - Ra value selection guide engineering
+  - roughness specification for press fit surfaces
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: tensile test yield strength UTS elongation explained
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - stress strain curve engineering vs true
+  - 0.2% proof stress vs yield strength
+  - tensile test report parameters explained
+  - elongation vs reduction in area difference
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: process capability study step by step procedure
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - how to do capability study manufacturing
+  - capability study minimum sample size
+  - preliminary vs ongoing process capability
+  - capability study report template format
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: measurement uncertainty calculation step by step metrology
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - type A type B uncertainty sources
+  - combined standard uncertainty calculation example
+  - GUM uncertainty framework simplified guide
+  - expanded uncertainty 95% confidence interval
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: vernier caliper reading how to measure correctly
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - how to read vernier caliper 0.02 least count
+  - vernier caliper vs digital caliper accuracy
+  - vernier caliper error sources measurement tips
+  - inside outside depth measurement caliper
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Pascal bar psi MPa pressure unit conversion chart
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - pressure unit conversion formula table
+  - bar to MPa kPa conversion
+  - psi to bar conversion engineering
+  - pressure unit equivalents quick reference
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: kW to HP to kVA conversion formula electrical mechanical
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - horsepower to kilowatt conversion factor
+  - mechanical vs electrical vs metric horsepower
+  - motor power unit conversion chart
+  - kW HP kVA relationship formula
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: moment of inertia second moment of area formulas shapes
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - area moment of inertia rectangle circle I-beam formula
+  - polar moment of inertia vs area moment
+  - section modulus formula and table
+  - moment of inertia parallel axis theorem example
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: gear train speed ratio calculation compound gear
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - compound gear train velocity ratio formula
+  - idler gear effect on speed ratio
+  - multi-stage gear reduction calculation
+  - gear train torque speed relationship
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: beam bending moment diagram simply supported examples
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - shear force bending moment diagram worked example
+  - simply supported beam point load UDL formula
+  - cantilever beam deflection bending moment formula
+  - beam reaction force calculation step by step
+  word_count: 2000
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: welding process comparison MIG TIG SMAW selection
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - MIG vs TIG welding when to use
+  - SMAW GMAW GTAW process comparison chart
+  - welding process selection for stainless steel aluminium
+  - welding speed deposition rate comparison processes
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: lathe turning insert grade selection steel cast iron
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - carbide insert ISO grade P M K N S H selection
+  - turning insert coating PVD CVD selection
+  - chip breaker selection for finishing roughing
+  - insert grade for hardened steel vs stainless
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: tolerance analysis RSS method formula example
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - root sum square tolerance stack up calculation
+  - RSS vs worst case tolerance analysis comparison
+  - statistical tolerance analysis worked example assembly
+  - when to use RSS vs worst case method
+  word_count: 1900
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: ISO 286 fundamental deviation letter selection guide
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - deviation code a to z explained
+  - shaft deviation es ei meaning
+  - hole deviation ES EI chart
+  - fundamental deviation formula ISO 286
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: shrink fit assembly temperature calculation formula
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - interference fit heating temperature steel
+  - oven temperature for press fit assembly
+  - thermal expansion fit calculation worked example
+  - hub bore expansion temperature formula
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: how to select thread tolerance class for application
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - ISO 965 thread tolerance selection guide
+  - 6H 6G vs 5H 5G thread quality
+  - coarse fine thread tolerance comparison
+  - thread tolerance class for external internal
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: metric thread stress area formula calculation table
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - tensile stress area bolt formula
+  - ISO metric thread stress area M6 to M36
+  - thread minor diameter formula metric
+  - bolt tensile capacity from stress area
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal tolerancing standard IT grade achievable
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - sheet metal punching hole location tolerance
+  - laser cut part dimensional tolerance guide
+  - sheet metal forming dimensional accuracy
+  - achievable tolerances sheet metal fabrication chart
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal springback angle calculation compensation method
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - springback factor K chart by material
+  - overbend angle to compensate springback
+  - springback in aluminium vs steel bending
+  - how to reduce springback sheet metal bending
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: what is true position GD&T calculation worked example
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - true position formula X Y deviation
+  - positional tolerance calculation from CMM
+  - true position vs coordinate tolerance comparison
+  - how to calculate true position error
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Vickers to Brinell conversion formula accuracy limits
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - HV to HB conversion table steel
+  - hardness conversion accuracy limitations
+  - ISO 18265 hardness conversion standard
+  - why hardness conversions are approximate
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: control chart subgroup size selection rules SPC
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - why subgroup size 4 or 5 in SPC
+  - rational subgroup concept explained
+  - subgroup size effect on control chart sensitivity
+  - how to choose subgroup frequency SPC
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: measurement system variation effect on process capability
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - gauge error effect on Cpk calculation
+  - how MSA affects process capability index
+  - correcting Cpk for measurement uncertainty
+  - '%GRR impact on capability study'
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: spindle speed calculation formula milling drilling tutorial
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - RPM formula from cutting speed diameter
+  - how to calculate spindle RPM for milling
+  - drilling RPM formula worked example
+  - surface cutting speed to RPM conversion
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld joint preparation angle bevel gap root face guide
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - V groove weld preparation dimensions
+  - single bevel vs double bevel weld joint
+  - root gap root face weld design rules
+  - ISO 9692 weld joint preparation standard
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Newton meter to kilogram force meter conversion explained
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - Nm to kgm torque conversion factor
+  - SI vs metric gravitational unit torque
+  - force unit conversion N kgf lbf chart
+  - why kgf is not SI unit explained
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: micron to inch thousandths conversion chart printable
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - micrometer to thou conversion table
+  - micron to mil conversion engineering
+  - 0.001 inch to micron tolerance chart
+  - surface finish unit conversion Ra microinch micrometer
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: bar to MPa to PSI pressure conversion worked examples
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: production
+  priority: 1
+  secondary:
+  - pressure unit conversion formula table
+  - hydraulic pressure bar to psi to MPa chart
+  - atmosphere bar psi MPa conversion
+  - kPa MPa bar conversion engineering
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: shaft keyway stress concentration factor calculation
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - keyway Kt factor torsion bending shaft
+  - stress concentration at shaft keyway end
+  - keyway effect on shaft fatigue strength
+  - shaft keyway design for fatigue loading
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: spur gear Lewis bending stress formula calculation example
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - Lewis form factor Y gear tooth table
+  - gear bending stress calculation AGMA vs Lewis
+  - spur gear tooth bending strength formula
+  - gear face width selection bending stress
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: interference fit contact pressure formula Lame equation
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - press fit contact pressure Lame formula worked example
+  - hub shaft interference pressure calculation
+  - thick cylinder interference fit stress
+  - torque transmitted by interference fit calculation
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: ISO 2768 general tolerance class selection for drawings
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - ISO 2768 fine medium coarse class table
+  - general tolerance vs specific tolerance drawing
+  - when to apply ISO 2768 vs ISO 286 tolerance
+  - ISO 2768-1 angular linear tolerance values
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: three wire method thread pitch diameter measurement formula
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: quality
+  priority: 1
+  secondary:
+  - best wire size for thread measurement formula
+  - three wire measurement over wires formula
+  - pitch diameter from wire measurement calculation
+  - how to measure thread pitch diameter with wires
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: drawing callout for surface texture ISO 1302 step by step
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: design
+  priority: 1
+  secondary:
+  - how to read surface finish symbol on drawing
+  - surface texture symbol position explained
+  - ISO 1302 machining allowance symbol
+  - surface roughness callout upper lower limit drawing
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
 - keyword: bolt tightening sequence flange
   intent: informational
   audience: production
@@ -725,4 +1663,1180 @@ queue:
   template: tutorial
   screenshots:
   - calculators/surface-finish
+  status: queued
+- keyword: ISO tolerance grade IT6 IT7 IT8 selection guide
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - IT grade vs machining process chart
+  - fundamental tolerances ISO 286 table
+  - which IT grade for turning milling
+  - IT grade cost implication engineering
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: UNC vs UNF thread difference when to use
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - coarse vs fine thread comparison
+  - UNC UNF thread selection guide
+  - unified thread standard explained
+  - fine thread vs coarse thread strength
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: ISO metric thread tolerance class 6H 6g explained
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - thread tolerance class selection
+  - 6H 6g fit for general purpose threads
+  - metric thread tolerance designation system
+  - thread go no-go gauge tolerance
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: thread stripping strength calculation bolt nut
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - minimum thread engagement to prevent stripping
+  - thread shear area formula
+  - bolt thread strip out load calculation
+  - nut thread stripping vs bolt tensile failure
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal hole to edge distance design rules
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - sheet metal hole spacing minimum distance
+  - punching hole near bend distortion
+  - sheet metal design rules for manufacturability
+  - minimum flange width sheet metal guidelines
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: developed length calculation sheet metal flat blank
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - flat pattern calculation multi-bend part
+  - sheet metal blank size formula
+  - bend deduction vs bend allowance difference
+  - how to calculate sheet metal flat blank size
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: perpendicularity vs angularity GD&T difference
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - GD&T orientation tolerances comparison
+  - perpendicularity tolerance measurement method
+  - angularity callout GD&T example
+  - orientation vs location tolerance GD&T
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface roughness vs machining process table
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - achievable roughness by machining process
+  - Ra value turning milling grinding honing
+  - surface finish capability by process chart
+  - roughness achievable grinding vs turning
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Vickers hardness test load selection procedure
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - HV1 HV10 HV30 load selection guide
+  - Vickers microhardness test procedure
+  - how to select Vickers load for material
+  - Vickers hardness test step by step
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: measurement system analysis MSA explained types
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - what is measurement system analysis MSA
+  - MSA study types AIAG reference
+  - gauge study bias linearity stability explained
+  - MSA vs gauge R&R difference
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: metal removal rate MRR calculation turning milling
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - material removal rate formula turning
+  - MRR calculation milling example
+  - how to increase MRR without chatter
+  - metal removal rate unit in/min mm/min
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: tool life calculation Taylor's equation worked example
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - Taylor tool life equation formula
+  - how to calculate tool life from cutting speed
+  - Taylor's tool life exponent n value
+  - tool life equation worked example machining
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: machining tolerance achievable by process comparison
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - tolerance achievable turning grinding milling
+  - process capability tolerance grade comparison
+  - achievable dimensional tolerance by machining process
+  - IT grade vs machining operation table
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: butt weld joint design types comparison guide
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - V butt vs U butt joint comparison
+  - butt weld groove design selection
+  - joint preparation for butt welding types
+  - single V double V bevel groove weld
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: preheat temperature calculation for welding carbon steel
+  cluster: Welding & Joining
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - carbon equivalent formula for preheat
+  - welding preheat temperature by carbon equivalent
+  - how to calculate preheat temperature welding
+  - CE formula Ito-Bessyo Pcm preheat
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: CMM measurement uncertainty sources explained
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - sources of uncertainty in CMM measurement
+  - CMM accuracy vs repeatability vs resolution
+  - measurement uncertainty budget CMM example
+  - temperature effect on CMM measurement accuracy
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: straightness measurement using dial gauge method
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - how to measure straightness of shaft
+  - straightness inspection method workshop
+  - dial gauge setup for straightness check
+  - straightness vs cylindricity measurement difference
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: unit conversion MPa to psi ksi formula chart
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - pressure unit conversion MPa bar psi
+  - stress unit conversion engineering
+  - MPa ksi conversion factor table
+  - mechanical engineering unit conversion reference
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Nm to kgf cm torque unit conversion explained
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - torque unit conversion Nm lbf ft kgf m
+  - convert kgf cm to Newton meter formula
+  - torque conversion table engineering units
+  - lbf in to Nm conversion factor
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: mm to inch fraction conversion chart printable
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - millimeter to inch fraction chart
+  - decimal inch to mm conversion table
+  - fractional inch to metric conversion
+  - engineer unit conversion mm inch reference
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: fatigue stress concentration factor Kt Kf explained
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - stress concentration factor notch sensitivity
+  - Kt vs Kf fatigue design difference
+  - how to find stress concentration factor chart
+  - notch sensitivity factor q calculation Neuber
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld throat size calculation for fillet weld group
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - fillet weld group throat area calculation
+  - weld group section modulus formula
+  - moment on weld group calculation
+  - weld size for bending moment bracket
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: CMM datum reference frame setup procedure
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - CMM datum alignment 3-2-1 method
+  - how to set up datum reference frame CMM
+  - part alignment CMM inspection tutorial
+  - primary secondary tertiary datum CMM setup
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: bilateral vs unilateral tolerance when to use
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - equal bilateral tolerance machining
+  - unilateral tolerance on shaft drawing
+  - tolerance notation ISO drawing standard
+  - symmetric vs asymmetric tolerance
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: running fit vs sliding fit selection guide
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - H7 f7 running fit clearance calculation
+  - H8 f7 vs H7 f6 fit difference
+  - clearance fit for rotating shaft bearing
+  - fit selection for sliding mechanisms
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: thread class 6H 6G vs 4H 4g difference applications
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - ISO metric thread tolerance class selection
+  - 6H external internal thread fit
+  - thread class for aerospace vs general use
+  - fine tolerance class thread when to use
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: stud bolt vs cap screw vs hex bolt difference
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - when to use stud bolt vs bolt
+  - flange stud bolt selection
+  - cap screw vs machine screw applications
+  - fastener type selection guide mechanical
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sheet metal corner relief types and dimensions
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - corner relief radius formula sheet metal
+  - when to use corner notch vs radius relief
+  - sheet metal corner crack prevention design
+  - 90 degree corner relief sheet metal bracket
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: concentricity vs runout vs coaxiality GD&T difference
+  cluster: GD&T Reference
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - when to use total runout vs concentricity
+  - coaxiality tolerance ISO vs ASME
+  - runout vs concentricity measurement comparison
+  - circular runout vs total runout difference
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: position tolerance vs true position vs location tolerance
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - GD&T position tolerance hole pattern
+  - how position tolerance is measured
+  - position tolerance coordinate conversion formula
+  - position vs plus minus tolerance comparison
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: GD&T form tolerances flatness cylindricity straightness circularity
+  cluster: GD&T Reference
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - form tolerance vs size tolerance difference
+  - cylindricity vs roundness GD&T
+  - when to apply form tolerance on drawing
+  - form tolerance measurement methods overview
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: profilometer contact vs optical surface measurement comparison
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - stylus profilometer vs white light interferometer
+  - non-contact surface roughness measurement methods
+  - surface texture measurement instrument selection
+  - roughness measurement cutoff length selection
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface finish lay direction symbols drawing callout
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - surface texture lay parallel perpendicular symbol
+  - ISO 1302 lay symbol meaning
+  - machining direction surface finish drawing
+  - lay symbol X M C R meaning engineering
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Rz vs Rmax surface roughness parameter difference
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - surface roughness Rz meaning calculation
+  - Rz vs Ra which to specify when
+  - ten point height roughness ISO definition
+  - Rmax Ry Rz confusion ISO DIN comparison
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Charpy vs Izod impact test difference materials
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - Charpy impact energy to toughness conversion
+  - impact test specimen dimensions standard
+  - Izod test procedure notch dimensions
+  - impact testing temperature effect steel
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: material hardness specification on engineering drawing
+  cluster: Materials & Hardness
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - how to call out hardness on drawing
+  - hardness note drawing HRC HRB HV notation
+  - drawing callout for case hardness depth
+  - heat treatment specification on engineering drawing
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: cast iron grades IS 210 properties comparison chart
+  cluster: Materials & Hardness
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - grey cast iron FG 200 FG 260 difference
+  - IS 210 vs EN-GJL-200 equivalent
+  - cast iron grade selection for machine bases
+  - ductile iron vs grey iron mechanical properties
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Western Electric rules control chart violation detection
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - Nelson rules vs Western Electric rules comparison
+  - out of control signal interpretation SPC
+  - control chart run rules explained examples
+  - special cause detection rules chart
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: individuals moving range IMR chart when to use
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - I-MR chart vs Xbar-R chart difference
+  - when subgroup size is one use IMR
+  - individuals chart setup calculation example
+  - IMR chart control limits formula
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface plate grade A B C inspection uses explained
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - granite surface plate flatness tolerance grades
+  - cast iron vs granite surface plate comparison
+  - surface plate maintenance wringing cleaning
+  - surface plate grade selection for inspection
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sine bar angle measurement calculation worked example
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - sine bar height slip gauge calculation formula
+  - compound angle measurement sine bar
+  - how to use sine bar for taper inspection
+  - sine plate vs sine bar difference
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: dial gauge vs digital indicator selection calibration
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - dial test indicator vs dial gauge difference
+  - plunger type vs lever type indicator
+  - gauge resolution accuracy repeatability
+  - how to calibrate dial gauge procedure
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: RPM to m/s surface speed conversion formula machining
+  cluster: Engineering Units & Conversions
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - cutting speed RPM formula for turning
+  - surface footage per minute SFM to m/min conversion
+  - spindle speed to surface speed calculation
+  - peripheral velocity formula rotating part
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: torsion spring design formula worked example
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - torsion spring rate formula angular deflection
+  - torsion spring stress calculation wire diameter
+  - torsion spring design parameters explained
+  - leg length torque torsion spring formula
+  word_count: 1800
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld distortion causes control methods prevention
+  cluster: Welding & Joining
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - how to reduce welding distortion techniques
+  - backstep welding sequence distortion control
+  - pre-setting pre-cambering for weld distortion
+  - thermal distortion angular longitudinal transverse
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: spot weld diameter strength shear load calculation
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - resistance spot weld nugget size formula
+  - spot weld spacing pitch design rules
+  - spot weld shear strength calculation sheet metal
+  - spot weld pull test acceptance criteria
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: milling cutter selection for pocket shoulder slot machining
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - end mill vs face mill selection guide
+  - number of flutes end mill material selection
+  - helix angle effect milling cutter selection
+  - ball nose vs flat end mill when to use
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface finish achievable by grinding vs milling comparison
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - grinding surface roughness Ra achievable values
+  - milling Ra surface finish vs parameters
+  - machining process capability surface finish table
+  - finishing operation selection for Ra requirement
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: drill point angle selection for material type chart
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - drill included angle for steel aluminium brass
+  - split point vs standard drill point
+  - drill geometry rake clearance angle explained
+  - drill bit selection for stainless steel
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: normal distribution Z score table engineering applications
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - Z score calculation formula quality
+  - standard normal table how to read
+  - probability from Z score defect rate calculation
+  - sigma level Z score relationship chart
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: flatness tolerance measurement dial gauge surface plate method
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - how to measure flatness without CMM
+  - flatness check using three-point method
+  - flatness error evaluation grid method
+  - measuring flatness with autocollimator
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: gear tooth profile involute pressure angle explained
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - 14.5 vs 20 degree pressure angle gear comparison
+  - involute gear tooth geometry basics
+  - pressure angle effect on gear strength
+  - gear tooth undercut minimum teeth formula
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: CMM probing strategy for cylindrical bore measurement
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - how many CMM points for circle diameter
+  - CMM measurement strategy bore position
+  - CMM probe path for cylinder measurement
+  - minimum points CMM for form measurement
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: locational clearance fit H7 g6 applications examples
+  cluster: Fits & Tolerances (ISO 286)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - H7 g6 fit clearance values table
+  - when to use locational clearance fit
+  - g6 shaft tolerance range chart
+  - sliding vs locational clearance difference
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: thread galling causes prevention stainless steel fasteners
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - anti-galling lubricant for SS bolts
+  - thread galling prevention methods
+  - why stainless steel bolts seize
+  - galling resistant fastener materials
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: socket head cap screw vs hex bolt strength comparison
+  cluster: Threads & Fasteners
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - SHCS vs hex cap screw when to use
+  - socket head bolt torque capacity
+  - DIN 912 vs ISO 4762 bolt standard
+  - internal hex bolt advantages disadvantages
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: joggle joint design sheet metal dimensions rules
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - joggle offset depth design formula
+  - sheet metal offset flange design guide
+  - step flange sheet metal fabrication rules
+  - joggle clearance calculation overlap joint
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: GD&T all around vs all over profile symbol difference
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - profile of a surface all around explained
+  - all over profile tolerance ISO ASME difference
+  - when to use all around profile tolerance
+  - surface profile vs line profile GD&T
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: composite positional tolerance vs two single segment GD&T
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - composite tolerance pattern location control
+  - two single segment position difference
+  - PLTZF FRTZF tolerance zone explained
+  - when to use composite vs two segment position
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: GD&T regardless of feature size vs MMC LMC comparison
+  cluster: GD&T Reference
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - RFS modifier GD&T explained
+  - when to apply MMC vs RFS modifier
+  - bonus tolerance only with MMC LMC
+  - MMC LMC RFS differences chart
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: surface roughness Ra measurement direction lay effect
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - measuring Ra parallel vs perpendicular to lay
+  - lay direction effect on roughness reading
+  - profilometer measurement direction standard
+  - ISO 4288 traversal length selection
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: evaluation length vs sampling length surface roughness explained
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - cut-off wavelength lambda c selection chart
+  - ISO 4288 sampling length table
+  - surface roughness evaluation length 5x rule
+  - why 5 sampling lengths for Ra measurement
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Rsk Rku skewness kurtosis surface roughness parameters explained
+  cluster: Surface Finish & Metrology
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - surface skewness bearing ratio difference
+  - Rsk negative positive bearing surface meaning
+  - kurtosis surface texture ISO 25178
+  - Abbott Firestone curve surface roughness
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: Rockwell C scale hardness test procedure load sequence
+  cluster: Materials & Hardness
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - HRC test minor load major load sequence
+  - Rockwell hardness test indenter type HRC HRB
+  - Rockwell scale selection guide material
+  - HRC test surface preparation requirements
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: case hardening depth specification on engineering drawing
+  cluster: Materials & Hardness
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - CHD EHD SHD depth callout drawing
+  - effective case depth hardness limit definition
+  - how to specify nitriding depth on drawing
+  - case depth measurement hardness traverse
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: EWMA chart vs CUSUM chart when to use
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - EWMA vs Shewhart chart sensitivity comparison
+  - CUSUM chart small shift detection
+  - exponentially weighted moving average chart setup
+  - when Shewhart chart is insufficient SPC
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: non-normal data process capability calculation methods
+  cluster: SPC & Quality Statistics
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - Cpk for skewed distribution calculation
+  - Weibull distribution process capability index
+  - percentile method non-normal Cpk
+  - how to handle non-normal SPC data
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: chip thickness ratio in orthogonal cutting explained
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - chip compression ratio cutting theory
+  - shear angle formula orthogonal cutting
+  - chip thickness before after cutting ratio
+  - Merchant circle force diagram explained
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: machining allowance stock allowance per operation chart
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - roughing finishing machining allowance table
+  - turning grinding allowance per side
+  - stock removal allowance casting forging machining
+  - IS 2113 machining allowance standard
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: honing vs grinding bore finishing process comparison
+  cluster: Machining & Cutting Calculations
+  intent: informational
+  audience: production
+  priority: 2
+  secondary:
+  - honing vs boring vs reaming bore finishing
+  - when to use honing instead of grinding
+  - honing stock removal typical values
+  - bore surface finish honing vs grinding Ra
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld hardness testing HAZ acceptance criteria standard
+  cluster: Welding & Joining
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - HAZ hardness limit ISO 15614
+  - Vickers hardness weld cross section testing
+  - weld HAZ hardness HV10 acceptance limit
+  - hardness map weld zone procedure
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: CMM qualification qualification sphere procedure explained
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - probe qualification reference sphere CMM
+  - stylus calibration procedure CMM step by step
+  - CMM probe qualification frequency guide
+  - reference sphere diameter selection CMM
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: air gauging vs contact gauging bore measurement comparison
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - pneumatic gauging principle working explained
+  - air gauge accuracy vs dial bore gauge
+  - when to use air gauging production line
+  - air gauge master setting procedure
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: gauge block wringing technique measurement best practice
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - slip gauge wringing procedure steps
+  - how to build gauge block stack combination
+  - gauge block grade 0 1 2 selection chart
+  - wringing force gauge block contact explained
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: optical comparator vs CMM inspection when to use
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - profile projector measurement applications
+  - optical comparator overlay chart tolerance
+  - CMM vs comparator throughput accuracy
+  - small part inspection method selection
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: helical compression spring natural frequency surge explained
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - spring surge frequency formula calculation
+  - how to avoid spring resonance design
+  - natural frequency compression spring formula
+  - operating frequency vs spring natural frequency ratio
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: beam on elastic foundation stress deflection formula
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - Winkler foundation beam deflection calculation
+  - long beam on elastic foundation formula
+  - modulus of subgrade reaction beam calculation
+  - rail on foundation stress worked example
+  word_count: 1700
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: rolling vs sliding bearing selection for machine design
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - when to use plain bearing vs rolling bearing
+  - journal bearing vs ball bearing comparison
+  - bearing type selection speed load chart
+  - sliding bearing advantages high load applications
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: weld residual stress causes measurement methods overview
+  cluster: Welding & Joining
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - residual stress welding effect on fatigue
+  - how to measure residual stress weld
+  - post weld heat treatment stress relief
+  - X-ray diffraction residual stress weld measurement
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: sampling frequency inspection lot traceability requirements
+  cluster: Inspection, CMM & Measurement
+  intent: informational
+  audience: quality
+  priority: 2
+  secondary:
+  - how often to inspect during production run
+  - first article vs in-process inspection frequency
+  - inspection frequency based on process capability
+  - lot traceability inspection record requirements
+  word_count: 1500
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: laser cutting vs waterjet cutting sheet metal comparison
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 2
+  secondary:
+  - laser cut vs waterjet edge quality comparison
+  - waterjet cutting tolerance vs laser tolerance
+  - laser cutting HAZ effect thin sheet
+  - sheet metal cutting process selection guide
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: hem bend sheet metal design types dimensions
+  cluster: Sheet Metal Design
+  intent: informational
+  audience: design
+  priority: 3
+  secondary:
+  - open hem vs closed hem sheet metal
+  - hem flange design for sharp edge safety
+  - flat hem bend allowance calculation
+  - teardrop hem design rule
+  word_count: 1400
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: adhesive bonding joint design strength calculation guide
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 3
+  secondary:
+  - structural adhesive joint overlap length formula
+  - lap joint shear stress adhesive calculation
+  - adhesive vs welding joint strength comparison
+  - surface preparation for adhesive bonding metals
+  word_count: 1600
+  template: tutorial
+  screenshots: []
+  status: queued
+- keyword: stud welding process types design guide
+  cluster: Welding & Joining
+  intent: informational
+  audience: design
+  priority: 3
+  secondary:
+  - drawn arc stud welding vs capacitor discharge
+  - stud weld pull out strength calculation
+  - stud welding edge distance minimum rule
+  - sheet metal stud welding design rules
+  word_count: 1500
+  template: tutorial
+  screenshots: []
   status: queued
