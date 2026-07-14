@@ -35,8 +35,21 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           set -o pipefail
-          python3 content-engine/scripts/run_pipeline.py | tee /tmp/pipeline.log
+          rc=0
+          python3 content-engine/scripts/run_pipeline.py | tee /tmp/pipeline.log || rc=$?
           if [ -f /tmp/autopilot_result.json ]; then echo "published=true" >> $GITHUB_OUTPUT; fi
+          if [ "$rc" = "3" ]; then echo "blocked=true" >> $GITHUB_OUTPUT; fi
+          exit $rc
+
+      - name: Persist blocked keyword (QA refused to publish)
+        if: failure() && steps.gen.outputs.blocked == 'true'
+        run: |
+          git config user.name "Rajadurai R"
+          git config user.email "mechsterrd@gmail.com"
+          git add content-engine/keyword-queue.yaml
+          git commit -m "Autopilot: keyword blocked after failing QA gate" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
 
       - name: Commit and push
         if: steps.gen.outputs.published == 'true'

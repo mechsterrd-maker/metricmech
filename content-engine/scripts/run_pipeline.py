@@ -195,7 +195,11 @@ CRITIC_SYSTEM = """You are a strict technical editor for a manufacturing enginee
 FAIL if ANY: a product claim is not backed by a live entry in the feature-truth file; a formula, standard
 reference or technical fact is wrong; the intro does not answer the primary keyword within 100 words;
 any first-person anecdote appears that is not in the provided story bank; pricing differs from feature-truth;
-it reads like marketing copy instead of a senior engineer; a competitor is hyperlinked."""
+it reads like marketing copy instead of a senior engineer; a competitor is hyperlinked.
+NOT failures (approved boilerplate — never flag these): the site byline/author-card "Rajadurai R,
+Founder, 14 years plant-head experience" (a credential, not an anecdote); cross-links to cadnexa.com
+or metricmech.com (same owner, pre-approved); links to the site's own calculators/tools.
+Judge only the article body content."""
 
 attempt, out_file, url = 0, None, None
 raw, g = generate(GEN_USER)
