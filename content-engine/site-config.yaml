@@ -1,4 +1,5 @@
 site: metricmech
+gsc_property: "https://metricmech.com/"
 base_url: https://metricmech.com
 post_dir: "articles"
 post_prefix: ""

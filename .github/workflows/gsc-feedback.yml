@@ -1,0 +1,40 @@
+# Weekly SEO feedback loop: Search Console analysis, refresh queue, keyword ideas, broken-page sweep.
+name: GSC Feedback Loop
+
+on:
+  schedule:
+    - cron: '0 2 * * 0'   # Sundays ~07:30 IST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Install deps
+        run: pip install pyyaml google-auth
+      - name: Analyze Search Console
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -o pipefail
+          python3 content-engine/scripts/gsc_feedback.py | tee /tmp/gsc_report.txt
+      - name: Commit refresh queue
+        run: |
+          git config user.name "Rajadurai R"
+          git config user.email "mechsterrd@gmail.com"
+          git add content-engine/refresh-queue.yaml
+          git commit -m "GSC feedback: update refresh queue" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Email report
+        if: always()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: python3 content-engine/scripts/notify.py success "Weekly SEO report" "$(cat /tmp/gsc_report.txt 2>/dev/null || echo 'no report')"

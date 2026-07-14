@@ -236,6 +236,38 @@ Founder, 14 years plant-head experience" (a credential, not an anecdote); cross-
 or metricmech.com (same owner, pre-approved); links to the site's own calculators/tools.
 Judge only the article body content."""
 
+
+# ---------- helpers: self-repetition gate, related articles, pillar hubs, CTA tracking ----------
+def _article_text(path):
+    try: h = open(path, encoding='utf-8').read()
+    except Exception: return ''
+    m = re.search(r'<article[^>]*>.*?</article>', h, re.S)
+    t = m.group(0) if m else h
+    t = re.sub(r'<script.*?</script>', ' ', t, flags=re.S)
+    return re.sub(r'<[^>]+>', ' ', t).lower()
+
+def _shingles(text, n=10):
+    w = text.split()
+    return {' '.join(w[i:i+n]) for i in range(max(0, len(w)-n+1))}
+
+def repetition_problems(out_file):
+    """Flag AI self-repetition: long passages copied from recent posts."""
+    new = _shingles(_article_text(out_file))
+    if not new: return []
+    probs = []
+    try: recent = (yaml.safe_load(open(f'{CE}/published-log.yaml'))['posts'])[-15:]
+    except Exception: return []
+    for p in recent:
+        f = str(p.get('url', '')).replace(CFG['base_url'] + '/', '')
+        if CFG['site'] == 'metricmech' and f and not f.endswith('.html'): f += '.html'
+        if not f or not os.path.exists(f) or f == out_file: continue
+        old = _shingles(_article_text(f))
+        if not old: continue
+        overlap = len(new & old) / max(1, len(new))
+        if overlap > 0.05:
+            probs.append(f'self-repetition: {overlap:.0%} of the article repeats 10-word passages from {f} - rewrite the overlapping sections in fresh wording')
+    return probs
+
 attempt, out_file, url = 0, None, None
 raw, g = generate(GEN_USER)
 while attempt <= 2:
@@ -252,10 +284,11 @@ while attempt <= 2:
             print('critic output unparseable; retrying critic call')
     if critic is None:
         critic = {"verdict": "FAIL", "fixes": ["critic returned unparseable output 3x"]}
-    if lint.returncode == 0 and critic['verdict'] == 'PASS':
+    rep = repetition_problems(out_file)
+    if lint.returncode == 0 and not rep and critic['verdict'] == 'PASS':
         print(lint.stdout.strip()); print('CRITIC PASS'); break
     attempt += 1
-    problems = (lint.stdout + '\n' + '\n'.join(critic.get('fixes', []))).strip()
+    problems = (lint.stdout + '\n' + '\n'.join(rep) + '\n' + '\n'.join(critic.get('fixes', []))).strip()
     print(f'REPAIR LOOP {attempt}:\n{problems}')
     if attempt > 2:
         os.remove(out_file)
@@ -315,13 +348,69 @@ for _, f in scored[:4]:
         open(f, 'w', encoding='utf-8').write(ph); added += 1
 print(f'inbound links added from {added} older posts')
 
+# ---------- Related Articles + pillar hub + CTA click tracking ----------
+h_new = open(out_file, encoding='utf-8').read()
+
+# UTM-tag CTA links so GA4 shows which posts drive sign-ups
+def _utm(m):
+    href = m.group(1)
+    if 'utm_' in href: return m.group(0)
+    sep = '&' if '?' in href else '?'
+    return 'href="' + href + sep + 'utm_source=blog&utm_medium=cta&utm_campaign=' + g['slug'] + '"'
+h_new = re.sub(r'href="((?:/app\.html|/auto-balloon\.html|https://cadnexa\.com[^"]*)[^"]*)"', _utm, h_new)
+
+# Related Articles block: pillar hub first, then top semantically-related posts
+pillars = {}
+if os.path.exists(f'{CE}/pillars.yaml'):
+    pillars = (yaml.safe_load(open(f'{CE}/pillars.yaml')) or {}).get('pillars', {})
+pill = pillars.get(entry.get('cluster') or '')
+rel_items = []
+if pill: rel_items.append((pill['url'], pill['title']))
+for _sc, f in scored[:8]:
+    if len(rel_items) >= 4: break
+    try:
+        pt = re.search(r'<title>(.*?)</title>', open(f, encoding='utf-8').read(), re.S).group(1).split(' | ')[0].strip()
+    except Exception: continue
+    u = ('/' + f) if CFG['site'] == 'cadnexa' else ('/' + f[:-5])
+    if any(u == x[0] for x in rel_items): continue
+    rel_items.append((u, pt))
+if rel_items:
+    lis = '\n'.join('    <li><a href="%s">%s</a></li>' % (u, html.escape(t, quote=False)) for u, t in rel_items)
+    rel_html = '\n  <div class="related-articles">\n    <h2>Related reading</h2>\n    <ul>\n' + lis + '\n    </ul>\n  </div>\n'
+    tgt = '</article>' if CFG['site'] == 'cadnexa' else '<div class="author-card">'
+    if tgt in h_new and 'Related reading' not in h_new:
+        h_new = h_new.replace(tgt, rel_html + ('' if CFG['site'] == 'cadnexa' else '    ') + tgt, 1)
+open(out_file, 'w', encoding='utf-8').write(h_new)
+
+# Register the new post on its pillar hub page
+if pill and os.path.exists(pill['file']):
+    ph = open(pill['file'], encoding='utf-8').read()
+    marker = '<!-- pillar-list -->'
+    if marker in ph and g['slug'] not in ph:
+        li_url = ('/' + out_file) if CFG['site'] == 'cadnexa' else ('/' + out_file[:-5])
+        li = '<li><a href="%s">%s</a></li>\n      ' % (li_url, html.escape(g['h1'], quote=False))
+        ph = ph.replace(marker, li + marker, 1)
+        open(pill['file'], 'w', encoding='utf-8').write(ph)
+        print('pillar hub updated: ' + pill['file'])
+
 subprocess.run([sys.executable, CFG['sitemap_script']], check=True)
+
+# ---------- Social drafts (included in the run report email) ----------
+try:
+    drafts = call_claude(
+        'You draft social posts for a manufacturing-engineer founder. Plain text only, no markdown.',
+        'New blog post: "' + g['title'].split(' | ')[0] + '" - ' + url +
+        '\nSummary: ' + g['meta_description'] +
+        '\nWrite three paste-ready drafts:\n1) LINKEDIN (max 120 words, peer-to-peer engineer tone, end with the link and 3 hashtags)\n2) REDDIT (name one relevant subreddit; non-promotional title + 2-3 sentence body that answers the topic and discloses you wrote the guide; link at the end)\n3) X (max 240 chars including the link)', 1200)
+    print('\n=== SOCIAL DRAFTS (paste-ready) ===\n' + drafts + '\n')
+except Exception as e:
+    print('social drafts skipped:', e)
 
 # ---------- 7. Log + dequeue ----------
 entry['status'] = 'published'
 yaml.safe_dump(q, open(f'{CE}/keyword-queue.yaml', 'w'), sort_keys=False, allow_unicode=True)
 log = yaml.safe_load(open(f'{CE}/published-log.yaml'))
-log['posts'].append({'url': url, 'date': TODAY.isoformat(), 'title': g['title'], 'keyword': KW, 'source': 'autopilot'})
+log['posts'].append({'url': url, 'date': TODAY.isoformat(), 'title': g['title'], 'keyword': KW, 'cluster': entry.get('cluster', ''), 'source': 'autopilot'})
 yaml.safe_dump(log, open(f'{CE}/published-log.yaml', 'w'), sort_keys=False, allow_unicode=True)
 json.dump({'url': url, 'title': g['title'], 'keyword': KW, 'file': out_file}, open('/tmp/autopilot_result.json', 'w'))
 print(f'PUBLISHED (pending push): {url}')
