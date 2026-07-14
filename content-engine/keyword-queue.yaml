@@ -30,7 +30,7 @@ queue:
   template: tutorial
   screenshots:
   - calculators/bolt-torque
-  status: queued
+  status: published
 - keyword: bolt tightening sequence flange
   intent: informational
   audience: production

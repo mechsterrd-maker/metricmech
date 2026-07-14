@@ -1,266 +1,270 @@
-# PUBLISHED LOG — appended automatically by the autopilot. Do not remove entries.
 posts:
-  - url: https://metricmech.com/articles/as9102-form3
-    date: "2026-01-01"
-    title: "AS9102 Form 3 Walkthrough: A Real TASL Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cmm-measurement-uncertainty
-    date: "2026-01-01"
-    title: "CMM Measurement Uncertainty: A Practical Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/control-plan-template
-    date: "2026-01-01"
-    title: "Control Plan Template: Free Guide with Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/material-weight-calculator
-    date: "2026-01-01"
-    title: "Material Weight Calculator: Formula & Density | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/speeds-and-feeds-calculator
-    date: "2026-01-01"
-    title: "Speeds and Feeds Calculator: Formula & Charts | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/position-tolerance-mmc
-    date: "2026-05-11"
-    title: "Position Tolerance with MMC: Bonus Tolerance | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cp-cpk-explained
-    date: "2026-06-13"
-    title: "Cp vs Cpk Explained: Process Capability Made Simple | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/first-article-inspection-report
-    date: "2026-06-13"
-    title: "First Article Inspection Report: Fast FAI Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/gauge-rr-explained
-    date: "2026-06-13"
-    title: "Gauge R&R Explained: How to Run an MSA Study | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/ppap-indian-oems
-    date: "2026-06-14"
-    title: "PPAP for Indian OEMs: A Supplier's Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/tolerance-stackup-worked-example
-    date: "2026-06-14"
-    title: "Tolerance Stack-Up: A Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/iso-286-fits-tolerances
-    date: "2026-06-15"
-    title: "ISO 286 Fits and Tolerances Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/surface-finish-ra-rz
-    date: "2026-06-15"
-    title: "Surface Finish: Ra vs Rz Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/aql-sampling-explained
-    date: "2026-06-16"
-    title: "AQL Sampling Explained: Tables, Levels, Examples | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/oee-calculation
-    date: "2026-06-16"
-    title: "OEE Calculation: Formula and Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/bend-allowance-k-factor
-    date: "2026-06-17"
-    title: "Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/bolt-torque-guide
-    date: "2026-06-17"
-    title: "Bolt Torque Guide: Formula, Charts & Method | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/dpmo-sigma-level
-    date: "2026-06-18"
-    title: "DPMO and Sigma Level: Formula, Table & Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/thread-pitch-reference
-    date: "2026-06-18"
-    title: "Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/fmea-rpn-calculation
-    date: "2026-06-20"
-    title: "FMEA RPN Calculation Guide & Formula | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/tap-drill-size-chart
-    date: "2026-06-20"
-    title: "Tap Drill Size Chart: Metric & Imperial | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/hardness-conversion-chart
-    date: "2026-06-22"
-    title: "Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/takt-time-calculation
-    date: "2026-06-22"
-    title: "Takt Time Calculation: Formula and Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cost-of-poor-quality
-    date: "2026-06-23"
-    title: "Cost of Poor Quality (COPQ): Formula &amp; Benchmarks | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/press-fit-calculation
-    date: "2026-06-23"
-    title: "Press Fit Calculation: Interference, Force &amp; Stress | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/beam-deflection
-    date: "2026-06-25"
-    title: "Beam Deflection Formula: Cases, Examples & Charts | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/economic-order-quantity-eoq
-    date: "2026-06-25"
-    title: "Economic Order Quantity (EOQ): Formula & Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/welding-heat-input
-    date: "2026-06-25"
-    title: "Welding Heat Input Calculation: Formula & Limits | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/as9102-form1
-    date: "2026-06-26"
-    title: "Fill AS9102 Form 1: Part Number Accountability | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cycle-time-calculation
-    date: "2026-06-26"
-    title: "Cycle Time Calculation: Formula and Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/as9102-form2
-    date: "2026-06-27"
-    title: "How to Fill AS9102 Form 2: Product Accountability | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/motor-power-calculation
-    date: "2026-06-27"
-    title: "Motor Power Calculation: HP &amp; kW Formula | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/gear-ratio-calculation
-    date: "2026-06-28"
-    title: "Gear Ratio Calculation: Speed, Torque & Teeth | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/pump-power-calculation
-    date: "2026-06-28"
-    title: "Pump Power Calculation: Hydraulic, Shaft & Motor kW | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/spur-gear-calculation
-    date: "2026-06-28"
-    title: "Spur Gear Calculation: Module, Ratio & Tooth Count | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/v-belt-length-calculation
-    date: "2026-06-28"
-    title: "V-Belt Length Calculation: Formula & Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/fmea-action-priority
-    date: "2026-06-29"
-    title: "FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/true-position-calculation
-    date: "2026-06-29"
-    title: "True Position Calculation: Formula & Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/bolt-grade-chart
-    date: "2026-06-30"
-    title: "Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cmk-calculation
-    date: "2026-06-30"
-    title: "Cmk Calculation: Machine Capability Index Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cpk-vs-ppk
-    date: "2026-06-30"
-    title: "Cpk vs Ppk: Capability vs Performance | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/helical-gear-calculation
-    date: "2026-06-30"
-    title: "Helical Gear Calculation: Formulas & Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/motor-torque-calculation
-    date: "2026-07-01"
-    title: "Motor Torque Calculation: Formula & Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/press-fit-vs-shrink-fit
-    date: "2026-07-01"
-    title: "Press Fit vs Shrink Fit: Key Differences Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/steel-weight-calculation
-    date: "2026-07-01"
-    title: "Steel Weight Calculation: Formula, Charts & Examples | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/takt-time-vs-cycle-time
-    date: "2026-07-01"
-    title: "Takt Time vs Cycle Time: The Difference Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cpk-to-ppm
-    date: "2026-07-02"
-    title: "Cpk to PPM Conversion: Formula, Table & Sigma | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/ppap-checklist
-    date: "2026-07-02"
-    title: "PPAP Checklist: 18 Elements &amp; Submission Levels | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/ppap-submission-checklist
-    date: "2026-07-02"
-    title: "PPAP Checklist: All 18 Elements Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/spc-control-charts
-    date: "2026-07-02"
-    title: "SPC Control Charts: X-bar &amp; R Chart Guide | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/cost-of-manual-fai-inspection
-    date: "2026-07-03"
-    title: "The Real Cost of Manual FAI Inspection | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/pressure-unit-conversion
-    date: "2026-07-03"
-    title: "Pressure Unit Conversion: bar, psi, kPa, MPa | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/reorder-point-calculation
-    date: "2026-07-04"
-    title: "Reorder Point Calculation: Formula and Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/total-dynamic-head-calculation
-    date: "2026-07-04"
-    title: "Total Dynamic Head Calculation for Pumps (TDH) | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/chip-load-calculation
-    date: "2026-07-05"
-    title: "Chip Load Calculation: Feed Per Tooth Formula | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/pipe-weight-calculation
-    date: "2026-07-05"
-    title: "Pipe Weight Calculation: Formula & Chart | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/bend-deduction-vs-bend-allowance
-    date: "2026-07-06"
-    title: "Bend Deduction vs Bend Allowance: Which to Use | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/measurement-system-analysis
-    date: "2026-07-06"
-    title: "MSA: The 5 Measurement System Studies Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/8d-problem-solving
-    date: "2026-07-07"
-    title: "8D Problem Solving: All 8 Disciplines Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/line-balancing-calculation
-    date: "2026-07-07"
-    title: "Line Balancing Calculation: Formula &amp; Worked Example | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/sheet-metal-gauge-chart
-    date: "2026-07-07"
-    title: "Sheet Metal Gauge Chart: Gauge to mm &amp; Inches | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/what-is-a-good-cpk-value
-    date: "2026-07-07"
-    title: "What Is a Good Cpk Value? 1.33, 1.67 &amp; Benchmarks | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/minimum-bend-radius
-    date: "2026-07-08"
-    title: "Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/surface-finish-symbols
-    date: "2026-07-08"
-    title: "Surface Finish Symbols on Drawings, Explained | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/go-no-go-gauges
-    date: "2026-07-09"
-    title: "Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech"
-    source: pre-autopilot
-  - url: https://metricmech.com/articles/iso-2768-general-tolerances
-    date: "2026-07-09"
-    title: "ISO 2768 General Tolerances: mK & fH Explained | MetricMech"
-    source: pre-autopilot
+- url: https://metricmech.com/articles/as9102-form3
+  date: '2026-01-01'
+  title: 'AS9102 Form 3 Walkthrough: A Real TASL Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cmm-measurement-uncertainty
+  date: '2026-01-01'
+  title: 'CMM Measurement Uncertainty: A Practical Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/control-plan-template
+  date: '2026-01-01'
+  title: 'Control Plan Template: Free Guide with Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/material-weight-calculator
+  date: '2026-01-01'
+  title: 'Material Weight Calculator: Formula & Density | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/speeds-and-feeds-calculator
+  date: '2026-01-01'
+  title: 'Speeds and Feeds Calculator: Formula & Charts | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/position-tolerance-mmc
+  date: '2026-05-11'
+  title: 'Position Tolerance with MMC: Bonus Tolerance | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cp-cpk-explained
+  date: '2026-06-13'
+  title: 'Cp vs Cpk Explained: Process Capability Made Simple | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/first-article-inspection-report
+  date: '2026-06-13'
+  title: 'First Article Inspection Report: Fast FAI Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/gauge-rr-explained
+  date: '2026-06-13'
+  title: 'Gauge R&R Explained: How to Run an MSA Study | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/ppap-indian-oems
+  date: '2026-06-14'
+  title: 'PPAP for Indian OEMs: A Supplier''s Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/tolerance-stackup-worked-example
+  date: '2026-06-14'
+  title: 'Tolerance Stack-Up: A Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/iso-286-fits-tolerances
+  date: '2026-06-15'
+  title: ISO 286 Fits and Tolerances Explained | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/surface-finish-ra-rz
+  date: '2026-06-15'
+  title: 'Surface Finish: Ra vs Rz Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/aql-sampling-explained
+  date: '2026-06-16'
+  title: 'AQL Sampling Explained: Tables, Levels, Examples | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/oee-calculation
+  date: '2026-06-16'
+  title: 'OEE Calculation: Formula and Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/bend-allowance-k-factor
+  date: '2026-06-17'
+  title: 'Bend Allowance & K-Factor: Sheet Metal Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/bolt-torque-guide
+  date: '2026-06-17'
+  title: 'Bolt Torque Guide: Formula, Charts & Method | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/dpmo-sigma-level
+  date: '2026-06-18'
+  title: 'DPMO and Sigma Level: Formula, Table & Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/thread-pitch-reference
+  date: '2026-06-18'
+  title: 'Thread Pitch Reference: Metric & UNC/UNF Charts | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/fmea-rpn-calculation
+  date: '2026-06-20'
+  title: FMEA RPN Calculation Guide & Formula | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/tap-drill-size-chart
+  date: '2026-06-20'
+  title: 'Tap Drill Size Chart: Metric & Imperial | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/hardness-conversion-chart
+  date: '2026-06-22'
+  title: 'Hardness Conversion Chart: HRC, HB, HV Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/takt-time-calculation
+  date: '2026-06-22'
+  title: 'Takt Time Calculation: Formula and Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cost-of-poor-quality
+  date: '2026-06-23'
+  title: 'Cost of Poor Quality (COPQ): Formula &amp; Benchmarks | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/press-fit-calculation
+  date: '2026-06-23'
+  title: 'Press Fit Calculation: Interference, Force &amp; Stress | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/beam-deflection
+  date: '2026-06-25'
+  title: 'Beam Deflection Formula: Cases, Examples & Charts | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/economic-order-quantity-eoq
+  date: '2026-06-25'
+  title: 'Economic Order Quantity (EOQ): Formula & Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/welding-heat-input
+  date: '2026-06-25'
+  title: 'Welding Heat Input Calculation: Formula & Limits | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/as9102-form1
+  date: '2026-06-26'
+  title: 'Fill AS9102 Form 1: Part Number Accountability | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cycle-time-calculation
+  date: '2026-06-26'
+  title: 'Cycle Time Calculation: Formula and Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/as9102-form2
+  date: '2026-06-27'
+  title: 'How to Fill AS9102 Form 2: Product Accountability | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/motor-power-calculation
+  date: '2026-06-27'
+  title: 'Motor Power Calculation: HP &amp; kW Formula | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/gear-ratio-calculation
+  date: '2026-06-28'
+  title: 'Gear Ratio Calculation: Speed, Torque & Teeth | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/pump-power-calculation
+  date: '2026-06-28'
+  title: 'Pump Power Calculation: Hydraulic, Shaft & Motor kW | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/spur-gear-calculation
+  date: '2026-06-28'
+  title: 'Spur Gear Calculation: Module, Ratio & Tooth Count | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/v-belt-length-calculation
+  date: '2026-06-28'
+  title: 'V-Belt Length Calculation: Formula & Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/fmea-action-priority
+  date: '2026-06-29'
+  title: 'FMEA Action Priority (AP): AIAG-VDA Tables vs RPN | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/true-position-calculation
+  date: '2026-06-29'
+  title: 'True Position Calculation: Formula & Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/bolt-grade-chart
+  date: '2026-06-30'
+  title: 'Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cmk-calculation
+  date: '2026-06-30'
+  title: 'Cmk Calculation: Machine Capability Index Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cpk-vs-ppk
+  date: '2026-06-30'
+  title: 'Cpk vs Ppk: Capability vs Performance | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/helical-gear-calculation
+  date: '2026-06-30'
+  title: 'Helical Gear Calculation: Formulas & Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/motor-torque-calculation
+  date: '2026-07-01'
+  title: 'Motor Torque Calculation: Formula & Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/press-fit-vs-shrink-fit
+  date: '2026-07-01'
+  title: 'Press Fit vs Shrink Fit: Key Differences Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/steel-weight-calculation
+  date: '2026-07-01'
+  title: 'Steel Weight Calculation: Formula, Charts & Examples | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/takt-time-vs-cycle-time
+  date: '2026-07-01'
+  title: 'Takt Time vs Cycle Time: The Difference Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cpk-to-ppm
+  date: '2026-07-02'
+  title: 'Cpk to PPM Conversion: Formula, Table & Sigma | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/ppap-checklist
+  date: '2026-07-02'
+  title: 'PPAP Checklist: 18 Elements &amp; Submission Levels | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/ppap-submission-checklist
+  date: '2026-07-02'
+  title: 'PPAP Checklist: All 18 Elements Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/spc-control-charts
+  date: '2026-07-02'
+  title: 'SPC Control Charts: X-bar &amp; R Chart Guide | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/cost-of-manual-fai-inspection
+  date: '2026-07-03'
+  title: The Real Cost of Manual FAI Inspection | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/pressure-unit-conversion
+  date: '2026-07-03'
+  title: 'Pressure Unit Conversion: bar, psi, kPa, MPa | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/reorder-point-calculation
+  date: '2026-07-04'
+  title: 'Reorder Point Calculation: Formula and Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/total-dynamic-head-calculation
+  date: '2026-07-04'
+  title: Total Dynamic Head Calculation for Pumps (TDH) | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/chip-load-calculation
+  date: '2026-07-05'
+  title: 'Chip Load Calculation: Feed Per Tooth Formula | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/pipe-weight-calculation
+  date: '2026-07-05'
+  title: 'Pipe Weight Calculation: Formula & Chart | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/bend-deduction-vs-bend-allowance
+  date: '2026-07-06'
+  title: 'Bend Deduction vs Bend Allowance: Which to Use | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/measurement-system-analysis
+  date: '2026-07-06'
+  title: 'MSA: The 5 Measurement System Studies Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/8d-problem-solving
+  date: '2026-07-07'
+  title: '8D Problem Solving: All 8 Disciplines Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/line-balancing-calculation
+  date: '2026-07-07'
+  title: 'Line Balancing Calculation: Formula &amp; Worked Example | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/sheet-metal-gauge-chart
+  date: '2026-07-07'
+  title: 'Sheet Metal Gauge Chart: Gauge to mm &amp; Inches | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/what-is-a-good-cpk-value
+  date: '2026-07-07'
+  title: What Is a Good Cpk Value? 1.33, 1.67 &amp; Benchmarks | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/minimum-bend-radius
+  date: '2026-07-08'
+  title: 'Minimum Bend Radius for Sheet Metal: Rules & Chart | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/surface-finish-symbols
+  date: '2026-07-08'
+  title: Surface Finish Symbols on Drawings, Explained | MetricMech
+  source: pre-autopilot
+- url: https://metricmech.com/articles/go-no-go-gauges
+  date: '2026-07-09'
+  title: 'Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/iso-2768-general-tolerances
+  date: '2026-07-09'
+  title: 'ISO 2768 General Tolerances: mK & fH Explained | MetricMech'
+  source: pre-autopilot
+- url: https://metricmech.com/articles/bolt-shear-strength-calculation
+  date: '2026-07-14'
+  title: 'Bolt Shear Strength Calculation: Formula & Guide | MetricMech'
+  keyword: bolt shear strength calculation
+  source: autopilot

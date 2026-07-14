@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolt Shear Strength Calculation: Formula & Guide | MetricMech</title>
+<meta name="description" content="Learn bolt shear strength calculation for single and double shear with formulas, worked examples, and step-by-step method for grade 8.8 and 10.9 bolts." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bolt-shear-strength-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bolt Shear Strength Calculation: Formula & Guide | MetricMech">
+<meta property="og:description" content="Learn bolt shear strength calculation for single and double shear with formulas, worked examples, and step-by-step method for grade 8.8 and 10.9 bolts.">
+<meta property="og:url" content="https://metricmech.com/articles/bolt-shear-strength-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bolt Shear Strength Calculation: Formula & Guide | MetricMech">
+<meta name="twitter:description" content="Learn bolt shear strength calculation for single and double shear with formulas, worked examples, and step-by-step method for grade 8.8 and 10.9 bolts.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Bolt Shear Strength Calculation: Formula & Guide | MetricMech",
+  "description": "Learn bolt shear strength calculation for single and double shear with formulas, worked examples, and step-by-step method for grade 8.8 and 10.9 bolts.",
+  "url": "https://metricmech.com/articles/bolt-shear-strength-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Bolt Shear Strength Calculation: Formula, Examples & Step-by-Step Method",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-14",
+  "mainEntityOfPage": "https://metricmech.com/articles/bolt-shear-strength-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the shear strength of a grade 8.8 bolt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a grade 8.8 bolt, the ultimate tensile strength (Ftu) is 800 MPa. The shear strength is typically taken as 60% of Ftu, giving 480 MPa. For an M12 bolt with a stress area of 84.3 mm², the shear capacity in single shear is approximately 40.5 kN."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between single shear and double shear for bolts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In single shear, one shear plane cuts through the bolt, so the full load acts on one cross-section. In double shear, the bolt passes through three plates and carries load across two planes, effectively doubling the shear capacity for the same bolt size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use the tensile stress area or nominal area for bolt shear calculations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the tensile stress area (As) for threaded sections within the shear plane, as it accounts for the reduced cross-section at the thread root. Use the nominal shank area (π/4 × d²) when the shear plane passes through the unthreaded shank."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What safety factor should I apply to bolt shear calculations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For structural joints under ISO 898-1 and Eurocode 3 guidelines, a safety factor of 1.25 to 1.5 on ultimate shear strength is common. Critical joints or dynamic loading conditions often use factors of 2.0 or higher. Always verify against your relevant design standard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does bolt shear strength compare to bolt tensile strength?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Shear strength is typically 57–65% of the tensile strength for common bolt steels, with 60% being the widely used design approximation. A grade 10.9 bolt with 1000 MPa tensile strength therefore has an approximate shear strength of 577–650 MPa."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bolt Shear Strength Calculation: Formula, Examples & Step-by-Step Method",
+      "item": "https://metricmech.com/articles/bolt-shear-strength-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bolt Shear Strength Calculation: Formula</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula & Variables Table</a>
+    <a href="#shear-conditions">Single Shear vs Double Shear</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#grade-capacity">Bolt Shear Capacity for Grade 8.8</a>
+    <a href="#shear-vs-tensile">Shear vs Tensile Strength in Bolts</a>
+    <a href="#common-mistakes">Common Mistakes</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bolt Shear Strength Calculation: Formula, Examples & Step-by-Step Method</h1>
+    <div class="art-meta-bar">
+      <span>Mechanical Design</span>
+      <span>July 14, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">Bolt shear strength is calculated by multiplying the shear stress area of the bolt by the allowable shear stress of the bolt material. For a metric bolt under ISO 898-1, allowable shear stress is approximately 60% of the ultimate tensile strength (F<sub>tu</sub>). For a grade 8.8 M12 bolt in single shear, that gives a shear capacity of roughly 40 kN before applying a safety factor. The sections below cover the full formula, single and double shear conditions, a worked example with real numbers, and the most common design errors engineers make when sizing bolted joints.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+<p>Start with a concrete case before going deeper into theory. Consider an M16 grade 8.8 bolt used to connect two structural brackets in single shear under a transverse load.</p>
+<p>The tensile stress area for M16 is 157 mm² per ISO 898-1. The ultimate tensile strength of grade 8.8 is 800 MPa. The shear strength factor used here is 0.60, which is the standard conservative approximation for steel fasteners.</p>
+<p>Shear capacity = 0.60 × 800 MPa × 157 mm² = 75,360 N ≈ 75.4 kN (ultimate). Applying a safety factor of 1.25, the design shear capacity is 75.4 / 1.25 = <strong>60.3 kN</strong>. If the applied transverse load is 45 kN, this bolt passes with a utilisation ratio of 45 / 60.3 = 0.75 — a comfortable margin of 25%.</p>
+<p>If the same connection is redesigned in double shear, the capacity doubles to 120.6 kN at the same design safety factor, allowing a much larger applied load or permitting a smaller bolt to be used.</p>
+
+<h2 id="formula-table">Formula &amp; Variables Table</h2>
+<p>The fundamental bolt shear strength formula is straightforward and applies across most structural and mechanical design codes.</p>
+
+<h3>Primary Formula</h3>
+<p><strong>V<sub>s</sub> = &tau;<sub>allow</sub> &times; A<sub>s</sub> &times; n</strong></p>
+<p>Where &tau;<sub>allow</sub> = k &times; F<sub>tu</sub>, with k = 0.577 (von Mises) or k = 0.60 (simplified design practice).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Description</th>
+      <th>Typical Unit</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>V<sub>s</sub></td>
+      <td>Bolt shear capacity</td>
+      <td>N or kN</td>
+      <td>Ultimate; divide by safety factor for design value</td>
+    </tr>
+    <tr>
+      <td>&tau;<sub>allow</sub></td>
+      <td>Allowable shear stress</td>
+      <td>MPa</td>
+      <td>= k &times; F<sub>tu</sub></td>
+    </tr>
+    <tr>
+      <td>F<sub>tu</sub></td>
+      <td>Ultimate tensile strength of bolt grade</td>
+      <td>MPa</td>
+      <td>Grade 8.8 &rarr; 800 MPa; 10.9 &rarr; 1000 MPa; 12.9 &rarr; 1220 MPa</td>
+    </tr>
+    <tr>
+      <td>k</td>
+      <td>Shear-to-tensile ratio</td>
+      <td>&mdash;</td>
+      <td>0.577 (von Mises), 0.60 (design), 0.65 (some aerospace codes)</td>
+    </tr>
+    <tr>
+      <td>A<sub>s</sub></td>
+      <td>Stress area at shear plane</td>
+      <td>mm²</td>
+      <td>Tensile stress area if thread in shear plane; nominal shank area if shank in shear plane</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>Number of shear planes</td>
+      <td>&mdash;</td>
+      <td>1 for single shear, 2 for double shear</td>
+    </tr>
+    <tr>
+      <td>SF</td>
+      <td>Safety factor</td>
+      <td>&mdash;</td>
+      <td>1.25–2.0 depending on code and loading type</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The tensile stress area (A<sub>s</sub>) values for common metric bolts are tabulated in ISO 898-1 and reproduced in most fastener references. For M8: 36.6 mm²; M10: 58.0 mm²; M12: 84.3 mm²; M16: 157 mm²; M20: 245 mm²; M24: 353 mm².</p>
+
+<div class="callout">
+<p><strong>Related reference:</strong> The <a href="https://metricmech.com/articles/thread-pitch-reference">Thread Pitch Reference at MetricMech</a> gives full metric and UNC/UNF thread geometry data, including pitch and stress area values that feed directly into the bolt shear formula above.</p>
+</div>
+
+<h2 id="shear-conditions">Single Shear vs Double Shear</h2>
+<p>Understanding the shear condition is essential before applying any formula. Getting this wrong is one of the most common and costly errors in bolted joint design.</p>
+
+<h3>Single Shear</h3>
+<p>Single shear occurs when the bolt connects two plates and only one cross-sectional plane resists the applied load. A simple lap joint is the classic example — one plate slides relative to the other, and the bolt resists this movement at one plane. The full applied force acts across a single bolt cross-section.</p>
+<p>In single shear: <strong>V<sub>s</sub> = &tau;<sub>allow</sub> &times; A<sub>s</sub> &times; 1</strong></p>
+
+<h3>Double Shear</h3>
+<p>Double shear occurs when the bolt passes through a central member sandwiched between two outer plates. The load splits across two shear planes, so each plane carries only half the total load. This is the configuration seen in clevis pins, fork-and-eye joints, and many structural gusset connections.</p>
+<p>In double shear: <strong>V<sub>s</sub> = &tau;<sub>allow</sub> &times; A<sub>s</sub> &times; 2</strong></p>
+<p>For the same bolt size and grade, a double shear connection is twice as strong in shear as a single shear connection. Designers often prefer double shear when space allows, since it permits smaller bolt diameters for the same load, reducing weight and joint stiffness.</p>
+
+<div class="callout">
+<p>For further reading on how joint geometry affects fastener performance, the <a href="https://metricmech.com/articles/bolt-torque-guide">Bolt Torque Guide at MetricMech</a> explains clamping force, preload, and how to avoid under-torquing in bolted assemblies.</p>
+</div>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+<p>Follow these steps in order. Skipping ahead or using approximations too early leads to errors that compound through the calculation.</p>
+
+<ol>
+  <li><strong>Identify the bolt grade and material.</strong> Read the grade marking from the bolt head (e.g., 8.8, 10.9, 12.9). Look up or calculate F<sub>tu</sub> from ISO 898-1. Grade 8.8: F<sub>tu</sub> = 800 MPa. Grade 10.9: F<sub>tu</sub> = 1000 MPa. Grade 12.9: F<sub>tu</sub> = 1220 MPa.</li>
+  <li><strong>Determine the shear plane location.</strong> Check whether the shear plane passes through the threaded portion or the unthreaded shank. If through the thread: use tensile stress area A<sub>s</sub>. If through the shank: use nominal area A<sub>n</sub> = &pi;/4 &times; d².</li>
+  <li><strong>Count the number of shear planes (n).</strong> Sketch the joint and count how many planes separate moving parts. Lap joint = 1. Clevis = 2.</li>
+  <li><strong>Select the shear strength factor (k).</strong> Use k = 0.60 for general structural and mechanical design. Use k = 0.577 if applying the von Mises yield criterion. Cross-reference your design code — Eurocode 3 uses 0.6/&gamma;<sub>M2</sub>; AISC uses 0.45 &times; F<sub>u</sub> for ASD.</li>
+  <li><strong>Calculate ultimate shear capacity.</strong> V<sub>s,ult</sub> = k &times; F<sub>tu</sub> &times; A<sub>s</sub> &times; n</li>
+  <li><strong>Apply safety factor.</strong> V<sub>s,design</sub> = V<sub>s,ult</sub> / SF. Use SF &ge; 1.25 for static load, SF &ge; 2.0 for dynamic or fatigue load.</li>
+  <li><strong>Compare to applied load.</strong> The applied shear force must be &le; V<sub>s,design</sub>. Calculate utilisation ratio = V<sub>applied</sub> / V<sub>s,design</sub>. Values below 1.0 are acceptable; values below 0.85 may indicate the bolt is oversized.</li>
+  <li><strong>Check bearing stress in the connected plates.</strong> A bolt can pass the shear check but still cause joint failure if the plate bearing stress exceeds allowable values. Bearing stress = V<sub>applied</sub> / (d &times; t), where d is bolt diameter and t is the thinner plate thickness. This check is outside the bolt shear formula but is mandatory for a complete joint design.</li>
+</ol>
+
+<h2 id="grade-capacity">Bolt Shear Capacity for Grade 8.8</h2>
+<p>Grade 8.8 bolts are the most widely used structural fasteners in industrial and mechanical engineering. The table below gives ready-reference shear capacity values in single and double shear, using k = 0.60 and SF = 1.25.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bolt Size</th>
+      <th>Tensile Stress Area (mm²)</th>
+      <th>Ultimate Shear (kN) &ndash; Single</th>
+      <th>Design Shear (kN) SF=1.25 &ndash; Single</th>
+      <th>Design Shear (kN) SF=1.25 &ndash; Double</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>M8</td>
+      <td>36.6</td>
+      <td>17.6</td>
+      <td>14.1</td>
+      <td>28.2</td>
+    </tr>
+    <tr>
+      <td>M10</td>
+      <td>58.0</td>
+      <td>27.8</td>
+      <td>22.3</td>
+      <td>44.6</td>
+    </tr>
+    <tr>
+      <td>M12</td>
+      <td>84.3</td>
+      <td>40.5</td>
+      <td>32.4</td>
+      <td>64.8</td>
+    </tr>
+    <tr>
+      <td>M16</td>
+      <td>157</td>
+      <td>75.4</td>
+      <td>60.3</td>
+      <td>120.6</td>
+    </tr>
+    <tr>
+      <td>M20</td>
+      <td>245</td>
+      <td>117.6</td>
+      <td>94.1</td>
+      <td>188.2</td>
+    </tr>
+    <tr>
+      <td>M24</td>
+      <td>353</td>
+      <td>169.4</td>
+      <td>135.6</td>
+      <td>271.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Calculation basis: F<sub>tu</sub> = 800 MPa, k = 0.60, shear plane through threaded section. All values are rounded to one decimal place. Verify against <a href="https://www.iso.org/standard/20401.html" rel="noopener noreferrer" target="_blank">ISO 898-1</a> and your applicable design standard before use in production drawings.</p>
+
+<p>For grade 10.9, multiply these values by 1000/800 = 1.25. For grade 12.9, multiply by 1220/800 = 1.525. The <a href="https://metricmech.com/articles/bolt-grade-chart">Bolt Grade Chart at MetricMech</a> gives a full breakdown of mechanical property differences between grades 8.8, 10.9, and 12.9, including proof load and yield strength data.</p>
+
+<p>For joint documentation and inspection traceability, auto-ballooning tools such as <a href="https://cadnexa.com/balloon" class="highlight">CadNexa's auto-ballooning feature</a> can accelerate the creation of inspection-ready drawings that reference each fastener position, size, and grade on the assembly. This is especially useful when the joint design changes during the review cycle and balloon callouts need to stay synchronised with updated bolt specifications.</p>
+
+<div class="cta-box">
+<p>Preparing inspection documentation for a bolted assembly? <a href="https://cadnexa.com/balloon">CadNexa auto-ballooning</a> links fastener callouts directly to your BOM, reducing manual re-work when bolt grades or positions change.</p>
+</div>
+
+<h2 id="shear-vs-tensile">Shear vs Tensile Strength in Bolts</h2>
+<p>A frequent question from engineers new to fastener design is whether bolts are stronger in tension or shear. The answer is always tension — shear strength is a fraction of tensile strength for all common bolt steels.</p>
+<p>The theoretical basis comes from the von Mises yield criterion, which predicts shear yield at 1/&radic;3 &asymp; 0.577 of the tensile yield stress. For ultimate strength, experiments on standard bolt steels typically show ratios between 0.60 and 0.65. The conservative design value of 0.60 &times; F<sub>tu</sub> is therefore consistent with both theory and test data for grades 8.8 through 12.9.</p>
+<p>In practice, most structural bolted joints are designed primarily in shear — think beam-to-column connections, bracket mounts, and flange joints under lateral loads. Tension-critical applications include high-strength bolts in friction-type connections and bolts resisting prying forces. Many joints experience combined shear and tension simultaneously, requiring an interaction check. The commonly used linear interaction formula is: (V / V<sub>s</sub>) + (T / T<sub>s</sub>) &le; 1.0, where V and T are applied shear and tension and V<sub>s</sub> and T<sub>s</sub> are respective capacities.</p>
+<p>The <a href="https://www.nist.gov/publications/mechanical-and-physical-properties-astm-a325-and-a490-bolts" rel="noopener noreferrer" target="_blank">NIST fastener property references</a> provide supplementary data for imperial and high-strength structural bolts. The <a href="https://metricmech.com/articles/press-fit-calculation">Press Fit Calculation guide at MetricMech</a> is also worth reviewing when bolted joints share load paths with interference-fit components, as combined stress states become important in those regions.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Bolt Shear Calculations</h2>
+<p>Experience in plant environments and design reviews reveals that the same errors appear repeatedly, even among experienced engineers. Recognising these patterns prevents expensive redesigns and field failures.</p>
+
+<h3>1. Using nominal diameter area instead of stress area</h3>
+<p>The nominal area &pi;/4 &times; d² overestimates bolt shear capacity when the thread is in the shear plane. An M16 bolt has a nominal area of 201 mm² but a tensile stress area of only 157 mm² — a 22% overestimate if the wrong figure is used. Always identify where the shear plane falls before selecting the cross-sectional area.</p>
+
+<h3>2. Forgetting to count shear planes</h3>
+<p>A three-plate sandwich joint has two shear planes, but engineers occasionally treat it as single shear because only one bolt is visible in the side view. Sketch the joint in cross-section, draw the shear planes explicitly, and count them before writing down n in the formula.</p>
+
+<h3>3. Applying the wrong safety factor for dynamic loads</h3>
+<p>A safety factor of 1.25 is appropriate for static, well-defined loads. Vibration, impact, or cyclic loading demands SF &ge; 2.0, and fatigue-sensitive joints may require even higher factors or a full S-N curve analysis. The <a href="https://www.aiag.org" rel="noopener noreferrer" target="_blank">AIAG guidelines for automotive structural fasteners</a> recommend detailed fatigue assessment for bolts in dynamic environments.</p>
+
+<h3>4. Ignoring bearing stress in the plate</h3>
+<p>A bolt with adequate shear capacity can still cause joint failure if the plate material yields in bearing. Bearing stress = applied load / (bolt diameter &times; plate thickness). For structural steel plates, allowable bearing stress is typically 1.5 to 2.0 times the plate yield strength, but this must always be verified separately from the bolt shear calculation.</p>
+
+<h3>5. Mixing up grade markings and material properties</h3>
+<p>A grade 8.8 bolt carries that head marking to indicate its property class, not its alloy. Not all grade 8.8 bolts from different suppliers have identical Charpy impact or ductility properties, especially for large diameters above M36 where ISO 898-1 permits reduced property requirements. Verify material test certificates when the joint is safety-critical.</p>
+
+<div class="warn-box">
+<p><strong>Warning:</strong> Never use stainless steel bolt shear values from carbon steel tables. A grade A2-70 stainless bolt has F<sub>tu</sub> = 700 MPa but significantly different ductility and galling characteristics. <a href="https://www.iso.org/standard/72740.html" rel="noopener noreferrer" target="_blank">ISO 3506-1</a> governs stainless fastener properties and must be referenced separately for any stainless bolt shear calculation.</p>
+</div>
+
+<h3>6. Not accounting for eccentrically loaded bolt groups</h3>
+<p>When a load is applied at an offset from the centroid of a bolt group, individual bolts carry unequal shear forces due to combined direct shear and moment. The maximum bolt force must be calculated using vector addition of direct and rotational shear components. Treating all bolts as equally loaded in an eccentric group is unconservative and a common oversight in bracket design. The tolerance stack-up principles discussed in the <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up worked example at MetricMech</a> apply a similar cumulative-error mindset that is equally valuable when checking eccentric bolt group geometry.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the shear strength of a grade 8.8 bolt?</h3>
+<p>For a grade 8.8 bolt, the ultimate tensile strength (F<sub>tu</sub>) is 800 MPa. The shear strength is typically taken as 60% of F<sub>tu</sub>, giving 480 MPa. For an M12 bolt with a tensile stress area of 84.3 mm², the ultimate shear capacity in single shear is approximately 40.5 kN. After applying a safety factor of 1.25, the design shear capacity is 32.4 kN.</p>
+
+<h3>What is the difference between single shear and double shear for bolts?</h3>
+<p>In single shear, one shear plane cuts through the bolt, so the full load acts on one cross-section. In double shear, the bolt passes through three plates and carries load across two planes, effectively doubling the shear capacity for the same bolt size and grade without any change to the formula — only the value of n changes from 1 to 2.</p>
+
+<h3>Should I use the tensile stress area or nominal area for bolt shear calculations?</h3>
+<p>Use the tensile stress area (A<sub>s</sub>) for threaded sections within the shear plane, as it accounts for the reduced cross-section at the thread root. Use the nominal shank area (&pi;/4 &times; d²) when the shear plane passes through the unthreaded shank. In practice, design joints so the shear plane falls on the shank where possible, as this provides higher capacity.</p>
+
+<h3>What safety factor should I apply to bolt shear calculations?</h3>
+<p>For structural joints under ISO 898-1 and Eurocode 3 guidelines, a safety factor of 1.25 to 1.5 on ultimate shear strength is standard for static loading. Critical joints, dynamic loading, or vibration environments commonly use factors of 2.0 or higher. Always verify the required safety factor against your design code and application risk level before finalising the joint.</p>
+
+<h3>How does bolt shear strength compare to bolt tensile strength?</h3>
+<p>Shear strength is typically 57–65% of the tensile strength for common bolt steels, with 60% being the widely used design approximation. This ratio derives from the von Mises yield criterion (1/&radic;3 &asymp; 0.577) and is confirmed by test data across grades 8.8 to 12.9. Bolts are therefore always stronger when loaded in tension than in pure shear, and joint designs that place bolts in tension rather than shear generally produce lighter, stiffer connections.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bolt Shear Strength Calculation: Formula, Examples & Step-by-Step Method",
+      "item": "https://metricmech.com/articles/bolt-shear-strength-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>
