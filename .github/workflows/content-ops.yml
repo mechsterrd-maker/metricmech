@@ -9,7 +9,7 @@ on:
         required: true
         default: 'all'
         type: choice
-        options: [all, expand-keywords, build-pillars]
+        options: [all, expand-keywords, build-pillars, refresh-pages]
 
 concurrency:
   group: blog-autopilot
@@ -38,6 +38,11 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python3 content-engine/scripts/build_pillars.py
+      - name: Refresh flagged pages
+        if: inputs.task == 'refresh-pages'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 content-engine/scripts/refresh_pages.py
       - name: Commit and push
         run: |
           git config user.name "Rajadurai R"

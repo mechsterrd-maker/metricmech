@@ -57,6 +57,26 @@ def call_claude(system, user, max_tokens=16000):
     with urllib.request.urlopen(req, timeout=600) as r:
         return json.loads(r.read())['content'][0]['text']
 
+
+# cluster -> the specific product feature the CTA should promote
+CTA_MAP = {
+    'AS9102 & FAI': 'the CadNexa FAI Report Generator (AS9102 Forms 1/2/3) at /app.html',
+    'PPAP & APQP': 'CadNexa PPAP-level FAI reporting at /app.html',
+    'GD&T': 'the CadNexa PDF Balloon Tool (Smart Detect + Box+Balloon OCR) at /balloon',
+    'Drawing Ballooning & Inspection Sheets': 'the CadNexa PDF Balloon Tool at /balloon',
+    'CAD File Viewing & BOM (STEP/IGES/SolidWorks/Creo/CATIA/NX)': 'the CadNexa 3D Viewer with auto-BOM at /app.html',
+    'RFQ & Supplier Management': 'the CadNexa Secure RFQ System at /app.html',
+    'ISO 13485 & Medical Device QA': 'CadNexa ISO 13485 inspection documentation at /app.html',
+    'CMM & Inspection Planning': 'CadNexa ballooning with CSV export for inspection planning at /balloon',
+    'Software Comparisons & Buying Guides': 'the CadNexa 14-day free trial (no card) at /app.html',
+    'Quality Documentation & Digital QMS': 'the CadNexa FAI Report Generator at /app.html',
+}
+if CFG['site'] == 'cadnexa':
+    cta_hint = CTA_MAP.get(entry.get('cluster') or '', 'the CadNexa 14-day free trial at /app.html')
+else:
+    cta_hint = ('the most relevant MetricMech calculator for this topic, plus one cross-link to the matching '
+                'CadNexa tool (ballooning topics -> https://cadnexa.com/balloon, FAI/report topics -> https://cadnexa.com/app.html)')
+
 GEN_SYSTEM = f"""You write SEO blog posts for {CFG['site']} as Rajadurai R, a mechanical engineer and
 plant head with 14 years of experience. Follow the template exactly. ABSOLUTE RULES:
 - No fabricated personal anecdotes. {'Use the provided real story naturally.' if story else 'NO first-person stories at all in this post — write as an expert explainer.'}
@@ -75,6 +95,12 @@ TEMPLATE:\n{template}\n
 {truth_block}
 {story_block}
 EXISTING POSTS (link 2-3 relevant ones; NEVER reuse these topics):\n{existing_titles}
+
+FEATURED-SNIPPET REQUIREMENTS (Google pulls these into position-zero boxes):
+- Open with a 40-60 word direct-answer definition of the primary keyword (before any storytelling).
+- Include at least one HTML comparison or data table with a header row.
+- Any procedure must be a numbered <ol> list with imperative steps.
+- CTA FOCUS: weave 1-2 natural mentions of {cta_hint} where the reader hits the matching pain point.
 
 Return your answer in EXACTLY this format (three sentinel lines, no markdown fences):
 ===META===
