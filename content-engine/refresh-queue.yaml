@@ -4,58 +4,68 @@ pages:
   position: 12.7
   impressions: 470
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/gdt/flatness
   reason: striking-distance
   position: 25.9
   impressions: 374
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/reference/6g-vs-6h-thread
   reason: striking-distance
   position: 11.7
   impressions: 310
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/gdt/profile-of-a-surface
   reason: striking-distance
   position: 15.5
   impressions: 115
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/gdt/position-tolerance
   reason: striking-distance
   position: 24.8
   impressions: 88
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/calculators/iso-286-fits
   reason: striking-distance
   position: 19.6
   impressions: 62
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/reference/drill-size-chart
   reason: striking-distance
   position: 18.9
   impressions: 56
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/
   reason: striking-distance
   position: 12.4
   impressions: 55
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/calculators/v-belt
   reason: striking-distance
   position: 20.0
   impressions: 48
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
 - url: https://metricmech.com/gdt
   reason: striking-distance
   position: 20.1
   impressions: 46
   added: '2026-07-15'
-  status: todo
+  status: manual
+  note: not a blog/article page - needs human/dev attention
