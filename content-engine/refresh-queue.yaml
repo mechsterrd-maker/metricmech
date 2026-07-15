@@ -4,22 +4,25 @@ pages:
   position: 12.7
   impressions: 470
   added: '2026-07-15'
-  status: manual
-  note: not a blog/article page - needs human/dev attention
+  status: done
+  note: 'manual additive refresh: visible FAQ + pillar link'
+  refreshed: '2026-07-15'
 - url: https://metricmech.com/gdt/flatness
   reason: striking-distance
   position: 25.9
   impressions: 374
   added: '2026-07-15'
-  status: manual
-  note: not a blog/article page - needs human/dev attention
+  status: done
+  note: 'manual additive refresh: visible FAQ + pillar link'
+  refreshed: '2026-07-15'
 - url: https://metricmech.com/reference/6g-vs-6h-thread
   reason: striking-distance
   position: 11.7
   impressions: 310
   added: '2026-07-15'
-  status: manual
-  note: not a blog/article page - needs human/dev attention
+  status: done
+  note: 'manual additive refresh: visible FAQ + pillar link + CTR title/meta'
+  refreshed: '2026-07-15'
 - url: https://metricmech.com/gdt/profile-of-a-surface
   reason: striking-distance
   position: 15.5

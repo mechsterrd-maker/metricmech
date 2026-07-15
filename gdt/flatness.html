@@ -302,7 +302,19 @@
 
     <p>For the full set of 14 GD&amp;T symbols, including parallelism and profile (which both interact with flatness), see the <a href="../gdt.html">GD&amp;T Symbol Reference</a>. The position tolerance deep-dive at <a href="position-tolerance.html">/gdt/position-tolerance</a> covers the location side of the same surface story — flatness controls how planar a face is, position controls where features <em>on</em> that face sit.</p>
 
-    <div class="author-card">
+    
+<h2 id="faq">Frequently asked questions</h2>
+  <h3>What is flatness in GD&amp;T?</h3>
+  <p>Flatness (symbol ⏥) is a form tolerance that constrains an entire surface to lie between two parallel planes separated by the specified tolerance value. It references no datum and applies regardless of orientation in space — flatness is purely about how flat the surface is to itself, not about how it relates to other features.</p>
+  <h3>How is flatness measured?</h3>
+  <p>Flatness is measured by sampling many points across the surface and computing the smallest pair of parallel planes that contains all of them. Common methods are: surface plate plus a dial indicator scanning a grid of points (traditional, accurate to a few microns), CMM with surface scanning (most common for precision parts), optical flat with monochromatic light (sub-micron precision for lapped surfaces), and laser interferometry for large surfaces. Always sample at least 9 points for a small surface and proportionally more for larger surfaces.</p>
+  <h3>What is the difference between flatness and parallelism?</h3>
+  <p>Flatness controls how flat a surface is to itself with no reference to anything else — no datum. Parallelism controls how parallel a surface is to a specified datum, and inherently includes the flatness requirement at the same tolerance. If you call out parallelism of 0.05 to datum A, the surface must be both within 0.05 of parallel to A AND flat within 0.05. A separate flatness call-out is only needed when you want flatness tighter than the parallelism value.</p>
+  <h3>Why is flatness always limited by size tolerance under ASME Y14.5?</h3>
+  <p>Under ASME Y14.5 Rule #1 (the envelope principle), a feature of size with a size tolerance is implicitly constrained to a perfect-form envelope at Maximum Material Condition. This means the surface can never bow or wave beyond the limits the size tolerance allows. A 10 +/- 0.05 mm block automatically has flatness limited to 0.10 mm (the total size tolerance), so specifying flatness of 0.15 would be meaningless. Flatness call-outs are only useful when the requirement is tighter than the size tolerance permits. Under ISO 8015 the independence principle applies by default, so size and form are independent — making explicit flatness call-outs more common in ISO drawings.</p>
+<p>Go deeper: <a href="/articles/gdt-reference-guide">GD&amp;T Reference: Complete Guide</a>.</p>
+
+<div class="author-card">
       <div class="author-avatar">RR</div>
       <div>
         <div class="author-name">Rajadurai R.</div>

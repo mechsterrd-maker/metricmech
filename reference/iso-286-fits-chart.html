@@ -105,7 +105,7 @@
   <div class="ref-meta">
     <span>Fits Reference</span>
     <span>ISO 286-1:2010 / ISO 286-2:2010</span>
-    <span>Updated May 2026</span>
+    <span>Updated July 2026</span>
   </div>
 
   <p class="lede">Complete reference for ISO 286 hole-basis and shaft-basis fits. Tolerance values for IT6, IT7, IT8 in common diameter ranges. Worst-case clearance and interference for every standard fit class — H7/g6 (sliding), H7/h6 (locational clearance), H7/k6 (transition), H7/n6 (light interference), H7/p6 (press), H7/r6 / H7/s6 / H7/u6 (medium and heavy interference).</p>
@@ -257,7 +257,21 @@
     The MetricMech <a href="../calculators/iso-286-fits.html">ISO 286 Fits Calculator</a> handles arbitrary diameters and fit classes, producing the worst-case clearance or interference plus the hole and shaft tolerance limits. For press-fit hoop stress and assembly force calculations, see the <a href="../calculators/press-fit.html">Press / Interference Fit Calculator</a>.
   </div>
 
-  <h2>References</h2>
+  
+<h2 id="faq">Frequently asked questions</h2>
+  <h3>What is an H7/g6 fit used for?</h3>
+  <p>H7/g6 is a clearance fit used for moving parts that need precise sliding motion without binding — locating pins, lightly-loaded bearing journals on shafts, sliding gears, and clamp screws. The minimum clearance is small but positive across the full diameter range, and the maximum clearance is small enough to keep wobble under control. Typical applications: gauge pins running in gauge bushings, light-load shafts in machine spindles, and indexing dowels.</p>
+  <h3>What is the difference between H7/h6 and H7/g6?</h3>
+  <p>H7/h6 is a locational clearance fit with zero minimum clearance — the shaft and hole can be the same size at the worst case (shaft at upper limit, hole at lower limit). H7/g6 has a small guaranteed minimum clearance because the shaft tolerance band sits entirely below the nominal. Use H7/h6 when the parts are stationary in service (assembled and not moving relative to each other). Use H7/g6 when sliding motion is required and even occasional binding is unacceptable.</p>
+  <h3>What is an H7/p6 fit?</h3>
+  <p>H7/p6 is a light interference (press) fit where the shaft is slightly larger than the hole, producing 0 to 30+ μm of interference depending on size. Used for permanent assemblies where the parts should not move relative to each other but can still be assembled with an arbor press at room temperature. Common for bearing inner rings on shafts, dowel pins, valve seats, and bushings. Heavier interferences (r6, s6, u6) require heating or freezing one part for assembly.</p>
+  <h3>When do I use hole-basis vs shaft-basis?</h3>
+  <p>Hole-basis (H7/something) is the default for most manufacturing because holes are produced by reaming and broaching with fixed tooling — making holes to a standard size (H7) and varying the shaft is cheaper than the reverse. Shaft-basis (something/h6) is used when the shaft is purchased to a standard size from a vendor (commodity shafting, bar stock, dowel pins) and the hole is produced to a varying tolerance. About 80% of engineering drawings use hole-basis.</p>
+  <h3>How accurate is an IT7 tolerance?</h3>
+  <p>IT7 is the standard precision-machining tolerance grade per ISO 286. For a 25 mm feature, IT7 = 21 μm; for 50 mm, IT7 = 25 μm; for 100 mm, IT7 = 35 μm. IT7 is achievable by reaming, fine boring, or grinding. The next tighter grade IT6 (typically 16 μm at 25 mm) requires precision grinding or honing. IT8 (33 μm at 25 mm) is achievable by turning or rough grinding. IT11 (130 μm at 25 mm) is rough machining.</p>
+<p>Go deeper: <a href="/articles/fits-tolerances-guide">Fits &amp; Tolerances: Complete Guide</a>.</p>
+
+<h2>References</h2>
   <ul>
     <li>ISO 286-1:2010 — Geometrical product specifications (GPS) — ISO code system for tolerances on linear sizes — Part 1: Basis of tolerances, deviations and fits</li>
     <li>ISO 286-2:2010 — Geometrical product specifications (GPS) — ISO code system for tolerances on linear sizes — Part 2: Tables of standard tolerance classes and limit deviations for holes and shafts</li>
