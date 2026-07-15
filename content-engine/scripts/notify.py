@@ -18,7 +18,7 @@ def main():
     }
     req = urllib.request.Request('https://api.resend.com/emails',
         data=json.dumps(payload).encode(),
-        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'})
+        headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'blog-autopilot/1.0'})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
             print('notify: sent', r.status)
