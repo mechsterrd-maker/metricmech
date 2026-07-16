@@ -1,10 +1,10 @@
 # Blog autopilot — publishes at most ONE post per run, ≤3/week (hard-capped in run_pipeline.py too).
-# Schedule: ~07:00 IST (30 1 * * 2,4,6 UTC). Manual run: Actions tab -> Blog Autopilot -> Run workflow.
+# Schedule: ~07:20 IST (47 1 * * 2,4,6 UTC). Manual run: Actions tab -> Blog Autopilot -> Run workflow.
 name: Blog Autopilot
 
 on:
   schedule:
-    - cron: '30 1 * * 2,4,6'
+    - cron: '47 1 * * 2,4,6'
   workflow_dispatch: {}
 
 concurrency:
