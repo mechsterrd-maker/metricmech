@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISO 286 Hole Basis vs Shaft Basis System | MetricMech</title>
+<meta name="description" content="ISO 286 hole basis vs shaft basis system explained: fundamental deviations, when to use each, and a selection guide with real examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISO 286 Hole Basis vs Shaft Basis System | MetricMech">
+<meta property="og:description" content="ISO 286 hole basis vs shaft basis system explained: fundamental deviations, when to use each, and a selection guide with real examples.">
+<meta property="og:url" content="https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 286 Hole Basis vs Shaft Basis System | MetricMech">
+<meta name="twitter:description" content="ISO 286 hole basis vs shaft basis system explained: fundamental deviations, when to use each, and a selection guide with real examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "ISO 286 Hole Basis vs Shaft Basis System | MetricMech",
+  "description": "ISO 286 hole basis vs shaft basis system explained: fundamental deviations, when to use each, and a selection guide with real examples.",
+  "url": "https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "ISO 286 Hole Basis vs Shaft Basis System: A Design Engineer's Selection Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-16",
+  "mainEntityOfPage": "https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the main difference between hole basis and shaft basis in ISO 286?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the hole basis system, the hole tolerance is fixed (fundamental deviation H, lower deviation = 0) and the shaft is varied to achieve the desired fit. In the shaft basis system, the shaft tolerance is fixed (fundamental deviation h, upper deviation = 0) and the hole is varied. Hole basis is the default for most machined assemblies because standard bore tooling is cheaper and more widely available than standard turned shafts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should a design engineer choose shaft basis over hole basis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose shaft basis when the shaft is a standard commercial bar or a precision ground shaft serving multiple bores of different fits along its length. A single shaft diameter can mate with a clearance bore at one end and an interference bore at the other, avoiding the cost of machining the shaft to several different diameters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does fundamental deviation mean in ISO 286?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fundamental deviation is the signed distance from the nominal size to the nearest tolerance boundary. For a hole it sets the lower deviation (EI); for a shaft it sets the upper deviation (es). The letter code — capital letters A through ZC for holes, lowercase a through zc for shafts — defines this deviation. The numerical value depends on the nominal diameter range and is tabulated in ISO 286-1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is H7/f7 a hole basis or shaft basis fit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "H7/f7 is a hole basis fit. The capital H indicates the hole has fundamental deviation zero (lower deviation = 0). The shaft carries the f deviation, which is negative, creating the required clearance for a close-running fit. The equivalent shaft basis fit delivering identical clearance would be written F7/h7."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ISO 286 apply to both metric and imperial dimensions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ISO 286 is a metric standard. Imperial equivalents are covered by ASME B4.1 for inch limits and fits. The underlying philosophy of preferred hole and shaft basis systems is similar, but deviation tables, grade designations, and preferred fit series differ. When working to both systems simultaneously, maintain separate tolerance tables for metric and inch features rather than converting between them."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "ISO 286 Hole Basis vs Shaft Basis System: A Design Engineer's Selection Guide",
+      "item": "https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>ISO 286 Hole Basis vs Shaft Basis System</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer</a>
+    <a href="#what-is-hole-basis">What Is the Hole Basis System?</a>
+    <a href="#what-is-shaft-basis">What Is the Shaft Basis System?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#fundamental-deviation">Fundamental Deviation: H and h Explained</a>
+    <a href="#formula-table">Tolerance Formula and Variables</a>
+    <a href="#selection-method">Step-by-Step Fit System Selection</a>
+    <a href="#comparison-table">Hole Basis vs Shaft Basis: Comparison Table</a>
+    <a href="#common-mistakes">Common Mistakes</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>ISO 286 Hole Basis vs Shaft Basis System: A Design Engineer's Selection Guide</h1>
+    <div class="art-meta-bar">
+      <span>Engineering Reference</span>
+      <span>July 16, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The <strong>ISO 286 hole basis system</strong> fixes the hole at fundamental deviation H (lower deviation = 0) and varies the shaft to achieve clearance, transition, or interference. The <strong>shaft basis system</strong> fixes the shaft at fundamental deviation h (upper deviation = 0) and varies the hole instead. Hole basis is the default choice for most machined bores; shaft basis suits standard commercial shafts serving multiple fits along a single diameter. Choosing correctly reduces tooling cost and simplifies inspection.</p>
+
+<h2 id="what-is-hole-basis">What Is the Hole Basis System?</h2>
+<p>In the hole basis system, every fit in an assembly starts from a controlled hole. The lower deviation of the hole is always zero, meaning the minimum hole size equals the nominal dimension. Tolerance opens upward from that boundary.</p>
+<p>Because the hole geometry is fixed, the shaft diameter is adjusted — made smaller for clearance fits, made slightly larger for interference fits — by choosing an appropriate shaft deviation letter. Standard boring tools and reamers are manufactured to H-grade dimensions, so one tool covers the full range of fits on a given bore diameter.</p>
+<p>The practical consequence is significant: a single H7 reamer produces a hole that can accept a clearance shaft (f6 or g6), a transition shaft (k6 or m6), or an interference shaft (p6 or s6) without re-tooling the hole. This is why hole basis is specified on the overwhelming majority of industrial drawings worldwide.</p>
+<p><a href="https://www.iso.org/standard/54915.html" target="_blank" rel="noopener">ISO 286-1 (2010)</a> documents the complete system, including all fundamental deviation values and IT grade widths used internationally.</p>
+
+<h2 id="what-is-shaft-basis">What Is the Shaft Basis System?</h2>
+<p>In the shaft basis system, the upper deviation of the shaft is always zero, meaning the maximum shaft size equals the nominal dimension. The hole deviation is then varied to produce the required fit type.</p>
+<p>Shaft basis is the correct choice when the shaft is procured as a standard commercial product — precision ground bright bar, for example — and cannot be machined further without cost penalty. A keyed shaft serving a bearing at one location, a coupling at another, and a collar at a third can retain a single diameter while each bore is sized differently.</p>
+<p>The trade-off is that each fit requires a dedicated hole tool (drill, reamer, or bore head), which increases tooling cost when many bore sizes are involved. For this reason, shaft basis is deliberately limited to applications where shaft standardisation outweighs the hole tooling overhead.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+<p>Consider a 40 mm nominal diameter journal bearing application. The design calls for a close-running fit with controlled clearance.</p>
+
+<h3>Hole Basis Approach: H7/f7</h3>
+<p>For a 40 mm diameter, ISO 286 Grade 7 gives a standard tolerance (IT7) of 25 µm. Fundamental deviation for H (hole) = 0 µm; for f (shaft) = −25 µm.</p>
+<ul>
+  <li><strong>Hole:</strong> 40.000 mm to 40.025 mm (lower deviation EI = 0, upper deviation ES = +25 µm)</li>
+  <li><strong>Shaft:</strong> 39.950 mm to 39.975 mm (upper deviation es = −25 µm, lower deviation ei = −50 µm)</li>
+  <li><strong>Clearance range:</strong> 25 µm minimum, 75 µm maximum</li>
+</ul>
+
+<h3>Shaft Basis Approach: F7/h7</h3>
+<p>The shaft basis equivalent uses the same clearance magnitude but assigns it differently. Upper deviation for h (shaft) = 0 µm; fundamental deviation for F (hole) = +25 µm.</p>
+<ul>
+  <li><strong>Shaft:</strong> 39.975 mm to 40.000 mm (upper deviation es = 0, lower deviation ei = −25 µm)</li>
+  <li><strong>Hole:</strong> 40.025 mm to 40.050 mm (lower deviation EI = +25 µm, upper deviation ES = +50 µm)</li>
+  <li><strong>Clearance range:</strong> 25 µm minimum, 75 µm maximum</li>
+</ul>
+
+<p>Both fits deliver identical clearance. The choice depends entirely on whether the shaft or the hole is the controlled reference part. See the <a href="https://metricmech.com/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances Explained</a> article for full deviation tables across all diameter steps.</p>
+
+<div class="callout">
+<strong>Calculator tip:</strong> MetricMech's ISO 286 tolerance calculator lets you enter the nominal diameter, fit system (hole or shaft basis), and tolerance grade to generate the exact upper and lower deviations instantly — no manual table lookup required.
+</div>
+
+<h2 id="fundamental-deviation">Fundamental Deviation: H and h Explained</h2>
+<p>The fundamental deviation is the signed distance from the nominal size to the nearest tolerance boundary. For holes, capital letters A through ZC define this deviation. For shafts, lowercase letters a through zc are used.</p>
+<p><strong>H</strong> is the only hole code with a fundamental deviation of exactly zero. Every other hole code (A, B, C … G, then J through ZC) places the tolerance zone above or below zero by a calculated amount. Similarly, <strong>h</strong> is the only shaft code with an upper deviation of zero.</p>
+<p>The numerical value of fundamental deviations for all other letters is diameter-dependent. For example, the fundamental deviation for shaft <em>f</em> at 40 mm is −25 µm, but at 80 mm it rises to −30 µm. These values are tabulated in ISO 286-1 and are referenced in <a href="https://www.nist.gov/system/files/documents/pml/div683/NCSLI_presentation_2013.pdf" target="_blank" rel="noopener">NIST dimensional metrology guidance documents</a>.</p>
+<p>Understanding the deviation letter is essential before selecting a tolerance grade. The letter anchors the zone; the grade (IT1 through IT18) sets its width. Confusing the two is one of the most common errors on tolerance drawings.</p>
+
+<h2 id="formula-table">Tolerance Formula and Variables</h2>
+<p>The tolerance zone for any feature is defined by two limits calculated from the fundamental deviation and the IT grade value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Symbol</th>
+      <th>Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Nominal size</td>
+      <td>N</td>
+      <td>The basic dimension stated on the drawing (mm)</td>
+    </tr>
+    <tr>
+      <td>Fundamental deviation (hole)</td>
+      <td>EI</td>
+      <td>Lower deviation of hole; = 0 for code H</td>
+    </tr>
+    <tr>
+      <td>Fundamental deviation (shaft)</td>
+      <td>es</td>
+      <td>Upper deviation of shaft; = 0 for code h</td>
+    </tr>
+    <tr>
+      <td>IT grade tolerance</td>
+      <td>IT</td>
+      <td>Width of the tolerance zone for the specified grade (µm)</td>
+    </tr>
+    <tr>
+      <td>Upper deviation (hole)</td>
+      <td>ES</td>
+      <td>ES = EI + IT</td>
+    </tr>
+    <tr>
+      <td>Lower deviation (shaft)</td>
+      <td>ei</td>
+      <td>ei = es − IT</td>
+    </tr>
+    <tr>
+      <td>Maximum material condition</td>
+      <td>MMC</td>
+      <td>Largest shaft / smallest hole (tightest assembly condition)</td>
+    </tr>
+    <tr>
+      <td>Least material condition</td>
+      <td>LMC</td>
+      <td>Smallest shaft / largest hole (loosest assembly condition)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For a <strong>clearance fit</strong>, minimum clearance = EI − es (hole lower deviation minus shaft upper deviation); this value must be positive. For an <strong>interference fit</strong>, minimum interference = ei − ES and maximum interference = es − EI; both must be verified positive to confirm the fit is fully interferential across the tolerance range. Verifying both limits — not just the nominal — guards against borderline transition fits being misclassified as interference fits in production.</p>
+<p>Tolerance stack-up across multiple mating features compounds quickly. See the <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up Worked Example</a> article to understand how individual feature tolerances combine at assembly level.</p>
+
+<h2 id="selection-method">Step-by-Step Fit System Selection</h2>
+<ol>
+  <li><strong>Identify the reference feature.</strong> Determine whether the shaft or the bore is the controlled standard component. Procured shafts (bright bar, linear rail, standard spindle) push toward shaft basis. Custom-bored housings push toward hole basis.</li>
+  <li><strong>Check tooling economics.</strong> Count the number of distinct bore sizes needed. Multiple bore sizes on a single shaft favour shaft basis (one shaft diameter, varied bore tools). A single bore serving one shaft favours hole basis (one reamer, varied shaft turning).</li>
+  <li><strong>Define the fit type required.</strong> Classify the required assembly as clearance, transition, or interference based on functional requirements — rotational freedom, positional location, or torque transmission respectively.</li>
+  <li><strong>Select the deviation letter.</strong> For hole basis, fix the hole at H and select the shaft letter from the clearance (a–h), transition (j–n), or interference (p–z) zone. For shaft basis, fix the shaft at h and select the hole letter from the equivalent zones (A–H clearance, J–N transition, P–Z interference).</li>
+  <li><strong>Choose the IT grade.</strong> Match the grade to the manufacturing process capability. IT6 suits precision grinding; IT7 suits careful boring or reaming; IT8–IT9 suits standard turning. The <a href="https://www.engineeringtoolbox.com/standard-tolerances-d_1842.html" target="_blank" rel="noopener">Engineering Toolbox IT grade to process reference</a> is a useful starting point.</li>
+  <li><strong>Calculate and verify the limits.</strong> Apply the formulas in the table above to confirm minimum and maximum clearance or interference across the full tolerance range, not just at nominal. Check that the calculated limits are achievable with available gauging and process capability. Use the <a href="https://metricmech.com/articles/go-no-go-gauges">Go/No-Go Gauges: Sizing, 10% Rule and Wear Limits</a> guide to size inspection gauges for the resulting tolerance.</li>
+  <li><strong>Document on the drawing.</strong> Call out the fit using ISO 286 notation: nominal size, hole tolerance symbol, shaft tolerance symbol — for example, ⌀40 H7/f7 or ⌀40 F7/h7. Never omit the nominal size or the tolerance grade number.</li>
+</ol>
+
+<p>When the assembly moves to first-article inspection, accurate balloon annotations linking each tolerance call-out to the inspection record are critical. The <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=iso-286-hole-basis-vs-shaft-basis" target="_blank" rel="noopener" class="highlight">CadNexa auto-ballooning tool</a> maps ISO 286 call-outs directly from the drawing to the FAI report, eliminating manual transcription errors at this stage.</p>
+
+<h2 id="comparison-table">Hole Basis vs Shaft Basis: Comparison Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Hole Basis (H)</th>
+      <th>Shaft Basis (h)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fixed feature</td>
+      <td>Hole (EI = 0)</td>
+      <td>Shaft (es = 0)</td>
+    </tr>
+    <tr>
+      <td>Varied feature</td>
+      <td>Shaft deviation letter</td>
+      <td>Hole deviation letter</td>
+    </tr>
+    <tr>
+      <td>Preferred for</td>
+      <td>Custom-bored housings, standard reamed bores</td>
+      <td>Standard commercial shafts, linear rail, bright bar</td>
+    </tr>
+    <tr>
+      <td>Tooling advantage</td>
+      <td>One reamer/bore tool per diameter</td>
+      <td>One shaft ground to size; varied hole tools</td>
+    </tr>
+    <tr>
+      <td>Inspection gauge type</td>
+      <td>Plug gauge to H limits; ring gauge to shaft limits</td>
+      <td>Ring gauge to h limits; plug gauge to hole limits</td>
+    </tr>
+    <tr>
+      <td>ISO 286 notation (clearance)</td>
+      <td>⌀40 H7/f7</td>
+      <td>⌀40 F7/h7</td>
+    </tr>
+    <tr>
+      <td>ISO 286 notation (interference)</td>
+      <td>⌀40 H7/p6</td>
+      <td>⌀40 P7/h6</td>
+    </tr>
+    <tr>
+      <td>Industry prevalence</td>
+      <td>Dominant in most sectors</td>
+      <td>Specialist applications</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For press-fit and interference-fit assemblies, the magnitude of interference directly drives assembly force and hoop stress in the hub. The <a href="https://metricmech.com/articles/press-fit-calculation">Press Fit Calculation: Interference, Force and Stress</a> article walks through the Lamé equation approach once the ISO 286 limits are established.</p>
+
+<h2 id="common-mistakes">Common Mistakes</h2>
+
+<h3>Mistake 1: Applying Shaft Basis to Custom Shafts</h3>
+<p>Shaft basis is only economical when the shaft is procured to a fixed standard. Specifying shaft basis on a fully machined custom shaft adds hole tooling cost with no benefit. Hole basis is almost always the correct default in this scenario.</p>
+
+<h3>Mistake 2: Confusing the Deviation Letter with the IT Grade</h3>
+<p>The letter sets the position of the tolerance zone; the number sets its width. Writing H7 does not mean the hole has a tolerance of 7 µm — it means the hole sits at H position with an IT7 width. At 40 mm, IT7 = 25 µm, not 7 µm.</p>
+
+<h3>Mistake 3: Mixing Hole Basis and Shaft Basis in the Same Assembly</h3>
+<p>Combining H-holes and h-shafts on different features of the same sub-assembly creates two reference systems simultaneously. This complicates gauge planning and increases the risk of incorrect part approval. Standardise on one system per assembly unless there is a strong functional reason to mix.</p>
+
+<h3>Mistake 4: Ignoring Surface Finish in the Fit Calculation</h3>
+<p>Surface roughness consumes effective clearance or interference. A nominally calculated clearance of 20 µm can be partially or fully consumed by Ra values that are too coarse for the bore or shaft. Always cross-reference the fit selection with the <a href="https://metricmech.com/articles/surface-finish-ra-rz">Surface Finish: Ra vs Rz Explained</a> guide to confirm compatibility.</p>
+
+<h3>Mistake 5: Verifying Only Nominal Interference, Not the Full Range</h3>
+<p>For an interference fit, verifying the nominal condition is insufficient. Both minimum interference (ei − ES, at LMC) and maximum interference (es − EI, at MMC) must be calculated and confirmed positive. A fit that appears interferential at nominal may become a clearance condition at LMC if the deviation selection is borderline, leading to assembly failures in service that are difficult to trace back to the drawing.</p>
+
+<h3>Mistake 6: Using General Tolerances (ISO 2768) Where ISO 286 Is Required</h3>
+<p>ISO 2768 general tolerances apply to features that are not individually toleranced. Fit-critical bores and mating shafts must carry explicit ISO 286 call-outs. Relying on general tolerances for bearing seats or press-fit hubs is a drawing non-conformance and a frequent source of assembly failures.</p>
+
+<div class="warn-box">
+<strong>Drawing documentation note:</strong> When your ISO 286 toleranced drawing moves to first-article inspection, each fit call-out must be ballooned and traced to a measured value. Manual ballooning of complex assemblies is error-prone and time-consuming. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=iso-286-hole-basis-vs-shaft-basis" target="_blank" rel="noopener" class="highlight">CadNexa's auto-ballooning tool</a> reads the drawing and links every tolerance bubble to the FAI data automatically, cutting balloon-to-report errors at the source.
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the main difference between hole basis and shaft basis in ISO 286?</h3>
+<p>In the hole basis system, the hole tolerance is fixed (fundamental deviation H, lower deviation = 0) and the shaft is varied to achieve the desired fit. In the shaft basis system, the shaft tolerance is fixed (fundamental deviation h, upper deviation = 0) and the hole is varied. Hole basis is the default for most machined assemblies because standard bore tooling is cheaper and more widely available than standard turned shafts.</p>
+
+<h3>When should a design engineer choose shaft basis over hole basis?</h3>
+<p>Choose shaft basis when the shaft is a standard commercial bar or a precision ground shaft serving multiple bores of different fits along its length. A single shaft diameter can mate with a clearance bore at one end and an interference bore at the other, avoiding the cost of machining the shaft to several different diameters. This is common in textile machinery, conveyor systems, and precision instrument shafts.</p>
+
+<h3>What does fundamental deviation mean in ISO 286?</h3>
+<p>The fundamental deviation is the signed distance from the nominal size to the nearest tolerance boundary. For a hole it sets the lower deviation (EI); for a shaft it sets the upper deviation (es). The letter code — capital letters A through ZC for holes, lowercase a through zc for shafts — defines this deviation. The numerical value depends on the nominal diameter range and is tabulated in ISO 286-1.</p>
+
+<h3>Is H7/f7 a hole basis or shaft basis fit?</h3>
+<p>H7/f7 is a hole basis fit. The capital H indicates the hole has fundamental deviation zero (lower deviation = 0). The shaft carries the f deviation, which is negative, creating the required clearance for a close-running fit. The equivalent shaft basis fit delivering identical clearance would be written F7/h7, where the capital F denotes the varied hole and lowercase h denotes the fixed shaft.</p>
+
+<h3>Does ISO 286 apply to both metric and imperial dimensions?</h3>
+<p>ISO 286 is a metric standard. Imperial equivalents are covered by <a href="https://www.asme.org/codes-standards/find-codes-standards/b4-1-preferred-limits-fits-cylindrical-parts" target="_blank" rel="noopener">ASME B4.1</a> for inch limits and fits. The underlying philosophy of preferred hole and shaft basis systems is similar, but deviation tables, grade designations, and preferred fit series differ. When working to both systems simultaneously — common in export assemblies — maintain separate tolerance tables for metric and inch features rather than converting between them.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/fits-tolerances-guide">Fits &amp; Tolerances: Complete Guide</a></li>
+    <li><a href="/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances Explained</a></li>
+    <li><a href="/articles/surface-finish-ra-rz">Surface Finish: Ra vs Rz Explained</a></li>
+    <li><a href="/articles/go-no-go-gauges">Go/No-Go Gauges: Sizing, 10% Rule &amp; Wear Limits</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "ISO 286 Hole Basis vs Shaft Basis System: A Design Engineer's Selection Guide",
+      "item": "https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis"
+    }
+  ]
+}
+</script>
+</body>
+</html>

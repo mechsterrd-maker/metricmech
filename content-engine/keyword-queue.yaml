@@ -44,7 +44,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: clearance interference transition fit difference explained
   cluster: Fits & Tolerances (ISO 286)
   intent: informational
