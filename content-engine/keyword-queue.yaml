@@ -78,7 +78,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: tolerance stack up worst case vs RSS method
   cluster: Fits & Tolerances (ISO 286)
   intent: informational

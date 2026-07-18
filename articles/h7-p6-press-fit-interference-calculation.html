@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>H7/p6 Press Fit Interference Calculation Worked | MetricMech</title>
+<meta name="description" content="H7 p6 press fit interference calculation worked example: tolerances, contact pressure, assembly force, and hoop stress with real numbers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/h7-p6-press-fit-interference-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="H7/p6 Press Fit Interference Calculation Worked | MetricMech">
+<meta property="og:description" content="H7 p6 press fit interference calculation worked example: tolerances, contact pressure, assembly force, and hoop stress with real numbers.">
+<meta property="og:url" content="https://metricmech.com/articles/h7-p6-press-fit-interference-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="H7/p6 Press Fit Interference Calculation Worked | MetricMech">
+<meta name="twitter:description" content="H7 p6 press fit interference calculation worked example: tolerances, contact pressure, assembly force, and hoop stress with real numbers.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "H7/p6 Press Fit Interference Calculation Worked | MetricMech",
+  "description": "H7 p6 press fit interference calculation worked example: tolerances, contact pressure, assembly force, and hoop stress with real numbers.",
+  "url": "https://metricmech.com/articles/h7-p6-press-fit-interference-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "H7 p6 Press Fit Interference Calculation: Worked Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-18",
+  "mainEntityOfPage": "https://metricmech.com/articles/h7-p6-press-fit-interference-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the H7 p6 tolerance values for a 50 mm bore?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a 50 mm nominal diameter, the H7 hole spans +0 to +25 µm (50.000–50.025 mm). The p6 shaft spans +42 to +51 µm (50.042–50.051 mm). Minimum interference is 17 µm; maximum interference is 51 µm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate the assembly force for an H7 p6 press fit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Assembly force F = µ × p × π × d × L, where µ is the coefficient of friction (typically 0.10–0.12 for steel on steel, dry), p is the contact pressure in MPa, d is the nominal diameter in metres, and L is the engagement length in metres."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What contact pressure does an H7 p6 fit generate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contact pressure depends on interference magnitude, material properties, and geometry. For a 50 mm steel-on-steel example with a 90 mm hub OD and solid shaft, the minimum interference of 17 µm produces approximately 24 MPa and the maximum of 51 µm produces approximately 73 MPa. Values will differ for other geometries or materials."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will an H7 p6 fit always require a press?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The H7 p6 combination is classified as a medium drive fit. The positive interference across the entire tolerance range means hand assembly is never possible; a hydraulic or mechanical press is required in all cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does surface finish affect H7 p6 press fit holding force?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rougher surfaces flatten under pressure and effectively reduce functional interference. The correction is δ_eff = δ − 0.8 × (Ra_shaft + Ra_hub). For critical joints, specify Ra ≤ 0.8 µm on both mating surfaces. Coarser turned finishes (Ra 1.6–3.2 µm) can reduce contact pressure by 10–20% relative to the theoretical value."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "H7 p6 Press Fit Interference Calculation: Worked Example",
+      "item": "https://metricmech.com/articles/h7-p6-press-fit-interference-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>H7 p6 Press Fit Interference Calculation</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is an H7 p6 Press Fit?</a>
+    <a href="#tolerance-values">H7 p6 Tolerance Values from ISO 286</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formulas">Press Fit Stress Calculation Formulas</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#common-mistakes">Common Mistakes in Press Fit Calculations</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>H7 p6 Press Fit Interference Calculation: Worked Example</h1>
+    <div class="art-meta-bar">
+      <span>Mechanical Design</span>
+      <span>July 18, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">An <strong>H7 p6 press fit interference calculation</strong> determines the radial contact pressure, assembly force, and hoop stress generated when a p6 shaft is pressed into an H7 hole. For a 50 mm nominal diameter steel assembly with a 90 mm hub OD and 40 mm engagement length, the H7 p6 combination produces 17–51 µm of interference, approximately <strong>24–73 MPa of contact pressure</strong>, and an assembly force in the range of approximately <strong>18–55 kN</strong>. The sections below work through every step with real numbers.</p>
+
+<h2 id="direct-answer">What Is an H7 p6 Press Fit?</h2>
+
+<p>Under <a href="https://www.iso.org/standard/54019.html" rel="noopener noreferrer" target="_blank">ISO 286-1</a>, the letter "H" designates a hole whose lower deviation is always zero — the hole can only be at or above nominal size. The number "7" is the IT grade, which controls the tolerance band width. Together, H7 describes the most common general-purpose hole used in industry.</p>
+
+<p>The letter "p" designates a shaft with a positive deviation above nominal — meaning the shaft is always larger than the hole's lower limit. The number "6" is a tighter IT grade than 7, ensuring a controlled interference. The H7 p6 combination is classified in ISO 286 as a <strong>medium drive fit</strong> and is suitable for transmitting moderate torque and axial loads without additional fasteners.</p>
+
+<p>For a deeper grounding in the ISO fits system before running this calculation, read the MetricMech guide on <a href="https://metricmech.com/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances Explained</a>. If you are deciding between press and shrink assembly methods, the article on <a href="https://metricmech.com/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit: Key Differences Explained</a> will help you choose.</p>
+
+<h2 id="tolerance-values">H7 p6 Tolerance Values from ISO 286</h2>
+
+<p>Fundamental deviations and IT grade widths are standardised. The table below lists the H7 hole and p6 shaft deviations for the three most common nominal diameter ranges used in power transmission design. All values are in micrometres (µm) measured as deviations from the nominal dimension.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nominal Diameter Range (mm)</th>
+      <th>H7 Lower Dev. (µm)</th>
+      <th>H7 Upper Dev. (µm)</th>
+      <th>p6 Lower Dev. (µm)</th>
+      <th>p6 Upper Dev. (µm)</th>
+      <th>Min. Interference (µm)</th>
+      <th>Max. Interference (µm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>18–30</td>
+      <td>0</td>
+      <td>+21</td>
+      <td>+35</td>
+      <td>+48</td>
+      <td>14</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td>30–50</td>
+      <td>0</td>
+      <td>+25</td>
+      <td>+42</td>
+      <td>+51</td>
+      <td>17</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <td>50–80</td>
+      <td>0</td>
+      <td>+30</td>
+      <td>+51</td>
+      <td>+62</td>
+      <td>21</td>
+      <td>62</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">Minimum interference = p6 lower deviation − H7 upper deviation. Maximum interference = p6 upper deviation − H7 lower deviation. Both quantities are always positive for H7 p6 across all standard diameter ranges — confirming that interference is guaranteed throughout the tolerance band.</p>
+
+<p>Verifying that manufactured parts fall within these bands is a measurement task. When preparing inspection documentation for these fits, engineers using CadNexa can auto-balloon the mating-part drawing in seconds — see the <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=h7-p6-press-fit-interference-calculation" class="highlight">CadNexa auto-ballooning tool</a> to link each balloon directly to your inspection record.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>The example uses a 50 mm nominal diameter steel hub pressed onto a solid steel shaft with a 40 mm engagement length. Both components are steel with Young's modulus E = 207 GPa and Poisson's ratio ν = 0.29. The coefficient of friction µ = 0.12 (dry, machined steel surfaces, Ra ≤ 0.8 µm).</p>
+
+<h3>Given dimensions</h3>
+<ul>
+  <li>Nominal diameter: d = 50 mm</li>
+  <li>Hub outer diameter: D = 90 mm</li>
+  <li>Shaft is solid (inner diameter = 0)</li>
+  <li>Engagement length: L = 40 mm</li>
+  <li>Interference used for mid-range check: δ = 34 µm (0.034 mm)</li>
+</ul>
+
+<h3>Step 1 — Calculate the Lamé geometry factor for the hub</h3>
+<p>The hub has inner radius r<sub>i</sub> = 25 mm and outer radius r<sub>o</sub> = 45 mm:</p>
+<p><strong>C<sub>hub</sub> = (r<sub>o</sub>² + r<sub>i</sub>²) / (r<sub>o</sub>² − r<sub>i</sub>²) + ν<sub>hub</sub></strong></p>
+<p>C<sub>hub</sub> = (2025 + 625) / (2025 − 625) + 0.29 = 2650 / 1400 + 0.29 = 1.893 + 0.29 = <strong>2.183</strong></p>
+
+<h3>Step 2 — Calculate the Lamé geometry factor for the solid shaft</h3>
+<p>For a solid shaft the inner radius is zero, so the radius ratio term equals 1 and the formula simplifies:</p>
+<p><strong>C<sub>shaft</sub> = 1 − ν<sub>shaft</sub></strong> = 1 − 0.29 = <strong>0.71</strong></p>
+
+<h3>Step 3 — Calculate contact pressure at mid-range interference (34 µm)</h3>
+<p>The Lamé thick-wall cylinder formula for same-material joints is:</p>
+<p><strong>p = (δ × E) / (d × (C<sub>hub</sub> + C<sub>shaft</sub>))</strong></p>
+<p>p = (0.034 × 207,000) / (50 × (2.183 + 0.71)) = 7,038 / (50 × 2.893) = 7,038 / 144.65 = <strong>48.7 MPa</strong></p>
+
+<h3>Contact pressure at the tolerance extremes</h3>
+<p>Applying the same formula at minimum interference (17 µm) and maximum interference (51 µm) gives the full operating range for this geometry:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Interference Case</th>
+      <th>δ (µm)</th>
+      <th>Contact Pressure p (MPa)</th>
+      <th>Assembly Force F (kN)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Minimum</td>
+      <td>17</td>
+      <td>24.3</td>
+      <td>18.3</td>
+    </tr>
+    <tr>
+      <td>Mid-range</td>
+      <td>34</td>
+      <td>48.7</td>
+      <td>36.7</td>
+    </tr>
+    <tr>
+      <td>Maximum</td>
+      <td>51</td>
+      <td>72.9</td>
+      <td>55.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">Always run all three interference cases. Minimum interference governs holding force adequacy; maximum interference governs hub stress and press capacity. Reporting only the mid-range value gives an incomplete and potentially unsafe picture.</p>
+
+<h3>Step 4 — Calculate hoop (circumferential) stress in the hub at maximum interference</h3>
+<p>Maximum hoop stress occurs at the inner bore of the hub and is checked at maximum interference (p = 72.9 MPa) as the worst case:</p>
+<p><strong>σ<sub>θ,hub</sub> = p × (r<sub>o</sub>² + r<sub>i</sub>²) / (r<sub>o</sub>² − r<sub>i</sub>²)</strong> = 72.9 × 2650 / 1400 = 72.9 × 1.893 = <strong>138 MPa</strong></p>
+<p>For a steel hub with yield strength of 350 MPa (e.g. S355), the safety factor against yielding at maximum interference is 350 / 138 ≈ 2.5 — acceptable for a static interference application.</p>
+
+<h3>Step 5 — Calculate assembly force</h3>
+<p>Assembly force at mid-range interference: <strong>F = µ × p × π × d × L</strong> = 0.12 × 48.7 × π × 0.050 × 0.040 = <strong>36.7 kN</strong>. Size your press to at least 120% of the maximum-interference force (55.0 kN), giving a minimum press capacity of approximately <strong>66 kN</strong> for this joint.</p>
+
+<p class="callout">Use the MetricMech <a href="https://metricmech.com/articles/press-fit-calculation">Press Fit Calculation tool</a> to run minimum, nominal, and maximum interference cases instantly — avoiding the tedious three-pass manual calculation that is otherwise needed for tolerance extremes.</p>
+
+<h2 id="formulas">Press Fit Stress Calculation Formulas</h2>
+
+<p>The table below defines every variable used in the thick-wall cylinder (Lamé) press fit model. This model applies when the hub wall thickness is not negligible — specifically when the outer-to-inner diameter ratio D/d &gt; 1.1, which covers the large majority of engineering applications.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>Unit</th>
+      <th>Typical Range / Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>δ</td>
+      <td>Diametral interference</td>
+      <td>mm</td>
+      <td>From tolerance table; use min, nominal, max cases</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>Nominal mating diameter</td>
+      <td>mm</td>
+      <td>The common surface diameter</td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td>Hub outer diameter</td>
+      <td>mm</td>
+      <td>Must satisfy D/d ≥ 1.5 for adequate strength</td>
+    </tr>
+    <tr>
+      <td>L</td>
+      <td>Engagement length</td>
+      <td>mm</td>
+      <td>Length of the interference contact surface</td>
+    </tr>
+    <tr>
+      <td>E</td>
+      <td>Young's modulus</td>
+      <td>MPa</td>
+      <td>207,000 MPa for steel; 70,000 MPa for aluminium</td>
+    </tr>
+    <tr>
+      <td>ν</td>
+      <td>Poisson's ratio</td>
+      <td>—</td>
+      <td>0.29 for steel; 0.33 for aluminium</td>
+    </tr>
+    <tr>
+      <td>p</td>
+      <td>Contact pressure</td>
+      <td>MPa</td>
+      <td>Output of the Lamé equation</td>
+    </tr>
+    <tr>
+      <td>µ</td>
+      <td>Coefficient of friction</td>
+      <td>—</td>
+      <td>0.10–0.12 dry steel; 0.05–0.07 lubricated</td>
+    </tr>
+    <tr>
+      <td>F</td>
+      <td>Assembly (press) force</td>
+      <td>kN</td>
+      <td>F = µ × p × π × d × L</td>
+    </tr>
+    <tr>
+      <td>σ<sub>θ</sub></td>
+      <td>Hoop stress at bore</td>
+      <td>MPa</td>
+      <td>Must remain below yield strength / safety factor</td>
+    </tr>
+    <tr>
+      <td>C<sub>hub</sub></td>
+      <td>Lamé hub geometry factor</td>
+      <td>—</td>
+      <td>(r<sub>o</sub>² + r<sub>i</sub>²)/(r<sub>o</sub>² − r<sub>i</sub>²) + ν</td>
+    </tr>
+    <tr>
+      <td>C<sub>shaft</sub></td>
+      <td>Lamé shaft geometry factor</td>
+      <td>—</td>
+      <td>1 − ν (solid shaft); use full formula for hollow shaft</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The thick-wall cylinder model is presented in Shigley's Mechanical Engineering Design and is consistent with the interference fit guidance referenced in <a href="https://www.asme.org/codes-standards/find-codes-standards/b4-1-preferred-limits-fits-cylindrical-parts" rel="noopener noreferrer" target="_blank">ASME B4.1 Preferred Limits and Fits for Cylindrical Parts</a>. The <a href="https://www.iso.org/standard/54019.html" rel="noopener noreferrer" target="_blank">ISO 286-1 standard</a> governs the tolerance values that feed into this model.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<ol>
+  <li><strong>Identify the nominal diameter and ISO fit code.</strong> Confirm the drawing calls H7 p6. Read the fundamental deviations from ISO 286-2 tables or the tolerance table above. Establish minimum, nominal, and maximum interference values. Always run all three cases.</li>
+  <li><strong>Confirm hub geometry.</strong> Measure or calculate the outer diameter D of the hub and compute r<sub>i</sub> = d/2 and r<sub>o</sub> = D/2. Check that the hub wall is thick enough — a D/d ratio below 1.5 is a warning sign for yielding at maximum interference.</li>
+  <li><strong>Gather material data.</strong> Record Young's modulus and Poisson's ratio for both hub and shaft. If the two materials differ (e.g. cast iron hub on a steel shaft), use the separate E and ν values for each term in the generalised Lamé equation: p = δ / (d × (C<sub>hub</sub>/E<sub>hub</sub> + C<sub>shaft</sub>/E<sub>shaft</sub>)).</li>
+  <li><strong>Calculate the Lamé geometry factors C<sub>hub</sub> and C<sub>shaft</sub>.</strong> Apply the formulas from the variable table above. For a solid shaft, C<sub>shaft</sub> = 1 − ν. For a hollow shaft, apply the full ratio formula using the shaft's inner and outer radii.</li>
+  <li><strong>Calculate contact pressure p at all three interference cases.</strong> Apply p = δE / (d × (C<sub>hub</sub> + C<sub>shaft</sub>)) for same-material joints. Use diametral interference δ in mm and E in MPa to obtain p in MPa directly. Record results for minimum, mid-range, and maximum interference.</li>
+  <li><strong>Check hoop stress against yield strength at maximum interference.</strong> Compute σ<sub>θ,hub</sub> = p × (r<sub>o</sub>² + r<sub>i</sub>²) / (r<sub>o</sub>² − r<sub>i</sub>²). Compare against the hub material's yield strength. Target a minimum safety factor of 2.0 under maximum interference conditions.</li>
+  <li><strong>Calculate the assembly force at maximum interference.</strong> Apply F = µ × p × π × d × L. Size your press to at least 120% of this value. For the minimum interference case, verify that the resulting holding force still exceeds the design service load by the required safety margin.</li>
+  <li><strong>Apply the surface roughness correction.</strong> Effective interference δ<sub>eff</sub> = δ − 0.8 × (Ra<sub>shaft</sub> + Ra<sub>hub</sub>). Include this correction when surface finish is coarser than Ra 1.6 µm, which is common with turned (not ground) shafts. Recalculate contact pressure using δ<sub>eff</sub>.</li>
+  <li><strong>Document the results and balloon the drawing.</strong> Record tolerance band, interference extremes, contact pressures, stresses, and assembly force in your design calculation sheet. If the component goes through first article inspection, balloon the drawing to each of these critical dimensions — the <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=h7-p6-press-fit-interference-calculation" class="highlight cta-box">CadNexa auto-ballooning tool</a> maps dimensions from a PDF drawing to an inspection report in one step, eliminating manual balloon numbering errors.</li>
+</ol>
+
+<p>For stacked assemblies where this bore is one of several mating features, check overall assembly variation using the method in the MetricMech article on <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a>.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Press Fit Calculations</h2>
+
+<h3>Using diametral interference where radial is needed (or vice versa)</h3>
+<p>The Lamé formula and the ISO 286 tolerance tables both work in diametral (total) interference, not radial. The radial interference is δ/2. Mixing these up doubles or halves the calculated contact pressure — a significant and potentially unsafe error. Confirm which convention your reference uses before substituting values.</p>
+
+<h3>Ignoring the minimum interference case for holding force</h3>
+<p>Engineers often calculate only the maximum interference case to check hub yielding. The minimum interference case governs holding force and must be verified against the applied service torque or axial load. For the 50 mm example above, minimum interference of 17 µm produces only 24.3 MPa contact pressure and 18.3 kN assembly force — low enough to be inadequate for high-load applications if not checked explicitly.</p>
+
+<h3>Omitting the surface roughness correction</h3>
+<p>The Lamé equation assumes perfectly smooth surfaces. On turned shafts with Ra 1.6 µm and bores with Ra 1.6 µm, the effective interference is reduced by up to 0.8 × 3.2 = 2.6 µm. For a 17 µm minimum interference case, that is a 15% reduction in effective contact pressure — too large to ignore in a tight design.</p>
+
+<h3>Using thin-wall stress formulas for thick hubs</h3>
+<p>The thin-wall hoop stress formula σ = p × r/t is only accurate when r/t &lt; 10. Most press fit hubs have r/t ratios of 1 to 3, firmly in the thick-wall regime. Always use the Lamé formulation for press fit hub stress checks; the thin-wall approach will significantly underestimate stress at the bore.</p>
+
+<p class="warn-box">Never use <a href="https://www.asme.org/codes-standards/find-codes-standards/b4-1-preferred-limits-fits-cylindrical-parts" rel="noopener noreferrer" target="_blank">ASME B4.1</a> preferred limits tables interchangeably with ISO 286 values. The deviation values differ for equivalent fit grades, and mixing the two standards in a single calculation produces incorrect interference ranges and unreliable stress results.</p>
+
+<h3>Neglecting thermal effects in service</h3>
+<p>An H7 p6 joint with an aluminium hub on a steel shaft will lose interference as temperature rises, because aluminium expands faster than steel. Calculate the interference at maximum operating temperature using ΔL = α × L × ΔT for each material separately. This is especially important for electric motor end shields and pump impeller hubs operating above 60 °C.</p>
+
+<h3>Specifying the fit without a surface finish callout</h3>
+<p>H7 p6 on a drawing controls size only. Without an explicit surface finish callout, machinists may deliver Ra 3.2 µm or coarser surfaces that significantly reduce effective interference. Always specify Ra ≤ 0.8 µm on both the bore and the shaft mating diameter when the holding force margin is less than 2.0. See the MetricMech guide on <a href="https://metricmech.com/articles/surface-finish-ra-rz">Surface Finish: Ra vs Rz Explained</a> for correct callout conventions on engineering drawings.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What are the H7 p6 tolerance values for a 50 mm bore?</h3>
+<p>For a 50 mm nominal diameter, the H7 hole spans +0 to +25 µm (50.000–50.025 mm). The p6 shaft spans +42 to +51 µm (50.042–50.051 mm). Minimum interference is 17 µm; maximum interference is 51 µm. These values come directly from <a href="https://www.iso.org/standard/54019.html" rel="noopener noreferrer" target="_blank">ISO 286-2</a>.</p>
+
+<h3>How do I calculate the assembly force for an H7 p6 press fit?</h3>
+<p>Assembly force F = µ × p × π × d × L, where µ is the coefficient of friction (typically 0.10–0.12 for steel on steel, dry), p is the contact pressure in MPa from the Lamé equation, d is the nominal diameter in metres, and L is the engagement length in metres. Always size your press to at least 120% of the calculated peak force to account for friction variability between parts and setups.</p>
+
+<h3>What contact pressure does an H7 p6 fit generate?</h3>
+<p>Contact pressure depends on interference magnitude, material properties, and hub geometry. For the 50 mm steel-on-steel example in this article (90 mm hub OD, solid shaft, 40 mm engagement), the minimum interference of 17 µm produces approximately <strong>24 MPa</strong> and the maximum interference of 51 µm produces approximately <strong>73 MPa</strong>. A different hub OD or shaft bore will yield different values — always calculate for your specific geometry.</p>
+
+<h3>Will an H7 p6 fit always require a press?</h3>
+<p>Yes. The H7 p6 combination is classified as a medium drive fit. The positive interference across the entire tolerance range means hand assembly is never possible; a hydraulic or mechanical press is required in all cases. For applications where controlled disassembly is needed, consider a shrink fit instead — the <a href="https://metricmech.com/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit</a> article explains the trade-offs in detail.</p>
+
+<h3>How does surface finish affect H7 p6 press fit holding force?</h3>
+<p>Rougher surfaces flatten under contact pressure and effectively reduce the functional interference. The standard correction is δ<sub>eff</sub> = δ − 0.8 × (Ra<sub>shaft</sub> + Ra<sub>hub</sub>). For critical joints, specify Ra ≤ 0.8 µm on both mating surfaces. Coarser finishes from turning (Ra 1.6–3.2 µm) can reduce effective contact pressure by 10–20% relative to the theoretical Lamé value, and this reduction is most significant at the minimum interference condition.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/fits-tolerances-guide">Fits &amp; Tolerances: Complete Guide</a></li>
+    <li><a href="/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit: Key Differences Explained</a></li>
+    <li><a href="/articles/press-fit-calculation">Press Fit Calculation: Interference, Force &amp;amp; Stress</a></li>
+    <li><a href="/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "H7 p6 Press Fit Interference Calculation: Worked Example",
+      "item": "https://metricmech.com/articles/h7-p6-press-fit-interference-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>
