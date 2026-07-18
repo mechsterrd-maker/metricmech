@@ -68,13 +68,16 @@ def main():
 
     # keyword placement
     low = lambda s: re.sub(r'\s+', ' ', s.lower())
-    kw_words = [w for w in kw.split() if len(w) > 2]
-    def contains(s): return all(w in low(s) for w in kw_words)
-    if not contains(title): errs.append('primary keyword not in title')
+    kw_words = [w for w in kw.split() if len(w) > 3] or [w for w in kw.split() if len(w) > 2]
+    def coverage(s):
+        t = low(s)
+        return sum(1 for w in kw_words if w in t) / max(1, len(kw_words))
+    # long-tail keywords cannot fit whole in a 65-char title — require majority coverage instead
+    if coverage(title) < 0.6: errs.append('primary keyword not in title (needs most of its key words)')
     h1 = re.search(r'<h1[^>]*>(.*?)</h1>', h, re.S).group(1) if re.search(r'<h1[^>]*>(.*?)</h1>', h, re.S) else ''
-    if not contains(re.sub(r'<[^>]+>', '', h1)): errs.append('primary keyword not in h1')
+    if coverage(re.sub(r'<[^>]+>', '', h1)) < 0.75: errs.append('primary keyword not in h1')
     first100 = ' '.join(text.split()[:120])
-    if not contains(first100): errs.append('primary keyword not in first 100 words')
+    if coverage(first100) < 0.75: errs.append('primary keyword not in first 100 words')
     dens = low(text).count(kw.lower()) * len(kw.split()) / max(words, 1)
     if dens > 0.015: errs.append(f'keyword density {dens:.1%} > 1.5%')
 

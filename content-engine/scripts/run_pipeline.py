@@ -134,14 +134,27 @@ def parse_generation(raw):
 def enforce_meta(g):
     """Deterministically fix title/meta length near-misses so repair loops are not wasted on them."""
     brand = 'CadNexa' if CFG['site'] == 'cadnexa' else 'MetricMech'
+    kw_key = [w for w in KW.split() if len(w) > 3] or KW.split()
+    def _title_ok(t):
+        return (40 <= len(t) <= 65 and
+                sum(1 for w in kw_key if w.lower() in t.lower()) / max(1, len(kw_key)) >= 0.6)
+    phrase_rule = (f'must contain the exact phrase "{KW}"' if len(KW) <= 38
+                   else f'must contain at least these words: {", ".join(kw_key[:4])}')
     for _ in range(3):
         t = g.get('title', '')
-        if 40 <= len(t) <= 65 and KW.lower() in t.lower(): break
-        g['title'] = call_claude(
-            'You fix SEO title tags. Return ONLY the corrected title text, no quotes, no explanation.',
+        if _title_ok(t): break
+        cand = call_claude(
+            'You fix SEO title tags. Return ONLY the corrected title text on one line, no quotes, no explanation, no commentary.',
             f'Rewrite this title tag: "{t}"\nHARD RULES: total length 45-63 characters INCLUDING the ending '
-            f'" | {brand}"; must contain the exact phrase "{KW}" (title-case is fine); must end with " | {brand}".',
-            200).strip().strip('"')
+            f'" | {brand}"; {phrase_rule}; must end with " | {brand}".',
+            200).strip().strip('"').splitlines()[0].strip()
+        # reject refusals / meta-commentary
+        if len(cand) > 70 or any(x in cand.lower() for x in ('not possible', 'cannot', 'unable', 'exact phrase')):
+            continue
+        g['title'] = cand
+    if not _title_ok(g.get('title', '')):
+        base = ' '.join(w.capitalize() for w in kw_key[:5])
+        g['title'] = (base[:63 - len(brand) - 3] + ' | ' + brand)
     for _ in range(3):
         d = g.get('meta_description', '')
         if 120 <= len(d) <= 156: break
