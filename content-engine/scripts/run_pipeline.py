@@ -96,6 +96,12 @@ TEMPLATE:\n{template}\n
 {story_block}
 EXISTING POSTS (link 2-3 relevant ones; NEVER reuse these topics):\n{existing_titles}
 
+NUMERIC-ACCURACY RULES (the fact-checker recalculates everything you write):
+- Do NOT build multi-row tables of standards-derived numeric values (ISO 286 deviations, proof loads,
+  hardness conversions). One row/example maximum, and only values you are certain of.
+- For bulk values, link the site's matching calculator or reference chart instead — that is the preferred pattern.
+- Show at most ONE fully worked numeric example, kept simple enough to verify by hand.
+
 FEATURED-SNIPPET REQUIREMENTS (Google pulls these into position-zero boxes):
 - Open with a 40-60 word direct-answer definition of the primary keyword (before any storytelling).
 - Include at least one HTML comparison or data table with a header row.

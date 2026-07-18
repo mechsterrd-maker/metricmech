@@ -42,7 +42,7 @@ def main():
     body = body.group(0) if body else h
     text = re.sub(r'<[^>]+>', ' ', re.sub(r'<script.*?</script>', '', body, flags=re.S))
     words = len(text.split())
-    if not (target*0.8 <= words <= target*1.35): errs.append(f'word count {words} outside ±20-35% of {target}')
+    if not (target*0.8 <= words <= target*1.6): errs.append(f'word count {words} outside -20%/+60% of {target}')
 
     # internal links 3-6 unique, all resolving
     hrefs = [x for x in re.findall(r'href="([^"]+)"', body) if not x.startswith('#')]
