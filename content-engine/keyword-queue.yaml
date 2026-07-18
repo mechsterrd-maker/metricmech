@@ -58,7 +58,13 @@ queue:
   word_count: 1600
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: "QA failed 2026-07-18: LINT FAIL:\n  - word count 2163 outside ±20-35% of\
+    \ 1600\n\n\nH7/n6 technical error (chart row + body text): For the 18–30 mm range,\
+    \ shaft n6 has ei = +8 µm and es = +21 µm, so shaft minimum = 30.008 mm. With\
+    \ hole maximum = 30.021 mm, maximum clearance = +13 µm is possible. H7/n6 is a\
+    \ transition fit at this size, not a pure interference fit. (1) Update the H7/n6\
+    \ table row: set Min Clearance = '—', Max "
 - keyword: H7 p6 press fit interference calculation worked example
   cluster: Fits & Tolerances (ISO 286)
   intent: informational
