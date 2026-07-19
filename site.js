@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <strong>Stop ballooning drawings by hand. <em>CadNexa does it automatically.</em></strong>
             <span>Upload a PDF drawing — AI auto-balloons every dimension and builds your AS9102 / PPAP report in minutes.</span>
           </div>
-          <a href="https://cadnexa.com/balloon?utm_source=metricmech&utm_medium=inline&utm_campaign=${campaign}" class="btn btn-amber btn-sm">Try auto-ballooning free →</a>
+          <a href="https://cadnexa.com/balloon?utm_source=metricmech&utm_medium=inline&utm_campaign=${campaign}" class="btn btn-amber btn-sm">${_cnT.cta} →</a>
         </div>
       `;
     }
@@ -218,17 +218,29 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========== CadNexa Big Banner — renders only if the page had no inline slot ==========
   (function () {
     const hadInline = document.querySelector('.cn-inline-banner') !== null;
-    document.querySelectorAll('[data-mw="cn-big"]').forEach((el, i) => {
+    // ---- Topic-matched bridge copy (per-page funnel messaging) ----
+  const _cnPath = (location.pathname || '').toLowerCase();
+  const _cnTopics = [
+    [/hardness/, { h: 'Hardness spec checked. <em>Drawing still needs ballooning?</em>', p: 'Upload the PDF — CadNexa\'s AI balloons every dimension and hardness callout, then generates the AS9102 / PPAP inspection report in your browser.', cta: 'Balloon a drawing free', path: 'balloon' }],
+    [/iso-286|press-fit|tolerance|fits/, { h: 'Fit calculated. <em>Now the FAI paperwork?</em>', p: 'CadNexa balloons the drawing and builds the inspection report — fits, tolerances and all — in about 10 minutes, right in your browser.', cta: 'Try auto-ballooning free', path: 'balloon' }],
+    [/thread|bolt|torque|fastener/, { h: 'Thread specs sorted. <em>Documentation next?</em>', p: 'Every thread callout on your drawing, found and ballooned automatically — ready for the AS9102 / PPAP report your customer wants.', cta: 'Balloon a drawing free', path: 'balloon' }],
+    [/gdt|position|flatness|mmc|runout|profile|datum/, { h: 'Reading GD&T is step one. <em>Ballooning it is step two.</em>', p: 'CadNexa finds every feature control frame on the drawing, balloons it, and writes the FAI report — automatically, in your browser.', cta: 'Try auto-ballooning free', path: 'balloon' }],
+    [/surface-finish/, { h: 'Ra checked. <em>Now balloon the whole drawing?</em>', p: 'Surface finish callouts, dimensions, tolerances — CadNexa balloons them all in one click and generates your inspection report.', cta: 'Balloon a drawing free', path: 'balloon' }],
+    [/bend|sheet/, { h: 'Flat pattern done. <em>Inspection documents next?</em>', p: 'Upload the finished drawing — CadNexa balloons every dimension and generates the first-article report your customer expects.', cta: 'Try auto-ballooning free', path: 'balloon' }],
+    [/as9102|ppap|fai|aql|fmea|cp-cpk|gauge|checklist|form/, { h: 'Building FAI / PPAP documents by hand?', p: 'CadNexa turns a raw PDF drawing into a ballooned drawing plus AS9102 Forms 1–3 in minutes — upload, one-click auto-balloon, export.', cta: 'Generate an FAI report free', path: 'app.html' }],
+  ];
+  const _cnT = (_cnTopics.find(([re]) => re.test(_cnPath)) || [null, { h: 'Auto-balloon your drawings. <em>FAI reports in 10 minutes.</em>', p: 'This hub is free because CadNexa pays for it. Upload a PDF drawing — CadNexa\'s AI balloons every dimension and generates your AS9102 / PPAP / ISO 13485 report in your browser. No installs, no SolidWorks licence.', cta: 'Try auto-ballooning free', path: 'balloon' }])[1];
+  document.querySelectorAll('[data-mw="cn-big"]').forEach((el, i) => {
       if (hadInline || i > 0) { el.remove(); return; }
       el.outerHTML = `
         <div class="cn-big-banner">
           <div class="cn-big-banner-inner">
             <div class="cn-big-content">
               <div class="cn-big-eyebrow">SUPPORTED BY CADNEXA</div>
-              <h2>Auto-balloon your drawings. <em>FAI reports in 10 minutes.</em></h2>
-              <p>This hub is free because CadNexa pays for it. Upload a PDF drawing — CadNexa's AI balloons every dimension and generates your AS9102 / PPAP / ISO 13485 report in your browser. No installs, no SolidWorks licence.</p>
+              <h2>${_cnT.h}</h2>
+              <p>${_cnT.p}</p>
               <div class="cn-big-cta">
-                <a href="https://cadnexa.com/balloon?utm_source=metricmech&utm_medium=cn-big" class="btn btn-amber btn-lg">Try auto-ballooning free →</a>
+                <a href="https://cadnexa.com/${_cnT.path}?utm_source=metricmech&utm_medium=cn-big" class="btn btn-amber btn-lg">Try auto-ballooning free →</a>
                 <span>14-day trial · No card · From ₹399/mo</span>
               </div>
             </div>
@@ -520,3 +532,20 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
 });
+
+
+// ---- Funnel analytics: tag every CadNexa link with the source page so GA4 shows which pages convert ----
+(function () {
+  try {
+    const camp = (location.pathname.replace(/\.html$/, '').replace(/[^a-z0-9]+/gi, '-').replace(/^-+|-+$/g, '') || 'home').slice(0, 60);
+    document.querySelectorAll('a[href*="cadnexa.com"]').forEach(a => {
+      try {
+        const u = new URL(a.href);
+        if (!u.searchParams.get('utm_source')) u.searchParams.set('utm_source', 'metricmech');
+        if (!u.searchParams.get('utm_medium')) u.searchParams.set('utm_medium', 'link');
+        u.searchParams.set('utm_campaign', camp);
+        a.href = u.toString();
+      } catch (_) {}
+    });
+  } catch (_) {}
+})();
