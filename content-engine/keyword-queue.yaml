@@ -92,7 +92,7 @@ queue:
   word_count: 2200
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: metric thread pitch diameter formula calculation
   cluster: Threads & Fasteners
   intent: informational

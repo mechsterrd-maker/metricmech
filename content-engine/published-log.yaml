@@ -280,3 +280,9 @@ posts:
   keyword: H7 p6 press fit interference calculation worked example
   cluster: Fits & Tolerances (ISO 286)
   source: autopilot
+- url: https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss
+  date: '2026-07-21'
+  title: 'Tolerance Stack-Up: Worst Case vs RSS Method | MetricMech'
+  keyword: tolerance stack up worst case vs RSS method
+  cluster: Fits & Tolerances (ISO 286)
+  source: autopilot

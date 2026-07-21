@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tolerance Stack-Up: Worst Case vs RSS Method | MetricMech</title>
+<meta name="description" content="Learn tolerance stack up worst case vs RSS method with formulas, worked examples, and steps to choose the right 1D tolerance chain approach." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tolerance Stack-Up: Worst Case vs RSS Method | MetricMech">
+<meta property="og:description" content="Learn tolerance stack up worst case vs RSS method with formulas, worked examples, and steps to choose the right 1D tolerance chain approach.">
+<meta property="og:url" content="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tolerance Stack-Up: Worst Case vs RSS Method | MetricMech">
+<meta name="twitter:description" content="Learn tolerance stack up worst case vs RSS method with formulas, worked examples, and steps to choose the right 1D tolerance chain approach.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Tolerance Stack-Up: Worst Case vs RSS Method | MetricMech",
+  "description": "Learn tolerance stack up worst case vs RSS method with formulas, worked examples, and steps to choose the right 1D tolerance chain approach.",
+  "url": "https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Tolerance Stack-Up: Worst Case vs RSS Method Explained",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-21",
+  "mainEntityOfPage": "https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between worst case and RSS tolerance stack-up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Worst case adds all individual tolerances arithmetically, assuming every part is simultaneously at its extreme limit. RSS (Root Sum of Squares) takes the square root of the sum of squared tolerances, reflecting the statistical reality that all parts rarely hit their limits at the same time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I use worst case tolerance analysis instead of RSS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use worst case when safety is critical, when batch sizes are small (fewer than 100 parts), or when the assembly gap or interference must be guaranteed for every single unit regardless of probability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the RSS tolerance stack-up formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The RSS total tolerance equals the square root of the sum of each individual tolerance squared: T_RSS = √(t₁² + t₂² + t₃² + … + tₙ²). This assumes tolerances are independent and normally distributed at ±3σ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is RSS always less conservative than worst case?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. RSS will always produce a smaller accumulated tolerance than arithmetic summation because it accounts for the low statistical probability that all components simultaneously reach their extreme tolerance limits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many components does it take for RSS to become significantly more permissive than worst case?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The gap becomes practically significant at around four or more components in the chain. With two components the difference is modest; with ten components, RSS may yield a total tolerance less than half of the worst case sum."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Tolerance Stack-Up: Worst Case vs RSS Method Explained",
+      "item": "https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Tolerance Stack-Up: Worst Case vs RSS Me</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Which Method Should You Use?</a>
+    <a href="#formulas">Formulas and Variables</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#step-by-step">Step-by-Step Method for 1D Tolerance Chain Analysis</a>
+    <a href="#comparison-table">Worst Case vs RSS: Side-by-Side Comparison</a>
+    <a href="#common-mistakes">Common Mistakes in Tolerance Stack-Up Analysis</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Tolerance Stack-Up: Worst Case vs RSS Method Explained</h1>
+    <div class="art-meta-bar">
+      <span>Design Engineering</span>
+      <span>July 21, 2026</span>
+      <span>10 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">Worst case tolerance stack-up adds every individual tolerance arithmetically to find the absolute maximum possible gap or interference. RSS (Root Sum of Squares) instead takes the square root of the sum of each tolerance squared, giving a statistically realistic accumulated error. Worst case guarantees 100 % conformance; RSS is less conservative but allows tighter nominal dimensions and is justified when production volumes are high and processes are controlled.</p>
+
+<p>Both methods are legitimate tools described in <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-tolerancing" rel="nofollow noopener" target="_blank">ASME Y14.5</a> and discussed in depth by the <a href="https://www.nist.gov/system/files/documents/2017/05/09/tolerancing.pdf" rel="nofollow noopener" target="_blank">NIST tolerance design literature</a>. The choice between them is not a matter of preference — it is a risk decision that should be made deliberately and documented on the drawing or the design analysis record.</p>
+
+<p>This tutorial covers the worst case tolerance analysis formula, the RSS tolerance stack-up calculation, a fully worked 1D tolerance chain example, and the most common errors that engineers make when running either analysis.</p>
+
+---
+
+<h2 id="formulas">Formulas and Variables</h2>
+
+<p>A 1D tolerance chain (also called a linear tolerance stack-up) is a closed loop of dimensions along one axis. One dimension in the loop — the gap, clearance, or interference — is the unknown resultant. All others are contributing components with known nominal values and bilateral tolerances.</p>
+
+<h3>Worst Case Formula</h3>
+
+<p>The worst case total accumulated tolerance is the simple arithmetic sum of all individual component tolerances in the chain. This assumes every part is simultaneously at its worst permissible extreme.</p>
+
+<pre>T_WC = t₁ + t₂ + t₃ + … + tₙ</pre>
+
+<h3>RSS Formula</h3>
+
+<p>The RSS total tolerance is the square root of the sum of squared individual tolerances. It assumes tolerances are independent, bilateral, and that each manufacturing process is centred and normally distributed at approximately ±3σ.</p>
+
+<pre>T_RSS = √(t₁² + t₂² + t₃² + … + tₙ²)</pre>
+
+<h3>Resultant Gap (both methods)</h3>
+
+<p>In both cases the nominal gap is identical. Only the tolerance band around that gap changes.</p>
+
+<pre>G_nom = Σ(increasing dimensions) − Σ(decreasing dimensions)</pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Variable</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T_WC</td>
+      <td>Total worst case accumulated tolerance (bilateral ±)</td>
+      <td>mm or inch</td>
+    </tr>
+    <tr>
+      <td>T_RSS</td>
+      <td>Total RSS accumulated tolerance (bilateral ±)</td>
+      <td>mm or inch</td>
+    </tr>
+    <tr>
+      <td>t₁ … tₙ</td>
+      <td>Individual component bilateral tolerances</td>
+      <td>mm or inch</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>Number of contributing dimensions in the chain</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>G_nom</td>
+      <td>Nominal resultant gap or interference</td>
+      <td>mm or inch</td>
+    </tr>
+    <tr>
+      <td>G_min (WC)</td>
+      <td>Minimum gap under worst case: G_nom − T_WC</td>
+      <td>mm or inch</td>
+    </tr>
+    <tr>
+      <td>G_min (RSS)</td>
+      <td>Minimum gap at ±3σ under RSS: G_nom − T_RSS</td>
+      <td>mm or inch</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For assemblies governed by <a href="https://www.iso.org/standard/72997.html" rel="nofollow noopener" target="_blank">ISO 286 fit classes</a>, the individual component tolerances tᵢ should be taken as the half-tolerance (half of the total tolerance band) to keep the bilateral convention consistent. You can cross-reference fit tolerance values using the <a href="https://metricmech.com/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances guide on MetricMech</a>.</p>
+
+---
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a simple three-component linear assembly: a housing bore accepts a bearing and a retaining spacer, and the functional requirement is a non-negative axial gap between the spacer end face and the housing shoulder. The chain has four dimensions — three contributing components and the resultant gap.</p>
+
+<p><strong>Nominal dimensions and bilateral tolerances:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dim</th>
+      <th>Description</th>
+      <th>Direction</th>
+      <th>Nominal (mm)</th>
+      <th>Bilateral Tolerance ± (mm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>Housing bore depth</td>
+      <td>Increasing (opens gap)</td>
+      <td>50.00</td>
+      <td>±0.10</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>Bearing width</td>
+      <td>Decreasing (closes gap)</td>
+      <td>20.00</td>
+      <td>±0.05</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>Spacer length</td>
+      <td>Decreasing (closes gap)</td>
+      <td>28.00</td>
+      <td>±0.08</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>Resultant axial gap</td>
+      <td>—</td>
+      <td>2.00</td>
+      <td>TBD</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Nominal gap check:</strong> G_nom = 50.00 − 20.00 − 28.00 = 2.00 mm ✓</p>
+
+<h3>Worst Case Result</h3>
+
+<p>T_WC = 0.10 + 0.05 + 0.08 = 0.23 mm</p>
+
+<p>Gap range (worst case): 2.00 ± 0.23 mm → minimum gap = <strong>1.77 mm</strong>, maximum gap = <strong>2.23 mm</strong>. Every single assembly is guaranteed to fall within this range.</p>
+
+<h3>RSS Result</h3>
+
+<p>T_RSS = √(0.10² + 0.05² + 0.08²) = √(0.0100 + 0.0025 + 0.0064) = √0.0189 ≈ 0.137 mm</p>
+
+<p>Gap range (RSS at ±3σ): 2.00 ± 0.137 mm → minimum gap = <strong>1.863 mm</strong>, maximum gap = <strong>2.137 mm</strong>. Approximately 99.73 % of assemblies will fall within this band, not 100 %.</p>
+
+<p class="callout">The RSS method recovers 0.093 mm of tolerance budget compared to worst case — nearly equivalent to halving the spacer tolerance. On a high-volume line this headroom can eliminate a re-grind operation or a selective assembly step.</p>
+
+<p>Run your own numbers instantly using the MetricMech <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up Worked Example</a> as a companion reference, then verify the bilateral tolerance conventions against <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances</a> if your drawing uses a general tolerance block.</p>
+
+---
+
+<h2 id="step-by-step">Step-by-Step Method for 1D Tolerance Chain Analysis</h2>
+
+<p>Follow these steps for any linear tolerance stack-up, whether you apply worst case or RSS at the end. The chain-building logic is identical; only the summation rule changes.</p>
+
+<ol>
+  <li><strong>Identify the functional requirement.</strong> Define exactly what the gap, clearance, or interference must be — and its minimum and maximum permissible values. Write this down before touching any dimension.</li>
+  <li><strong>Draw the tolerance loop diagram.</strong> Sketch the assembly cross-section and trace a closed loop from one side of the resultant gap, through every contributing component, and back to the other side of the gap. Assign an arrow direction to each dimension (increasing or decreasing relative to the gap).</li>
+  <li><strong>List all contributing dimensions and tolerances.</strong> Extract nominal values and bilateral tolerances for every dimension in the loop from the engineering drawings. Convert unilateral or limit tolerances to bilateral form: bilateral tᵢ = (upper deviation − lower deviation) / 2.</li>
+  <li><strong>Calculate the nominal resultant.</strong> G_nom = Σ(increasing dimensions) − Σ(decreasing dimensions). Confirm this matches the intended nominal gap on the drawing.</li>
+  <li><strong>Choose your method.</strong> Use worst case when: safety is critical, batch size is small (&lt;100 units), or the gap must be guaranteed for every part. Use RSS when: volume is high, processes are statistically controlled, and a small escape rate (0.27 % at ±3σ) is acceptable and documented.</li>
+  <li><strong>Apply the summation rule.</strong> For worst case: T_WC = Σ tᵢ. For RSS: T_RSS = √(Σ tᵢ²). Both give a bilateral value ±T around G_nom.</li>
+  <li><strong>Check functional limits.</strong> Confirm G_nom − T ≥ minimum allowable gap and G_nom + T ≤ maximum allowable gap. If either check fails, tighten contributing tolerances, change nominal dimensions, or switch methods with documented justification.</li>
+  <li><strong>Document and review.</strong> Record the loop diagram, all inputs, the chosen method, and the result in the design analysis. If the assembly will be inspected at first article, balloon the relevant dimensions on the drawing using a tool like <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=tolerance-stack-up-worst-case-vs-rss" class="highlight">CadNexa's auto-ballooning tool</a> to ensure every dimension in the chain is captured on the FAI report without manual oversight.</li>
+</ol>
+
+<p class="callout">Step 8 is where teams most often lose time. A tolerance chain that has not been formally ballooned is easily missed during inspection planning. Auto-ballooning links each chain dimension directly to its measurement record, closing the traceability gap before production starts.</p>
+
+---
+
+<h2 id="comparison-table">Worst Case vs RSS: Side-by-Side Comparison</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Worst Case</th>
+      <th>RSS (Statistical)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Summation rule</td>
+      <td>Arithmetic sum: T = Σ tᵢ</td>
+      <td>Quadratic sum: T = √(Σ tᵢ²)</td>
+    </tr>
+    <tr>
+      <td>Conformance guarantee</td>
+      <td>100 % of assemblies</td>
+      <td>~99.73 % at ±3σ</td>
+    </tr>
+    <tr>
+      <td>Result vs worst case</td>
+      <td>Baseline (most conservative)</td>
+      <td>Always smaller (less conservative)</td>
+    </tr>
+    <tr>
+      <td>Suitable batch size</td>
+      <td>Any — mandatory for small batches</td>
+      <td>Preferably &gt;100 units per run</td>
+    </tr>
+    <tr>
+      <td>Process control required?</td>
+      <td>No</td>
+      <td>Yes — centred, capable processes</td>
+    </tr>
+    <tr>
+      <td>Typical application</td>
+      <td>Safety-critical joints, aerospace, medical</td>
+      <td>High-volume automotive, consumer goods</td>
+    </tr>
+    <tr>
+      <td>Risk of out-of-spec assembly</td>
+      <td>Zero (by definition)</td>
+      <td>0.27 % at ±3σ; quantifiable via Cpk</td>
+    </tr>
+    <tr>
+      <td>Standard references</td>
+      <td>ASME Y14.5, ISO 8015</td>
+      <td>AIAG APQP, ASQ literature, MIT method</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The AIAG APQP manual and the <a href="https://asq.org/quality-resources/tolerance-stack-up" rel="nofollow noopener" target="_blank">ASQ tolerance stack-up resource library</a> both recommend declaring the chosen method in the design FMEA before production tooling is released. Linking your tolerance analysis to the FMEA risk register is good practice — refer to the <a href="https://metricmech.com/articles/fmea-rpn-calculation">FMEA RPN Calculation Guide</a> for the risk-scoring framework.</p>
+
+---
+
+<h2 id="common-mistakes">Common Mistakes in Tolerance Stack-Up Analysis</h2>
+
+<h3>1. Mixing unilateral and bilateral tolerances without converting</h3>
+<p>A dimension called out as 20.00 +0.00/−0.10 mm has a nominal of 20.00 mm and a bilateral tolerance of ±0.05 mm (the midpoint is 19.95 mm). If you enter ±0.10 mm into the chain, you overstate the tolerance by 2× and shift the nominal incorrectly. Always convert to bilateral form first and adjust the nominal accordingly.</p>
+
+<h3>2. Forgetting geometric tolerances in the chain</h3>
+<p>Flatness, perpendicularity, and parallelism callouts contribute to the axial stack just as dimensional tolerances do. A surface with a flatness tolerance of 0.05 mm can tilt and close an axial gap by that amount. Include all relevant geometric tolerances as additional tᵢ terms in the chain. The <a href="https://metricmech.com/articles/true-position-calculation">True Position Calculation guide</a> on MetricMech explains how positional tolerances convert to linear contributions.</p>
+
+<h3>3. Applying RSS to a small, safety-critical batch</h3>
+<p>RSS is a probability statement. On a batch of 20 assemblies there is no meaningful statistical base. The 0.27 % escape rate sounds small, but on 20 parts it means almost zero statistical validity. Use worst case without exception for small batches and for any joint where failure is a safety or regulatory issue.</p>
+
+<h3>4. Forgetting to re-run the analysis after a drawing revision</h3>
+<p>A single ECN that relaxes one contributor tolerance can invalidate the whole chain if another dimension was already tight. Treat the tolerance stack-up as a living document linked to the drawing revision status, not a one-time calculation filed and forgotten.</p>
+
+<h3>5. Using nominal dimensions from the model rather than mean-of-limits</h3>
+<p>If a dimension is 30.00 +0.10/−0.00 mm, the model may display 30.00 mm, but the correct nominal for chain arithmetic is 30.05 mm (the midpoint). Using the model value shifts the predicted gap and produces an artificially optimistic or pessimistic result depending on which direction the asymmetry falls.</p>
+
+<p class="warn-box">Incorrect nominal handling is the single most common source of sign errors in linear stack-up analysis. Always recompute the mean dimension from the drawing limits, not from the 3D model geometry.</p>
+
+---
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the difference between worst case and RSS tolerance stack-up?</h3>
+<p>Worst case adds all individual tolerances arithmetically, assuming every part is simultaneously at its extreme limit. RSS takes the square root of the sum of squared tolerances, reflecting the statistical reality that all parts rarely hit their extreme limits at the same time. Worst case guarantees 100 % conformance; RSS guarantees approximately 99.73 % at the ±3σ level.</p>
+
+<h3>When should I use worst case tolerance analysis instead of RSS?</h3>
+<p>Use worst case when safety is critical, when batch sizes are small (fewer than 100 parts per production run), or when the assembly gap or interference must be guaranteed for every single unit regardless of statistical probability. Aerospace and medical device assemblies nearly always require worst case analysis by regulation or customer mandate.</p>
+
+<h3>What is the RSS tolerance stack-up formula?</h3>
+<p>The RSS total tolerance equals the square root of the sum of each individual tolerance squared: T_RSS = √(t₁² + t₂² + t₃² + … + tₙ²). This formula assumes that individual tolerances are independent, bilateral, and that each manufacturing process is centred and normally distributed at approximately ±3σ.</p>
+
+<h3>Is RSS always less conservative than worst case?</h3>
+<p>Yes. RSS will always produce a smaller accumulated tolerance than arithmetic summation because it accounts for the low statistical probability that all components simultaneously reach their extreme tolerance limits. The more components in the chain, the more pronounced the difference between the two methods.</p>
+
+<h3>How many components does it take for RSS to become significantly more permissive than worst case?</h3>
+<p>The gap becomes practically significant at around four or more components in the chain. With two equal tolerances the RSS result is 1.41× one tolerance versus 2× for worst case — a meaningful difference. With ten equal tolerances, worst case is 10× one tolerance while RSS is only 3.16× — a dramatic reduction that can justify loosening several contributors simultaneously.</p>
+
+---
+
+<p>For a deeper dive into applying these methods to real machined assemblies with asymmetric tolerances and GD&amp;T callouts, see the companion article <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a> on MetricMech. If your assembly is governed by standard ISO fits, the <a href="https://metricmech.com/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances guide</a> gives you the fundamental deviation values needed to populate the chain correctly.</p>
+
+<div class="cta-box">
+  <p>When the stack-up analysis is complete and the chain dimensions are confirmed, the next bottleneck is getting every contributing dimension correctly ballooned on the inspection drawing. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=tolerance-stack-up-worst-case-vs-rss" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> sequences and numbers all dimensions automatically from your PDF or CAD drawing, eliminating the manual ballooning step that typically adds hours to first article preparation.</p>
+</div>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/fits-tolerances-guide">Fits &amp; Tolerances: Complete Guide</a></li>
+    <li><a href="/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a></li>
+    <li><a href="/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances Explained</a></li>
+    <li><a href="/articles/position-tolerance-mmc">Position Tolerance with MMC: Bonus Tolerance</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Tolerance Stack-Up: Worst Case vs RSS Method Explained",
+      "item": "https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss"
+    }
+  ]
+}
+</script>
+</body>
+</html>
