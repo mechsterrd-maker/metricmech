@@ -106,7 +106,16 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-07-23: LINT PASS (1942 words, 7 internal links)
+
+
+
+    In the Formula section, correct the geometric description: the pitch cylinder
+    is NOT three-quarters of the way down from the crest triangle apex. The radial
+    depth from major diameter to pitch diameter is 3H/8 (three-eighths of the fundamental
+    triangle height H), not 3H/4. Rewrite to: ''The pitch diameter sits at a radial
+    depth of 3H/8 below the major diame'
 - keyword: bolt preload calculation formula worked example
   cluster: Threads & Fasteners
   intent: informational
