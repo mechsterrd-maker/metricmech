@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolt Preload Calculation: Formula & Worked Example | MetricMech</title>
+<meta name="description" content="Master the bolt preload calculation formula worked example, K factor, preload vs clamping force, and mistakes engineers must avoid." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bolt Preload Calculation: Formula & Worked Example | MetricMech">
+<meta property="og:description" content="Master the bolt preload calculation formula worked example, K factor, preload vs clamping force, and mistakes engineers must avoid.">
+<meta property="og:url" content="https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bolt Preload Calculation: Formula & Worked Example | MetricMech">
+<meta name="twitter:description" content="Master the bolt preload calculation formula worked example, K factor, preload vs clamping force, and mistakes engineers must avoid.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Bolt Preload Calculation: Formula & Worked Example | MetricMech",
+  "description": "Master the bolt preload calculation formula worked example, K factor, preload vs clamping force, and mistakes engineers must avoid.",
+  "url": "https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Bolt Preload Calculation: Formula, K Factor & Worked Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-25",
+  "mainEntityOfPage": "https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the bolt preload calculation formula?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The standard formula is Fi = T / (K × d), where Fi is the bolt preload (N), T is the applied torque (N·mm), K is the dimensionless torque coefficient, and d is the nominal bolt diameter (mm). This relates applied wrench torque directly to the axial tension generated in the fastener."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a typical K factor value for a standard bolt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a plain, unlubricated steel bolt, K is typically 0.20. For a cadmium-plated or lightly lubricated bolt, K drops to around 0.15–0.17. For a heavily lubricated or waxed fastener, K can fall to 0.12–0.13. Always confirm K from the fastener manufacturer or testing if joint reliability is critical."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between preload and clamping force?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Preload is the axial tension induced in the bolt shank during tightening. Clamping force is the equal and opposite compressive force that the bolt exerts on the joint members. Numerically they are equal in magnitude under ideal elastic conditions, but clamping force can be reduced by embedment relaxation and thermal effects after installation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much of applied torque actually creates bolt preload?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typically only around 10–15% of applied torque generates bolt preload (axial tension). Approximately 40–50% is consumed by friction under the bolt head or nut face, and another 40–50% by thread friction. This is why torque is an indirect and scatter-prone method of controlling preload."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What bolt preload should I target for a given bolt grade?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A common design target is 70–75% of the bolt's proof load for non-permanent joints. For an M12 Grade 8.8 bolt, ISO 898-1 gives As = 84.3 mm² and Sp = 600 MPa, yielding Fi,max = 84.3 × 600 = 50,580 N ≈ 50.6 kN. A 75% preload target gives approximately 37.9 kN. Use the MetricMech Bolt Torque Guide to derive the matching torque value for your specific grade and diameter."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bolt Preload Calculation: Formula, K Factor & Worked Example",
+      "item": "https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Bolt Preload Calculation: Formula, K Fac</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is Bolt Preload?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula & Variables Reference</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#preload-vs-clamping">Preload vs Clamping Force: Key Difference</a>
+    <a href="#k-factor">Torque Coefficient K Factor Explained</a>
+    <a href="#common-mistakes">Common Mistakes in Preload Calculation</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Bolt Preload Calculation: Formula, K Factor & Worked Example</h1>
+    <div class="art-meta-bar">
+      <span>Fastener Engineering</span>
+      <span>July 25, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The bolt preload calculation formula is <strong>Fi = T / (K × d)</strong>, where Fi is the induced axial bolt tension in newtons, T is the applied tightening torque in N·mm, K is the dimensionless torque coefficient (also called the nut factor), and d is the nominal bolt diameter in millimetres. This single equation connects the torque applied at the wrench to the actual clamping force holding a joint together.</p>
+
+<p>For most dry steel bolts, K sits near 0.20. Change the lubricant, plating, or surface condition and that number shifts significantly — which is why K factor selection is the largest source of preload scatter in production fastening. The sections below walk through the formula, a complete worked example, and the mistakes that cause bolted joints to fail in service.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a design engineer specifying an <strong>M16 Grade 10.9 hex bolt</strong> in a flange joint. The assembly procedure specifies a tightening torque of <strong>200 N·m</strong>, and the bolt is lightly oiled, giving a torque coefficient of <strong>K = 0.17</strong>.</p>
+
+<p>Converting torque to consistent units: 200 N·m = 200,000 N·mm. The nominal diameter is d = 16 mm.</p>
+
+<p>Applying the formula:</p>
+
+<p><strong>Fi = T / (K × d) = 200,000 / (0.17 × 16) = 200,000 / 2.72 ≈ 73,529 N ≈ 73.5 kN</strong></p>
+
+<p>That is the preload — the axial tension in the bolt shank — induced by a 200 N·m torque with K = 0.17. The clamping force on the joint members is equal in magnitude: 73.5 kN compressive. If the same torque were applied to a dry bolt (K = 0.20), preload would drop to 200,000 / (0.20 × 16) = 62,500 N — a 15% reduction purely from surface condition. This illustrates why lubrication state must be defined before specifying a torque value.</p>
+
+<div class="callout">
+  <p><strong>Quick check:</strong> Want to verify this instantly? The <a href="https://metricmech.com/articles/bolt-torque-guide">MetricMech Bolt Torque Guide</a> walks through torque targets by grade and size, and the site's bolt torque calculator lets you adjust K and diameter interactively to confirm your preload target before committing to a tightening procedure.</p>
+</div>
+
+<h2 id="formula-table">Formula &amp; Variables Reference</h2>
+
+<p>The table below defines every variable used in the standard torque-tension relationship for bolted joints. The formula assumes elastic behaviour and a single dominant friction model — valid for the vast majority of structural and mechanical assembly joints.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Variable</th>
+      <th>Typical Units</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Fi</strong></td>
+      <td>Bolt preload (axial tension)</td>
+      <td>N or kN</td>
+      <td>Target 70–75% of proof load for most joints</td>
+    </tr>
+    <tr>
+      <td><strong>T</strong></td>
+      <td>Applied tightening torque</td>
+      <td>N·mm or N·m</td>
+      <td>Measured at the nut or bolt head; ensure unit consistency</td>
+    </tr>
+    <tr>
+      <td><strong>K</strong></td>
+      <td>Torque coefficient (nut factor)</td>
+      <td>Dimensionless</td>
+      <td>Typically 0.12–0.20; confirm by testing or manufacturer data</td>
+    </tr>
+    <tr>
+      <td><strong>d</strong></td>
+      <td>Nominal bolt diameter</td>
+      <td>mm or in</td>
+      <td>Use thread pitch diameter for higher accuracy in research contexts</td>
+    </tr>
+    <tr>
+      <td><strong>Sp</strong></td>
+      <td>Proof strength</td>
+      <td>MPa</td>
+      <td>From ISO 898-1 or ASTM F606; basis for maximum preload limit</td>
+    </tr>
+    <tr>
+      <td><strong>As</strong></td>
+      <td>Tensile stress area</td>
+      <td>mm²</td>
+      <td>From thread tables; not the shank cross-section area</td>
+    </tr>
+    <tr>
+      <td><strong>Fi,max</strong></td>
+      <td>Maximum permissible preload</td>
+      <td>N</td>
+      <td>Fi,max = Sp × As; bolt must not yield during tightening</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The proof load limit formula <strong>Fi,max = Sp × As</strong> is the ceiling. The torque-preload formula <strong>Fi = T / (K × d)</strong> is the means of reaching a point below that ceiling. Both equations belong in every bolted joint calculation package.</p>
+
+<p>For thread geometry values — tensile stress area and pitch diameter by size — refer to the <a href="https://metricmech.com/articles/thread-pitch-reference">Thread Pitch Reference: Metric &amp; UNC/UNF Charts</a> on MetricMech rather than copying values by hand.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<p>Follow these steps in order. Skipping Step 2 (K selection) is the most common source of error in production environments.</p>
+
+<ol>
+  <li><strong>Identify the bolt grade and size.</strong> Record the nominal diameter (d), thread pitch, tensile stress area (As), and proof strength (Sp) from ISO 898-1 or ASTM F606. The <a href="https://metricmech.com/articles/bolt-grade-chart">Bolt Grade Chart: 8.8 vs 10.9 vs 12.9</a> provides a quick-reference comparison of key mechanical properties.</li>
+  <li><strong>Select the torque coefficient K.</strong> Base K on the actual surface condition and lubrication to be used in production — not a generic table value. Test on representative samples where joint reliability is critical. Typical ranges: dry uncoated steel ≈ 0.20, zinc-plated ≈ 0.17–0.19, cadmium-plated ≈ 0.15–0.17, waxed/coated ≈ 0.12–0.14.</li>
+  <li><strong>Establish the preload target (Fi,target).</strong> Calculate the maximum permissible preload: Fi,max = Sp × As. Then set Fi,target = 0.70 × Fi,max for a standard non-permanent joint, or up to 0.85 × Fi,max for structural applications using torque-angle or yield-controlled tightening.</li>
+  <li><strong>Back-calculate the required torque.</strong> Rearrange the formula: T = Fi,target × K × d. Ensure units are consistent — if d is in mm and Fi is in N, T will be in N·mm; divide by 1,000 to convert to N·m.</li>
+  <li><strong>Check torque scatter allowance.</strong> Torque wrenches carry a ±4% calibration uncertainty; production scatter of ±25–30% on preload is normal with torque-only control. Verify that the lower bound of the scatter band (Fi,target minus 30%) still provides adequate clamping, and the upper bound does not exceed Fi,max.</li>
+  <li><strong>Document the tightening procedure.</strong> Record torque value, K assumed, lubrication type, tool specification, and any re-tightening sequence. When bolted joint documentation forms part of a First Article Inspection package, structured ballooning of the joint drawing using <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=bolt-preload-calculation-formula-worked-example" class="highlight" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> ensures every fastener callout is captured systematically rather than traced by hand.</li>
+  <li><strong>Validate by measurement if critical.</strong> For safety-critical or high-scatter joints, validate preload using ultrasonic bolt elongation measurement or strain-gauged bolts. <a href="https://www.asme.org/codes-standards/find-codes-standards/pcc-1-guidelines-pressure-boundary-bolted-flange-joint-assembly" rel="nofollow noopener" target="_blank">ASME PCC-1</a> provides a detailed guideline for pressure boundary bolted flange joint assembly.</li>
+</ol>
+
+<h2 id="preload-vs-clamping">Preload vs Clamping Force: Key Difference</h2>
+
+<p>Preload and clamping force are numerically equal at the moment of tightening under ideal elastic conditions, but they describe different things and diverge over time. <strong>Preload</strong> is the tensile stress state inside the bolt shank — it is a bolt property. <strong>Clamping force</strong> is the compressive load applied to the joint interface — it is a joint property.</p>
+
+<p>After tightening, several mechanisms reduce clamping force without any change to the torque specification. Embedment relaxation — the micro-yielding of surface asperities under the nut face and in the joint stack — typically causes a 5–10% loss of preload within the first few hours. Thermal cycling can cause additional loss through differential expansion between bolt and joint materials. Vibration loosening reduces clamping force further if the joint is not properly designed against self-loosening.</p>
+
+<p>This distinction matters in design because the minimum clamping force required to prevent joint separation or slip must account for all loss mechanisms, not just the initial torque-derived preload. The <a href="https://metricmech.com/articles/bolt-shear-strength-calculation">Bolt Shear Strength Calculation guide</a> covers how residual clamping force interacts with shear loading — a critical check for joints carrying transverse loads.</p>
+
+<h2 id="k-factor">Torque Coefficient K Factor Explained</h2>
+
+<p>The K factor — also called the nut factor — is not a material constant. It is a system constant that captures all friction effects in a single dimensionless number: thread friction, under-head or nut-face friction, and a small geometric thread helix term. This is why K cannot be reliably looked up from a generic table without knowing the exact surface condition, lubricant type, and contact geometry of the specific joint.</p>
+
+<p>The breakdown of applied torque is approximately: 50% consumed by under-head friction, 40% by thread friction, and only 10–15% actually converted to bolt tension. A small change in friction coefficient — from a different batch of anti-seize compound, or a worn tool socket that introduces a slight angle — shifts K enough to move preload outside its acceptable window.</p>
+
+<p>For production-critical joints, K should be established by direct measurement: tighten a sample bolt to a known torque, measure elongation or use an in-line load cell, then back-calculate K = T / (Fi × d). <a href="https://www.iso.org/standard/45082.html" rel="nofollow noopener" target="_blank">ISO 16047</a> defines the standardised torque/clamp force test method used to measure K experimentally on production fasteners. The VDI 2230 guideline provides a complementary systematic procedure for calculating high-duty bolted joints, and <a href="https://www.asme.org/codes-standards/find-codes-standards/pcc-1-guidelines-pressure-boundary-bolted-flange-joint-assembly" rel="nofollow noopener" target="_blank">ASME PCC-1</a> is the primary reference for pressure boundary fastening.</p>
+
+<p>Tool and fastener suppliers such as Norbar, Atlas Copco, and Ingersoll Rand publish K factor guidance for their specific systems and lubricant ranges, though these are starting-point estimates rather than substitutes for joint-specific testing on safety-critical applications.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Preload Calculation</h2>
+
+<h3>Using a generic K without confirming lubrication state</h3>
+<p>The single most common error. A nominal K = 0.20 applied to a bolt that arrives pre-oiled from the supplier will over-torque the joint by 15–20%. Always define lubrication condition in the assembly procedure, not just in the calculation spreadsheet.</p>
+
+<h3>Confusing nominal diameter with stress area</h3>
+<p>The torque-preload formula uses nominal diameter (d) for the torque term. The proof load formula (Fi,max = Sp × As) uses the tensile stress area (As), which is significantly smaller than the shank cross-section area. Mixing these up produces a proof load ceiling that appears far higher than it actually is. Always obtain As from thread tables — the <a href="https://metricmech.com/articles/thread-pitch-reference">Thread Pitch Reference chart</a> on MetricMech lists As values for metric and UNC/UNF threads.</p>
+
+<h3>Ignoring torque scatter in the tolerance stack</h3>
+<p>A ±4% torque wrench uncertainty translates to roughly ±25–30% preload scatter due to the multiplicative effect of K variability. Designers who set Fi,target at exactly 75% of proof load with no scatter margin will find bolts yielding in production. The preload target should sit low enough that the upper scatter bound remains below Fi,max. For a formal approach to stack-up thinking, the <a href="https://metricmech.com/articles/tolerance-stackup-worked-example">Tolerance Stack-Up Worked Example</a> on MetricMech demonstrates the same worst-case versus statistical methodology applied to dimensional chains.</p>
+
+<h3>Applying the formula in mixed units</h3>
+<p>If T is entered in N·m and d in mm without conversion, the calculated Fi will be 1,000× too high. Always convert T to N·mm before using d in mm, or convert d to metres before using T in N·m. The formula is dimensionally homogeneous — inconsistency produces nonsense results.</p>
+
+<h3>Assuming re-use restores the same preload</h3>
+<p>Re-tightening a bolt that has experienced embedment does not restore original preload unless the joint is disassembled and surfaces are re-conditioned. Prevailing-torque nuts lose their locking torque after the first use. ISO 898-1 and most OEM standards specify the number of permissible re-uses for high-strength fasteners — exceeding this invites hydrogen embrittlement fracture in Grade 10.9 and 12.9 bolts.</p>
+
+<div class="warn-box">
+  <p><strong>Safety note:</strong> Yield-controlled (torque-angle) tightening intentionally takes bolts into the plastic region to reduce scatter. These bolts must be treated as single-use. Never re-torque a yield-tightened bolt to add preload; replace it.</p>
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the bolt preload calculation formula?</h3>
+<p>The standard formula is <strong>Fi = T / (K × d)</strong>, where Fi is the bolt preload in newtons, T is the applied torque in N·mm, K is the dimensionless torque coefficient, and d is the nominal bolt diameter in millimetres. This relates applied wrench torque directly to the axial tension generated in the fastener.</p>
+
+<h3>What is a typical K factor value for a standard bolt?</h3>
+<p>For a plain, unlubricated steel bolt, K is typically 0.20. For a cadmium-plated or lightly lubricated bolt, K drops to around 0.15–0.17. For a heavily lubricated or waxed fastener, K can fall to 0.12–0.13. Always confirm K from fastener manufacturer data or direct testing if joint reliability is critical.</p>
+
+<h3>What is the difference between preload and clamping force?</h3>
+<p>Preload is the axial tension induced in the bolt shank during tightening. Clamping force is the equal and opposite compressive force the bolt exerts on the joint members. Numerically equal at installation, they diverge over time due to embedment relaxation, thermal effects, and vibration — so minimum clamping force must account for all loss mechanisms.</p>
+
+<h3>How much of applied torque actually creates bolt preload?</h3>
+<p>Typically only 10–15% of applied torque generates bolt preload. Approximately 40–50% is consumed by friction under the bolt head or nut face, and another 40–50% by thread friction. This is why torque is an indirect and scatter-prone method of controlling preload, and why K factor accuracy matters so much.</p>
+
+<h3>What bolt preload should I target for a given bolt grade?</h3>
+<p>A common design target is 70–75% of the bolt's proof load for non-permanent joints. As a concrete example, an M12 Grade 8.8 bolt has a tensile stress area As = 84.3 mm² and proof strength Sp = 600 MPa per ISO 898-1, giving Fi,max = 84.3 × 600 = 50,580 N ≈ 50.6 kN. A 75% preload target gives approximately <strong>37.9 kN</strong>. Use the <a href="https://metricmech.com/articles/bolt-torque-guide">MetricMech Bolt Torque Guide</a> to derive the matching torque value for your specific grade and diameter, and cross-reference the <a href="https://metricmech.com/articles/bolt-grade-chart">Bolt Grade Chart</a> for proof strength data across 8.8, 10.9, and 12.9 grades.</p>
+
+<hr>
+
+<p>For the authoritative treatment of bolted flange joint assembly, refer to <a href="https://www.asme.org/codes-standards/find-codes-standards/pcc-1-guidelines-pressure-boundary-bolted-flange-joint-assembly" rel="nofollow noopener" target="_blank">ASME PCC-1</a> and the German Engineering Federation's <a href="https://www.vdi.de/richtlinien/details/vdi-2230-blatt-1-systematische-berechnung-hochbeanspruchter-schraubenverbindungen-zylindrische-einschraubenverbindungen-1" rel="nofollow noopener" target="_blank">VDI 2230 guideline</a> for systematic calculation of high-duty bolted joints. <a href="https://www.iso.org/standard/45082.html" rel="nofollow noopener" target="_blank">ISO 16047</a> defines the standardised test method for measuring K experimentally on production fasteners.</p>
+
+<div class="cta-box highlight">
+  <p><strong>Working on a bolted joint inspection package or FAI?</strong> Once torque specifications and preload targets are confirmed, keep your drawing documentation tight. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=bolt-preload-calculation-formula-worked-example" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> balloons every fastener callout on the joint drawing automatically, eliminating the manual trace errors that cause balloon-to-characteristic mismatches during first article inspection.</p>
+</div>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/threads-fasteners-guide">Threads &amp; Fasteners: Complete Guide</a></li>
+    <li><a href="/articles/oee-calculation">OEE Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/cycle-time-calculation">Cycle Time Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/bolt-grade-chart">Bolt Grade Chart: 8.8 vs 10.9 vs 12.9</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Bolt Preload Calculation: Formula, K Factor & Worked Example",
+      "item": "https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example"
+    }
+  ]
+}
+</script>
+</body>
+</html>

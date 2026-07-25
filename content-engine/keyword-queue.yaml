@@ -129,7 +129,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: sheet metal bend allowance formula k factor chart
   cluster: Sheet Metal Design
   intent: informational
