@@ -72,3 +72,15 @@ pages:
   added: '2026-07-15'
   status: manual
   note: not a blog/article page - needs human/dev attention
+- url: https://metricmech.com/reference/hardness-conversion-chart
+  reason: striking-distance
+  position: 28.8
+  impressions: 4202
+  added: '2026-07-26'
+  status: todo
+- url: https://metricmech.com/gdt/mmc-vs-lmc
+  reason: striking-distance
+  position: 14.2
+  impressions: 325
+  added: '2026-07-26'
+  status: todo
