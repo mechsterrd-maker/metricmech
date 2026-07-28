@@ -143,7 +143,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: minimum bend radius sheet metal material chart
   cluster: Sheet Metal Design
   intent: informational

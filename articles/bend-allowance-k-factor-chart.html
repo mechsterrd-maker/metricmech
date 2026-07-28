@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sheet Metal Bend Allowance Formula & K-Factor Chart | MetricMech</title>
+<meta name="description" content="Master the sheet metal bend allowance formula k factor chart and blank size calculation with examples, tips, and mistakes to avoid." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/bend-allowance-k-factor-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sheet Metal Bend Allowance Formula & K-Factor Chart | MetricMech">
+<meta property="og:description" content="Master the sheet metal bend allowance formula k factor chart and blank size calculation with examples, tips, and mistakes to avoid.">
+<meta property="og:url" content="https://metricmech.com/articles/bend-allowance-k-factor-chart">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sheet Metal Bend Allowance Formula & K-Factor Chart | MetricMech">
+<meta name="twitter:description" content="Master the sheet metal bend allowance formula k factor chart and blank size calculation with examples, tips, and mistakes to avoid.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Sheet Metal Bend Allowance Formula & K-Factor Chart | MetricMech",
+  "description": "Master the sheet metal bend allowance formula k factor chart and blank size calculation with examples, tips, and mistakes to avoid.",
+  "url": "https://metricmech.com/articles/bend-allowance-k-factor-chart",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Sheet Metal Bend Allowance Formula & K-Factor Chart: Complete Reference",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-28",
+  "mainEntityOfPage": "https://metricmech.com/articles/bend-allowance-k-factor-chart"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the standard K-factor for mild steel sheet metal bending?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For soft or annealed mild steel bent with an air-form press brake, K = 0.42 is the standard starting value when the inside bend radius is less than the material thickness (R/T < 1). When the radius is between one and three times the thickness (R/T 1–3), K = 0.44 is appropriate. At R/T > 3 the neutral axis returns near mid-thickness and K = 0.50 is used. Always confirm against a physical bend test on your specific tooling and material batch."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is bend allowance different from bend deduction?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bend allowance (BA) is the arc length along the neutral axis consumed by the bend — it tells you how much flat length to add. Bend deduction (BD) is the amount subtracted from the combined flange lengths to get the flat blank length. BD = 2 × OSSB − BA, where OSSB is the outside setback. Both describe the same geometry; the right choice depends on how your CAD system or press brake controller expects the input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the same K-factor for aluminium and stainless steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Aluminium work-hardens less than stainless steel, so its neutral axis shifts less under bending. Soft aluminium (e.g., 5052-H32) typically uses K = 0.40–0.43 at R/T 1–3, while annealed stainless 304 uses K = 0.46 at the same ratio. Using a mild-steel K-factor on stainless will produce blank sizes that are consistently short."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens to blank size if the K-factor is wrong?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every 0.01 error in K-factor changes the bend allowance by approximately 0.01 × π × (bend angle / 180) × T millimetres per bend. On a part with six 90° bends in 2 mm stainless, a K-factor error of 0.06 compounds to roughly 1.13 mm of total blank-length error — enough to push finished dimensions well outside a ±0.3 mm tolerance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does die width affect the K-factor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, indirectly. In air forming, the effective inside radius is determined by the die opening (approximately 16% of the V-die width for most low-carbon steels), not the punch radius. A wider die produces a larger inside radius, which keeps the neutral axis closer to the centre of thickness and raises the effective K-factor toward 0.50."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Sheet Metal Bend Allowance Formula & K-Factor Chart: Complete Reference",
+      "item": "https://metricmech.com/articles/bend-allowance-k-factor-chart"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Sheet Metal Bend Allowance Formula & K-F</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is Bend Allowance and the K-Factor?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula and Variables Table</a>
+    <a href="#step-by-step">Bend Allowance Calculation: Step by Step</a>
+    <a href="#k-factor-chart">K-Factor Chart by Material and Condition</a>
+    <a href="#neutral-axis">Neutral Axis Shift and Why K-Factor Is Not 0.5</a>
+    <a href="#blank-size">Blank Size Calculation for Multi-Bend Parts</a>
+    <a href="#common-mistakes">Common Mistakes in Bend Allowance Calculation</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Sheet Metal Bend Allowance Formula & K-Factor Chart: Complete Reference</h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal Design</span>
+      <span>July 28, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">The <strong>sheet metal bend allowance formula</strong> is BA = (π / 180) × (R + K × T) × A, where R is the inside bend radius, T is material thickness, A is the bend angle in degrees, and K is the K-factor representing the position of the neutral axis. The K-factor chart maps material type and bend condition to a value between 0.25 and 0.50. Together, these inputs determine the correct flat blank size before forming.</p>
+
+<h2 id="direct-answer">What Is Bend Allowance and the K-Factor?</h2>
+<p>When a flat sheet is bent, metal on the outside of the bend stretches while metal on the inside compresses. Somewhere through the thickness a layer neither stretches nor compresses — this is the <strong>neutral axis</strong>. Bend allowance is the arc length along that neutral axis: the length of flat material consumed by one bend.</p>
+<p>The K-factor quantifies where the neutral axis sits as a fraction of the material thickness, measured from the inside surface. A K-factor of 0.5 means the neutral axis is exactly at mid-thickness. In practice, bending forces the neutral axis toward the inside of the bend, so K is almost always less than 0.5 for tight-radius work.</p>
+<p>Blank size calculation depends directly on bend allowance. Add all flat leg lengths plus all bend allowances and the result is the developed flat length. Get the K-factor wrong and every bend on every part in the production run will be dimensionally off. For a full comparison of how bend allowance relates to bend deduction in practice, see <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance: Which to Use</a>.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+<p>Consider a 2 mm thick mild steel (soft/annealed) bracket with a single 90° bend, an inside bend radius of 1 mm (R/T = 0.5), and a K-factor of 0.42 — the correct chart value for soft mild steel at R/T &lt; 1.</p>
+<p><strong>Bend Allowance (BA)</strong></p>
+<pre>BA = (π / 180) × (R + K × T) × A
+BA = (π / 180) × (1 + 0.42 × 2) × 90
+BA = 0.01745 × (1 + 0.84) × 90
+BA = 0.01745 × 1.84 × 90
+BA = 2.89 mm</pre>
+<p>If the two flat legs measure 50 mm and 30 mm respectively (each measured from the inside mold line), the flat blank length is 50 + 2.89 + 30 = <strong>82.89 mm</strong>. Rounding to 82.9 mm is acceptable for most ±0.5 mm drawing tolerances; tighter tolerances require the full decimal. Use the <a href="https://metricmech.com/articles/bend-allowance-k-factor">MetricMech Bend Allowance &amp; K-Factor Calculator</a> to verify this computation instantly without manual arithmetic.</p>
+
+<h2 id="formula-table">Formula and Variables Table</h2>
+<p>The bend allowance formula and its companion blank-size equation are reproduced below in standard engineering notation consistent with <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-and-tolerancing" target="_blank" rel="noopener">ASME Y14.5</a> geometric referencing practice.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Variable</th>
+      <th>Unit</th>
+      <th>Typical Range / Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BA</td>
+      <td>Bend Allowance</td>
+      <td>mm (or in)</td>
+      <td>Arc length along neutral axis consumed by one bend</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>Inside bend radius</td>
+      <td>mm</td>
+      <td>Measured from inside surface to bend centre; in air forming, ≈ 16% of V-die width</td>
+    </tr>
+    <tr>
+      <td>K</td>
+      <td>K-factor</td>
+      <td>Dimensionless</td>
+      <td>0.25–0.50; depends on material, temper, and R/T ratio</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>Material thickness</td>
+      <td>mm</td>
+      <td>Nominal gauge thickness; confirm with a <a href="https://metricmech.com/articles/sheet-metal-gauge-chart">gauge chart</a></td>
+    </tr>
+    <tr>
+      <td>A</td>
+      <td>Bend angle</td>
+      <td>Degrees</td>
+      <td>Included angle of the bend (90° is most common)</td>
+    </tr>
+    <tr>
+      <td>L_flat</td>
+      <td>Flat blank length</td>
+      <td>mm</td>
+      <td>Sum of all flat legs + sum of all BAs</td>
+    </tr>
+    <tr>
+      <td>BD</td>
+      <td>Bend Deduction</td>
+      <td>mm</td>
+      <td>BD = 2 × OSSB − BA; alternate input for CAD/press-brake controllers</td>
+    </tr>
+    <tr>
+      <td>OSSB</td>
+      <td>Outside setback</td>
+      <td>mm</td>
+      <td>OSSB = (R + T) × tan(A/2)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Primary formula: <strong>BA = (π / 180) × (R + K × T) × A</strong></p>
+<p>Blank size: <strong>L_flat = Σ(flat legs) + Σ(BA per bend)</strong></p>
+
+<h2 id="step-by-step">Bend Allowance Calculation: Step by Step</h2>
+<p>Follow these steps in order. Skipping steps — particularly step 2 — is the most common source of scrap on first-off parts.</p>
+<ol>
+  <li><strong>Confirm material thickness.</strong> Measure the incoming coil or sheet with a calibrated micrometer. Nominal gauge values from a supplier certificate can differ from actual thickness by up to 5%; use the measured value for all calculations. Cross-reference gauge numbers using the <a href="https://metricmech.com/articles/sheet-metal-gauge-chart">Sheet Metal Gauge Chart</a>.</li>
+  <li><strong>Determine the inside bend radius.</strong> In air forming, the inside radius is not the punch radius — it is formed by the material's natural behaviour over the V-die opening. Measure the actual radius from a test bend or calculate it as approximately 16% of the V-die opening width.</li>
+  <li><strong>Calculate the R/T ratio.</strong> Divide the inside bend radius by the material thickness. This ratio is the primary driver for selecting the correct K-factor. A ratio below 1 indicates a tight bend where the neutral axis shifts significantly inward.</li>
+  <li><strong>Select the K-factor from the chart.</strong> Use the K-factor table in the following section, matched to your material type, temper, and R/T ratio. For critical parts, validate the K-factor against a physical bend test before committing to a production blank size.</li>
+  <li><strong>Apply the bend allowance formula.</strong> BA = (π / 180) × (R + K × T) × A. Calculate one BA value per distinct bend — angle, radius, or K-factor differences each require a separate calculation.</li>
+  <li><strong>Measure all flat leg lengths.</strong> Measure each flat leg from the mold line (the intersection of the flat face extended to the outside surface of the adjacent leg), not from the tangent point of the bend. Mixing these reference points is a frequent blank-size error.</li>
+  <li><strong>Sum to get the flat blank size.</strong> L_flat = sum of all flat legs + sum of all bend allowances. This is the dimension to program into your shear, laser, or punch press.</li>
+  <li><strong>Verify with a first-article bend test.</strong> Cut one blank, bend it, and measure the finished dimensions. Back-calculate the actual K-factor from the measured result and update your tooling library if the deviation exceeds your tolerance band. When the part carries ballooned dimensions on the drawing, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=bend-allowance-k-factor-chart" target="_blank" rel="noopener" class="highlight">CadNexa's auto-ballooning tool</a> can map inspection results directly to the drawing callouts, saving significant first-article documentation time.</li>
+</ol>
+
+<h2 id="k-factor-chart">K-Factor Chart by Material and Condition</h2>
+<p>The values below reflect widely accepted workshop practice for press-brake air forming. They align with guidance from the <a href="https://www.nist.gov/mml/materials-measurement/forming" target="_blank" rel="noopener">NIST Materials Measurement Laboratory</a> on sheet-forming behaviour and with tooling manufacturer documentation. Always validate against a test bend for production release.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Material</th>
+      <th>Condition / Temper</th>
+      <th>R/T &lt; 1</th>
+      <th>R/T 1–3</th>
+      <th>R/T &gt; 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mild steel (low carbon)</td>
+      <td>Soft / annealed</td>
+      <td>0.42</td>
+      <td>0.44</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <td>Mild steel (low carbon)</td>
+      <td>Semi-hard</td>
+      <td>0.40</td>
+      <td>0.43</td>
+      <td>0.47</td>
+    </tr>
+    <tr>
+      <td>Stainless steel 304</td>
+      <td>Annealed</td>
+      <td>0.44</td>
+      <td>0.46</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <td>Stainless steel 304</td>
+      <td>1/4 hard</td>
+      <td>0.43</td>
+      <td>0.45</td>
+      <td>0.49</td>
+    </tr>
+    <tr>
+      <td>Aluminium 5052</td>
+      <td>H32</td>
+      <td>0.40</td>
+      <td>0.43</td>
+      <td>0.46</td>
+    </tr>
+    <tr>
+      <td>Aluminium 6061</td>
+      <td>T6</td>
+      <td>0.38</td>
+      <td>0.40</td>
+      <td>0.44</td>
+    </tr>
+    <tr>
+      <td>Copper (electrolytic)</td>
+      <td>Soft</td>
+      <td>0.43</td>
+      <td>0.45</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <td>Brass (CuZn37)</td>
+      <td>Soft</td>
+      <td>0.40</td>
+      <td>0.43</td>
+      <td>0.47</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">These values are starting points. Batch-to-batch variation in yield strength, surface coating, and forming temperature all affect the actual K-factor. Aerospace and automotive suppliers following <a href="https://www.aiag.org/quality/automotive-core-tools/apqp" target="_blank" rel="noopener">AIAG APQP</a> first-article requirements are expected to verify K-factor experimentally before PPAP submission.</p>
+
+<h2 id="neutral-axis">Neutral Axis Shift and Why K-Factor Is Not 0.5</h2>
+<p>A common misconception is that the neutral axis always sits at the mid-plane of the sheet. That is only true for pure elastic bending with no plastic deformation — conditions that do not exist in a press brake.</p>
+<p>During plastic bending, the inner and outer fibres do not behave symmetrically through the thickness. The inner fibres are geometrically constrained and tend to thicken under compression, while the outer fibres thin under tension. This geometric incompatibility of strains through the thickness causes the neutral axis to migrate toward the inside (compression) surface, producing a K-factor below 0.5. The mechanism is a strain-geometry effect, not a difference in tensile versus compressive yield strength.</p>
+<p>The tighter the bend radius relative to thickness, the greater the through-thickness strain gradient, and the further the neutral axis migrates inward. At R/T = 0.5, the neutral axis in mild steel can sit as low as K = 0.38–0.40. At R/T = 4, it is nearly back at mid-thickness. This is why a single K-factor applied across all bend radii produces systematic blank-size errors on parts with mixed tight and open bends.</p>
+<p>For minimum achievable bend radii by material, the companion article <a href="https://metricmech.com/articles/minimum-bend-radius">Minimum Bend Radius for Sheet Metal: Rules &amp; Chart</a> provides material-specific limits that directly inform which column of the K-factor table applies to a given design.</p>
+
+<h2 id="blank-size">Blank Size Calculation for Multi-Bend Parts</h2>
+<p>On a part with multiple bends, each bend may have a different inside radius, angle, or material zone. The correct procedure is to calculate a separate bend allowance for each bend and sum them all with the flat legs.</p>
+<p>Consider a U-channel in 1.5 mm stainless 304 (annealed) with two 90° bends, each at an inside radius of 2 mm (R/T = 1.33, so K = 0.46 from the chart). Both flat legs measure 20 mm and the base measures 40 mm.</p>
+<pre>BA per bend = (π / 180) × (2 + 0.46 × 1.5) × 90
+           = 0.01745 × (2 + 0.69) × 90
+           = 0.01745 × 2.69 × 90
+           = 4.22 mm
+
+L_flat = 20 + 4.22 + 40 + 4.22 + 20
+       = 88.44 mm</pre>
+<p>Programming the laser at 88.44 mm will produce a formed channel with the correct outside dimensions after bending. Entering a round-number blank of 88 mm introduces a 0.44 mm error that accumulates across both bends and will likely push the leg heights outside a ±0.3 mm tolerance. The <a href="https://metricmech.com/articles/bend-allowance-k-factor">MetricMech Bend Allowance Calculator</a> handles multi-bend summation automatically and is free to use.</p>
+
+<div class="cta-box">
+<p>When the fabricated part reaches inspection and the drawing carries ballooned dimensions, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=bend-allowance-k-factor-chart" target="_blank" rel="noopener"><strong>CadNexa's auto-ballooning tool</strong></a> extracts balloon numbers directly from your PDF drawing and links them to your inspection data — eliminating the manual re-entry that causes most first-article reporting errors on sheet metal parts.</p>
+</div>
+
+<h2 id="common-mistakes">Common Mistakes in Bend Allowance Calculation</h2>
+<p>These errors account for the large majority of first-off scrap on press-brake work. Recognising them early is less expensive than discovering them after a production run.</p>
+
+<ul>
+  <li><strong>Using the punch radius as the inside bend radius.</strong> In air forming the material bridges the V-die and forms its own radius. The punch radius is only transferred to the part in bottoming or coining. Using the punch radius in air-form calculations consistently underestimates the inside radius and therefore underestimates the bend allowance.</li>
+  <li><strong>Applying one K-factor to all bends regardless of R/T ratio.</strong> A part with both a 0.5 mm tight bend and a 4 mm open bend in the same 2 mm sheet needs two different K-factors. Using a single average value produces errors at both bends.</li>
+  <li><strong>Measuring flat legs from the tangent point rather than the mold line.</strong> The tangent point is where the bend arc meets the flat — it is not visible on the formed part. The mold line (extended flat face intersection) is what the bend allowance formula references. Mixing these references introduces a systematic short error on every leg.</li>
+  <li><strong>Ignoring material springback when measuring the achieved bend angle.</strong> If the part springs back 2° after the press brake opens, the actual inside radius is slightly larger than intended, changing the correct K-factor. This is particularly significant for high-tensile stainless and hard aluminium.</li>
+  <li><strong>Not accounting for coating or plating thickness.</strong> A 0.05 mm zinc coating on each face adds 0.1 mm to the effective bending thickness. On tight bends this shifts the K-factor and changes the blank size. For dimensional tolerancing of coated parts, the <a href="https://metricmech.com/articles/iso-286-fits-tolerances">ISO 286 Fits and Tolerances</a> article explains how post-process material additions affect allowance calculations.</li>
+  <li><strong>Using software K-factor defaults without verification.</strong> SolidWorks, CATIA, and Inventor all ship with default K-factor libraries. Those defaults are conservative starting points, not validated production values. Confirm against a physical test bend before freezing the flat pattern in a released drawing.</li>
+</ul>
+
+<p class="warn-box">A K-factor error of 0.05 on a 2 mm thick, 90° bend produces a bend allowance error of approximately 0.16 mm per bend (0.05 × π/180 × 90 × 2 = 0.157 mm). On a complex bracket with eight bends, that compounds to approximately 1.26 mm of blank-length error — sufficient to cause a chronic out-of-tolerance condition that will not be caught until final inspection. Verify K-factor early.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the standard K-factor for mild steel sheet metal bending?</h3>
+<p>For soft or annealed mild steel bent with an air-form press brake, K = 0.42 is the standard starting value when the inside bend radius is less than the material thickness (R/T &lt; 1). When the radius is between one and three times the thickness (R/T 1–3), K = 0.44 is appropriate. At R/T &gt; 3 the neutral axis returns near mid-thickness and K = 0.50 is used. Always confirm against a physical bend test on your specific tooling and material batch.</p>
+
+<h3>How is bend allowance different from bend deduction?</h3>
+<p>Bend allowance (BA) is the arc length along the neutral axis consumed by the bend — it tells you how much flat length to add. Bend deduction (BD) is the amount subtracted from the combined flange lengths to get the flat blank length. BD = 2 × OSSB − BA, where OSSB is the outside setback. Both describe the same geometry; the right choice depends on how your CAD system or press brake controller expects the input. The full comparison is in <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance: Which to Use</a>.</p>
+
+<h3>Can I use the same K-factor for aluminium and stainless steel?</h3>
+<p>No. Aluminium work-hardens less than stainless steel, so its neutral axis shifts less under bending. Soft aluminium (5052-H32) typically uses K = 0.40–0.43 at R/T 1–3, while annealed stainless 304 uses K = 0.46 at the same ratio. Using a mild-steel K-factor on stainless will produce blank sizes that are consistently short.</p>
+
+<h3>What happens to blank size if the K-factor is wrong?</h3>
+<p>Every 0.01 error in K-factor changes the bend allowance by approximately 0.01 × π × (bend angle / 180) × T millimetres per bend. On a part with six 90° bends in 2 mm stainless, a K-factor error of 0.06 compounds to roughly 1.13 mm of total blank-length error — enough to push finished dimensions well outside a ±0.3 mm tolerance.</p>
+
+<h3>Does die width affect the K-factor?</h3>
+<p>Yes, indirectly. In air forming, the effective inside radius is determined by the die opening (approximately 16% of the V-die width for most low-carbon steels), not the punch radius. A wider die produces a larger inside radius, which keeps the neutral axis closer to the centre of thickness and raises the effective K-factor toward 0.50. Die selection and minimum bend radius rules are covered in detail in <a href="https://metricmech.com/articles/minimum-bend-radius">Minimum Bend Radius for Sheet Metal: Rules &amp; Chart</a>.</p>
+
+<hr>
+<p>For dimensional tolerancing of the finished bracket, review <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances</a> to understand which general tolerance class applies to your formed dimensions — and whether those tolerances are tight enough to warrant specifying the K-factor explicitly on the drawing.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/sheet-metal-design-guide">Sheet Metal Design: Complete Guide</a></li>
+    <li><a href="/articles/minimum-bend-radius">Minimum Bend Radius for Sheet Metal: Rules &amp; Chart</a></li>
+    <li><a href="/articles/sheet-metal-gauge-chart">Sheet Metal Gauge Chart: Gauge to mm &amp;amp; Inches</a></li>
+    <li><a href="/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance: Which to Use</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Sheet Metal Bend Allowance Formula & K-Factor Chart: Complete Reference",
+      "item": "https://metricmech.com/articles/bend-allowance-k-factor-chart"
+    }
+  ]
+}
+</script>
+</body>
+</html>

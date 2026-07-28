@@ -292,3 +292,9 @@ posts:
   keyword: bolt preload calculation formula worked example
   cluster: Threads & Fasteners
   source: autopilot
+- url: https://metricmech.com/articles/bend-allowance-k-factor-chart
+  date: '2026-07-28'
+  title: Sheet Metal Bend Allowance Formula & K-Factor Chart | MetricMech
+  keyword: sheet metal bend allowance formula k factor chart
+  cluster: Sheet Metal Design
+  source: autopilot
