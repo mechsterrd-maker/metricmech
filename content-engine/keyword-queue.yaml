@@ -157,7 +157,7 @@ queue:
   word_count: 1600
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: true position tolerance GD&T formula calculation
   cluster: GD&T Reference
   intent: informational

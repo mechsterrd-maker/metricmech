@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Minimum Bend Radius Sheet Metal Chart by Material | MetricMech</title>
+<meta name="description" content="Minimum bend radius sheet metal material chart for steel, aluminium & stainless. R/t ratio, worked example, and cracking mistakes covered." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Bend Radius Sheet Metal Chart by Material | MetricMech">
+<meta property="og:description" content="Minimum bend radius sheet metal material chart for steel, aluminium & stainless. R/t ratio, worked example, and cracking mistakes covered.">
+<meta property="og:url" content="https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Minimum Bend Radius Sheet Metal Chart by Material | MetricMech">
+<meta name="twitter:description" content="Minimum bend radius sheet metal material chart for steel, aluminium & stainless. R/t ratio, worked example, and cracking mistakes covered.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Minimum Bend Radius Sheet Metal Chart by Material | MetricMech",
+  "description": "Minimum bend radius sheet metal material chart for steel, aluminium & stainless. R/t ratio, worked example, and cracking mistakes covered.",
+  "url": "https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Minimum Bend Radius Sheet Metal Material Chart: Steel, Aluminium & Stainless",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-07-30",
+  "mainEntityOfPage": "https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the minimum bend radius for 3 mm mild steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For cold-rolled mild steel (low-carbon), the typical minimum bend radius is 1× to 1.5× material thickness, so approximately 3 mm to 4.5 mm for 3 mm sheet. Always confirm with your material's elongation data or the material supplier's specification."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does aluminium need a larger bend radius than steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most aluminium alloys, particularly 6061-T6 and 2024-T3, have lower ductility than mild steel. Their limited elongation means the outer fibres crack at a tighter radius. Softer tempers such as 3003-H14 allow smaller radii closer to those used for steel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does grain direction affect the minimum bend radius?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Bending perpendicular to the rolling direction (across the grain) allows a smaller radius without cracking. Bending parallel to the rolling direction (with the grain) typically requires a 50–100% larger radius for the same material and thickness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does stainless steel compare to mild steel for bending?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Austenitic stainless steels such as 304 and 316 are quite ductile and can achieve minimum bend radii similar to mild steel, around 1× to 1.5× thickness. Martensitic grades are harder and need larger radii, similar to high-strength steels."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use a bend radius smaller than the minimum?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Going below the minimum bend radius risks cracking on the outer bend surface. If a tight radius is unavoidable, options include annealing the material, using a softer temper, switching to a more ductile alloy, or machining a relief groove before bending."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Minimum Bend Radius Sheet Metal Material Chart: Steel, Aluminium & Stainless",
+      "item": "https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Minimum Bend Radius Sheet Metal Material</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer</a>
+    <a href="#why-it-matters">Why Minimum Bend Radius Matters</a>
+    <a href="#formula">The R/t Ratio Formula</a>
+    <a href="#worked-example">Worked Example</a>
+    <a href="#material-chart">Bend Radius Chart by Material</a>
+    <a href="#step-by-step">How to Specify Bend Radius on a Drawing</a>
+    <a href="#common-mistakes">Common Mistakes That Cause Cracking</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Minimum Bend Radius Sheet Metal Material Chart: Steel, Aluminium & Stainless</h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal Design</span>
+      <span>July 30, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The <strong>minimum bend radius for sheet metal</strong> is the smallest inside radius a material can accept during bending without cracking the outer surface fibres. It is expressed as a multiple of material thickness (R/t ratio) and varies by material, temper, grain direction, and bend angle. Typical values range from 0× thickness for soft copper to 6× or more for heat-treated aluminium alloys such as 6061-T6.</p>
+
+<h2 id="why-it-matters">Why Minimum Bend Radius Matters — and Why Cracking Happens</h2>
+
+<p>During air bending or bottoming, the outer surface of the bend is placed in tension. If the bend radius is too tight relative to the material's elongation capacity, those outer fibres exceed their tensile strain limit and crack. The failure mode ranges from <strong>orange peel</strong> at mild excess strain to through-cracking at severe excess strain.</p>
+
+<p>The strain at the outer fibre is directly governed by the R/t ratio. A smaller ratio means higher strain, and each material has a threshold beyond which fracture is unavoidable. This is why a single bend radius value — say, 2 mm — can be perfectly acceptable for soft aluminium but catastrophic for 6061-T6 of the same thickness.</p>
+
+<p>From a quality standpoint, cracking at the bend is a scrap event. It is not detectable by a simple dimensional check unless inspectors look specifically at the bend surface. Automating balloon inspection on the drawing before production — so every bend radius callout is captured — prevents this class of escape. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=minimum-bend-radius-sheet-metal-material-chart" class="highlight" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> extracts every dimension, including bend radius callouts, directly from the drawing so no specification is missed during first article inspection.</p>
+
+<p>Understanding the minimum bend radius is inseparable from understanding bend allowance and K-factor. If the R/t ratio is right but the flat pattern is calculated incorrectly, the part will be dimensionally wrong even if it does not crack. See the companion post on <a href="https://metricmech.com/articles/bend-allowance-k-factor">Bend Allowance &amp; K-Factor</a> for that side of the calculation.</p>
+
+<h2 id="formula">The R/t Ratio Formula and Variables</h2>
+
+<p>The fundamental relationship used by fabricators and documented in sheet metal engineering references — including the SME Sheet Metal Handbook and ASTM material elongation specifications — is straightforward. The minimum inside bend radius R is expressed as a factor multiplied by the material thickness t.</p>
+
+<p><strong>Formula:</strong></p>
+<p><code>R<sub>min</sub> = C × t</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+      <th>Typical Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>R<sub>min</sub></td>
+      <td>Minimum inside bend radius</td>
+      <td>mm (or inch)</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>Material factor (R/t multiplier) — from material data or chart</td>
+      <td>Dimensionless</td>
+    </tr>
+    <tr>
+      <td>t</td>
+      <td>Material thickness (nominal)</td>
+      <td>mm (or inch)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The material factor C is derived from the material's elongation at fracture (A%), which is reported on the material test certificate and defined under <a href="https://www.astm.org/e0008_e0008m-22.html" target="_blank" rel="noopener">ASTM E8/E8M — Standard Test Methods for Tension Testing of Metallic Materials</a>. A widely used empirical relationship from sheet metal engineering references is:</p>
+
+<p><code>C = (50 / A%) − 1</code></p>
+
+<p>Where A% is the percentage elongation measured in the tensile test. A material with 25% elongation gives C = (50/25) − 1 = 1.0, meaning the minimum bend radius equals one times the thickness. A material with 10% elongation gives C = 4.0. This formula is an approximation and should always be validated against the actual material certificate or the supplier's forming data.</p>
+
+<p class="callout">The <a href="https://metricmech.com/articles/minimum-bend-radius">Minimum Bend Radius reference article</a> on MetricMech covers this derivation in full and links to the bend radius calculator for quick results by material and thickness.</p>
+
+<h2 id="worked-example">Worked Example: 2 mm 6061-T6 Aluminium</h2>
+
+<p>Consider a bracket designed in 2 mm 6061-T6 aluminium sheet, with a proposed inside bend radius of 2 mm — an R/t ratio of 1.0. Is that acceptable?</p>
+
+<p>6061-T6 has a published elongation of approximately 8% (per ASTM B209 material data and the material certificate). Using the formula with A% = 8%:</p>
+
+<p><code>C = (50 / 8) − 1 = 6.25 − 1 = 5.25</code></p>
+
+<p><code>R<sub>min</sub> = 5.25 × 2 mm = 10.5 mm</code></p>
+
+<p>The proposed 2 mm radius is far below the minimum of 10.5 mm. Specifying it will result in cracking. The correct response is either to increase the bend radius to at least 10–12 mm, switch to a more ductile alloy such as 5052-H32 (elongation ~12%), or change to annealed 6061-O temper before bending and re-harden afterwards.</p>
+
+<p class="warn-box"><strong>Warning:</strong> Many design engineers specify bend radius based on a general "1× thickness" rule of thumb without checking the actual material's elongation. That rule is only valid for mild steel and similarly ductile materials. For heat-treated aluminium alloys and high-strength steels, it will produce scrap.</p>
+
+<h2 id="material-chart">Minimum Bend Radius Chart by Material and Thickness</h2>
+
+<p>The table below presents typical R/t multipliers (C values) for common sheet metal materials. These are general guidance values based on industry references including the SME Sheet Metal Handbook and standard ASTM material elongation data. Always verify against the specific material certificate, as heat treatment, temper, and forming direction affect actual values. For full thickness-by-thickness charts, use the MetricMech <a href="https://metricmech.com/articles/minimum-bend-radius">minimum bend radius calculator</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Material</th>
+      <th>Condition / Temper</th>
+      <th>Typical R/t (C) — Across Grain</th>
+      <th>Typical R/t (C) — With Grain</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mild steel (low carbon)</td>
+      <td>Cold-rolled, annealed</td>
+      <td>0.5 – 1.0</td>
+      <td>1.0 – 1.5</td>
+    </tr>
+    <tr>
+      <td>High-strength steel (350–550 MPa)</td>
+      <td>Cold-rolled</td>
+      <td>2.0 – 3.0</td>
+      <td>3.0 – 4.0</td>
+    </tr>
+    <tr>
+      <td>Stainless steel 304 / 316</td>
+      <td>2B annealed</td>
+      <td>1.0 – 1.5</td>
+      <td>1.5 – 2.0</td>
+    </tr>
+    <tr>
+      <td>Aluminium 1100 / 3003</td>
+      <td>H14</td>
+      <td>0 – 0.5</td>
+      <td>0.5 – 1.0</td>
+    </tr>
+    <tr>
+      <td>Aluminium 5052</td>
+      <td>H32</td>
+      <td>1.0 – 1.5</td>
+      <td>1.5 – 2.0</td>
+    </tr>
+    <tr>
+      <td>Aluminium 6061</td>
+      <td>T6</td>
+      <td>4.0 – 6.0</td>
+      <td>6.0 – 8.0</td>
+    </tr>
+    <tr>
+      <td>Aluminium 2024</td>
+      <td>T3</td>
+      <td>3.0 – 4.0</td>
+      <td>4.0 – 5.0</td>
+    </tr>
+    <tr>
+      <td>Copper (electrolytic)</td>
+      <td>Soft / annealed</td>
+      <td>0 – 0.5</td>
+      <td>0 – 0.5</td>
+    </tr>
+    <tr>
+      <td>Brass 70/30</td>
+      <td>Half-hard</td>
+      <td>0.5 – 1.0</td>
+      <td>1.0 – 1.5</td>
+    </tr>
+    <tr>
+      <td>Titanium Grade 2</td>
+      <td>Annealed</td>
+      <td>2.0 – 2.5</td>
+      <td>2.5 – 3.5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These are minimum values for crack-free forming at room temperature. Actual shop practice often adds a safety margin of 10–20% above the calculated minimum, especially for production tooling where die wear and material batch variation are factors. The grain direction columns reinforce that <strong>part nesting orientation on the sheet matters</strong> — bending across the rolling direction is always preferred where geometry permits.</p>
+
+<p>For context on how material thickness is specified and how gauge numbers map to actual millimetre values across different materials, the <a href="https://metricmech.com/articles/sheet-metal-gauge-chart">Sheet Metal Gauge Chart</a> is a useful companion reference before entering bend radius calculations.</p>
+
+<h2 id="step-by-step">How to Specify Bend Radius Correctly on a Drawing</h2>
+
+<ol>
+  <li><strong>Obtain the material certificate.</strong> Read the actual elongation (A%) value — do not rely on the alloy designation alone, as temper and batch vary significantly.</li>
+  <li><strong>Calculate C using the elongation formula</strong> (C = 50/A% − 1) or consult the material supplier's forming guide for the specific thickness.</li>
+  <li><strong>Multiply C × t</strong> to find R<sub>min</sub>. Round up to the nearest standard tooling radius available (typically 0.5 mm increments in metric practice).</li>
+  <li><strong>Check grain direction.</strong> Determine whether the bend will run across or with the rolling direction, and apply the appropriate C value from the chart. Flag the preferred grain direction on the flat pattern drawing if it is critical.</li>
+  <li><strong>Add a forming margin.</strong> For production parts, specify the inside bend radius as R<sub>min</sub> + 10–20%. This accommodates tooling wear, material variation, and temperature effects without requiring redesign.</li>
+  <li><strong>Callout on the drawing.</strong> Use the standard callout format: "R3.0 MIN INSIDE" or per your applicable drawing standard (ISO or ASME Y14.5). Reference the material and temper in the title block.</li>
+  <li><strong>Validate the flat pattern.</strong> Cross-check with the bend allowance calculation — an increased bend radius shifts the neutral axis position and changes the effective K-factor, affecting flat pattern dimensions. See <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance</a> for how to handle this correctly.</li>
+  <li><strong>Capture on inspection balloon.</strong> Ensure the bend radius callout is ballooned on the first article inspection drawing so it is measured and recorded. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=minimum-bend-radius-sheet-metal-material-chart" class="highlight" target="_blank" rel="noopener">CadNexa auto-ballooning</a> prevents this dimension from being overlooked during FAI by extracting it directly from the drawing file.</li>
+</ol>
+
+<h2 id="common-mistakes">Common Mistakes That Cause Cracking and Rework</h2>
+
+<h3>Using a Universal "1× Thickness" Rule</h3>
+<p>This rule applies only to mild steel and similarly ductile materials. Applying it to 6061-T6 or high-strength steel consistently produces cracked parts. Every material needs its own C value based on actual elongation data, not a generic shortcut.</p>
+
+<h3>Ignoring Grain Direction at Nesting Stage</h3>
+<p>Laser or punch operators sometimes nest parts for material yield efficiency without checking bend orientation relative to the rolling direction. The result can be parts that meet the drawing radius but crack because they are bent with the grain rather than across it. Grain direction should be specified on the flat pattern, not left to the operator's discretion.</p>
+
+<h3>Specifying Radius Based on Tooling Availability, Not Material Limits</h3>
+<p>It is tempting to specify a bend radius that matches the available press brake punch rather than calculating the minimum for the material. When a tight punch is the only one available and the material demands a larger radius, the outcome is predictable. Tooling inventory and material requirements must be reconciled at the design review stage, not on the shop floor.</p>
+
+<h3>Overlooking Heat Treat State at Time of Bending</h3>
+<p>Some processes receive parts in annealed condition, form them, then age-harden. If the drawing specifies a bend radius suitable for T6 temper but the bend is made in the annealed O condition, the radius may be unnecessarily generous — not a quality problem, but a cost indicator. The reverse — attempting to form T6 without re-annealing — is the cracking scenario. Always confirm what temper the material will be in at the time of bending.</p>
+
+<h3>Not Verifying Bend Radius During First Article Inspection</h3>
+<p>Bend radius is frequently omitted from inspection plans because it is treated as a tooling parameter. In reality, spring-back and tooling wear mean the actual formed radius can differ from the programmed die radius. Measuring inside bend radius on the first article — with a radius gauge or CMM — and recording that dimension closes this gap before production quantities are affected.</p>
+
+<p>For a broader view of how dimensional tolerances interact with sheet metal forming, the ISO 2768 general tolerance standard is directly relevant — the <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances guide</a> explains which grades apply to formed sheet metal parts.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the minimum bend radius for 3 mm mild steel?</h3>
+<p>For cold-rolled mild steel (low-carbon), the typical minimum bend radius is 1× to 1.5× material thickness, so approximately 3 mm to 4.5 mm for 3 mm sheet. Always confirm with the material's elongation data from the certificate or the supplier's specification, as variations in carbon content and cold-work state affect ductility.</p>
+
+<h3>Why does aluminium need a larger bend radius than steel?</h3>
+<p>Most aluminium alloys — particularly 6061-T6 and 2024-T3 — have lower ductility than mild steel. Their limited elongation means the outer fibres exceed tensile strain at a much larger radius. Softer tempers such as 3003-H14 allow smaller radii much closer to those used for steel. The alloy and temper together determine forming behaviour, not the base metal alone.</p>
+
+<h3>Does grain direction affect the minimum bend radius?</h3>
+<p>Yes, significantly. Bending perpendicular to the rolling direction (across the grain) allows a smaller radius without cracking. Bending parallel to the rolling direction (with the grain) typically requires a 50–100% larger radius for the same material and thickness. For critical parts, the flat pattern drawing should specify the required grain orientation relative to the bend lines.</p>
+
+<h3>How does stainless steel compare to mild steel for bending?</h3>
+<p>Austenitic stainless steels such as 304 and 316 are quite ductile in annealed condition and can achieve minimum bend radii similar to mild steel — around 1× to 1.5× thickness across the grain. Martensitic grades and precipitation-hardened grades require significantly larger radii. Work hardening during forming is also more pronounced in austenitic stainless, which can tighten effective ductility in multi-stage operations.</p>
+
+<h3>Can a bend radius smaller than the minimum ever be achieved?</h3>
+<p>Going below the calculated minimum bend radius risks cracking on the outer bend surface. Where a tight radius is genuinely unavoidable, available options include annealing the material before bending, switching to a more ductile alloy or softer temper, machining a relief groove at the bend line, or using a coining operation rather than air bending. Each option involves cost and process trade-offs that should be evaluated at the design stage rather than resolved on the shop floor.</p>
+
+<hr />
+
+<p class="callout"><strong>References:</strong> <a href="https://www.astm.org/e0008_e0008m-22.html" target="_blank" rel="noopener">ASTM E8/E8M — Tension Testing of Metallic Materials</a>; <a href="https://www.iso.org/standard/40632.html" target="_blank" rel="noopener">ISO 6892-1 — Metallic Materials Tensile Testing</a>; SME Sheet Metal Handbook (Society of Manufacturing Engineers); <a href="https://www.nist.gov/publications/nist-recommended-practice-guide-mechanical-testing-structural-materials" target="_blank" rel="noopener">NIST Recommended Practice Guide — Mechanical Testing of Structural Materials</a>; ASM Handbook Volume 14B — Metalworking: Sheet Forming.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/sheet-metal-design-guide">Sheet Metal Design: Complete Guide</a></li>
+    <li><a href="/articles/minimum-bend-radius">Minimum Bend Radius for Sheet Metal: Rules &amp; Chart</a></li>
+    <li><a href="/articles/bend-allowance-k-factor-chart">Sheet Metal Bend Allowance Formula &amp; K-Factor Chart</a></li>
+    <li><a href="/articles/sheet-metal-gauge-chart">Sheet Metal Gauge Chart: Gauge to mm &amp;amp; Inches</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Minimum Bend Radius Sheet Metal Material Chart: Steel, Aluminium & Stainless",
+      "item": "https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart"
+    }
+  ]
+}
+</script>
+</body>
+</html>
