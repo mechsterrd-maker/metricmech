@@ -11,6 +11,15 @@ Cross-promotes CadNexa (https://cadnexa.com).
 - Articles: <https://metricmech.com/articles>
 - Companion tool — auto-ballooning & FAI reports: **[CadNexa](https://cadnexa.com)**
 
+## Forum
+
+Ask-and-answer forum at [metricmech.com/forum](https://metricmech.com/forum), backed by
+Supabase (`forum_*` tables in the shared `loglinkr` project). Google + email-link sign-in,
+voting, accepted answers, curated topics, reputation, and nightly static pre-rendering with
+QAPage schema for SEO.
+
+**Two dashboard steps are required before sign-in works — see [FORUM.md](FORUM.md).**
+
 ## Stack
 Static HTML / CSS / JS. No build step. Deploys to Vercel.
 

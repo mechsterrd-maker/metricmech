@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--MM:HEAD-->
+<title>Question — MetricMech Forum</title>
+<meta name="description" content="A manufacturing quality and production engineering question answered by working engineers on the MetricMech forum." />
+<!--/MM:HEAD-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="stylesheet" href="../assets/forum.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="forum" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../forum.html">Forum</a><span class="sep">/</span>Question</div>
+</div>
+
+<div class="fm-wrap">
+  <div class="fm-layout">
+    <div class="fm-thread">
+
+      <!-- Pre-rendered snapshot for crawlers and first paint. The client
+           replaces this with live data as soon as it loads. -->
+      <div id="fm-thread"><!--MM:THREAD-->
+        <div class="fm-skel" style="height:140px"></div>
+        <div class="fm-skel" style="height:120px"></div>
+      <!--/MM:THREAD--></div>
+
+      <div id="fm-answer-box"></div>
+    </div>
+
+    <aside>
+      <div class="fm-card">
+        <h4>Answering well</h4>
+        <ol>
+          <li>Say what you would actually do, not what the textbook says.</li>
+          <li>Cite the clause or standard if it decides the matter.</li>
+          <li>Give the number, not just the direction.</li>
+          <li>If the question is the wrong question, say so and why.</li>
+        </ol>
+      </div>
+      <div class="fm-card">
+        <h4>Related topics</h4>
+        <div class="fm-tagrail" id="fm-related"></div>
+      </div>
+      <div data-mw="cn-sidebar"></div>
+    </aside>
+  </div>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/forum-md.js"></script>
+<script src="../assets/forum.js"></script>
+<script>
+(function () {
+  var F = window.MMForum;
+
+  // Works for both /forum/question.html?q=slug and the pre-rendered /forum/q/<slug>
+  function slugFromUrl() {
+    var explicit = F.qs('q');
+    if (explicit) return explicit;
+    var m = location.pathname.match(/\/forum\/q\/([^\/?#]+?)(?:\.html)?$/);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  var slug = slugFromUrl();
+  var threadEl = document.getElementById('fm-thread');
+  var boxEl    = document.getElementById('fm-answer-box');
+  var question = null, answers = [];
+
+  function voteCol(kind, id, score, opts) {
+    opts = opts || {};
+    var mine = F.myVote(kind, id);
+    return '<div class="fm-votecol" data-kind="' + kind + '" data-id="' + id + '">' +
+      '<button class="fm-votebtn up' + (mine === 1 ? ' on' : '') + '" type="button" data-v="1" aria-label="Upvote">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg></button>' +
+      '<span class="fm-score">' + score + '</span>' +
+      '<button class="fm-votebtn down' + (mine === -1 ? ' on down' : '') + '" type="button" data-v="-1" aria-label="Downvote">' +
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>' +
+      (opts.accept
+        ? '<button class="fm-acceptbtn' + (opts.accepted ? ' on' : '') + '" type="button" data-accept="' + id + '"' +
+          (opts.canAccept ? '' : ' disabled') +
+          ' title="' + (opts.accepted ? 'Accepted answer' : (opts.canAccept ? 'Mark this as the answer' : 'Only the asker can accept')) + '">' +
+          '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>'
+        : '') +
+    '</div>';
+  }
+
+  function byline(p, verb, iso) {
+    return '<div class="fm-byline">' + F.avatar(p, 26) +
+      '<strong>' + F.esc(p.author_name || 'Former member') + '</strong>' +
+      (p.author_reputation ? '<span class="fm-rep">' + p.author_reputation + '</span>' : '') +
+      '<span>· ' + verb + ' ' + F.timeAgo(iso) + '</span></div>';
+  }
+
+  function postActions(kind, id, authorId) {
+    var me = F.currentUser();
+    var bits = ['<button class="fm-linkbtn" type="button" data-flag="' + kind + ':' + id + '">Report</button>'];
+    if (me && authorId === me.id) bits.unshift('<span class="fm-guidelines">Your post</span>');
+    return '<div class="fm-post-actions">' + bits.join('') + '</div>';
+  }
+
+  function render() {
+    if (!question) {
+      threadEl.innerHTML = '<div class="fm-empty"><h3>Question not found</h3>' +
+        '<p>It may have been removed, or the link is wrong.</p>' +
+        '<a class="fm-btn fm-btn-primary" href="../forum.html">Back to the forum</a></div>';
+      boxEl.innerHTML = '';
+      return;
+    }
+
+    var me = F.currentUser();
+    var canAccept = !!(me && question.author_id === me.id);
+
+    var tagHTML = (question.tags || []).map(function (t) {
+      return '<a class="fm-tag" href="tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+    }).join('');
+
+    var html =
+      '<h1>' + F.esc(question.title) + '</h1>' +
+      '<div class="fm-thread-meta">' +
+        '<span>Asked ' + F.timeAgo(question.created_at) + '</span>' +
+        '<span>' + question.view_count + ' views</span>' +
+        '<span>' + question.answer_count + (question.answer_count === 1 ? ' answer' : ' answers') + '</span>' +
+        (question.has_accepted ? '<span style="color:var(--ok)">Solved</span>' : '') +
+      '</div>' +
+      '<div class="fm-post">' +
+        voteCol('q', question.id, question.vote_score) +
+        '<div>' +
+          '<div class="fm-body">' + F.renderBody(question.body) + '</div>' +
+          '<div class="fm-post-foot">' +
+            '<div class="fm-tags">' + tagHTML + '</div>' +
+            byline(question, 'asked', question.created_at) +
+          '</div>' +
+          postActions('q', question.id, question.author_id) +
+        '</div>' +
+      '</div>';
+
+    html += '<div class="fm-section-head"><h2>' +
+      (answers.length ? answers.length + (answers.length === 1 ? ' Answer' : ' Answers') : 'No answers yet') +
+      '</h2></div>';
+
+    if (!answers.length) {
+      html += '<div class="fm-empty" style="padding:34px 20px"><h3>Be the first to answer</h3>' +
+        '<p>Someone on a shop floor is blocked on this right now. If you have solved it before, two minutes of your time is worth a lot here.</p></div>';
+    } else {
+      html += answers.map(function (a) {
+        return '<div class="fm-post' + (a.is_accepted ? ' accepted' : '') + '">' +
+          voteCol('a', a.id, a.vote_score, { accept: true, accepted: a.is_accepted, canAccept: canAccept }) +
+          '<div>' +
+            (a.is_accepted ? '<div class="fm-accepted-pill">' +
+              '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+              'Accepted answer</div>' : '') +
+            '<div class="fm-body">' + F.renderBody(a.body) + '</div>' +
+            '<div class="fm-post-foot"><span></span>' + byline(a, 'answered', a.created_at) + '</div>' +
+            postActions('a', a.id, a.author_id) +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    threadEl.innerHTML = html;
+    renderAnswerBox();
+    wire();
+
+    document.getElementById('fm-related').innerHTML = (question.tags || []).map(function (t) {
+      return '<a class="fm-tag" href="tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+    }).join('') || '<span class="fm-guidelines">No topics.</span>';
+  }
+
+  function renderAnswerBox() {
+    if (question.is_closed) {
+      boxEl.innerHTML = '<div class="fm-note">This question is closed and is no longer taking answers.</div>';
+      return;
+    }
+    if (!F.currentUser()) {
+      boxEl.innerHTML =
+        '<div class="fm-card" style="background:var(--blueprint-tint);border-color:var(--blueprint);margin-top:28px">' +
+          '<h4>Know the answer?</h4>' +
+          '<p>Sign in to post an answer. Free, about ten seconds — and your answer stays credited to you.</p>' +
+          '<button class="fm-btn fm-btn-primary" type="button" id="fm-a-signin">Sign in to answer</button>' +
+        '</div>';
+      document.getElementById('fm-a-signin').onclick = function () { F.openSignIn('Sign in to answer'); };
+      return;
+    }
+    boxEl.innerHTML =
+      '<div class="fm-section-head" style="margin-top:34px"><h2>Your answer</h2></div>' +
+      '<form id="fm-a-form" novalidate style="padding-top:18px">' +
+        '<div id="fm-a-err"></div>' +
+        '<textarea class="fm-textarea" id="fm-a-body" required ' +
+          'placeholder="Answer with what you would actually do. Numbers, clause references, and the trade-off you are accepting."></textarea>' +
+        '<div class="fm-counter" id="fm-a-count">0 characters · needs at least 20</div>' +
+        '<button class="fm-btn fm-btn-primary" type="submit" id="fm-a-submit" style="margin-top:10px">Post answer</button>' +
+      '</form>';
+
+    var ta = document.getElementById('fm-a-body');
+    ta.addEventListener('input', function () {
+      var n = ta.value.trim().length;
+      var c = document.getElementById('fm-a-count');
+      c.textContent = n >= 20 ? n + ' characters ✓' : n + ' characters · needs at least 20';
+      c.className = 'fm-counter ' + (n === 0 ? '' : (n < 20 ? 'bad' : 'ok'));
+    });
+
+    document.getElementById('fm-a-form').onsubmit = async function (e) {
+      e.preventDefault();
+      var body = ta.value.trim();
+      var err = document.getElementById('fm-a-err');
+      err.innerHTML = '';
+      if (body.length < 20) {
+        err.innerHTML = '<div class="fm-error">An answer needs at least 20 characters.</div>';
+        ta.focus(); return;
+      }
+      var btn = document.getElementById('fm-a-submit');
+      btn.disabled = true; btn.textContent = 'Posting…';
+      var res = await F.answer(question.id, body);
+      btn.disabled = false; btn.textContent = 'Post answer';
+      if (!res) return;
+      if (window.gtag) gtag('event', 'forum_answer_posted');
+      ta.value = '';
+      await refresh();
+      F.toast('Answer posted.');
+    };
+  }
+
+  function wire() {
+    threadEl.querySelectorAll('.fm-votebtn').forEach(function (btn) {
+      btn.onclick = async function () {
+        var col = btn.closest('.fm-votecol');
+        var res = await F.vote(col.dataset.kind, col.dataset.id, parseInt(btn.dataset.v, 10));
+        if (!res) return;
+        col.querySelector('.fm-score').textContent = res.score;
+        col.querySelector('.up').classList.toggle('on', res.mine === 1);
+        var d = col.querySelector('.down');
+        d.classList.toggle('on', res.mine === -1);
+        d.classList.toggle('down', res.mine === -1);
+      };
+    });
+
+    threadEl.querySelectorAll('[data-accept]').forEach(function (btn) {
+      btn.onclick = async function () {
+        if (btn.disabled) return;
+        var r = await F.acceptAnswer(btn.dataset.accept);
+        if (r === null) return;
+        await refresh();
+        F.toast(r ? 'Marked as the accepted answer.' : 'Acceptance removed.');
+      };
+    });
+
+    threadEl.querySelectorAll('[data-flag]').forEach(function (btn) {
+      btn.onclick = async function () {
+        var parts = btn.dataset.flag.split(':');
+        var reason = window.prompt(
+          'Why are you reporting this?\n\nType one of: spam, offensive, off-topic, duplicate, wrong-info, other');
+        if (!reason) return;
+        reason = reason.trim().toLowerCase();
+        if (['spam','offensive','off-topic','duplicate','wrong-info','other'].indexOf(reason) === -1) {
+          F.toast('Use one of: spam, offensive, off-topic, duplicate, wrong-info, other', 'error');
+          return;
+        }
+        await F.flag(parts[0], parts[1], reason, null);
+      };
+    });
+  }
+
+  async function refresh() {
+    question = await F.getQuestion(slug);
+    if (!question) { render(); return; }
+    answers = await F.getAnswers(question.id);
+    await F.loadMyVotes(question.id);
+    render();
+  }
+
+  (async function init() {
+    // Forum offline (CDN blocked): leave the pre-rendered snapshot on screen —
+    // it is real content, and wiping it for "not found" would be a lie.
+    if (F.offline) return;
+    if (!slug) { question = null; render(); return; }
+    await F.loadSession();
+    await refresh();
+    if (question) F.bumpView(slug);
+
+    F.sb.auth.onAuthStateChange(function (evt, session) {
+      if (session && session.user) F.loadSession().then(refresh);
+    });
+  })();
+})();
+</script>
+</body>
+</html>

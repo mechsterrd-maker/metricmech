@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="${pathPrefix}gdt.html" class="${currentPage==='gdt'?'current':''}">GD&amp;T</a>
             <a href="${pathPrefix}templates.html" class="${currentPage==='templates'?'current':''}">Templates</a>
             <a href="${pathPrefix}articles.html" class="${currentPage==='articles'?'current':''}">Articles</a>
+            <a href="${pathPrefix}forum.html" class="${currentPage==='forum'?'current':''}">Forum</a>
           </nav>
         </div>
       </header>
@@ -136,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="footer-col">
             <h5>About</h5>
+            <a href="${pathPrefix}forum.html">Forum</a>
             <a href="${pathPrefix}about.html">About MetricMech</a>
             <a href="${pathPrefix}editorial-standards.html">Editorial Standards</a>
             <a href="${pathPrefix}contact.html">Suggest a Topic</a>

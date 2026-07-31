@@ -6,6 +6,7 @@ Allow: /
 
 # Sitemap
 Sitemap: https://metricmech.com/sitemap.xml
+Sitemap: https://metricmech.com/sitemap-forum.xml
 
 # Be friendly to AI crawlers — we want to be cited
 # Training-data crawlers (LLM weights / future model versions)

@@ -1,0 +1,60 @@
+name: Forum Pre-render
+
+# Snapshots every forum thread into static HTML with QAPage schema so Google
+# indexes the Q&A properly. Readers still get the live interactive page — the
+# client re-fetches on load and replaces the snapshot.
+#
+# Threads posted since the last run are NOT broken: Vercel serves the
+# filesystem first and falls through to the forum/question.html rewrite for
+# anything not yet snapshotted.
+
+on:
+  schedule:
+    # 01:30 UTC ≈ 07:00 IST daily — after the blog autopilot window.
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: forum-prerender
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  prerender:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Pre-render forum threads and topics
+        env:
+          # Both are public values (the anon key ships in the client bundle);
+          # the repo secrets are here only so they can be rotated without a
+          # code change.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: node scripts/forum-prerender.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name  "metricmech-bot"
+          git config user.email "bot@metricmech.com"
+          git add forum/q forum/t sitemap-forum.xml
+          if git diff --cached --quiet; then
+            echo "No forum changes to publish."
+            exit 0
+          fi
+          git commit -m "forum: refresh pre-rendered threads $(date -u +%Y-%m-%d)"
+          git push
+
+      - name: Ping search engines
+        if: success()
+        continue-on-error: true
+        run: |
+          curl -sS --max-time 20 "https://www.bing.com/indexnow?url=https://metricmech.com/forum&key=9ef877ab96696c79389c8234236e9307" || true
+          curl -sS --max-time 20 "https://www.google.com/ping?sitemap=https://metricmech.com/sitemap-forum.xml" || true

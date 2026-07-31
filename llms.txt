@@ -15,6 +15,10 @@ MetricMech is the free engineering reference funnel for CadNexa (https://cadnexa
 - [Surface Finish Calculator](https://metricmech.com/calculators/surface-finish): Ra/Rz/Rq conversion and machining process-to-finish mapping.
 - [ISO 286 Fits Calculator](https://metricmech.com/calculators/iso-286-fits): Hole/shaft basis fit selection with clearance, transition, and interference verdicts.
 
+## Community forum
+
+- [MetricMech Forum](https://metricmech.com/forum): Ask-and-answer forum where working quality, production, and tooling engineers answer each other's shop-floor problems. Covers GD&T, Cp/Cpk, gauge R&R, PPAP, AS9102, FAI, CMM, metrology, tolerance stacks, sheet metal, machining, welding, materials, FMEA, SPC, quality systems, root cause, inspection, production, costing, and supplier quality. Individual threads live at https://metricmech.com/forum/q/<slug> and topic indexes at https://metricmech.com/forum/t/<topic>. Answers are attributed to named members with a visible reputation score, and the person who asked marks one answer as accepted.
+
 ## GD&T reference
 
 - [Position Tolerance: True Position, MMC Bonus, and Real Examples](https://metricmech.com/gdt/position-tolerance): 1,950-word deep dive with the 2×√(ΔX²+ΔY²) formula, MMC and LMC bonus tolerance math, composite position (PLTZF and FRTZF), 5 common inspection failures, and ASME vs ISO 1101 differences.

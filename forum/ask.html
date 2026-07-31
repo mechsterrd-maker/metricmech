@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ask a Question — MetricMech Forum</title>
+<meta name="description" content="Ask a manufacturing quality or production engineering question and get answered by working engineers." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="stylesheet" href="../assets/forum.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+
+<link rel="canonical" href="https://metricmech.com/forum/ask">
+<meta name="robots" content="noindex, follow">
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="forum" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../forum.html">Forum</a><span class="sep">/</span>Ask</div>
+</div>
+
+<div class="fm-wrap">
+  <div class="fm-layout">
+    <div>
+      <div class="fm-head" style="border-bottom:0;padding-bottom:6px">
+        <div class="fm-eyebrow">ASK THE FORUM</div>
+        <h1>What are you <em>stuck on?</em></h1>
+        <p>Specific beats general. A question with the part, the standard, the numbers, and what you already tried gets answered within hours. A vague one usually gets nothing.</p>
+      </div>
+
+      <div id="fm-gate"></div>
+
+      <form id="fm-form" style="display:none" novalidate>
+        <div id="fm-err"></div>
+
+        <div class="fm-field">
+          <label class="fm-label" for="fm-title">Your question, in one line</label>
+          <p class="fm-hint">Write it the way you would ask a senior engineer standing next to the machine. This becomes the page title, so make it searchable.</p>
+          <input class="fm-input" id="fm-title" type="text" maxlength="160" required
+                 placeholder="How do I pick datums on a casting where every face has draft?">
+          <div class="fm-counter" id="fm-title-count">0 / 160 · needs at least 15</div>
+        </div>
+
+        <div class="fm-field">
+          <label class="fm-label" for="fm-body">The detail</label>
+          <p class="fm-hint">Include the process, the standard or customer spec, the actual numbers, and what you already ruled out. Wrap code or measurement data in <code>```</code> triple backticks.</p>
+          <textarea class="fm-textarea" id="fm-body" required
+                    placeholder="Part: gravity die cast aluminium housing, 380 grade.&#10;Print calls A|B|C with A on a drafted face.&#10;Cpk on the bore position came out 0.78 across 30 pieces; customer wants 1.33.&#10;Repeat runs on the CMM drift by about 0.06 mm.&#10;&#10;We already re-qualified the probe and re-cut the fixture locators. What datum scheme would make this repeatable?"></textarea>
+          <div class="fm-counter" id="fm-body-count">0 characters · needs at least 30</div>
+        </div>
+
+        <div class="fm-field">
+          <label class="fm-label">Topics</label>
+          <p class="fm-hint">Pick up to 4. Tags decide who sees your question and where it gets filed.</p>
+          <div id="fm-tags" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <button class="fm-btn fm-btn-primary" type="submit" id="fm-submit">Post question</button>
+          <a class="fm-btn fm-btn-ghost" href="../forum.html">Cancel</a>
+          <span id="fm-status" class="fm-guidelines"></span>
+        </div>
+      </form>
+    </div>
+
+    <aside>
+      <div class="fm-card">
+        <h4>Before you post</h4>
+        <ol>
+          <li><a href="../forum.html">Search the forum</a> — someone may have hit this already.</li>
+          <li>Check the <a href="../calculators.html">calculators</a> if it is a number you need, not a judgement.</li>
+          <li>Strip anything your employer or customer would not want public — part numbers, drawing numbers, customer names.</li>
+        </ol>
+      </div>
+
+      <div class="fm-card">
+        <h4>What gets removed</h4>
+        <p>Recruitment posts, vendor advertising, homework dumps with no attempt shown, and anything that leaks a customer's confidential drawing. Everything else stays, even if the answer turns out to be "your print is wrong."</p>
+      </div>
+
+      <div class="fm-card">
+        <h4>Formatting</h4>
+        <p><code>**bold**</code>, <code>*italic*</code>, <code>`code`</code>, triple backticks for blocks, and <code>-</code> for bullets. Plain URLs link themselves.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/forum-md.js"></script>
+<script src="../assets/forum.js"></script>
+<script>
+(function () {
+  var F = window.MMForum;
+  var MAX_TAGS = 4;
+  var picked = [];
+
+  var form   = document.getElementById('fm-form');
+  var gate   = document.getElementById('fm-gate');
+  var titleI = document.getElementById('fm-title');
+  var bodyI  = document.getElementById('fm-body');
+  var errEl  = document.getElementById('fm-err');
+
+  function counter(el, len, min, max) {
+    el.textContent = len + (max ? ' / ' + max : ' characters') + ' · needs at least ' + min;
+    el.className = 'fm-counter ' + (len === 0 ? '' : (len < min ? 'bad' : 'ok'));
+    if (len >= min) el.textContent = len + (max ? ' / ' + max : ' characters') + ' ✓';
+  }
+
+  titleI.addEventListener('input', function () {
+    counter(document.getElementById('fm-title-count'), titleI.value.trim().length, 15, 160);
+  });
+  bodyI.addEventListener('input', function () {
+    counter(document.getElementById('fm-body-count'), bodyI.value.trim().length, 30, 0);
+  });
+
+  function renderTags(tags) {
+    var pre = (F.qs('tag') || '').toLowerCase();
+    document.getElementById('fm-tags').innerHTML = tags.map(function (t) {
+      return '<label class="fm-tag-check" data-slug="' + F.esc(t.slug) + '" title="' + F.esc(t.description || '') + '">' +
+             '<input type="checkbox" value="' + F.esc(t.slug) + '"> ' + F.esc(t.name) + '</label>';
+    }).join('');
+
+    document.getElementById('fm-tags').addEventListener('change', function (e) {
+      var cb = e.target; if (cb.type !== 'checkbox') return;
+      var label = cb.closest('.fm-tag-check');
+      if (cb.checked) {
+        if (picked.length >= MAX_TAGS) { cb.checked = false; F.toast('Four topics is the limit.'); return; }
+        picked.push(cb.value);
+      } else {
+        picked = picked.filter(function (s) { return s !== cb.value; });
+      }
+      label.classList.toggle('on', cb.checked);
+    });
+
+    if (pre) {
+      var box = document.querySelector('#fm-tags input[value="' + CSS.escape(pre) + '"]');
+      if (box) { box.checked = true; box.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+  }
+
+  function showGateSignedOut() {
+    gate.innerHTML =
+      '<div class="fm-card" style="background:var(--blueprint-tint);border-color:var(--blueprint)">' +
+        '<h4>Sign in to post your question</h4>' +
+        '<p>Free, about ten seconds. An account means your question can be answered, credited, and followed up — and it keeps the forum free of spam.</p>' +
+        '<button class="fm-btn fm-btn-primary" type="button" id="fm-gate-btn">Sign in and continue</button>' +
+      '</div>';
+    document.getElementById('fm-gate-btn').onclick = function () { F.openSignIn('Sign in to ask a question'); };
+    form.style.display = 'none';
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    errEl.innerHTML = '';
+
+    var title = titleI.value.trim();
+    var body  = bodyI.value.trim();
+
+    if (title.length < 15) { errEl.innerHTML = '<div class="fm-error">Your title needs at least 15 characters — be specific enough that someone searching would find it.</div>'; titleI.focus(); return; }
+    if (body.length < 30)  { errEl.innerHTML = '<div class="fm-error">Add more detail. Process, numbers, and what you already tried.</div>'; bodyI.focus(); return; }
+    if (!picked.length)    { errEl.innerHTML = '<div class="fm-error">Pick at least one topic so the right people see it.</div>'; return; }
+
+    var btn = document.getElementById('fm-submit');
+    btn.disabled = true; btn.textContent = 'Posting…';
+
+    var slug = await F.ask(title, body, picked);
+    if (!slug) { btn.disabled = false; btn.textContent = 'Post question'; return; }
+
+    if (window.gtag) gtag('event', 'forum_question_posted', { tags: picked.join(',') });
+    sessionStorage.removeItem('mm_forum_draft');
+    location.href = 'q/' + encodeURIComponent(slug);
+  });
+
+  // Keep a draft so a mid-form sign-in round trip never loses their writing.
+  function saveDraft() {
+    try {
+      sessionStorage.setItem('mm_forum_draft', JSON.stringify({
+        t: titleI.value, b: bodyI.value, g: picked
+      }));
+    } catch (e) {}
+  }
+  function restoreDraft() {
+    try {
+      var d = JSON.parse(sessionStorage.getItem('mm_forum_draft') || 'null');
+      if (!d) return;
+      if (d.t) { titleI.value = d.t; titleI.dispatchEvent(new Event('input')); }
+      if (d.b) { bodyI.value  = d.b; bodyI.dispatchEvent(new Event('input')); }
+      (d.g || []).forEach(function (slug) {
+        var box = document.querySelector('#fm-tags input[value="' + CSS.escape(slug) + '"]');
+        if (box && !box.checked) { box.checked = true; box.dispatchEvent(new Event('change', { bubbles: true })); }
+      });
+    } catch (e) {}
+  }
+  titleI.addEventListener('input', saveDraft);
+  bodyI.addEventListener('input', saveDraft);
+
+  (async function init() {
+    if (F.offline) { form.style.display = 'none'; gate.innerHTML = ''; return; }
+    var tags = await F.getTags();
+    renderTags(tags);
+
+    var seed = F.qs('title');
+    if (seed) { titleI.value = seed; titleI.dispatchEvent(new Event('input')); }
+    restoreDraft();
+
+    await F.loadSession();
+    if (F.currentUser()) { gate.innerHTML = ''; form.style.display = ''; }
+    else showGateSignedOut();
+
+    F.sb.auth.onAuthStateChange(function (evt, session) {
+      if (session && session.user) {
+        F.loadSession().then(function () { gate.innerHTML = ''; form.style.display = ''; });
+      }
+    });
+  })();
+})();
+</script>
+</body>
+</html>
