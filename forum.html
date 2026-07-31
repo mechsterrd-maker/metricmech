@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', { 'anonymize_ip': true, 'cookie_flags': 'SameSite=None;Secure' });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forum — Ask Manufacturing Quality &amp; Production Engineers | MetricMech</title>
+<meta name="description" content="Ask a manufacturing question and get answered by working quality and production engineers. GD&T, Cp/Cpk, PPAP, AS9102, CMM, gauge R&R, sheet metal and shop-floor problems." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/mm.css">
+<link rel="stylesheet" href="assets/forum.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/forum">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="MetricMech Forum — Ask Manufacturing Quality &amp; Production Engineers">
+<meta property="og:description" content="Ask a manufacturing question and get answered by working quality and production engineers.">
+<meta property="og:url" content="https://metricmech.com/forum">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MetricMech Forum">
+<meta name="twitter:description" content="Ask a manufacturing question and get answered by working quality and production engineers.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "MetricMech Forum",
+  "url": "https://metricmech.com/forum",
+  "description": "Questions and answers on manufacturing quality and production engineering, answered by working engineers.",
+  "isPartOf": { "@type": "WebSite", "name": "MetricMech", "url": "https://metricmech.com" },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",  "item": "https://metricmech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Forum", "item": "https://metricmech.com/forum" }
+    ]
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="forum" data-prefix=""></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">/</span>Forum</div>
+</div>
+
+<div class="fm-wrap">
+
+  <div class="fm-head">
+    <div class="fm-head-row">
+      <div>
+        <div class="fm-eyebrow">ASK WORKING ENGINEERS</div>
+        <h1>The <em>MetricMech</em> Forum.</h1>
+        <p>Stuck on a datum scheme, a capability study a customer rejected, or a gauge that will not correlate? Ask here. Answers come from quality, production, and tooling engineers who do this work every day — not from a support desk.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
+        <a class="fm-btn fm-btn-primary" href="forum/ask.html">Ask a question</a>
+        <div id="fm-user"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fm-layout">
+    <div>
+      <div class="fm-toolbar">
+        <div class="fm-search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" id="fm-q" placeholder="Search questions — e.g. datum targets on castings" aria-label="Search forum questions">
+        </div>
+        <div class="fm-seg" id="fm-sort" role="group" aria-label="Sort questions">
+          <button type="button" data-sort="new" class="on">Newest</button>
+          <button type="button" data-sort="active">Active</button>
+          <button type="button" data-sort="top">Top</button>
+        </div>
+        <div class="fm-seg" id="fm-filter" role="group" aria-label="Filter questions">
+          <button type="button" data-filter="" class="on">All</button>
+          <button type="button" data-filter="unanswered">Unanswered</button>
+          <button type="button" data-filter="solved">Solved</button>
+        </div>
+      </div>
+
+      <div id="fm-active-tag"></div>
+
+      <div class="fm-list" id="fm-list">
+        <div class="fm-skel"></div><div class="fm-skel"></div><div class="fm-skel"></div>
+      </div>
+
+      <div class="fm-pager" id="fm-pager"></div>
+    </div>
+
+    <aside>
+      <div class="fm-card">
+        <h4>What makes a good question</h4>
+        <ol>
+          <li>Name the part, process, and standard in play.</li>
+          <li>Give the numbers — tolerance, sample size, what the gauge read.</li>
+          <li>Say what you already tried and what the customer said.</li>
+          <li>Ask one specific thing you need decided.</li>
+        </ol>
+      </div>
+
+      <div class="fm-card">
+        <h4>Browse by topic</h4>
+        <div class="fm-tagrail" id="fm-tagrail"></div>
+      </div>
+
+      <div class="fm-card">
+        <h4>Answer before you ask</h4>
+        <p>The fastest way to get your own question answered well is to answer someone else's first. Reputation is earned from upvotes and accepted answers, and it shows next to your name everywhere on the site.</p>
+        <a class="fm-btn fm-btn-ghost" href="#" id="fm-unanswered-link">Show unanswered →</a>
+      </div>
+
+      <div data-mw="cn-sidebar"></div>
+    </aside>
+  </div>
+
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix=""></div>
+
+<script src="site.js"></script>
+<script src="assets/mm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/forum-md.js"></script>
+<script src="assets/forum.js"></script>
+<script>
+(function () {
+  var F = window.MMForum;
+  var PAGE_SIZE = 20;
+  var st = { sort: 'new', filter: '', q: '', tag: F.qs('tag') || '', page: 0 };
+
+  var listEl   = document.getElementById('fm-list');
+  var pagerEl  = document.getElementById('fm-pager');
+  var activeEl = document.getElementById('fm-active-tag');
+
+  function itemHTML(r) {
+    var tags = (r.tags || []).map(function (t) {
+      return '<a class="fm-tag" href="forum/tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+    }).join('');
+
+    var answerClass = r.has_accepted ? 'solved' : (r.answer_count > 0 ? 'answered' : '');
+    var answerLabel = r.has_accepted ? 'solved' : (r.answer_count === 1 ? 'answer' : 'answers');
+
+    return '<article class="fm-item">' +
+      '<div class="fm-stats">' +
+        '<div class="fm-stat"><b>' + r.vote_score + '</b>' + (Math.abs(r.vote_score) === 1 ? 'vote' : 'votes') + '</div>' +
+        '<div class="fm-stat ' + answerClass + '"><b>' + r.answer_count + '</b>' + answerLabel + '</div>' +
+        '<div class="fm-stat"><b>' + r.view_count + '</b>views</div>' +
+      '</div>' +
+      '<div>' +
+        '<h3><a href="forum/q/' + encodeURIComponent(r.slug) + '">' + F.esc(r.title) + '</a></h3>' +
+        '<p class="fm-excerpt">' + F.esc(r.excerpt) + '</p>' +
+        '<div class="fm-item-foot">' +
+          '<div class="fm-tags">' + tags + '</div>' +
+          '<div class="fm-byline">' + F.avatar(r, 24) +
+            '<strong>' + F.esc(r.author_name || 'Former member') + '</strong>' +
+            (r.author_reputation ? '<span class="fm-rep">' + r.author_reputation + '</span>' : '') +
+            '<span>· asked ' + F.timeAgo(r.created_at) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }
+
+  function emptyHTML() {
+    if (st.q) {
+      return '<div class="fm-empty"><h3>No questions match &ldquo;' + F.esc(st.q) + '&rdquo;</h3>' +
+        '<p>Nobody has asked this yet — which makes it a good question to be the first to ask.</p>' +
+        '<a class="fm-btn fm-btn-primary" href="forum/ask.html?title=' + encodeURIComponent(st.q) + '">Ask it</a></div>';
+    }
+    if (st.filter === 'unanswered') {
+      return '<div class="fm-empty"><h3>Nothing unanswered</h3>' +
+        '<p>Every open question has at least one answer right now.</p></div>';
+    }
+    if (st.tag) {
+      return '<div class="fm-empty"><h3>No questions tagged here yet</h3>' +
+        '<p>Be the first to ask something in this topic.</p>' +
+        '<a class="fm-btn fm-btn-primary" href="forum/ask.html?tag=' + encodeURIComponent(st.tag) + '">Ask a question</a></div>';
+    }
+    return '<div class="fm-empty"><h3>The forum is brand new</h3>' +
+      '<p>No questions yet. The first real problem posted here sets the tone for everything that follows — make it a specific one.</p>' +
+      '<a class="fm-btn fm-btn-primary" href="forum/ask.html">Ask the first question</a></div>';
+  }
+
+  async function load() {
+    listEl.innerHTML = '<div class="fm-skel"></div><div class="fm-skel"></div><div class="fm-skel"></div>';
+    pagerEl.innerHTML = '';
+
+    var res = await F.listQuestions({
+      sort: st.sort, filter: st.filter, q: st.q, tag: st.tag, page: st.page, size: PAGE_SIZE
+    });
+
+    listEl.innerHTML = res.rows.length ? res.rows.map(itemHTML).join('') : emptyHTML();
+
+    var pages = Math.ceil(res.count / PAGE_SIZE);
+    if (pages > 1) {
+      pagerEl.innerHTML =
+        '<button class="fm-btn" type="button" id="fm-prev"' + (st.page === 0 ? ' disabled' : '') + '>← Newer</button>' +
+        '<span>Page ' + (st.page + 1) + ' of ' + pages + ' · ' + res.count + ' questions</span>' +
+        '<button class="fm-btn" type="button" id="fm-next"' + (st.page + 1 >= pages ? ' disabled' : '') + '>Older →</button>';
+      var prev = document.getElementById('fm-prev'), next = document.getElementById('fm-next');
+      if (prev) prev.onclick = function () { st.page--; load(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+      if (next) next.onclick = function () { st.page++; load(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    }
+  }
+
+  function wireSeg(id, key) {
+    document.getElementById(id).addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      st[key] = b.dataset[key]; st.page = 0;
+      this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+      load();
+    });
+  }
+
+  function renderActiveTag() {
+    if (!st.tag) { activeEl.innerHTML = ''; return; }
+    activeEl.innerHTML = '<div class="fm-note">Showing questions tagged <strong>' + F.esc(st.tag) +
+      '</strong> · <a href="forum.html">clear filter</a></div>';
+  }
+
+  async function init() {
+    wireSeg('fm-sort', 'sort');
+    wireSeg('fm-filter', 'filter');
+    renderActiveTag();
+
+    var input = document.getElementById('fm-q');
+    var t;
+    input.addEventListener('input', function () {
+      clearTimeout(t);
+      t = setTimeout(function () { st.q = input.value.trim(); st.page = 0; load(); }, 260);
+    });
+
+    document.getElementById('fm-unanswered-link').onclick = function (e) {
+      e.preventDefault();
+      st.filter = 'unanswered'; st.page = 0;
+      document.querySelectorAll('#fm-filter button').forEach(function (x) {
+        x.classList.toggle('on', x.dataset.filter === 'unanswered');
+      });
+      load();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    load();
+
+    F.getTags().then(function (tags) {
+      document.getElementById('fm-tagrail').innerHTML = tags.map(function (t) {
+        return '<a class="fm-tag" href="forum/tag.html?t=' + encodeURIComponent(t.slug) + '">' +
+               F.esc(t.name) + '<span class="n">' + t.question_count + '</span></a>';
+      }).join('');
+    });
+
+    await F.loadSession();
+    F.renderUserChip(document.getElementById('fm-user'));
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

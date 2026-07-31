@@ -2,7 +2,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    {"source": "/googleb013589de9a2f690.html", "destination": "/googleb013589de9a2f690.html"}
+    {"source": "/googleb013589de9a2f690.html", "destination": "/googleb013589de9a2f690.html"},
+    {"source": "/forum/q/:slug", "destination": "/forum/question.html"},
+    {"source": "/forum/t/:slug", "destination": "/forum/tag.html"}
   ],
   "headers": [
     {"source": "/(.*)", "headers": [
