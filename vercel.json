@@ -3,8 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     {"source": "/googleb013589de9a2f690.html", "destination": "/googleb013589de9a2f690.html"},
-    {"source": "/forum/q/:slug", "destination": "/forum/question.html"},
-    {"source": "/forum/t/:slug", "destination": "/forum/tag.html"}
+    {"source": "/forum/q/:slug", "destination": "/forum/question"},
+    {"source": "/forum/t/:slug", "destination": "/forum/tag"}
   ],
   "headers": [
     {"source": "/(.*)", "headers": [
