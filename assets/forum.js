@@ -9,11 +9,70 @@
   var SUPABASE_URL = 'https://wzxowvrvuecybdxymjvi.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_NYFIl1lGQHd0SwWb0dJCUw_VtdIV8Kj';
 
+  // Plenty of plant and enterprise networks block public CDNs outright. If the
+  // Supabase client never arrived, say so plainly instead of leaving the reader
+  // staring at loading skeletons forever. Pre-rendered threads still read fine
+  // — only the live/interactive layer is gone — so this degrades, not dies.
+  if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+    window.MMForum = degraded();
+    document.addEventListener('DOMContentLoaded', showBlockedNotice);
+    if (document.readyState !== 'loading') showBlockedNotice();
+    return;
+  }
+
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
   });
 
   var state = { user: null, profile: null, tags: null, myVotes: {} };
+
+  function showBlockedNotice() {
+    var host = document.querySelector('.fm-wrap') || document.querySelector('main') || document.body;
+    var box = document.createElement('div');
+    box.className = 'fm-note';
+    box.style.cssText = 'border-left-color:var(--amber);background:var(--amber-tint);margin:24px 0';
+    box.innerHTML =
+      '<strong>The live forum could not load.</strong> Your network appears to be blocking ' +
+      '<code>cdn.jsdelivr.net</code>, which the forum needs in order to sign you in and fetch ' +
+      'questions. Published threads still open normally — it is posting, voting, and search that ' +
+      'are unavailable. If you are on a plant or office network, ask IT to allow that host, or try ' +
+      'again from mobile data.';
+    host.insertBefore(box, host.firstChild);
+    document.querySelectorAll('.fm-skel').forEach(function (el) { el.remove(); });
+  }
+
+  // A stand-in with the same shape as the real client, so page scripts run to
+  // completion and draw their empty states rather than throwing halfway.
+  function degraded() {
+    var noop = function () {};
+    var no = function () { return null; };
+    var api = {
+      esc: window.MMForumMD.esc, renderBody: window.MMForumMD.renderBody,
+      timeAgo: function () { return ''; }, avatar: function () { return ''; },
+      qs: function (n) { return new URLSearchParams(location.search).get(n); },
+      toast: noop, friendlyError: function () { return 'The forum is offline.'; },
+      loadSession: function () { return Promise.resolve(null); },
+      currentUser: no, currentProfile: no,
+      ensureProfile: function () { return Promise.resolve(null); },
+      requireAuth: function () { return Promise.resolve(false); },
+      openSignIn: noop, signOut: noop, renderUserChip: noop,
+      getTags: function () { return Promise.resolve([]); },
+      listQuestions: function () { return Promise.resolve({ rows: [], count: 0 }); },
+      getQuestion: function () { return Promise.resolve(null); },
+      getAnswers: function () { return Promise.resolve([]); },
+      loadMyVotes: function () { return Promise.resolve({}); },
+      myVote: function () { return 0; },
+      vote: function () { return Promise.resolve(null); },
+      ask: function () { return Promise.resolve(null); },
+      answer: function () { return Promise.resolve(null); },
+      acceptAnswer: function () { return Promise.resolve(null); },
+      flag: function () { return Promise.resolve(false); },
+      bumpView: noop,
+      sb: { auth: { onAuthStateChange: noop } },
+      offline: true
+    };
+    return api;
+  }
 
   /* ---------------------------------------------------------------- utils */
 

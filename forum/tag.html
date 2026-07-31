@@ -163,6 +163,7 @@
   }
 
   (async function init() {
+    if (F.offline) return;   // keep the pre-rendered list rather than blanking it
     if (!tag) { location.replace('../forum.html'); return; }
 
     document.getElementById('fm-ask-link').href = 'ask.html?tag=' + encodeURIComponent(tag);

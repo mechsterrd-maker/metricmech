@@ -226,6 +226,7 @@
   bodyI.addEventListener('input', saveDraft);
 
   (async function init() {
+    if (F.offline) { form.style.display = 'none'; gate.innerHTML = ''; return; }
     var tags = await F.getTags();
     renderTags(tags);
 

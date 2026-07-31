@@ -307,6 +307,9 @@
   }
 
   (async function init() {
+    // Forum offline (CDN blocked): leave the pre-rendered snapshot on screen —
+    // it is real content, and wiping it for "not found" would be a lie.
+    if (F.offline) return;
     if (!slug) { question = null; render(); return; }
     await F.loadSession();
     await refresh();
