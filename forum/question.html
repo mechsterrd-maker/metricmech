@@ -21,13 +21,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
-<link rel="stylesheet" href="../assets/mm.css">
-<link rel="stylesheet" href="../assets/forum.css">
-<link rel="manifest" href="../manifest.json">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/assets/mm.css">
+<link rel="stylesheet" href="/assets/forum.css">
+<link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#0a1628">
-<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
 <meta name="author" content="Rajadurai R · MetricMech">
 
 </head>
@@ -35,12 +35,12 @@
 
 <div class="grid-bg"></div>
 <div data-mw="notice-bar"></div>
-<div data-mw="header" data-page="forum" data-prefix="../"></div>
+<div data-mw="header" data-page="forum" data-prefix="/"></div>
 
 <main>
 
 <div class="page-header">
-  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../forum.html">Forum</a><span class="sep">/</span>Question</div>
+  <div class="breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/forum">Forum</a><span class="sep">/</span>Question</div>
 </div>
 
 <div class="fm-wrap">
@@ -80,13 +80,13 @@
 
 </main>
 
-<div data-mw="footer" data-prefix="../"></div>
+<div data-mw="footer" data-prefix="/"></div>
 
-<script src="../site.js"></script>
-<script src="../assets/mm.js"></script>
+<script src="/site.js"></script>
+<script src="/assets/mm.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../assets/forum-md.js"></script>
-<script src="../assets/forum.js"></script>
+<script src="/assets/forum-md.js"></script>
+<script src="/assets/forum.js"></script>
 <script>
 (function () {
   var F = window.MMForum;
@@ -140,7 +140,7 @@
     if (!question) {
       threadEl.innerHTML = '<div class="fm-empty"><h3>Question not found</h3>' +
         '<p>It may have been removed, or the link is wrong.</p>' +
-        '<a class="fm-btn fm-btn-primary" href="../forum.html">Back to the forum</a></div>';
+        '<a class="fm-btn fm-btn-primary" href="/forum">Back to the forum</a></div>';
       boxEl.innerHTML = '';
       return;
     }
@@ -149,7 +149,7 @@
     var canAccept = !!(me && question.author_id === me.id);
 
     var tagHTML = (question.tags || []).map(function (t) {
-      return '<a class="fm-tag" href="tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+      return '<a class="fm-tag" href="/forum/t/' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
     }).join('');
 
     var html =
@@ -200,7 +200,7 @@
     wire();
 
     document.getElementById('fm-related').innerHTML = (question.tags || []).map(function (t) {
-      return '<a class="fm-tag" href="tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+      return '<a class="fm-tag" href="/forum/t/' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
     }).join('') || '<span class="fm-guidelines">No topics.</span>';
   }
 

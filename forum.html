@@ -170,7 +170,7 @@
 
   function itemHTML(r) {
     var tags = (r.tags || []).map(function (t) {
-      return '<a class="fm-tag" href="forum/tag.html?t=' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
+      return '<a class="fm-tag" href="/forum/t/' + encodeURIComponent(t.slug) + '">' + F.esc(t.name) + '</a>';
     }).join('');
 
     var answerClass = r.has_accepted ? 'solved' : (r.answer_count > 0 ? 'answered' : '');
@@ -183,7 +183,7 @@
         '<div class="fm-stat"><b>' + r.view_count + '</b>views</div>' +
       '</div>' +
       '<div>' +
-        '<h3><a href="forum/q/' + encodeURIComponent(r.slug) + '">' + F.esc(r.title) + '</a></h3>' +
+        '<h3><a href="/forum/q/' + encodeURIComponent(r.slug) + '">' + F.esc(r.title) + '</a></h3>' +
         '<p class="fm-excerpt">' + F.esc(r.excerpt) + '</p>' +
         '<div class="fm-item-foot">' +
           '<div class="fm-tags">' + tags + '</div>' +
@@ -201,7 +201,7 @@
     if (st.q) {
       return '<div class="fm-empty"><h3>No questions match &ldquo;' + F.esc(st.q) + '&rdquo;</h3>' +
         '<p>Nobody has asked this yet — which makes it a good question to be the first to ask.</p>' +
-        '<a class="fm-btn fm-btn-primary" href="forum/ask.html?title=' + encodeURIComponent(st.q) + '">Ask it</a></div>';
+        '<a class="fm-btn fm-btn-primary" href="/forum/ask?title=' + encodeURIComponent(st.q) + '">Ask it</a></div>';
     }
     if (st.filter === 'unanswered') {
       return '<div class="fm-empty"><h3>Nothing unanswered</h3>' +
@@ -210,7 +210,7 @@
     if (st.tag) {
       return '<div class="fm-empty"><h3>No questions tagged here yet</h3>' +
         '<p>Be the first to ask something in this topic.</p>' +
-        '<a class="fm-btn fm-btn-primary" href="forum/ask.html?tag=' + encodeURIComponent(st.tag) + '">Ask a question</a></div>';
+        '<a class="fm-btn fm-btn-primary" href="/forum/ask?tag=' + encodeURIComponent(st.tag) + '">Ask a question</a></div>';
     }
     return '<div class="fm-empty"><h3>The forum is brand new</h3>' +
       '<p>No questions yet. The first real problem posted here sets the tone for everything that follows — make it a specific one.</p>' +
@@ -280,7 +280,7 @@
 
     F.getTags().then(function (tags) {
       document.getElementById('fm-tagrail').innerHTML = tags.map(function (t) {
-        return '<a class="fm-tag" href="forum/tag.html?t=' + encodeURIComponent(t.slug) + '">' +
+        return '<a class="fm-tag" href="/forum/t/' + encodeURIComponent(t.slug) + '">' +
                F.esc(t.name) + '<span class="n">' + t.question_count + '</span></a>';
       }).join('');
     });
