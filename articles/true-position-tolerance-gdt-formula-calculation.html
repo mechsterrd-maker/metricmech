@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>True Position Tolerance GD&T Formula Calculation | MetricMech</title>
+<meta name="description" content="Learn the true position tolerance GD&T formula, step-by-step calculation from CMM coordinates, bonus tolerance, and common mistakes quality engineers make." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="True Position Tolerance GD&T Formula Calculation | MetricMech">
+<meta property="og:description" content="Learn the true position tolerance GD&T formula, step-by-step calculation from CMM coordinates, bonus tolerance, and common mistakes quality engineers make.">
+<meta property="og:url" content="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="True Position Tolerance GD&T Formula Calculation | MetricMech">
+<meta name="twitter:description" content="Learn the true position tolerance GD&T formula, step-by-step calculation from CMM coordinates, bonus tolerance, and common mistakes quality engineers make.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "True Position Tolerance GD&T Formula Calculation | MetricMech",
+  "description": "Learn the true position tolerance GD&T formula, step-by-step calculation from CMM coordinates, bonus tolerance, and common mistakes quality engineers make.",
+  "url": "https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "True Position Tolerance GD&T Formula Calculation: A Complete Guide for Quality Engineers",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the true position formula in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "True position deviation = 2 × √((ΔX)² + (ΔY)²) for a 2D hole pattern, where ΔX and ΔY are the differences between the actual measured coordinates and the true position coordinates. The result is compared directly to the positional tolerance diameter value on the drawing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate true position from CMM coordinates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Subtract the nominal X and Y coordinates from the CMM-measured actual coordinates to get ΔX and ΔY. Square each value, add them, take the square root, then multiply by 2. This gives the diameter of the actual tolerance zone the feature occupies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is bonus tolerance in true position calculation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bonus tolerance applies when a feature of size is modified at Maximum Material Condition (MMC). It equals the difference between the actual mating size and the MMC limit. The effective positional tolerance equals the stated tolerance plus the bonus tolerance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between GD&T position tolerance and coordinate tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Coordinate tolerance creates a square acceptance zone, while GD&T positional tolerance creates a circular (cylindrical) zone. The circular zone that accepts all coordinate-passing features is the circumscribed circle with diameter equal to the square's diagonal — approximately 57% larger in area than the square zone for the same ± value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can true position be calculated in 3D?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The 3D formula is: True Position = 2 × √((ΔX)² + (ΔY)² + (ΔZ)²). This is used for spherical features or when axial deviation is also controlled. For most hole patterns, the 2D formula is sufficient."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "True Position Tolerance GD&T Formula Calculation: A Complete Guide for Quality E",
+      "item": "https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>True Position Tolerance GD&T Formula Cal</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is the True Position Formula?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula and Variables Reference</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#bonus-tolerance">Bonus Tolerance in True Position</a>
+    <a href="#position-vs-coordinate">GD&T Position Tolerance vs Coordinate Tolerance</a>
+    <a href="#common-mistakes">Common Calculation Mistakes</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>True Position Tolerance GD&T Formula Calculation: A Complete Guide for Quality Engineers</h1>
+    <div class="art-meta-bar">
+      <span>GD&T Quality</span>
+      <span>August 01, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The <strong>true position tolerance GD&amp;T formula</strong> is: <strong>TP = 2 × √((ΔX)² + (ΔY)²)</strong>, where ΔX and ΔY are the deviations between the actual measured feature coordinates and the theoretically exact nominal coordinates. The result gives the diameter of the tolerance zone the feature actually occupies, which is then compared directly to the positional tolerance value on the engineering drawing.</p>
+
+<p>True position is the most widely used geometric tolerance in ASME Y14.5 and ISO 1101, controlling where a feature — typically a hole centre or pin axis — actually sits relative to its theoretically exact location. Unlike a simple ±0.1 mm coordinate callout, a GD&amp;T position tolerance defines a <em>cylindrical</em> or <em>circular</em> zone centred on the true position. This distinction has significant implications for acceptance rates and functional performance, which this guide addresses in full.</p>
+
+<p>For a ready-to-use calculator that handles both 2D and 3D cases with and without bonus tolerance, the <a href="https://metricmech.com/articles/true-position-calculation">MetricMech True Position Calculator</a> handles all inputs and outputs the pass/fail result instantly.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>A drawing calls for a hole with a true position tolerance of ⌀0.200 mm at Maximum Material Condition (MMC). The MMC hole diameter is ⌀10.000 mm. The CMM reports the hole centre at X = 50.062 mm, Y = 30.089 mm. The nominal (true position) coordinates are X = 50.000 mm, Y = 30.000 mm.</p>
+
+<p><strong>Step 1 — Find the deviations:</strong><br>
+ΔX = 50.062 − 50.000 = 0.062 mm<br>
+ΔY = 30.089 − 30.000 = 0.089 mm</p>
+
+<p><strong>Step 2 — Apply the formula:</strong><br>
+TP = 2 × √(0.062² + 0.089²)<br>
+TP = 2 × √(0.003844 + 0.007921)<br>
+TP = 2 × √0.011765<br>
+TP = 2 × 0.10847<br>
+TP = <strong>0.217 mm</strong></p>
+
+<p><strong>Step 3 — Check bonus tolerance:</strong><br>
+The CMM also measured the actual hole diameter as ⌀10.048 mm. The MMC limit is ⌀10.000 mm.<br>
+Bonus tolerance = 10.048 − 10.000 = <strong>0.048 mm</strong><br>
+Effective tolerance = 0.200 + 0.048 = <strong>0.248 mm</strong></p>
+
+<p><strong>Result:</strong> The actual true position of 0.217 mm is less than the effective tolerance of 0.248 mm. The feature <strong>passes</strong>. Without bonus tolerance, the feature would have failed (0.217 &gt; 0.200). This example illustrates clearly why MMC bonus tolerance matters on high-volume machined parts.</p>
+
+<div class="callout">
+<p>Use the <a href="https://metricmech.com/articles/true-position-calculation">MetricMech True Position Calculator</a> to verify your own CMM readings in seconds, including bonus tolerance at MMC or LMC.</p>
+</div>
+
+<h2 id="formula-table">Formula and Variables Reference</h2>
+
+<p>The table below defines every variable used in both the 2D and 3D true position formulas as specified in <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-tolerancing" rel="nofollow noopener" target="_blank">ASME Y14.5-2018</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TP</td>
+      <td>Actual true position deviation (diameter of zone occupied)</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>ΔX</td>
+      <td>Actual X coordinate − Nominal X coordinate</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>ΔY</td>
+      <td>Actual Y coordinate − Nominal Y coordinate</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>ΔZ</td>
+      <td>Actual Z coordinate − Nominal Z coordinate (3D only)</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>t</td>
+      <td>Stated positional tolerance (from drawing, diameter value)</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>BT</td>
+      <td>Bonus tolerance = Actual mating size − MMC limit (for a hole)</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>t_eff</td>
+      <td>Effective tolerance = t + BT</td>
+      <td>mm or in</td>
+    </tr>
+    <tr>
+      <td>MMC</td>
+      <td>Maximum Material Condition size limit</td>
+      <td>mm or in</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>2D Formula (most hole patterns):</strong><br>
+TP = 2 × √((ΔX)² + (ΔY)²)</p>
+
+<p><strong>3D Formula (spherical features, axial control):</strong><br>
+TP = 2 × √((ΔX)² + (ΔY)² + (ΔZ)²)</p>
+
+<p><strong>Pass condition (with MMC modifier):</strong><br>
+TP ≤ t + BT</p>
+
+<p><strong>Pass condition (no material condition modifier — RFS):</strong><br>
+TP ≤ t</p>
+
+<p>The ASME standard treats true position as a <em>diametral</em> value, meaning the tolerance zone is a circle (or cylinder) of diameter t, not a radius. This is a frequent source of error when engineers convert CMM data manually. The ISO equivalent is governed by <a href="https://www.iso.org/standard/80188.html" rel="nofollow noopener" target="_blank">ISO 1101:2017</a>, which uses the same underlying mathematics but with different drawing callout conventions.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<p>Follow this procedure every time a positional tolerance is evaluated from CMM output. The method applies whether the CMM software is Zeiss Calypso, Hexagon PC-DMIS, or any other platform — the underlying maths is identical.</p>
+
+<ol>
+  <li><strong>Identify nominal coordinates.</strong> Extract the theoretically exact X and Y (and Z if applicable) coordinates from the drawing or the CAD model. These are the Basic dimensions that locate the true position.</li>
+  <li><strong>Record actual CMM coordinates.</strong> Use the centroid of the measured feature — the hole centre for a circular feature, the axis midpoint for a pin. Confirm the CMM is aligned to the correct datum reference frame (DRF) as specified in the feature control frame.</li>
+  <li><strong>Calculate ΔX, ΔY (and ΔZ).</strong> Subtract nominal from actual for each axis. Sign does not matter because the values are squared in the next step.</li>
+  <li><strong>Compute the positional deviation.</strong> Square each delta, sum the squares, take the square root, and multiply by 2. This is the actual TP value in diameter terms.</li>
+  <li><strong>Determine the applicable tolerance.</strong> Read the tolerance diameter from the feature control frame. If the callout includes an MMC or LMC modifier, proceed to the bonus tolerance step.</li>
+  <li><strong>Calculate bonus tolerance (if MMC modifier present).</strong> Measure the actual mating size of the feature. Subtract the MMC limit from the actual size (for a hole) or the actual size from the MMC limit (for a pin). The result is the bonus tolerance. Add it to the stated tolerance.</li>
+  <li><strong>Compare and record the result.</strong> If TP ≤ effective tolerance, the feature passes. Record the actual TP value, the effective tolerance, and the pass/fail status on the inspection report.</li>
+</ol>
+
+<p>When generating inspection balloons and linking measured results to drawing callouts, the CadNexa auto-ballooning tool at <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=true-position-tolerance-gdt-formula-calculation" rel="noopener" target="_blank" class="highlight">cadnexa.com/balloon</a> can map CMM results directly to numbered feature callouts, eliminating the manual transcription step that most teams currently handle in spreadsheets.</p>
+
+<h2 id="bonus-tolerance">Bonus Tolerance in True Position Calculation</h2>
+
+<p>Bonus tolerance is an additional positional tolerance earned when a feature of size departs from its Maximum Material Condition. The concept is defined in ASME Y14.5-2018 and is one of the most powerful — and most misunderstood — tools in GD&amp;T. The principle is that a slightly larger hole provides more clearance for a mating pin, so the positional requirement can be relaxed proportionally.</p>
+
+<p>Bonus tolerance applies <em>only</em> when the feature control frame includes the MMC symbol (circled M) or the LMC symbol (circled L). When the tolerance is at Regardless of Feature Size (RFS), which is the default in ASME Y14.5-2018, no bonus tolerance exists and the stated tolerance is fixed.</p>
+
+<p>For a hole controlled at MMC:<br>
+<strong>BT = Actual hole diameter − MMC hole diameter</strong><br>
+As the hole grows larger (away from MMC), the bonus tolerance increases.</p>
+
+<p>For a pin or shaft controlled at MMC:<br>
+<strong>BT = MMC pin diameter − Actual pin diameter</strong><br>
+As the pin shrinks (away from MMC), the bonus tolerance increases.</p>
+
+<p>Maximum bonus tolerance is reached at Least Material Condition (LMC), where BT equals the full size tolerance of the feature. Understanding this range is critical when setting acceptance criteria in a PPAP submission — see the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist: 18 Elements &amp; Submission Levels</a> for how positional tolerances must be documented.</p>
+
+<h2 id="position-vs-coordinate">GD&amp;T Position Tolerance vs Coordinate Tolerance</h2>
+
+<p>Many legacy drawings and suppliers still specify hole locations using bilateral coordinate tolerances, such as 50.000 ± 0.100 mm in X and 30.000 ± 0.100 mm in Y. This approach creates a <em>square</em> acceptance zone with sides of 0.200 mm. GD&amp;T positional tolerance, by contrast, creates a <em>circular</em> zone of diameter equal to the stated tolerance value.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Coordinate Tolerance (±)</th>
+      <th>GD&amp;T Positional Tolerance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Acceptance zone shape</td>
+      <td>Square</td>
+      <td>Circular (cylindrical in 3D)</td>
+    </tr>
+    <tr>
+      <td>Zone area for same ± value</td>
+      <td>Square area (side = 2 × tolerance)</td>
+      <td>~57% larger when using the equivalent circumscribed circle (⌀0.283 mm) that accepts all coordinate-passing features</td>
+    </tr>
+    <tr>
+      <td>Bonus tolerance possible</td>
+      <td>No</td>
+      <td>Yes, at MMC or LMC</td>
+    </tr>
+    <tr>
+      <td>Datum reference frame required</td>
+      <td>Implied by axes</td>
+      <td>Explicitly defined in FCF</td>
+    </tr>
+    <tr>
+      <td>Governing standard</td>
+      <td>General tolerance (ISO 2768)</td>
+      <td>ASME Y14.5 / ISO 1101</td>
+    </tr>
+    <tr>
+      <td>Accepts corners of zone?</td>
+      <td>Yes</td>
+      <td>No (circular zone excludes corners)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Converting a ± 0.100 mm coordinate tolerance to an equivalent GD&amp;T positional tolerance requires finding the circle that encloses the entire square zone — the circumscribed circle. For a square with sides of 0.200 mm, the diagonal is 0.200√2 ≈ 0.283 mm, which becomes the diameter of the equivalent positional tolerance zone. A circular zone of ⌀0.200 mm would be slightly more restrictive than the coordinate tolerance because it excludes the square's corners; the correct equivalent that accepts every feature passing the coordinate check is ⌀0.283 mm.</p>
+
+<p>This conversion matters when transitioning legacy drawings to GD&amp;T. For tolerance stack-up considerations relevant to assemblies, the <a href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a> guide provides the framework for multi-feature assemblies where positional deviations accumulate.</p>
+
+<p>ISO 2768 general tolerances, which many suppliers reference for undimensioned features, do not provide positional tolerancing as defined in ISO 1101. Engineers using ISO 2768 should review the <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances: mK &amp; fH Explained</a> article to understand where geometric controls must be explicitly stated.</p>
+
+<h2 id="common-mistakes">Common Calculation Mistakes</h2>
+
+<p>These are the errors seen most frequently on the shop floor and during PPAP reviews. Each one leads either to false rejections — scrapping good parts — or false accepts that allow non-conforming parts to reach the customer.</p>
+
+<ul>
+  <li><strong>Treating the formula result as a radius.</strong> The formula 2 × √(ΔX² + ΔY²) already gives a <em>diameter</em> value. If the calculated TP is compared against a radius value (half the drawing tolerance), every part will appear to fail. Always compare diameter to diameter.</li>
+  <li><strong>Wrong datum alignment on the CMM.</strong> The coordinates fed into the formula must be in the datum reference frame defined by the feature control frame, not the CMM machine coordinate system. Misaligned datums produce ΔX and ΔY errors that have nothing to do with the feature's actual position.</li>
+  <li><strong>Ignoring the MMC modifier.</strong> Calculating TP as 0.217 mm and failing the part against a stated tolerance of 0.200 mm — without checking whether an MMC modifier applies and computing the bonus tolerance — is a direct cause of unnecessary scrap. Always check the feature control frame for material condition modifiers.</li>
+  <li><strong>Using basic dimensions incorrectly.</strong> The nominal coordinates in the formula must be the Basic (theoretically exact) dimensions from the drawing, not the tolerance midpoint of a coordinate tolerance. Basic dimensions carry no tolerance by definition; they are exact.</li>
+  <li><strong>Applying a 3D formula when 2D is correct.</strong> For most through-hole patterns, the positional control is a 2D circular zone in the X-Y plane. Adding a ΔZ term when the drawing callout does not require axial control produces a smaller, more restrictive TP value than is correct.</li>
+  <li><strong>CMM probe radius compensation error.</strong> If the CMM software is not correctly compensating for stylus ball radius, the reported centroid coordinates will be offset. This is a measurement system issue — refer to the <a href="https://metricmech.com/articles/measurement-system-analysis">MSA: The 5 Measurement System Studies Explained</a> guide for gauge R&amp;R and bias evaluation methodology.</li>
+</ul>
+
+<div class="warn-box">
+<p><strong>Audit tip:</strong> During PPAP, auditors following <a href="https://www.aiag.org/quality/automotive-core-tools/ppap" rel="nofollow noopener" target="_blank">AIAG PPAP 4th Edition</a> requirements will check that CMM reports explicitly state the datum reference frame used for each positional measurement. Missing datum documentation is a common Level 3 PPAP rejection trigger.</p>
+</div>
+
+<p>When inspection results feed into a First Article Inspection report, linking each ballooned characteristic to its measured value and pass/fail status is a documentation requirement under AS9102 and PPAP alike. The <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=true-position-tolerance-gdt-formula-calculation" rel="noopener" target="_blank" class="cta-box">CadNexa balloon tool</a> automates this linkage, assigning balloon numbers to feature control frames on the drawing and matching them to CMM output — removing the manual data-transfer step that introduces transcription errors.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the true position formula in GD&amp;T?</h3>
+<p>True position deviation = 2 × √((ΔX)² + (ΔY)²) for a 2D hole pattern, where ΔX and ΔY are the differences between the actual measured coordinates and the true position coordinates. The result is compared directly to the positional tolerance diameter value on the drawing. For 3D control, add the ΔZ² term inside the square root.</p>
+
+<h3>How do you calculate true position from CMM coordinates?</h3>
+<p>Subtract the nominal X and Y coordinates (Basic dimensions from the drawing) from the CMM-measured actual coordinates to get ΔX and ΔY. Square each value, add them, take the square root, then multiply by 2. This gives the diameter of the actual tolerance zone the feature occupies. Compare this against the stated positional tolerance — plus any bonus tolerance — to determine pass or fail.</p>
+
+<h3>What is bonus tolerance in true position calculation?</h3>
+<p>Bonus tolerance applies when a feature of size is modified at Maximum Material Condition (MMC) or Least Material Condition (LMC) in the feature control frame. For a hole, it equals the actual hole diameter minus the MMC hole diameter. The effective positional tolerance equals the stated tolerance plus the bonus tolerance. A hole larger than MMC earns additional positional allowance proportional to its departure from MMC.</p>
+
+<h3>What is the difference between GD&amp;T position tolerance and coordinate tolerance?</h3>
+<p>Coordinate tolerance creates a square acceptance zone; GD&amp;T positional tolerance creates a circular (cylindrical) zone. The circumscribed circle that accepts every feature passing a ± 0.100 mm coordinate check has a diameter of 0.200√2 ≈ 0.283 mm — approximately 57% more area than the square. GD&amp;T position also supports bonus tolerance at MMC/LMC and requires explicit datum references, making it more functional and better matched to assembly requirements.</p>
+
+<h3>Can true position be calculated in 3D?</h3>
+<p>Yes. The 3D formula is: True Position = 2 × √((ΔX)² + (ΔY)² + (ΔZ)²). This applies when the drawing callout controls the position of a spherical feature, or when the feature control frame explicitly controls axial deviation in addition to radial location. For standard through-hole bolt patterns, the 2D formula is the correct one to use.</p>
+
+<hr>
+
+<p><em>For further reading on dimensional verification and process performance, see the <a href="https://metricmech.com/articles/cpk-vs-ppk">Cpk vs Ppk: Capability vs Performance</a> guide for linking positional data to process capability studies. The <a href="https://www.nist.gov/system/files/documents/pml/div683/museum-3/GD&T_Explained.pdf" rel="nofollow noopener" target="_blank">NIST GD&amp;T reference</a> provides additional background on tolerance zone geometry and datum system establishment.</em></p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/gdt-reference-guide">GD&amp;T Reference: Complete Guide</a></li>
+    <li><a href="/articles/true-position-calculation">True Position Calculation: Formula &amp; Worked Example</a></li>
+    <li><a href="/articles/position-tolerance-mmc">Position Tolerance with MMC: Bonus Tolerance</a></li>
+    <li><a href="/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "True Position Tolerance GD&T Formula Calculation: A Complete Guide for Quality E",
+      "item": "https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>

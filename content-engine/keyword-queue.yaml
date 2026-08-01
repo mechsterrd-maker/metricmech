@@ -171,7 +171,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: GD&T feature control frame reading guide
   cluster: GD&T Reference
   intent: informational

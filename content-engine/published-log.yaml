@@ -304,3 +304,9 @@ posts:
   keyword: minimum bend radius sheet metal material chart
   cluster: Sheet Metal Design
   source: autopilot
+- url: https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation
+  date: '2026-08-01'
+  title: True Position Tolerance GD&T Formula Calculation | MetricMech
+  keyword: true position tolerance GD&T formula calculation
+  cluster: GD&T Reference
+  source: autopilot
