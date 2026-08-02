@@ -84,3 +84,21 @@ pages:
   impressions: 325
   added: '2026-07-26'
   status: todo
+- url: https://metricmech.com/articles/aql-sampling-explained
+  reason: striking-distance
+  position: 26.5
+  impressions: 195
+  added: '2026-08-02'
+  status: todo
+- url: https://metricmech.com/articles/go-no-go-gauges
+  reason: striking-distance
+  position: 21.7
+  impressions: 71
+  added: '2026-08-02'
+  status: todo
+- url: https://metricmech.com/calculators/pump-power
+  reason: low-ctr
+  position: 5.7
+  impressions: 58
+  added: '2026-08-02'
+  status: todo
