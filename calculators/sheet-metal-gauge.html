@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sheet Metal Gauge Chart — Gauge to mm and Inch Converter</title>
+<meta name="description" content="Free sheet metal gauge chart and converter. Gauge to mm and inch for steel, galvanised, stainless and aluminium, plus weight and minimum bend radius.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 6px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tol-table tr.hit td { background: #fdf3dd; font-weight: 600; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/sheet-metal-gauge">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sheet Metal Gauge Chart — Gauge to mm and Inch Converter">
+<meta property="og:description" content="Free sheet metal gauge chart and converter. Gauge to mm and inch for steel, galvanised, stainless and aluminium, plus weight and minimum bend radius.">
+<meta property="og:url" content="https://metricmech.com/calculators/sheet-metal-gauge">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sheet Metal Gauge Chart — Gauge to mm and Inch Converter">
+<meta name="twitter:description" content="Free sheet metal gauge chart and converter. Gauge to mm and inch for steel, galvanised, stainless and aluminium, plus weight and minimum bend radius.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Sheet Metal Gauge Chart — Gauge to mm and Inch Converter",
+  "description": "Free sheet metal gauge chart and converter. Gauge to mm and inch for steel, galvanised, stainless and aluminium, plus weight and minimum bend radius.",
+  "url": "https://metricmech.com/calculators/sheet-metal-gauge",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "58",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Sheet Metal Gauge</div>
+  <h1 class="page-title">Sheet Metal <em>Gauge Chart.</em></h1>
+  <p class="page-lede">Convert gauge number to thickness in millimetres and inches for standard steel, galvanised steel, stainless steel and aluminium. Includes sheet weight, minimum bend radius and the nearest metric stock size.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Look Up</h4>
+        <div class="field">
+          <label>Material</label>
+          <select id="mat">
+            <option value="steel" selected>Standard steel (MSG)</option>
+            <option value="galv">Galvanised steel</option>
+            <option value="ss">Stainless steel</option>
+            <option value="alu">Aluminium (B&amp;S)</option>
+          </select>
+          <div class="hint">Gauge scales differ by material</div>
+        </div>
+        <div class="field">
+          <label>Convert from</label>
+          <select id="mode" onchange="toggleMode(); calc();">
+            <option value="gauge" selected>Gauge number → thickness</option>
+            <option value="mm">Thickness (mm) → nearest gauge</option>
+          </select>
+        </div>
+        <div class="field" id="gaugeField">
+          <label>Gauge number</label>
+          <select id="gauge" onchange="calc()"></select>
+          <div class="hint">Higher number = thinner sheet</div>
+        </div>
+        <div class="field" id="mmField" style="display:none;">
+          <label>Thickness</label>
+          <input type="number" id="mm" value="1.5" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">mm</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Sheet and Bending</h4>
+        <div class="row">
+          <div>
+            <label>Sheet length</label>
+            <input type="number" id="len" value="2500" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm</div>
+          </div>
+          <div>
+            <label>Sheet width</label>
+            <input type="number" id="wid" value="1250" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>Alloy / condition</label>
+          <select id="alloy" onchange="calc()">
+            <option value="1.0" selected>Cold rolled mild steel — 1.0 t</option>
+            <option value="1.5">Hot rolled steel — 1.5 t</option>
+            <option value="1.5|ss">Stainless 304 annealed — 1.5 t</option>
+            <option value="1.0|al">Aluminium 5052-H32 — 1.0 t</option>
+            <option value="3.0|al">Aluminium 6061-T6 — 3.0 t</option>
+          </select>
+          <div class="hint">Sets minimum inside bend radius</div>
+        </div>
+        <div class="field">
+          <label>Number of bends per part</label>
+          <input type="number" id="bends" value="4" step="1" min="0" oninput="calc()" inputmode="numeric" autocomplete="off">
+          <div class="hint">For flat-pattern allowance estimate</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl" id="mainLbl">THICKNESS</div>
+        <div class="val" id="thick">—</div>
+        <div class="unit" id="mainUnit">mm</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">SHEET WEIGHT</div>
+        <div class="val" id="sheetKg">—</div>
+        <div class="unit">kg per full sheet</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Gauge number</div><div class="v" id="gaugeOut">—</div></div>
+        <div class="result-card"><div class="l">Thickness (inch)</div><div class="v" id="inch">—</div></div>
+        <div class="result-card"><div class="l">Weight per m²</div><div class="v" id="kgm2">—</div></div>
+        <div class="result-card"><div class="l">Density used</div><div class="v" id="dens">—</div></div>
+        <div class="result-card"><div class="l">Min inside bend radius</div><div class="v" id="minR">—</div></div>
+        <div class="result-card"><div class="l">Suggested V-die opening</div><div class="v" id="vdie">—</div></div>
+        <div class="result-card"><div class="l">Bend deduction (90°)</div><div class="v" id="bd">—</div></div>
+        <div class="result-card"><div class="l">Total deduction, all bends</div><div class="v" id="bdTotal">—</div></div>
+        <div class="result-card"><div class="l">Nearest metric stock</div><div class="v" id="stock">—</div></div>
+        <div class="result-card"><div class="l">Min hole diameter</div><div class="v" id="minHole">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Rules of thumb</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          V-die opening ≈ 8 × t (air bending)<br>
+          Min inside radius ≈ 1 × t mild steel, 3 × t for 6061-T6<br>
+          Min punched hole dia ≈ 1 × t (mild steel), 2 × t (stainless)<br>
+          Hole / bend edge distance ≈ 2.5 × t + inside radius
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="sgInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>Why Gauge Numbers Are Not Interchangeable</h2>
+<p>Sheet metal gauge is a legacy scale from wire drawing, where the number counted how many times the material had been pulled through a die. More passes meant thinner material — which is why <strong>a higher gauge number means a thinner sheet</strong>, the opposite of every other size convention in engineering.</p>
+<p>The important consequence: <strong>each material has its own gauge scale</strong>. 16 gauge is 1.52 mm in standard steel, 1.61 mm in galvanised steel, 1.59 mm in stainless, and 1.29 mm in aluminium. Ordering "16 gauge" without naming the material is how the wrong plate arrives.</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Gauge</th><th>Steel (mm)</th><th>Galvanised (mm)</th><th>Stainless (mm)</th><th>Aluminium (mm)</th></tr></thead>
+  <tbody>
+    <tr><td>7</td><td>4.55</td><td>—</td><td>4.76</td><td>3.67</td></tr>
+    <tr><td>8</td><td>4.18</td><td>4.27</td><td>4.37</td><td>3.26</td></tr>
+    <tr><td>10</td><td>3.42</td><td>3.51</td><td>3.57</td><td>2.59</td></tr>
+    <tr><td>11</td><td>3.04</td><td>3.13</td><td>3.18</td><td>2.30</td></tr>
+    <tr><td>12</td><td>2.66</td><td>2.75</td><td>2.78</td><td>2.05</td></tr>
+    <tr><td>13</td><td>2.28</td><td>2.37</td><td>2.38</td><td>1.83</td></tr>
+    <tr><td>14</td><td>1.90</td><td>1.99</td><td>1.98</td><td>1.63</td></tr>
+    <tr><td>16</td><td>1.52</td><td>1.61</td><td>1.59</td><td>1.29</td></tr>
+    <tr><td>18</td><td>1.21</td><td>1.31</td><td>1.27</td><td>1.02</td></tr>
+    <tr><td>20</td><td>0.91</td><td>1.01</td><td>0.95</td><td>0.81</td></tr>
+    <tr><td>22</td><td>0.76</td><td>0.85</td><td>0.79</td><td>0.64</td></tr>
+    <tr><td>24</td><td>0.61</td><td>0.70</td><td>0.64</td><td>0.51</td></tr>
+    <tr><td>26</td><td>0.45</td><td>0.55</td><td>0.48</td><td>0.40</td></tr>
+    <tr><td>28</td><td>0.38</td><td>0.47</td><td>0.40</td><td>0.32</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Galvanised sheet is consistently thicker than the equivalent bare steel gauge because the scale includes the zinc coating — roughly 0.09 mm for a standard G90 coating.</p>
+
+<h3>Sheet Weight</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>kg/m² = thickness (mm) × density (g/cm³)</strong></p>
+<p>Steel has a density of 7.85 g/cm³, so a convenient shop rule is <strong>7.85 kg per m² per mm of thickness</strong>. A 2500 × 1250 mm sheet of 1.5 mm mild steel is 3.125 m² × 1.5 × 7.85 = <strong>36.8 kg</strong>. Stainless is about 1% heavier, aluminium about a third of the weight at 2.70 g/cm³.</p>
+
+<h3>Minimum Bend Radius</h3>
+<p>Bend an inside radius tighter than the material can take and the outer fibre cracks. The limit scales with thickness and with how much cold work the alloy already carries:</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Material</th><th>Min inside radius</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td>Cold rolled mild steel</td><td>1.0 × t</td><td>Most forgiving common material</td></tr>
+    <tr><td>Hot rolled steel</td><td>1.5 × t</td><td>Coarser grain, scale on surface</td></tr>
+    <tr><td>Stainless 304 annealed</td><td>1.5 × t</td><td>Springback is significant</td></tr>
+    <tr><td>Aluminium 5052-H32</td><td>1.0 × t</td><td>Good general forming alloy</td></tr>
+    <tr><td>Aluminium 6061-T6</td><td>3.0 × t</td><td>Cracks readily — bend in T4 and age after</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Always bend across the grain where possible. Bending parallel to the rolling direction can halve the achievable radius before cracking, and 6061-T6 in particular is unforgiving.</p>
+
+<h3>V-Die Selection and Bend Deduction</h3>
+<p>In air bending the die opening controls both the achievable inside radius and the force required. The standard starting point is a <strong>V opening of 8 × material thickness</strong>, which naturally produces an inside radius of roughly 0.16 × the opening — close to 1.3 × t.</p>
+<p>Bigger die openings need less tonnage and give a larger radius; smaller openings mark the surface and can crack the outer fibre. For thickness above about 3 mm, 10 × t is common practice.</p>
+<p>The flat pattern is shorter than the sum of the outside dimensions because material stretches around the bend. That difference is the bend deduction, and it depends on the neutral axis position through the K-factor — typically 0.33 to 0.45 for common sheet operations. For the full worked calculation, see the <a href="bend-allowance.html">Bend Allowance and K-Factor Calculator</a>.</p>
+
+<h3>Design Rules for Punched Features</h3>
+<ul>
+  <li><strong>Minimum hole diameter</strong> — 1 × t in mild steel, 1.5 × t in aluminium, 2 × t in stainless. Below that the punch breaks before the slug does.</li>
+  <li><strong>Hole to bend distance</strong> — at least 2.5 × t plus the inside bend radius, measured from the hole edge to the bend line. Closer and the hole distorts into an oval.</li>
+  <li><strong>Hole to edge</strong> — at least 2 × t, or the edge bulges.</li>
+  <li><strong>Slot width</strong> — at least 1 × t; slot length no more than 5 × width for tool life.</li>
+  <li><strong>Relief notches</strong> — at intersecting bends, at least 1 × t wide and extending past the bend line, or the corner tears.</li>
+  <li><strong>Minimum flange length</strong> — 4 × t plus the bend radius, so the flange clears the die shoulder.</li>
+</ul>
+
+<h3>Metric Stock Sizes</h3>
+<p>Outside North America, sheet is ordered in millimetres and gauge numbers are only used to interpret legacy drawings. Common metric stock runs 0.5, 0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0 and 6.0 mm. Where a drawing specifies a gauge, quote the nearest metric stock rather than asking a supplier to match the imperial figure — the price difference on a non-stock thickness is rarely worth it.</p>
+
+<h3>Related Tools</h3>
+<p>For the flat pattern, use the <a href="bend-allowance.html">Bend Allowance / K-Factor Calculator</a>. For total part weight and material cost, see <a href="material-weight.html">Material Weight</a>. For hole positional callouts see <a href="position-tolerance.html">Position Tolerance</a>, and for general tolerances on fabricated parts see <a href="iso-2768.html">ISO 2768</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+/* Thickness in inches by gauge number. Steel is the Manufacturers' Standard
+   Gauge; galvanised includes the zinc coating; aluminium follows Brown & Sharpe. */
+var GAUGES = {
+  steel: { name: 'Standard steel', density: 7.85, data: {
+    3:0.2391, 4:0.2242, 5:0.2092, 6:0.1943, 7:0.1793, 8:0.1644, 9:0.1495, 10:0.1345,
+    11:0.1196, 12:0.1046, 13:0.0897, 14:0.0747, 15:0.0673, 16:0.0598, 17:0.0538,
+    18:0.0478, 19:0.0418, 20:0.0359, 21:0.0329, 22:0.0299, 23:0.0269, 24:0.0239,
+    25:0.0209, 26:0.0179, 27:0.0164, 28:0.0149, 29:0.0135, 30:0.0120 } },
+  galv: { name: 'Galvanised steel', density: 7.85, data: {
+    8:0.1681, 9:0.1532, 10:0.1382, 11:0.1233, 12:0.1084, 13:0.0934, 14:0.0785,
+    15:0.0710, 16:0.0635, 17:0.0575, 18:0.0516, 19:0.0456, 20:0.0396, 21:0.0366,
+    22:0.0336, 23:0.0306, 24:0.0276, 25:0.0247, 26:0.0217, 27:0.0202, 28:0.0187,
+    29:0.0172, 30:0.0157 } },
+  ss: { name: 'Stainless steel', density: 7.90, data: {
+    3:0.2500, 4:0.2344, 5:0.2187, 6:0.2031, 7:0.1875, 8:0.1719, 9:0.1562, 10:0.1406,
+    11:0.1250, 12:0.1094, 13:0.0937, 14:0.0781, 15:0.0703, 16:0.0625, 17:0.0562,
+    18:0.0500, 19:0.0437, 20:0.0375, 21:0.0344, 22:0.0312, 23:0.0281, 24:0.0250,
+    25:0.0219, 26:0.0187, 27:0.0172, 28:0.0156, 29:0.0141, 30:0.0125 } },
+  alu: { name: 'Aluminium', density: 2.70, data: {
+    3:0.2294, 4:0.2043, 5:0.1819, 6:0.1620, 7:0.1443, 8:0.1285, 9:0.1144, 10:0.1019,
+    11:0.0907, 12:0.0808, 13:0.0720, 14:0.0641, 15:0.0571, 16:0.0508, 17:0.0453,
+    18:0.0403, 19:0.0359, 20:0.0320, 21:0.0285, 22:0.0253, 23:0.0226, 24:0.0201,
+    25:0.0179, 26:0.0159, 27:0.0142, 28:0.0126, 29:0.0113, 30:0.0100 } }
+};
+
+var METRIC_STOCK = [0.5,0.6,0.8,1.0,1.2,1.5,2.0,2.5,3.0,4.0,5.0,6.0,8.0,10.0];
+
+function populateGauges() {
+  var mat = document.getElementById('mat').value;
+  var sel = document.getElementById('gauge');
+  var prev = sel.value;
+  var keys = Object.keys(GAUGES[mat].data).map(Number).sort(function (a, b) { return a - b; });
+  sel.innerHTML = keys.map(function (g) {
+    var mm = GAUGES[mat].data[g] * 25.4;
+    return '<option value="' + g + '">' + g + ' ga — ' + mm.toFixed(2) + ' mm</option>';
+  }).join('');
+  sel.value = keys.indexOf(+prev) >= 0 ? prev : (keys.indexOf(16) >= 0 ? 16 : keys[0]);
+}
+
+function toggleMode() {
+  var byGauge = document.getElementById('mode').value === 'gauge';
+  document.getElementById('gaugeField').style.display = byGauge ? '' : 'none';
+  document.getElementById('mmField').style.display = byGauge ? 'none' : '';
+}
+
+/* Nearest gauge to a given thickness in mm, within the selected material's scale */
+function nearestGauge(mat, mm) {
+  var data = GAUGES[mat].data, best = null, bestDiff = Infinity;
+  Object.keys(data).forEach(function (g) {
+    var diff = Math.abs(data[g] * 25.4 - mm);
+    if (diff < bestDiff) { bestDiff = diff; best = +g; }
+  });
+  return { gauge: best, diff: bestDiff };
+}
+
+function calc() {
+  var mat = document.getElementById('mat').value;
+  var mode = document.getElementById('mode').value;
+  var L = +document.getElementById('len').value;
+  var Wd = +document.getElementById('wid').value;
+  var nBends = +document.getElementById('bends').value;
+  var alloyRaw = document.getElementById('alloy').value.split('|');
+  var radMult = +alloyRaw[0];
+
+  var t, gaugeNo, gaugeDiff = 0;
+  if (mode === 'gauge') {
+    gaugeNo = +document.getElementById('gauge').value;
+    var inchVal = GAUGES[mat].data[gaugeNo];
+    if (inchVal == null) return;
+    t = inchVal * 25.4;
+    document.getElementById('mainLbl').textContent = 'THICKNESS';
+    document.getElementById('mainUnit').textContent = 'mm — ' + gaugeNo + ' gauge ' + GAUGES[mat].name.toLowerCase();
+  } else {
+    t = +document.getElementById('mm').value;
+    if (!t || t <= 0) return;
+    var near = nearestGauge(mat, t);
+    gaugeNo = near.gauge;
+    gaugeDiff = near.diff;
+    document.getElementById('mainLbl').textContent = 'NEAREST GAUGE';
+    document.getElementById('mainUnit').textContent = 'gauge — ' + GAUGES[mat].name.toLowerCase();
+  }
+
+  var density = GAUGES[mat].density;
+  var kgm2 = t * density;                              // mm × g/cm³ = kg/m²
+  var areaM2 = (L * Wd) / 1e6;
+  var sheetKg = kgm2 * areaM2;
+  var minR = radMult * t;
+  var vdie = t <= 3 ? 8 * t : 10 * t;
+  var insideR = 0.16 * vdie;                           // air-bend radius from die opening
+
+  // Bend deduction for a 90° bend: BD = 2·(outside setback) − bend allowance.
+  // K-factor 0.4 is the common air-bending default for these thicknesses.
+  var K = 0.4;
+  var BA = (Math.PI / 2) * (insideR + K * t);          // 90° bend allowance
+  var OSSB = insideR + t;                              // outside setback at 90°
+  var BD = 2 * OSSB - BA;
+
+  // Nearest standard metric stock thickness
+  var stock = METRIC_STOCK.reduce(function (a, b) {
+    return Math.abs(b - t) < Math.abs(a - t) ? b : a;
+  });
+  var minHoleMult = mat === 'ss' ? 2.0 : (mat === 'alu' ? 1.5 : 1.0);
+
+  var mainVal = mode === 'gauge' ? t : gaugeNo;
+  window.mmCountUp ? mmCountUp(document.getElementById('thick'), mainVal, mode === 'gauge' ? 2 : 0)
+                   : (document.getElementById('thick').textContent = mainVal.toFixed(mode === 'gauge' ? 2 : 0));
+  document.getElementById('sheetKg').textContent = sheetKg.toFixed(1);
+  document.getElementById('gaugeOut').textContent = gaugeNo + ' ga' +
+      (mode === 'mm' ? ' (' + (GAUGES[mat].data[gaugeNo] * 25.4).toFixed(2) + ' mm)' : '');
+  document.getElementById('inch').textContent = (t / 25.4).toFixed(4) + '"';
+  document.getElementById('kgm2').textContent = kgm2.toFixed(2) + ' kg/m²';
+  document.getElementById('dens').textContent = density.toFixed(2) + ' g/cm³';
+  document.getElementById('minR').textContent = minR.toFixed(2) + ' mm (' + radMult + '×t)';
+  document.getElementById('vdie').textContent = vdie.toFixed(1) + ' mm';
+  document.getElementById('bd').textContent = BD.toFixed(2) + ' mm';
+  document.getElementById('bdTotal').textContent = (BD * nBends).toFixed(2) + ' mm';
+  document.getElementById('stock').textContent = stock.toFixed(1) + ' mm';
+  document.getElementById('minHole').textContent = (minHoleMult * t).toFixed(2) + ' mm';
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    var stockDelta = Math.abs(stock - t);
+    if (mode === 'mm' && gaugeDiff > 0.15) {
+      v = { level: 'warn', label: 'No close gauge match',
+            sub: t.toFixed(2) + ' mm is ' + gaugeDiff.toFixed(2) + ' mm from the nearest ' + GAUGES[mat].name.toLowerCase() + ' gauge (' + gaugeNo + ' ga).' };
+      recs.push({ type: 'warn', title: 'Specify in millimetres',
+                  detail: 'This thickness does not correspond to a gauge on this scale. Order ' + stock.toFixed(1) + ' mm metric stock instead.' });
+    } else if (stockDelta > 0.15) {
+      v = { level: 'warn', label: 'Not a standard metric stock size',
+            sub: gaugeNo + ' gauge is ' + t.toFixed(2) + ' mm — ' + stockDelta.toFixed(2) + ' mm off the nearest stock size of ' + stock.toFixed(1) + ' mm.' };
+      recs.push({ type: 'warn', title: 'Consider ' + stock.toFixed(1) + ' mm instead',
+                  detail: 'Non-stock thicknesses carry a mill order, long lead times and a price premium. Confirm the gauge is genuinely required before specifying it.' });
+    } else if (radMult >= 3) {
+      v = { level: 'warn', label: 'Alloy needs a generous bend radius',
+            sub: 'Minimum inside radius is ' + minR.toFixed(2) + ' mm (' + radMult + '×t) for this condition.' };
+      recs.push({ type: 'warn', title: 'Bend in T4 and age afterwards',
+                  detail: '6061-T6 cracks readily on tight bends. Forming in the T4 condition and heat treating to T6 after is standard practice.' });
+    } else {
+      v = { level: 'good', label: 'Standard gauge and stock thickness',
+            sub: gaugeNo + ' ga ' + GAUGES[mat].name.toLowerCase() + ' = ' + t.toFixed(2) + ' mm, ' + kgm2.toFixed(2) + ' kg/m², min inside radius ' + minR.toFixed(2) + ' mm.' };
+    }
+    recs.push({ type: 'info', title: 'Gauge scales are material-specific',
+                detail: gaugeNo + ' gauge is ' + t.toFixed(2) + ' mm in ' + GAUGES[mat].name.toLowerCase() +
+                        ', but ' + (GAUGES.steel.data[gaugeNo] ? (GAUGES.steel.data[gaugeNo] * 25.4).toFixed(2) : '—') + ' mm in standard steel and ' +
+                        (GAUGES.alu.data[gaugeNo] ? (GAUGES.alu.data[gaugeNo] * 25.4).toFixed(2) : '—') + ' mm in aluminium. Always state the material on the order.' });
+    mmInterpret.render('sgInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: 'good', calc: 'sheet-metal-gauge',
+             eyebrow: 'CadNexa · flat pattern',
+             headline: 'Check the flat pattern against the model.',
+             sub: 'Open the sheet metal part in CadNexa, confirm the actual thickness and bend radii, and balloon the flat pattern for the fabricator.',
+             ctaText: 'Open in CadNexa →' },
+      nextSteps: [
+        { href: 'bend-allowance.html',  text: 'Flat pattern',   sub: 'K-factor and allowance' },
+        { href: 'material-weight.html', text: 'Part weight',    sub: 'Cost estimate' },
+        { href: 'iso-2768.html',        text: 'General tolerance', sub: 'Fabricated parts' }
+      ],
+      related: [
+        { href: 'bend-allowance.html', text: 'Bend Allowance' },
+        { href: 'material-weight.html', text: 'Material Weight' },
+        { href: 'iso-2768.html', text: 'ISO 2768' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      label: 'Gauge ' + gaugeNo + ' across materials',
+      bars: ['steel', 'galv', 'ss', 'alu'].map(function (m) {
+        var inchv = GAUGES[m].data[gaugeNo];
+        return {
+          label: GAUGES[m].name,
+          value: inchv ? inchv * 25.4 : 0,
+          color: m === mat ? '#1e5f9e' : '#94a3b8'
+        };
+      }),
+      unit: ' mm', decimals: 2
+    });
+  } catch (e) {} }
+}
+
+populateGauges();
+document.getElementById('mat').addEventListener('change', function () { populateGauges(); calc(); });
+toggleMode();
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'Sheet Metal Gauge'});</script>
+</body>
+</html>

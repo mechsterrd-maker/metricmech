@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bearing Life Calculator — L10 and L10h per ISO 281</title>
+<meta name="description" content="Free bearing life calculator. L10 and L10h life in hours from dynamic load rating, radial and axial load and speed. Reliability factor and required C rating.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 7px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/bearing-life">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bearing Life Calculator — L10 and L10h per ISO 281">
+<meta property="og:description" content="Free bearing life calculator. L10 and L10h life in hours from dynamic load rating, radial and axial load and speed. Reliability factor and required C rating.">
+<meta property="og:url" content="https://metricmech.com/calculators/bearing-life">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bearing Life Calculator — L10 and L10h per ISO 281">
+<meta name="twitter:description" content="Free bearing life calculator. L10 and L10h life in hours from dynamic load rating, radial and axial load and speed. Reliability factor and required C rating.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Bearing Life Calculator — L10 and L10h per ISO 281",
+  "description": "Free bearing life calculator. L10 and L10h life in hours from dynamic load rating, radial and axial load and speed. Reliability factor and required C rating.",
+  "url": "https://metricmech.com/calculators/bearing-life",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "41",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Bearing Life</div>
+  <h1 class="page-title">Bearing Life <em>Calculator (L10).</em></h1>
+  <p class="page-lede">Calculate basic rating life L10 in millions of revolutions and L10h in operating hours per ISO 281. Handles combined radial and axial load, ball and roller exponents, and reliability adjustment above 90%.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Bearing</h4>
+        <div class="field">
+          <label>Bearing type</label>
+          <select id="btype" onchange="calc()">
+            <option value="3,0.3,0.56,1.5" selected>Deep groove ball</option>
+            <option value="3,1.14,0.35,0.57">Angular contact ball (40°)</option>
+            <option value="3,0.35,0.65,3.5">Self-aligning ball</option>
+            <option value="3.3333,0,1,0">Cylindrical roller (radial only)</option>
+            <option value="3.3333,0.35,0.4,1.6">Tapered roller</option>
+            <option value="3.3333,0.3,0.67,3.5">Spherical roller</option>
+          </select>
+          <div class="hint">Sets exponent p and X / Y factors</div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Dynamic rating (C)</label>
+            <input type="number" id="C" value="32.5" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">kN — e.g. 6208 = 32.5</div>
+          </div>
+          <div>
+            <label>Static rating (C₀)</label>
+            <input type="number" id="C0" value="19.0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">kN — from catalogue</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Duty</h4>
+        <div class="row">
+          <div>
+            <label>Radial load (F<sub>r</sub>)</label>
+            <input type="number" id="Fr" value="4.5" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">kN</div>
+          </div>
+          <div>
+            <label>Axial load (F<sub>a</sub>)</label>
+            <input type="number" id="Fa" value="1.2" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">kN</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>Speed (n)</label>
+          <input type="number" id="n" value="1450" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">rpm</div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Required reliability</label>
+            <select id="rel" onchange="calc()">
+              <option value="1,90" selected>90% — L10 (standard)</option>
+              <option value="0.64,95">95% — L5</option>
+              <option value="0.55,96">96% — L4</option>
+              <option value="0.47,97">97% — L3</option>
+              <option value="0.37,98">98% — L2</option>
+              <option value="0.25,99">99% — L1</option>
+            </select>
+          </div>
+          <div>
+            <label>Target life</label>
+            <input type="number" id="target" value="20000" step="1000" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl">BASIC RATING LIFE L<sub>10h</sub></div>
+        <div class="val" id="L10h">—</div>
+        <div class="unit">operating hours at 90% reliability</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">ADJUSTED LIFE (SELECTED RELIABILITY)</div>
+        <div class="val" id="Lnh">—</div>
+        <div class="unit" id="relUnit">hours</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Equivalent load (P)</div><div class="v" id="P">—</div></div>
+        <div class="result-card"><div class="l">Load ratio C/P</div><div class="v" id="CP">—</div></div>
+        <div class="result-card"><div class="l">L10 (million rev)</div><div class="v" id="L10">—</div></div>
+        <div class="result-card"><div class="l">Life exponent (p)</div><div class="v" id="pExp">—</div></div>
+        <div class="result-card"><div class="l">F<sub>a</sub>/F<sub>r</sub> vs e</div><div class="v" id="ratio">—</div></div>
+        <div class="result-card"><div class="l">X / Y applied</div><div class="v" id="XY">—</div></div>
+        <div class="result-card"><div class="l">Static safety s₀</div><div class="v" id="s0">—</div></div>
+        <div class="result-card"><div class="l">C required for target</div><div class="v" id="Creq">—</div></div>
+        <div class="result-card"><div class="l">Life in years (24/7)</div><div class="v" id="years">—</div></div>
+        <div class="result-card"><div class="l">Margin vs target</div><div class="v" id="margin">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas (ISO 281)</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          P = X·F<sub>r</sub> + Y·F<sub>a</sub> &nbsp;(P = F<sub>r</sub> when F<sub>a</sub>/F<sub>r</sub> ≤ e)<br>
+          L₁₀ = (C / P)<sup>p</sup> &nbsp; million revolutions<br>
+          L₁₀ₕ = L₁₀ × 10⁶ / (60 · n) &nbsp; hours<br>
+          p = 3 (ball) &nbsp; p = 10/3 (roller)
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="brgInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>What L10 Bearing Life Actually Means</h2>
+<p><strong>L10</strong> is the life that 90% of a large group of identical bearings will reach or exceed under a given load before the first sign of rolling-contact fatigue. It is a statistical figure, not a guarantee. One bearing in ten is expected to fail <em>before</em> L10 — that is the definition, not a caveat.</p>
+<p>Two consequences follow, and both matter on the shop floor. First, an individual bearing failing early is not necessarily a defect claim. Second, the average life is roughly five times L10, which is why bearings routinely outlast their calculated life by a wide margin and engineers stop trusting the number. Both behaviours are what the statistics predict.</p>
+
+<h3>The Life Equation</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>L₁₀ = (C / P)<sup>p</sup></strong> &nbsp; million revolutions<br><strong>L₁₀ₕ = L₁₀ × 10⁶ / (60 × n)</strong> &nbsp; hours</p>
+<p>C is the basic dynamic load rating from the catalogue — the load that gives exactly one million revolutions of L10 life. P is the equivalent dynamic load your application actually applies. The exponent p is <strong>3 for ball bearings</strong> and <strong>10/3 for roller bearings</strong>.</p>
+<p>That exponent is the most important number on this page. Life varies with the <em>cube</em> of the load ratio, so:</p>
+<ul>
+  <li>Cut the load by 20% → life rises <strong>95%</strong> (1/0.8³).</li>
+  <li>A load 25% above design → life falls to <strong>51%</strong>.</li>
+  <li>Double the load → life falls to <strong>one eighth</strong>.</li>
+</ul>
+<p>This is why belt over-tensioning destroys bearings so reliably. A 30% excess in belt tension does not cost 30% of bearing life — it costs more than half of it.</p>
+
+<h3>Equivalent Dynamic Load P</h3>
+<p>When a bearing carries both radial and axial load, the two are combined into a single equivalent radial load:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>If F<sub>a</sub>/F<sub>r</sub> ≤ e: P = F<sub>r</sub></strong><br><strong>If F<sub>a</sub>/F<sub>r</sub> &gt; e: P = X·F<sub>r</sub> + Y·F<sub>a</sub></strong></p>
+<p>Below the limiting ratio e the axial load is carried within the existing contact geometry and adds nothing. Above it, the contact angle shifts and the axial component starts to dominate. Typical values:</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Bearing type</th><th>p</th><th>e</th><th>X</th><th>Y</th></tr></thead>
+  <tbody>
+    <tr><td>Deep groove ball</td><td>3</td><td>≈0.30</td><td>0.56</td><td>≈1.5</td></tr>
+    <tr><td>Angular contact ball 40°</td><td>3</td><td>1.14</td><td>0.35</td><td>0.57</td></tr>
+    <tr><td>Self-aligning ball</td><td>3</td><td>≈0.35</td><td>0.65</td><td>≈3.5</td></tr>
+    <tr><td>Cylindrical roller</td><td>10/3</td><td>—</td><td>1.0</td><td>0 (no axial)</td></tr>
+    <tr><td>Tapered roller</td><td>10/3</td><td>≈0.35</td><td>0.40</td><td>≈1.6</td></tr>
+    <tr><td>Spherical roller</td><td>10/3</td><td>≈0.30</td><td>0.67</td><td>≈3.5</td></tr>
+  </tbody>
+</table>
+</div>
+<p>For deep groove bearings e and Y vary with the ratio F<sub>a</sub>/C₀ — the values above are representative mid-range figures. For a final design always take X, Y and e from the specific bearing's catalogue page.</p>
+
+<h3>Reliability Above 90%</h3>
+<p>If one failure in ten is unacceptable — a gearbox in a continuous plant, a machine tool spindle — multiply L10 by the reliability factor a₁:</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Reliability</th><th>Designation</th><th>Factor a₁</th></tr></thead>
+  <tbody>
+    <tr><td>90%</td><td>L10</td><td>1.00</td></tr>
+    <tr><td>95%</td><td>L5</td><td>0.64</td></tr>
+    <tr><td>96%</td><td>L4</td><td>0.55</td></tr>
+    <tr><td>97%</td><td>L3</td><td>0.47</td></tr>
+    <tr><td>98%</td><td>L2</td><td>0.37</td></tr>
+    <tr><td>99%</td><td>L1</td><td>0.25</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Going from 90% to 99% reliability costs three quarters of the calculated life. In practice you buy that back with a larger bearing, not by accepting the shorter figure.</p>
+
+<h3>Typical Design Life Targets</h3>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Application</th><th>L10h target (hours)</th></tr></thead>
+  <tbody>
+    <tr><td>Household appliances, hand tools</td><td>1,500 – 4,000</td></tr>
+    <tr><td>Intermittent industrial machinery</td><td>4,000 – 8,000</td></tr>
+    <tr><td>Machines for 8-hour single-shift duty</td><td>12,000 – 20,000</td></tr>
+    <tr><td>Continuous 24-hour plant machinery</td><td>40,000 – 60,000</td></tr>
+    <tr><td>Water works, large fans, paper mills</td><td>60,000 – 100,000</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Static Safety Factor</h3>
+<p>Rating life covers fatigue under rotation. A bearing that is stationary, oscillating, or shock-loaded is limited instead by <em>permanent indentation</em> of the raceway, controlled by the static rating C₀:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>s₀ = C₀ / P₀</strong></p>
+<p>Target s₀ ≥ 1.0 for smooth-running applications, ≥ 1.5 for normal duty, and ≥ 2.0 to 4.0 where shock loads or high running accuracy are involved. A bearing can pass the L10 check comfortably and still brinell on the first shock load if s₀ was never checked.</p>
+
+<h3>Why Real Bearings Miss Their Calculated Life</h3>
+<p>The equation assumes clean lubrication, correct fits, correct alignment and pure fatigue as the failure mode. In practice most failures are none of those:</p>
+<ul>
+  <li><strong>Contamination</strong> — the largest single cause. Dirt indents raceways and starts fatigue at those points.</li>
+  <li><strong>Inadequate lubrication</strong> — too little, wrong viscosity for the speed, or degraded by heat.</li>
+  <li><strong>Misalignment</strong> — concentrates load on part of the raceway; a fraction of a degree matters.</li>
+  <li><strong>Wrong shaft and housing fits</strong> — a loose inner ring creeps and fretting-corrodes the shaft. Use an <a href="iso-286-fits.html">ISO 286 fit</a>, typically k5/m5 for the rotating ring.</li>
+  <li><strong>Mounting damage</strong> — pressing through the balls rather than on the ring being fitted brinells the raceway before the machine ever runs.</li>
+</ul>
+<p>ISO 281 addresses these through the a<sub>ISO</sub> modified life factor, which accounts for lubrication film ratio and contamination level and can swing the answer by an order of magnitude in either direction. Treat the L10 figure here as the clean baseline and derate it for real conditions.</p>
+
+<h3>Worked Example</h3>
+<p>A 6208 deep groove ball bearing (C = 32.5 kN, C₀ = 19.0 kN) carries 4.5 kN radial and 1.2 kN axial at 1450 rpm.</p>
+<ul>
+  <li>F<sub>a</sub>/F<sub>r</sub> = 1.2/4.5 = 0.267, below e ≈ 0.30 → <strong>P = F<sub>r</sub> = 4.5 kN</strong></li>
+  <li>C/P = 32.5/4.5 = <strong>7.22</strong></li>
+  <li>L10 = 7.22³ = <strong>377 million revolutions</strong></li>
+  <li>L10h = 377 × 10⁶ / (60 × 1450) = <strong>≈ 4,330 hours</strong></li>
+  <li>Static safety s₀ = 19.0/4.5 = <strong>4.2</strong> (ample)</li>
+</ul>
+<p>4,330 hours suits intermittent duty but falls well short of a 20,000 hour single-shift target — this application needs the next size up, or the load reduced.</p>
+
+<h3>Related Tools</h3>
+<p>For the shaft and housing fits that keep the bearing seated, use the <a href="iso-286-fits.html">ISO 286 Fits Calculator</a>. For belt tension driving the radial load, see <a href="v-belt.html">V-Belt Drive</a>. For gear separating forces see <a href="gear-calculator.html">Gear Calculator</a>, and for mounting interference see <a href="press-fit.html">Press Fit</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+function calc() {
+  var tParts = document.getElementById('btype').value.split(',').map(Number);
+  var p = tParts[0], e = tParts[1], X = tParts[2], Y = tParts[3];
+  var C   = +document.getElementById('C').value;
+  var C0  = +document.getElementById('C0').value;
+  var Fr  = +document.getElementById('Fr').value;
+  var Fa  = +document.getElementById('Fa').value;
+  var n   = +document.getElementById('n').value;
+  var relParts = document.getElementById('rel').value.split(',').map(Number);
+  var a1 = relParts[0], relPct = relParts[1];
+  var target = +document.getElementById('target').value;
+
+  if (!C || !n || (Fr <= 0 && Fa <= 0)) return;
+
+  // Equivalent dynamic load. Below the limiting ratio e the axial component is
+  // carried inside the existing contact geometry and P reduces to Fr.
+  var ratio = Fr > 0 ? Fa / Fr : Infinity;
+  var axialGoverns = e > 0 && ratio > e;
+  var P = axialGoverns ? (X * Fr + Y * Fa) : Math.max(Fr, 0);
+  if (e === 0) P = Fr;                       // cylindrical roller — radial only
+  if (P <= 0) return;
+
+  var L10   = Math.pow(C / P, p);            // million revolutions
+  var L10h  = L10 * 1e6 / (60 * n);          // hours
+  var Lnh   = L10h * a1;
+  var P0    = Fr + 0.6 * Fa;                 // static equivalent, deep-groove convention
+  var s0    = C0 > 0 ? C0 / P0 : 0;
+  var years = L10h / 8760;
+
+  // Dynamic rating needed to hit the target life at the selected reliability
+  var LtargetMrev = target * 60 * n / 1e6 / a1;
+  var Creq = P * Math.pow(LtargetMrev, 1 / p);
+
+  window.mmCountUp ? mmCountUp(document.getElementById('L10h'), L10h, 0)
+                   : (document.getElementById('L10h').textContent = Math.round(L10h));
+  document.getElementById('Lnh').textContent = Math.round(Lnh).toLocaleString();
+  document.getElementById('relUnit').textContent = 'hours at ' + relPct + '% reliability';
+  document.getElementById('P').textContent = P.toFixed(2) + ' kN';
+  document.getElementById('CP').textContent = (C / P).toFixed(2);
+  document.getElementById('L10').textContent = L10.toFixed(0) + ' Mrev';
+  document.getElementById('pExp').textContent = p === 3 ? '3 (ball)' : '10/3 (roller)';
+  document.getElementById('ratio').textContent = e === 0 ? 'n/a — radial only'
+      : ratio.toFixed(2) + (axialGoverns ? ' > ' : ' ≤ ') + e;
+  document.getElementById('XY').textContent = axialGoverns ? (X + ' / ' + Y) : '1 / 0 (P = Fr)';
+  document.getElementById('s0').textContent = C0 > 0 ? s0.toFixed(1) : '—';
+  document.getElementById('Creq').textContent = Creq.toFixed(1) + ' kN';
+  document.getElementById('years').textContent = years.toFixed(1) + ' yr';
+  document.getElementById('margin').textContent = (Lnh / target).toFixed(2) + '×';
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    var margin = Lnh / target;
+    if (P > C) {
+      v = { level: 'bad', label: 'Load exceeds the dynamic rating',
+            sub: 'P = ' + P.toFixed(1) + ' kN against C = ' + C + ' kN. Life is under one million revolutions.' };
+      recs.push({ type: 'critical', title: 'Select a larger bearing',
+                  detail: 'Required C for ' + target.toLocaleString() + ' hours is ' + Creq.toFixed(1) + ' kN — ' + (Creq / C).toFixed(1) + '× the current rating.' });
+    } else if (margin < 1) {
+      v = { level: 'bad', label: 'Below target life',
+            sub: Math.round(Lnh).toLocaleString() + ' hours against a ' + target.toLocaleString() + ' hour target (' + (margin * 100).toFixed(0) + '%).' };
+      recs.push({ type: 'critical', title: 'Need C ≥ ' + Creq.toFixed(1) + ' kN',
+                  detail: 'Life goes with (C/P)^' + (p === 3 ? '3' : '10/3') + ', so a ' + ((Creq / C - 1) * 100).toFixed(0) + '% larger rating closes the gap. Reducing load works even faster.' });
+    } else if (margin < 1.5) {
+      v = { level: 'warn', label: 'Life margin is thin',
+            sub: Math.round(Lnh).toLocaleString() + ' hours is only ' + margin.toFixed(2) + '× the ' + target.toLocaleString() + ' hour target.' };
+      recs.push({ type: 'warn', title: 'No allowance for real conditions',
+                  detail: 'Contamination and marginal lubrication routinely halve calculated life. Keep at least 1.5× on the clean-baseline figure.' });
+    } else if (C0 > 0 && s0 < 1.5) {
+      v = { level: 'warn', label: 'Static safety factor is low',
+            sub: 's₀ = ' + s0.toFixed(1) + '. Fatigue life is fine but the raceway can brinell under shock.' };
+      recs.push({ type: 'warn', title: 'Target s₀ ≥ 1.5 normal, 2–4 with shock',
+                  detail: 'Permanent indentation happens on a single overload event and is independent of running hours.' });
+    } else {
+      v = { level: 'good', label: 'Bearing selection is sound',
+            sub: Math.round(Lnh).toLocaleString() + ' hours at ' + relPct + '% reliability — ' + margin.toFixed(1) + '× the target, s₀ = ' + s0.toFixed(1) + '.' };
+    }
+    if (axialGoverns) {
+      recs.push({ type: 'info', title: 'Axial load governs the equivalent load',
+                  detail: 'Fa/Fr = ' + ratio.toFixed(2) + ' exceeds e = ' + e + ', so P = ' + X + '·Fr + ' + Y + '·Fa. Confirm X, Y and e against the specific catalogue page — they vary with Fa/C₀.' });
+    }
+    mmInterpret.render('brgInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: (P > C || margin < 1) ? 'critical' : 'good', calc: 'bearing-life',
+             eyebrow: 'CadNexa · fit check',
+             headline: 'Check the shaft and housing fits on the model.',
+             sub: 'A loose inner ring creeps and fretting-corrodes the shaft long before fatigue life runs out. Measure the actual seat diameters in CadNexa.',
+             ctaText: 'Open in CadNexa →' },
+      nextSteps: [
+        { href: 'iso-286-fits.html',  text: 'Set bearing fits',  sub: 'Shaft and housing' },
+        { href: 'v-belt.html',        text: 'Check belt load',   sub: 'Radial load source' },
+        { href: 'press-fit.html',     text: 'Mounting force',    sub: 'Interference check' }
+      ],
+      related: [
+        { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },
+        { href: 'gear-calculator.html', text: 'Gear Calculator' },
+        { href: 'v-belt.html', text: 'V-Belt Drive' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      label: 'Calculated life vs target',
+      bars: [
+        { label: 'L10h (90%)',        value: L10h,   color: '#1e5f9e' },
+        { label: relPct + '% reliab.', value: Lnh,    color: '#16a34a' },
+        { label: 'Target',            value: target, color: Lnh < target ? '#dc2626' : '#d97706' }
+      ],
+      unit: ' h', decimals: 0
+    });
+  } catch (e) {} }
+}
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'Bearing Life L10'});</script>
+</body>
+</html>

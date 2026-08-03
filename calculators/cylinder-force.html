@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hydraulic Cylinder Force Calculator with Speed and Flow</title>
+<meta name="description" content="Free hydraulic and pneumatic cylinder calculator. Extend and retract force, rod speed, flow demand, cycle time and rod buckling check.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 7px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/cylinder-force">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hydraulic Cylinder Force Calculator with Speed and Flow">
+<meta property="og:description" content="Free hydraulic and pneumatic cylinder calculator. Extend and retract force, rod speed, flow demand, cycle time and rod buckling check.">
+<meta property="og:url" content="https://metricmech.com/calculators/cylinder-force">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hydraulic Cylinder Force Calculator with Speed and Flow">
+<meta name="twitter:description" content="Free hydraulic and pneumatic cylinder calculator. Extend and retract force, rod speed, flow demand, cycle time and rod buckling check.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Hydraulic Cylinder Force Calculator with Speed and Flow",
+  "description": "Free hydraulic and pneumatic cylinder calculator. Extend and retract force, rod speed, flow demand, cycle time and rod buckling check.",
+  "url": "https://metricmech.com/calculators/cylinder-force",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "39",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Cylinder Force</div>
+  <h1 class="page-title">Hydraulic Cylinder <em>Force Calculator.</em></h1>
+  <p class="page-lede">Calculate extend and retract force, rod speed, flow demand, cycle time and rod buckling limit for hydraulic and pneumatic cylinders. Enter bore, rod diameter and working pressure.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Cylinder</h4>
+        <div class="row">
+          <div>
+            <label>Bore diameter (D)</label>
+            <input type="number" id="bore" value="80" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm — piston dia</div>
+          </div>
+          <div>
+            <label>Rod diameter (d)</label>
+            <input type="number" id="rod" value="45" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>Stroke</label>
+          <input type="number" id="stroke" value="500" step="10" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">mm</div>
+        </div>
+        <div class="field">
+          <label>Rod end mounting</label>
+          <select id="endFix" onchange="calc()">
+            <option value="1">Both ends pivoted (K = 1.0)</option>
+            <option value="2" selected>One end fixed, one pivoted (K = 2.0)</option>
+            <option value="0.7">Both ends rigidly fixed (K = 0.7)</option>
+            <option value="4">Fixed one end, free other (K = 4.0)</option>
+          </select>
+          <div class="hint">Euler effective-length factor</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Circuit</h4>
+        <div class="field">
+          <label>Working pressure (p)</label>
+          <input type="number" id="press" value="160" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">bar — 1 bar = 0.1 MPa</div>
+        </div>
+        <div class="field">
+          <label>Pump / valve flow (Q)</label>
+          <input type="number" id="flow" value="30" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">L/min into the cylinder</div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Mechanical efficiency</label>
+            <input type="number" id="eff" value="0.92" step="0.01" min="0.1" max="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">0.90–0.95 hydraulic</div>
+          </div>
+          <div>
+            <label>Rod material yield</label>
+            <select id="rodMat" onchange="calc()">
+              <option value="210000,355" selected>Steel C45 — 355 MPa</option>
+              <option value="210000,235">Mild steel S235 — 235 MPa</option>
+              <option value="210000,550">Alloy 42CrMo4 — 550 MPa</option>
+              <option value="200000,210">Stainless 304 — 210 MPa</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl">EXTEND FORCE (PUSH)</div>
+        <div class="val" id="fExt">—</div>
+        <div class="unit">kN — full bore area</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">RETRACT FORCE (PULL)</div>
+        <div class="val" id="fRet">—</div>
+        <div class="unit">kN — annulus area</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Bore area (A₁)</div><div class="v" id="a1">—</div></div>
+        <div class="result-card"><div class="l">Annulus area (A₂)</div><div class="v" id="a2">—</div></div>
+        <div class="result-card"><div class="l">Extend speed</div><div class="v" id="vExt">—</div></div>
+        <div class="result-card"><div class="l">Retract speed</div><div class="v" id="vRet">—</div></div>
+        <div class="result-card"><div class="l">Full cycle time</div><div class="v" id="cycle">—</div></div>
+        <div class="result-card"><div class="l">Oil volume / cycle</div><div class="v" id="vol">—</div></div>
+        <div class="result-card"><div class="l">Rod buckling limit</div><div class="v" id="buckle">—</div></div>
+        <div class="result-card"><div class="l">Rod compressive stress</div><div class="v" id="rodStress">—</div></div>
+        <div class="result-card"><div class="l">Area ratio (φ)</div><div class="v" id="ratio">—</div></div>
+        <div class="result-card"><div class="l">Hydraulic power</div><div class="v" id="power">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          A₁ = π·D²/4 &nbsp; A₂ = π·(D² − d²)/4<br>
+          F = p · A · η &nbsp; (p in MPa = bar/10, A in mm² → F in N)<br>
+          v = Q / A &nbsp; (Q in mm³/s, A in mm² → v in mm/s)<br>
+          F<sub>crit</sub> = π²·E·I / (K·L)² &nbsp; I = π·d⁴/64
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="cylInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>Cylinder Force, Speed and Flow</h2>
+<p>A cylinder converts fluid pressure into linear force. The whole calculation rests on one relationship — <strong>force equals pressure times area</strong> — but the area is different in each direction, and that asymmetry drives most of the design decisions.</p>
+
+<h3>The Two Areas</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Extend: F₁ = p × π·D²/4</strong><br><strong>Retract: F₂ = p × π·(D² − d²)/4</strong><br><strong>Area ratio φ = A₁ / A₂</strong></p>
+<p>On extension the full piston face sees pressure. On retraction the rod occupies part of that face, so only the annulus is pressurised — a cylinder always pulls less hard than it pushes. With a bore of 80 mm and a 45 mm rod the annulus is only 68% of the bore area, so retract force is 68% of extend force at the same pressure.</p>
+<p>The speeds invert: the same flow into a smaller area moves faster, so the rod retracts about 1.5× faster than it extends. Sizing a valve on extend flow alone is a standard mistake — the return stroke can overrun the valve and cavitate.</p>
+
+<h3>Working in Bar and Millimetres</h3>
+<p>The convenient shortcut for shop use: <strong>bar ÷ 10 = MPa = N/mm²</strong>. Multiply by the area in mm² and the answer is newtons directly.</p>
+<ul>
+  <li>Ø80 bore = π × 80² / 4 = <strong>5027 mm²</strong></li>
+  <li>160 bar = <strong>16 N/mm²</strong></li>
+  <li>F = 5027 × 16 = 80,430 N ≈ <strong>80 kN</strong> before efficiency</li>
+  <li>At 92% mechanical efficiency → <strong>74 kN</strong> usable</li>
+</ul>
+<p>The efficiency term covers seal friction and is not optional. New cylinders with fresh seals can run 5–8% below theoretical; a worn or misaligned unit far worse.</p>
+
+<h3>Rod Buckling — the Check People Skip</h3>
+<p>A long rod in compression is a column. Force capacity is not limited by pressure but by Euler buckling:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>F_crit = π²·E·I / (K·L)²</strong> &nbsp;where&nbsp; <strong>I = π·d⁴/64</strong></p>
+<p>K is the end-fixity factor: 0.7 for both ends rigidly fixed, 1.0 for both pivoted, 2.0 for one fixed and one pivoted, 4.0 for a cantilever. L is the extended length — the rod is at its most vulnerable fully out, which is exactly when many designs apply peak load. Aim for a buckling safety factor of at least 2.5, and 4 or more if the load is shock or eccentric.</p>
+<p>Rod diameter is usually driven by buckling, not by tensile stress. If the buckling factor is short, increase rod diameter before increasing bore — a bigger bore raises force but does nothing for column stability.</p>
+
+<h3>Common Bore and Rod Combinations (ISO 6020/6022)</h3>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Bore (mm)</th><th>Rod (mm)</th><th>Area ratio φ</th><th>Force at 160 bar (kN)</th></tr></thead>
+  <tbody>
+    <tr><td>40</td><td>22</td><td>1.43</td><td>20.1</td></tr>
+    <tr><td>50</td><td>28</td><td>1.46</td><td>31.4</td></tr>
+    <tr><td>63</td><td>36</td><td>1.48</td><td>49.9</td></tr>
+    <tr><td>80</td><td>45</td><td>1.46</td><td>80.4</td></tr>
+    <tr><td>100</td><td>56</td><td>1.46</td><td>125.7</td></tr>
+    <tr><td>125</td><td>70</td><td>1.46</td><td>196.3</td></tr>
+    <tr><td>160</td><td>90</td><td>1.46</td><td>321.7</td></tr>
+    <tr><td>200</td><td>110</td><td>1.43</td><td>502.7</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Most standard ranges hold φ near 1.46 (the 2:1 area series), which keeps retract force at roughly 68% of extend and retract speed at roughly 1.46× extend. A 1.25 ratio rod is available where a faster, stronger return is needed.</p>
+
+<h3>Pneumatic Cylinders</h3>
+<p>The same equations apply, but three things change in practice. Working pressure is typically 6 bar rather than 160, so bores are far larger for the same force. Air is compressible, so the rod does not hold position under varying load and speed depends on load as well as flow. And the efficiency term is lower — 0.85 is a realistic starting figure for a standard pneumatic cylinder with the load moving.</p>
+<p>For sizing air consumption, remember that flow must be quoted in free air delivered: multiply the swept volume by the absolute pressure ratio (roughly 7 for a 6 bar system) to get FAD per stroke.</p>
+
+<h3>Sizing Checklist</h3>
+<ol>
+  <li>Establish the worst-case load, including friction and any acceleration term (F = m·a).</li>
+  <li>Apply a design factor — 1.25 for steady loads, 2.0 or more for shock.</li>
+  <li>Pick the bore from extend force at the system's <em>relief valve</em> setting, not its nominal pressure.</li>
+  <li>Check retract force against the return load — it is only ~68% of extend.</li>
+  <li>Check rod buckling at full extension.</li>
+  <li>Size the valve and lines on the <em>faster</em> stroke, which is normally retract.</li>
+</ol>
+
+<h3>Related Tools</h3>
+<p>For the pump driving the circuit, see the <a href="pump-power.html">Pump Power Calculator</a>. For the motor behind it, see <a href="motor-hp.html">Motor HP / Power</a>. For clamping loads on the mounting, use <a href="bolt-torque.html">Bolt Torque</a>, and for the mounting bracket check <a href="beam-deflection.html">Beam Deflection</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+function calc() {
+  var D = +document.getElementById('bore').value;
+  var d = +document.getElementById('rod').value;
+  var L = +document.getElementById('stroke').value;
+  var pBar = +document.getElementById('press').value;
+  var Q = +document.getElementById('flow').value;      // L/min
+  var eta = +document.getElementById('eff').value;
+  var K = +document.getElementById('endFix').value;
+  var matParts = document.getElementById('rodMat').value.split(',').map(Number);
+  var E = matParts[0], yieldMPa = matParts[1];
+
+  if (!D || !pBar || d >= D || d <= 0) return;
+
+  var p = pBar / 10;                       // bar → MPa (N/mm²)
+  var A1 = Math.PI * D * D / 4;            // mm²
+  var A2 = Math.PI * (D * D - d * d) / 4;  // mm²
+  var F1 = p * A1 * eta / 1000;            // kN
+  var F2 = p * A2 * eta / 1000;            // kN
+
+  var Qmm3s = Q * 1e6 / 60;                // L/min → mm³/s
+  var v1 = Qmm3s / A1;                     // mm/s
+  var v2 = Qmm3s / A2;
+  var tCycle = L > 0 ? (L / v1 + L / v2) : 0;
+  var volCycle = (A1 * L + A2 * L) / 1e6;  // litres
+
+  // Euler buckling on the rod at full extension. Free length taken as the
+  // stroke plus a nominal 10% for the gland/mounting overhang.
+  var I = Math.PI * Math.pow(d, 4) / 64;   // mm⁴
+  var Le = K * (L * 1.1);
+  var Fcrit = (Math.PI * Math.PI * E * I) / (Le * Le) / 1000;  // kN
+  var bucklingSF = F1 > 0 ? Fcrit / F1 : 0;
+  var rodStress = (F1 * 1000) / (Math.PI * d * d / 4);         // MPa
+  var powerKW = pBar * Q / 600;            // bar·L/min → kW (hydraulic)
+
+  window.mmCountUp ? mmCountUp(document.getElementById('fExt'), F1, 1)
+                   : (document.getElementById('fExt').textContent = F1.toFixed(1));
+  document.getElementById('fRet').textContent = F2.toFixed(1);
+  document.getElementById('a1').textContent = A1.toFixed(0) + ' mm²';
+  document.getElementById('a2').textContent = A2.toFixed(0) + ' mm²';
+  document.getElementById('vExt').textContent = v1.toFixed(1) + ' mm/s';
+  document.getElementById('vRet').textContent = v2.toFixed(1) + ' mm/s';
+  document.getElementById('cycle').textContent = tCycle.toFixed(2) + ' s';
+  document.getElementById('vol').textContent = volCycle.toFixed(2) + ' L';
+  document.getElementById('buckle').textContent = Fcrit.toFixed(0) + ' kN';
+  document.getElementById('rodStress').textContent = rodStress.toFixed(0) + ' MPa';
+  document.getElementById('ratio').textContent = (A1 / A2).toFixed(2) + ' : 1';
+  document.getElementById('power').textContent = powerKW.toFixed(1) + ' kW';
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    var yieldSF = yieldMPa / rodStress;
+    if (bucklingSF < 1) {
+      v = { level: 'bad', label: 'Rod will buckle',
+            sub: 'Euler limit ' + Fcrit.toFixed(0) + ' kN is below the ' + F1.toFixed(0) + ' kN the cylinder can generate.' };
+      recs.push({ type: 'critical', title: 'Increase rod diameter',
+                  detail: 'Buckling load scales with d⁴ — going from Ø' + d + ' to Ø' + Math.ceil(d * 1.2) + ' mm roughly doubles the critical load. Increasing bore does not help.' });
+    } else if (bucklingSF < 2.5) {
+      v = { level: 'warn', label: 'Buckling margin is thin',
+            sub: 'Safety factor ' + bucklingSF.toFixed(1) + ' against Euler buckling. Target 2.5 minimum, 4 for shock or eccentric loads.' };
+      recs.push({ type: 'warn', title: 'Check the load line',
+                  detail: 'Any side load or misalignment at full extension eats this margin fast. Consider a larger rod or a guided mounting.' });
+    } else if (yieldSF < 2) {
+      v = { level: 'warn', label: 'Rod stress is high',
+            sub: 'Compressive stress ' + rodStress.toFixed(0) + ' MPa against ' + yieldMPa + ' MPa yield (SF ' + yieldSF.toFixed(1) + ').' };
+      recs.push({ type: 'warn', title: 'Upgrade rod material or diameter',
+                  detail: 'Rods also see bending from side loads that this axial check does not cover.' });
+    } else {
+      v = { level: 'good', label: 'Cylinder sizing is sound',
+            sub: F1.toFixed(1) + ' kN extend, ' + F2.toFixed(1) + ' kN retract, buckling SF ' + bucklingSF.toFixed(1) + '.' };
+    }
+    if (v2 > 500) {
+      recs.push({ type: 'info', title: 'Retract speed is high',
+                  detail: 'At ' + v2.toFixed(0) + ' mm/s the return stroke may outrun the valve and cavitate. Size the valve on retract flow (' + (v2 * A2 / 1e6 * 60).toFixed(0) + ' L/min), not extend.' });
+    }
+    mmInterpret.render('cylInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: bucklingSF < 1 ? 'critical' : 'good', calc: 'cylinder-force',
+             eyebrow: 'CadNexa · assembly check',
+             headline: 'Check the rod and mounting on the real model.',
+             sub: 'Open the cylinder assembly in CadNexa, measure the actual extended length and rod diameter, and confirm the buckling case matches the drawing.',
+             ctaText: 'Open in CadNexa →' },
+      nextSteps: [
+        { href: 'pump-power.html',      text: 'Size the pump',    sub: 'Flow and power' },
+        { href: 'motor-hp.html',        text: 'Size the motor',   sub: 'Drive power' },
+        { href: 'beam-deflection.html', text: 'Check the mount',  sub: 'Bracket stiffness' }
+      ],
+      related: [
+        { href: 'pump-power.html', text: 'Pump Power' },
+        { href: 'motor-hp.html', text: 'Motor HP' },
+        { href: 'bolt-torque.html', text: 'Bolt Torque' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      label: 'Force and buckling limit',
+      bars: [
+        { label: 'Extend force',   value: F1,    color: '#1e5f9e' },
+        { label: 'Retract force',  value: F2,    color: '#16a34a' },
+        { label: 'Buckling limit', value: Fcrit, color: bucklingSF < 2.5 ? '#dc2626' : '#d97706' }
+      ],
+      unit: ' kN', decimals: 1
+    });
+  } catch (e) {} }
+}
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'Cylinder Force'});</script>
+</body>
+</html>

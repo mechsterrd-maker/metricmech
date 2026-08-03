@@ -23,15 +23,17 @@ QAPage schema for SEO.
 ## Stack
 Static HTML / CSS / JS. No build step. Deploys to Vercel.
 
-## Live calculators (34)
+## Live calculators (40)
 Tolerance Stack-Up, Cp/Cpk, CadNexa ROI, COPQ, Surface Finish,
-Position Tolerance, ISO 286 Fits, Cycle Time/Cost, AS9102 Form 3,
-PPAP Checklist, Thread Pitch, Bend Allowance/K-factor,
+Position Tolerance, ISO 286 Fits, ISO 2768 General Tolerances,
+Cycle Time/Cost, AS9102 Form 3, PPAP Checklist, Thread Pitch,
+Bend Allowance/K-factor, Sheet Metal Gauge Chart,
 Speeds & Feeds, OEE, Gauge R&R Type 1, Hardness Conversion,
 Spur Gear, Engineering Unit Converter, AQL Sampling, Beam Deflection,
 Bolt Torque, DPMO/Sigma, EOQ, FMEA-RPN, Takt Time, V-Belt Drive,
 Welding Heat Input, Material Weight, Drill Size Chart,
-Motor HP/Power, Pump Power, Press/Interference Fit.
+Motor HP/Power, Pump Power, Press/Interference Fit,
+Cylinder Force, Compression Spring, Bearing Life (L10), O-Ring Groove Design.
 
 ## Final-Stage upgrades (Apr 2026)
 - Unified SVG capability chart (Freedman-Diaconis bins, smooth bell, USL/LSL labeled, color-coded zones)
@@ -52,6 +54,14 @@ Motor HP/Power, Pump Power, Press/Interference Fit.
 - **Authority signals**: "Standards-aligned · Used in real manufacturing · Audit-ready output" cards
 - **Beginner / Expert mode**: persistent toggle hides/shows formulas + stat tables
 - **Performance**: 120ms input debounce on data paste; SVG chart pre-sized; PDF JPEG-compressed (28 MB → 380 KB)
+
+## Aug 2026 — design & reference expansion (+6)
+Six calculators added targeting high-volume mechanical-engineering search that the
+quality/APQP-weighted original set did not cover:
+`iso-2768` (general tolerances, 2768-1 + 2768-2), `cylinder-force` (hydraulic/pneumatic
+force, speed, flow, rod buckling), `spring-calculator` (rate, Wahl stress, solid height),
+`bearing-life` (ISO 281 L10/L10h), `oring-groove` (squeeze, gland fill, extrusion gap),
+`sheet-metal-gauge` (gauge charts for steel/galv/stainless/aluminium).
 
 ## CadNexa funnel
 Every calculator and article has at least one topic-matched CadNexa CTA.

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISO 2768 General Tolerance Calculator (2768-1 and 2768-2)</title>
+<meta name="description" content="Free ISO 2768 calculator. Linear, angular, radius and geometric general tolerances for classes f, m, c, v and H, K, L. Full chart included.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 7px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tol-table tr.hit td { background: var(--amber-tint, #fdf3dd); font-weight: 600; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/iso-2768">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ISO 2768 General Tolerance Calculator (2768-1 and 2768-2)">
+<meta property="og:description" content="Free ISO 2768 calculator. Linear, angular, radius and geometric general tolerances for classes f, m, c, v and H, K, L. Full chart included.">
+<meta property="og:url" content="https://metricmech.com/calculators/iso-2768">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ISO 2768 General Tolerance Calculator (2768-1 and 2768-2)">
+<meta name="twitter:description" content="Free ISO 2768 calculator. Linear, angular, radius and geometric general tolerances for classes f, m, c, v and H, K, L. Full chart included.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "ISO 2768 General Tolerance Calculator (2768-1 and 2768-2)",
+  "description": "Free ISO 2768 calculator. Linear, angular, radius and geometric general tolerances for classes f, m, c, v and H, K, L. Full chart included.",
+  "url": "https://metricmech.com/calculators/iso-2768",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "52",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>ISO 2768 General Tolerances</div>
+  <h1 class="page-title">ISO 2768 General <em>Tolerance Calculator.</em></h1>
+  <p class="page-lede">Look up the general tolerance that applies to every unspecified dimension on your drawing. Covers ISO 2768-1 linear, angular and chamfer tolerances (classes f, m, c, v) and ISO 2768-2 geometric tolerances (classes H, K, L).</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Drawing Note</h4>
+        <div class="row">
+          <div>
+            <label>Part 1 class (dimensional)</label>
+            <select id="cls1" onchange="calc()">
+              <option value="f">f — Fine</option>
+              <option value="m" selected>m — Medium</option>
+              <option value="c">c — Coarse</option>
+              <option value="v">v — Very coarse</option>
+            </select>
+            <div class="hint">ISO 2768-1</div>
+          </div>
+          <div>
+            <label>Part 2 class (geometric)</label>
+            <select id="cls2" onchange="calc()">
+              <option value="H" selected>H</option>
+              <option value="K">K</option>
+              <option value="L">L</option>
+            </select>
+            <div class="hint">ISO 2768-2</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>Title-block callout</label>
+          <input type="text" id="callout" value="ISO 2768-mH" readonly style="background:var(--blueprint-tint); color:var(--blueprint);">
+          <div class="hint">Copy this onto the drawing</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Feature Being Checked</h4>
+        <div class="field">
+          <label>Nominal dimension</label>
+          <input type="number" id="dim" value="120" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">mm — the unspecified dimension</div>
+        </div>
+        <div class="field">
+          <label>Feature type</label>
+          <select id="ftype" onchange="calc()">
+            <option value="linear" selected>Linear dimension (length, dia, depth)</option>
+            <option value="radius">External radius / chamfer height</option>
+            <option value="angle">Angle — enter shorter leg length</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Geometric characteristic</label>
+          <select id="geo" onchange="calc()">
+            <option value="flat" selected>Straightness / flatness</option>
+            <option value="perp">Perpendicularity</option>
+            <option value="sym">Symmetry</option>
+            <option value="runout">Circular run-out</option>
+          </select>
+          <div class="hint">Uses the same nominal dimension</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl" id="mainLbl">LINEAR TOLERANCE</div>
+        <div class="val" id="tolMain">—</div>
+        <div class="unit" id="mainUnit">mm (±)</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">RESULTING LIMITS</div>
+        <div class="val" id="limits" style="font-size:30px;">—</div>
+        <div class="unit">upper / lower on the nominal</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Total tolerance band</div><div class="v" id="band">—</div></div>
+        <div class="result-card"><div class="l">Size range applied</div><div class="v" id="range">—</div></div>
+        <div class="result-card"><div class="l">Geometric tolerance</div><div class="v" id="geoTol">—</div></div>
+        <div class="result-card"><div class="l">Equivalent IT grade</div><div class="v" id="itGrade">—</div></div>
+        <div class="result-card"><div class="l">Angular tolerance</div><div class="v" id="angTol">—</div></div>
+        <div class="result-card"><div class="l">Radius / chamfer</div><div class="v" id="radTol">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">How ISO 2768 is applied</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          General tolerance applies only where <em>no</em> individual tolerance is shown.<br>
+          A dimension with its own tolerance overrides the general note entirely.<br>
+          Part 1 class letter is lower case (f/m/c/v); Part 2 is upper case (H/K/L).
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="isoInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>What ISO 2768 Actually Controls</h2>
+<p><strong>ISO 2768</strong> is the general-tolerance standard that silently governs most of a mechanical drawing. Any dimension left without its own tolerance inherits the class named in the title block. On a typical machined part that is 80–90% of all dimensions, which is why a wrong class letter can quietly change scrap rate across an entire production run.</p>
+<p>The standard has two parts, and a complete callout names one class from each:</p>
+<ul>
+  <li><strong>ISO 2768-1</strong> — linear and angular dimensions. Classes <strong>f</strong> (fine), <strong>m</strong> (medium), <strong>c</strong> (coarse), <strong>v</strong> (very coarse).</li>
+  <li><strong>ISO 2768-2</strong> — geometric tolerances: straightness, flatness, perpendicularity, symmetry, run-out. Classes <strong>H</strong>, <strong>K</strong>, <strong>L</strong>.</li>
+</ul>
+<p>So <strong>ISO 2768-mK</strong> means medium dimensional tolerances plus class K geometric tolerances. <strong>ISO 2768-m</strong> alone invokes Part 1 only, and leaves form and orientation uncontrolled — a common and expensive drawing omission.</p>
+
+<h3>ISO 2768-1 — Linear Dimensions (mm)</h3>
+<div class="tbl-wrap">
+<table class="tol-table" id="tblLinear">
+  <thead><tr><th>Nominal size</th><th>f — fine</th><th>m — medium</th><th>c — coarse</th><th>v — very coarse</th></tr></thead>
+  <tbody>
+    <tr><td>0.5 – 3</td><td>±0.05</td><td>±0.1</td><td>±0.2</td><td>—</td></tr>
+    <tr><td>over 3 – 6</td><td>±0.05</td><td>±0.1</td><td>±0.3</td><td>±0.5</td></tr>
+    <tr><td>over 6 – 30</td><td>±0.1</td><td>±0.2</td><td>±0.5</td><td>±1.0</td></tr>
+    <tr><td>over 30 – 120</td><td>±0.15</td><td>±0.3</td><td>±0.8</td><td>±1.5</td></tr>
+    <tr><td>over 120 – 400</td><td>±0.2</td><td>±0.5</td><td>±1.2</td><td>±2.5</td></tr>
+    <tr><td>over 400 – 1000</td><td>±0.3</td><td>±0.8</td><td>±2.0</td><td>±4.0</td></tr>
+    <tr><td>over 1000 – 2000</td><td>±0.5</td><td>±1.2</td><td>±3.0</td><td>±6.0</td></tr>
+    <tr><td>over 2000 – 4000</td><td>—</td><td>±2.0</td><td>±4.0</td><td>±8.0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ISO 2768-1 — External Radii and Chamfer Heights (mm)</h3>
+<div class="tbl-wrap">
+<table class="tol-table" id="tblRad">
+  <thead><tr><th>Nominal size</th><th>f</th><th>m</th><th>c</th><th>v</th></tr></thead>
+  <tbody>
+    <tr><td>0.5 – 3</td><td>±0.2</td><td>±0.2</td><td>±0.4</td><td>±0.4</td></tr>
+    <tr><td>over 3 – 6</td><td>±0.5</td><td>±0.5</td><td>±1.0</td><td>±1.0</td></tr>
+    <tr><td>over 6</td><td>±1.0</td><td>±1.0</td><td>±2.0</td><td>±2.0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ISO 2768-1 — Angular Tolerances</h3>
+<p>Angular tolerance is set by the length of the <em>shorter</em> leg of the angle, not by the angle value.</p>
+<div class="tbl-wrap">
+<table class="tol-table" id="tblAng">
+  <thead><tr><th>Shorter leg (mm)</th><th>f</th><th>m</th><th>c</th><th>v</th></tr></thead>
+  <tbody>
+    <tr><td>up to 10</td><td>±1°</td><td>±1°</td><td>±1°30'</td><td>±3°</td></tr>
+    <tr><td>over 10 – 50</td><td>±0°30'</td><td>±0°30'</td><td>±1°</td><td>±2°</td></tr>
+    <tr><td>over 50 – 120</td><td>±0°20'</td><td>±0°20'</td><td>±0°30'</td><td>±1°</td></tr>
+    <tr><td>over 120 – 400</td><td>±0°10'</td><td>±0°10'</td><td>±0°15'</td><td>±0°30'</td></tr>
+    <tr><td>over 400</td><td>±0°5'</td><td>±0°5'</td><td>±0°10'</td><td>±0°20'</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ISO 2768-2 — Straightness and Flatness (mm)</h3>
+<div class="tbl-wrap">
+<table class="tol-table" id="tblFlat">
+  <thead><tr><th>Nominal length</th><th>H</th><th>K</th><th>L</th></tr></thead>
+  <tbody>
+    <tr><td>up to 10</td><td>0.02</td><td>0.05</td><td>0.1</td></tr>
+    <tr><td>over 10 – 30</td><td>0.05</td><td>0.1</td><td>0.2</td></tr>
+    <tr><td>over 30 – 100</td><td>0.1</td><td>0.2</td><td>0.4</td></tr>
+    <tr><td>over 100 – 300</td><td>0.2</td><td>0.4</td><td>0.8</td></tr>
+    <tr><td>over 300 – 1000</td><td>0.3</td><td>0.6</td><td>1.2</td></tr>
+    <tr><td>over 1000 – 3000</td><td>0.4</td><td>0.8</td><td>1.6</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ISO 2768-2 — Perpendicularity, Symmetry and Run-out (mm)</h3>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Characteristic / range</th><th>H</th><th>K</th><th>L</th></tr></thead>
+  <tbody>
+    <tr><td>Perpendicularity — up to 100</td><td>0.2</td><td>0.4</td><td>0.6</td></tr>
+    <tr><td>Perpendicularity — over 100 – 300</td><td>0.3</td><td>0.6</td><td>1.0</td></tr>
+    <tr><td>Perpendicularity — over 300 – 1000</td><td>0.4</td><td>0.8</td><td>1.5</td></tr>
+    <tr><td>Perpendicularity — over 1000 – 3000</td><td>0.5</td><td>1.0</td><td>2.0</td></tr>
+    <tr><td>Symmetry — up to 100</td><td>0.5</td><td>0.6</td><td>0.6</td></tr>
+    <tr><td>Symmetry — over 100 – 300</td><td>0.5</td><td>0.6</td><td>1.0</td></tr>
+    <tr><td>Symmetry — over 300 – 1000</td><td>0.5</td><td>0.8</td><td>1.5</td></tr>
+    <tr><td>Symmetry — over 1000 – 3000</td><td>0.5</td><td>1.0</td><td>2.0</td></tr>
+    <tr><td>Circular run-out — all sizes</td><td>0.1</td><td>0.2</td><td>0.5</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Worked Example</h3>
+<p>A drawing carries the note <strong>ISO 2768-mK</strong>. A boss is dimensioned 120 mm with no tolerance shown, and its face has no flatness callout.</p>
+<ul>
+  <li>120 falls in the <em>over 30 – 120</em> band → class m gives <strong>±0.3 mm</strong>, so limits are 119.7 / 120.3.</li>
+  <li>Flatness on a 120 mm face falls in <em>over 100 – 300</em> → class K gives <strong>0.4 mm</strong>.</li>
+  <li>A 2 mm chamfer inherits <strong>±0.2 mm</strong> from the radius table.</li>
+  <li>A 45° angle whose shorter leg is 20 mm inherits <strong>±0°30'</strong>.</li>
+</ul>
+<p>Note the trap: 120 sits exactly on a band boundary. The bands read "over 30 up to and including 120", so 120 takes ±0.3, not the ±0.5 of the next band. Getting this backwards is one of the most common inspection disputes.</p>
+
+<h3>Choosing the Right Class</h3>
+<ul>
+  <li><strong>f (fine)</strong> — precision machining, jig and fixture work, instrument parts. Expensive on large dimensions.</li>
+  <li><strong>m (medium)</strong> — the default for general machining and most fabricated assemblies. Use this unless you have a reason not to.</li>
+  <li><strong>c (coarse)</strong> — flame-cut, welded, and heavy fabricated structures.</li>
+  <li><strong>v (very coarse)</strong> — castings, forgings and rough structural work before machining.</li>
+</ul>
+<p>Specifying <strong>f</strong> across a whole drawing to "be safe" is a classic cost error: it tightens hundreds of dimensions that never needed control, and every one becomes an inspection point. Tolerance the few features that matter individually and leave the rest at m.</p>
+
+<h3>ISO 2768 vs ISO 286</h3>
+<p>The two standards do different jobs. ISO 2768 is a blanket rule for unspecified dimensions. <a href="iso-286-fits.html">ISO 286</a> defines the IT grades and fit classes (H7, g6, and so on) that you apply deliberately to mating features. A shaft that must run in a bearing gets an ISO 286 fit; the chamfer at its end gets ISO 2768. On the equivalence: class m is broadly comparable to IT12–IT14 depending on size, and class f to roughly IT11–IT12 — close enough for planning, never close enough to substitute one callout for the other.</p>
+
+<h3>Related Tools</h3>
+<p>For deliberate fits on mating features, use the <a href="iso-286-fits.html">ISO 286 Fits Calculator</a>. To confirm the general tolerances still close your assembly, run a <a href="tolerance-stack.html">Tolerance Stack-Up</a>. For positional callouts see <a href="position-tolerance.html">Position Tolerance</a>, and for surface texture limits see <a href="surface-finish.html">Surface Finish</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+/* ── ISO 2768 data tables ─────────────────────────────────────────────
+   Each row: [upper bound of nominal range (inclusive), f, m, c, v]
+   null = class not defined for that range in the standard.            */
+var LINEAR = [
+  [3,    0.05, 0.1,  0.2,  null],
+  [6,    0.05, 0.1,  0.3,  0.5 ],
+  [30,   0.1,  0.2,  0.5,  1.0 ],
+  [120,  0.15, 0.3,  0.8,  1.5 ],
+  [400,  0.2,  0.5,  1.2,  2.5 ],
+  [1000, 0.3,  0.8,  2.0,  4.0 ],
+  [2000, 0.5,  1.2,  3.0,  6.0 ],
+  [4000, null, 2.0,  4.0,  8.0 ]
+];
+var LINEAR_LABELS = ['0.5–3','over 3–6','over 6–30','over 30–120','over 120–400','over 400–1000','over 1000–2000','over 2000–4000'];
+
+var RADIUS = [
+  [3,       0.2, 0.2, 0.4, 0.4],
+  [6,       0.5, 0.5, 1.0, 1.0],
+  [Infinity,1.0, 1.0, 2.0, 2.0]
+];
+var RADIUS_LABELS = ['0.5–3','over 3–6','over 6'];
+
+/* Angular tolerance in decimal degrees */
+var ANGULAR = [
+  [10,       1.0,      1.0,      1.5,      3.0     ],
+  [50,       0.5,      0.5,      1.0,      2.0     ],
+  [120,      20/60,    20/60,    0.5,      1.0     ],
+  [400,      10/60,    10/60,    15/60,    0.5     ],
+  [Infinity, 5/60,     5/60,     10/60,    20/60   ]
+];
+var ANGULAR_LABELS = ['up to 10','over 10–50','over 50–120','over 120–400','over 400'];
+
+/* ISO 2768-2: [upper bound, H, K, L] */
+var FLATNESS = [
+  [10,   0.02, 0.05, 0.1],
+  [30,   0.05, 0.1,  0.2],
+  [100,  0.1,  0.2,  0.4],
+  [300,  0.2,  0.4,  0.8],
+  [1000, 0.3,  0.6,  1.2],
+  [3000, 0.4,  0.8,  1.6]
+];
+var FLATNESS_LABELS = ['up to 10','over 10–30','over 30–100','over 100–300','over 300–1000','over 1000–3000'];
+
+var PERP = [
+  [100,  0.2, 0.4, 0.6],
+  [300,  0.3, 0.6, 1.0],
+  [1000, 0.4, 0.8, 1.5],
+  [3000, 0.5, 1.0, 2.0]
+];
+var SYM = [
+  [100,  0.5, 0.6, 0.6],
+  [300,  0.5, 0.6, 1.0],
+  [1000, 0.5, 0.8, 1.5],
+  [3000, 0.5, 1.0, 2.0]
+];
+var RUNOUT = { H: 0.1, K: 0.2, L: 0.5 };
+
+var CLS1_IDX = { f: 1, m: 2, c: 3, v: 4 };
+var CLS2_IDX = { H: 1, K: 2, L: 3 };
+
+/* Returns {val, label, index} for a nominal size against a banded table.
+   Bands are "over lower, up to and including upper" — so a value sitting
+   exactly on a boundary takes the tighter (lower) band. */
+function lookup(table, labels, size, col) {
+  for (var i = 0; i < table.length; i++) {
+    if (size <= table[i][0]) {
+      return { val: table[i][col], label: labels ? labels[i] : '', index: i };
+    }
+  }
+  return { val: null, label: 'out of range', index: -1 };
+}
+
+function fmtAngle(deg) {
+  if (deg == null) return '—';
+  var d = Math.floor(deg + 1e-9);
+  var m = Math.round((deg - d) * 60);
+  if (m === 60) { d += 1; m = 0; }
+  return '±' + d + '°' + (m ? ' ' + m + "'" : '');
+}
+
+/* Rough IT-grade equivalence for the linear tolerance, from the ISO 286
+   standard tolerance grades. Reported as a planning aid only. */
+function itEquivalent(size, tolPlusMinus) {
+  if (!tolPlusMinus) return '—';
+  var total = tolPlusMinus * 2 * 1000; // µm, full band
+  // ISO 286 IT values (µm) by size band, grades IT9..IT16
+  var bands = [3,6,10,18,30,50,80,120,180,250,315,400,500];
+  var it = [
+    [25,30,36,43,52,62,74,87,100,115,130,140,155],   // IT9
+    [40,48,58,70,84,100,120,140,160,185,210,230,250],// IT10
+    [60,75,90,110,130,160,190,220,250,290,320,360,400],
+    [100,120,150,180,210,250,300,350,400,460,520,570,630],
+    [140,180,220,270,330,390,460,540,630,720,810,890,970],
+    [250,300,360,430,520,620,740,870,1000,1150,1300,1400,1550],
+    [400,480,580,700,840,1000,1200,1400,1600,1850,2100,2300,2500],
+    [600,750,900,1100,1300,1600,1900,2200,2500,2900,3200,3600,4000]
+  ];
+  var b = 0;
+  while (b < bands.length - 1 && size > bands[b]) b++;
+  for (var g = 0; g < it.length; g++) {
+    if (total <= it[g][b] * 1.15) return 'IT' + (9 + g);
+  }
+  return '> IT16';
+}
+
+function calc() {
+  var c1 = document.getElementById('cls1').value;
+  var c2 = document.getElementById('cls2').value;
+  var size = +document.getElementById('dim').value;
+  var ftype = document.getElementById('ftype').value;
+  var geo = document.getElementById('geo').value;
+  var col1 = CLS1_IDX[c1], col2 = CLS2_IDX[c2];
+
+  document.getElementById('callout').value = 'ISO 2768-' + c1 + c2;
+  if (!size || size <= 0) return;
+
+  var lin = lookup(LINEAR, LINEAR_LABELS, size, col1);
+  var rad = lookup(RADIUS, RADIUS_LABELS, size, col1);
+  var ang = lookup(ANGULAR, ANGULAR_LABELS, size, col1);
+  var flat = lookup(FLATNESS, FLATNESS_LABELS, size, col2);
+  var perp = lookup(PERP, null, size, col2);
+  var sym = lookup(SYM, null, size, col2);
+
+  var geoVal, geoName;
+  if (geo === 'flat')       { geoVal = flat.val; geoName = 'Straightness / flatness'; }
+  else if (geo === 'perp')  { geoVal = perp.val; geoName = 'Perpendicularity'; }
+  else if (geo === 'sym')   { geoVal = sym.val;  geoName = 'Symmetry'; }
+  else                      { geoVal = RUNOUT[c2]; geoName = 'Circular run-out'; }
+
+  // Headline result follows the selected feature type
+  var mainVal, mainTxt, mainLbl, mainUnit, limitsTxt, bandTxt, rangeLabel;
+  if (ftype === 'angle') {
+    mainVal = ang.val;
+    mainTxt = fmtAngle(ang.val);
+    mainLbl = 'ANGULAR TOLERANCE';
+    mainUnit = 'degrees / minutes (±)';
+    limitsTxt = ang.val == null ? '—' : fmtAngle(ang.val) + ' on the angle';
+    bandTxt = ang.val == null ? '—' : (ang.val * 2).toFixed(3).replace(/0+$/,'').replace(/\.$/,'') + '°';
+    rangeLabel = ang.label + ' mm leg';
+  } else if (ftype === 'radius') {
+    mainVal = rad.val;
+    mainTxt = rad.val == null ? '—' : '±' + rad.val;
+    mainLbl = 'RADIUS / CHAMFER TOLERANCE';
+    mainUnit = 'mm (±)';
+    limitsTxt = rad.val == null ? '—' : (size - rad.val).toFixed(2) + ' / ' + (size + rad.val).toFixed(2);
+    bandTxt = rad.val == null ? '—' : (rad.val * 2).toFixed(2) + ' mm';
+    rangeLabel = rad.label + ' mm';
+  } else {
+    mainVal = lin.val;
+    mainTxt = lin.val == null ? '—' : '±' + lin.val;
+    mainLbl = 'LINEAR TOLERANCE';
+    mainUnit = 'mm (±)';
+    limitsTxt = lin.val == null ? '—' : (size - lin.val).toFixed(3) + ' / ' + (size + lin.val).toFixed(3);
+    bandTxt = lin.val == null ? '—' : (lin.val * 2).toFixed(3) + ' mm';
+    rangeLabel = lin.label + ' mm';
+  }
+
+  document.getElementById('mainLbl').textContent = mainLbl;
+  document.getElementById('mainUnit').textContent = mainUnit;
+  document.getElementById('tolMain').textContent = mainTxt;
+  document.getElementById('limits').textContent = limitsTxt;
+  document.getElementById('band').textContent = bandTxt;
+  document.getElementById('range').textContent = rangeLabel;
+  document.getElementById('geoTol').textContent = geoVal == null ? '—' : geoVal + ' mm';
+  document.getElementById('itGrade').textContent = itEquivalent(size, lin.val);
+  document.getElementById('angTol').textContent = fmtAngle(ang.val);
+  document.getElementById('radTol').textContent = rad.val == null ? '—' : '±' + rad.val + ' mm';
+
+  // Highlight the applicable row in each reference table
+  highlight('tblLinear', lin.index);
+  highlight('tblRad', rad.index);
+  highlight('tblAng', ang.index);
+  highlight('tblFlat', flat.index);
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    if (mainVal == null) {
+      v = { level: 'warn', label: 'Class not defined at this size',
+            sub: 'ISO 2768 class ' + c1 + ' does not cover ' + size + ' mm. Tolerance this dimension individually.' };
+      recs.push({ type: 'warn', title: 'Add an explicit tolerance',
+                  detail: 'Outside the standard\'s size range the general note gives you nothing — the dimension is effectively untoleranced.' });
+    } else if (c1 === 'f' && size > 400) {
+      v = { level: 'warn', label: 'Fine class on a large dimension',
+            sub: '±' + lin.val + ' mm over ' + size + ' mm is tight for general machining and will drive cost.' };
+      recs.push({ type: 'warn', title: 'Consider class m for the blanket note',
+                  detail: 'Tolerance only the few critical features individually rather than tightening every unspecified dimension.' });
+    } else if (c1 === 'v' || c1 === 'c') {
+      v = { level: 'good', label: 'Coarse general tolerance — check the fits',
+            sub: 'Class ' + c1 + ' gives ±' + lin.val + ' mm at ' + size + ' mm. Fine for fabrication, too loose for mating features.' };
+      recs.push({ type: 'info', title: 'Tolerance mating features individually',
+                  detail: 'Any bore, spigot or shaft that locates another part needs an ISO 286 fit, not the general note.' });
+    } else {
+      v = { level: 'good', label: 'General tolerance applied',
+            sub: 'ISO 2768-' + c1 + c2 + ' gives ±' + lin.val + ' mm at ' + size + ' mm, with ' + geoName.toLowerCase() + ' ' + geoVal + ' mm.' };
+    }
+    if (document.getElementById('cls2').value && geo === 'flat' && geoVal > (lin.val || 0) * 2) {
+      recs.push({ type: 'info', title: 'Form tolerance is loose relative to size',
+                  detail: 'Flatness ' + geoVal + ' mm can consume most of the ±' + lin.val + ' mm size band. Call out flatness explicitly on sealing or datum faces.' });
+    }
+    mmInterpret.render('isoInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: mainVal == null ? 'critical' : 'good', calc: 'iso-2768',
+             eyebrow: 'CadNexa · drawing check',
+             headline: 'Check which dimensions are actually untoleranced.',
+             sub: 'Balloon the drawing in CadNexa and every dimension without its own tolerance is flagged, so you can see exactly what the general note is carrying.',
+             ctaText: 'Balloon the drawing →' },
+      nextSteps: [
+        { href: 'iso-286-fits.html',      text: 'Set a proper fit',   sub: 'Mating features' },
+        { href: 'tolerance-stack.html',   text: 'Verify stack-up',    sub: 'Does the assembly close?' },
+        { href: 'position-tolerance.html',text: 'Position tolerance', sub: 'Hole patterns' }
+      ],
+      related: [
+        { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },
+        { href: 'tolerance-stack.html', text: 'Tolerance Stack' },
+        { href: 'surface-finish.html', text: 'Surface Finish' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.compareBars('#mmViz', {
+      label: 'Total tolerance band at ' + size + ' mm',
+      bars: [
+        { label: 'f — fine',        value: LINEAR[lin.index] ? (LINEAR[lin.index][1] || 0) * 2 : 0, color: '#16a34a' },
+        { label: 'm — medium',      value: LINEAR[lin.index] ? (LINEAR[lin.index][2] || 0) * 2 : 0, color: '#1e5f9e' },
+        { label: 'c — coarse',      value: LINEAR[lin.index] ? (LINEAR[lin.index][3] || 0) * 2 : 0, color: '#d97706' },
+        { label: 'v — very coarse', value: LINEAR[lin.index] ? (LINEAR[lin.index][4] || 0) * 2 : 0, color: '#dc2626' }
+      ],
+      unit: ' mm', decimals: 2
+    });
+  } catch (e) {} }
+}
+
+function highlight(tableId, rowIndex) {
+  var t = document.getElementById(tableId);
+  if (!t) return;
+  var rows = t.tBodies[0].rows;
+  for (var i = 0; i < rows.length; i++) {
+    rows[i].className = (i === rowIndex) ? 'hit' : '';
+  }
+}
+
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'ISO 2768 General Tolerances'});</script>
+</body>
+</html>

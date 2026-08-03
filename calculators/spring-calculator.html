@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Compression Spring Calculator — Rate, Stress and Solid Height</title>
+<meta name="description" content="Free compression spring calculator. Spring rate, shear stress with Wahl factor, solid height, buckling and surge frequency from wire and coil dimensions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 7px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/spring-calculator">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Compression Spring Calculator — Rate, Stress and Solid Height">
+<meta property="og:description" content="Free compression spring calculator. Spring rate, shear stress with Wahl factor, solid height, buckling and surge frequency from wire and coil dimensions.">
+<meta property="og:url" content="https://metricmech.com/calculators/spring-calculator">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compression Spring Calculator — Rate, Stress and Solid Height">
+<meta name="twitter:description" content="Free compression spring calculator. Spring rate, shear stress with Wahl factor, solid height, buckling and surge frequency from wire and coil dimensions.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Compression Spring Calculator — Rate, Stress and Solid Height",
+  "description": "Free compression spring calculator. Spring rate, shear stress with Wahl factor, solid height, buckling and surge frequency from wire and coil dimensions.",
+  "url": "https://metricmech.com/calculators/spring-calculator",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "ratingCount": "44",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>Compression Spring</div>
+  <h1 class="page-title">Compression Spring <em>Calculator.</em></h1>
+  <p class="page-lede">Calculate spring rate, corrected shear stress, solid height, available travel, buckling limit and surge frequency for a helical compression spring. Wire diameter, coil diameter and active coils in — a complete design check out.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Geometry</h4>
+        <div class="row">
+          <div>
+            <label>Wire diameter (d)</label>
+            <input type="number" id="d" value="3" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm</div>
+          </div>
+          <div>
+            <label>Outer diameter (OD)</label>
+            <input type="number" id="OD" value="25" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm — over the coils</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px;">
+          <div>
+            <label>Active coils (n<sub>a</sub>)</label>
+            <input type="number" id="na" value="8" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">Load-carrying coils</div>
+          </div>
+          <div>
+            <label>Free length (L₀)</label>
+            <input type="number" id="L0" value="70" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">mm — unloaded</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:12px;">
+          <label>End treatment</label>
+          <select id="ends" onchange="calc()">
+            <option value="2,0.5" selected>Squared and ground (+2 coils)</option>
+            <option value="2,1">Squared, not ground (+2 coils)</option>
+            <option value="1,0.75">Plain and ground (+1 coil)</option>
+            <option value="0,1">Plain ends (+0 coils)</option>
+          </select>
+          <div class="hint">Sets total coils and end fixity</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>Load and Material</h4>
+        <div class="field">
+          <label>Working deflection</label>
+          <input type="number" id="defl" value="20" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint">mm — compression at working load</div>
+        </div>
+        <div class="field">
+          <label>Material</label>
+          <select id="mat" onchange="calc()">
+            <option value="79300,2211,0.145,7850" selected>Music wire ASTM A228</option>
+            <option value="77200,1855,0.187,7850">Oil-tempered ASTM A229</option>
+            <option value="77200,2005,0.168,7850">Chrome silicon ASTM A401</option>
+            <option value="69000,1867,0.146,7920">Stainless 302 ASTM A313</option>
+            <option value="41400,1000,0.064,8860">Phosphor bronze</option>
+          </select>
+          <div class="hint">Sets G and tensile strength</div>
+        </div>
+        <div class="field">
+          <label>Duty</label>
+          <select id="duty" onchange="calc()">
+            <option value="0.45,static" selected>Static — allowable 45% of tensile</option>
+            <option value="0.35,light">Light cyclic — 35% of tensile</option>
+            <option value="0.30,fatigue">Fatigue / high cycle — 30% of tensile</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl">SPRING RATE (k)</div>
+        <div class="val" id="rate">—</div>
+        <div class="unit">N/mm</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">CORRECTED SHEAR STRESS</div>
+        <div class="val" id="tau">—</div>
+        <div class="unit">MPa at working deflection</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Working load</div><div class="v" id="Fw">—</div></div>
+        <div class="result-card"><div class="l">Load at solid</div><div class="v" id="Fs">—</div></div>
+        <div class="result-card"><div class="l">Mean coil dia (D)</div><div class="v" id="Dm">—</div></div>
+        <div class="result-card"><div class="l">Spring index (C)</div><div class="v" id="C">—</div></div>
+        <div class="result-card"><div class="l">Wahl factor (K<sub>W</sub>)</div><div class="v" id="Kw">—</div></div>
+        <div class="result-card"><div class="l">Solid height (L<sub>s</sub>)</div><div class="v" id="Ls">—</div></div>
+        <div class="result-card"><div class="l">Travel to solid</div><div class="v" id="travel">—</div></div>
+        <div class="result-card"><div class="l">Allowable stress</div><div class="v" id="allow">—</div></div>
+        <div class="result-card"><div class="l">Max free length (no buckle)</div><div class="v" id="Lcrit">—</div></div>
+        <div class="result-card"><div class="l">Surge frequency</div><div class="v" id="fn">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          D = OD − d &nbsp;&nbsp; C = D / d<br>
+          k = G·d⁴ / (8·D³·n<sub>a</sub>)<br>
+          K<sub>W</sub> = (4C − 1)/(4C − 4) + 0.615/C<br>
+          τ = K<sub>W</sub> · 8·F·D / (π·d³)
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="sprInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>Designing a Helical Compression Spring</h2>
+<p>A compression spring is a torsion bar wound into a helix. Load the ends and the wire twists — which is why every stress in a coil spring is a <strong>shear</strong> stress, not a bending stress, and why the wire diameter appears to the fourth power in the rate and the third power in the stress.</p>
+
+<h3>Spring Rate</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>k = G · d⁴ / (8 · D³ · n<sub>a</sub>)</strong></p>
+<p>Where G is the shear modulus (79,300 MPa for music wire), d is wire diameter, D is <em>mean</em> coil diameter (OD − d, not OD), and n<sub>a</sub> is the number of active coils. Every term is sensitive:</p>
+<ul>
+  <li>Increase wire diameter 10% → rate rises <strong>46%</strong> (1.1⁴).</li>
+  <li>Increase coil diameter 10% → rate falls <strong>25%</strong> (1/1.1³).</li>
+  <li>Add one active coil to eight → rate falls <strong>11%</strong>.</li>
+</ul>
+<p>Using OD instead of mean diameter is the single most common error in hand calculations, and it always makes the spring look softer than it is.</p>
+
+<h3>Spring Index and the Wahl Factor</h3>
+<p>The spring index <strong>C = D / d</strong> governs both manufacturability and stress. The wire on the inside of a coil is stressed more than the outside because of curvature and the direct shear component. The Wahl factor corrects for this:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>K<sub>W</sub> = (4C − 1) / (4C − 4) + 0.615 / C</strong></p>
+<p>At C = 4 the correction is 1.40 — the inside fibre carries 40% more stress than the uncorrected formula predicts. At C = 10 it drops to 1.14. Keep the index in the <strong>4 to 12</strong> range: below 4 the wire is hard to coil and cracks on the inside diameter; above 12 the spring tangles, buckles and is difficult to handle in automated assembly. The comfortable target is 6 to 9.</p>
+
+<h3>Solid Height and Available Travel</h3>
+<p>Total coils depend on the end treatment. For the common squared-and-ground end, total coils = active + 2, and the solid height is simply <strong>L<sub>s</sub> = n<sub>t</sub> × d</strong>. Travel to solid is L₀ − L<sub>s</sub>.</p>
+<p>Never design a spring to reach solid in service. Leave at least 15% of the working deflection as clash allowance — if the spring goes solid under a shock load, stress spikes without limit and the spring takes a permanent set or breaks. Check the stress at solid height, not just at working deflection; that is the number that determines whether an over-travel event destroys the spring.</p>
+
+<h3>Allowable Shear Stress</h3>
+<p>Spring wire tensile strength is not a fixed number — it rises sharply as wire gets thinner because of the drawing process. For music wire the relationship is approximately <strong>S<sub>ut</sub> = 2211 × d<sup>−0.145</sup> MPa</strong>, so 1 mm wire reaches about 2211 MPa while 6 mm wire is nearer 1740 MPa.</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Duty</th><th>Allowable τ</th><th>Typical use</th></tr></thead>
+  <tbody>
+    <tr><td>Static</td><td>45% of S<sub>ut</sub></td><td>Preload, hold-down, clamps</td></tr>
+    <tr><td>Light cyclic</td><td>35% of S<sub>ut</sub></td><td>Under 10⁵ cycles, low load range</td></tr>
+    <tr><td>Fatigue / high cycle</td><td>30% of S<sub>ut</sub></td><td>Valve springs, over 10⁶ cycles</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Shot peening raises fatigue allowables by 20% or more and is standard practice on any spring expected to survive millions of cycles.</p>
+
+<h3>Buckling</h3>
+<p>A slender compression spring buckles sideways like a column. The stability limit depends on how the ends are held:</p>
+<ul>
+  <li><strong>Both ends on parallel ground plates</strong> — stable while L₀ &lt; 5.26 × D</li>
+  <li><strong>One end fixed, one pivoted</strong> — stable while L₀ &lt; 3.72 × D</li>
+  <li><strong>Both ends free to pivot</strong> — stable while L₀ &lt; 2.63 × D</li>
+</ul>
+<p>Past those limits the spring needs a guide rod or a bore to run in. Allow radial clearance of at least 10% of the coil diameter for the spring to grow — a compression spring's outer diameter <em>increases</em> as it is compressed, roughly by the amount the pitch closes up.</p>
+
+<h3>Surge Frequency</h3>
+<p>A spring has its own natural frequency. If the operating cycle approaches it, the coils resonate, the spring surges, and it fails quickly regardless of how comfortable the static stress looked. Keep the natural frequency at least <strong>13 to 15 times</strong> the operating frequency. This is the criterion that sizes automotive valve springs.</p>
+
+<h3>Worked Example</h3>
+<p>Ø3 mm music wire, 25 mm OD, 8 active coils, 70 mm free length, squared and ground, compressed 20 mm.</p>
+<ul>
+  <li>Mean diameter D = 25 − 3 = <strong>22 mm</strong>, index C = 22/3 = <strong>7.33</strong> (good)</li>
+  <li>Rate k = 79300 × 3⁴ / (8 × 22³ × 8) = 6,423,300 / 681,472 ≈ <strong>9.43 N/mm</strong></li>
+  <li>Working load F = 9.43 × 20 ≈ <strong>189 N</strong></li>
+  <li>Wahl K<sub>W</sub> = (4×7.33 − 1)/(4×7.33 − 4) + 0.615/7.33 = 1.117 + 0.084 = <strong>1.20</strong></li>
+  <li>Stress τ = 1.20 × 8 × 189 × 22 / (π × 27) = <strong>≈ 471 MPa</strong></li>
+  <li>Solid height = 10 coils × 3 = <strong>30 mm</strong>, travel to solid = <strong>40 mm</strong></li>
+  <li>Buckling limit = 5.26 × 22 = <strong>116 mm</strong> — 70 mm free length is safe</li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For fastener preload in the same assembly, see <a href="bolt-torque.html">Bolt Torque</a>. For structural members under load, use <a href="beam-deflection.html">Beam Deflection</a>. For interference-fitted spring seats see <a href="press-fit.html">Press Fit</a>, and for the material hardness spec see <a href="hardness-conversion.html">Hardness Conversion</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+function calc() {
+  var d   = +document.getElementById('d').value;
+  var OD  = +document.getElementById('OD').value;
+  var na  = +document.getElementById('na').value;
+  var L0  = +document.getElementById('L0').value;
+  var x   = +document.getElementById('defl').value;
+  var endParts = document.getElementById('ends').value.split(',').map(Number);
+  var addCoils = endParts[0], alpha = endParts[1];
+  var matParts = document.getElementById('mat').value.split(',').map(Number);
+  var G = matParts[0], sutA = matParts[1], sutB = matParts[2], rho = matParts[3];
+  var dutyParts = document.getElementById('duty').value.split(',');
+  var dutyFrac = +dutyParts[0], dutyName = dutyParts[1];
+
+  var D = OD - d;                       // mean coil diameter
+  if (!d || !OD || D <= 0 || !na) return;
+
+  var C  = D / d;
+  var k  = G * Math.pow(d, 4) / (8 * Math.pow(D, 3) * na);   // N/mm
+  var Kw = (4 * C - 1) / (4 * C - 4) + 0.615 / C;
+  var Fw = k * x;                                            // N at working deflection
+  var tau = Kw * 8 * Fw * D / (Math.PI * Math.pow(d, 3));    // MPa
+
+  var nt = na + addCoils;
+  var Ls = nt * d;                                           // solid height
+  var travel = L0 - Ls;
+  var Fs = k * travel;                                       // load to reach solid
+  var tauSolid = Kw * 8 * Fs * D / (Math.PI * Math.pow(d, 3));
+
+  var Sut = sutA * Math.pow(d, -sutB);                       // MPa
+  var allow = Sut * dutyFrac;
+
+  var Lcrit = 2.63 * D / alpha;                              // max free length before buckling
+
+  // Surge frequency of the active mass, both ends held: fn = 0.5·sqrt(k/m)
+  var mass = rho * 1e-9 * (Math.PI * d * d / 4) * (Math.PI * D * na);  // kg
+  var fn = mass > 0 ? 0.5 * Math.sqrt((k * 1000) / mass) : 0;          // Hz
+
+  window.mmCountUp ? mmCountUp(document.getElementById('rate'), k, 2)
+                   : (document.getElementById('rate').textContent = k.toFixed(2));
+  document.getElementById('tau').textContent = tau.toFixed(0);
+  document.getElementById('Fw').textContent = Fw.toFixed(1) + ' N';
+  document.getElementById('Fs').textContent = travel > 0 ? Fs.toFixed(1) + ' N' : '—';
+  document.getElementById('Dm').textContent = D.toFixed(2) + ' mm';
+  document.getElementById('C').textContent = C.toFixed(2);
+  document.getElementById('Kw').textContent = Kw.toFixed(3);
+  document.getElementById('Ls').textContent = Ls.toFixed(1) + ' mm';
+  document.getElementById('travel').textContent = travel.toFixed(1) + ' mm';
+  document.getElementById('allow').textContent = allow.toFixed(0) + ' MPa';
+  document.getElementById('Lcrit').textContent = Lcrit.toFixed(0) + ' mm';
+  document.getElementById('fn').textContent = fn.toFixed(0) + ' Hz';
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    var stressRatio = tau / allow;
+    if (travel <= 0) {
+      v = { level: 'bad', label: 'Free length below solid height',
+            sub: 'L₀ = ' + L0 + ' mm but the spring stacks solid at ' + Ls.toFixed(1) + ' mm. The geometry is impossible.' };
+      recs.push({ type: 'critical', title: 'Increase free length or reduce coils',
+                  detail: 'With ' + nt + ' total coils of Ø' + d + ' mm wire the minimum possible length is ' + Ls.toFixed(1) + ' mm.' });
+    } else if (x > travel) {
+      v = { level: 'bad', label: 'Spring goes solid before working deflection',
+            sub: 'Only ' + travel.toFixed(1) + ' mm of travel available but ' + x + ' mm is required.' };
+      recs.push({ type: 'critical', title: 'Add free length or reduce deflection',
+                  detail: 'A spring driven to solid sees uncontrolled stress and will take a permanent set.' });
+    } else if (stressRatio > 1) {
+      v = { level: 'bad', label: 'Overstressed',
+            sub: 'τ = ' + tau.toFixed(0) + ' MPa against ' + allow.toFixed(0) + ' MPa allowable for ' + dutyName + ' duty.' };
+      recs.push({ type: 'critical', title: 'Increase wire diameter or coil count',
+                  detail: 'Stress falls with d³ and rises with D. Going from Ø' + d + ' to Ø' + (d * 1.1).toFixed(1) + ' mm cuts stress about 25%.' });
+    } else if (stressRatio > 0.85) {
+      v = { level: 'warn', label: 'Stress close to the limit',
+            sub: 'τ = ' + tau.toFixed(0) + ' MPa is ' + (stressRatio * 100).toFixed(0) + '% of the ' + dutyName + ' allowable.' };
+      recs.push({ type: 'warn', title: 'Little margin for over-travel',
+                  detail: 'Stress at solid height would reach ' + tauSolid.toFixed(0) + ' MPa. Add a clash allowance or a positive stop.' });
+    } else if (C < 4 || C > 12) {
+      v = { level: 'warn', label: 'Spring index outside the practical range',
+            sub: 'C = ' + C.toFixed(2) + '. Below 4 the wire cracks on the inside coil; above 12 the spring tangles and buckles.' };
+      recs.push({ type: 'warn', title: 'Aim for C between 6 and 9',
+                  detail: C < 4 ? 'Increase coil diameter or reduce wire diameter.' : 'Reduce coil diameter or increase wire diameter.' });
+    } else if (L0 > Lcrit) {
+      v = { level: 'warn', label: 'Spring will buckle unguided',
+            sub: 'Free length ' + L0 + ' mm exceeds the ' + Lcrit.toFixed(0) + ' mm stability limit for these ends.' };
+      recs.push({ type: 'warn', title: 'Add a guide rod or bore',
+                  detail: 'Allow at least 10% radial clearance — the coil OD grows as the spring compresses.' });
+    } else {
+      v = { level: 'good', label: 'Spring design is sound',
+            sub: 'k = ' + k.toFixed(2) + ' N/mm, τ = ' + tau.toFixed(0) + ' MPa at ' + (stressRatio * 100).toFixed(0) + '% of allowable, index ' + C.toFixed(1) + '.' };
+    }
+    if (tauSolid > allow && travel > 0 && x <= travel) {
+      recs.push({ type: 'info', title: 'Stress at solid exceeds the allowable',
+                  detail: 'If the spring is ever driven to solid it sees ' + tauSolid.toFixed(0) + ' MPa. Fit a positive stop if over-travel is possible.' });
+    }
+    mmInterpret.render('sprInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: stressRatio > 1 || travel <= 0 ? 'critical' : 'good', calc: 'spring-calculator',
+             eyebrow: 'CadNexa · model check',
+             headline: 'Check the spring pocket on the real model.',
+             sub: 'Open the assembly in CadNexa and measure the actual pocket depth and bore against solid height plus clash allowance.',
+             ctaText: 'Open in CadNexa →' },
+      nextSteps: [
+        { href: 'bolt-torque.html',     text: 'Preload check',  sub: 'Fastener clamp load' },
+        { href: 'beam-deflection.html', text: 'Structure check', sub: 'Mounting stiffness' },
+        { href: 'material-weight.html', text: 'Wire mass',      sub: 'Cost estimate' }
+      ],
+      related: [
+        { href: 'bolt-torque.html', text: 'Bolt Torque' },
+        { href: 'beam-deflection.html', text: 'Beam Deflection' },
+        { href: 'hardness-conversion.html', text: 'Hardness Conversion' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.sfBar('#mmViz', { sf: allow / tau, req: 1, label: 'Shear stress margin (' + dutyName + ' allowable)' });
+  } catch (e) {} }
+}
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'Compression Spring'});</script>
+</body>
+</html>

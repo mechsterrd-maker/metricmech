@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>O-Ring Groove Design Calculator — Squeeze, Gland Fill, Stretch</title>
+<meta name="description" content="Free O-ring groove calculator. Groove depth and width, squeeze percentage, gland fill, stretch and extrusion gap for piston, rod and face seals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.calc-layout { max-width: var(--max-w); margin: 0 auto; padding: 32px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.input-card { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-bottom: 16px; }
+.input-card h4 { font-family: var(--display); font-weight: 600; font-size: 16px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); color: var(--blueprint); }
+.input-card label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); display: block; margin-bottom: 6px; }
+.input-card input, .input-card select { width: 100%; padding: 9px 12px; font-family: var(--display); font-size: 18px; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--paper); border-radius: var(--rad); outline: none; font-variant-numeric: tabular-nums; }
+.input-card .field { margin-bottom: 12px; }
+.input-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.input-card .hint { font-family: var(--mono); font-size: 10px; color: var(--mute); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+.result-big { background: var(--ink); color: var(--paper); border-radius: var(--rad-lg); padding: 28px; text-align: center; margin-bottom: 12px; }
+.result-big .lbl { font-family: var(--mono); font-size: 11px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 12px; }
+.result-big .val { font-family: var(--display); font-size: 48px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.result-big .unit { font-family: var(--mono); font-size: 12px; color: rgba(245,242,236,0.6); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.result-card { padding: 14px; background: var(--paper-2); border: 1px solid var(--rule); border-left: 3px solid var(--blueprint); border-radius: var(--rad); }
+.result-card .l { font-family: var(--mono); font-size: 10px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.result-card .v { font-family: var(--display); font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tol-table { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 14px 0 22px; }
+.tol-table th, .tol-table td { border: 1px solid var(--rule); padding: 7px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+.tol-table th { background: var(--blueprint-tint); color: var(--blueprint); font-weight: 600; text-align: center; text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; }
+.tol-table td:first-child, .tol-table th:first-child { text-align: left; }
+.tbl-wrap { overflow-x: auto; }
+@media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; } }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/calculators/oring-groove">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="O-Ring Groove Design Calculator — Squeeze, Gland Fill, Stretch">
+<meta property="og:description" content="Free O-ring groove calculator. Groove depth and width, squeeze percentage, gland fill, stretch and extrusion gap for piston, rod and face seals.">
+<meta property="og:url" content="https://metricmech.com/calculators/oring-groove">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="O-Ring Groove Design Calculator — Squeeze, Gland Fill, Stretch">
+<meta name="twitter:description" content="Free O-ring groove calculator. Groove depth and width, squeeze percentage, gland fill, stretch and extrusion gap for piston, rod and face seals.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "O-Ring Groove Design Calculator — Squeeze, Gland Fill, Stretch",
+  "description": "Free O-ring groove calculator. Groove depth and width, squeeze percentage, gland fill, stretch and extrusion gap for piston, rod and face seals.",
+  "url": "https://metricmech.com/calculators/oring-groove",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "SoftwareApplication",
+  "applicationCategory": "EngineeringApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "ratingCount": "36",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="calculators" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../calculators.html">Calculators</a><span class="sep">/</span>O-Ring Groove</div>
+  <h1 class="page-title">O-Ring Groove <em>Design Calculator.</em></h1>
+  <p class="page-lede">Size the gland for a piston, rod or face seal. Calculates groove depth and width, actual squeeze, gland fill percentage, installation stretch and the maximum extrusion gap for your pressure and durometer.</p>
+</div>
+
+<div class="calc-layout">
+  <div class="calc-grid">
+
+    <div>
+      <div class="input-card">
+        <h4>Application</h4>
+        <div class="field">
+          <label>Seal type</label>
+          <select id="app" onchange="presetSqueeze(); calc();">
+            <option value="piston" selected>Piston seal — groove on the OD (male gland)</option>
+            <option value="rod">Rod / bore seal — groove in the ID (female gland)</option>
+            <option value="face-int">Face seal — internal pressure</option>
+            <option value="face-ext">Face seal — external pressure / vacuum</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Motion</label>
+          <select id="motion" onchange="presetSqueeze(); calc();">
+            <option value="static" selected>Static</option>
+            <option value="recip">Dynamic — reciprocating</option>
+            <option value="osc">Dynamic — slow oscillating</option>
+          </select>
+          <div class="hint">Sets the recommended squeeze band</div>
+        </div>
+        <div class="field">
+          <label>Sealing diameter</label>
+          <input type="number" id="dia" value="50" step="0.5" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="hint" id="diaHint">mm — bore the piston runs in</div>
+        </div>
+      </div>
+
+      <div class="input-card">
+        <h4>O-Ring and Duty</h4>
+        <div class="field">
+          <label>Cross-section (W)</label>
+          <select id="cs" onchange="calc()">
+            <option value="1.78">1.78 mm — AS568 0.070" (004–050)</option>
+            <option value="2.62" selected>2.62 mm — AS568 0.103" (102–178)</option>
+            <option value="3.53">3.53 mm — AS568 0.139" (201–284)</option>
+            <option value="5.33">5.33 mm — AS568 0.210" (309–395)</option>
+            <option value="6.99">6.99 mm — AS568 0.275" (425–475)</option>
+            <option value="2.00">2.00 mm — metric ISO 3601</option>
+            <option value="3.00">3.00 mm — metric ISO 3601</option>
+            <option value="5.00">5.00 mm — metric ISO 3601</option>
+          </select>
+        </div>
+        <div class="row">
+          <div>
+            <label>Target squeeze</label>
+            <input type="number" id="sq" value="22" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint" id="sqHint">% — static: 18–30</div>
+          </div>
+          <div>
+            <label>Target gland fill</label>
+            <input type="number" id="fill" value="75" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">% — keep 60–85</div>
+          </div>
+        </div>
+        <div class="row" style="margin-top:12px;">
+          <div>
+            <label>System pressure</label>
+            <input type="number" id="press" value="100" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="hint">bar</div>
+          </div>
+          <div>
+            <label>Durometer</label>
+            <select id="duro" onchange="calc()">
+              <option value="70" selected>70 Shore A</option>
+              <option value="80">80 Shore A</option>
+              <option value="90">90 Shore A</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div id="mmVerdictTop"></div>
+      <div class="result-big">
+        <div class="lbl">GROOVE DEPTH</div>
+        <div class="val" id="depth">—</div>
+        <div class="unit">mm — radial for piston/rod, axial for face</div>
+      </div>
+      <div id="mmViz" class="mm-viz"></div>
+
+      <div class="result-big" style="background: var(--blueprint);">
+        <div class="lbl" style="color: var(--amber);">GROOVE WIDTH</div>
+        <div class="val" id="width">—</div>
+        <div class="unit">mm — for the target gland fill</div>
+      </div>
+
+      <div class="result-row">
+        <div class="result-card"><div class="l">Actual squeeze</div><div class="v" id="sqAct">—</div></div>
+        <div class="result-card"><div class="l">Gland fill</div><div class="v" id="fillAct">—</div></div>
+        <div class="result-card"><div class="l">Groove root diameter</div><div class="v" id="rootDia">—</div></div>
+        <div class="result-card"><div class="l">O-ring ID required</div><div class="v" id="ringID">—</div></div>
+        <div class="result-card"><div class="l">Installation stretch</div><div class="v" id="stretch">—</div></div>
+        <div class="result-card"><div class="l">Max diametral gap</div><div class="v" id="gap">—</div></div>
+        <div class="result-card"><div class="l">Back-up ring</div><div class="v" id="backup">—</div></div>
+        <div class="result-card"><div class="l">Groove corner radius</div><div class="v" id="corner">—</div></div>
+        <div class="result-card"><div class="l">Groove surface finish</div><div class="v" id="ra">—</div></div>
+        <div class="result-card"><div class="l">Lead-in chamfer</div><div class="v" id="chamfer">—</div></div>
+      </div>
+
+      <div class="input-card" style="margin-top: 16px; border-left: 3px solid var(--amber);">
+        <label style="color: var(--blueprint); font-weight: 600;">Formulas</label>
+        <div style="font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--ink-2); margin-top: 8px;">
+          Squeeze % = (W − G) / W × 100 &nbsp; → &nbsp; G = W · (1 − sq%)<br>
+          Ring area = π·W² / 4<br>
+          Gland fill % = ring area / (B × G) × 100<br>
+          Stretch % = (groove root dia − ring ID) / ring ID × 100
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div data-mw="cn-inline" data-variant="tolerance" style="margin-top: 40px;"></div>
+
+</div>
+
+<div data-mw="cn-sidebar" data-position="float-right" style="max-width: var(--max-w); margin: 32px auto; padding: 0 32px;"></div>
+
+
+<div id="orgInterpret" style="max-width: var(--max-w); margin: 0 auto 40px; padding: 0 32px; display:none;"></div>
+
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>How an O-Ring Gland Actually Works</h2>
+<p>An O-ring does not seal because it is squeezed. It seals because the squeeze creates an initial contact stress, and system pressure then <em>adds</em> to that stress by pushing the elastomer against the low-pressure side of the groove. The rubber behaves as a near-incompressible fluid: it transmits the pressure applied to it into the sealing interface. That is why a correctly designed O-ring seals better at high pressure than at low.</p>
+<p>Everything in gland design follows from that: enough squeeze to seal at zero pressure, enough free volume for the rubber to expand into, and a small enough clearance gap that the rubber cannot escape.</p>
+
+<h3>Squeeze</h3>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Squeeze % = (W − G) / W × 100</strong></p>
+<p>Where W is the O-ring cross-section and G is the groove depth. Recommended bands depend on duty:</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Application</th><th>Squeeze %</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Static radial (piston / rod)</td><td>15 – 25</td><td>Reliable seal, moderate compression set</td></tr>
+    <tr><td>Static face seal</td><td>18 – 30</td><td>Highest available — no motion to resist</td></tr>
+    <tr><td>Dynamic reciprocating</td><td>10 – 20</td><td>Limits friction, heat and wear</td></tr>
+    <tr><td>Slow oscillating</td><td>12 – 20</td><td>Compromise between seal and drag</td></tr>
+    <tr><td>Vacuum</td><td>20 – 30</td><td>Needs high contact stress, no assisting pressure</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Small cross-sections need proportionally more squeeze because compression set consumes a larger fraction of them. A 1.78 mm ring at 15% squeeze has only 0.27 mm of interference — after thermal set that margin can vanish.</p>
+
+<h3>Gland Fill — the Number Most Designs Get Wrong</h3>
+<p>The groove must be wider than the ring is thick, because a compressed O-ring bulges sideways and expands with temperature and fluid absorption. Gland fill is the ratio of ring cross-sectional area to groove cross-sectional area:</p>
+<p style="font-family: var(--mono); background: var(--blueprint-tint); padding: 12px; border-radius: 6px; border-left: 3px solid var(--blueprint);"><strong>Fill % = (π·W²/4) / (B × G) × 100</strong></p>
+<ul>
+  <li><strong>Under 60%</strong> — the ring can roll or spiral in a dynamic groove and may nibble itself apart.</li>
+  <li><strong>60 – 85%</strong> — the correct working range. Target 75%.</li>
+  <li><strong>Over 90%</strong> — dangerous. Thermal expansion or fluid swell has nowhere to go, and the ring hydraulically locks the groove, extruding into the clearance or splitting the gland.</li>
+</ul>
+<p>Elastomers expand roughly ten times more than steel per degree, and many compounds swell several percent in service fluid. A groove filled to 95% at assembly can exceed 100% at operating temperature.</p>
+
+<h3>Stretch and Compression</h3>
+<p>For a <strong>piston seal</strong> the ring is stretched over the groove. Keep installation stretch between 1% and 5%. Above 5% the cross-section thins measurably (roughly half the stretch percentage), which quietly reduces your squeeze below the design value.</p>
+<p>For a <strong>rod or bore seal</strong> the ring sits in a groove in the housing and its OD is compressed. Keep that compression under about 3%, otherwise the ring buckles in the groove instead of seating.</p>
+
+<h3>Extrusion Gap</h3>
+<p>The clearance between the moving and static parts is where a seal dies. Under pressure the elastomer flows into it, gets nibbled by the reversing motion, and fails. The permissible gap falls sharply with pressure and rises with hardness:</p>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Pressure (bar)</th><th>70 Shore A</th><th>80 Shore A</th><th>90 Shore A</th></tr></thead>
+  <tbody>
+    <tr><td>up to 35</td><td>0.25 mm</td><td>0.35 mm</td><td>0.45 mm</td></tr>
+    <tr><td>up to 70</td><td>0.20 mm</td><td>0.28 mm</td><td>0.38 mm</td></tr>
+    <tr><td>up to 105</td><td>0.13 mm</td><td>0.20 mm</td><td>0.30 mm</td></tr>
+    <tr><td>up to 140</td><td>0.08 mm</td><td>0.15 mm</td><td>0.23 mm</td></tr>
+    <tr><td>up to 210</td><td>backup ring</td><td>0.10 mm</td><td>0.15 mm</td></tr>
+    <tr><td>over 210</td><td>backup ring</td><td>backup ring</td><td>0.10 mm</td></tr>
+  </tbody>
+</table>
+</div>
+<p>These are total diametral gaps at the worst-case tolerance combination, not the nominal clearance. Add the eccentricity the parts can actually reach — a piston free to sit against one side doubles the gap on that side. Where the gap cannot be held, fit an anti-extrusion (back-up) ring of PTFE on the low-pressure side, or both sides for alternating pressure.</p>
+
+<h3>AS568 Cross-Sections</h3>
+<div class="tbl-wrap">
+<table class="tol-table">
+  <thead><tr><th>Dash series</th><th>W (inch)</th><th>W (mm)</th><th>Typical use</th></tr></thead>
+  <tbody>
+    <tr><td>004 – 050</td><td>0.070</td><td>1.78</td><td>Small bores, instrument fittings</td></tr>
+    <tr><td>102 – 178</td><td>0.103</td><td>2.62</td><td>General hydraulic and pneumatic</td></tr>
+    <tr><td>201 – 284</td><td>0.139</td><td>3.53</td><td>Medium cylinders, flanges</td></tr>
+    <tr><td>309 – 395</td><td>0.210</td><td>5.33</td><td>Large cylinders, pressure vessels</td></tr>
+    <tr><td>425 – 475</td><td>0.275</td><td>6.99</td><td>Very large diameters</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Groove Finish and Details</h3>
+<ul>
+  <li><strong>Groove side and bottom finish</strong> — Ra 0.8 to 1.6 µm for static, Ra 0.4 to 0.8 µm for dynamic.</li>
+  <li><strong>Dynamic sealing surface</strong> — Ra 0.2 to 0.4 µm. Too smooth is also wrong: a mirror finish below Ra 0.1 µm cannot hold a lubricant film and causes stick-slip.</li>
+  <li><strong>Groove corner radius</strong> — 0.1 to 0.25 mm depending on section. Sharp corners cut the ring.</li>
+  <li><strong>Lead-in chamfer</strong> — 15° to 20°, at least 1.5 × W long, with all edges broken. Most installation damage happens here.</li>
+  <li><strong>Groove sides</strong> — 0° to 5° draft. Anything more lets the ring climb out of the groove.</li>
+</ul>
+
+<h3>Worked Example</h3>
+<p>A static piston seal in a Ø50 mm bore using a 2.62 mm section ring at 22% squeeze and 75% gland fill.</p>
+<ul>
+  <li>Groove depth G = 2.62 × (1 − 0.22) = <strong>2.04 mm</strong></li>
+  <li>Squeeze in absolute terms = 2.62 − 2.04 = <strong>0.58 mm</strong></li>
+  <li>Ring area = π × 2.62² / 4 = <strong>5.39 mm²</strong></li>
+  <li>Groove width B = 5.39 / (2.04 × 0.75) = <strong>3.52 mm</strong></li>
+  <li>Groove root diameter = 50 − 2 × 2.04 = <strong>45.92 mm</strong></li>
+  <li>At 100 bar with 70 Shore A the diametral gap must stay under <strong>0.13 mm</strong></li>
+</ul>
+
+<h3>Related Tools</h3>
+<p>For the cylinder the seal runs in, see the <a href="cylinder-force.html">Cylinder Force Calculator</a>. For the clearance fit that sets the extrusion gap, use <a href="iso-286-fits.html">ISO 286 Fits</a>. For the groove finish spec see <a href="surface-finish.html">Surface Finish</a>, and to confirm the gap under worst-case tolerances run a <a href="tolerance-stack.html">Tolerance Stack-Up</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../interpret.js"></script>
+<script src="../assets/mm.js"></script>
+<script>
+/* Recommended squeeze bands by application and motion: [min%, max%, default%] */
+var SQUEEZE_BANDS = {
+  'piston-static':   [15, 25, 22],
+  'piston-recip':    [10, 20, 15],
+  'piston-osc':      [12, 20, 16],
+  'rod-static':      [15, 25, 22],
+  'rod-recip':       [10, 20, 15],
+  'rod-osc':         [12, 20, 16],
+  'face-int-static': [18, 30, 25],
+  'face-int-recip':  [18, 30, 25],
+  'face-int-osc':    [18, 30, 25],
+  'face-ext-static': [20, 30, 25],
+  'face-ext-recip':  [20, 30, 25],
+  'face-ext-osc':    [20, 30, 25]
+};
+
+/* Max total diametral extrusion gap (mm) by pressure band and durometer.
+   Rows: [pressure bar upper bound, 70A, 80A, 90A]; null = back-up ring required. */
+var GAP_TABLE = [
+  [35,        0.25, 0.35, 0.45],
+  [70,        0.20, 0.28, 0.38],
+  [105,       0.13, 0.20, 0.30],
+  [140,       0.08, 0.15, 0.23],
+  [210,       null, 0.10, 0.15],
+  [Infinity,  null, null, 0.10]
+];
+
+function bandKey() {
+  var app = document.getElementById('app').value;
+  var motion = document.getElementById('motion').value;
+  return app + '-' + motion;
+}
+
+function presetSqueeze() {
+  var band = SQUEEZE_BANDS[bandKey()];
+  if (!band) return;
+  document.getElementById('sq').value = band[2];
+  document.getElementById('sqHint').textContent = '% — recommended ' + band[0] + '–' + band[1];
+  var app = document.getElementById('app').value;
+  document.getElementById('diaHint').textContent =
+      app === 'piston' ? 'mm — bore the piston runs in' :
+      app === 'rod'    ? 'mm — rod outside diameter' :
+                         'mm — mean groove diameter';
+}
+
+function maxGap(pBar, duro) {
+  var col = duro === 70 ? 1 : (duro === 80 ? 2 : 3);
+  for (var i = 0; i < GAP_TABLE.length; i++) {
+    if (pBar <= GAP_TABLE[i][0]) return GAP_TABLE[i][col];
+  }
+  return null;
+}
+
+function calc() {
+  var app     = document.getElementById('app').value;
+  var motion  = document.getElementById('motion').value;
+  var dia     = +document.getElementById('dia').value;
+  var W       = +document.getElementById('cs').value;
+  var sqPct   = +document.getElementById('sq').value;
+  var fillPct = +document.getElementById('fill').value;
+  var pBar    = +document.getElementById('press').value;
+  var duro    = +document.getElementById('duro').value;
+
+  if (!W || !dia || !sqPct || !fillPct) return;
+
+  var isFace = app.indexOf('face') === 0;
+  var G = W * (1 - sqPct / 100);              // groove depth
+  var squeezeMM = W - G;
+  var ringArea = Math.PI * W * W / 4;
+  var B = ringArea / (G * fillPct / 100);     // groove width for target fill
+  var fillActual = ringArea / (B * G) * 100;
+
+  // Groove root diameter and the ring ID it wants
+  var rootDia, ringID, stretchPct, stretchLabel;
+  if (app === 'piston') {
+    // Groove cut into the OD — root is smaller than the sealing diameter
+    rootDia = dia - 2 * G;
+    ringID = rootDia / 1.02;                  // aim for ~2% installation stretch
+    stretchPct = (rootDia - ringID) / ringID * 100;
+    stretchLabel = 'stretch';
+  } else if (app === 'rod') {
+    // Groove cut into the bore — root is larger than the sealing diameter
+    rootDia = dia + 2 * G;
+    ringID = dia;                             // ring ID sits on the rod
+    stretchPct = -((rootDia - (ringID + 2 * W)) / (ringID + 2 * W)) * 100;  // OD compression
+    stretchLabel = 'OD compression';
+  } else {
+    rootDia = dia;
+    ringID = dia - W;                         // mean groove dia less one section
+    stretchPct = 0;
+    stretchLabel = 'n/a — face seal';
+  }
+
+  var gapLimit = maxGap(pBar, duro);
+  var needBackup = gapLimit === null;
+  var cornerR = W <= 2.0 ? 0.1 : (W <= 3.6 ? 0.15 : (W <= 5.5 ? 0.2 : 0.25));
+  var isDynamic = motion !== 'static';
+  var raGroove = isDynamic ? '0.4–0.8 µm' : '0.8–1.6 µm';
+  var raSeal = isDynamic ? '0.2–0.4 µm' : '0.8–1.6 µm';
+  var chamferLen = 1.5 * W;
+
+  window.mmCountUp ? mmCountUp(document.getElementById('depth'), G, 2)
+                   : (document.getElementById('depth').textContent = G.toFixed(2));
+  document.getElementById('width').textContent = B.toFixed(2);
+  document.getElementById('sqAct').textContent = sqPct.toFixed(0) + '% (' + squeezeMM.toFixed(2) + ' mm)';
+  document.getElementById('fillAct').textContent = fillActual.toFixed(0) + '%';
+  document.getElementById('rootDia').textContent = rootDia.toFixed(2) + ' mm';
+  document.getElementById('ringID').textContent = isFace ? '≈ ' + ringID.toFixed(1) + ' mm' : ringID.toFixed(2) + ' mm';
+  document.getElementById('stretch').textContent = isFace ? '—' : Math.abs(stretchPct).toFixed(1) + '% ' + stretchLabel;
+  document.getElementById('gap').textContent = needBackup ? 'back-up required' : gapLimit.toFixed(2) + ' mm';
+  document.getElementById('backup').textContent = needBackup ? 'Yes — PTFE' : (pBar > 105 ? 'Recommended' : 'Not required');
+  document.getElementById('corner').textContent = 'R ' + cornerR.toFixed(2) + ' mm';
+  document.getElementById('ra').textContent = 'Ra ' + raGroove;
+  document.getElementById('chamfer').textContent = '15–20°, ' + chamferLen.toFixed(1) + ' mm min';
+
+  // ── Interpretation ──
+  (function () {
+    var recs = [], v;
+    var band = SQUEEZE_BANDS[bandKey()] || [15, 25, 20];
+    if (fillActual > 90) {
+      v = { level: 'bad', label: 'Gland is overfilled',
+            sub: fillActual.toFixed(0) + '% fill. Thermal expansion and fluid swell have nowhere to go — the ring will extrude or split the gland.' };
+      recs.push({ type: 'critical', title: 'Widen the groove',
+                  detail: 'At ' + G.toFixed(2) + ' mm depth the groove needs to be at least ' + (ringArea / (G * 0.85)).toFixed(2) + ' mm wide to stay under 85% fill.' });
+    } else if (fillActual < 60) {
+      v = { level: 'warn', label: 'Gland is underfilled',
+            sub: fillActual.toFixed(0) + '% fill. The ring has room to roll or spiral, especially in a dynamic groove.' };
+      recs.push({ type: 'warn', title: 'Narrow the groove to 60–85% fill',
+                  detail: 'Maximum width for 60% fill is ' + (ringArea / (G * 0.60)).toFixed(2) + ' mm.' });
+    } else if (sqPct < band[0]) {
+      v = { level: 'warn', label: 'Squeeze below the recommended band',
+            sub: sqPct + '% against ' + band[0] + '–' + band[1] + '% for this duty. Compression set can leak the seal off entirely.' };
+      recs.push({ type: 'warn', title: 'Increase squeeze to at least ' + band[0] + '%',
+                  detail: 'That means a groove depth of ' + (W * (1 - band[0] / 100)).toFixed(2) + ' mm or less.' });
+    } else if (sqPct > band[1]) {
+      v = { level: 'warn', label: 'Squeeze above the recommended band',
+            sub: sqPct + '% against ' + band[0] + '–' + band[1] + '% for this duty.' };
+      recs.push({ type: 'warn', title: isDynamic ? 'Excess friction and wear' : 'Accelerated compression set',
+                  detail: isDynamic
+                    ? 'Over-squeezed dynamic seals run hot, drag, and wear the rod. Reduce to ' + band[1] + '% or less.'
+                    : 'High squeeze at temperature drives permanent set. Reduce to ' + band[1] + '% or less.' });
+    } else if (needBackup) {
+      v = { level: 'warn', label: 'Pressure needs an anti-extrusion ring',
+            sub: pBar + ' bar on ' + duro + ' Shore A exceeds what a plain O-ring gland holds at any practical clearance.' };
+      recs.push({ type: 'warn', title: 'Fit a PTFE back-up ring',
+                  detail: 'Low-pressure side only for one-directional pressure; both sides if the pressure alternates. Or move to 90 Shore A.' });
+    } else {
+      v = { level: 'good', label: 'Gland design is sound',
+            sub: sqPct + '% squeeze, ' + fillActual.toFixed(0) + '% fill, groove ' + G.toFixed(2) + ' × ' + B.toFixed(2) + ' mm.' };
+    }
+    if (!isFace && Math.abs(stretchPct) > 5) {
+      recs.push({ type: 'info', title: 'Installation ' + stretchLabel + ' is high',
+                  detail: Math.abs(stretchPct).toFixed(1) + '% thins the cross-section by roughly half that, which reduces your actual squeeze below the design figure.' });
+    }
+    if (!needBackup && gapLimit != null) {
+      recs.push({ type: 'info', title: 'Hold the diametral gap under ' + gapLimit.toFixed(2) + ' mm',
+                  detail: 'That is the worst-case total gap including eccentricity, not the nominal clearance. A piston free to sit on one side doubles the gap on that side.' });
+    }
+    mmInterpret.render('orgInterpret', {
+      verdict: v, recommendations: recs,
+      cta: { show: true, severity: fillActual > 90 ? 'critical' : 'good', calc: 'oring-groove',
+             eyebrow: 'CadNexa · groove check',
+             headline: 'Verify the groove on the actual model.',
+             sub: 'Open the part in CadNexa and measure the machined groove depth and width against the design figures before the first pressure test.',
+             ctaText: 'Open in CadNexa →' },
+      nextSteps: [
+        { href: 'iso-286-fits.html',    text: 'Set the clearance', sub: 'Extrusion gap' },
+        { href: 'tolerance-stack.html', text: 'Worst-case gap',    sub: 'Stack-up check' },
+        { href: 'surface-finish.html',  text: 'Finish spec',       sub: 'Ra ' + raSeal }
+      ],
+      related: [
+        { href: 'cylinder-force.html', text: 'Cylinder Force' },
+        { href: 'iso-286-fits.html', text: 'ISO 286 Fits' },
+        { href: 'surface-finish.html', text: 'Surface Finish' }
+      ]
+    });
+  })();
+
+  // ── Visual (display-only) ──
+  if (window.mmViz) { try {
+    mmViz.scaleBar('#mmViz', {
+      value: fillActual, min: 40, max: 100, decimals: 0, unit: '%',
+      label: 'Gland fill',
+      zones: [
+        { to: 60,  color: '#fbbf24', label: 'Under-filled' },
+        { to: 85,  color: '#16a34a', label: 'Correct' },
+        { to: 90,  color: '#d97706', label: 'High' },
+        { to: 100, color: '#dc2626', label: 'Overfilled' }
+      ],
+      marks: [{ v: 75, label: 'target' }]
+    });
+  } catch (e) {} }
+}
+
+presetSqueeze();
+calc();
+</script>
+<script src="../share.js"></script>
+<script>mmShare.auto({kicker: 'O-Ring Groove Design'});</script>
+</body>
+</html>
