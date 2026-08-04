@@ -185,7 +185,16 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-08-04: LINT PASS (2283 words, 6 internal links)
+
+
+
+    In the ''Geometric Characteristic Symbols at a Glance'' section the article states
+    ''ASME Y14.5-2018 defines 12 geometric characteristic symbols'' but then lists
+    exactly 14 symbols in the body text (flatness, straightness, circularity, cylindricity,
+    profile of a line, profile of a surface, angularity, perpendicularity, parallelism,
+    position, circular runout, '
 - keyword: maximum material condition MMC LMC bonus tolerance explained
   cluster: GD&T Reference
   intent: informational
