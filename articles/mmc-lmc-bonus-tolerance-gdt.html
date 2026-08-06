@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maximum Material Condition Bonus Tolerance | MetricMech</title>
+<meta name="description" content="Maximum material condition MMC LMC bonus tolerance explained with formulas, examples, and GD&T calculations for design engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maximum Material Condition Bonus Tolerance | MetricMech">
+<meta property="og:description" content="Maximum material condition MMC LMC bonus tolerance explained with formulas, examples, and GD&T calculations for design engineers.">
+<meta property="og:url" content="https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maximum Material Condition Bonus Tolerance | MetricMech">
+<meta name="twitter:description" content="Maximum material condition MMC LMC bonus tolerance explained with formulas, examples, and GD&T calculations for design engineers.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Maximum Material Condition Bonus Tolerance | MetricMech",
+  "description": "Maximum material condition MMC LMC bonus tolerance explained with formulas, examples, and GD&T calculations for design engineers.",
+  "url": "https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Maximum Material Condition (MMC) & LMC Bonus Tolerance Explained",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-06",
+  "mainEntityOfPage": "https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is maximum material condition (MMC) in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MMC is the condition where a feature contains the most material — the smallest hole or the largest shaft. Applying the MMC modifier (circled M) to a geometric tolerance allows bonus tolerance as the feature departs from MMC toward LMC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate bonus tolerance with the MMC modifier?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bonus tolerance equals the absolute difference between the actual mating size and the MMC size. Add this bonus to the stated geometric tolerance to get the total allowable tolerance at that actual size."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is least material condition (LMC) and when is it used?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LMC is the condition where a feature contains the least material — the largest hole or the smallest shaft. The LMC modifier is used when minimum wall thickness or edge-break integrity is the design concern, rather than assembly fit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can bonus tolerance apply to all GD&T characteristics?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Bonus tolerance only applies to features of size (holes, slots, pins, tabs). It cannot be applied to form controls like flatness or straightness, nor to datum references unless an appropriate material condition modifier is stated."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between MMC and RFS in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RFS (regardless of feature size) means the stated geometric tolerance applies at every actual size — no bonus is ever earned. MMC allows additional tolerance as the part moves away from maximum material, making it less restrictive and more manufacturing-friendly."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Maximum Material Condition (MMC) & LMC Bonus Tolerance Explained",
+      "item": "https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Maximum Material Condition (MMC) & LMC B</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What MMC and LMC Mean in 60 Words</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula and Variables</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#when-to-use">When to Use MMC vs LMC in Design</a>
+    <a href="#common-mistakes">Common Mistakes</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Maximum Material Condition (MMC) & LMC Bonus Tolerance Explained</h1>
+    <div class="art-meta-bar">
+      <span>GD&T Tolerancing</span>
+      <span>August 06, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">
+  <strong>Maximum material condition (MMC) and least material condition (LMC) are material condition modifiers in GD&amp;T that allow a geometric tolerance to increase — earning "bonus tolerance" — as a feature departs from its critical size limit.</strong> MMC applies when a hole is at its smallest or a pin is at its largest. LMC applies at the opposite extreme. The bonus tolerance equals the departure from the critical size, giving manufacturers extra room without compromising assembly function.
+</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a through-hole on a machined plate with the following drawing callout: a position tolerance of ⌀0.2 mm at MMC, and a hole diameter tolerance of ⌀20.0 – ⌀20.4 mm. The MMC size for a hole is its smallest limit, so MMC = ⌀20.0 mm.</p>
+
+<p>If the actual hole measures ⌀20.3 mm, the departure from MMC is 20.3 − 20.0 = 0.3 mm. That departure becomes bonus tolerance. The total allowable position tolerance at that actual size is therefore 0.2 + 0.3 = <strong>⌀0.5 mm</strong>.</p>
+
+<p>This is the core power of the MMC modifier: the part that is easier to produce (a larger hole) automatically earns more positional freedom, because assembly clearance is actually greater. The mating pin has more room to be off-centre and still pass through without interference.</p>
+
+<p>Use the <a href="https://metricmech.com/articles/true-position-calculation">True Position Calculation guide on MetricMech</a> to verify measured co-ordinate data against the total tolerance zone. When you need to balloon and record every feature against its drawing callout, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=mmc-lmc-bonus-tolerance-gdt" class="highlight">CadNexa's auto-ballooning tool</a> maps the GD&amp;T callouts directly to your inspection report, removing manual transcription errors.</p>
+
+<h2 id="formula-table">Formula and Variables</h2>
+
+<p>The bonus tolerance relationship is straightforward and applies symmetrically to both MMC and LMC modifiers, differing only in the reference size used.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Symbol</th>
+      <th>Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stated geometric tolerance</td>
+      <td>T<sub>stated</sub></td>
+      <td>The tolerance value written in the feature control frame (e.g. ⌀0.2 mm)</td>
+    </tr>
+    <tr>
+      <td>MMC size (hole)</td>
+      <td>MMC</td>
+      <td>Smallest allowable hole diameter (most material)</td>
+    </tr>
+    <tr>
+      <td>MMC size (pin/shaft)</td>
+      <td>MMC</td>
+      <td>Largest allowable pin diameter (most material)</td>
+    </tr>
+    <tr>
+      <td>LMC size (hole)</td>
+      <td>LMC</td>
+      <td>Largest allowable hole diameter (least material)</td>
+    </tr>
+    <tr>
+      <td>LMC size (pin/shaft)</td>
+      <td>LMC</td>
+      <td>Smallest allowable pin diameter (least material)</td>
+    </tr>
+    <tr>
+      <td>Actual mating size</td>
+      <td>AMS</td>
+      <td>The measured size of the feature</td>
+    </tr>
+    <tr>
+      <td>Bonus tolerance</td>
+      <td>T<sub>bonus</sub></td>
+      <td>Additional tolerance earned by departing from the critical size limit</td>
+    </tr>
+    <tr>
+      <td>Total tolerance</td>
+      <td>T<sub>total</sub></td>
+      <td>T<sub>stated</sub> + T<sub>bonus</sub></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>For the MMC modifier (circled M):</strong></p>
+<p style="margin-left:1.5em;"><code>T<sub>bonus</sub> = |AMS − MMC|</code></p>
+<p style="margin-left:1.5em;"><code>T<sub>total</sub> = T<sub>stated</sub> + T<sub>bonus</sub></code></p>
+
+<p><strong>For the LMC modifier (circled L):</strong></p>
+<p style="margin-left:1.5em;"><code>T<sub>bonus</sub> = |AMS − LMC|</code></p>
+<p style="margin-left:1.5em;"><code>T<sub>total</sub> = T<sub>stated</sub> + T<sub>bonus</sub></code></p>
+
+<p>Maximum bonus tolerance is always earned when the feature reaches LMC (for an MMC callout) or MMC (for an LMC callout). The maximum total tolerance equals T<sub>stated</sub> plus the full size tolerance band of the feature.</p>
+
+<p class="callout">ASME Y14.5-2018 (section 6) is the authoritative US standard governing material condition modifiers and bonus tolerance. ISO 2692 covers the equivalent concept under the term "maximum material requirement" (MMR) and "least material requirement" (LMR). Always confirm which standard governs the drawing before interpreting modifiers.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<ol>
+  <li><strong>Read the feature control frame.</strong> Identify the geometric tolerance value (e.g. ⌀0.2 mm position) and confirm whether the modifier is MMC (circled M) or LMC (circled L). If neither symbol appears, the callout defaults to RFS — no bonus applies.</li>
+  <li><strong>Identify the feature size tolerance.</strong> From the dimension block, find the upper and lower limits of the feature (e.g. ⌀20.0 – ⌀20.4 mm for a hole).</li>
+  <li><strong>Determine the critical size (MMC or LMC).</strong> For MMC: holes → smallest limit; pins → largest limit. For LMC: holes → largest limit; pins → smallest limit.</li>
+  <li><strong>Record the actual mating size (AMS).</strong> Use your CMM report, air-gauge reading, or go/no-go gauge data to confirm the feature is within its size tolerance before proceeding.</li>
+  <li><strong>Calculate the bonus tolerance.</strong> Subtract the critical size from the AMS (take the absolute value): T<sub>bonus</sub> = |AMS − critical size|.</li>
+  <li><strong>Compute the total tolerance.</strong> Add the stated geometric tolerance and the bonus: T<sub>total</sub> = T<sub>stated</sub> + T<sub>bonus</sub>.</li>
+  <li><strong>Compare the measured deviation to T<sub>total</sub>.</strong> Calculate true position or other applicable deviation from your CMM data. If the deviation is ≤ T<sub>total</sub>, the feature conforms. See the <a href="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula guide</a> for the deviation formula using X and Y co-ordinate data.</li>
+</ol>
+
+<p>For tolerance stack-up analysis that incorporates MMC bonus into a worst-case or RSS chain, refer to the <a href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS guide on MetricMech</a> — the MMC bonus effectively increases the floating fastener clearance in assembly models.</p>
+
+<h2 id="when-to-use">When to Use MMC vs LMC in GD&T Design</h2>
+
+<p>The MMC modifier is the default choice for most assembly-critical features such as clearance holes, counterbores, and locating pins. When functional assembly requires parts to mate without interference, a larger hole or smaller pin generates real extra clearance, and awarding bonus tolerance reflects that physical reality.</p>
+
+<p>The LMC modifier serves a different concern: minimum wall thickness, minimum edge-break integrity, or structural adequacy. A deep drilled hole near a thin wall benefits from an LMC callout on position — as the hole approaches its largest size, the bonus tolerance is zeroed out, ensuring the wall thickness is never compromised by positional shift.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Modifier</th>
+      <th>Typical Feature</th>
+      <th>Design Concern Addressed</th>
+      <th>Bonus Earned When...</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MMC (circled M)</td>
+      <td>Clearance holes, locating pins</td>
+      <td>Assembly fit and interchangeability</td>
+      <td>Feature departs toward LMC</td>
+    </tr>
+    <tr>
+      <td>LMC (circled L)</td>
+      <td>Deep holes near thin walls, tapped holes</td>
+      <td>Minimum wall thickness, structural integrity</td>
+      <td>Feature departs toward MMC</td>
+    </tr>
+    <tr>
+      <td>RFS (no symbol, ASME Y14.5-2018 default)</td>
+      <td>Precision bearing bores, datum features</td>
+      <td>Tight functional requirement at every size</td>
+      <td>Never — no bonus applies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In automotive PPAP submissions, MMC callouts appear frequently on stamped and cast hole patterns where the tooling naturally produces hole sizes distributed across the tolerance band. Recording the actual size alongside the geometric deviation — and confirming the total tolerance — is a mandatory inspection step. When documenting this during first article inspection, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=mmc-lmc-bonus-tolerance-gdt" class="highlight cta-box">CadNexa auto-ballooning</a> links each ballooned callout to its actual measurement record, including the modifier symbol, so reviewers see the bonus tolerance logic clearly without manual annotation.</p>
+
+<p>The <a href="https://metricmech.com/articles/go-no-go-gauges">Go/No-Go Gauges guide on MetricMech</a> explains how functional gauges embody the MMC boundary directly — the "go" gauge for a hole is sized at the MMC limit, so it physically rejects any hole smaller than MMC before a geometric check is even needed.</p>
+
+<h2 id="common-mistakes">Common Mistakes with MMC and LMC Modifiers</h2>
+
+<p class="warn-box"><strong>Mistake 1 — Confusing which size is MMC for a hole vs a pin.</strong> New engineers sometimes assume MMC means the largest size because "maximum" sounds large. For a hole, MMC is the smallest diameter because that is when the hole contains the most material. For a pin, MMC is the largest diameter. Always think in terms of material volume, not dimensional value.</p>
+
+<p><strong>Mistake 2 — Applying bonus tolerance without first verifying the feature is within its size tolerance.</strong> If the hole measures outside its dimensional tolerance band, the part fails regardless of the geometric result. The size check must pass before bonus tolerance is calculated. This sequencing error frequently appears in manual CMM reports.</p>
+
+<p><strong>Mistake 3 — Using the nominal size instead of the actual mating size for bonus calculation.</strong> Bonus tolerance is based on the actual measured size at that specific feature, not the nominal or mean size. Using the nominal defeats the purpose of the modifier and can either over-accept or over-reject parts.</p>
+
+<p><strong>Mistake 4 — Applying MMC to non-features of size.</strong> Flatness, straightness of a surface, and angularity applied to a plane are not features of size. The MMC modifier cannot legally appear in those feature control frames under ASME Y14.5. Reviewers catching this during drawing approval should flag it immediately — it indicates a GD&amp;T callout error, not just an inspection question.</p>
+
+<p><strong>Mistake 5 — Ignoring datum feature modifiers.</strong> The MMC or LMC modifier can also appear after a datum reference letter in the feature control frame (e.g. |⌀0.2 M | A | B M |). The modifier on the datum reference introduces datum shift — an additional allowable movement of the datum simulator — which is a separate and additive source of tolerance. Treating datum shift as the same concept as feature bonus tolerance leads to under-constrained inspection setups.</p>
+
+<p>For a broader view of drawing interpretation errors that affect inspection pass rates, the <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances guide</a> covers the implied tolerance context that surrounds every feature control frame.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is maximum material condition (MMC) in GD&amp;T?</h3>
+<p>MMC is the condition where a feature contains the most material — the smallest hole or the largest shaft. Applying the MMC modifier (circled M) to a geometric tolerance allows bonus tolerance as the feature departs from MMC toward LMC. The standard governing this in the US is <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-and-tolerancing" rel="noopener noreferrer" target="_blank">ASME Y14.5-2018</a>; the international equivalent is <a href="https://www.iso.org/standard/71721.html" rel="noopener noreferrer" target="_blank">ISO 2692</a>.</p>
+
+<h3>How do you calculate bonus tolerance with the MMC modifier?</h3>
+<p>Bonus tolerance equals the absolute difference between the actual mating size and the MMC size. Add this bonus to the stated geometric tolerance to get the total allowable tolerance at that actual size. For example, if MMC = ⌀20.0 mm, AMS = ⌀20.3 mm, and T<sub>stated</sub> = ⌀0.2 mm, then T<sub>total</sub> = 0.2 + 0.3 = ⌀0.5 mm.</p>
+
+<h3>What is least material condition (LMC) and when is it used?</h3>
+<p>LMC is the condition where a feature contains the least material — the largest hole or the smallest shaft. The LMC modifier is used when minimum wall thickness or structural integrity is the design concern, rather than assembly clearance. It is less common than MMC but appears regularly in castings, deep-drilled components, and aerospace structures where wall thinning is a failure mode.</p>
+
+<h3>Can bonus tolerance apply to all GD&amp;T characteristics?</h3>
+<p>No. Bonus tolerance only applies to features of size (holes, slots, pins, tabs). It cannot be applied to form controls like flatness or straightness applied to a surface, nor to profile of a surface unless that surface is a derived feature of size. The <a href="https://www.nist.gov/services-resources/software/msid-gdt-advisor" rel="noopener noreferrer" target="_blank">NIST GD&amp;T Advisor</a> provides a useful rules reference for allowable modifier combinations.</p>
+
+<h3>What is the difference between MMC and RFS in GD&amp;T?</h3>
+<p>RFS (regardless of feature size) means the stated geometric tolerance applies at every actual size with no bonus. MMC allows additional tolerance as the part moves away from maximum material, making it less restrictive and more manufacturing-friendly. Under ASME Y14.5-2018, RFS is the default when no modifier symbol appears; under earlier editions (Y14.5M-1994) the default rules differed, so always confirm which revision governs the drawing.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/gdt-reference-guide">GD&amp;T Reference: Complete Guide</a></li>
+    <li><a href="/articles/position-tolerance-mmc">Position Tolerance with MMC: Bonus Tolerance</a></li>
+    <li><a href="/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula Calculation</a></li>
+    <li><a href="/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Maximum Material Condition (MMC) & LMC Bonus Tolerance Explained",
+      "item": "https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt"
+    }
+  ]
+}
+</script>
+</body>
+</html>

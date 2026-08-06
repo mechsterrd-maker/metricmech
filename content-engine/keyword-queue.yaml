@@ -208,7 +208,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: Ra Rz surface roughness difference explained chart
   cluster: Surface Finish & Metrology
   intent: informational

@@ -310,3 +310,9 @@ posts:
   keyword: true position tolerance GD&T formula calculation
   cluster: GD&T Reference
   source: autopilot
+- url: https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt
+  date: '2026-08-06'
+  title: Maximum Material Condition Bonus Tolerance | MetricMech
+  keyword: maximum material condition MMC LMC bonus tolerance explained
+  cluster: GD&T Reference
+  source: autopilot
