@@ -717,9 +717,11 @@
   function mmThemeInit() {
     if (!document.querySelector('.calc-layout')) return; // calculators only
     var root = document.documentElement;
+    // Studio dark is the DEFAULT on calculator pages; light is the opt-out.
     try {
-      if (localStorage.getItem('mm_theme') === 'dark') root.dataset.mmTheme = 'dark';
-    } catch (e) {}
+      if (localStorage.getItem('mm_theme') === 'light') delete root.dataset.mmTheme;
+      else root.dataset.mmTheme = 'dark';
+    } catch (e) { root.dataset.mmTheme = 'dark'; }
     if (document.querySelector('.mm-theme-toggle')) return;
     var btn = document.createElement('button');
     btn.type = 'button';

@@ -6,7 +6,7 @@
   const _hdr = document.querySelector('[data-mw="header"]');
   const prefix = (_hdr && _hdr.dataset.prefix) || '';
   const s = document.createElement('script');
-  s.src = prefix + 'analytics.js?v=20260808a';
+  s.src = prefix + 'analytics.js?v=20260808b';
   s.async = true;
   document.head.appendChild(s);
 })();
