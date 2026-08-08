@@ -552,6 +552,7 @@
     initTableWrap();
     initInputModes();
     initInboxValidation();
+    mmThemeInit();
     ensureSticky();
   }
   // Hook interpret.js immediately (pages call calc() inline, before DOMContentLoaded).
@@ -665,11 +666,12 @@
         if (!E.length) return;
         var zmin = E[E.length - 1].z, zmax = E[0].z, zr = Math.max(zmax - zmin, 1e-6);
         cx2.lineCap = 'round';
+        var liveColor = document.documentElement.dataset.mmTheme === 'dark' ? '#00E5FF' : color;
         for (var i = 0; i < E.length; i++) {
           var t = 1 - (E[i].z - zmin) / zr;
           cx2.globalAlpha = 0.14 + 0.86 * t;
           cx2.lineWidth = 0.7 + 1.2 * t;
-          cx2.strokeStyle = color;
+          cx2.strokeStyle = liveColor;
           cx2.beginPath(); cx2.moveTo(E[i].a[0], E[i].a[1]); cx2.lineTo(E[i].b[0], E[i].b[1]); cx2.stroke();
         }
         cx2.globalAlpha = 1;
@@ -710,6 +712,33 @@
     }
     return { mount: mount, prism: prism, ngon: ngon, rect: rectPts, sphere: sphere, cone: cone };
   })();
+
+  /* ══════════ STUDIO DARK MODE (opt-in, calculator pages only) ══════════ */
+  function mmThemeInit() {
+    if (!document.querySelector('.calc-layout')) return; // calculators only
+    var root = document.documentElement;
+    try {
+      if (localStorage.getItem('mm_theme') === 'dark') root.dataset.mmTheme = 'dark';
+    } catch (e) {}
+    if (document.querySelector('.mm-theme-toggle')) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'mm-theme-toggle';
+    btn.setAttribute('aria-label', 'Toggle studio dark mode');
+    btn.textContent = root.dataset.mmTheme === 'dark' ? '☀️' : '🌙';
+    btn.addEventListener('click', function () {
+      var dark = root.dataset.mmTheme !== 'dark';
+      if (dark) root.dataset.mmTheme = 'dark';
+      else delete root.dataset.mmTheme;
+      btn.textContent = dark ? '☀️' : '🌙';
+      try { localStorage.setItem('mm_theme', dark ? 'dark' : 'light'); } catch (e) {}
+      // let the page's own visuals redraw with the new palette: re-fire the
+      // first live-recalc control's handler (same path as live recalc)
+      var ctl = document.querySelector('.calc-layout input[onchange], .calc-layout select[onchange], .calc-layout input[oninput], .calc-layout select[oninput]');
+      try { if (ctl) (ctl.onchange || ctl.oninput).call(ctl); } catch (e) {}
+    });
+    document.body.appendChild(btn);
+  }
 
   /* exports */
   window.mmVerdict = mmVerdict;
