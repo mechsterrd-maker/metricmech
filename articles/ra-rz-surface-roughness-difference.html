@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ra Rz Surface Roughness Difference Explained | MetricMech</title>
+<meta name="description" content="Ra Rz surface roughness difference explained chart, formulas & example. Choose the right parameter for precise drawing specs and inspection." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/mm.css">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/ra-rz-surface-roughness-difference">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ra Rz Surface Roughness Difference Explained | MetricMech">
+<meta property="og:description" content="Ra Rz surface roughness difference explained chart, formulas & example. Choose the right parameter for precise drawing specs and inspection.">
+<meta property="og:url" content="https://metricmech.com/articles/ra-rz-surface-roughness-difference">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ra Rz Surface Roughness Difference Explained | MetricMech">
+<meta name="twitter:description" content="Ra Rz surface roughness difference explained chart, formulas & example. Choose the right parameter for precise drawing specs and inspection.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Ra Rz Surface Roughness Difference Explained | MetricMech",
+  "description": "Ra Rz surface roughness difference explained chart, formulas & example. Choose the right parameter for precise drawing specs and inspection.",
+  "url": "https://metricmech.com/articles/ra-rz-surface-roughness-difference",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Ra Rz Surface Roughness Difference Explained: Chart, Formulas & When to Use Each",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-08",
+  "mainEntityOfPage": "https://metricmech.com/articles/ra-rz-surface-roughness-difference"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between Ra and Rz in surface roughness?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ra is the arithmetic mean deviation of the surface profile over the evaluation length — it averages all peaks and valleys. Rz is the average of the five highest peak-to-valley distances within five consecutive sampling lengths. Rz is more sensitive to extreme surface events such as deep scratches or large burrs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Ra or Rz a better surface roughness specification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Neither is universally better. Ra suits general functional surfaces where average texture controls friction or sealing. Rz is preferred when isolated peak defects — such as a deep scratch on a bearing seat — would cause failure even if the average roughness looks acceptable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical Ra to Rz ratio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most machined surfaces with a Gaussian-like profile, Rz is approximately 4 to 7 times Ra. A commonly used rule of thumb in workshop practice is Rz ≈ 6 × Ra, though the actual ratio depends heavily on the machining process and material."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which standard defines Ra and Rz?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ISO 4287:1997 defines Ra, Rz, and related amplitude parameters for surface texture measured by contact profilometry. ASME B46.1 is the corresponding American standard. Both define Rz as the ten-point mean roughness averaged across five sampling lengths."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a drawing specify both Ra and Rz at the same time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Some high-reliability industries, such as aerospace and medical devices, specify both Ra as a general texture limit and Rz as a peak-defect limit on the same feature. This dual specification tightens control over both average finish quality and worst-case surface events."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ra Rz Surface Roughness Difference Explained: Chart, Formulas & When to Use Each",
+      "item": "https://metricmech.com/articles/ra-rz-surface-roughness-difference"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Ra Rz Surface Roughness Difference Expla</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Ra vs Rz: The Core Difference</a>
+    <a href="#formulas">Formulas and Variables</a>
+    <a href="#chart">Ra vs Rz Comparison Chart</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#how-to-choose">How to Choose: Step-by-Step Method</a>
+    <a href="#common-mistakes">Common Mistakes</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Ra Rz Surface Roughness Difference Explained: Chart, Formulas & When to Use Each</h1>
+    <div class="art-meta-bar">
+      <span>Quality Engineering</span>
+      <span>August 08, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">Ra and Rz are the two most widely used surface roughness parameters, but they measure different things. Ra is the arithmetic mean of all profile deviations from the mean line over an evaluation length. Rz is the average of five consecutive peak-to-valley heights across the same length. Ra smooths out extremes; Rz catches them. Choosing the wrong parameter leads to parts that pass inspection yet fail in service.</p>
+
+<h2 id="direct-answer">Ra vs Rz: The Core Difference</h2>
+
+<p>Ra gives a single averaged number that represents the general texture of a surface. Because it averages every data point, one deep scratch has little effect on the Ra value. Rz, by contrast, is built from the five worst peak-to-valley events in the evaluation length, so that same deep scratch immediately raises the Rz value — often significantly.</p>
+
+<p>This difference is not academic. A hydraulic rod seal depends on average film thickness (Ra territory), while a fatigue-critical aerospace shaft is more sensitive to the deepest valley acting as a stress concentrator (Rz territory). Specifying Ra alone on the shaft drawing can pass a surface that will fail in fatigue loading.</p>
+
+<p>ISO 4287:1997 and ASME B46.1 both define these parameters formally. Understanding them is a prerequisite for interpreting surface finish symbols correctly — see the MetricMech guide on <a href="https://metricmech.com/articles/surface-finish-symbols">surface finish symbols on drawings</a> for how these parameters appear in drawing callouts.</p>
+
+<h2 id="formulas">Formulas and Variables</h2>
+
+<p>Both parameters are derived from the same measured profile, but the mathematics treat that profile very differently. The formulas below follow ISO 4287 notation.</p>
+
+<h3>Ra Formula</h3>
+<p>Ra = (1 / l) × ∫₀ˡ |z(x)| dx</p>
+<p>In discrete form: Ra = (1/n) × Σ|zᵢ|</p>
+
+<h3>Rz Formula</h3>
+<p>Rz = (1/5) × Σ(Rz_i) where Rz_i = (highest peak − deepest valley) within sampling length i</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Meaning</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ra</td>
+      <td>Arithmetic mean roughness — average of absolute profile deviations from mean line</td>
+      <td>µm (or µin)</td>
+    </tr>
+    <tr>
+      <td>Rz</td>
+      <td>Mean roughness depth — average of five peak-to-valley heights across five sampling lengths</td>
+      <td>µm (or µin)</td>
+    </tr>
+    <tr>
+      <td>z(x)</td>
+      <td>Profile height at position x relative to the mean line</td>
+      <td>µm</td>
+    </tr>
+    <tr>
+      <td>l</td>
+      <td>Evaluation length (typically 5 × sampling length λc)</td>
+      <td>mm</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>Number of discrete measurement points</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Rz_i</td>
+      <td>Peak-to-valley height within individual sampling length i (i = 1 to 5)</td>
+      <td>µm</td>
+    </tr>
+    <tr>
+      <td>λc</td>
+      <td>Cutoff wavelength (filter that separates roughness from waviness)</td>
+      <td>mm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note: Some older German DIN standards used Rz to denote a ten-point height parameter (Rz_DIN) that is numerically different from the ISO Rz above. If a drawing was created before 1997 or uses DIN 4768 callouts, verify which definition applies before inspection. NIST's surface metrology resources provide a useful reference for this distinction.</p>
+
+<h2 id="chart">Ra vs Rz Comparison Chart</h2>
+
+<p>The table below summarises the key differences so quality engineers can make fast specification decisions at the drawing review stage.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Ra</th>
+      <th>Rz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>What it measures</td>
+      <td>Average of all profile deviations from mean line</td>
+      <td>Average of five worst peak-to-valley events</td>
+    </tr>
+    <tr>
+      <td>Sensitivity to isolated defects</td>
+      <td>Low — outlier peaks/valleys are diluted</td>
+      <td>High — each event contributes directly</td>
+    </tr>
+    <tr>
+      <td>Typical numeric relationship</td>
+      <td>Reference value</td>
+      <td>Rz ≈ 4–7 × Ra for machined surfaces</td>
+    </tr>
+    <tr>
+      <td>Governing standard</td>
+      <td>ISO 4287 / ASME B46.1</td>
+      <td>ISO 4287 / ASME B46.1</td>
+    </tr>
+    <tr>
+      <td>Most common application</td>
+      <td>General sealing, bearing, sliding surfaces</td>
+      <td>Fatigue-critical, adhesive bond, coating prep</td>
+    </tr>
+    <tr>
+      <td>Global drawing prevalence</td>
+      <td>Very high — used on most drawings worldwide</td>
+      <td>High in European and aerospace drawings</td>
+    </tr>
+    <tr>
+      <td>Risk if misspecified</td>
+      <td>May pass parts with damaging deep defects</td>
+      <td>May over-reject parts that function perfectly</td>
+    </tr>
+    <tr>
+      <td>Instrument readout</td>
+      <td>Displayed on virtually all profilometers</td>
+      <td>Displayed on most modern profilometers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">Quick reference: when a drawing shows a surface finish symbol with a single value and no parameter label, it is almost always Ra under ISO 1302 and ASME Y14.36. If the label is absent and the part is safety-critical, raise a drawing query before proceeding with inspection.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a turned steel shaft with five consecutive sampling lengths. The profilometer software reports the following Rz_i values: 4.2 µm, 4.8 µm, 3.9 µm, 5.1 µm, and 4.5 µm. There is one anomalous deep scratch in sampling length 4 contributing a higher local peak.</p>
+
+<p><strong>Step 1 — Calculate Rz:</strong><br>
+Rz = (4.2 + 4.8 + 3.9 + 5.1 + 4.5) / 5 = 22.5 / 5 = <strong>4.5 µm</strong></p>
+
+<p><strong>Step 2 — Estimate Ra:</strong><br>
+Using the rule of thumb Rz ≈ 6 × Ra for a turned surface:<br>
+Ra ≈ 4.5 / 6 = <strong>0.75 µm</strong></p>
+
+<p><strong>Step 3 — Interpret against a drawing callout of Ra 0.8 µm max:</strong><br>
+The estimated Ra of 0.75 µm passes the Ra callout. However, if the drawing had instead called out Rz 4.0 µm max, the measured Rz of 4.5 µm would <strong>fail</strong> — even though the average texture looks acceptable. The deep scratch in sampling length 4 pushed Rz above the limit while leaving Ra undisturbed.</p>
+
+<p>This is the exact scenario where Ra-only specification creates field failures. Fatigue cracks on rotating shafts often initiate at the deepest valley, not at the average texture level.</p>
+
+<h2 id="how-to-choose">How to Choose: Step-by-Step Method</h2>
+
+<p>Follow this sequence during design review or drawing approval to assign the correct surface roughness parameter.</p>
+
+<ol>
+  <li><strong>Define the failure mode.</strong> Determine how surface texture would cause the part to fail — friction, leakage, fatigue, adhesion failure, or coating delamination.</li>
+  <li><strong>Check if isolated defects drive failure.</strong> If a single deep scratch or large peak would cause failure (fatigue initiation, seal leak path, coating peel), specify Rz or specify both Ra and Rz.</li>
+  <li><strong>Check if average texture drives failure.</strong> If the function depends on a consistent film thickness, average friction coefficient, or general reflectivity, Ra is the primary parameter to control.</li>
+  <li><strong>Assign the evaluation length and cutoff wavelength.</strong> ISO 4288 provides default λc and evaluation length values based on the expected Ra range. Do not skip this step — using the wrong cutoff filter changes the measured value significantly.</li>
+  <li><strong>Convert between Ra and Rz if needed.</strong> For initial tolerance setting, use Rz ≈ 6 × Ra as a starting estimate, then validate with measurement data from your specific process and material.</li>
+  <li><strong>Write the drawing callout correctly.</strong> Use ISO 1302 or ASME Y14.36 symbol format. Label the parameter explicitly (Ra or Rz) to avoid ambiguity. Refer to the MetricMech article on <a href="https://metricmech.com/articles/surface-finish-symbols">surface finish symbols on drawings</a> for correct symbol construction.</li>
+  <li><strong>Validate with inspection data during PPAP or FAI.</strong> Measure both Ra and Rz on the first-off parts regardless of which parameter the drawing calls out. Establish a process baseline so that future audits have reference data.</li>
+</ol>
+
+<p class="callout">When your FAI package requires ballooned drawings that reference surface finish callouts, CadNexa's auto-ballooning tool at <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=ra-rz-surface-roughness-difference" class="highlight">cadnexa.com/balloon</a> can capture surface roughness symbols directly from the drawing, reducing manual transcription errors in your inspection report.</p>
+
+<p>For wider dimensional tolerance decisions that interact with surface specification — particularly on press-fit or interference-fit features — the MetricMech guide on <a href="https://metricmech.com/articles/press-fit-calculation">press fit calculation</a> covers how surface finish affects contact stress and holding force. Similarly, if the surface is part of a critical fastener joint, review the <a href="https://metricmech.com/articles/bolt-torque-guide">bolt torque guide</a> since bearing-face roughness influences friction coefficient and clamp load retention.</p>
+
+<h2 id="common-mistakes">Common Mistakes</h2>
+
+<h3>Mistake 1: Assuming Ra and Rz are interchangeable</h3>
+<p>They are not interchangeable. Switching from Ra 0.8 µm to Rz 0.8 µm on a drawing is a tenfold tightening of the specification. Suppliers and inspectors who do not catch this change will either reject good parts or pass defective ones. Always label the parameter explicitly on the drawing.</p>
+
+<h3>Mistake 2: Using the wrong cutoff wavelength</h3>
+<p>Measuring a ground surface with a 0.8 mm cutoff that should use a 0.25 mm cutoff inflates the measured Ra value by capturing waviness in the roughness band. ISO 4288 Table 1 specifies the correct λc for each Ra range. Profilometer software does not always default to the correct filter for the surface being measured.</p>
+
+<h3>Mistake 3: Ignoring the DIN vs ISO Rz definition conflict</h3>
+<p>Older German drawings use Rz_DIN (ten-point height, average of the five highest peaks and five deepest valleys, not five consecutive Rz_i values). Modern ISO Rz and DIN Rz are numerically different. If a drawing originates from a German OEM pre-dating the 1997 ISO revision, confirm the definition before setting gauge limits.</p>
+
+<h3>Mistake 4: Specifying Ra where Rz is safety-relevant</h3>
+<p>Fatigue-critical components, adhesive bond surfaces, and hard chrome or thermal spray coating substrates all depend on peak-to-valley depth, not average deviation. Specifying Ra alone on these features is a common root cause of field failures that traces back to the design phase FMEA. Review the MetricMech guide on <a href="https://metricmech.com/articles/fmea-rpn-calculation">FMEA RPN calculation</a> for how to assign severity scores to surface-related failure modes.</p>
+
+<h3>Mistake 5: Not verifying measurement system capability</h3>
+<p>A profilometer with inadequate stylus tip radius (typically 2 µm or 5 µm) cannot resolve the true valley depth on very rough surfaces. Gauge R&R studies on surface roughness instruments are rarely performed yet are required by IATF 16949 and referenced in AIAG MSA guidance. An instrument reading Rz 3.8 µm on a surface whose true Rz is 5.2 µm creates false confidence.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the difference between Ra and Rz in surface roughness?</h3>
+<p>Ra is the arithmetic mean deviation of the surface profile over the evaluation length — it averages all peaks and valleys. Rz is the average of the five highest peak-to-valley distances within five consecutive sampling lengths. Rz is more sensitive to extreme surface events such as deep scratches or large burrs.</p>
+
+<h3>Is Ra or Rz a better surface roughness specification?</h3>
+<p>Neither is universally better. Ra suits general functional surfaces where average texture controls friction or sealing performance. Rz is preferred when isolated peak defects — such as a deep scratch on a bearing seat — would cause failure even if the average roughness looks acceptable. High-reliability industries often specify both.</p>
+
+<h3>What is the typical Ra to Rz ratio?</h3>
+<p>For most machined surfaces with a near-Gaussian profile distribution, Rz is approximately 4 to 7 times Ra. A commonly used workshop rule of thumb is Rz ≈ 6 × Ra. The actual ratio depends heavily on machining process, feed rate, and material — turned surfaces and ground surfaces have different profile distributions, so their ratios differ.</p>
+
+<h3>Which standard defines Ra and Rz?</h3>
+<p>ISO 4287:1997 defines Ra, Rz, and related amplitude parameters for surface texture measured by contact profilometry. ASME B46.1 is the corresponding American standard. ISO 4288 specifies the sampling conditions including cutoff wavelengths. The NIST Engineering Metrology Toolbox provides supplementary guidance for instrument calibration and traceability.</p>
+
+<h3>Can a drawing specify both Ra and Rz at the same time?</h3>
+<p>Yes. Some high-reliability industries, including aerospace and medical devices, specify both Ra as a general texture limit and Rz as a peak-defect limit on the same feature. This dual specification tightens control over both average finish quality and worst-case surface events. ISO 1302 supports multiple parameter callouts within a single surface texture symbol.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/surface-finish-ra-rz">Surface Finish: Ra vs Rz Explained</a></li>
+    <li><a href="/articles/surface-finish-symbols">Surface Finish Symbols on Drawings, Explained</a></li>
+    <li><a href="/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula Calculation</a></li>
+    <li><a href="/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit: Key Differences Explained</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js"></script>
+<script src="../assets/mm.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ra Rz Surface Roughness Difference Explained: Chart, Formulas & When to Use Each",
+      "item": "https://metricmech.com/articles/ra-rz-surface-roughness-difference"
+    }
+  ]
+}
+</script>
+</body>
+</html>

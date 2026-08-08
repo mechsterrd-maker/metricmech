@@ -316,3 +316,9 @@ posts:
   keyword: maximum material condition MMC LMC bonus tolerance explained
   cluster: GD&T Reference
   source: autopilot
+- url: https://metricmech.com/articles/ra-rz-surface-roughness-difference
+  date: '2026-08-08'
+  title: Ra Rz Surface Roughness Difference Explained | MetricMech
+  keyword: Ra Rz surface roughness difference explained chart
+  cluster: Surface Finish & Metrology
+  source: autopilot

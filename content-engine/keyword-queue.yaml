@@ -222,7 +222,7 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: surface finish symbol drawing callout ISO 1302
   cluster: Surface Finish & Metrology
   intent: informational
