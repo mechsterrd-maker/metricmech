@@ -137,14 +137,14 @@
     </select>
   </div>
 
-  <div class="tabs">
-    <button class="active" data-filter="all" onclick="setFilter('all')">All</button>
-    <button data-filter="metric" onclick="setFilter('metric')">Metric</button>
-    <button data-filter="frac" onclick="setFilter('frac')">Fractional</button>
-    <button data-filter="num" onclick="setFilter('num')">Number</button>
-    <button data-filter="letter" onclick="setFilter('letter')">Letter</button>
-    <button data-filter="tap" onclick="setFilter('tap')">Tap drills (metric)</button>
-    <button data-filter="clearance" onclick="setFilter('clearance')">Clearance holes</button>
+  <div class="mm-optcards" style="margin-bottom: 24px;">
+    <button type="button" class="mm-optcard active" data-filter="all" onclick="setFilter('all')"><div class="nm">All</div></button>
+    <button type="button" class="mm-optcard" data-filter="metric" onclick="setFilter('metric')"><div class="nm">Metric</div></button>
+    <button type="button" class="mm-optcard" data-filter="frac" onclick="setFilter('frac')"><div class="nm">Fractional</div></button>
+    <button type="button" class="mm-optcard" data-filter="num" onclick="setFilter('num')"><div class="nm">Number</div></button>
+    <button type="button" class="mm-optcard" data-filter="letter" onclick="setFilter('letter')"><div class="nm">Letter</div></button>
+    <button type="button" class="mm-optcard" data-filter="tap" onclick="setFilter('tap')"><div class="nm">Tap drills (metric)</div></button>
+    <button type="button" class="mm-optcard" data-filter="clearance" onclick="setFilter('clearance')"><div class="nm">Clearance holes</div></button>
   </div>
 
   <div id="mmVerdictTop"></div>
@@ -285,8 +285,9 @@ const DRILLS = [
 let currentFilter = 'all';
 function setFilter(f) {
   currentFilter = f;
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  document.querySelectorAll('.mm-optcards .mm-optcard').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
   render();
+  if (window.mmPulse) mmPulse('.dt');
 }
 function render() {
   const q = document.getElementById('search').value.toLowerCase().trim();

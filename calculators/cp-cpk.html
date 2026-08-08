@@ -183,21 +183,21 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
     <div class="spec-row">
       <div>
         <label>Lower Spec Limit (LSL)</label>
-        <input type="number" step="any" id="lsl" class="calc-input" placeholder="e.g. 9.95" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" step="any" id="lsl" class="calc-input" placeholder="e.g. 9.95" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off"></div>
       </div>
       <div>
         <label>Upper Spec Limit (USL)</label>
-        <input type="number" step="any" id="usl" class="calc-input" placeholder="e.g. 10.05" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" step="any" id="usl" class="calc-input" placeholder="e.g. 10.05" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off"></div>
       </div>
     </div>
     <div class="spec-row">
       <div>
         <label>Target (optional)</label>
-        <input type="number" step="any" id="target" class="calc-input" placeholder="e.g. 10.00" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" step="any" id="target" class="calc-input" placeholder="e.g. 10.00" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off"></div>
       </div>
       <div>
         <label>Subgroup size (for Cp)</label>
-        <input type="number" id="subgroup" class="calc-input" value="5" min="2" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="subgroup" class="calc-input" value="5" min="2" oninput="recalcDebounced()" inputmode="decimal" autocomplete="off"></div>
       </div>
     </div>
 
@@ -250,10 +250,10 @@ input[type=range]::-moz-range-thumb { width: 16px; height: 16px; background: #ff
     </div>
 
     <!-- BEGINNER / EXPERT MODE TOGGLE -->
-    <div id="modeToggle" style="display:flex; justify-content:flex-end; margin: 4px 0 12px; gap: 6px; align-items: center;">
+    <div id="modeToggle" class="mm-optcards" style="display:flex; justify-content:flex-end; margin: 4px 0 12px; gap: 6px; align-items: center;">
       <span style="font-family: var(--mono); font-size: 10px; color: var(--mute); letter-spacing: 0.1em;">VIEW:</span>
-      <button id="modeBeginner" type="button" class="mode-btn mode-active" onclick="setMode('beginner')">Beginner</button>
-      <button id="modeExpert" type="button" class="mode-btn" onclick="setMode('expert')">Expert</button>
+      <button id="modeBeginner" type="button" class="mode-btn mode-active mm-optcard active" onclick="setMode('beginner')"><div class="nm" style="color:inherit;">Beginner</div></button>
+      <button id="modeExpert" type="button" class="mode-btn mm-optcard" onclick="setMode('expert')"><div class="nm" style="color:inherit;">Expert</div></button>
     </div>
 
     <!-- DATA QUALITY WARNINGS -->
@@ -443,6 +443,7 @@ function loadExample() {
   }
   document.getElementById('data').value = data.join(' ');
   recalc();
+  if (window.mmPulse) mmPulse('.results-grid');
 }
 
 function parseData(s) {
@@ -1203,7 +1204,10 @@ function setMode(mode) {
   document.body.classList.toggle('expert-mode', mode === 'expert');
   document.getElementById('modeBeginner').classList.toggle('mode-active', mode === 'beginner');
   document.getElementById('modeExpert').classList.toggle('mode-active', mode === 'expert');
+  document.getElementById('modeBeginner').classList.toggle('active', mode === 'beginner');
+  document.getElementById('modeExpert').classList.toggle('active', mode === 'expert');
   try { localStorage.setItem('mm_view_mode', mode); } catch {}
+  if (window.mmPulse) mmPulse('.results-grid');
 }
 // Restore on load
 try {

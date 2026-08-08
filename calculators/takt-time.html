@@ -133,32 +133,32 @@
 
     <div>
       <div class="input-card">
-        <label>Available work time per shift (min)</label>
-        <input type="number" id="time" value="450" step="5" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <label>Available work time per shift</label>
+        <div class="mm-inbox"><input type="number" id="time" value="450" step="5" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
         <div class="hint">Total shift time minus breaks, lunch, and 5S</div>
       </div>
 
       <div class="input-card">
-        <label>Customer demand per shift (units)</label>
-        <input type="number" id="demand" value="300" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <label>Customer demand per shift</label>
+        <div class="mm-inbox"><input type="number" id="demand" value="300" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">units</span></div>
         <div class="hint">Required output rate from customer schedule</div>
       </div>
 
       <div class="input-card">
-        <label>Total work content (sec/unit)</label>
-        <input type="number" id="content" value="180" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <label>Total work content</label>
+        <div class="mm-inbox"><input type="number" id="content" value="180" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">sec/unit</span></div>
         <div class="hint">Sum of all manual + machine task times to make 1 unit</div>
       </div>
 
       <div class="input-card">
-        <label>Longest task time (sec)</label>
-        <input type="number" id="bottleneck" value="55" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <label>Longest task time</label>
+        <div class="mm-inbox"><input type="number" id="bottleneck" value="55" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">sec</span></div>
         <div class="hint">Cycle time of the slowest workstation (bottleneck)</div>
       </div>
 
       <div class="input-card">
         <label>Number of workstations (current)</label>
-        <input type="number" id="stations" value="4" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="stations" value="4" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">nos</span></div>
         <div class="hint">How many stations on the line today</div>
       </div>
     </div>

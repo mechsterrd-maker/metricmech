@@ -142,21 +142,21 @@
       <h3><span class="icon">●</span>Time</h3>
       <div class="input-2">
         <div class="input-grp">
-          <label>Setup time (min)</label>
-          <input type="number" id="setup" class="calc-input" value="30" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Setup time</label>
+          <div class="mm-inbox"><input type="number" id="setup" class="calc-input" value="30" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
           <div class="hint">First-piece, fixturing, programming</div>
         </div>
         <div class="input-grp">
           <label>Batch size</label>
-          <input type="number" id="batch" class="calc-input" value="100" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <div class="mm-inbox"><input type="number" id="batch" class="calc-input" value="100" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">nos</span></div>
         </div>
         <div class="input-grp">
-          <label>Run time per part (min)</label>
-          <input type="number" id="run" class="calc-input" value="3.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Run time per part</label>
+          <div class="mm-inbox"><input type="number" id="run" class="calc-input" value="3.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
         </div>
         <div class="input-grp">
-          <label>Load/unload time (min)</label>
-          <input type="number" id="load" class="calc-input" value="0.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Load/unload time</label>
+          <div class="mm-inbox"><input type="number" id="load" class="calc-input" value="0.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
         </div>
       </div>
     </div>
@@ -165,21 +165,21 @@
       <h3><span class="icon">●</span>Labor &amp; machine</h3>
       <div class="input-2">
         <div class="input-grp">
-          <label>Operator rate (₹/hr)</label>
-          <input type="number" id="opRate" class="calc-input" value="250" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Operator rate</label>
+          <div class="mm-inbox"><input type="number" id="opRate" class="calc-input" value="250" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹/hr</span></div>
         </div>
         <div class="input-grp">
-          <label>Machine hour rate (₹/hr)</label>
-          <input type="number" id="mcRate" class="calc-input" value="450" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Machine hour rate</label>
+          <div class="mm-inbox"><input type="number" id="mcRate" class="calc-input" value="450" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹/hr</span></div>
           <div class="hint">Depreciation + power + maintenance</div>
         </div>
         <div class="input-grp">
           <label>Operators per machine</label>
-          <input type="number" id="ops" class="calc-input" value="1" step="0.5" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <div class="mm-inbox"><input type="number" id="ops" class="calc-input" value="1" step="0.5" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">nos</span></div>
         </div>
         <div class="input-grp">
-          <label>Efficiency factor (%)</label>
-          <input type="number" id="eff" class="calc-input" value="85" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Efficiency factor</label>
+          <div class="mm-inbox"><input type="number" id="eff" class="calc-input" value="85" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
           <div class="hint">Realistic uptime/output multiplier</div>
         </div>
       </div>
@@ -189,21 +189,21 @@
       <h3><span class="icon">●</span>Material &amp; tooling</h3>
       <div class="input-2">
         <div class="input-grp">
-          <label>Material cost / part (₹)</label>
-          <input type="number" id="mat" class="calc-input" value="120" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Material cost / part</label>
+          <div class="mm-inbox"><input type="number" id="mat" class="calc-input" value="120" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         </div>
         <div class="input-grp">
-          <label>Material yield (%)</label>
-          <input type="number" id="yield" class="calc-input" value="80" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Material yield</label>
+          <div class="mm-inbox"><input type="number" id="yield" class="calc-input" value="80" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
           <div class="hint">Usable material after chips</div>
         </div>
         <div class="input-grp">
-          <label>Tool wear cost / part (₹)</label>
-          <input type="number" id="tool" class="calc-input" value="8" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Tool wear cost / part</label>
+          <div class="mm-inbox"><input type="number" id="tool" class="calc-input" value="8" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         </div>
         <div class="input-grp">
-          <label>Consumables / part (₹)</label>
-          <input type="number" id="cons" class="calc-input" value="3" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Consumables / part</label>
+          <div class="mm-inbox"><input type="number" id="cons" class="calc-input" value="3" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
           <div class="hint">Coolant, lubricant, abrasives</div>
         </div>
       </div>
@@ -213,16 +213,16 @@
       <h3><span class="icon">●</span>Overhead &amp; margin</h3>
       <div class="input-3">
         <div class="input-grp">
-          <label>Plant overhead (%)</label>
-          <input type="number" id="oh" class="calc-input" value="15" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Plant overhead</label>
+          <div class="mm-inbox"><input type="number" id="oh" class="calc-input" value="15" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         </div>
         <div class="input-grp">
-          <label>SG&amp;A (%)</label>
-          <input type="number" id="sga" class="calc-input" value="8" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>SG&amp;A</label>
+          <div class="mm-inbox"><input type="number" id="sga" class="calc-input" value="8" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         </div>
         <div class="input-grp">
-          <label>Profit margin (%)</label>
-          <input type="number" id="profit" class="calc-input" value="18" oninput="recalc()" inputmode="decimal" autocomplete="off">
+          <label>Profit margin</label>
+          <div class="mm-inbox"><input type="number" id="profit" class="calc-input" value="18" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         </div>
       </div>
     </div>

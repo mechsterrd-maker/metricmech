@@ -138,7 +138,7 @@
     <div>
       <div class="input-card">
         <label>Severity (S) — how serious is the effect</label>
-        <select id="sev" onchange="calc()">
+        <div class="mm-inbox"><select id="sev" onchange="calc()">
           <option value="10">10 — Hazardous, no warning (safety/regulatory failure)</option>
           <option value="9">9 — Hazardous with warning</option>
           <option value="8">8 — Loss of primary function</option>
@@ -149,12 +149,12 @@
           <option value="3">3 — Slight annoyance</option>
           <option value="2">2 — Minor — most users won't notice</option>
           <option value="1">1 — No effect</option>
-        </select>
+        </select><span class="suf">1–10</span></div>
       </div>
 
       <div class="input-card">
         <label>Occurrence (O) — how often will it happen</label>
-        <select id="occ" onchange="calc()">
+        <div class="mm-inbox"><select id="occ" onchange="calc()">
           <option value="10">10 — Very high: failure inevitable (≥1 in 10)</option>
           <option value="9">9 — Very high: 1 in 20</option>
           <option value="8">8 — High: 1 in 50</option>
@@ -165,12 +165,12 @@
           <option value="3">3 — Low: 1 in 100,000</option>
           <option value="2">2 — Very low: 1 in 1,000,000</option>
           <option value="1">1 — Extremely unlikely: never</option>
-        </select>
+        </select><span class="suf">1–10</span></div>
       </div>
 
       <div class="input-card">
         <label>Detection (D) — how likely will controls catch it</label>
-        <select id="det" onchange="calc()">
+        <div class="mm-inbox"><select id="det" onchange="calc()">
           <option value="10">10 — Cannot be detected (no controls)</option>
           <option value="9">9 — Very remote chance of detection</option>
           <option value="8">8 — Remote — visual / manual check only</option>
@@ -181,7 +181,7 @@
           <option value="3">3 — High — multiple automated checks</option>
           <option value="2">2 — Very high — error-proofing (poka-yoke)</option>
           <option value="1">1 — Almost certain — by design impossible</option>
-        </select>
+        </select><span class="suf">1–10</span></div>
       </div>
     </div>
 

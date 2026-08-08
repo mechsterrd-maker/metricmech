@@ -399,9 +399,12 @@ html:not(.mm-js) .mm-collapse__head::after { display: none; }
 }
 .mm-inbox:focus-within { border-color: var(--mm-blue); box-shadow: 0 0 0 3px rgba(37,84,186,0.15); }
 .mm-inbox input, .mm-inbox select {
-  flex: 1; min-width: 0; background: transparent; border: 0; outline: 0;
+  flex: 1; min-width: 0; background: transparent; outline: 0;
   color: var(--mm-ink); font: inherit; font-size: 17px; font-weight: 600;
   padding: 11px 13px; font-variant-numeric: tabular-nums; min-height: 44px;
+  /* !important: page-local input border rules (inline <style> loads after
+     mm.css) must not double-border inside the inbox chrome */
+  border: 0 !important; box-shadow: none !important; border-radius: 0 !important;
 }
 .mm-inbox .suf {
   font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mm-muted);

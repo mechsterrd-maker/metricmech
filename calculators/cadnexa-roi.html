@@ -143,54 +143,54 @@
 
     <div class="input-group">
       <label>FAI / inspection reports per month</label>
-      <div class="range-input">
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="reports" min="1" max="200" value="20" oninput="document.getElementById('reportsN').value=this.value;recalc()">
-        <input type="number" id="reportsN" min="1" max="200" value="20" oninput="document.getElementById('reports').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="reportsN" min="1" max="200" value="20" oninput="document.getElementById('reports').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">/mo</span></div>
       </div>
       <div class="hint">How many drawings does your QA team balloon and document each month?</div>
     </div>
 
     <div class="input-group">
       <label>Average dimensions per drawing</label>
-      <div class="range-input">
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="dims" min="10" max="300" value="60" oninput="document.getElementById('dimsN').value=this.value;recalc()">
-        <input type="number" id="dimsN" min="10" max="300" value="60" oninput="document.getElementById('dims').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="dimsN" min="10" max="300" value="60" oninput="document.getElementById('dims').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">nos</span></div>
       </div>
       <div class="hint">Aerospace parts: 60–150. Auto parts: 30–80. Medical: 80–200.</div>
     </div>
 
     <div class="input-group">
-      <label>Manual time per report (hours)</label>
-      <div class="range-input">
+      <label>Manual time per report</label>
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="hours" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hoursN').value=this.value;recalc()">
-        <input type="number" id="hoursN" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hours').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="hoursN" min="0.5" max="16" step="0.5" value="4" oninput="document.getElementById('hours').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">hr</span></div>
       </div>
       <div class="hint">Including ballooning, typing dimensions, building Form 1/2/3, review.</div>
     </div>
 
     <div class="input-group">
-      <label>QA engineer fully-loaded cost (₹/hour)</label>
-      <div class="range-input">
+      <label>QA engineer fully-loaded cost</label>
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="rate" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rateN').value=this.value;recalc()">
-        <input type="number" id="rateN" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rate').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="rateN" min="100" max="2000" step="50" value="350" oninput="document.getElementById('rate').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹/hr</span></div>
       </div>
       <div class="hint">India: ₹250–500/hr typical. Salary + benefits + overhead.</div>
     </div>
 
     <div class="input-group">
-      <label>Rework / rejection rate from FAI errors (%)</label>
-      <div class="range-input">
+      <label>Rework / rejection rate from FAI errors</label>
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="rework" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('reworkN').value=this.value;recalc()">
-        <input type="number" id="reworkN" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('rework').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="reworkN" min="0" max="20" step="0.5" value="3" oninput="document.getElementById('rework').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
       </div>
       <div class="hint">% of reports rejected by OEM/auditor due to manual errors.</div>
     </div>
 
     <div class="input-group">
-      <label>Average rework cost per rejection (₹)</label>
-      <div class="range-input">
+      <label>Average rework cost per rejection</label>
+      <div class="range-input" style="grid-template-columns: 1fr 132px;">
         <input type="range" id="reworkCost" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCostN').value=this.value;recalc()">
-        <input type="number" id="reworkCostN" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCost').value=this.value;recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="reworkCostN" min="500" max="50000" step="500" value="5000" oninput="document.getElementById('reworkCost').value=this.value;recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
       </div>
       <div class="hint">Re-inspection, re-submission, customer escalation handling.</div>
     </div>

@@ -135,18 +135,18 @@
 <div class="calc-layout">
 
   <h3 style="font-family: var(--display); font-weight: 600; font-size: 18px; margin-bottom: 14px;">Pick input scale</h3>
-  <div class="scale-row">
-    <div class="scale-card active" data-scale="hrc" onclick="setScale('hrc')"><div class="lbl">Rockwell C</div><div class="scale">HRC</div></div>
-    <div class="scale-card" data-scale="hrb" onclick="setScale('hrb')"><div class="lbl">Rockwell B</div><div class="scale">HRB</div></div>
-    <div class="scale-card" data-scale="hv" onclick="setScale('hv')"><div class="lbl">Vickers</div><div class="scale">HV</div></div>
-    <div class="scale-card" data-scale="hb" onclick="setScale('hb')"><div class="lbl">Brinell</div><div class="scale">HB (3000 kgf)</div></div>
-    <div class="scale-card" data-scale="hk" onclick="setScale('hk')"><div class="lbl">Knoop</div><div class="scale">HK</div></div>
-    <div class="scale-card" data-scale="tensile" onclick="setScale('tensile')"><div class="lbl">Tensile</div><div class="scale">UTS (MPa)</div></div>
+  <div class="scale-row mm-optcards">
+    <div class="scale-card mm-optcard active" data-scale="hrc" onclick="setScale('hrc')"><div class="lbl">Rockwell C</div><div class="scale">HRC</div></div>
+    <div class="scale-card mm-optcard" data-scale="hrb" onclick="setScale('hrb')"><div class="lbl">Rockwell B</div><div class="scale">HRB</div></div>
+    <div class="scale-card mm-optcard" data-scale="hv" onclick="setScale('hv')"><div class="lbl">Vickers</div><div class="scale">HV</div></div>
+    <div class="scale-card mm-optcard" data-scale="hb" onclick="setScale('hb')"><div class="lbl">Brinell</div><div class="scale">HB (3000 kgf)</div></div>
+    <div class="scale-card mm-optcard" data-scale="hk" onclick="setScale('hk')"><div class="lbl">Knoop</div><div class="scale">HK</div></div>
+    <div class="scale-card mm-optcard" data-scale="tensile" onclick="setScale('tensile')"><div class="lbl">Tensile</div><div class="scale">UTS (MPa)</div></div>
   </div>
 
   <div class="input-card">
     <label id="inputLabel">Enter Rockwell C (HRC) value</label>
-    <input type="number" id="value" value="45" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+    <div class="mm-inbox"><input type="number" id="value" value="45" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf" id="valueSuf">HRC</span></div>
   </div>
 
   <h3 style="font-family: var(--display); font-weight: 600; font-size: 18px; margin-bottom: 14px;">Equivalent values</h3>
@@ -294,8 +294,12 @@ function setScale(s) {
   const labels = { hrc: 'Rockwell C (HRC)', hrb: 'Rockwell B (HRB)', hv: 'Vickers (HV)', hb: 'Brinell (HB, 3000 kgf)', hk: 'Knoop (HK, 500 gf)', tensile: 'Tensile strength (MPa)' };
   const defaults = { hrc: 45, hrb: 90, hv: 575, hb: 491, hk: 568, tensile: 1593 };
   document.getElementById('inputLabel').textContent = 'Enter ' + labels[s] + ' value';
+  const sufs = { hrc: 'HRC', hrb: 'HRB', hv: 'HV', hb: 'HB', hk: 'HK', tensile: 'MPa' };
+  const sufEl = document.getElementById('valueSuf');
+  if (sufEl) sufEl.textContent = sufs[s];
   document.getElementById('value').value = defaults[s];
   calc();
+  if (window.mmPulse) mmPulse('.results-grid');
 }
 function interp(table, idx, val) {
   // Find HRC row given any column value

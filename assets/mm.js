@@ -583,7 +583,9 @@
       var box = inp.closest && inp.closest('.mm-inbox');
       if (!box) return;
       var v = parseFloat(inp.value);
-      var bad = inp.value !== '' && !(v > 0) && +(inp.min || 0) >= 0;
+      var min = inp.min === '' || inp.min == null ? null : +inp.min;
+      // HTML min semantics: 0 is valid when min="0" (defect counts, downtime).
+      var bad = inp.value !== '' && (!isFinite(v) || (min != null && v < min));
       box.classList.toggle('err', bad);
     });
   }

@@ -144,7 +144,7 @@
     <div data-mm-section="input">
       <div class="input-card">
         <label>Reference / Master value</label>
-        <input type="number" id="ref" value="50.000" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="ref" value="50.000" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
         <div class="hint">Known true value of the calibration master</div>
       </div>
 
@@ -152,11 +152,11 @@
         <div class="row">
           <div>
             <label>USL</label>
-            <input type="number" id="usl" value="50.020" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="mm-inbox"><input type="number" id="usl" value="50.020" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
           </div>
           <div>
             <label>LSL</label>
-            <input type="number" id="lsl" value="49.980" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="mm-inbox"><input type="number" id="lsl" value="49.980" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
           </div>
         </div>
         <div class="hint">Specification limits of the part being measured</div>
@@ -413,6 +413,7 @@ function loadEx1() {
   document.getElementById('usl').value = 50.020;
   document.getElementById('lsl').value = 49.980;
   calc();
+  if (window.mmPulse) mmPulse('.result-big');
 }
 function loadEx2() {
   document.getElementById('data').value = `50.005\n50.001\n50.008\n49.995\n50.002\n50.007\n49.998\n50.004\n50.000\n50.006\n49.997\n50.003\n50.005\n49.999\n50.002\n50.006\n49.996\n50.004\n50.001\n50.005\n49.998\n50.003\n50.007\n49.999\n50.002`;
@@ -420,6 +421,7 @@ function loadEx2() {
   document.getElementById('usl').value = 50.020;
   document.getElementById('lsl').value = 49.980;
   calc();
+  if (window.mmPulse) mmPulse('.result-big');
 }
 function loadEx3() {
   document.getElementById('data').value = `50.014\n49.985\n50.022\n49.978\n50.018\n49.992\n50.012\n49.988\n50.020\n49.982\n50.016\n49.990\n50.024\n49.980\n50.014\n49.986\n50.018\n49.984\n50.020\n49.988\n50.016\n49.990\n50.022\n49.982\n50.014`;
@@ -427,6 +429,7 @@ function loadEx3() {
   document.getElementById('usl').value = 50.020;
   document.getElementById('lsl').value = 49.980;
   calc();
+  if (window.mmPulse) mmPulse('.result-big');
 }
 calc();
 </script>

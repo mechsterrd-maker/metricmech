@@ -130,7 +130,7 @@
 
 <div class="calc-layout">
 
-  <div class="cat-tabs" id="tabs"></div>
+  <div class="mm-optcards" id="tabs" style="margin-bottom: 32px;"></div>
 
   <div id="mmVerdictTop"></div>
 
@@ -323,14 +323,27 @@ const CATEGORIES = {
 };
 let currentCat = 'length';
 
+const CAT_ICONS = {
+  length: '<svg viewBox="0 0 42 42"><rect x="5" y="16" width="32" height="10" rx="2" class="fl ln"/><path d="M11 16v5M17 16v4M23 16v5M29 16v4" class="ln"/></svg>',
+  area: '<svg viewBox="0 0 42 42"><rect x="9" y="9" width="24" height="24" rx="2" class="fl ln"/><path d="M9 21h24M21 9v24" class="ln"/></svg>',
+  volume: '<svg viewBox="0 0 42 42"><path d="M21 6l12 6v14l-12 6-12-6V12z" class="fl ln"/><path d="M9 12l12 6 12-6M21 18v14" class="ln"/></svg>',
+  mass: '<svg viewBox="0 0 42 42"><path d="M14 15h14l4 16H10z" class="fl ln"/><path d="M17 15v-3a4 4 0 0 1 8 0v3" class="ln"/></svg>',
+  force: '<svg viewBox="0 0 42 42"><circle cx="10" cy="21" r="3" class="fl ln"/><path d="M13 21h17" class="ln"/><path d="M24 13l8 8-8 8" class="ln"/></svg>',
+  pressure: '<svg viewBox="0 0 42 42"><path d="M8 28a13 13 0 0 1 26 0" class="fl ln"/><path d="M21 28l6-9" class="ln"/><path d="M8 28h26" class="ln"/></svg>',
+  torque: '<svg viewBox="0 0 42 42"><path d="M32 14a12 12 0 1 0 2 9" class="ln"/><path d="M33 7v7h-7" class="ln"/><circle cx="21" cy="21" r="3" class="fl ln"/></svg>',
+  power: '<svg viewBox="0 0 42 42"><path d="M23 5L12 24h8l-3 13 13-19h-8z" class="fl ln"/></svg>',
+  temperature: '<svg viewBox="0 0 42 42"><path d="M18 8a3 3 0 0 1 6 0v15a6 6 0 1 1-6 0z" class="fl ln"/><path d="M21 15v13" class="ln"/><circle cx="21" cy="29" r="2.5" class="ln"/></svg>'
+};
+
 function buildTabs() {
   const t = document.getElementById('tabs');
   t.innerHTML = '';
   Object.keys(CATEGORIES).forEach(k => {
     const b = document.createElement('button');
-    b.textContent = CATEGORIES[k].name;
-    if (k === currentCat) b.className = 'active';
-    b.onclick = () => { currentCat = k; buildTabs(); buildSelects(); convert(); buildRefTable(); };
+    b.type = 'button';
+    b.className = 'mm-optcard' + (k === currentCat ? ' active' : '');
+    b.innerHTML = (CAT_ICONS[k] || '') + '<div class="nm">' + CATEGORIES[k].name + '</div>';
+    b.onclick = () => { currentCat = k; buildTabs(); buildSelects(); convert(); buildRefTable(); if (window.mmPulse) mmPulse('.conv-grid'); };
     t.appendChild(b);
   });
 }

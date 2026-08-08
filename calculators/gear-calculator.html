@@ -136,17 +136,25 @@
           <option value="metric" selected>Metric (Module)</option>
           <option value="imperial">Imperial (Diametral Pitch)</option>
         </select>
+        <div class="mm-optcards" id="sysCards" style="display:none; margin-top:2px;">
+          <button type="button" class="mm-optcard active" data-sys="metric" onclick="setSystemCard('metric')">
+            <svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="9" class="fl ln"/><circle cx="21" cy="21" r="3.5" class="ln"/><path d="M21 7v5M21 30v5M7 21h5M30 21h5M11 11l3.5 3.5M27.5 27.5L31 31M31 11l-3.5 3.5M14.5 27.5L11 31" class="ln"/></svg><div class="nm">Metric (Module)</div>
+          </button>
+          <button type="button" class="mm-optcard" data-sys="imperial" onclick="setSystemCard('imperial')">
+            <svg viewBox="0 0 42 42"><circle cx="21" cy="14" r="7" class="fl ln"/><circle cx="21" cy="14" r="2.5" class="ln"/><path d="M21 4v3M21 21v3M11 14h3M28 14h3" class="ln"/><path d="M7 29h28v7H7z" class="fl ln"/><path d="M13 29v3M19 29v4M25 29v3M31 29v4" class="ln"/></svg><div class="nm">Imperial (DP)</div>
+          </button>
+        </div>
       </div>
 
       <div class="input-card" id="moduleCard">
         <label>Module (m)</label>
-        <input type="number" id="module" value="2.0" step="0.25" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="module" value="2.0" step="0.25" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
         <div class="hint">mm — standard: 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10</div>
       </div>
 
       <div class="input-card" id="dpCard" style="display: none;">
         <label>Diametral Pitch (DP)</label>
-        <input type="number" id="dp" value="12" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="dp" value="12" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">t/in</span></div>
         <div class="hint">teeth per inch — standard: 4, 6, 8, 10, 12, 16, 20, 24</div>
       </div>
 
@@ -163,18 +171,18 @@
         <div class="row">
           <div>
             <label>Pinion teeth (Z₁)</label>
-            <input type="number" id="z1" value="20" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="mm-inbox"><input type="number" id="z1" value="20" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">teeth</span></div>
           </div>
           <div>
             <label>Gear teeth (Z₂)</label>
-            <input type="number" id="z2" value="40" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off">
+            <div class="mm-inbox"><input type="number" id="z2" value="40" step="1" min="6" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">teeth</span></div>
           </div>
         </div>
       </div>
 
       <div class="input-card">
         <label>Face width (b)</label>
-        <input type="number" id="face" value="20" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="face" value="20" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
         <div class="hint">mm — typically 8–12 × module</div>
       </div>
     </div>
@@ -345,6 +353,21 @@ function calc() {
     });
   } catch (e) {} }
 }
+/* ── Studio kit: option-card system picker (additive; select remains the source of truth) ── */
+function setSystemCard(s) {
+  var sel = document.getElementById('system');
+  sel.value = s;
+  document.querySelectorAll('#sysCards .mm-optcard').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.sys === s);
+  });
+  calc();
+  if (window.mmPulse) mmPulse('.center-card');
+}
+(function () {
+  var cards = document.getElementById('sysCards');
+  var sel = document.getElementById('system');
+  if (cards && sel) { cards.style.display = ''; sel.style.display = 'none'; }
+})();
 calc();
 </script>
 <script src="../share.js"></script>

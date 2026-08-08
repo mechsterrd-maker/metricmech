@@ -154,14 +154,14 @@
       <div class="header-section">
         <h3>FAI Header Information</h3>
         <div class="header-grid">
-          <div><label>Part Number</label><input id="hPN" value="ABC-12345-001" oninput="updatePreview()"></div>
-          <div><label>Part Revision</label><input id="hRev" value="A" oninput="updatePreview()"></div>
-          <div><label>Part Name</label><input id="hName" value="Bracket, Mounting" oninput="updatePreview()"></div>
-          <div><label>Drawing Number</label><input id="hDwg" value="D-12345" oninput="updatePreview()"></div>
-          <div><label>Supplier Name</label><input id="hSup" value="Acme Precision" oninput="updatePreview()"></div>
-          <div><label>FAI Report Number</label><input id="hFAI" value="FAI-2026-001" oninput="updatePreview()"></div>
-          <div><label>Customer / OEM</label><input id="hCust" value="Tata Advanced Systems" oninput="updatePreview()"></div>
-          <div><label>Inspector</label><input id="hInsp" value="" oninput="updatePreview()"></div>
+          <div><label>Part Number</label><div class="mm-inbox"><input id="hPN" value="ABC-12345-001" oninput="updatePreview()"></div></div>
+          <div><label>Part Revision</label><div class="mm-inbox"><input id="hRev" value="A" oninput="updatePreview()"></div></div>
+          <div><label>Part Name</label><div class="mm-inbox"><input id="hName" value="Bracket, Mounting" oninput="updatePreview()"></div></div>
+          <div><label>Drawing Number</label><div class="mm-inbox"><input id="hDwg" value="D-12345" oninput="updatePreview()"></div></div>
+          <div><label>Supplier Name</label><div class="mm-inbox"><input id="hSup" value="Acme Precision" oninput="updatePreview()"></div></div>
+          <div><label>FAI Report Number</label><div class="mm-inbox"><input id="hFAI" value="FAI-2026-001" oninput="updatePreview()"></div></div>
+          <div><label>Customer / OEM</label><div class="mm-inbox"><input id="hCust" value="Tata Advanced Systems" oninput="updatePreview()"></div></div>
+          <div><label>Inspector</label><div class="mm-inbox"><input id="hInsp" value="" oninput="updatePreview()"></div></div>
         </div>
       </div>
 
@@ -427,6 +427,7 @@ function loadExample() {
   addRow('Surface finish (Ra)', '1.6 µm', '', '', '1.4 µm', 'Surface Plate');
   addRow('Material — AMS 4117 verified', 'Cert', '', '', 'Cert # 8842', 'Visual');
   addRow('Heat treatment — T6 hardness', 'HRB 75', '5', '5', 'HRB 78', 'Hardness Tester');
+  if (window.mmPulse) mmPulse('.summary-stats'); // studio kit: display-only pulse on example load
 }
 
 function updatePreview() {

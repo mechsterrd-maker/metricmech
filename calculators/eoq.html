@@ -132,43 +132,43 @@
     <div>
       <div class="input-card">
         <label>Annual demand (D)</label>
-        <input type="number" id="D" value="12000" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="D" value="12000" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">units/yr</span></div>
         <div class="hint">units per year</div>
       </div>
 
       <div class="input-card">
         <label>Ordering cost per order (S)</label>
-        <input type="number" id="S" value="2500" step="100" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="S" value="2500" step="100" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">₹ — admin, transport, inspection per PO</div>
       </div>
 
       <div class="input-card">
         <label>Cost per unit (C)</label>
-        <input type="number" id="C" value="450" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="C" value="450" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">₹ — purchase price per unit</div>
       </div>
 
       <div class="input-card">
         <label>Holding cost rate (i)</label>
-        <input type="number" id="i" value="22" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="i" value="22" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         <div class="hint">% per year — typical India 18–25% (capital + storage + insurance + obsolescence)</div>
       </div>
 
       <div class="input-card">
         <label>Lead time (L)</label>
-        <input type="number" id="L" value="14" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="L" value="14" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">days</span></div>
         <div class="hint">days from PO to receipt</div>
       </div>
 
       <div class="input-card">
         <label>Demand variability (σ_D)</label>
-        <input type="number" id="sigma" value="6" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="sigma" value="6" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">units/day</span></div>
         <div class="hint">units / day — daily demand standard deviation</div>
       </div>
 
       <div class="input-card">
         <label>Service level</label>
-        <input type="number" id="service" value="95" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="service" value="95" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         <div class="hint">% — fill rate target (95% → Z=1.65, 99% → Z=2.33)</div>
       </div>
     </div>

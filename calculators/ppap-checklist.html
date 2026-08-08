@@ -148,11 +148,13 @@
 
   <div class="level-bar">
     <h3>Submission Level:</h3>
-    <button class="level-btn" data-level="1" onclick="setLevel(1)">Level 1</button>
-    <button class="level-btn" data-level="2" onclick="setLevel(2)">Level 2</button>
-    <button class="level-btn active" data-level="3" onclick="setLevel(3)">Level 3</button>
-    <button class="level-btn" data-level="4" onclick="setLevel(4)">Level 4</button>
-    <button class="level-btn" data-level="5" onclick="setLevel(5)">Level 5</button>
+    <div class="mm-optcards" style="flex: 1; min-width: 260px;">
+      <button type="button" class="mm-optcard" data-level="1" onclick="setLevel(1)"><div class="nm">Level 1</div></button>
+      <button type="button" class="mm-optcard" data-level="2" onclick="setLevel(2)"><div class="nm">Level 2</div></button>
+      <button type="button" class="mm-optcard active" data-level="3" onclick="setLevel(3)"><div class="nm">Level 3</div></button>
+      <button type="button" class="mm-optcard" data-level="4" onclick="setLevel(4)"><div class="nm">Level 4</div></button>
+      <button type="button" class="mm-optcard" data-level="5" onclick="setLevel(5)"><div class="nm">Level 5</div></button>
+    </div>
     <div class="level-desc" id="levelDesc"></div>
   </div>
 
@@ -304,9 +306,10 @@ let statuses = {};
 
 function setLevel(l) {
   currentLevel = l;
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.toggle('active', +b.dataset.level === l));
+  document.querySelectorAll('.level-bar .mm-optcard').forEach(b => b.classList.toggle('active', +b.dataset.level === l));
   document.getElementById('levelDesc').textContent = LEVELS[l].desc;
   render();
+  if (window.mmPulse) mmPulse('.summary-band');
 }
 
 function render() {

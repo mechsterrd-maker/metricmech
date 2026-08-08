@@ -303,6 +303,7 @@ function loadExample() {
   addDim('Block B', '15.0', '0.03', '0.03', '+');
   addDim('Block C', '10.0', '0.02', '0.02', '+');
   addDim('Slot (gap)', '5.0', '0.10', '0.10', '-');
+  if (window.mmPulse) mmPulse('.result-card.primary');
 }
 
 function recalc() {

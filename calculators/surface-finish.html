@@ -137,17 +137,17 @@
   <div class="input-row">
     <div class="input-card">
       <label>Ra (arithmetic mean)</label>
-      <input type="number" step="any" id="ra" value="1.6" oninput="updateFrom('ra')" inputmode="decimal" autocomplete="off">
+      <div class="mm-inbox"><input type="number" step="any" id="ra" value="1.6" oninput="updateFrom('ra')" inputmode="decimal" autocomplete="off"><span class="suf">µm</span></div>
       <div class="unit">µm — most common spec</div>
     </div>
     <div class="input-card">
-      <label>Ra (microinch)</label>
-      <input type="number" step="any" id="rauin" value="63" oninput="updateFrom('rauin')" inputmode="decimal" autocomplete="off">
+      <label>Ra</label>
+      <div class="mm-inbox"><input type="number" step="any" id="rauin" value="63" oninput="updateFrom('rauin')" inputmode="decimal" autocomplete="off"><span class="suf">µin</span></div>
       <div class="unit">µin — US/ASME standard</div>
     </div>
     <div class="input-card">
       <label>N-Grade (ISO)</label>
-      <input type="number" id="ngrade" value="7" min="1" max="12" oninput="updateFrom('ngrade')" inputmode="decimal" autocomplete="off">
+      <div class="mm-inbox"><input type="number" id="ngrade" value="7" min="1" max="12" oninput="updateFrom('ngrade')" inputmode="decimal" autocomplete="off"></div>
       <div class="unit">ISO 1302 grade number</div>
     </div>
   </div>

@@ -147,10 +147,10 @@
     <div class="f1-section">
       <h3>Part <em>identification</em></h3>
       <div class="f1-grid">
-        <div><label>1. Part Number</label><input type="text" id="i_partNum" data-key="partNum" placeholder="e.g. 7050-1234-A"></div>
-        <div><label>2. Part Name</label><input type="text" id="i_partName" data-key="partName" placeholder="e.g. Mounting Bracket"></div>
-        <div><label>3. Serial Number</label><input type="text" id="i_serial" data-key="serial" placeholder="e.g. SN-2026-0142"></div>
-        <div><label>4. FAIR Identifier</label><input type="text" id="i_fairId" data-key="fairId" placeholder="e.g. FAIR-2026-042"></div>
+        <div><label>1. Part Number</label><div class="mm-inbox"><input type="text" id="i_partNum" data-key="partNum" placeholder="e.g. 7050-1234-A"></div></div>
+        <div><label>2. Part Name</label><div class="mm-inbox"><input type="text" id="i_partName" data-key="partName" placeholder="e.g. Mounting Bracket"></div></div>
+        <div><label>3. Serial Number</label><div class="mm-inbox"><input type="text" id="i_serial" data-key="serial" placeholder="e.g. SN-2026-0142"></div></div>
+        <div><label>4. FAIR Identifier</label><div class="mm-inbox"><input type="text" id="i_fairId" data-key="fairId" placeholder="e.g. FAIR-2026-042"></div></div>
         <div><label>5. Part Revision Level</label><input type="text" id="i_partRev" data-key="partRev" placeholder="e.g. C"></div>
         <div><label>6. Drawing Number</label><input type="text" id="i_drawingNum" data-key="drawingNum" placeholder="e.g. 7050-1234"></div>
         <div><label>7. Drawing Revision Level</label><input type="text" id="i_drawingRev" data-key="drawingRev" placeholder="e.g. C"></div>
@@ -173,16 +173,16 @@
       <h3>FAI <em>type</em></h3>
       <div style="margin-bottom: 14px;">
         <label style="font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; display: block;">13a. FAI type — detail or assembly</label>
-        <div class="f1-radio-row">
-          <label><input type="radio" name="faiScope" value="Detail" data-key="faiScope" checked> Detail FAI</label>
-          <label><input type="radio" name="faiScope" value="Assembly" data-key="faiScope"> Assembly FAI</label>
+        <div class="f1-radio-row mm-optcards">
+          <label class="mm-optcard active"><input type="radio" name="faiScope" value="Detail" data-key="faiScope" checked> <span class="nm">Detail FAI</span></label>
+          <label class="mm-optcard"><input type="radio" name="faiScope" value="Assembly" data-key="faiScope"> <span class="nm">Assembly FAI</span></label>
         </div>
       </div>
       <div style="margin-bottom: 14px;">
         <label style="font-size: 11px; font-weight: 600; margin-bottom: 6px; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.06em; display: block;">13b. FAI scope — full or partial</label>
-        <div class="f1-radio-row">
-          <label><input type="radio" name="faiType" value="Full" data-key="faiType" checked> Full FAI</label>
-          <label><input type="radio" name="faiType" value="Partial" data-key="faiType"> Partial FAI</label>
+        <div class="f1-radio-row mm-optcards">
+          <label class="mm-optcard active"><input type="radio" name="faiType" value="Full" data-key="faiType" checked> <span class="nm">Full FAI</span></label>
+          <label class="mm-optcard"><input type="radio" name="faiType" value="Partial" data-key="faiType"> <span class="nm">Partial FAI</span></label>
         </div>
       </div>
       <div class="f1-grid">
@@ -213,13 +213,13 @@
       <h3>Signatures and <em>approvals</em></h3>
       <div class="f1-grid">
         <div><label>15a. Prepared by</label><input type="text" id="i_preparedBy" data-key="preparedBy" placeholder="Name and title"></div>
-        <div><label>15b. Date prepared</label><input type="date" id="i_preparedDate" data-key="preparedDate"></div>
+        <div><label>15b. Date prepared</label><div class="mm-inbox"><input type="date" id="i_preparedDate" data-key="preparedDate"></div></div>
         <div><label>16a. Reviewed by</label><input type="text" id="i_reviewedBy" data-key="reviewedBy" placeholder="Name and title"></div>
-        <div><label>16b. Date reviewed</label><input type="date" id="i_reviewedDate" data-key="reviewedDate"></div>
+        <div><label>16b. Date reviewed</label><div class="mm-inbox"><input type="date" id="i_reviewedDate" data-key="reviewedDate"></div></div>
         <div><label>17a. Approved by</label><input type="text" id="i_approvedBy" data-key="approvedBy" placeholder="Name and title"></div>
-        <div><label>17b. Date approved</label><input type="date" id="i_approvedDate" data-key="approvedDate"></div>
+        <div><label>17b. Date approved</label><div class="mm-inbox"><input type="date" id="i_approvedDate" data-key="approvedDate"></div></div>
         <div><label>18a. Customer Approval (if required)</label><input type="text" id="i_custApprovedBy" data-key="custApprovedBy" placeholder="Customer rep name"></div>
-        <div><label>18b. Customer Approval Date</label><input type="date" id="i_custApprovedDate" data-key="custApprovedDate"></div>
+        <div><label>18b. Customer Approval Date</label><div class="mm-inbox"><input type="date" id="i_custApprovedDate" data-key="custApprovedDate"></div></div>
       </div>
     </div>
 
@@ -562,6 +562,29 @@ document.addEventListener('DOMContentLoaded', () => {
   applyFormStateToInputs();
   updatePreview();
 });
+
+// ============ Studio kit (display only): sync .active on FAI option cards ============
+// Radios keep all state/logic; this only mirrors :checked onto the card class.
+(function () {
+  function syncFaiCards() {
+    document.querySelectorAll('.f1-radio-row .mm-optcard').forEach(function (card) {
+      var r = card.querySelector('input[type="radio"]');
+      if (r) card.classList.toggle('active', r.checked);
+    });
+  }
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.type === 'radio') syncFaiCards();
+  });
+  document.addEventListener('DOMContentLoaded', function () {
+    syncFaiCards();
+    // Programmatic radio updates (Load Draft / Sample / Reset) rewrite these
+    // preview spans via updatePreview() — observe them to re-sync the cards.
+    ['p_faiScope', 'p_faiType'].forEach(function (id) {
+      var t = document.getElementById(id);
+      if (t && window.MutationObserver) new MutationObserver(syncFaiCards).observe(t, { childList: true });
+    });
+  });
+})();
 </script>
 
 <script src="../site.js"></script>

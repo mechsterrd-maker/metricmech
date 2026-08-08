@@ -134,38 +134,36 @@
 
 <div class="calc-layout">
 
-  <div class="tabs">
-    <button class="active" data-mode="torque" onclick="setMode('torque')">Power ↔ Torque ↔ RPM</button>
-    <button data-mode="electrical" onclick="setMode('electrical')">Electrical (V, A, η)</button>
+  <div class="mm-optcards" id="modeTabs" style="margin-bottom:24px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));max-width:480px;">
+    <button type="button" class="mm-optcard active" data-mode="torque" onclick="setMode('torque')"><svg viewBox="0 0 42 42"><circle cx="21" cy="23" r="6.5" class="fl ln"/><path d="M8 23a13 13 0 0 1 26 0" class="ln"/><path d="M34 23l-3.5-3m3.5 3l3.5-3" class="ln"/></svg><div class="nm">Power ↔ Torque ↔ RPM</div></button>
+    <button type="button" class="mm-optcard" data-mode="electrical" onclick="setMode('electrical')"><svg viewBox="0 0 42 42"><path d="M23 5L11 24h7l-3 13 12-19h-7z" class="fl ln"/></svg><div class="nm">Electrical (V, A, η)</div></button>
   </div>
 
   <div class="calc-grid" id="torqueCalc">
     <div>
       <div class="input-card">
         <label>Power</label>
-        <input type="number" id="power" value="5.5" step="0.1" oninput="calcTorque('power')" inputmode="decimal" autocomplete="off">
-        <select id="powerUnit" onchange="calcTorque('power')" style="margin-top: 8px;">
+        <div class="mm-inbox"><input type="number" id="power" value="5.5" step="0.1" oninput="calcTorque('power')" inputmode="decimal" autocomplete="off"><select id="powerUnit" onchange="calcTorque('power')" style="flex:0 0 auto;width:auto;min-height:44px;border:0;border-left:1px solid var(--rule);border-radius:0;background:#F8FAFC;font-family:var(--mono);font-size:12px;font-weight:500;padding:0 10px;">
           <option value="kW" selected>kW</option>
           <option value="HP">HP (mechanical)</option>
           <option value="PS">PS / metric HP</option>
           <option value="W">W</option>
-        </select>
+        </select></div>
       </div>
 
       <div class="input-card">
         <label>Speed</label>
-        <input type="number" id="rpm" value="1440" step="10" oninput="calcTorque('rpm')" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="rpm" value="1440" step="10" oninput="calcTorque('rpm')" inputmode="decimal" autocomplete="off"><span class="suf">RPM</span></div>
         <div class="hint">RPM — typical: 750, 1000, 1440, 2880 (for 50 Hz Indian motors)</div>
       </div>
 
       <div class="input-card">
         <label>Torque</label>
-        <input type="number" id="torque" value="" step="0.1" oninput="calcTorque('torque')" placeholder="auto" inputmode="decimal" autocomplete="off">
-        <select id="torqueUnit" onchange="calcTorque('torque')" style="margin-top: 8px;">
+        <div class="mm-inbox"><input type="number" id="torque" value="" step="0.1" oninput="calcTorque('torque')" placeholder="auto" inputmode="decimal" autocomplete="off"><select id="torqueUnit" onchange="calcTorque('torque')" style="flex:0 0 auto;width:auto;min-height:44px;border:0;border-left:1px solid var(--rule);border-radius:0;background:#F8FAFC;font-family:var(--mono);font-size:12px;font-weight:500;padding:0 10px;">
           <option value="Nm" selected>N·m</option>
           <option value="kgfm">kgf·m</option>
           <option value="lbft">lb·ft</option>
-        </select>
+        </select></div>
         <div class="hint">Leave blank to auto-compute, or enter to find required power</div>
       </div>
     </div>
@@ -202,8 +200,8 @@
   <div class="calc-grid" id="electricalCalc" style="display: none;">
     <div>
       <div class="input-card">
-        <label>Motor power (kW shaft)</label>
-        <input type="number" id="e_power" value="5.5" step="0.1" oninput="calcElec()" inputmode="decimal" autocomplete="off">
+        <label>Motor power (shaft)</label>
+        <div class="mm-inbox"><input type="number" id="e_power" value="5.5" step="0.1" oninput="calcElec()" inputmode="decimal" autocomplete="off"><span class="suf">kW</span></div>
       </div>
 
       <div class="input-card">
@@ -230,13 +228,13 @@
 
       <div class="input-card">
         <label>Power factor (cos φ)</label>
-        <input type="number" id="e_pf" value="0.85" step="0.01" min="0.5" max="1.0" oninput="calcElec()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="e_pf" value="0.85" step="0.01" min="0.5" max="1.0" oninput="calcElec()" inputmode="decimal" autocomplete="off"><span class="suf">cos φ</span></div>
         <div class="hint">Typical: 0.80–0.90 at full load for induction motors</div>
       </div>
 
       <div class="input-card">
         <label>Efficiency (η)</label>
-        <input type="number" id="e_eff" value="88" step="1" min="50" max="99" oninput="calcElec()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="e_eff" value="88" step="1" min="50" max="99" oninput="calcElec()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         <div class="hint">% — IE2 ≈ 85, IE3 ≈ 90, IE4 ≈ 93 for 5 kW motors</div>
       </div>
     </div>
@@ -336,10 +334,11 @@
 <script src="../assets/mm.js"></script>
 <script>
 function setMode(m) {
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  document.querySelectorAll('#modeTabs .mm-optcard').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
   document.getElementById('torqueCalc').style.display = m === 'torque' ? '' : 'none';
   document.getElementById('electricalCalc').style.display = m === 'electrical' ? '' : 'none';
   if (m === 'torque') calcTorque('power'); else calcElec();
+  if (window.mmPulse) mmPulse(m === 'torque' ? '#torqueCalc .result-big' : '#electricalCalc .result-big');
 }
 const PUNITS = { kW: 1, HP: 0.7457, PS: 0.7355, W: 0.001 };
 const TUNITS = { Nm: 1, kgfm: 9.80665, lbft: 1.35582 };

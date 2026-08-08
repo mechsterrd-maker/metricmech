@@ -144,13 +144,13 @@
       <div class="input-card">
         <h4>Availability — Time</h4>
         <div class="field">
-          <label>Planned production time (min)</label>
-          <input type="number" id="planned" value="480" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <label>Planned production time</label>
+          <div class="mm-inbox"><input type="number" id="planned" value="480" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
           <div class="hint">Total scheduled time per shift, minus planned breaks</div>
         </div>
         <div class="field">
-          <label>Total downtime (min)</label>
-          <input type="number" id="downtime" value="60" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <label>Total downtime</label>
+          <div class="mm-inbox"><input type="number" id="downtime" value="60" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">min</span></div>
           <div class="hint">Breakdowns, changeovers, material shortage, waiting</div>
         </div>
       </div>
@@ -158,13 +158,13 @@
       <div class="input-card">
         <h4>Performance — Speed</h4>
         <div class="field">
-          <label>Ideal cycle time (sec/part)</label>
-          <input type="number" id="ideal" value="30" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <label>Ideal cycle time</label>
+          <div class="mm-inbox"><input type="number" id="ideal" value="30" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">sec/part</span></div>
           <div class="hint">Theoretical fastest cycle time per part</div>
         </div>
         <div class="field">
           <label>Total parts produced</label>
-          <input type="number" id="produced" value="700" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="mm-inbox"><input type="number" id="produced" value="700" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
           <div class="hint">Total units run during operating time (good + reject)</div>
         </div>
       </div>
@@ -173,7 +173,7 @@
         <h4>Quality — Defects</h4>
         <div class="field">
           <label>Rejected / reworked parts</label>
-          <input type="number" id="rejects" value="35" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="mm-inbox"><input type="number" id="rejects" value="35" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
           <div class="hint">Parts that did not meet quality first time</div>
         </div>
       </div>

@@ -135,50 +135,50 @@
     <div class="input-grid">
       <div class="input-group">
         <label>Parts produced / month</label>
-        <input type="number" id="qty" class="calc-input" value="5000" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="qty" class="calc-input" value="5000" oninput="recalc()" inputmode="decimal" autocomplete="off"></div>
       </div>
       <div class="input-group">
-        <label>Average part cost (₹)</label>
-        <input type="number" id="cost" class="calc-input" value="850" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Average part cost</label>
+        <div class="mm-inbox"><input type="number" id="cost" class="calc-input" value="850" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
       </div>
       <div class="input-group">
-        <label>Internal scrap rate (%)</label>
-        <input type="number" id="scrap" class="calc-input" value="2.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Internal scrap rate</label>
+        <div class="mm-inbox"><input type="number" id="scrap" class="calc-input" value="2.5" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
       </div>
       <div class="input-group">
-        <label>Rework rate (%)</label>
-        <input type="number" id="rework" class="calc-input" value="4" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Rework rate</label>
+        <div class="mm-inbox"><input type="number" id="rework" class="calc-input" value="4" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
       </div>
       <div class="input-group">
-        <label>Customer rejection rate (%)</label>
-        <input type="number" id="custRej" class="calc-input" value="0.8" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Customer rejection rate</label>
+        <div class="mm-inbox"><input type="number" id="custRej" class="calc-input" value="0.8" step="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
       </div>
       <div class="input-group">
-        <label>Average rework cost / part (₹)</label>
-        <input type="number" id="reworkCost" class="calc-input" value="180" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Average rework cost / part</label>
+        <div class="mm-inbox"><input type="number" id="reworkCost" class="calc-input" value="180" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
       </div>
     </div>
 
     <h3 style="font-family: var(--display); font-size: 20px; font-weight: 600; margin: 24px 0 14px;">Hidden costs</h3>
     <div class="input-grid">
       <div class="input-group">
-        <label>Inspection cost / month (₹)</label>
-        <input type="number" id="inspect" class="calc-input" value="35000" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Inspection cost / month</label>
+        <div class="mm-inbox"><input type="number" id="inspect" class="calc-input" value="35000" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">QA staff time, gauges, CMM time</div>
       </div>
       <div class="input-group">
-        <label>Customer return shipping / penalty (₹)</label>
-        <input type="number" id="penalty" class="calc-input" value="15000" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Customer return shipping / penalty</label>
+        <div class="mm-inbox"><input type="number" id="penalty" class="calc-input" value="15000" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">RMA logistics, OEM PCN penalties</div>
       </div>
       <div class="input-group">
-        <label>FAI re-submission cost (₹)</label>
-        <input type="number" id="fai" class="calc-input" value="8000" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>FAI re-submission cost</label>
+        <div class="mm-inbox"><input type="number" id="fai" class="calc-input" value="8000" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">Per FAI rejection event × frequency</div>
       </div>
       <div class="input-group">
-        <label>Customer escalation/visits (₹)</label>
-        <input type="number" id="escal" class="calc-input" value="20000" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Customer escalation/visits</label>
+        <div class="mm-inbox"><input type="number" id="escal" class="calc-input" value="20000" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">₹</span></div>
         <div class="hint">Time of GM/Plant Head, travel, audit support</div>
       </div>
     </div>

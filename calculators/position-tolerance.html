@@ -135,35 +135,35 @@
 <div class="calc-layout">
   <div>
     <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 14px;">Feature type</h3>
-    <div class="feature-row">
-      <button class="feat-btn active" id="ftHole" onclick="setFeature('hole')">Hole (internal)</button>
-      <button class="feat-btn" id="ftPin" onclick="setFeature('pin')">Pin / shaft (external)</button>
+    <div class="feature-row mm-optcards">
+      <button class="feat-btn mm-optcard active" id="ftHole" onclick="setFeature('hole')"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="11" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M21 4v6M21 32v6M4 21h6M32 21h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Hole (internal)</button>
+      <button class="feat-btn mm-optcard" id="ftPin" onclick="setFeature('pin')"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="11" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="2.2"/><circle cx="21" cy="21" r="4.5" fill="currentColor"/></svg>Pin / shaft (external)</button>
     </div>
 
     <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin-bottom: 14px;">Material condition modifier</h3>
-    <div class="modifier-row">
-      <button class="mod-btn active" id="mRFS" onclick="setMod('RFS')">RFS — Regardless of feature size</button>
-      <button class="mod-btn" id="mMMC" onclick="setMod('MMC')">Ⓜ MMC</button>
-      <button class="mod-btn" id="mLMC" onclick="setMod('LMC')">Ⓛ LMC</button>
+    <div class="modifier-row mm-optcards">
+      <button class="mod-btn mm-optcard active" id="mRFS" onclick="setMod('RFS')">RFS — Regardless of feature size</button>
+      <button class="mod-btn mm-optcard" id="mMMC" onclick="setMod('MMC')">Ⓜ MMC</button>
+      <button class="mod-btn mm-optcard" id="mLMC" onclick="setMod('LMC')">Ⓛ LMC</button>
     </div>
 
     <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin: 20px 0 14px;">Drawing call-out</h3>
     <div class="input-grid-2">
       <div class="input-group">
-        <label>Stated position tolerance ⌀ (mm)</label>
-        <input type="number" step="any" id="posTol" class="calc-input" value="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Stated position tolerance ⌀</label>
+        <div class="mm-inbox"><input type="number" step="any" id="posTol" class="calc-input" value="0.1" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
       <div class="input-group">
-        <label>Feature nominal Ø (mm)</label>
-        <input type="number" step="any" id="featNom" class="calc-input" value="10" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Feature nominal Ø</label>
+        <div class="mm-inbox"><input type="number" step="any" id="featNom" class="calc-input" value="10" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
       <div class="input-group">
-        <label>Upper limit Ø (mm)</label>
-        <input type="number" step="any" id="featMax" class="calc-input" value="10.05" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Upper limit Ø</label>
+        <div class="mm-inbox"><input type="number" step="any" id="featMax" class="calc-input" value="10.05" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
       <div class="input-group">
-        <label>Lower limit Ø (mm)</label>
-        <input type="number" step="any" id="featMin" class="calc-input" value="9.95" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Lower limit Ø</label>
+        <div class="mm-inbox"><input type="number" step="any" id="featMin" class="calc-input" value="9.95" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
     </div>
 
@@ -171,15 +171,15 @@
     <div class="input-grid-2">
       <div class="input-group">
         <label>Measured Ø (actual size)</label>
-        <input type="number" step="any" id="featAct" class="calc-input" value="10.02" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" step="any" id="featAct" class="calc-input" value="10.02" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
       <div class="input-group">
-        <label>X deviation from true (mm)</label>
-        <input type="number" step="any" id="devX" class="calc-input" value="0.04" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>X deviation from true</label>
+        <div class="mm-inbox"><input type="number" step="any" id="devX" class="calc-input" value="0.04" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
       <div class="input-group">
-        <label>Y deviation from true (mm)</label>
-        <input type="number" step="any" id="devY" class="calc-input" value="0.03" oninput="recalc()" inputmode="decimal" autocomplete="off">
+        <label>Y deviation from true</label>
+        <div class="mm-inbox"><input type="number" step="any" id="devY" class="calc-input" value="0.03" oninput="recalc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
       </div>
     </div>
 
@@ -298,12 +298,14 @@ function setMod(m) {
   ['RFS','MMC','LMC'].forEach(x => document.getElementById('m'+x).classList.remove('active'));
   document.getElementById('m'+m).classList.add('active');
   recalc();
+  if (window.mmPulse) mmPulse('#passCard');
 }
 function setFeature(f) {
   feature = f;
   document.getElementById('ftHole').classList.toggle('active', f==='hole');
   document.getElementById('ftPin').classList.toggle('active', f==='pin');
   recalc();
+  if (window.mmPulse) mmPulse('#passCard');
 }
 
 function recalc() {

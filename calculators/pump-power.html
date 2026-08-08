@@ -132,9 +132,9 @@
     <div>
       <div class="input-card">
         <label>Flow rate (Q)</label>
-        <div class="row">
+        <div class="mm-inbox">
           <input type="number" id="flow" value="50" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
-          <select id="flowUnit" onchange="calc()">
+          <select id="flowUnit" onchange="calc()" style="flex:0 0 auto;width:auto;min-height:44px;border:0;border-left:1px solid var(--rule);border-radius:0;background:#F8FAFC;font-family:var(--mono);font-size:12px;font-weight:500;padding:0 10px;">
             <option value="m3h" selected>m³/hr</option>
             <option value="lpm">L/min</option>
             <option value="lps">L/sec</option>
@@ -146,9 +146,9 @@
 
       <div class="input-card">
         <label>Total head (H)</label>
-        <div class="row">
+        <div class="mm-inbox">
           <input type="number" id="head" value="30" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
-          <select id="headUnit" onchange="calc()">
+          <select id="headUnit" onchange="calc()" style="flex:0 0 auto;width:auto;min-height:44px;border:0;border-left:1px solid var(--rule);border-radius:0;background:#F8FAFC;font-family:var(--mono);font-size:12px;font-weight:500;padding:0 10px;">
             <option value="m" selected>metres of liquid</option>
             <option value="ft">feet of liquid</option>
             <option value="bar">bar</option>
@@ -179,13 +179,13 @@
 
       <div class="input-card">
         <label>Pump efficiency (η<sub>p</sub>)</label>
-        <input type="number" id="eff_pump" value="70" step="1" min="20" max="90" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="eff_pump" value="70" step="1" min="20" max="90" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         <div class="hint">% — Centrifugal: 60–80, PD: 80–90, submersible: 50–70</div>
       </div>
 
       <div class="input-card">
         <label>Motor efficiency (η<sub>m</sub>)</label>
-        <input type="number" id="eff_motor" value="88" step="1" min="50" max="98" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="eff_motor" value="88" step="1" min="50" max="98" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">%</span></div>
         <div class="hint">% — IE2 ≈ 85, IE3 ≈ 90, IE4 ≈ 93</div>
       </div>
     </div>

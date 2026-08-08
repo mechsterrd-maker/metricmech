@@ -136,30 +136,29 @@
         <h4>Geometry</h4>
         <div class="field">
           <label>Shaft outer diameter (Df)</label>
-          <input type="number" id="Df" value="50" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off">
-          <div class="hint">mm — nominal mating diameter</div>
+          <div class="mm-inbox"><input type="number" id="Df" value="50" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
+          <div class="hint">nominal mating diameter</div>
         </div>
         <div class="row">
           <div>
             <label>Shaft inner dia (Di)</label>
-            <input type="number" id="Di" value="0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
-            <div class="hint">mm — 0 if solid</div>
+            <div class="mm-inbox"><input type="number" id="Di" value="0" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
+            <div class="hint">0 if solid</div>
           </div>
           <div>
             <label>Hub outer dia (Do)</label>
-            <input type="number" id="Do" value="100" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off">
-            <div class="hint">mm</div>
+            <div class="mm-inbox"><input type="number" id="Do" value="100" step="0.1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
           </div>
         </div>
         <div class="field" style="margin-top: 12px;">
           <label>Engagement length (L)</label>
-          <input type="number" id="L" value="40" step="1" oninput="calc()" inputmode="decimal" autocomplete="off">
-          <div class="hint">mm — contact length</div>
+          <div class="mm-inbox"><input type="number" id="L" value="40" step="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
+          <div class="hint">contact length</div>
         </div>
         <div class="field">
           <label>Diametrical interference (δ)</label>
-          <input type="number" id="delta" value="0.025" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off">
-          <div class="hint">mm — typical: 0.0005·D to 0.001·D for press fit</div>
+          <div class="mm-inbox"><input type="number" id="delta" value="0.025" step="0.001" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">mm</span></div>
+          <div class="hint">typical: 0.0005·D to 0.001·D for press fit</div>
         </div>
       </div>
 
@@ -189,7 +188,7 @@
         </div>
         <div class="field">
           <label>Friction coefficient (μ)</label>
-          <input type="number" id="mu" value="0.15" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off">
+          <div class="mm-inbox"><input type="number" id="mu" value="0.15" step="0.01" oninput="calc()" inputmode="decimal" autocomplete="off"></div>
           <div class="hint">Steel-steel ≈ 0.10–0.15; oiled = lower</div>
         </div>
       </div>
