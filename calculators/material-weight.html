@@ -136,14 +136,31 @@
 
 <div class="calc-layout">
 
-  <div class="shape-tabs" id="tabs">
-    <button class="active" data-shape="plate" onclick="setShape('plate')">Plate / Sheet</button>
-    <button data-shape="round" onclick="setShape('round')">Round Bar</button>
-    <button data-shape="square" onclick="setShape('square')">Square Bar</button>
-    <button data-shape="hex" onclick="setShape('hex')">Hex Bar</button>
-    <button data-shape="pipe" onclick="setShape('pipe')">Pipe / Tube</button>
-    <button data-shape="angle" onclick="setShape('angle')">Angle</button>
-    <button data-shape="ring" onclick="setShape('ring')">Ring / Disc</button>
+  <div class="input-card" style="margin-bottom:16px;">
+    <label>Shape</label>
+    <div class="mm-optcards" id="tabs">
+      <button type="button" class="mm-optcard active" data-shape="plate" onclick="setShape('plate')">
+        <svg viewBox="0 0 42 42"><rect x="7" y="15" width="28" height="15" transform="skewX(-14)" class="fl ln"/></svg><div class="nm">Plate / Sheet</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="round" onclick="setShape('round')">
+        <svg viewBox="0 0 42 42"><ellipse cx="14" cy="12" rx="7" ry="4" class="fl ln"/><path d="M7 12v14c0 2.3 3.1 4 7 4s7-1.7 7-4V12" class="ln"/></svg><div class="nm">Round Bar</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="square" onclick="setShape('square')">
+        <svg viewBox="0 0 42 42"><path d="M9 11h13v13H9z" class="fl ln"/><path d="M22 11l8 5v13l-8-5M9 24l8 5h13" class="ln"/></svg><div class="nm">Square Bar</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="hex" onclick="setShape('hex')">
+        <svg viewBox="0 0 42 42"><path d="M14 7l8 4.5v9L14 25l-8-4.5v-9z" class="fl ln"/><path d="M22 11.5l8 5v9l-8 5-8-4.5M14 25v9" class="ln"/></svg><div class="nm">Hex Bar</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="pipe" onclick="setShape('pipe')">
+        <svg viewBox="0 0 42 42"><ellipse cx="14" cy="12" rx="8" ry="4.6" class="fl ln"/><ellipse cx="14" cy="12" rx="5.6" ry="3.1" class="ln"/><path d="M6 12v15c0 2.6 3.6 4.6 8 4.6s8-2 8-4.6V12" class="ln"/></svg><div class="nm">Pipe / Tube</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="angle" onclick="setShape('angle')">
+        <svg viewBox="0 0 42 42"><path d="M12 8v22h20v-6H18V8z" class="fl ln"/><path d="M12 8l6 4M32 24l-4 3" class="ln"/></svg><div class="nm">Angle</div>
+      </button>
+      <button type="button" class="mm-optcard" data-shape="ring" onclick="setShape('ring')">
+        <svg viewBox="0 0 42 42"><ellipse cx="21" cy="19" rx="13" ry="8" class="fl ln"/><ellipse cx="21" cy="19" rx="6.5" ry="3.8" class="ln"/><path d="M8 19v4c0 4.4 5.8 8 13 8s13-3.6 13-8v-4" class="ln"/></svg><div class="nm">Ring / Disc</div>
+      </button>
+    </div>
   </div>
 
   <div class="calc-grid">
@@ -191,7 +208,23 @@
 
       <div class="input-card">
         <label>Quantity</label>
-        <input type="number" id="qty" value="1" step="1" min="1" oninput="calc()" inputmode="decimal" autocomplete="off">
+        <div class="mm-inbox"><input type="number" id="qty" value="1" step="1" min="1" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">nos</span></div>
+      </div>
+
+      <div class="input-card">
+        <label class="mm-togglerow"><input type="checkbox" id="costChk" onchange="toggleCost()"><span class="mm-switch"></span><span class="tl">Cost calculation</span></label>
+        <div class="mm-costbody" id="costBody">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:10px;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Price per kg</div>
+              <div class="mm-inbox"><input type="number" id="price" step="any" min="0" placeholder="0.00" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf" id="curSuf">₹</span></div>
+            </div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">Currency</div>
+              <div class="mm-inbox"><select id="cur" onchange="calc()"><option value="₹" selected>INR ₹</option><option value="$">USD $</option><option value="€">EUR €</option><option value="£">GBP £</option></select></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -212,6 +245,14 @@
         <div class="result-card"><div class="l">Volume</div><div class="v" id="volume">—</div></div>
         <div class="result-card"><div class="l">Density</div><div class="v" id="density">—</div></div>
         <div class="result-card"><div class="l">Surface area</div><div class="v" id="surface">—</div></div>
+        <div class="result-card" id="costPcCard" style="display:none;"><div class="l">Cost / piece</div><div class="v" id="costPc" style="color:#16A34A;">—</div></div>
+        <div class="result-card" id="costTotCard" style="display:none;"><div class="l">Total cost</div><div class="v" id="costTot" style="color:#16A34A;">—</div></div>
+      </div>
+
+      <div class="input-card mm-wire-wrap" style="margin-top:16px;">
+        <label>Live 3D preview</label>
+        <canvas id="wire" width="300" height="210" aria-label="3D wireframe preview of the selected shape"></canvas>
+        <div class="mm-wire-hint">drag to rotate · auto-spin</div>
       </div>
     </div>
 
@@ -337,9 +378,10 @@ const FIELDS = {
 };
 function setShape(s) {
   currentShape = s;
-  document.querySelectorAll('.shape-tabs button').forEach(b => b.classList.toggle('active', b.dataset.shape === s));
+  document.querySelectorAll('#tabs .mm-optcard').forEach(b => b.classList.toggle('active', b.dataset.shape === s));
   buildFields();
   calc();
+  if (window.mmPulse) mmPulse('.result-big');
 }
 function buildFields() {
   const c = document.getElementById('dimensions');
@@ -353,7 +395,7 @@ function buildFields() {
   grid.style.cssText = f.length > 3 ? 'display:grid;grid-template-columns:1fr 1fr;gap:10px;' : '';
   f.forEach(field => {
     const div = document.createElement('div');
-    div.innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">${field.label} (${field.unit})</div><input type="number" id="${field.id}" value="${field.val}" step="any" oninput="calc()" inputmode="decimal" autocomplete="off">`;
+    div.innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;">${field.label}</div><div class="mm-inbox"><input type="number" id="${field.id}" value="${field.val}" step="any" min="0" oninput="calc()" inputmode="decimal" autocomplete="off"><span class="suf">${field.unit}</span></div>`;
     grid.appendChild(div);
   });
   card.appendChild(grid);
@@ -430,10 +472,45 @@ function calc() {
     });
   })();
 
+  // Cost (display-only: mass × price)
+  (function(){
+    const on = document.getElementById('costChk')?.checked;
+    const price = parseFloat(document.getElementById('price')?.value) || 0;
+    const cur = document.getElementById('cur')?.value || '₹';
+    const sufEl = document.getElementById('curSuf'); if (sufEl) sufEl.textContent = cur;
+    const show = on && price > 0;
+    document.getElementById('costPcCard').style.display = show ? '' : 'none';
+    document.getElementById('costTotCard').style.display = show ? '' : 'none';
+    if (show) {
+      document.getElementById('costPc').textContent = cur + ' ' + (massPerPc * price).toLocaleString('en-IN', {maximumFractionDigits: 2});
+      document.getElementById('costTot').textContent = cur + ' ' + (total * price).toLocaleString('en-IN', {maximumFractionDigits: 2});
+    }
+  })();
+
+  // Live 3D wireframe (view-only; lengths capped for a readable mesh)
+  if (window.mmWire) { try {
+    if (!window._mwWire) window._mwWire = mmWire.mount('#wire');
+    if (window._mwWire) window._mwWire.setMesh(function (m) {
+      const cap = (L, c) => Math.min(Math.max(L, c * 0.2), c * 5);
+      if (currentShape === 'plate') { const L=getVal('L'),W=getVal('W'),T=getVal('T'); mmWire.prism(m, mmWire.rect(W,T), cap(L, Math.max(W,T))); }
+      else if (currentShape === 'round') { const D=getVal('D'),L=getVal('L'); mmWire.prism(m, mmWire.ngon(D/2), cap(L,D), 3); }
+      else if (currentShape === 'square') { const A=getVal('A'),L=getVal('L'); mmWire.prism(m, mmWire.rect(A,A), cap(L,A)); }
+      else if (currentShape === 'hex') { const AF=getVal('AF'),L=getVal('L'); mmWire.prism(m, mmWire.ngon(AF/Math.sqrt(3),6,Math.PI/6), cap(L,AF)); }
+      else if (currentShape === 'pipe') { const OD=getVal('OD'),WT=getVal('WT'),L=getVal('L'); const len=cap(L,OD); mmWire.prism(m, mmWire.ngon(OD/2), len, 3); mmWire.prism(m, mmWire.ngon(Math.max(OD/2-WT,0.2),24), len, 6); }
+      else if (currentShape === 'angle') { const A=getVal('A'),B=getVal('B'),T=getVal('T'),L=getVal('L');
+        mmWire.prism(m, [[-B/2,A/2],[-B/2+T,A/2],[-B/2+T,-A/2+T],[B/2,-A/2+T],[B/2,-A/2],[-B/2,-A/2]], cap(L, Math.max(A,B))); }
+      else if (currentShape === 'ring') { const OD=getVal('OD'),ID=getVal('ID'),T=getVal('T'); mmWire.prism(m, mmWire.ngon(OD/2), T, 3); mmWire.prism(m, mmWire.ngon(Math.max(ID/2,0.2)), T, 6); }
+    });
+  } catch(e){} }
+
   if (window.mmViz) { try { mmViz.compareBars('#mmViz', { bars: [
     { label: 'Total (' + qty + ' pc)', value: total, color: '#2554BA', display: total.toFixed(2) + ' kg' },
     { label: 'Per piece', value: massPerPc, color: '#64748B', display: massPerPc.toFixed(3) + ' kg' }
   ] }); } catch(e){} }
+}
+function toggleCost() {
+  document.getElementById('costBody').classList.toggle('open', document.getElementById('costChk').checked);
+  calc();
 }
 buildFields();
 calc();

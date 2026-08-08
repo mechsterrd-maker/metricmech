@@ -551,6 +551,7 @@
     initSeoCollapse();
     initTableWrap();
     initInputModes();
+    initInboxValidation();
     ensureSticky();
   }
   // Hook interpret.js immediately (pages call calc() inline, before DOMContentLoaded).
@@ -560,6 +561,154 @@
   // interpret.js may load after us; re-hook shortly after load
   window.addEventListener('load', function () { hookInterpret(); initInputModes(); });
 
+  /* ══════════ STUDIO KIT (Blueprint-native) ══════════ */
+
+  /* Pulse the hero/result card after a recalc. */
+  function mmPulse(target) {
+    var node = el(target);
+    if (!node) return;
+    node.classList.remove('mm-pulse');
+    void node.offsetWidth; // restart animation
+    node.classList.add('mm-pulse');
+  }
+
+  /* Shake + red border on invalid numeric inputs wrapped in .mm-inbox.
+     Delegated so dynamically rebuilt inputs (buildFields pages) are covered. */
+  function initInboxValidation() {
+    if (document._mmInboxVal) return;
+    document._mmInboxVal = true;
+    document.addEventListener('input', function (e) {
+      var inp = e.target;
+      if (!inp || inp.type !== 'number') return;
+      var box = inp.closest && inp.closest('.mm-inbox');
+      if (!box) return;
+      var v = parseFloat(inp.value);
+      var bad = inp.value !== '' && !(v > 0) && +(inp.min || 0) >= 0;
+      box.classList.toggle('err', bad);
+    });
+  }
+
+  /* ── mmWire: tiny software 3D wireframe renderer (drag to rotate, auto-spin).
+     mmWire.mount(canvasSel, {color}) → handle; handle.setMesh(builderFn) where
+     builderFn(m) pushes vertices m.v=[[x,y,z]…] and edges m.e=[[i,j]…].
+     Helpers exposed: mmWire.prism(m, pts, L, step), mmWire.ngon(r, n, rot),
+     mmWire.rect(w, h), mmWire.sphere(m, r), mmWire.cone(m, r, h). */
+  var mmWire = (function () {
+    function prism(m, pts, L, step) {
+      step = step || 1;
+      var n = pts.length, b = m.v.length, h = L / 2, i;
+      pts.forEach(function (p) { m.v.push([p[0], p[1], -h]); });
+      pts.forEach(function (p) { m.v.push([p[0], p[1], h]); });
+      for (i = 0; i < n; i++) {
+        m.e.push([b + i, b + (i + 1) % n], [b + n + i, b + n + (i + 1) % n]);
+        if (i % step === 0) m.e.push([b + i, b + n + i]);
+      }
+    }
+    function ngon(r, n, rot) {
+      n = n || 24; rot = rot || 0;
+      var out = [], i, a;
+      for (i = 0; i < n; i++) { a = rot + i / n * 2 * Math.PI; out.push([r * Math.cos(a), r * Math.sin(a)]); }
+      return out;
+    }
+    function rectPts(w, h) { return [[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]]; }
+    function sphere(m, r) {
+      var j, i, th, rr, z, n, b, a;
+      for (j = 1; j < 6; j++) {
+        th = j / 6 * Math.PI; rr = r * Math.sin(th); z = r * Math.cos(th); n = 26; b = m.v.length;
+        for (i = 0; i < n; i++) { a = i / n * 2 * Math.PI; m.v.push([rr * Math.cos(a), z, rr * Math.sin(a)]); }
+        for (i = 0; i < n; i++) m.e.push([b + i, b + (i + 1) % n]);
+      }
+      for (j = 0; j < 6; j++) {
+        a = j / 6 * Math.PI; n = 34; b = m.v.length;
+        for (i = 0; i < n; i++) { th = i / n * 2 * Math.PI; m.v.push([r * Math.sin(th) * Math.cos(a), r * Math.cos(th), r * Math.sin(th) * Math.sin(a)]); }
+        for (i = 0; i < n; i++) m.e.push([b + i, b + (i + 1) % n]);
+      }
+    }
+    function cone(m, r, h) {
+      var n = 24, b = m.v.length, i, a;
+      for (i = 0; i < n; i++) { a = i / n * 2 * Math.PI; m.v.push([r * Math.cos(a), h / 2, r * Math.sin(a)]); }
+      var apex = m.v.length; m.v.push([0, -h / 2, 0]);
+      for (i = 0; i < n; i++) { m.e.push([b + i, b + (i + 1) % n]); if (i % 3 === 0) m.e.push([b + i, apex]); }
+    }
+
+    function mount(canvasSel, opts) {
+      var cv = el(canvasSel);
+      if (!cv || !cv.getContext) return null;
+      opts = opts || {};
+      var color = opts.color || BLUE;
+      var W = cv.getAttribute('width') ? +cv.getAttribute('width') : 320;
+      var H = cv.getAttribute('height') ? +cv.getAttribute('height') : 240;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = W * dpr; cv.height = H * dpr;
+      cv.style.width = W + 'px'; cv.style.height = H + 'px';
+      var cx2 = cv.getContext('2d');
+      cx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var mesh = { v: [], e: [] }, meshR = 1, rX = -0.45, rY = 0.65,
+          drag = false, px = 0, py = 0, running = false, visible = true;
+
+      function draw() {
+        cx2.clearRect(0, 0, W, H);
+        if (!mesh.v.length) return;
+        var s = (Math.min(W, H) * 0.4) / meshR, cx = W / 2, cy = H / 2;
+        var cyv = Math.cos(rY), sy = Math.sin(rY), cxv = Math.cos(rX), sx = Math.sin(rX);
+        var P = mesh.v.map(function (p) {
+          var x1 = p[0] * cyv + p[2] * sy, z1 = -p[0] * sy + p[2] * cyv;
+          var y1 = p[1] * cxv - z1 * sx, z2 = p[1] * sx + z1 * cxv;
+          var f = 640 / (640 + z2 * s);
+          return [cx + x1 * s * f, cy + y1 * s * f, z2 * s];
+        });
+        var E = mesh.e.map(function (ed) {
+          return { a: P[ed[0]], b: P[ed[1]], z: (P[ed[0]][2] + P[ed[1]][2]) / 2 };
+        }).sort(function (p, q) { return q.z - p.z; });
+        if (!E.length) return;
+        var zmin = E[E.length - 1].z, zmax = E[0].z, zr = Math.max(zmax - zmin, 1e-6);
+        cx2.lineCap = 'round';
+        for (var i = 0; i < E.length; i++) {
+          var t = 1 - (E[i].z - zmin) / zr;
+          cx2.globalAlpha = 0.14 + 0.86 * t;
+          cx2.lineWidth = 0.7 + 1.2 * t;
+          cx2.strokeStyle = color;
+          cx2.beginPath(); cx2.moveTo(E[i].a[0], E[i].a[1]); cx2.lineTo(E[i].b[0], E[i].b[1]); cx2.stroke();
+        }
+        cx2.globalAlpha = 1;
+      }
+      function loop() {
+        if (!running) return;
+        if (visible) { if (!drag) rY += 0.006; draw(); }
+        requestAnimationFrame(loop);
+      }
+      cv.addEventListener('pointerdown', function (e) { drag = true; px = e.clientX; py = e.clientY; cv.setPointerCapture(e.pointerId); });
+      cv.addEventListener('pointermove', function (e) {
+        if (!drag) return;
+        rY += (e.clientX - px) * 0.008;
+        rX = Math.max(-1.5, Math.min(1.5, rX + (e.clientY - py) * 0.008));
+        px = e.clientX; py = e.clientY;
+      });
+      cv.addEventListener('pointerup', function () { drag = false; });
+      cv.addEventListener('pointercancel', function () { drag = false; });
+      // pause the spin loop when offscreen — keep it cheap
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }, { threshold: 0.05 }).observe(cv);
+      }
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      return {
+        setMesh: function (builderFn) {
+          var m = { v: [], e: [] };
+          try { builderFn(m); } catch (e) { return; }
+          mesh = m; meshR = 1e-9;
+          for (var i = 0; i < m.v.length; i++) {
+            var r = Math.hypot(m.v[i][0], m.v[i][1], m.v[i][2]);
+            if (r > meshR) meshR = r;
+          }
+          if (reduced) { draw(); }
+          else if (!running) { running = true; loop(); }
+        },
+        stop: function () { running = false; }
+      };
+    }
+    return { mount: mount, prism: prism, ngon: ngon, rect: rectPts, sphere: sphere, cone: cone };
+  })();
+
   /* exports */
   window.mmVerdict = mmVerdict;
   window.mmCountUp = mmCountUp;
@@ -567,5 +716,7 @@
   window.mmDebounce = mmDebounce;
   window.mmCollapse = mmCollapse;
   window.mmViz = mmViz;
+  window.mmPulse = mmPulse;
+  window.mmWire = mmWire;
   window.mmDS = { version: '1.0.0' };
 })();

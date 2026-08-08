@@ -364,3 +364,93 @@ html:not(.mm-js) .mm-collapse__head::after { display: none; }
 .result-card.warn .lbl, .result-card.warn .sub, .result-card.warn .l {
   color: rgba(255,255,255,0.88);
 }
+
+/* ════════════════ STUDIO KIT (Blueprint-native, Jul 2026) ════════════════
+   UX patterns adopted from the studio concept, restyled to the white/blue
+   Blueprint theme. No loaders, no particles — performance first. */
+
+/* ── Option cards: visual segmented picker (shapes, modes, modifiers) ── */
+.mm-optcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+.mm-optcard {
+  border: 1px solid var(--mm-border); border-radius: 12px; background: var(--mm-bg);
+  padding: 12px 6px 10px; cursor: pointer; text-align: center; position: relative;
+  font: inherit; color: inherit;
+  transition: transform 0.2s cubic-bezier(.2,.9,.3,1.3), border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.mm-optcard:hover { transform: translateY(-3px); border-color: rgba(37,84,186,0.5); }
+.mm-optcard.active {
+  border-color: var(--mm-blue);
+  background: var(--mm-blue-bg);
+  box-shadow: 0 6px 20px rgba(37,84,186,0.16);
+}
+.mm-optcard svg { width: 40px; height: 40px; display: block; margin: 0 auto 6px; }
+.mm-optcard .nm { font-size: 11.5px; color: var(--mm-muted); letter-spacing: 0.02em; font-weight: 600; line-height: 1.25; }
+.mm-optcard.active .nm { color: var(--mm-blue-dark); }
+.mm-optcard .ln { stroke: #64748B; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.mm-optcard .fl { fill: rgba(100,116,139,0.12); }
+.mm-optcard.active .ln { stroke: var(--mm-blue); }
+.mm-optcard.active .fl { fill: rgba(37,84,186,0.14); }
+
+/* ── Suffixed input box with focus ring + error shake ── */
+.mm-inbox {
+  display: flex; align-items: center; background: var(--mm-bg);
+  border: 1px solid var(--mm-border); border-radius: 10px; overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mm-inbox:focus-within { border-color: var(--mm-blue); box-shadow: 0 0 0 3px rgba(37,84,186,0.15); }
+.mm-inbox input, .mm-inbox select {
+  flex: 1; min-width: 0; background: transparent; border: 0; outline: 0;
+  color: var(--mm-ink); font: inherit; font-size: 17px; font-weight: 600;
+  padding: 11px 13px; font-variant-numeric: tabular-nums; min-height: 44px;
+}
+.mm-inbox .suf {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mm-muted);
+  padding: 0 12px; border-left: 1px solid var(--mm-border); flex: none; letter-spacing: 0.03em;
+  align-self: stretch; display: flex; align-items: center; background: #F8FAFC;
+}
+.mm-inbox.err { border-color: var(--mm-red); animation: mm-shake 0.3s; }
+.mm-inbox.err .suf { color: var(--mm-red); }
+@keyframes mm-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+/* ── Tooltips (Blueprint) ── */
+[data-mm-tip] { position: relative; cursor: help; }
+[data-mm-tip]::after {
+  content: attr(data-mm-tip); position: absolute; left: 50%; bottom: 130%;
+  transform: translateX(-50%) scale(0.94);
+  background: var(--mm-ink); color: #F8FAFC; border-radius: 8px;
+  font-size: 11.5px; font-weight: 500; letter-spacing: 0.02em; line-height: 1.4;
+  padding: 6px 10px; white-space: nowrap; z-index: 40;
+  opacity: 0; pointer-events: none; transition: 0.18s; text-transform: none;
+}
+[data-mm-tip]:hover::after { opacity: 1; transform: translateX(-50%) scale(1); }
+
+/* ── Hero pulse on recalculation ── */
+@keyframes mm-hero-pulse { 0% { transform: scale(1); } 40% { transform: scale(1.012); } 100% { transform: scale(1); } }
+.mm-pulse { animation: mm-hero-pulse 0.38s ease-out; }
+
+/* ── Wireframe preview card ── */
+.mm-wire-wrap { text-align: center; }
+.mm-wire-wrap canvas { display: block; margin: 0 auto; cursor: grab; touch-action: none; max-width: 100%; }
+.mm-wire-wrap canvas:active { cursor: grabbing; }
+.mm-wire-hint {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--mm-muted);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px;
+}
+
+/* ── Toggle switch (cost calculation etc.) ── */
+.mm-togglerow { display: flex; align-items: center; gap: 11px; cursor: pointer; user-select: none; min-height: 44px; }
+.mm-togglerow input { display: none; }
+.mm-switch {
+  width: 46px; height: 26px; border-radius: 20px; background: #CBD5E1;
+  position: relative; transition: 0.3s; flex: none; border: 1px solid var(--mm-border);
+}
+.mm-switch::after {
+  content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+  border-radius: 50%; background: #fff; transition: 0.3s cubic-bezier(.2,.9,.3,1.3);
+  box-shadow: 0 2px 6px rgba(15,23,42,0.3);
+}
+.mm-togglerow input:checked + .mm-switch { background: var(--mm-blue); }
+.mm-togglerow input:checked + .mm-switch::after { left: 22px; }
+.mm-togglerow .tl { font-size: 14px; font-weight: 600; color: var(--mm-ink); }
+.mm-costbody { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.mm-costbody.open { max-height: 160px; }
