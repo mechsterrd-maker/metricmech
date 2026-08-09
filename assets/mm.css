@@ -594,3 +594,55 @@ html[data-mm-theme="dark"] .brand-link, html[data-mm-theme="dark"] .brand-link b
   html[data-mm-theme="dark"] .result-big { background: #0f172a; }
   .mm-theme-toggle { display: none !important; }
 }
+
+/* ════════════════ PDF TOOLS (Aug 2026) ════════════════ */
+.mm-drop {
+  border: 2px dashed var(--mm-border); border-radius: 14px;
+  padding: 38px 20px; text-align: center; cursor: pointer;
+  color: var(--mm-muted); background: var(--mm-bg);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+}
+.mm-drop:hover, .mm-drop:focus-visible { border-color: var(--mm-blue); color: var(--mm-blue); }
+.mm-drop.over { border-color: var(--mm-blue); background: var(--mm-blue-bg); transform: scale(1.005); }
+.mm-drop svg { width: 38px; height: 38px; margin-bottom: 8px; }
+.mm-drop__title { font-size: 16px; font-weight: 700; color: var(--mm-ink); }
+.mm-drop__sub { font-size: 12.5px; margin-top: 4px; }
+.mm-drop__browse { color: var(--mm-blue); text-decoration: underline; }
+html[data-mm-theme="dark"] .mm-drop { background: rgba(2,8,26,0.5); }
+html[data-mm-theme="dark"] .mm-drop.over { background: rgba(0,229,255,0.08); }
+
+.mm-filelist { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.mm-filechip {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border: 1px solid var(--mm-border); border-radius: 10px;
+  background: var(--mm-bg); font-size: 13.5px;
+}
+html[data-mm-theme="dark"] .mm-filechip { background: rgba(255,255,255,0.05); }
+.mm-filechip__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; color: var(--mm-ink); }
+.mm-filechip__size { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mm-muted); flex: none; }
+.mm-filechip__btn {
+  flex: none; width: 30px; height: 30px; border-radius: 7px;
+  border: 1px solid var(--mm-border); background: transparent; color: var(--mm-muted);
+  cursor: pointer; font-size: 13px;
+}
+.mm-filechip__btn:hover:not(:disabled) { border-color: var(--mm-blue); color: var(--mm-blue); }
+.mm-filechip__btn:disabled { opacity: 0.35; cursor: default; }
+
+.mm-pdf-status { display: none; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; font-weight: 600; }
+.mm-pdf-status.info { color: var(--mm-muted); }
+.mm-pdf-status.busy { color: var(--mm-blue); }
+.mm-pdf-status.ok { color: var(--mm-green); }
+.mm-pdf-status.err { color: var(--mm-red); }
+html[data-mm-theme="dark"] .mm-pdf-status.ok { color: #38e8a0; }
+html[data-mm-theme="dark"] .mm-pdf-status.err { color: #ff5470; }
+
+.mm-pdf-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; margin: 14px 0; }
+.mm-thumbgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 14px; }
+.mm-thumb { border: 1px solid var(--mm-border); border-radius: 10px; overflow: hidden; position: relative; cursor: pointer; background: #fff; }
+.mm-thumb canvas { display: block; width: 100%; height: auto; }
+.mm-thumb__tag {
+  position: absolute; left: 6px; bottom: 6px; padding: 2px 7px; border-radius: 5px;
+  background: rgba(15,23,42,0.75); color: #fff;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+}
+.mm-thumb.sel { outline: 3px solid var(--mm-blue); outline-offset: -3px; }

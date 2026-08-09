@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JPG to PDF Converter — Free, Private, In-Browser Tool</title>
+<meta name="description" content="Convert JPG and PNG images into one PDF — part photos, weld shots and calibration records. Free and private: runs in your browser, nothing is uploaded.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260808b">
+<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.tool-layout { max-width: 860px; margin: 0 auto; padding: 32px; }
+.tool-card-main { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; }
+.tool-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+.trust-line { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mute); margin-top: 14px; }
+.trust-line svg { width: 15px; height: 15px; flex: none; }
+.opt-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+.opt-group--wide { grid-column: 1 / -1; }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/pdf-tools/jpg-to-pdf">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="JPG to PDF Converter — Free, Private, In-Browser Tool">
+<meta property="og:description" content="Convert JPG and PNG images into one PDF — part photos, weld shots and calibration records. Free and private: runs in your browser, nothing is uploaded.">
+<meta property="og:url" content="https://metricmech.com/pdf-tools/jpg-to-pdf">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JPG to PDF Converter — Free, Private, In-Browser Tool">
+<meta name="twitter:description" content="Convert JPG and PNG images into one PDF — part photos, weld shots and calibration records. Free and private: runs in your browser, nothing is uploaded.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "JPG to PDF Converter — Free, Private, In-Browser Tool",
+  "description": "Convert JPG and PNG images into one PDF — part photos, weld shots and calibration records. Free and private: runs in your browser, nothing is uploaded.",
+  "url": "https://metricmech.com/pdf-tools/jpg-to-pdf",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="pdf-tools" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../pdf-tools.html">PDF Tools</a><span class="sep">/</span>JPG to PDF</div>
+  <h1 class="page-title">JPG to <em>PDF.</em></h1>
+  <p class="page-lede">Turn part photos, weld inspection shots and gauge calibration photos into one clean PDF — ready to attach to an NCR, 8D or FAI pack. Everything runs in your browser: your images never leave your device.</p>
+</div>
+
+<div class="tool-layout">
+  <div class="tool-card-main">
+    <div id="dropMount"></div>
+    <div class="mm-pdf-opts">
+      <div class="opt-group--wide">
+        <div class="opt-label">Page size</div>
+        <div class="mm-optcards" id="sizeCards">
+          <button type="button" class="mm-optcard active" data-size="a4p">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln fl" x="12" y="6" width="16" height="28" rx="1.5"/></svg>
+            <span class="nm">A4 portrait</span>
+          </button>
+          <button type="button" class="mm-optcard" data-size="a4l">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln fl" x="6" y="12" width="28" height="16" rx="1.5"/></svg>
+            <span class="nm">A4 landscape</span>
+          </button>
+          <button type="button" class="mm-optcard" data-size="fit">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln" x="7" y="7" width="26" height="26" rx="1.5" stroke-dasharray="4 3"/><rect class="ln fl" x="13" y="13" width="14" height="14" rx="1"/></svg>
+            <span class="nm">Fit to image</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="opt-label">Margin</div>
+        <label class="mm-inbox">
+          <select id="marginSel">
+            <option value="0">None</option>
+            <option value="10" selected>10 mm</option>
+            <option value="20">20 mm</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button type="button" class="mm-btn" id="convertBtn" disabled>Convert to PDF</button>
+      <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
+    </div>
+    <div class="mm-pdf-status" id="status"></div>
+    <div class="trust-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      100% private — conversion happens locally in your browser. Nothing is uploaded, stored, or seen by any server.
+    </div>
+  </div>
+
+  <div data-mw="cn-inline" style="margin-top: 36px;"></div>
+
+</div>
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>Convert Shop-Floor Photos to PDF Without Uploading Them</h2>
+<p>Quality evidence lives on phones: photos of a dented casting, a weld bead that failed visual inspection, the reading on a bore gauge during calibration. Customers and auditors, though, want that evidence as a single PDF attached to the NCR, the 8D report or the calibration record — not as fifteen loose JPGs in an email. This converter turns JPG and PNG images into one PDF <strong>entirely inside your browser</strong>. The images are read locally, placed on pages locally, and the finished PDF is saved locally. Nothing crosses the network, which matters when the photos show customer parts under NDA or serial numbers you are not free to share with a random file-conversion website.</p>
+
+<h3>Typical uses in manufacturing QA</h3>
+<ul>
+  <li><strong>8D evidence packs</strong>: photos of the defect, the containment sort and the corrective action, one per page, in the order the story unfolds.</li>
+  <li><strong>Gauge calibration records</strong>: before/after photos of the reading next to the master, attached to the calibration certificate.</li>
+  <li><strong>Weld inspection reports</strong>: visual inspection shots per joint, converted to A4 pages that print cleanly.</li>
+  <li><strong>Incoming inspection</strong>: part photos and label photos combined into one receiving report attachment.</li>
+</ul>
+
+<h3>How to convert images to PDF</h3>
+<ol>
+  <li>Drop your JPG or PNG files onto the zone above (or click to browse).</li>
+  <li>Use the ↑ ↓ buttons on each file chip to set the page order — one image per page, top to bottom.</li>
+  <li>Pick a page size — A4 portrait, A4 landscape, or a page fitted to each image — and a margin.</li>
+  <li>Click <strong>Convert to PDF</strong> and the file downloads immediately.</li>
+</ol>
+
+<h3>Page sizing, explained</h3>
+<p>A4 modes scale each photo to fit inside the margins while preserving its aspect ratio, centered on the page — the right choice when the PDF will be printed or merged into an A4 report. <em>Fit to image</em> instead sizes each page to the image itself, so nothing is scaled and screenshots stay pixel-crisp. A 10&nbsp;mm margin is a sensible default for reports; use none when the photo should fill the sheet.</p>
+
+<h3>Related tools</h3>
+<p>Need to attach the photo PDF to a drawing pack or report? Combine them with <a href="merge-pdf.html">Merge PDF</a>. Marking the result as a controlled or obsolete document? Use <a href="stamp-pdf.html">Stamp &amp; Watermark PDF</a>. Browse the full set on the <a href="../pdf-tools.html">PDF Tools</a> hub, and if the photos feed a measurement dispute, check your gauge first with the <a href="../calculators/gauge-rr.html">Gauge R&amp;R calculator</a>.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260808b"></script>
+<script src="../assets/mm.js?v=20260808b"></script>
+<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script>
+(function () {
+  var MM_TO_PT = 2.8346;
+  var A4_W = 595.28, A4_H = 841.89;
+
+  function isJpg(f) { return f.type === 'image/jpeg' || /\.jpe?g$/i.test(f.name); }
+  function isPng(f) { return f.type === 'image/png' || /\.png$/i.test(f.name); }
+
+  function badFiles(files) {
+    return files.filter(function (f) { return !isJpg(f) && !isPng(f); });
+  }
+
+  var zone = mmPdf.dropzone('#dropMount', {
+    accept: 'image/*',
+    multiple: true,
+    reorder: true,
+    title: 'Drop JPG or PNG images here',
+    onChange: function (files) {
+      var bad = badFiles(files);
+      if (bad.length) {
+        mmPdf.status('#status', bad[0].name + ' is not a JPG or PNG — remove it to continue.', 'err');
+      } else {
+        mmPdf.status('#status', '', 'info');
+      }
+      document.getElementById('convertBtn').disabled = files.length === 0 || bad.length > 0;
+    }
+  });
+
+  var pageSize = 'a4p';
+  var sizeCards = document.getElementById('sizeCards');
+  sizeCards.addEventListener('click', function (e) {
+    var card = e.target.closest('.mm-optcard');
+    if (!card) return;
+    sizeCards.querySelectorAll('.mm-optcard').forEach(function (c) { c.classList.remove('active'); });
+    card.classList.add('active');
+    pageSize = card.dataset.size;
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    zone.clear();
+    mmPdf.status('#status', '', 'info');
+  });
+
+  document.getElementById('convertBtn').addEventListener('click', async function () {
+    var files = zone.getFiles();
+    if (!files.length) return;
+    var bad = badFiles(files);
+    if (bad.length) {
+      mmPdf.status('#status', bad[0].name + ' is not a JPG or PNG — remove it to continue.', 'err');
+      return;
+    }
+    var btn = this;
+    btn.disabled = true;
+    var margin = parseFloat(document.getElementById('marginSel').value) * MM_TO_PT;
+    mmPdf.status('#status', 'Converting ' + files.length + ' image' + (files.length > 1 ? 's' : '') + '…', 'busy');
+    try {
+      await mmPdf.ensureLibs();
+      var doc = await PDFLib.PDFDocument.create();
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        mmPdf.status('#status', 'Adding ' + f.name + ' (' + (i + 1) + '/' + files.length + ')…', 'busy');
+        var buf = await mmPdf.readBuf(f);
+        var img;
+        try {
+          img = isPng(f) ? await doc.embedPng(buf) : await doc.embedJpg(buf);
+        } catch (e) {
+          throw new Error(f.name + ' could not be read as an image.');
+        }
+        var pw, ph, w, h;
+        if (pageSize === 'fit') {
+          pw = img.width + 2 * margin;
+          ph = img.height + 2 * margin;
+          w = img.width;
+          h = img.height;
+        } else {
+          pw = pageSize === 'a4l' ? A4_H : A4_W;
+          ph = pageSize === 'a4l' ? A4_W : A4_H;
+          var s = Math.min((pw - 2 * margin) / img.width, (ph - 2 * margin) / img.height);
+          w = img.width * s;
+          h = img.height * s;
+        }
+        var page = doc.addPage([pw, ph]);
+        page.drawImage(img, { x: (pw - w) / 2, y: (ph - h) / 2, width: w, height: h });
+      }
+      var bytes = await doc.save();
+      mmPdf.download(bytes, 'images.pdf');
+      mmPdf.status('#status', 'Done — ' + files.length + ' image' + (files.length > 1 ? 's' : '') + ' on ' + files.length + ' page' + (files.length > 1 ? 's' : '') + ' (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as images.pdf.', 'ok');
+      if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'jpg-to-pdf', files: files.length });
+    } catch (err) {
+      mmPdf.status('#status', err.message || 'Conversion failed.', 'err');
+    }
+    btn.disabled = zone.getFiles().length === 0;
+  });
+})();
+</script>
+</body>
+</html>

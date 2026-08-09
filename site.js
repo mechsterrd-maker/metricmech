@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <nav class="header-nav" id="mm-header-nav">
             <a href="${pathPrefix}calculators.html" class="${currentPage==='calculators'?'current':''}">Calculators</a>
+            <a href="${pathPrefix}pdf-tools.html" class="${currentPage==='pdf-tools'?'current':''}">PDF Tools</a>
             <a href="${pathPrefix}reference.html" class="${currentPage==='reference'?'current':''}">Reference</a>
             <a href="${pathPrefix}standards.html" class="${currentPage==='standards'?'current':''}">Standards</a>
             <a href="${pathPrefix}gdt.html" class="${currentPage==='gdt'?'current':''}">GD&amp;T</a>

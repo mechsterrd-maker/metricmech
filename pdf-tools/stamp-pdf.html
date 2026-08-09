@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stamp &amp; Watermark PDF — Controlled Copy, Draft, Obsolete</title>
+<meta name="description" content="Stamp CONTROLLED COPY, DRAFT, OBSOLETE or custom watermarks on every page of a PDF. Free ISO 9001 document-control tool — runs in your browser, no uploads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260808b">
+<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+.tool-layout { max-width: 860px; margin: 0 auto; padding: 32px; }
+.tool-card-main { background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 24px; }
+.tool-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+.trust-line { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mute); margin-top: 14px; }
+.trust-line svg { width: 15px; height: 15px; flex: none; }
+.opt-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; }
+.opt-group--wide { grid-column: 1 / -1; }
+.rng-row { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.rng-row input[type=range] { flex: 1; accent-color: var(--mm-blue, #2554ba); }
+.rng-val { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--mute); min-width: 38px; text-align: right; }
+#customWrap { margin-top: 10px; display: none; }
+#customWrap.show { display: block; }
+</style>
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/pdf-tools/stamp-pdf">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Stamp &amp; Watermark PDF — Controlled Copy, Draft, Obsolete">
+<meta property="og:description" content="Stamp CONTROLLED COPY, DRAFT, OBSOLETE or custom watermarks on every page of a PDF. Free ISO 9001 document-control tool — runs in your browser, no uploads.">
+<meta property="og:url" content="https://metricmech.com/pdf-tools/stamp-pdf">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stamp &amp; Watermark PDF — Controlled Copy, Draft, Obsolete">
+<meta name="twitter:description" content="Stamp CONTROLLED COPY, DRAFT, OBSOLETE or custom watermarks on every page of a PDF. Free ISO 9001 document-control tool — runs in your browser, no uploads.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Stamp & Watermark PDF — Controlled Copy, Draft, Obsolete",
+  "description": "Stamp CONTROLLED COPY, DRAFT, OBSOLETE or custom watermarks on every page of a PDF. Free ISO 9001 document-control tool — runs in your browser, no uploads.",
+  "url": "https://metricmech.com/pdf-tools/stamp-pdf",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": { "@type": "ImageObject", "url": "https://metricmech.com/icons/icon-512.png" }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Plant Head, Mechanical Engineer",
+    "description": "14 years of manufacturing experience in Chennai industrial belt"
+  }
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="pdf-tools" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../pdf-tools.html">PDF Tools</a><span class="sep">/</span>Stamp &amp; Watermark</div>
+  <h1 class="page-title">Stamp &amp; Watermark <em>PDF.</em></h1>
+  <p class="page-lede">Mark drawings and procedures as CONTROLLED COPY, DRAFT, OBSOLETE or your own stamp — on every page, with optional date. Everything runs in your browser: controlled documents never leave your device.</p>
+</div>
+
+<div class="tool-layout">
+  <div class="tool-card-main">
+    <div id="dropMount"></div>
+    <div class="mm-pdf-opts">
+      <div class="opt-group--wide">
+        <div class="opt-label">Stamp</div>
+        <div class="mm-optcards" id="presetCards">
+          <button type="button" class="mm-optcard active" data-preset="controlled">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="14" rx="3" fill="none" stroke="#db2626" stroke-width="2.4"/><line x1="10" y1="20" x2="30" y2="20" stroke="#db2626" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <span class="nm">Controlled copy</span>
+          </button>
+          <button type="button" class="mm-optcard" data-preset="uncontrolled">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="14" rx="3" fill="none" stroke="#737d8c" stroke-width="2.4" stroke-dasharray="5 3"/><line x1="10" y1="20" x2="30" y2="20" stroke="#737d8c" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <span class="nm">Uncontrolled copy</span>
+          </button>
+          <button type="button" class="mm-optcard" data-preset="draft">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="14" rx="3" fill="none" stroke="#737d8c" stroke-width="2.4"/><path d="M11 23l4-6 4 6M23 17v6M27 17h4M27 20h3" fill="none" stroke="#737d8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nm">Draft</span>
+          </button>
+          <button type="button" class="mm-optcard" data-preset="obsolete">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="14" rx="3" fill="none" stroke="#db2626" stroke-width="2.4"/><line x1="9" y1="25" x2="31" y2="15" stroke="#db2626" stroke-width="2.4" stroke-linecap="round"/></svg>
+            <span class="nm">Obsolete</span>
+          </button>
+          <button type="button" class="mm-optcard" data-preset="approved">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="13" width="30" height="14" rx="3" fill="none" stroke="#17a34a" stroke-width="2.4"/><path d="M14 20l4 4 8-8" fill="none" stroke="#17a34a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nm">Approved</span>
+          </button>
+          <button type="button" class="mm-optcard" data-preset="custom">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln" x="5" y="13" width="30" height="14" rx="3" stroke-dasharray="5 3"/><path class="ln" d="M14 20h12M20 14v12" stroke-width="2.4"/></svg>
+            <span class="nm">Custom text</span>
+          </button>
+        </div>
+        <div id="customWrap">
+          <label class="mm-inbox">
+            <input type="text" id="customText" maxlength="40" placeholder="e.g. REFERENCE ONLY" aria-label="Custom stamp text">
+            <span class="suf">MAX 40</span>
+          </label>
+        </div>
+      </div>
+      <div class="opt-group--wide">
+        <div class="opt-label">Placement</div>
+        <div class="mm-optcards" id="placeCards">
+          <button type="button" class="mm-optcard active" data-place="diagonal">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln" x="8" y="5" width="24" height="30" rx="2"/><line x1="12" y1="28" x2="28" y2="12" stroke="#737d8c" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/></svg>
+            <span class="nm">Diagonal watermark</span>
+          </button>
+          <button type="button" class="mm-optcard" data-place="header">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><rect class="ln" x="8" y="5" width="24" height="30" rx="2"/><line x1="19" y1="10" x2="29" y2="10" stroke="#737d8c" stroke-width="3.2" stroke-linecap="round"/></svg>
+            <span class="nm">Top-right header</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="opt-label">Opacity</div>
+        <div class="rng-row">
+          <input type="range" id="opacity" min="0.15" max="1" step="0.05" value="0.3" aria-label="Stamp opacity">
+          <span class="rng-val" id="opacityVal">0.30</span>
+        </div>
+      </div>
+      <div>
+        <div class="opt-label">Date</div>
+        <label class="mm-togglerow">
+          <input type="checkbox" id="dateToggle">
+          <span class="mm-switch"></span>
+          <span class="tl">Add today's date under the stamp</span>
+        </label>
+      </div>
+    </div>
+    <div class="tool-actions">
+      <button type="button" class="mm-btn" id="stampBtn" disabled>Stamp PDF</button>
+      <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
+    </div>
+    <div class="mm-pdf-status" id="status"></div>
+    <div class="trust-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      100% private — stamping happens locally in your browser. Nothing is uploaded, stored, or seen by any server.
+    </div>
+  </div>
+
+  <div data-mw="cn-inline" style="margin-top: 36px;"></div>
+
+</div>
+
+<section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
+
+<h2>Stamp PDFs for ISO 9001 Document Control — Without Uploading Them</h2>
+<p>ISO 9001 clause 7.5 and AS9100 both demand the same thing in practice: anyone picking up a document must be able to tell at a glance whether it is the controlled current revision, an uncontrolled print, a draft awaiting approval, or an obsolete copy retained for reference. The traditional fix is a rubber stamp and a printer. This tool replaces that loop — it writes CONTROLLED COPY, UNCONTROLLED COPY, DRAFT, OBSOLETE, APPROVED or your own text onto <strong>every page</strong> of a PDF, <strong>entirely inside your browser</strong>. The file is read locally, stamped locally and saved locally. Nothing is uploaded, which is exactly what your document-control procedure requires when the PDF is a customer drawing under NDA or a proprietary work instruction.</p>
+
+<h3>Where each stamp fits</h3>
+<ul>
+  <li><strong>CONTROLLED COPY</strong>: the issued revision on the shop floor, traceable to the master list.</li>
+  <li><strong>UNCONTROLLED COPY</strong>: prints handed to vendors or auditors — valid today, not maintained tomorrow.</li>
+  <li><strong>OBSOLETE</strong>: superseded drawings quarantined for reference so nobody machines to the old revision.</li>
+  <li><strong>DRAFT / APPROVED</strong>: procedure revisions moving through review, and their sign-off state.</li>
+</ul>
+
+<h3>How to stamp a PDF</h3>
+<ol>
+  <li>Drop the PDF onto the zone above (or click to browse).</li>
+  <li>Pick a stamp preset, or choose Custom and type your own text (up to 40 characters).</li>
+  <li>Choose placement — a large translucent diagonal watermark, or a small opaque top-right header that stays clear of the drawing field.</li>
+  <li>Set opacity, switch on the date line if your procedure requires a stamped date, and click <strong>Stamp PDF</strong>. The stamped copy downloads as <em>yourfile-stamped.pdf</em>; the original is untouched.</li>
+</ol>
+
+<h3>Diagonal watermark or header stamp?</h3>
+<p>Use the diagonal watermark for status that must be impossible to miss — OBSOLETE across an old drawing, DRAFT across an unapproved procedure. It is sized to the page width and rendered translucent so dimensions and notes stay readable underneath. Use the top-right header for working documents: a compact CONTROLLED COPY mark with the issue date, exactly where a QA stamp would land on paper, without covering the title block.</p>
+
+<h3>Related tools</h3>
+<p>Assembling the document pack first? Combine files with <a href="merge-pdf.html">Merge PDF</a> before stamping. Photo evidence goes in via the <a href="jpg-to-pdf.html">JPG to PDF converter</a>, and the full set lives on the <a href="../pdf-tools.html">PDF Tools</a> hub. If the stamped pack is headed to a customer SQE, run it against the <a href="../calculators/ppap-checklist.html">PPAP checklist</a> before it ships.</p>
+
+</section>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260808b"></script>
+<script src="../assets/mm.js?v=20260808b"></script>
+<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script>
+(function () {
+  var PRESETS = {
+    controlled:   { text: 'CONTROLLED COPY',   color: [0.86, 0.15, 0.15] },
+    uncontrolled: { text: 'UNCONTROLLED COPY', color: [0.45, 0.49, 0.55] },
+    draft:        { text: 'DRAFT',             color: [0.45, 0.49, 0.55] },
+    obsolete:     { text: 'OBSOLETE',          color: [0.86, 0.15, 0.15] },
+    approved:     { text: 'APPROVED',          color: [0.09, 0.64, 0.29] },
+    custom:       { text: '',                  color: [0.45, 0.49, 0.55] }
+  };
+  var DEFAULT_OPACITY = { diagonal: 0.3, header: 0.9 };
+
+  var preset = 'controlled';
+  var placement = 'diagonal';
+  var opacityDirty = false;
+
+  var opacityInput = document.getElementById('opacity');
+  var opacityVal = document.getElementById('opacityVal');
+  var customWrap = document.getElementById('customWrap');
+  var customText = document.getElementById('customText');
+  var stampBtn = document.getElementById('stampBtn');
+
+  var zone = mmPdf.dropzone('#dropMount', {
+    accept: 'application/pdf',
+    multiple: false,
+    title: 'Drop a PDF here',
+    onChange: function (files) {
+      stampBtn.disabled = files.length !== 1;
+      mmPdf.status('#status', '', 'info');
+    }
+  });
+
+  document.getElementById('presetCards').addEventListener('click', function (e) {
+    var card = e.target.closest('.mm-optcard');
+    if (!card) return;
+    this.querySelectorAll('.mm-optcard').forEach(function (c) { c.classList.remove('active'); });
+    card.classList.add('active');
+    preset = card.dataset.preset;
+    customWrap.classList.toggle('show', preset === 'custom');
+    if (preset === 'custom') customText.focus();
+  });
+
+  document.getElementById('placeCards').addEventListener('click', function (e) {
+    var card = e.target.closest('.mm-optcard');
+    if (!card) return;
+    this.querySelectorAll('.mm-optcard').forEach(function (c) { c.classList.remove('active'); });
+    card.classList.add('active');
+    placement = card.dataset.place;
+    if (!opacityDirty) {
+      opacityInput.value = DEFAULT_OPACITY[placement];
+      opacityVal.textContent = Number(opacityInput.value).toFixed(2);
+    }
+  });
+
+  opacityInput.addEventListener('input', function () {
+    opacityDirty = true;
+    opacityVal.textContent = Number(this.value).toFixed(2);
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', function () {
+    zone.clear();
+    mmPdf.status('#status', '', 'info');
+  });
+
+  function todayISO() {
+    var d = new Date();
+    var m = String(d.getMonth() + 1).padStart(2, '0');
+    var day = String(d.getDate()).padStart(2, '0');
+    return d.getFullYear() + '-' + m + '-' + day;
+  }
+
+  stampBtn.addEventListener('click', async function () {
+    var files = zone.getFiles();
+    if (files.length !== 1) return;
+
+    var text = preset === 'custom' ? customText.value.trim().slice(0, 40) : PRESETS[preset].text;
+    if (!text) {
+      customWrap.querySelector('.mm-inbox').classList.add('err');
+      setTimeout(function () { customWrap.querySelector('.mm-inbox').classList.remove('err'); }, 600);
+      mmPdf.status('#status', 'Enter the custom stamp text first.', 'err');
+      return;
+    }
+
+    var btn = this;
+    btn.disabled = true;
+    mmPdf.status('#status', 'Stamping ' + files[0].name + '…', 'busy');
+    try {
+      await mmPdf.ensureLibs();
+      var buf = await mmPdf.readBuf(files[0]);
+      var doc;
+      try {
+        doc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: false });
+      } catch (e) {
+        throw new Error(files[0].name + ' could not be read — if it is password-protected, unlock it first.');
+      }
+      var font = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+      var c = PRESETS[preset].color;
+      var color = PDFLib.rgb(c[0], c[1], c[2]);
+      var opacity = Number(opacityInput.value);
+      var addDate = document.getElementById('dateToggle').checked;
+      var dateStr = todayISO();
+      var pages = doc.getPages();
+
+      pages.forEach(function (page) {
+        var pw = page.getWidth();
+        var ph = page.getHeight();
+        if (placement === 'diagonal') {
+          var size = pw / (text.length * 0.62);
+          var w = font.widthOfTextAtSize(text, size);
+          var h = size;
+          var cos = Math.cos(Math.PI / 4);
+          var sin = Math.sin(Math.PI / 4);
+          var cx = pw / 2;
+          var cy = ph / 2;
+          page.drawText(text, {
+            x: cx - (w / 2) * cos + (h / 2) * sin,
+            y: cy - (w / 2) * sin - (h / 2) * cos,
+            size: size,
+            font: font,
+            color: color,
+            opacity: opacity,
+            rotate: PDFLib.degrees(45)
+          });
+          if (addDate) {
+            var dsize = size * 0.35;
+            var dw = font.widthOfTextAtSize(dateStr, dsize);
+            /* shift the date's center "below" the stamp, i.e. along the
+               rotated text's down direction (sin, -cos), then apply the
+               same origin-offset math for the rotated baseline */
+            var gap = size * 0.9;
+            var dcx = cx + gap * sin;
+            var dcy = cy - gap * cos;
+            page.drawText(dateStr, {
+              x: dcx - (dw / 2) * cos + (dsize / 2) * sin,
+              y: dcy - (dw / 2) * sin - (dsize / 2) * cos,
+              size: dsize,
+              font: font,
+              color: color,
+              opacity: opacity,
+              rotate: PDFLib.degrees(45)
+            });
+          }
+        } else {
+          var hsize = 11;
+          var hw = font.widthOfTextAtSize(text, hsize);
+          page.drawText(text, {
+            x: pw - hw - 24,
+            y: ph - 30,
+            size: hsize,
+            font: font,
+            color: color,
+            opacity: opacity
+          });
+          if (addDate) {
+            var dw2 = font.widthOfTextAtSize(dateStr, 8);
+            page.drawText(dateStr, {
+              x: pw - dw2 - 24,
+              y: ph - 30 - 11,
+              size: 8,
+              font: font,
+              color: color,
+              opacity: opacity
+            });
+          }
+        }
+      });
+
+      var bytes = await doc.save();
+      var outName = files[0].name.replace(/\.pdf$/i, '') + '-stamped.pdf';
+      mmPdf.download(bytes, outName);
+      mmPdf.status('#status', 'Done — stamped "' + text + '" on ' + pages.length + ' page' + (pages.length > 1 ? 's' : '') + ' (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as ' + outName + '.', 'ok');
+      if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'stamp', preset: preset, placement: placement });
+    } catch (err) {
+      mmPdf.status('#status', err.message || 'Stamping failed.', 'err');
+    }
+    btn.disabled = zone.getFiles().length !== 1;
+  });
+})();
+</script>
+</body>
+</html>
