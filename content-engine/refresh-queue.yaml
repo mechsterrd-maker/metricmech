@@ -102,3 +102,27 @@ pages:
   impressions: 58
   added: '2026-08-02'
   status: todo
+- url: https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation
+  reason: striking-distance
+  position: 14.0
+  impressions: 148
+  added: '2026-08-09'
+  status: todo
+- url: https://metricmech.com/articles/true-position-calculation
+  reason: striking-distance
+  position: 15.7
+  impressions: 76
+  added: '2026-08-09'
+  status: todo
+- url: https://metricmech.com/articles/cmk-calculation
+  reason: striking-distance
+  position: 11.9
+  impressions: 43
+  added: '2026-08-09'
+  status: todo
+- url: https://metricmech.com/articles/fmea-action-priority
+  reason: striking-distance
+  position: 8.1
+  impressions: 56
+  added: '2026-08-09'
+  status: todo
