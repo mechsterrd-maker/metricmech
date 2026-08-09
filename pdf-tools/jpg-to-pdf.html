@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -141,6 +141,9 @@
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
     </div>
     <div class="mm-pdf-status" id="status"></div>
+    <!-- Live preview (additive): one thumbnail per image, in page order. -->
+    <div class="mm-preview-label" id="imgPreviewLabel" style="display:none;">Preview — one image per page, in this order</div>
+    <div id="imgPreview"></div>
     <div class="trust-line">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       100% private — conversion happens locally in your browser. Nothing is uploaded, stored, or seen by any server.
@@ -183,9 +186,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var MM_TO_PT = 2.8346;
@@ -211,6 +214,19 @@
         mmPdf.status('#status', '', 'info');
       }
       document.getElementById('convertBtn').disabled = files.length === 0 || bad.length > 0;
+      /* Live preview (additive) — refires on add/remove/reorder since the
+         dropzone calls onChange on every render. Must never break the tool. */
+      try {
+        var lbl = document.getElementById('imgPreviewLabel');
+        if (files.length) {
+          mmPdf.imgThumbs('#imgPreview', files, function (f, i) { return 'page ' + (i + 1); });
+          if (lbl) lbl.style.display = '';
+        } else {
+          var pm = document.getElementById('imgPreview');
+          if (pm) pm.innerHTML = '';
+          if (lbl) lbl.style.display = 'none';
+        }
+      } catch (e) {}
     }
   });
 

@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -127,6 +127,9 @@
       </div>
     </div>
 
+    <div class="mm-preview-label" id="previewLabel" style="display:none;">Preview — pages highlighted will be extracted</div>
+    <div id="splitPreview"></div>
+
     <div class="tool-actions">
       <button type="button" class="mm-btn" id="splitBtn" disabled>Split PDF</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
@@ -168,9 +171,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var srcBuf = null, pageCount = 0, baseName = 'document', mode = 'range';
@@ -184,6 +187,7 @@
     onChange: function (files) {
       srcBuf = null; pageCount = 0;
       splitBtn.disabled = true;
+      clearSplitPreview();
       if (!files.length) { mmPdf.status('#status', '', 'info'); return; }
       var f = files[0];
       baseName = f.name.replace(/\.pdf$/i, '');
@@ -198,6 +202,7 @@
           pageCount = doc.getPageCount();
           splitBtn.disabled = false;
           mmPdf.status('#status', f.name + ' — ' + pageCount + ' page' + (pageCount === 1 ? '' : 's') + ' loaded.', 'ok');
+          renderSplitPreview();
         })
         .catch(function () {
           srcBuf = null;
@@ -244,7 +249,92 @@
     splitBtn.disabled = true;
     document.getElementById('rangeInput').value = '';
     mmPdf.status('#status', '', 'info');
+    clearSplitPreview();
   });
+
+  /* ── Live preview: page thumbnails, highlighted = will be extracted. ──
+     Two-way: the range input highlights thumbs, clicking a thumb rewrites
+     the range input. The text input stays the source of truth for splitBtn.
+     Failures here must never break the split tool itself. */
+  var previewThumbs = [];
+
+  function clearSplitPreview() {
+    try {
+      previewThumbs = [];
+      var g = document.getElementById('splitPreview');
+      if (g) { g.innerHTML = ''; g.classList.remove('mm-thumbgrid'); }
+      var l = document.getElementById('previewLabel');
+      if (l) l.style.display = 'none';
+    } catch (e) {}
+  }
+
+  function renderSplitPreview() {
+    if (!srcBuf) return;
+    mmPdf.pdfThumbs('#splitPreview', srcBuf, { max: 24, width: 110 })
+      .then(function (thumbs) {
+        previewThumbs = thumbs;
+        var l = document.getElementById('previewLabel');
+        if (l) l.style.display = '';
+        thumbs.forEach(function (t) {
+          t.wrap.style.cursor = 'pointer';
+          t.wrap.addEventListener('click', onThumbClick);
+        });
+        refreshHighlights();
+      })
+      .catch(function () {});
+  }
+
+  function selectedPages() {
+    var sel = {};
+    if (mode === 'all') {
+      for (var i = 1; i <= pageCount; i++) sel[i] = true;
+      return sel;
+    }
+    var idx = parseRange(document.getElementById('rangeInput').value, pageCount);
+    if (idx) idx.forEach(function (n) { sel[n + 1] = true; });
+    return sel;
+  }
+
+  function refreshHighlights() {
+    try {
+      var sel = selectedPages();
+      previewThumbs.forEach(function (t) {
+        t.wrap.classList.toggle('sel', !!sel[t.pageNum]);
+      });
+    } catch (e) {}
+  }
+
+  function compactRange(pages) {
+    var parts = [];
+    for (var i = 0; i < pages.length;) {
+      var j = i;
+      while (j + 1 < pages.length && pages[j + 1] === pages[j] + 1) j++;
+      parts.push(i === j ? String(pages[i]) : pages[i] + '-' + pages[j]);
+      i = j + 1;
+    }
+    return parts.join(',');
+  }
+
+  function onThumbClick() {
+    try {
+      var page = parseInt(this.dataset.page, 10);
+      if (!page) return;
+      var input = document.getElementById('rangeInput');
+      var idx = parseRange(input.value, pageCount);
+      var pages = idx ? idx.map(function (n) { return n + 1; }) : [];
+      var pos = pages.indexOf(page);
+      if (pos === -1) pages.push(page); else pages.splice(pos, 1);
+      pages.sort(function (a, b) { return a - b; });
+      pages = pages.filter(function (p, i) { return pages.indexOf(p) === i; });
+      input.value = compactRange(pages);
+      refreshHighlights();
+    } catch (e) {}
+  }
+
+  document.getElementById('rangeInput').addEventListener('input', refreshHighlights);
+  /* container-level listener fires after the per-card listeners (bubbling),
+     so `mode` is already updated when this runs */
+  document.getElementById('modeCards').addEventListener('click', refreshHighlights);
 
   splitBtn.addEventListener('click', async function () {
     if (!srcBuf || !pageCount) return;

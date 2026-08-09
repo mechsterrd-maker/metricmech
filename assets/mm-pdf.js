@@ -19,16 +19,21 @@
   var VENDOR = (document.querySelector('script[src*="mm-pdf.js"]') || {}).src || '';
   var ROOT = VENDOR.replace(/assets\/mm-pdf\.js.*$/, '');
 
+  var _scriptPromises = {};
   function loadScript(src) {
-    return new Promise(function (res, rej) {
-      if (document.querySelector('script[data-mm-vendor="' + src + '"]')) { res(); return; }
-      var s = document.createElement('script');
-      s.src = ROOT + src;
-      s.dataset.mmVendor = src;
-      s.onload = res;
-      s.onerror = function () { rej(new Error('Failed to load ' + src)); };
-      document.head.appendChild(s);
-    });
+    // Promise-cached (not DOM-checked): a concurrent second caller must wait
+    // for the SAME load, not resolve early because the tag already exists.
+    if (!_scriptPromises[src]) {
+      _scriptPromises[src] = new Promise(function (res, rej) {
+        var s = document.createElement('script');
+        s.src = ROOT + src;
+        s.dataset.mmVendor = src;
+        s.onload = res;
+        s.onerror = function () { delete _scriptPromises[src]; rej(new Error('Failed to load ' + src)); };
+        document.head.appendChild(s);
+      });
+    }
+    return _scriptPromises[src];
   }
 
   var libsReady = null;
@@ -166,8 +171,90 @@
     };
   }
 
+  /* ── Live previews ──────────────────────────────────────────
+     pdfThumbs(mount, buf, opts) → renders page thumbnails into a
+     .mm-thumbgrid. Returns Promise<[{wrap, canvas, pageNum}]>.
+     opts: max (default 24), width (css px, default 150), tag(fn pageNum→str)
+     NOTE: pdf.js transfers the buffer to its worker — we always pass a copy,
+     so the caller's ArrayBuffer stays usable for pdf-lib. */
+  function pdfThumbs(mount, buf, opts) {
+    opts = opts || {};
+    var el2 = typeof mount === 'string' ? document.querySelector(mount) : mount;
+    if (!el2) return Promise.resolve([]);
+    var max = opts.max || 24, width = opts.width || 150;
+    return ensureLibs({ pdfjs: true }).then(function () {
+      var copy = buf.slice(0);
+      return window.pdfjsLib.getDocument({ data: copy }).promise;
+    }).then(function (doc) {
+      var n = Math.min(doc.numPages, max);
+      el2.innerHTML = '';
+      el2.classList.add('mm-thumbgrid');
+      var out = [];
+      var chain = Promise.resolve();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      for (var i = 1; i <= n; i++) {
+        (function (pageNum) {
+          chain = chain.then(function () {
+            return doc.getPage(pageNum).then(function (page) {
+              var vp = page.getViewport({ scale: 1 });
+              var scale = (width * dpr) / vp.width;
+              var vp2 = page.getViewport({ scale: scale });
+              var cv = document.createElement('canvas');
+              cv.width = vp2.width; cv.height = vp2.height;
+              var wrap = document.createElement('div');
+              wrap.className = 'mm-thumb';
+              wrap.dataset.page = pageNum;
+              wrap.appendChild(cv);
+              var tag = document.createElement('span');
+              tag.className = 'mm-thumb__tag';
+              tag.textContent = opts.tag ? opts.tag(pageNum) : ('p' + pageNum);
+              wrap.appendChild(tag);
+              el2.appendChild(wrap);
+              out.push({ wrap: wrap, canvas: cv, pageNum: pageNum });
+              var cx2 = cv.getContext('2d');
+              cx2.fillStyle = '#fff'; cx2.fillRect(0, 0, cv.width, cv.height);
+              return page.render({ canvasContext: cx2, viewport: vp2 }).promise;
+            });
+          });
+        })(i);
+      }
+      return chain.then(function () {
+        if (doc.numPages > max) {
+          var more = document.createElement('div');
+          more.className = 'mm-thumb mm-thumb--more';
+          more.innerHTML = '<span class="mm-thumb__tag">+' + (doc.numPages - max) + ' more pages</span>';
+          el2.appendChild(more);
+        }
+        return out;
+      });
+    });
+  }
+
+  /* imgThumbs(mount, files) → <img> previews in file order (object URLs
+     revoked on next call). */
+  var _imgUrls = [];
+  function imgThumbs(mount, files, tagFn) {
+    var el2 = typeof mount === 'string' ? document.querySelector(mount) : mount;
+    if (!el2) return;
+    _imgUrls.forEach(function (u) { URL.revokeObjectURL(u); });
+    _imgUrls = [];
+    el2.innerHTML = '';
+    el2.classList.add('mm-thumbgrid');
+    files.forEach(function (f, i) {
+      var url = URL.createObjectURL(f);
+      _imgUrls.push(url);
+      var wrap = document.createElement('div');
+      wrap.className = 'mm-thumb';
+      wrap.innerHTML = '<img src="' + url + '" alt="" style="display:block;width:100%;height:auto;">' +
+        '<span class="mm-thumb__tag">' + (tagFn ? tagFn(f, i) : ('#' + (i + 1))) + '</span>';
+      el2.appendChild(wrap);
+    });
+  }
+
   window.mmPdf = {
     ensureLibs: ensureLibs,
+    pdfThumbs: pdfThumbs,
+    imgThumbs: imgThumbs,
     dropzone: dropzone,
     readBuf: readBuf,
     download: download,

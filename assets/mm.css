@@ -646,3 +646,12 @@ html[data-mm-theme="dark"] .mm-pdf-status.err { color: #ff5470; }
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
 }
 .mm-thumb.sel { outline: 3px solid var(--mm-blue); outline-offset: -3px; }
+
+/* live preview extras */
+.mm-thumb--more { display: flex; align-items: center; justify-content: center; min-height: 90px; background: var(--mm-blue-bg); }
+.mm-thumb--more .mm-thumb__tag { position: static; background: transparent; color: var(--mm-blue); font-size: 11px; }
+.mm-thumb { transition: transform 0.3s ease, outline-color 0.2s; }
+.mm-preview-label { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mm-muted); margin: 18px 0 8px; }
+.mm-stamp-preview { max-width: 420px; }
+.mm-stamp-preview .mm-thumb { cursor: default; }
+.mm-stamp-preview.mm-thumbgrid { grid-template-columns: 1fr; }

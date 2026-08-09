@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -122,6 +122,11 @@
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
     </div>
     <div class="mm-pdf-status" id="status"></div>
+    <!-- Live preview (additive): thumbnails render at a fixed thumbnail scale.
+         The DPI selector only affects export resolution (thumbnail scale ≠ export
+         scale), so DPI changes intentionally do not re-render this preview. -->
+    <div class="mm-preview-label" id="jpgPreviewLabel" style="display:none;">Preview — these pages will be exported as JPG</div>
+    <div id="jpgPreview"></div>
     <div class="trust-line">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       100% private — conversion happens locally in your browser. Nothing is uploaded, stored, or seen by any server.
@@ -158,9 +163,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var MAX_PAGES = 30;
@@ -169,6 +174,30 @@
 
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
+  /* Live preview (additive) — a failure here must never break the tool. */
+  var previewBuf = null;
+  function clearJpgPreview() {
+    previewBuf = null;
+    try {
+      var m = document.getElementById('jpgPreview');
+      if (m) m.innerHTML = '';
+      var l = document.getElementById('jpgPreviewLabel');
+      if (l) l.style.display = 'none';
+    } catch (e) {}
+  }
+  function renderJpgPreview() {
+    if (!previewBuf) return;
+    try {
+      var l = document.getElementById('jpgPreviewLabel');
+      if (l) l.style.display = '';
+      mmPdf.pdfThumbs('#jpgPreview', previewBuf, {
+        max: 24,
+        width: 150,
+        tag: function (n) { return 'p' + n + '.jpg'; }
+      }).catch(function () { clearJpgPreview(); });
+    } catch (e) { clearJpgPreview(); }
+  }
+
   var zone = mmPdf.dropzone('#dropMount', {
     accept: 'application/pdf',
     multiple: false,
@@ -176,6 +205,7 @@
     onChange: function (files) {
       if (pdfDoc) { try { pdfDoc.destroy(); } catch (e) {} pdfDoc = null; }
       convertBtn.disabled = true;
+      clearJpgPreview();
       if (!files.length) { mmPdf.status('#status', '', 'info'); return; }
       var f = files[0];
       baseName = f.name.replace(/\.pdf$/i, '');
@@ -183,19 +213,25 @@
       mmPdf.ensureLibs({ pdfjs: true })
         .then(function () { return mmPdf.readBuf(f); })
         .then(function (buf) {
+          /* Snapshot for the live preview BEFORE pdf.js transfers the buffer
+             to its worker (which detaches it). */
+          try { previewBuf = buf.slice(0); } catch (e) { previewBuf = null; }
           return pdfjsLib.getDocument({ data: new Uint8Array(buf) }).promise;
         })
         .then(function (doc) {
           if (doc.numPages > MAX_PAGES) {
             try { doc.destroy(); } catch (e) {}
+            clearJpgPreview();
             mmPdf.status('#status', f.name + ' has ' + doc.numPages + ' pages — this tool converts up to ' + MAX_PAGES + ' at a time. Extract the sheets you need with <a href="split-pdf.html">Split PDF</a> first, then convert.', 'err');
             return;
           }
           pdfDoc = doc;
           convertBtn.disabled = false;
           mmPdf.status('#status', f.name + ' — ' + doc.numPages + ' page' + (doc.numPages === 1 ? '' : 's') + ' loaded.', 'ok');
+          renderJpgPreview();
         })
         .catch(function () {
+          clearJpgPreview();
           mmPdf.status('#status', f.name + ' could not be read — if it is password-protected, unlock it first.', 'err');
         });
     }
@@ -205,6 +241,7 @@
     zone.clear();
     if (pdfDoc) { try { pdfDoc.destroy(); } catch (e) {} pdfDoc = null; }
     convertBtn.disabled = true;
+    clearJpgPreview();
     mmPdf.status('#status', '', 'info');
   });
 

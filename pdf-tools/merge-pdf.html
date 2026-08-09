@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -105,6 +105,8 @@
 <div class="tool-layout">
   <div class="tool-card-main">
     <div id="dropMount"></div>
+    <div class="mm-preview-label" id="previewLabel" style="display:none;">Preview — first page of each file, in merge order</div>
+    <div id="mergePreview"></div>
     <div class="tool-actions">
       <button type="button" class="mm-btn" id="mergeBtn" disabled>Merge PDFs</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
@@ -151,9 +153,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var zone = mmPdf.dropzone('#dropMount', {
@@ -164,8 +166,53 @@
     onChange: function (files) {
       document.getElementById('mergeBtn').disabled = files.length < 2;
       mmPdf.status('#status', files.length === 1 ? 'Add at least one more PDF to merge.' : '', 'info');
+      renderMergePreview(files);
     }
   });
+
+  /* ── Live preview: first page of each file, in merge order. ──
+     Failures here must never break the merge tool itself. */
+  var bufCache = (typeof Map !== 'undefined') ? new Map() : null;
+  var previewSeq = 0;
+  function renderMergePreview(files) {
+    try {
+      var label = document.getElementById('previewLabel');
+      var grid = document.getElementById('mergePreview');
+      if (!label || !grid) return;
+      if (bufCache) {
+        bufCache.forEach(function (buf, key) {
+          if (files.indexOf(key) === -1) bufCache.delete(key);
+        });
+      }
+      if (!files.length) {
+        grid.innerHTML = '';
+        grid.classList.remove('mm-thumbgrid');
+        label.style.display = 'none';
+        return;
+      }
+      var seq = ++previewSeq;
+      var jobs = files.map(function (f, idx) {
+        var getBuf = (bufCache && bufCache.has(f))
+          ? Promise.resolve(bufCache.get(f))
+          : mmPdf.readBuf(f).then(function (buf) { if (bufCache) bufCache.set(f, buf); return buf; });
+        return getBuf.then(function (buf) {
+          var det = document.createElement('div');
+          var shortName = f.name.length > 20 ? f.name.slice(0, 17) + '…' : f.name;
+          return mmPdf.pdfThumbs(det, buf, { max: 1, width: 130, tag: function () { return (idx + 1) + '. ' + shortName; } })
+            .then(function () { return det.querySelector('.mm-thumb'); });
+        }).catch(function () { return null; }); /* unreadable/encrypted → skip its thumb */
+      });
+      Promise.all(jobs).then(function (thumbs) {
+        if (seq !== previewSeq) return; /* stale render — a newer onChange won */
+        grid.innerHTML = '';
+        grid.classList.add('mm-thumbgrid');
+        var any = false;
+        thumbs.forEach(function (t) { if (t) { grid.appendChild(t); any = true; } });
+        label.style.display = any ? '' : 'none';
+        if (!any) grid.classList.remove('mm-thumbgrid');
+      }).catch(function () {});
+    } catch (e) { /* preview must never break the tool */ }
+  }
 
   document.getElementById('clearBtn').addEventListener('click', function () {
     zone.clear();

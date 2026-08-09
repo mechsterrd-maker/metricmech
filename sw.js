@@ -1,5 +1,5 @@
 // MetricMech service worker — minimal, install-only
-const CACHE = 'mm-v3';
+const CACHE = 'mm-v4';
 const CORE = ['/', '/index.html', '/styles.css', '/site.js', '/icons/icon-192.png'];
 
 self.addEventListener('install', (e) => {

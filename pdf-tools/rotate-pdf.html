@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -143,6 +143,9 @@
       </div>
     </div>
 
+    <div class="mm-preview-label" id="previewLabel" style="display:none;">Preview — rotation applied to highlighted pages</div>
+    <div id="rotatePreview"></div>
+
     <div class="tool-actions">
       <button type="button" class="mm-btn" id="rotateBtn" disabled>Rotate &amp; Download</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
@@ -184,9 +187,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var srcBuf = null, pageCount = 0, baseName = 'document';
@@ -201,6 +204,7 @@
     onChange: function (files) {
       srcBuf = null; pageCount = 0;
       rotateBtn.disabled = true;
+      clearRotatePreview();
       if (!files.length) { mmPdf.status('#status', '', 'info'); return; }
       var f = files[0];
       baseName = f.name.replace(/\.pdf$/i, '');
@@ -215,6 +219,7 @@
           pageCount = doc.getPageCount();
           rotateBtn.disabled = false;
           mmPdf.status('#status', f.name + ' — ' + pageCount + ' page' + (pageCount === 1 ? '' : 's') + ' loaded.', 'ok');
+          renderRotatePreview();
         })
         .catch(function () {
           srcBuf = null;
@@ -267,6 +272,79 @@
     rotateBtn.disabled = true;
     document.getElementById('rangeInput').value = '';
     mmPdf.status('#status', '', 'info');
+    clearRotatePreview();
+  });
+
+  /* ── Live preview: thumbnails, highlighted pages get the rotation
+     applied as a CSS transform. Reads delta/scope from the active option
+     cards' datasets so the tool's own variables stay untouched.
+     Failures here must never break the rotate tool itself. */
+  var previewThumbs = [];
+
+  function clearRotatePreview() {
+    try {
+      previewThumbs = [];
+      var g = document.getElementById('rotatePreview');
+      if (g) { g.innerHTML = ''; g.classList.remove('mm-thumbgrid'); }
+      var l = document.getElementById('previewLabel');
+      if (l) l.style.display = 'none';
+    } catch (e) {}
+  }
+
+  function renderRotatePreview() {
+    if (!srcBuf) return;
+    mmPdf.pdfThumbs('#rotatePreview', srcBuf, { max: 24, width: 110 })
+      .then(function (thumbs) {
+        previewThumbs = thumbs;
+        var l = document.getElementById('previewLabel');
+        if (l) l.style.display = '';
+        refreshRotateHighlights();
+      })
+      .catch(function () {});
+  }
+
+  function activeDelta() {
+    var card = document.querySelector('#angleCards .mm-optcard.active');
+    return card ? parseInt(card.dataset.delta, 10) : 0;
+  }
+
+  function affectedPages() {
+    var sel = {};
+    var card = document.querySelector('#scopeCards .mm-optcard.active');
+    var sc = card ? card.dataset.scope : 'all';
+    if (sc === 'all') {
+      for (var i = 1; i <= pageCount; i++) sel[i] = true;
+    } else {
+      var idx = parseRange(document.getElementById('rangeInput').value, pageCount);
+      if (idx) idx.forEach(function (n) { sel[n + 1] = true; });
+    }
+    return sel;
+  }
+
+  function refreshRotateHighlights() {
+    try {
+      var sel = affectedPages();
+      var d = activeDelta();
+      previewThumbs.forEach(function (t) {
+        var on = !!sel[t.pageNum];
+        t.wrap.classList.toggle('sel', on);
+        t.wrap.style.overflow = 'hidden';
+        t.canvas.style.transformOrigin = 'center';
+        t.canvas.style.transform = on && d ? 'rotate(' + d + 'deg)' : '';
+        /* 90/270 overflow their box — square the box to contain the mess */
+        t.wrap.style.aspectRatio = (on && (d === 90 || d === 270)) ? '1' : '';
+      });
+    } catch (e) {}
+  }
+
+  /* container-level listeners fire after the per-card listeners (bubbling),
+     so the active classes are already updated when these run */
+  document.getElementById('angleCards').addEventListener('click', refreshRotateHighlights);
+  document.getElementById('scopeCards').addEventListener('click', refreshRotateHighlights);
+  var previewRangeTimer = null;
+  document.getElementById('rangeInput').addEventListener('input', function () {
+    clearTimeout(previewRangeTimer);
+    previewRangeTimer = setTimeout(refreshRotateHighlights, 200);
   });
 
   rotateBtn.addEventListener('click', async function () {

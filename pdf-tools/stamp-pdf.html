@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css?v=20260808b">
-<link rel="stylesheet" href="../assets/mm.css?v=20260808b">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
 <script>try{if(localStorage.mm_theme!=="light")document.documentElement.dataset.mmTheme="dark"}catch(e){document.documentElement.dataset.mmTheme="dark"}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#0a1628">
@@ -177,6 +177,9 @@
         </label>
       </div>
     </div>
+    <div class="mm-preview-label" id="previewLabel" style="display:none;">Live preview — page 1</div>
+    <div id="stampPreview" class="mm-stamp-preview"></div>
+
     <div class="tool-actions">
       <button type="button" class="mm-btn" id="stampBtn" disabled>Stamp PDF</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Clear</button>
@@ -224,9 +227,9 @@
 </main>
 
 <div data-mw="footer" data-prefix="../"></div>
-<script src="../site.js?v=20260808b"></script>
-<script src="../assets/mm.js?v=20260808b"></script>
-<script src="../assets/mm-pdf.js?v=20260808b"></script>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script src="../assets/mm-pdf.js?v=20260809a"></script>
 <script>
 (function () {
   var PRESETS = {
@@ -242,6 +245,7 @@
   var preset = 'controlled';
   var placement = 'diagonal';
   var opacityDirty = false;
+  var srcBuf = null;
 
   var opacityInput = document.getElementById('opacity');
   var opacityVal = document.getElementById('opacityVal');
@@ -256,6 +260,23 @@
     onChange: function (files) {
       stampBtn.disabled = files.length !== 1;
       mmPdf.status('#status', '', 'info');
+      srcBuf = null;
+      if (files.length === 1) {
+        mmPdf.ensureLibs()
+          .then(function () { return mmPdf.readBuf(files[0]); })
+          .then(function (buf) {
+            return PDFLib.PDFDocument.load(buf, { ignoreEncryption: false }).then(function () {
+              srcBuf = buf;
+              schedulePreview();
+            });
+          })
+          .catch(function () {
+            mmPdf.status('#status', files[0].name + ' could not be read — if it is password-protected, unlock it first.', 'err');
+          });
+      } else {
+        document.getElementById('stampPreview').innerHTML = '';
+        document.getElementById('previewLabel').style.display = 'none';
+      }
     }
   });
 
@@ -267,6 +288,7 @@
     preset = card.dataset.preset;
     customWrap.classList.toggle('show', preset === 'custom');
     if (preset === 'custom') customText.focus();
+    schedulePreview();
   });
 
   document.getElementById('placeCards').addEventListener('click', function (e) {
@@ -279,15 +301,23 @@
       opacityInput.value = DEFAULT_OPACITY[placement];
       opacityVal.textContent = Number(opacityInput.value).toFixed(2);
     }
+    schedulePreview();
   });
 
   opacityInput.addEventListener('input', function () {
     opacityDirty = true;
     opacityVal.textContent = Number(this.value).toFixed(2);
+    schedulePreview();
   });
+
+  document.getElementById('dateToggle').addEventListener('change', schedulePreview);
+  customText.addEventListener('input', schedulePreview);
 
   document.getElementById('clearBtn').addEventListener('click', function () {
     zone.clear();
+    srcBuf = null;
+    document.getElementById('stampPreview').innerHTML = '';
+    document.getElementById('previewLabel').style.display = 'none';
     mmPdf.status('#status', '', 'info');
   });
 
@@ -296,6 +326,95 @@
     var m = String(d.getMonth() + 1).padStart(2, '0');
     var day = String(d.getDate()).padStart(2, '0');
     return d.getFullYear() + '-' + m + '-' + day;
+  }
+
+  function currentText() {
+    return preset === 'custom' ? customText.value.trim().slice(0, 40) : PRESETS[preset].text;
+  }
+
+  /* Shared stamping core — used by BOTH the live preview and the download,
+     so the preview is true WYSIWYG. */
+  function stampPages(doc, font, opts) {
+    var color = PDFLib.rgb(opts.color[0], opts.color[1], opts.color[2]);
+    doc.getPages().forEach(function (page) {
+      var pw = page.getWidth();
+      var ph = page.getHeight();
+      if (opts.placement === 'diagonal') {
+        var size = pw / (opts.text.length * 0.62);
+        var w = font.widthOfTextAtSize(opts.text, size);
+        var hgt = size;
+        var cos = Math.cos(Math.PI / 4);
+        var sin = Math.sin(Math.PI / 4);
+        var cx = pw / 2;
+        var cy = ph / 2;
+        page.drawText(opts.text, {
+          x: cx - (w / 2) * cos + (hgt / 2) * sin,
+          y: cy - (w / 2) * sin - (hgt / 2) * cos,
+          size: size, font: font, color: color, opacity: opts.opacity,
+          rotate: PDFLib.degrees(45)
+        });
+        if (opts.addDate) {
+          var dsize = size * 0.35;
+          var dw = font.widthOfTextAtSize(opts.dateStr, dsize);
+          var gap = size * 0.9;
+          var dcx = cx + gap * sin;
+          var dcy = cy - gap * cos;
+          page.drawText(opts.dateStr, {
+            x: dcx - (dw / 2) * cos + (dsize / 2) * sin,
+            y: dcy - (dw / 2) * sin - (dsize / 2) * cos,
+            size: dsize, font: font, color: color, opacity: opts.opacity,
+            rotate: PDFLib.degrees(45)
+          });
+        }
+      } else {
+        var hsize = 11;
+        var hw = font.widthOfTextAtSize(opts.text, hsize);
+        page.drawText(opts.text, {
+          x: pw - hw - 24, y: ph - 30,
+          size: hsize, font: font, color: color, opacity: opts.opacity
+        });
+        if (opts.addDate) {
+          var dw2 = font.widthOfTextAtSize(opts.dateStr, 8);
+          page.drawText(opts.dateStr, {
+            x: pw - dw2 - 24, y: ph - 30 - 11,
+            size: 8, font: font, color: color, opacity: opts.opacity
+          });
+        }
+      }
+    });
+  }
+
+  /* Live preview: stamp a 1-page copy through the SAME code path, render it. */
+  var previewTimer = null, previewBusy = false, previewQueued = false;
+  function schedulePreview() {
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(renderPreview, 280);
+  }
+  async function renderPreview() {
+    if (!srcBuf) return;
+    if (previewBusy) { previewQueued = true; return; }
+    previewBusy = true;
+    try {
+      var text = currentText() || PRESETS.controlled.text;
+      var src = await PDFLib.PDFDocument.load(srcBuf);
+      var pv = await PDFLib.PDFDocument.create();
+      var copied = await pv.copyPages(src, [0]);
+      pv.addPage(copied[0]);
+      var font = await pv.embedFont(PDFLib.StandardFonts.HelveticaBold);
+      stampPages(pv, font, {
+        text: text,
+        color: PRESETS[preset].color,
+        opacity: Number(opacityInput.value),
+        placement: placement,
+        addDate: document.getElementById('dateToggle').checked,
+        dateStr: todayISO()
+      });
+      var bytes = await pv.save();
+      document.getElementById('previewLabel').style.display = '';
+      await mmPdf.pdfThumbs('#stampPreview', bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), { max: 1, width: 380, tag: function () { return 'LIVE PREVIEW'; } });
+    } catch (e) { /* preview must never break the tool */ }
+    previewBusy = false;
+    if (previewQueued) { previewQueued = false; schedulePreview(); }
   }
 
   stampBtn.addEventListener('click', async function () {
@@ -323,75 +442,13 @@
         throw new Error(files[0].name + ' could not be read — if it is password-protected, unlock it first.');
       }
       var font = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
-      var c = PRESETS[preset].color;
-      var color = PDFLib.rgb(c[0], c[1], c[2]);
       var opacity = Number(opacityInput.value);
       var addDate = document.getElementById('dateToggle').checked;
       var dateStr = todayISO();
       var pages = doc.getPages();
-
-      pages.forEach(function (page) {
-        var pw = page.getWidth();
-        var ph = page.getHeight();
-        if (placement === 'diagonal') {
-          var size = pw / (text.length * 0.62);
-          var w = font.widthOfTextAtSize(text, size);
-          var h = size;
-          var cos = Math.cos(Math.PI / 4);
-          var sin = Math.sin(Math.PI / 4);
-          var cx = pw / 2;
-          var cy = ph / 2;
-          page.drawText(text, {
-            x: cx - (w / 2) * cos + (h / 2) * sin,
-            y: cy - (w / 2) * sin - (h / 2) * cos,
-            size: size,
-            font: font,
-            color: color,
-            opacity: opacity,
-            rotate: PDFLib.degrees(45)
-          });
-          if (addDate) {
-            var dsize = size * 0.35;
-            var dw = font.widthOfTextAtSize(dateStr, dsize);
-            /* shift the date's center "below" the stamp, i.e. along the
-               rotated text's down direction (sin, -cos), then apply the
-               same origin-offset math for the rotated baseline */
-            var gap = size * 0.9;
-            var dcx = cx + gap * sin;
-            var dcy = cy - gap * cos;
-            page.drawText(dateStr, {
-              x: dcx - (dw / 2) * cos + (dsize / 2) * sin,
-              y: dcy - (dw / 2) * sin - (dsize / 2) * cos,
-              size: dsize,
-              font: font,
-              color: color,
-              opacity: opacity,
-              rotate: PDFLib.degrees(45)
-            });
-          }
-        } else {
-          var hsize = 11;
-          var hw = font.widthOfTextAtSize(text, hsize);
-          page.drawText(text, {
-            x: pw - hw - 24,
-            y: ph - 30,
-            size: hsize,
-            font: font,
-            color: color,
-            opacity: opacity
-          });
-          if (addDate) {
-            var dw2 = font.widthOfTextAtSize(dateStr, 8);
-            page.drawText(dateStr, {
-              x: pw - dw2 - 24,
-              y: ph - 30 - 11,
-              size: 8,
-              font: font,
-              color: color,
-              opacity: opacity
-            });
-          }
-        }
+      stampPages(doc, font, {
+        text: text, color: PRESETS[preset].color, opacity: opacity,
+        placement: placement, addDate: addDate, dateStr: dateStr
       });
 
       var bytes = await doc.save();
