@@ -236,7 +236,9 @@ queue:
   word_count: 1600
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: "QA failed 2026-08-11: LINT FAIL:\n  - word count 2587 outside -20%/+60% of\
+    \ 1600"
 - keyword: Brinell Rockwell Vickers hardness conversion formula chart
   cluster: Materials & Hardness
   intent: informational
