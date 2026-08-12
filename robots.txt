@@ -3,6 +3,9 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /forum/auth
+Disallow: /forum/ask
 
 # Sitemap
 Sitemap: https://metricmech.com/sitemap.xml

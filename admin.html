@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — MetricMech Analytics</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/assets/admin.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+
+<main>
+
+<!-- Shown until we know the viewer is an admin -->
+<div class="ad-gate" id="ad-gate">
+  <h1>MetricMech Admin</h1>
+  <p>Checking your access…</p>
+</div>
+
+<div id="ad-app" style="display:none">
+  <div class="ad-wrap">
+
+    <div class="ad-head">
+      <div class="ad-head-row">
+        <div>
+          <div class="ad-eyebrow">INTERNAL · NOT INDEXED</div>
+          <h1>MetricMech <em>Analytics</em></h1>
+          <p class="ad-sub">
+            Signed in as <b id="ad-who">—</b> · showing <b id="ad-period-label">Last 7 days</b>.
+            Figures come from Google Analytics 4.
+          </p>
+        </div>
+        <a class="ad-btn" href="/">← Back to site</a>
+      </div>
+    </div>
+
+    <div class="ad-controls">
+      <div class="ad-seg" id="ad-period" role="group" aria-label="Reporting period">
+        <button type="button" data-period="today">Today</button>
+        <button type="button" data-period="yesterday">Yesterday</button>
+        <button type="button" data-period="7d" class="on">Last 7 days</button>
+        <button type="button" data-period="30d">Last 30 days</button>
+      </div>
+      <button class="ad-btn" type="button" id="ad-refresh">Refresh</button>
+      <button class="ad-btn" type="button" id="ad-csv">Export CSV</button>
+      <span class="ad-stamp" id="ad-stamp"></span>
+    </div>
+
+    <div id="ad-msg"></div>
+
+    <div id="ad-loading">
+      <div class="ad-skel"></div>
+      <div class="ad-skel" style="height:260px"></div>
+    </div>
+
+    <div id="ad-body" style="display:none">
+
+      <!-- Headline numbers -->
+      <div class="ad-kpis" id="ad-kpis"></div>
+
+      <!-- Trend -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Traffic and calculator use over time</h2></div>
+          <p class="ad-panel-note">
+            Pageviews against actual calculator runs. The gap between the two lines is how many
+            visitors read rather than calculated.
+          </p>
+          <div id="ad-trend"></div>
+        </section>
+      </div>
+
+      <!-- Calculators -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Which calculators people actually use</h2></div>
+          <p class="ad-panel-note" id="ad-calc-note"></p>
+          <div id="ad-calcs"></div>
+        </section>
+      </div>
+
+      <!-- Behaviour split -->
+      <div class="ad-grid">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Events</h2></div>
+          <p class="ad-panel-note">Every tracked interaction, most frequent first.</p>
+          <div id="ad-events"></div>
+        </section>
+
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>How people arrive</h2></div>
+          <p class="ad-panel-note">Sessions by channel.</p>
+          <div id="ad-channels"></div>
+        </section>
+      </div>
+
+      <div class="ad-grid">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Top referrers</h2></div>
+          <p class="ad-panel-note">Sessions by source.</p>
+          <div id="ad-sources"></div>
+        </section>
+
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Devices</h2></div>
+          <p class="ad-panel-note">Sessions by device category.</p>
+          <div id="ad-devices"></div>
+          <div class="ad-panel-head" style="margin-top:22px"><h2>Countries</h2></div>
+          <p class="ad-panel-note">People by country.</p>
+          <div id="ad-countries"></div>
+        </section>
+      </div>
+
+      <!-- Every page -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Every page</h2></div>
+          <p class="ad-panel-note" id="ad-pages-note"></p>
+          <div class="ad-tablewrap" id="ad-pages"></div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div class="ad-tip" id="ad-tip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/assets/forum-md.js"></script>
+<script src="/assets/admin.js"></script>
+</body>
+</html>
