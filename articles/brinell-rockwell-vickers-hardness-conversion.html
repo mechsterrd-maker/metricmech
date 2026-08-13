@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brinell Rockwell Vickers Hardness Conversion | MetricMech</title>
+<meta name="description" content="Brinell Rockwell Vickers hardness conversion formula chart explained simply. HRC HB HV tables for steel with step-by-step methods." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Brinell Rockwell Vickers Hardness Conversion | MetricMech">
+<meta property="og:description" content="Brinell Rockwell Vickers hardness conversion formula chart explained simply. HRC HB HV tables for steel with step-by-step methods.">
+<meta property="og:url" content="https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Brinell Rockwell Vickers Hardness Conversion | MetricMech">
+<meta name="twitter:description" content="Brinell Rockwell Vickers hardness conversion formula chart explained simply. HRC HB HV tables for steel with step-by-step methods.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Brinell Rockwell Vickers Hardness Conversion | MetricMech",
+  "description": "Brinell Rockwell Vickers hardness conversion formula chart explained simply. HRC HB HV tables for steel with step-by-step methods.",
+  "url": "https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Brinell Rockwell Vickers Hardness Conversion Formula & Chart",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-13",
+  "mainEntityOfPage": "https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula to convert Rockwell HRC to Brinell HB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ASTM E140 does not provide a single universal algebraic formula. It defines empirical conversion tables for specific material groups derived from large test datasets. For carbon and alloy steels, the standard conversion table remains the most reliable source. Use the MetricMech hardness conversion chart for accurate results across the full HRC range rather than relying on simplified formulas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are Brinell, Rockwell, and Vickers hardness scales directly equivalent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No — the scales measure hardness using different indenters, loads, and measurement methods. Conversions are empirical approximations valid only for specific material types and hardness ranges. Always state which scale was actually measured and treat converted values as estimates, not certified measurements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which hardness scale should I use for heat-treated steel components?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rockwell HRC is the industry standard for heat-treated steels in the 20–68 HRC range. Brinell HB is preferred for softer steels, castings, and forgings, while Vickers HV is used for thin sections, case-hardened layers, and microhardness testing where a small, precise indent is required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the valid range for Rockwell to Brinell conversion on steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ASTM E140 conversion tables for carbon and alloy steels cover approximately HRC 20 to HRC 68. Below HRC 20, the Brinell or Vickers scale is more appropriate. Converting outside validated ranges introduces significant error that may lead to incorrect accept/reject decisions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a Vickers to Rockwell hardness equivalent accurate enough for print specifications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Converted values should not substitute for the specified test scale on engineering drawings or acceptance criteria without customer or standard approval. ASTM E140 explicitly notes that conversions are approximate and material-dependent. Document the conversion basis fully and, where the result is marginal, conduct direct testing on the required scale."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Brinell Rockwell Vickers Hardness Conversion Formula & Chart",
+      "item": "https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Brinell Rockwell Vickers Hardness Conver</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer: What the Conversions Mean</a>
+    <a href="#why-conversion">Why Engineers Convert Between Hardness Scales</a>
+    <a href="#formulas">Hardness Conversion Formulas & Variables</a>
+    <a href="#worked-example">Worked Example: HRC 45 to HB and HV</a>
+    <a href="#step-by-step">Step-by-Step Conversion Method</a>
+    <a href="#reference-table">HRC HB HV Hardness Conversion Reference Table</a>
+    <a href="#common-mistakes">Common Mistakes in Hardness Scale Conversion</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Brinell Rockwell Vickers Hardness Conversion Formula & Chart</h1>
+    <div class="art-meta-bar">
+      <span>Quality Engineering</span>
+      <span>August 13, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">A <strong>Brinell Rockwell Vickers hardness conversion</strong> translates a hardness value measured on one scale — HB, HRC, or HV — into its approximate equivalent on another. No universal algebraic formula covers all materials; conversions are empirical, material-specific, and governed by <a href="https://www.astm.org/e0140-12br1.html" target="_blank" rel="noopener noreferrer">ASTM E140</a> and ISO 18265. Use the relationships as engineering estimates, never as substitutes for direct measurement.</p>
+
+<h2 id="direct-answer">Quick Answer: What the Conversions Mean</h2>
+
+<p>Hardness scales quantify a material's resistance to permanent indentation, but each scale uses a different indenter geometry and applied load. Brinell (HB) uses a hardened carbide ball; Rockwell (HRC) uses a diamond cone; Vickers (HV) uses a square-based diamond pyramid. Because the physical mechanisms differ, no exact mathematical equivalence exists. Conversion tables in ASTM E140 and ISO 18265 provide empirically derived equivalents for defined material categories — primarily carbon and alloy steels, cast iron, and non-ferrous metals.</p>
+
+<p>For quick reference and verified values across the full HRC, HB, and HV range for steel, use the <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech Hardness Conversion Chart: HRC, HB, HV Guide</a> alongside this explainer.</p>
+
+<h2 id="why-conversion">Why Engineers Convert Between Hardness Scales</h2>
+
+<p>A drawing specifies 200–250 HB, but the shop floor Rockwell tester reads HRB or HRC. A supplier's material certificate lists HV, while the acceptance criterion on the purchase order states HB. These everyday mismatches make hardness scale conversion one of the most frequent reference tasks in a quality lab. Getting it wrong means accepting out-of-specification material or rejecting good parts — both costly outcomes.</p>
+
+<p>Conversions also matter when correlating hardness to tensile strength. For carbon and alloy steels, the approximate relationship <strong>UTS (MPa) ≈ 3.45 × HB</strong> is widely used in early design stages. This coefficient aligns with material property guidance referenced by <a href="https://www.nist.gov/" target="_blank" rel="noopener noreferrer">NIST</a>, though direct measurement is always preferred for final acceptance.</p>
+
+<p>When hardness forms part of a first article inspection or PPAP submission, the test scale used must match the drawing requirement exactly. If a conversion is applied, document it clearly. CadNexa's auto-ballooning tool helps quality engineers balloon hardness callouts directly from the drawing so nothing is missed during inspection — see <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=brinell-rockwell-vickers-hardness-conversion" target="_blank" rel="noopener noreferrer" class="highlight">CadNexa Auto-Ballooning for FAI inspection documentation</a>.</p>
+
+<h2 id="formulas">Hardness Conversion Formulas & Variables</h2>
+
+<p>ASTM E140 does not publish a single closed-form equation. It publishes conversion tables derived from regression analysis on large test datasets. For the HV-to-HB relationship, a widely cited approximation behaves reasonably in the mid-range. For HRC-to-HB and HRC-to-HV conversions, the non-linearity across the full hardness range makes any single formula unreliable outside a narrow band — the standard table is the correct tool.</p>
+
+<h3>Approximate Algebraic Relationships (Carbon & Alloy Steel)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Conversion</th>
+      <th>Approximate Formula</th>
+      <th>Valid Range</th>
+      <th>Important Caveat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HRC → HB</td>
+      <td>No single reliable formula across the full range. Use ASTM E140 Table 1 directly.</td>
+      <td>HRC 20–68</td>
+      <td>Polynomial fits published in some handbooks are valid only for HRC 20–40 and deviate significantly above HRC 40. Do not extrapolate.</td>
+    </tr>
+    <tr>
+      <td>HV → HB</td>
+      <td>HB ≈ 0.95 × HV <em>(mid-range approximation)</em></td>
+      <td>HV 100–650</td>
+      <td>Accuracy degrades outside this range. Verify against ISO 18265 Table A.1.</td>
+    </tr>
+    <tr>
+      <td>HRC → HV</td>
+      <td>No single reliable formula. Use ASTM E140 Table 1 directly.</td>
+      <td>HRC 20–68</td>
+      <td>Simplified expressions found in older handbooks carry errors of 80–100 HV at HRC 45 and above. Always use the ASTM E140 table value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout"><strong>Important:</strong> For HRC-to-HB and HRC-to-HV conversions, the ASTM E140 Table 1 tabulated values are the authoritative source. Algebraic shortcuts introduce unacceptable error at higher hardness levels and must not be used on inspection records or acceptance documents.</p>
+
+<h3>Variables Reference</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Scale Name</th>
+      <th>Indenter</th>
+      <th>Typical Load</th>
+      <th>Preferred Application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HB (or HBW)</td>
+      <td>Brinell</td>
+      <td>Carbide ball, 10 mm</td>
+      <td>3000 kgf (steel)</td>
+      <td>Soft–medium steels, castings, forgings</td>
+    </tr>
+    <tr>
+      <td>HRC</td>
+      <td>Rockwell C</td>
+      <td>Diamond cone (Brale)</td>
+      <td>150 kgf</td>
+      <td>Heat-treated steels, HRC 20–68</td>
+    </tr>
+    <tr>
+      <td>HRB</td>
+      <td>Rockwell B</td>
+      <td>1/16 in. ball</td>
+      <td>100 kgf</td>
+      <td>Soft steels, aluminium, brass, HRB 0–100</td>
+    </tr>
+    <tr>
+      <td>HV</td>
+      <td>Vickers</td>
+      <td>136° diamond pyramid</td>
+      <td>1–120 kgf</td>
+      <td>Thin sections, case depth, microhardness</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="worked-example">Worked Example: HRC 45 to HB and HV</h2>
+
+<p>A quality engineer receives a material certificate showing <strong>HRC 45</strong> for a case-hardened alloy steel shaft. The drawing acceptance criterion requires a minimum of <strong>420 HB</strong>. The engineer must determine whether the part meets the drawing requirement using a converted value.</p>
+
+<p><strong>Step 1 — Look up HRC 45 in ASTM E140 Table 1.</strong> The standard table gives an approximate Brinell equivalent of <strong>421 HB</strong> for carbon and alloy steel at HRC 45. The shaft clears the 420 HB minimum by one unit — marginal, but technically passing on the converted value.</p>
+
+<p><strong>Step 2 — Find the Vickers equivalent.</strong> ASTM E140 Table 1 gives approximately <strong>446 HV</strong> at HRC 45 for the same material group. This confirms the part is within the case-hardened range and consistent with typical quench-and-tempered alloy steel.</p>
+
+<p><strong>Step 3 — Document the conversion basis.</strong> Record that acceptance was based on ASTM E140 Table 1 conversion from HRC to HB, not from direct Brinell measurement. If the drawing requires direct Brinell testing, the conversion does not substitute — a direct test is needed. Given the marginal result here, requesting a direct Brinell check from the supplier is the prudent course.</p>
+
+<p class="callout">For a comprehensive lookup across the full HRC/HB/HV range without manual table hunting, the <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech Hardness Conversion Chart</a> covers steel conversion values aligned with ASTM E140.</p>
+
+<h2 id="step-by-step">Step-by-Step Conversion Method</h2>
+
+<ol>
+  <li><strong>Identify the source scale and value.</strong> Note whether the measurement is HRC, HRB, HB, or HV, and confirm the load and indenter used. HB values differ between 3000 kgf and 1500 kgf loads — always confirm the test condition before proceeding.</li>
+  <li><strong>Identify the target scale.</strong> Determine which scale the drawing or specification requires. If no scale is specified, the drawing has an error — raise an NCR or RFI before proceeding with any conversion.</li>
+  <li><strong>Confirm material category.</strong> ASTM E140 contains separate tables for carbon/alloy steel, austenitic stainless, cast iron, aluminium alloys, copper alloys, and titanium. Using the carbon steel table for stainless steel will give incorrect results.</li>
+  <li><strong>Check the valid range.</strong> HRC-to-HB conversion is only validated for HRC 20–68 on steel. Below HRC 20, the Brinell or Vickers scale is more appropriate and the HRC correlation is unreliable.</li>
+  <li><strong>Read the ASTM E140 or ISO 18265 table value.</strong> Do not interpolate unless you have sufficient data points and understand the table resolution. Round numbers in hardness tables already carry inherent measurement uncertainty.</li>
+  <li><strong>Apply a tolerance allowance.</strong> Converted values carry inherent uncertainty, often ±10–20 HB or ±2–3 HRC at midrange. If the part result is very close to the specification limit, direct measurement on the required scale is the correct action.</li>
+  <li><strong>Record the conversion basis on the inspection record.</strong> Note the source scale, target scale, standard used, and lot or certificate number. This supports traceability during audits and PPAP submissions.</li>
+  <li><strong>Communicate converted values as estimates.</strong> Never record a converted value on a drawing balloon or inspection report as if it were a direct measurement. Use notation such as "421 HB (conv. from HRC 45 per ASTM E140 Table 1)".</li>
+</ol>
+
+<h2 id="reference-table">HRC HB HV Hardness Conversion Reference Table</h2>
+
+<p>The table below shows a representative excerpt for carbon and alloy steel, aligned with ASTM E140 Table 1. For the complete range — from soft annealed steel through to fully hardened tool steel at HRC 68 — use the <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech full hardness conversion chart</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HRC</th>
+      <th>HB (3000 kgf)</th>
+      <th>HV</th>
+      <th>Approx. UTS (MPa)*</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>238</td>
+      <td>248</td>
+      <td>~821</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>286</td>
+      <td>302</td>
+      <td>~987</td>
+    </tr>
+    <tr>
+      <td>40</td>
+      <td>371</td>
+      <td>392</td>
+      <td>~1280</td>
+    </tr>
+    <tr>
+      <td>45</td>
+      <td>421</td>
+      <td>446</td>
+      <td>~1452</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>481</td>
+      <td>513</td>
+      <td>~1659</td>
+    </tr>
+    <tr>
+      <td>60</td>
+      <td>614</td>
+      <td>654</td>
+      <td>Not applicable (brittle range)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">*UTS estimates use UTS (MPa) ≈ 3.45 × HB for carbon and alloy steel and must not be used for design without direct tensile testing. HB values above HRC 55 are at the edge of the valid Brinell range due to indent distortion — use Vickers or Rockwell directly at those hardness levels. HB and HV values are sourced from ASTM E140 Table 1; verify the full table for values outside this excerpt.</p>
+
+<p>When working with hardness data during dimensional inspections or first article reports, quality teams often need to balloon hardness callouts alongside dimensional tolerances on multi-page drawings. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=brinell-rockwell-vickers-hardness-conversion" target="_blank" rel="noopener noreferrer" class="highlight">CadNexa's auto-ballooning tool</a> speeds up this process significantly, reducing the risk of missed callouts during complex FAI packages.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Hardness Scale Conversion</h2>
+
+<h3>1. Using the Wrong Material Table</h3>
+<p>ASTM E140 includes separate conversion tables for different alloy families. Applying the carbon steel table to austenitic stainless steel or cast iron produces results that are off by 20 HB or more. Always verify the material category before selecting a conversion table.</p>
+
+<h3>2. Relying on Simplified Algebraic Formulas Across the Full Range</h3>
+<p>Polynomial approximations for HRC-to-HB that work reasonably well at HRC 20–40 break down significantly above HRC 40. At HRC 45, some handbook formulas deviate from ASTM E140 by up to 90 HB — an error large enough to reverse an accept/reject decision. The standard table is the only reliable source above the midrange.</p>
+
+<h3>3. Converting Outside the Valid Range</h3>
+<p>Attempting to convert HRC 15 to Brinell is outside the validated range — the Brinell indenter produces a distorted, oversized impression at low hardness, making the correlation unreliable. Below HRC 20, switch to HRB or use Brinell directly without conversion.</p>
+
+<h3>4. Treating Converted Values as Direct Measurements</h3>
+<p>This is the most consequential mistake in a quality context. A converted HB value is an estimate, not a measurement. Substituting it for a specified test method without explicit customer approval can invalidate a PPAP submission or result in a non-conformance during audit. For full PPAP documentation requirements, review the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist: 18 Elements & Submission Levels</a>.</p>
+
+<h3>5. Ignoring Load and Ball Diameter in Brinell Testing</h3>
+<p>Standard Brinell for steel uses a 10 mm carbide ball at 3000 kgf, giving HBW 3000. Some castings are tested at 1500 kgf or 500 kgf. ASTM E140 conversion tables are based on the 3000 kgf condition. Using a converted value from a non-standard Brinell condition introduces additional systematic error.</p>
+
+<h3>6. Skipping Measurement System Validation</h3>
+<p>A hardness tester that has not been calibrated with certified reference blocks will produce readings that appear to fall within specification but are actually shifted. Before relying on any hardness data for conversion, confirm the measurement system is in control. The <a href="https://metricmech.com/articles/measurement-system-analysis">MSA: The 5 Measurement System Studies Explained</a> guide covers gauge R&R and calibration essentials applicable to hardness testers.</p>
+
+<h3>7. Misreading Rockwell Scale Suffix</h3>
+<p>HRC and HRB are entirely different scales. HRB 60 sits in the low-carbon annealed range with no direct HRC equivalent, while HRB 100 is approximately HRC 20 — entirely different from HRC 100, which does not exist on the Rockwell C scale. Confusing the two suffixes when entering data into a conversion table is a surprisingly common transcription error in incoming inspection. Double-check the scale designation on the tester printout before looking up any conversion value.</p>
+
+<p>For context on how hardness relates to bolt and fastener mechanical property acceptance, the <a href="https://metricmech.com/articles/bolt-grade-chart">Bolt Grade Chart: 8.8 vs 10.9 vs 12.9 | MetricMech</a> covers proof load and hardness limits for metric fastener grades — a frequent cross-reference when qualifying structural hardware.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the formula to convert Rockwell HRC to Brinell HB?</h3>
+<p>ASTM E140 does not provide a single universal algebraic formula for HRC-to-HB conversion. It defines empirical conversion tables for specific material groups derived from large test datasets. Polynomial approximations from some handbooks are valid only in narrow ranges (e.g., HRC 20–40) and deviate significantly at higher hardness levels. Use the <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech hardness conversion chart</a> for accurate, table-based results across the full HRC range.</p>
+
+<h3>Are Brinell, Rockwell, and Vickers hardness scales directly equivalent?</h3>
+<p>No — the scales measure hardness using different indenters, loads, and measurement methods. Conversions are empirical approximations valid only for specific material types and hardness ranges. Always state which scale was actually measured and treat converted values as estimates, not certified measurements.</p>
+
+<h3>Which hardness scale should I use for heat-treated steel components?</h3>
+<p>Rockwell HRC is the industry standard for heat-treated steels in the 20–68 HRC range. Brinell HB is preferred for softer steels, castings, and forgings, while Vickers HV is used for thin sections, case-hardened layers, and microhardness testing where a small, precise indent is required.</p>
+
+<h3>What is the valid range for Rockwell to Brinell conversion on steel?</h3>
+<p>ASTM E140 conversion tables for carbon and alloy steels cover approximately HRC 20 to HRC 68. Below HRC 20, the Brinell or Vickers scale is more appropriate. Converting outside validated ranges introduces significant error that may lead to incorrect accept/reject decisions on incoming inspection.</p>
+
+<h3>Is a Vickers to Rockwell hardness equivalent accurate enough for print specifications?</h3>
+<p>Converted values should not substitute for the specified test scale on engineering drawings or acceptance criteria without customer or standard approval. <a href="https://www.astm.org/e0140-12br1.html" target="_blank" rel="noopener noreferrer">ASTM E140</a> explicitly notes that conversions are approximate and material-dependent. Document the conversion basis fully and, where the result is marginal, conduct direct testing on the required scale.</p>
+
+<div class="cta-box">
+  <p><strong>Speed up your hardness reference workflow:</strong> The <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech Hardness Conversion Chart: HRC, HB, HV Guide</a> provides a full verified table for steel aligned with ASTM E140 — bookmark it for daily quality lab use. When ballooning hardness callouts on inspection drawings, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=brinell-rockwell-vickers-hardness-conversion" target="_blank" rel="noopener noreferrer">CadNexa Auto-Ballooning</a> ensures every hardness zone is captured without manual redlining.</p>
+</div>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/hardness-conversion-chart">Hardness Conversion Chart: HRC, HB, HV Guide</a></li>
+    <li><a href="/articles/bolt-grade-chart">Bolt Grade Chart: 8.8 vs 10.9 vs 12.9</a></li>
+    <li><a href="/articles/ppap-submission-checklist">PPAP Checklist: All 18 Elements Explained</a></li>
+    <li><a href="/articles/measurement-system-analysis">MSA: The 5 Measurement System Studies Explained</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Brinell Rockwell Vickers Hardness Conversion Formula & Chart",
+      "item": "https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion"
+    }
+  ]
+}
+</script>
+</body>
+</html>

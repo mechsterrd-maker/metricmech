@@ -322,3 +322,9 @@ posts:
   keyword: Ra Rz surface roughness difference explained chart
   cluster: Surface Finish & Metrology
   source: autopilot
+- url: https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion
+  date: '2026-08-13'
+  title: Brinell Rockwell Vickers Hardness Conversion | MetricMech
+  keyword: Brinell Rockwell Vickers hardness conversion formula chart
+  cluster: Materials & Hardness
+  source: autopilot

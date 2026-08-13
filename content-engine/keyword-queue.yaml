@@ -252,7 +252,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: hardness to tensile strength conversion steel formula
   cluster: Materials & Hardness
   intent: informational
