@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hardness to Tensile Strength Conversion | MetricMech</title>
+<meta name="description" content="Use the hardness to tensile strength conversion steel formula for HB, HRC & HV. Includes examples, tables, and mistakes to avoid." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/hardness-tensile-strength-conversion-steel">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hardness to Tensile Strength Conversion | MetricMech">
+<meta property="og:description" content="Use the hardness to tensile strength conversion steel formula for HB, HRC & HV. Includes examples, tables, and mistakes to avoid.">
+<meta property="og:url" content="https://metricmech.com/articles/hardness-tensile-strength-conversion-steel">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hardness to Tensile Strength Conversion | MetricMech">
+<meta name="twitter:description" content="Use the hardness to tensile strength conversion steel formula for HB, HRC & HV. Includes examples, tables, and mistakes to avoid.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Hardness to Tensile Strength Conversion | MetricMech",
+  "description": "Use the hardness to tensile strength conversion steel formula for HB, HRC & HV. Includes examples, tables, and mistakes to avoid.",
+  "url": "https://metricmech.com/articles/hardness-tensile-strength-conversion-steel",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Hardness to Tensile Strength Conversion for Steel: Formulas, Worked Example & Common Mistakes",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-15",
+  "mainEntityOfPage": "https://metricmech.com/articles/hardness-tensile-strength-conversion-steel"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula to convert Brinell hardness (HB) to tensile strength for steel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The standard approximation is UTS (MPa) = 3.45 × HB. This relationship is reliable for carbon and low-alloy steels in the range of 80–350 HB. It is documented in ASTM A370 and widely used in design practice."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you estimate tensile strength from an HRC value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "First convert HRC to HB using a standard conversion table (for example, 40 HRC ≈ 375 HB), then apply UTS (MPa) = 3.45 × HB. Direct HRC-to-UTS formulas exist but carry higher uncertainty; the two-step method is more reliable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the hardness-to-tensile-strength relationship valid for all steels?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The 3.45 × HB formula applies best to carbon and low-alloy steels. It is less accurate for austenitic stainless steels, tool steels, and heavily cold-worked materials, where direct tensile testing is recommended."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the approximate tensile strength from a Vickers hardness reading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For steel, UTS (MPa) ≈ 3.3 × HV. Because HV and HB values are numerically close in the range 100–400, this gives results consistent with the HB formula. Accuracy degrades outside that range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are hardness-to-tensile-strength estimates compared to a tensile test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typical accuracy is ±10–15% for carbon and low-alloy steels within the valid hardness range. These estimates are suitable for screening and comparative checks, not for replacing certified tensile test data on safety-critical components."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Hardness to Tensile Strength Conversion for Steel: Formulas, Worked Example & Co",
+      "item": "https://metricmech.com/articles/hardness-tensile-strength-conversion-steel"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Hardness to Tensile Strength Conversion </div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer: The Core Formulas</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula Reference & Variable Definitions</a>
+    <a href="#step-by-step">Step-by-Step Conversion Method</a>
+    <a href="#scale-notes">Choosing the Right Hardness Scale</a>
+    <a href="#common-mistakes">Common Mistakes Design Engineers Make</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Hardness to Tensile Strength Conversion for Steel: Formulas, Worked Example & Common Mistakes</h1>
+    <div class="art-meta-bar">
+      <span>Materials Reference</span>
+      <span>August 15, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">The standard hardness to tensile strength conversion formula for steel is <strong>UTS (MPa) = 3.45 × HB</strong>, where HB is the Brinell hardness number. This approximation, documented in ASTM A370, applies reliably to carbon and low-alloy steels in the range of 80–350 HB. For Vickers hardness, the equivalent is <strong>UTS (MPa) ≈ 3.3 × HV</strong>. These are screening estimates, not substitutes for certified tensile test data.</p>
+
+<h2 id="direct-answer">Quick Answer: The Core Formulas</h2>
+
+<p>Design engineers frequently need a tensile strength estimate when only hardness data is available — incoming material certificates, field measurements, or legacy drawings without mechanical property tables. Three equations cover most steel applications:</p>
+
+<ul>
+  <li><strong>From Brinell (HB):</strong> UTS (MPa) = 3.45 × HB</li>
+  <li><strong>From Vickers (HV):</strong> UTS (MPa) ≈ 3.3 × HV</li>
+  <li><strong>From Rockwell C (HRC):</strong> Convert HRC → HB first using a conversion table, then apply the HB formula</li>
+</ul>
+
+<p>The HB-based formula is the most referenced because Brinell testing produces a large indentation that averages local microstructural variation, making it the most consistent predictor of bulk tensile strength. For a fast cross-check across all three scales, the <a href="https://metricmech.com/articles/hardness-conversion-chart">Hardness Conversion Chart: HRC, HB, HV Guide</a> on MetricMech covers the interconversion values you need before applying any UTS formula.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>A design engineer receives a batch of EN 8 (080M40) steel shafts. The incoming inspection report lists a Brinell hardness of <strong>200 HB</strong>. The drawing calls for a minimum UTS of 650 MPa. The tensile test certificate is missing for this lot.</p>
+
+<p><strong>Step 1 — Apply the formula:</strong><br>
+UTS (MPa) = 3.45 × HB = 3.45 × 200 = <strong>690 MPa</strong></p>
+
+<p><strong>Step 2 — Compare to the requirement:</strong><br>
+690 MPa estimated UTS versus the 650 MPa minimum. The estimate suggests the material is likely conforming, but at only 6% margin above the minimum.</p>
+
+<p><strong>Step 3 — Decision:</strong><br>
+For a non-critical structural application, the engineer may accept the lot with a documented hardness record. For a fatigue-loaded or safety-critical component, a tensile test coupon should be cut and tested to ASTM E8/E8M before release. This is exactly the kind of finding that belongs in your inspection record; if your team uses automated ballooning for drawing review, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=hardness-tensile-strength-conversion-steel" class="highlight">CadNexa's auto-ballooning tool</a> can help capture and document hardness callouts from engineering drawings without manual re-entry errors.</p>
+
+<div class="callout">
+  <strong>Rule of thumb:</strong> When the estimated UTS falls within 10% of the minimum drawing requirement, always request a tensile test. The ±10–15% inherent uncertainty in the formula can mask a genuine non-conformance.
+</div>
+
+<h2 id="formula-table">Formula Reference & Variable Definitions</h2>
+
+<p>The table below summarises the three primary conversion paths, their applicable ranges, and typical accuracy for carbon and low-alloy steels.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hardness Input</th>
+      <th>Formula</th>
+      <th>Valid Range</th>
+      <th>Typical Accuracy</th>
+      <th>Reference</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Brinell (HB)</td>
+      <td>UTS (MPa) = 3.45 × HB</td>
+      <td>80–350 HB</td>
+      <td>±10–15%</td>
+      <td>ASTM A370</td>
+    </tr>
+    <tr>
+      <td>Vickers (HV)</td>
+      <td>UTS (MPa) ≈ 3.3 × HV</td>
+      <td>100–400 HV</td>
+      <td>±10–15%</td>
+      <td>ISO 18265</td>
+    </tr>
+    <tr>
+      <td>Rockwell C (HRC)</td>
+      <td>Convert HRC → HB, then use HB formula</td>
+      <td>20–65 HRC</td>
+      <td>±15–20%</td>
+      <td>ASTM E140</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Variable definitions:</strong></p>
+<ul>
+  <li><strong>UTS</strong> — Ultimate Tensile Strength, in megapascals (MPa)</li>
+  <li><strong>HB</strong> — Brinell Hardness Number (dimensionless), measured per ASTM E10 or ISO 6506</li>
+  <li><strong>HV</strong> — Vickers Hardness Number (dimensionless), measured per ASTM E92 or ISO 6507</li>
+  <li><strong>HRC</strong> — Rockwell Hardness, C scale (dimensionless), measured per ASTM E18 or ISO 6508</li>
+  <li><strong>3.45</strong> — empirical coefficient for steel in SI units (MPa per HB unit)</li>
+  <li><strong>3.3</strong> — empirical coefficient for steel, Vickers-based SI version</li>
+</ul>
+
+<p>For engineers working in imperial units, the equivalent HB formula is: <strong>UTS (ksi) = 0.5 × HB</strong>. At 200 HB this gives 100 ksi, which is consistent with the SI result (100 ksi ≈ 689 MPa).</p>
+
+<h2 id="step-by-step">Step-by-Step Conversion Method</h2>
+
+<p>Follow this procedure for a defensible, documented hardness-to-tensile-strength estimate on steel components.</p>
+
+<ol>
+  <li><strong>Confirm the steel family.</strong> Verify the material is a carbon or low-alloy steel. If it is austenitic stainless, duplex, tool steel, or a heavily cold-worked grade, flag it for tensile testing — the linear formula does not apply reliably.</li>
+  <li><strong>Obtain a representative hardness reading.</strong> Take at least three readings at different locations on the part and average them. Single-point readings introduce scatter. Ensure the test surface is prepared per ASTM E10 or ISO 6506 to avoid surface condition errors.</li>
+  <li><strong>Check the hardness scale used.</strong> If the reading is in HRC or HV, convert to HB using the <a href="https://metricmech.com/articles/brinell-rockwell-vickers-hardness-conversion">Brinell Rockwell Vickers Hardness Conversion</a> article. Do not mix scale values in the same calculation.</li>
+  <li><strong>Verify the HB value falls within the valid range (80–350 HB).</strong> Below 80 HB the material is very soft and the linear relationship weakens. Above 350 HB the material is likely through-hardened and the formula underestimates UTS for high-alloy grades.</li>
+  <li><strong>Apply the formula: UTS (MPa) = 3.45 × HB.</strong> Keep full precision in intermediate steps; round only the final result to the nearest 5 MPa for reporting.</li>
+  <li><strong>Compare the estimate to the drawing requirement.</strong> Document the formula used, the average HB value, and the calculated UTS. Note clearly that this is an estimate, not a tested value.</li>
+  <li><strong>Decide on accept, test, or reject.</strong> If the estimated UTS is more than 15% above the minimum, accept with record. If it is within 15% of the minimum or below it, mandate a tensile test per ASTM E8/E8M before releasing the material. The tolerance you carry in your design directly influences this margin — see the <a href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a> article for how material property uncertainty compounds with dimensional variation.</li>
+</ol>
+
+<h2 id="scale-notes">Choosing the Right Hardness Scale</h2>
+
+<p>The choice of hardness scale affects both measurement practicality and conversion accuracy. Brinell testing (HB) uses a 10 mm ball and a high load, leaving a large indentation that averages microstructural features — this is why it correlates best with bulk tensile strength for steels. It is less suitable for thin sections or case-hardened surfaces where the indentation may penetrate the hardened layer.</p>
+
+<p>Vickers (HV) testing covers a continuous scale from very soft to very hard materials without changing the indenter geometry. HV is preferred for thin case-hardened layers, nitrided surfaces, and small cross-sections. Because HV and HB values are numerically close in the range 100–400 (for steel), the UTS estimates converge: 200 HB gives 690 MPa and 200 HV gives 660 MPa — within the formula's own uncertainty band.</p>
+
+<p>Rockwell C (HRC) is common on the shop floor for hardened components because it is fast and leaves a smaller mark than Brinell. However, converting HRC directly to UTS introduces a second layer of empirical approximation, which is why the two-step path (HRC → HB → UTS) is recommended. <a href="https://www.nist.gov/programs-projects/hardness-standards" rel="noopener noreferrer" target="_blank">NIST's hardness standards programme</a> provides traceable conversion tables for all three scales.</p>
+
+<p>Standards that govern hardness testing and conversion for steel include <a href="https://www.astm.org/e0140-12br2019.html" rel="noopener noreferrer" target="_blank">ASTM E140</a> (hardness conversion tables), <a href="https://www.iso.org/standard/62008.html" rel="noopener noreferrer" target="_blank">ISO 18265</a> (metallic materials — conversion of hardness values), and ASTM A370 for mechanical testing of steel products.</p>
+
+<h2 id="common-mistakes">Common Mistakes Design Engineers Make</h2>
+
+<p>Several errors repeatedly appear when engineers apply hardness-to-tensile-strength conversions. Recognising them in advance prevents costly re-work and non-conformance reports.</p>
+
+<p><strong>1. Applying the formula to the wrong material family.</strong> The 3.45 × HB constant is empirically derived from carbon and low-alloy steel data. Using it on austenitic stainless steels (304, 316) or precipitation-hardened grades produces significant errors because work hardening in these alloys raises hardness without a proportional increase in tensile strength measured by conventional testing.</p>
+
+<p><strong>2. Using a single hardness reading.</strong> Hardness varies across a forging or casting due to microstructural gradients. A single point may land on a hard inclusion or a decarburised surface layer. Average at least three readings from representative locations.</p>
+
+<p><strong>3. Ignoring case depth on surface-hardened parts.</strong> Flame-hardened, induction-hardened, or carburised components have a hard surface over a softer core. The surface HRC reading does not represent the bulk tensile strength of the cross-section. Always clarify whether the drawing hardness callout is for surface or core.</p>
+
+<p><strong>4. Mixing hardness scales in one calculation.</strong> Substituting an HV number directly into the HB formula (UTS = 3.45 × HV) introduces a small but avoidable error. While HV and HB are numerically similar in mid-ranges, they diverge at the extremes. Use the correct coefficient for each scale.</p>
+
+<p><strong>5. Treating the estimate as a certified test result.</strong> Hardness-derived UTS values are screening tools. They must never appear on a material test report (MTR) as tested tensile strength, and they cannot replace PPAP-level tensile test evidence for safety-critical or regulated components. For PPAP documentation practices, the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist: 18 Elements & Submission Levels</a> clarifies exactly where tensile test records belong in the submission package.</p>
+
+<div class="warn-box">
+  <strong>Warning:</strong> ASTM A370 states explicitly that the hardness-to-tensile-strength relationship is an approximation and "should not be used for specification purposes unless there is a basis for the specific material." Do not substitute a formula estimate for a tensile test on any component governed by a design standard or customer specification.
+</div>
+
+<p><strong>6. Misunderstanding the unit relationship between the MPa and ksi coefficients.</strong> The ksi coefficient (0.5) is the direct unit conversion of the SI coefficient: 3.45 MPa/HB ÷ 6.895 MPa/ksi ≈ 0.500 ksi/HB. The two formulas are algebraically equivalent and fully consistent — there is no separate empirical fit involved. At 200 HB, both yield the same result: 690 MPa and 100 ksi (where 100 ksi = 689 MPa). Always confirm which unit system applies before reporting a result.</p>
+
+<p>When hardness data feeds into incoming inspection records, drawing callout traceability becomes critical. Teams managing large inspection packages manually often miss hardness notes buried in drawing views. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=hardness-tensile-strength-conversion-steel" class="highlight">CadNexa's auto-ballooning tool</a> extracts and numbers every callout — including surface treatment and hardness notes — directly from the CAD drawing, reducing the chance of a missed requirement during first article inspection.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the formula to convert Brinell hardness (HB) to tensile strength for steel?</h3>
+<p>The standard approximation is <strong>UTS (MPa) = 3.45 × HB</strong>. This relationship is reliable for carbon and low-alloy steels in the range of 80–350 HB. It is documented in ASTM A370 and widely used in design practice for material screening and comparative assessment.</p>
+
+<h3>How do you estimate tensile strength from an HRC value?</h3>
+<p>The recommended two-step method is to first convert HRC to HB using a standard conversion table (for example, 40 HRC ≈ 375 HB per ASTM E140), then apply <strong>UTS (MPa) = 3.45 × HB</strong>. Direct HRC-to-UTS formulas exist in literature but carry higher uncertainty because HRC is a differential depth measurement rather than an area-based one.</p>
+
+<h3>Is the hardness-to-tensile-strength relationship valid for all steels?</h3>
+<p>No. The 3.45 × HB formula applies best to carbon and low-alloy steels. It is less accurate for austenitic stainless steels, tool steels, maraging steels, and heavily cold-worked materials. For those grades, direct tensile testing per ASTM E8/E8M or <a href="https://www.iso.org/standard/68815.html" rel="noopener noreferrer" target="_blank">ISO 6892-1</a> is the correct approach.</p>
+
+<h3>What is the approximate tensile strength from a Vickers hardness reading?</h3>
+<p>For steel, <strong>UTS (MPa) ≈ 3.3 × HV</strong>. Because HV and HB values are numerically close in the range 100–400 for steel, this gives results consistent with the HB formula. Accuracy degrades outside that range, and the formula should not be used above 600 HV (very hard tool steels).</p>
+
+<h3>How accurate are hardness-to-tensile-strength estimates compared to a tensile test?</h3>
+<p>Typical accuracy is ±10–15% for carbon and low-alloy steels within the valid hardness range. This is acceptable for material screening, comparative checks, and preliminary design calculations. It is not acceptable as a substitute for certified tensile test data on safety-critical, fatigue-loaded, or regulated components.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/hardness-conversion-chart">Hardness Conversion Chart: HRC, HB, HV Guide</a></li>
+    <li><a href="/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a></li>
+    <li><a href="/articles/brinell-rockwell-vickers-hardness-conversion">Brinell Rockwell Vickers Hardness Conversion</a></li>
+    <li><a href="/articles/tolerance-stackup-worked-example">Tolerance Stack-Up: A Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Hardness to Tensile Strength Conversion for Steel: Formulas, Worked Example & Co",
+      "item": "https://metricmech.com/articles/hardness-tensile-strength-conversion-steel"
+    }
+  ]
+}
+</script>
+</body>
+</html>

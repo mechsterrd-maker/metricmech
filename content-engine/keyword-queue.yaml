@@ -266,7 +266,7 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: control chart constants A2 D3 D4 table explained
   cluster: SPC & Quality Statistics
   intent: informational
