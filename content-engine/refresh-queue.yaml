@@ -126,3 +126,9 @@ pages:
   impressions: 56
   added: '2026-08-09'
   status: todo
+- url: https://metricmech.com/reference/surface-finish-chart
+  reason: striking-distance
+  position: 17.6
+  impressions: 103
+  added: '2026-08-16'
+  status: todo
