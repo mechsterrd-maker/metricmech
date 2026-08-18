@@ -334,3 +334,9 @@ posts:
   keyword: hardness to tensile strength conversion steel formula
   cluster: Materials & Hardness
   source: autopilot
+- url: https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained
+  date: '2026-08-18'
+  title: Control Chart Constants A2 D3 D4 Table Explained | MetricMech
+  keyword: control chart constants A2 D3 D4 table explained
+  cluster: SPC & Quality Statistics
+  source: autopilot

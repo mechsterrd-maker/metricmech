@@ -280,7 +280,7 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: process capability Cp Cpk vs Pp Ppk difference
   cluster: SPC & Quality Statistics
   intent: informational

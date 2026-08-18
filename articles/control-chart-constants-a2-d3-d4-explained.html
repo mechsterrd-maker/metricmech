@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Control Chart Constants A2 D3 D4 Table Explained | MetricMech</title>
+<meta name="description" content="control chart constants A2 D3 D4 table explained by subgroup size, with derivation logic, X-bar R example, and common mistakes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Control Chart Constants A2 D3 D4 Table Explained | MetricMech">
+<meta property="og:description" content="control chart constants A2 D3 D4 table explained by subgroup size, with derivation logic, X-bar R example, and common mistakes.">
+<meta property="og:url" content="https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Control Chart Constants A2 D3 D4 Table Explained | MetricMech">
+<meta name="twitter:description" content="control chart constants A2 D3 D4 table explained by subgroup size, with derivation logic, X-bar R example, and common mistakes.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Control Chart Constants A2 D3 D4 Table Explained | MetricMech",
+  "description": "control chart constants A2 D3 D4 table explained by subgroup size, with derivation logic, X-bar R example, and common mistakes.",
+  "url": "https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Control Chart Constants A2, D3, D4: Table, Derivation & Worked Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-18",
+  "mainEntityOfPage": "https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the A2 constant in a control chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A2 is a scaling factor used in X-bar R charts to convert the average range (R-bar) into 3-sigma control limits for the X-bar chart. Its value depends on the subgroup size n; for n=5, A2 equals 0.577."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do D3 and D4 change with subgroup size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "D3 and D4 are derived from the statistical distribution of the sample range. Smaller subgroups have higher relative variability in the range, so D4 is larger and D3 may be set to zero (meaning the lower control limit cannot be negative)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "At what subgroup size does D3 become greater than zero?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "D3 first exceeds zero at a subgroup size of n=7. For n=2 through n=6, D3 is defined as zero, meaning the lower control limit for the R chart is set to zero rather than a negative number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the same constants for an X-bar S chart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. X-bar S charts use different constants: A3 for the X-bar limits and B3/B4 for the S chart limits. A2, D3, and D4 apply specifically to X-bar R charts where variability is tracked using the subgroup range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are the official control chart constant tables published?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The authoritative source is the AIAG SPC Reference Manual (2nd Edition). NIST/SEMATECH e-Handbook of Statistical Methods and ASTM E2587 also publish verified factor tables for quality practitioners."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Control Chart Constants A2, D3, D4: Table, Derivation & Worked Example",
+      "item": "https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Control Chart Constants A2, D3, D4: Tabl</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#what-are-control-chart-constants">What Are Control Chart Constants?</a>
+    <a href="#factor-table">A2 D3 D4 Factor Table by Subgroup Size</a>
+    <a href="#how-constants-are-derived">How Control Chart Constants Are Derived</a>
+    <a href="#formulas-and-variables">X-bar R Chart Formulas & Variables</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#step-by-step-method">Step-by-Step Method for Setting Control Limits</a>
+    <a href="#common-mistakes">Common Mistakes to Avoid</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Control Chart Constants A2, D3, D4: Table, Derivation & Worked Example</h1>
+    <div class="art-meta-bar">
+      <span>SPC Quality</span>
+      <span>August 18, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">Control chart constants A2, D3, and D4 are statistical scaling factors used to compute control limits for X-bar R charts. A2 converts the average range into ±3-sigma limits for the X-bar chart. D3 and D4 convert the average range into lower and upper control limits for the R chart. Each constant's value depends solely on the subgroup sample size, n.</p>
+
+<h2 id="what-are-control-chart-constants">What Are Control Chart Constants?</h2>
+
+<p>Statistical Process Control relies on estimated process spread rather than the population standard deviation, which is rarely known in production settings. Control chart constants are pre-derived multipliers that translate a simpler statistic — the average subgroup range, R-bar — into statistically valid 3-sigma control limits. They remove the need for manual probability calculations at every chart setup.</p>
+
+<p>The constants A2, D3, and D4 appear in every X-bar R chart, which is the most widely used variable control chart in manufacturing quality. They are tabulated in the AIAG SPC Reference Manual, the <a href="https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc321.htm" target="_blank" rel="noopener">NIST/SEMATECH e-Handbook of Statistical Methods</a>, and ASTM E2587. Understanding why they change with subgroup size is as important as knowing their numeric values.</p>
+
+<h2 id="factor-table">A2, D3, D4 Factor Table by Subgroup Size</h2>
+
+<p>The table below covers the most common subgroup sizes used in manufacturing SPC. Values are sourced from the <a href="https://www.aiag.org/store/publications/details?Product_code=SPC-4" target="_blank" rel="noopener">AIAG SPC Reference Manual, 2nd Edition</a>. For subgroup sizes outside this range or for X-bar S chart constants (A3, B3, B4), consult the full published table directly.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subgroup Size (n)</th>
+      <th>A2 (X-bar UCL/LCL factor)</th>
+      <th>D3 (R chart LCL factor)</th>
+      <th>D4 (R chart UCL factor)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>2</td><td>1.880</td><td>0</td><td>3.267</td></tr>
+    <tr><td>3</td><td>1.023</td><td>0</td><td>2.575</td></tr>
+    <tr><td>4</td><td>0.729</td><td>0</td><td>2.282</td></tr>
+    <tr><td>5</td><td>0.577</td><td>0</td><td>2.115</td></tr>
+    <tr><td>6</td><td>0.483</td><td>0</td><td>2.004</td></tr>
+    <tr><td>7</td><td>0.419</td><td>0.076</td><td>1.924</td></tr>
+    <tr><td>8</td><td>0.373</td><td>0.136</td><td>1.864</td></tr>
+    <tr><td>9</td><td>0.337</td><td>0.184</td><td>1.816</td></tr>
+    <tr><td>10</td><td>0.308</td><td>0.223</td><td>1.777</td></tr>
+  </tbody>
+</table>
+
+<p class="callout">Notice that D3 = 0 for n = 2 through 6. This does not mean the lower control limit is missing — it means LCL<sub>R</sub> is mathematically set to zero because a negative range is impossible. From n = 7 onwards, D3 becomes positive and a meaningful lower limit can be plotted.</p>
+
+<h2 id="how-constants-are-derived">How Control Chart Constants Are Derived</h2>
+
+<p>Control chart constants trace back to the statistical behaviour of the range of a small sample drawn from a normal distribution. The key intermediate value is d2, the expected value of the range of a sample of size n from a standard normal population. A2 is derived as 3 / (d2 × √n), which collapses the 3-sigma formula into a single multiplier applied directly to R-bar.</p>
+
+<p>D3 and D4 are derived from the relative standard deviation of the sample range, denoted d3. The upper and lower factors are D4 = 1 + 3(d3/d2) and D3 = 1 − 3(d3/d2), with D3 floored at zero. As n increases, the range distribution becomes tighter relative to its mean, so D4 decreases and D3 rises above zero. This is why a subgroup size of n = 4 or n = 5 is a practical sweet spot: control limits are neither too wide nor too noisy.</p>
+
+<p>The full derivation is documented in <a href="https://asq.org/quality-resources/statistical-process-control" target="_blank" rel="noopener">ASQ's SPC resource library</a> and in Duncan's Quality Control and Industrial Statistics. Understanding the derivation helps engineers explain to operators why the limit changes when subgroup size changes — a common audit question during IATF 16949 assessments.</p>
+
+<h2 id="formulas-and-variables">X-bar R Chart Formulas & Variables</h2>
+
+<p>The four control limit formulas for a standard X-bar R chart are listed below. All limits are calculated from two grand statistics: X-double-bar (the grand average of subgroup means) and R-bar (the average of subgroup ranges).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Formula</th>
+      <th>Expression</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>UCL<sub>X-bar</sub></td><td>X̄̄ + A2 × R̄</td><td>Upper control limit for the X-bar chart</td></tr>
+    <tr><td>LCL<sub>X-bar</sub></td><td>X̄̄ − A2 × R̄</td><td>Lower control limit for the X-bar chart</td></tr>
+    <tr><td>UCL<sub>R</sub></td><td>D4 × R̄</td><td>Upper control limit for the R chart</td></tr>
+    <tr><td>LCL<sub>R</sub></td><td>D3 × R̄</td><td>Lower control limit for the R chart (= 0 when n ≤ 6)</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>X̄̄ (X-double-bar)</td><td>Grand average of all subgroup means</td></tr>
+    <tr><td>R̄ (R-bar)</td><td>Average of all subgroup ranges</td></tr>
+    <tr><td>n</td><td>Number of measurements per subgroup (subgroup size)</td></tr>
+    <tr><td>A2</td><td>Control limit factor for the X-bar chart, function of n</td></tr>
+    <tr><td>D3</td><td>Lower control limit factor for the R chart, function of n</td></tr>
+    <tr><td>D4</td><td>Upper control limit factor for the R chart, function of n</td></tr>
+  </tbody>
+</table>
+
+<p>For a quick sanity-check of your limit calculations, the MetricMech <a href="https://metricmech.com/articles/spc-control-charts">SPC Control Charts guide</a> walks through X-bar and R chart construction with annotated diagrams — useful when training a new quality team on chart interpretation.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a machining operation measuring shaft diameter. Twenty-five subgroups of n = 5 have been collected. After plotting, the grand mean X-double-bar = 25.04 mm and the average range R-bar = 0.12 mm. Using n = 5: A2 = 0.577, D3 = 0, D4 = 2.115.</p>
+
+<p><strong>X-bar chart limits:</strong><br>
+UCL<sub>X-bar</sub> = 25.04 + (0.577 × 0.12) = 25.04 + 0.069 = <strong>25.109 mm</strong><br>
+LCL<sub>X-bar</sub> = 25.04 − (0.577 × 0.12) = 25.04 − 0.069 = <strong>24.971 mm</strong></p>
+
+<p><strong>R chart limits:</strong><br>
+UCL<sub>R</sub> = 2.115 × 0.12 = <strong>0.254 mm</strong><br>
+LCL<sub>R</sub> = 0 × 0.12 = <strong>0 mm</strong></p>
+
+<p>These four values are the only numbers plotted as horizontal reference lines on the two charts. Any subgroup mean or range falling outside these limits signals a potential special cause worth investigating. Once process capability is required, the estimated sigma (R-bar / d2) feeds directly into Cpk — covered in the MetricMech <a href="https://metricmech.com/articles/cpk-vs-ppk">Cpk vs Ppk guide</a>.</p>
+
+<h2 id="step-by-step-method">Step-by-Step Method for Setting Control Limits</h2>
+
+<ol>
+  <li><strong>Define the subgroup size.</strong> Choose n based on process rate and rational subgrouping logic. Subgroup sizes of 4 or 5 are standard in most automotive and aerospace SPC plans.</li>
+  <li><strong>Collect baseline data.</strong> Gather a minimum of 25 subgroups during a stable production period. AIAG recommends at least 100 individual measurements in total for a reliable baseline.</li>
+  <li><strong>Calculate each subgroup mean (X-bar) and range (R).</strong> The range is simply the maximum minus the minimum value within each subgroup.</li>
+  <li><strong>Compute X-double-bar and R-bar.</strong> Average all subgroup means to get X-double-bar; average all subgroup ranges to get R-bar.</li>
+  <li><strong>Look up A2, D3, and D4</strong> from the table above for your chosen subgroup size n.</li>
+  <li><strong>Calculate the four control limits</strong> using the formulas in the table above: UCL and LCL for the X-bar chart, and UCL and LCL for the R chart.</li>
+  <li><strong>Plot the centre lines and limits.</strong> Draw the centre line at X-double-bar on the X-bar chart and at R-bar on the R chart. Add the four control limits as dashed horizontal lines.</li>
+  <li><strong>Apply the Western Electric rules or Nelson rules</strong> to identify out-of-control signals. A single point beyond a control limit is the primary trigger; runs of seven points on one side of the centre line are a secondary signal.</li>
+  <li><strong>Investigate and remove special causes before finalising limits.</strong> Recalculate limits after removing any subgroups confirmed to have an assignable cause. Never remove points arbitrarily.</li>
+  <li><strong>Document and approve the control plan.</strong> Approved control limits belong in the control plan and, for first-article submissions, in the measurement data package. When ballooning dimensional features to a drawing for FAI, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=control-chart-constants-a2-d3-d4-explained" class="highlight" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> links each measured feature to its control chart characteristic without manual re-entry.</li>
+</ol>
+
+<h2 id="common-mistakes">Common Mistakes to Avoid</h2>
+
+<h3>Using the wrong constant for the wrong chart type</h3>
+<p>A2, D3, and D4 apply only to X-bar R charts. Engineers switching to X-bar S charts must use A3, B3, and B4 instead. Mixing these constants produces control limits that are either too wide or too tight, causing false alarms or missed signals. Software such as Minitab and JMP selects constants automatically, but manually built spreadsheets are a frequent source of this error.</p>
+
+<h3>Calculating limits before removing outlier subgroups</h3>
+<p>If a special-cause event occurred during data collection — a tool change, a material lot switch, a machine breakdown — the affected subgroup inflates R-bar. Inflated R-bar widens all four limits, making the chart less sensitive to future process shifts. Always verify the baseline is free of known special causes before locking in limits.</p>
+
+<h3>Mixing subgroup sizes across the chart</h3>
+<p>When subgroup size varies (for example, n = 4 for most periods but n = 3 during a short shift), A2 and D4 must be recalculated for each different n. Applying a single set of constants to a mixed-size chart is a common error that audit teams flag during IATF 16949 or AS9100 reviews. If variable subgroup sizes are unavoidable, consider switching to an individuals (IMR) chart or a standardised chart.</p>
+
+<h3>Confusing control limits with specification limits</h3>
+<p class="warn-box">Control limits are derived from process data and describe what the process actually produces. Specification limits are set by the customer or engineering drawing. Plotting spec limits on a control chart, or using spec limits to set control limits, is a fundamental SPC error documented in the AIAG SPC manual as a common misapplication. The two should never be treated as equivalent.</p>
+
+<h3>Recalculating limits too frequently</h3>
+<p>Control limits should remain fixed until a deliberate process improvement or confirmed process change occurs. Recalculating limits each month to "tighten up" the chart defeats the purpose of SPC — it chases noise rather than detecting signal. Process capability metrics like Cpk and Cmk (see the MetricMech <a href="https://metricmech.com/articles/cmk-calculation">Cmk Calculation guide</a>) are the correct tools for tracking improvement over time, not the control limits themselves.</p>
+
+<p>When your SPC data feeds into first-article inspection reports or PPAP packages, linking measured features on drawings to their corresponding control characteristics can consume significant manual effort. See how the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist guide</a> structures measurement data requirements, and consider using <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=control-chart-constants-a2-d3-d4-explained" class="cta-box" target="_blank" rel="noopener">CadNexa's ballooning tool</a> to automate feature numbering and cross-reference directly from the drawing — reducing transcription errors that can invalidate an SPC study.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the A2 constant in a control chart?</h3>
+<p>A2 is a scaling factor used in X-bar R charts to convert the average range (R-bar) into 3-sigma control limits for the X-bar chart. Its value depends on the subgroup size n; for n = 5, A2 equals 0.577. The larger the subgroup, the smaller A2 becomes, reflecting the increased statistical power of larger samples.</p>
+
+<h3>Why do D3 and D4 change with subgroup size?</h3>
+<p>D3 and D4 are derived from the statistical distribution of the sample range. Smaller subgroups have higher relative variability in the range, so D4 is larger and D3 may be set to zero — meaning the lower control limit cannot be negative. As subgroup size grows, the range distribution tightens, and D3 rises above zero while D4 decreases toward 1.</p>
+
+<h3>At what subgroup size does D3 become greater than zero?</h3>
+<p>D3 first exceeds zero at a subgroup size of n = 7. For n = 2 through n = 6, D3 is defined as zero, meaning the lower control limit for the R chart is set to zero rather than a mathematically negative number. Plotting an LCL<sub>R</sub> of zero is correct practice and is not an error in the chart.</p>
+
+<h3>Can I use the same constants for an X-bar S chart?</h3>
+<p>No. X-bar S charts use different constants: A3 for the X-bar limits and B3/B4 for the S chart limits. A2, D3, and D4 apply specifically to X-bar R charts where variability is tracked using the subgroup range. X-bar S charts are preferred for larger subgroup sizes (n ≥ 10) because the sample standard deviation is a more efficient estimator than the range at those sizes.</p>
+
+<h3>Where are the official control chart constant tables published?</h3>
+<p>The authoritative manufacturing source is the <a href="https://www.aiag.org/store/publications/details?Product_code=SPC-4" target="_blank" rel="noopener">AIAG SPC Reference Manual, 2nd Edition</a>. The <a href="https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc321.htm" target="_blank" rel="noopener">NIST/SEMATECH e-Handbook of Statistical Methods</a> and ASTM E2587 also publish verified factor tables and are freely accessible for quality practitioners who need to verify values independently.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/spc-control-charts">SPC Control Charts: X-bar &amp;amp; R Chart Guide</a></li>
+    <li><a href="/articles/control-plan-template">Control Plan Template: Free Guide with Example</a></li>
+    <li><a href="/articles/speeds-and-feeds-calculator">Speeds and Feeds Calculator: Formula &amp; Charts</a></li>
+    <li><a href="/articles/dpmo-sigma-level">DPMO and Sigma Level: Formula, Table &amp; Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Control Chart Constants A2, D3, D4: Table, Derivation & Worked Example",
+      "item": "https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained"
+    }
+  ]
+}
+</script>
+</body>
+</html>
