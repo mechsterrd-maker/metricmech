@@ -294,7 +294,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: X-bar R chart how to set up step by step
   cluster: SPC & Quality Statistics
   intent: informational

@@ -340,3 +340,9 @@ posts:
   keyword: control chart constants A2 D3 D4 table explained
   cluster: SPC & Quality Statistics
   source: autopilot
+- url: https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference
+  date: '2026-08-20'
+  title: 'Cp Cpk vs Pp Ppk: Process Capability Difference | MetricMech'
+  keyword: process capability Cp Cpk vs Pp Ppk difference
+  cluster: SPC & Quality Statistics
+  source: autopilot

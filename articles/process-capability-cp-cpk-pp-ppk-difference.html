@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cp Cpk vs Pp Ppk: Process Capability Difference | MetricMech</title>
+<meta name="description" content="Learn the process capability Cp Cpk vs Pp Ppk difference, when to use each index, and how to avoid common capability mistakes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260809a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260809a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cp Cpk vs Pp Ppk: Process Capability Difference | MetricMech">
+<meta property="og:description" content="Learn the process capability Cp Cpk vs Pp Ppk difference, when to use each index, and how to avoid common capability mistakes.">
+<meta property="og:url" content="https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cp Cpk vs Pp Ppk: Process Capability Difference | MetricMech">
+<meta name="twitter:description" content="Learn the process capability Cp Cpk vs Pp Ppk difference, when to use each index, and how to avoid common capability mistakes.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Cp Cpk vs Pp Ppk: Process Capability Difference | MetricMech",
+  "description": "Learn the process capability Cp Cpk vs Pp Ppk difference, when to use each index, and how to avoid common capability mistakes.",
+  "url": "https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Process Capability Cp Cpk vs Pp Ppk: The Complete Difference Explained",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-20",
+  "mainEntityOfPage": "https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the key difference between Cp and Pp?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cp uses the within-subgroup standard deviation (σ̂ estimated from R-bar or s-bar), representing short-term process potential. Pp uses the overall standard deviation calculated from all individual data points, representing long-term process performance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should you use Cpk instead of Ppk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use Cpk during ongoing production when the process is in statistical control and subgroup data is available. Use Ppk during early production, PPAP submissions, or any time you have a single batch of data without rational subgrouping."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Ppk be higher than Cpk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rarely, but yes. If short-term variation between subgroups happens to be larger than overall variation due to sampling artefacts, Ppk can exceed Cpk. In a well-controlled process, Cpk is typically equal to or slightly higher than Ppk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a large gap between Cpk and Ppk mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A significant gap signals that between-subgroup variation (shift, drift, or process instability) is inflating the overall standard deviation. The process has potential (high Cpk) but is not sustaining it consistently (low Ppk). Investigate assignable causes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What minimum values do AIAG and most customers require?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AIAG's PPAP manual and most automotive customers require Ppk ≥ 1.67 for new part submissions and Cpk ≥ 1.33 for ongoing production control. Safety or critical characteristics often require 1.67 or higher for both indices."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Process Capability Cp Cpk vs Pp Ppk: The Complete Difference Explained",
+      "item": "https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Process Capability Cp Cpk vs Pp Ppk: The</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">Quick Answer: What Is the Difference?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formulas">Formulas and Variables</a>
+    <a href="#when-to-use">When to Use Each Index: Step-by-Step Method</a>
+    <a href="#mistakes">Common Mistakes to Avoid</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Process Capability Cp Cpk vs Pp Ppk: The Complete Difference Explained</h1>
+    <div class="art-meta-bar">
+      <span>Quality Engineering</span>
+      <span>August 20, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">Cp and Cpk use <strong>within-subgroup (short-term) variation</strong> to measure process potential, while Pp and Ppk use <strong>overall (long-term) variation</strong> to measure actual performance. Cp and Pp ignore mean centering; Cpk and Ppk account for it. The choice of index determines whether you are describing what the process <em>could</em> do or what it <em>actually delivered</em> — a distinction that controls PPAP decisions, customer sign-off, and corrective action priorities.</p>
+
+<h2 id="direct-answer">Quick Answer: What Is the Difference?</h2>
+
+<p>The four indices split along two axes: <strong>which standard deviation</strong> you use, and <strong>whether mean shift is included</strong>. The table below summarises every combination clearly.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Standard Deviation Used</th>
+      <th>Accounts for Mean Shift?</th>
+      <th>Time Frame</th>
+      <th>Primary Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cp</strong></td>
+      <td>Within-subgroup (σ̂ = R̄/d₂ or s̄/c₄)</td>
+      <td>No</td>
+      <td>Short-term</td>
+      <td>Process potential</td>
+    </tr>
+    <tr>
+      <td><strong>Cpk</strong></td>
+      <td>Within-subgroup (σ̂)</td>
+      <td>Yes</td>
+      <td>Short-term</td>
+      <td>Centered short-term capability</td>
+    </tr>
+    <tr>
+      <td><strong>Pp</strong></td>
+      <td>Overall (s from all n points)</td>
+      <td>No</td>
+      <td>Long-term</td>
+      <td>Overall spread vs. tolerance</td>
+    </tr>
+    <tr>
+      <td><strong>Ppk</strong></td>
+      <td>Overall (s from all n points)</td>
+      <td>Yes</td>
+      <td>Long-term</td>
+      <td>Actual performance, PPAP submission</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sigma used in Cp/Cpk strips out between-subgroup variation, leaving only the inherent, short-term noise of the process. Pp/Ppk include everything — shift, drift, operator changes, raw-material lot variation — giving a more conservative and realistic picture of what the customer actually receives.</p>
+
+<p>Understanding how these indices relate to parts-per-million defect rates is equally important. The <a href="https://metricmech.com/articles/cpk-to-ppm">Cpk to PPM Conversion guide</a> on MetricMech walks through the sigma-to-defect-rate relationship in detail.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a shaft diameter with a specification of <strong>25.00 ± 0.05 mm</strong>, so USL = 25.05 mm and LSL = 24.95 mm. Fifty parts are measured across ten subgroups of five. After completing a standard X-bar and R chart analysis, the following statistics are obtained:</p>
+
+<ul>
+  <li>Grand mean (X̄̄) = 25.012 mm</li>
+  <li>Within-subgroup standard deviation (σ̂ = R̄/d₂) = 0.0110 mm</li>
+  <li>Overall standard deviation (s, calculated from all 50 individual readings) = 0.0148 mm</li>
+  <li>USL − LSL = 0.10 mm (tolerance width)</li>
+</ul>
+
+<p><strong>Step 1 — Calculate Cp and Pp (no centering):</strong></p>
+<p>Cp = (USL − LSL) / (6 × σ̂) = 0.10 / (6 × 0.0110) = 0.10 / 0.066 = <strong>1.52</strong></p>
+<p>Pp = (USL − LSL) / (6 × s) = 0.10 / (6 × 0.0148) = 0.10 / 0.0888 = <strong>1.13</strong></p>
+
+<p><strong>Step 2 — Calculate Cpk and Ppk (with centering):</strong></p>
+<p>CPU = (USL − X̄̄) / (3 × σ̂) = (25.05 − 25.012) / (3 × 0.0110) = 0.038 / 0.033 = 1.15</p>
+<p>CPL = (X̄̄ − LSL) / (3 × σ̂) = (25.012 − 24.95) / (3 × 0.0110) = 0.062 / 0.033 = 1.88</p>
+<p>Cpk = min(1.15, 1.88) = <strong>1.15</strong></p>
+<p>Ppk = min[(USL − X̄̄)/(3s), (X̄̄ − LSL)/(3s)] = min[0.038/0.0444, 0.062/0.0444] = min(0.856, 1.396) = <strong>0.856</strong></p>
+
+<p class="callout"><strong>Interpretation:</strong> Cp = 1.52 looks comfortable, but the mean is biased 0.012 mm above nominal — and the presence of between-subgroup variation inflates overall sigma considerably. Ppk = 0.856 reveals that this process is <em>not currently capable</em> from the customer's perspective, even though short-term potential appears acceptable. This gap between Cpk and Ppk is the diagnostic signal engineers must act on.</p>
+
+<p>Use the <a href="https://metricmech.com/articles/cpk-vs-ppk">MetricMech Cpk vs Ppk deep-dive article</a> to explore how to interpret this gap and plan corrective actions systematically.</p>
+
+<h2 id="formulas">Formulas and Variables</h2>
+
+<p>All four indices share the same tolerance-based structure. The only differences are the standard deviation term and which tail is evaluated.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Formula</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cp</strong></td>
+      <td>(USL − LSL) / (6σ̂)</td>
+      <td>σ̂ = R̄/d₂ (subgroup range method) or s̄/c₄</td>
+    </tr>
+    <tr>
+      <td><strong>Cpk</strong></td>
+      <td>min[(USL − X̄̄)/(3σ̂), (X̄̄ − LSL)/(3σ̂)]</td>
+      <td>Always ≤ Cp; equals Cp only when perfectly centered</td>
+    </tr>
+    <tr>
+      <td><strong>Pp</strong></td>
+      <td>(USL − LSL) / (6s)</td>
+      <td>s = √[Σ(xᵢ − x̄)² / (n−1)], all data pooled</td>
+    </tr>
+    <tr>
+      <td><strong>Ppk</strong></td>
+      <td>min[(USL − x̄)/(3s), (x̄ − LSL)/(3s)]</td>
+      <td>x̄ = grand mean of all individual measurements</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Variable Definitions</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>USL</td>
+      <td>Upper specification limit</td>
+    </tr>
+    <tr>
+      <td>LSL</td>
+      <td>Lower specification limit</td>
+    </tr>
+    <tr>
+      <td>X̄̄</td>
+      <td>Grand mean (average of subgroup averages)</td>
+    </tr>
+    <tr>
+      <td>x̄</td>
+      <td>Grand mean of all individual values (used in Pp/Ppk)</td>
+    </tr>
+    <tr>
+      <td>σ̂</td>
+      <td>Within-subgroup standard deviation estimate</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>Overall sample standard deviation</td>
+    </tr>
+    <tr>
+      <td>R̄</td>
+      <td>Average range of subgroups</td>
+    </tr>
+    <tr>
+      <td>d₂</td>
+      <td>Control chart constant (depends on subgroup size n)</td>
+    </tr>
+    <tr>
+      <td>c₄</td>
+      <td>Control chart constant (used with s-method)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For a complete reference of d₂, d₃, A₂, and related constants, see the <a href="https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained">Control Chart Constants A2 D3 D4 Table</a> on MetricMech. The AIAG SPC manual (4th edition) and <a href="https://www.iso.org/standard/73682.html" rel="nofollow noreferrer" target="_blank">ISO 22514-2</a> are the primary authoritative references for these formulas.</p>
+
+<h2 id="when-to-use">When to Use Each Index: Step-by-Step Method</h2>
+
+<p>Selecting the correct index is not optional — it determines whether your process passes or fails customer requirements. Follow this structured decision process every time you conduct a capability study.</p>
+
+<ol>
+  <li><strong>Define your data collection window.</strong> Gather enough data to capture at least one full cycle of common cause variation. AIAG recommends a minimum of 25 subgroups with n ≥ 4, or at least 100 individual measurements for Pp/Ppk studies.</li>
+  <li><strong>Determine whether rational subgrouping is possible.</strong> If you are measuring parts produced consecutively within short production windows, subgrouping is meaningful and Cp/Cpk applies. If all parts come from a single batch or a pre-production run, use Pp/Ppk only.</li>
+  <li><strong>Check for statistical control before reporting Cp/Cpk.</strong> Plot an X-bar and R (or X-bar and s) control chart. If the process is out of control — points beyond control limits, runs, trends — reporting Cpk is misleading. Report Ppk and investigate assignable causes first. See the <a href="https://metricmech.com/articles/spc-control-charts">SPC Control Charts guide</a> for full chart interpretation rules.</li>
+  <li><strong>Calculate both pairs simultaneously.</strong> Always compute Cp/Cpk and Pp/Ppk together. The ratio Cpk/Ppk, sometimes called the capability ratio, quantifies how much between-subgroup variation is stealing from process performance.</li>
+  <li><strong>Compare against applicable acceptance criteria.</strong> For PPAP submissions, the customer-specified requirement is nearly always Ppk ≥ 1.67 for new launches. For ongoing SPC monitoring, Cpk ≥ 1.33 is the conventional minimum. Refer to your control plan and customer-specific requirements (CSRs). AIAG's PPAP 4th Edition and <a href="https://asq.org/quality-resources/quality-glossary/p" rel="nofollow noreferrer" target="_blank">ASQ's quality glossary</a> both reinforce these thresholds.</li>
+  <li><strong>Document and report with index identification.</strong> Never present a single number labelled "capability" without specifying which index it is. A Ppk of 1.45 and a Cpk of 1.45 carry different implications, and auditors will call out ambiguity immediately.</li>
+  <li><strong>Transition from Ppk to Cpk as production matures.</strong> During PPAP and early production containment, Ppk governs acceptance. Once the process has accumulated sufficient production history and demonstrated statistical control, Cpk becomes the primary ongoing monitoring metric. This transition point should be agreed with the customer in advance.</li>
+</ol>
+
+<p>When the capability study is part of a First Article Inspection package, automating the ballooning and measurement reporting can save significant time. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=process-capability-cp-cpk-pp-ppk-difference" class="highlight" rel="nofollow noreferrer" target="_blank">CadNexa's auto-ballooning tool</a> links drawing callouts directly to inspection results, eliminating manual transcription errors that corrupt capability data at the source.</p>
+
+<p class="callout">For PPAP documentation context, the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist: 18 Elements guide</a> on MetricMech explains exactly where capability studies fit within the submission package and which elements the customer-approving engineer will scrutinise first.</p>
+
+<h2 id="mistakes">Common Mistakes to Avoid</h2>
+
+<h3>Mistake 1 — Reporting Cpk on an Unstable Process</h3>
+<p>Cpk is only valid when the process is in statistical control. Applying Cpk to a process with assignable causes present underestimates true variation because the within-subgroup sigma excludes between-subgroup instability. The result appears flattering but is statistically meaningless. Always verify control chart stability before publishing Cpk.</p>
+
+<h3>Mistake 2 — Treating Pp and Ppk as "Worse Cp and Cpk"</h3>
+<p>Pp and Ppk are not inferior versions of Cp and Cpk — they answer a different question. Pp/Ppk describe actual delivered quality. Cp/Cpk describe inherent process potential under stable conditions. Both are necessary; neither replaces the other.</p>
+
+<h3>Mistake 3 — Confusing the Grand Mean Calculation</h3>
+<p>For Cp/Cpk, the grand mean is the average of subgroup means. For Pp/Ppk, it is the mean of all individual data points. When subgroup sizes are unequal, these values can differ, and using the wrong mean produces incorrect Cpk or Ppk results. Software tools such as Minitab and JMP handle this automatically, but manual calculations frequently get this wrong.</p>
+
+<h3>Mistake 4 — Ignoring the Cpk–Ppk Gap</h3>
+<p>A large gap between Cpk and Ppk — typically more than 0.2 to 0.3 units — indicates that between-subgroup variation is dominant. Many quality teams celebrate a Cpk of 1.5 without investigating why Ppk is only 1.0. The gap is the actionable signal; it points directly to process instability, tooling wear, batch-to-batch material variation, or shift-to-shift differences.</p>
+
+<h3>Mistake 5 — Applying Capability Indices Without Adequate Sample Size</h3>
+<p>Capability estimates based on fewer than 100 total measurements carry wide confidence intervals. A process with 30 parts may appear capable when a 300-part study would tell a different story. The <a href="https://www.nist.gov/system/files/documents/2017/05/09/ams-1002.pdf" rel="nofollow noreferrer" target="_blank">NIST Engineering Statistics Handbook</a> recommends at least 100 observations for reliable Pp/Ppk estimates and addresses confidence interval calculation for capability indices in detail.</p>
+
+<h3>Mistake 6 — Neglecting Measurement System Adequacy</h3>
+<p>A gauge with poor repeatability and reproducibility inflates both σ̂ and s, depressing all four indices simultaneously. Before drawing conclusions from any capability study, confirm that the measurement system analysis (MSA) passes acceptance criteria — typically %GRR below 10% for critical characteristics. The <a href="https://metricmech.com/articles/measurement-system-analysis">MSA guide on MetricMech</a> covers all five measurement system studies in full.</p>
+
+<p class="warn-box"><strong>Warning:</strong> Submitting Ppk values derived from non-representative sampling — for example, cherry-picked "good" production windows — is one of the most common PPAP rejection reasons. Customers and auditors increasingly cross-check capability data against control charts and raw data logs. Ensure your data collection plan is documented and auditable before submission.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the key difference between Cp and Pp?</h3>
+<p>Cp uses the within-subgroup standard deviation (σ̂, estimated from R-bar or s-bar), representing short-term process potential under stable conditions. Pp uses the overall standard deviation calculated from all individual data points, representing long-term process performance including all sources of variation. The distinction is which sigma is in the denominator — everything else in the formula is identical.</p>
+
+<h3>When should you use Cpk instead of Ppk?</h3>
+<p>Use Cpk during ongoing production monitoring when the process is demonstrated to be in statistical control and rational subgrouping is feasible. Use Ppk for PPAP submissions, early production qualification, pilot runs, or any situation where you have a single batch of data without a stable subgrouping structure. AIAG's PPAP manual explicitly requires Ppk for initial capability submissions.</p>
+
+<h3>Can Ppk be higher than Cpk?</h3>
+<p>Rarely, but it is theoretically possible. If short-term within-subgroup variation is disproportionately high relative to overall variation — for example, due to very small subgroup sizes or atypical subgrouping — Ppk can momentarily exceed Cpk. In a well-managed, stable process, Cpk should be equal to or marginally higher than Ppk. A Ppk consistently higher than Cpk warrants a review of subgrouping strategy.</p>
+
+<h3>What does a large gap between Cpk and Ppk mean?</h3>
+<p>A gap greater than roughly 0.3 index units signals that between-subgroup variation — shift, drift, batch changes, environmental factors — is materially inflating the overall standard deviation. The process has the inherent precision to meet specifications (high Cpk) but does not sustain that performance over time (low Ppk). The corrective action focuses on identifying and eliminating the between-subgroup assignable causes, not on tightening the process itself.</p>
+
+<h3>What minimum values do AIAG and most customers require?</h3>
+<p>AIAG's PPAP 4th Edition and the majority of automotive OEM customer-specific requirements mandate Ppk ≥ 1.67 for new part initial submissions and Cpk ≥ 1.33 for ongoing production capability. Safety-critical, high-impact, or government-regulated characteristics frequently require both indices to reach 1.67 or above. Always confirm requirements against the specific customer's CSR and the control plan before reporting. For a detailed benchmark discussion, see the <a href="https://metricmech.com/articles/what-is-a-good-cpk-value">What Is a Good Cpk Value article</a> on MetricMech.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/cpk-vs-ppk">Cpk vs Ppk: Capability vs Performance</a></li>
+    <li><a href="/articles/cp-cpk-explained">Cp vs Cpk Explained: Process Capability Made Simple</a></li>
+    <li><a href="/articles/what-is-a-good-cpk-value">What Is a Good Cpk Value? 1.33, 1.67 &amp;amp; Benchmarks</a></li>
+    <li><a href="/articles/cpk-to-ppm">Cpk to PPM Conversion: Formula, Table &amp; Sigma</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260809a"></script>
+<script src="../assets/mm.js?v=20260809a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Process Capability Cp Cpk vs Pp Ppk: The Complete Difference Explained",
+      "item": "https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference"
+    }
+  ]
+}
+</script>
+</body>
+</html>
