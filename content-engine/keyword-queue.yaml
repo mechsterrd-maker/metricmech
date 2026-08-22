@@ -308,7 +308,17 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-08-22: LINT PASS (2136 words, 6 internal links)
+
+
+
+    Breadcrumb display text in the page header reads ''X-bar R Chart: How to Set Up
+    Step by Ste'' — truncated; correct to ''X-bar R Chart: How to Set Up Step by Step''.
+
+    TOC anchor hrefs use double-hash (e.g., ''##direct-answer'', ''##worked-example'')
+    throughout the aside; change each to a single hash (''#direct-answer'', ''#worked-example'',
+    ''#formulas'', ''#step-by-step'''
 - keyword: OEE availability performance quality calculation example
   cluster: SPC & Quality Statistics
   intent: informational
