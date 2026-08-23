@@ -511,8 +511,7 @@
       while (sec.firstChild) inner.appendChild(sec.firstChild);
       var h2 = inner.querySelector('h2');
       var title = 'Guide, formulas & theory';
-      var open = window.innerWidth >= 768;
-      var col = makeCollapse(title, inner, open);
+      var col = makeCollapse(title, inner, false); // minimal: closed until opened
       sec.appendChild(col);
     });
   }
@@ -544,15 +543,55 @@
     });
   }
 
+  /* Minimal redesign: reference tables and formula boxes fold away.
+     H3 sections that are DIRECT children of .calc-layout (e.g. "Quick
+     reference — …" + table) collapse closed; .input-card blocks whose
+     label starts with "Formula" collapse their body too. */
+  function initRefCollapse() {
+    var layout = document.querySelector('.calc-layout');
+    if (!layout) return;
+    var kids = Array.prototype.slice.call(layout.children);
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i].tagName !== 'H3') continue;
+      var h3 = kids[i];
+      var content = document.createElement('div');
+      var j = i + 1;
+      while (j < kids.length && kids[j].tagName !== 'H3' && !kids[j].hasAttribute('data-mw')) {
+        content.appendChild(kids[j]);
+        j++;
+      }
+      if (!content.childNodes.length) continue;
+      var col = makeCollapse(h3.textContent.trim(), content, false);
+      h3.parentNode.insertBefore(col, h3);
+      h3.remove();
+    }
+  }
+  function initFormulaCollapse() {
+    document.querySelectorAll('.calc-layout .input-card > label').forEach(function (lb) {
+      if (!/^\s*formula/i.test(lb.textContent)) return;
+      var card = lb.parentNode;
+      if (card.querySelector('.mm-collapse') || card.querySelector('input, select, textarea')) return;
+      var content = document.createElement('div');
+      var n = lb.nextSibling;
+      while (n) { var next = n.nextSibling; content.appendChild(n); n = next; }
+      var col = makeCollapse(lb.textContent.trim(), content, false);
+      lb.remove();
+      card.appendChild(col);
+      card.style.padding = '2px 15px';
+      card.style.borderLeft = '';
+    });
+  }
+
   function boot() {
     hookInterpret();
     initLiveRecalc();
     initHeadlineCopy();
     initSeoCollapse();
+    initRefCollapse();
+    initFormulaCollapse();
     initTableWrap();
     initInputModes();
     initInboxValidation();
-    mmThemeInit();
     ensureSticky();
   }
   // Hook interpret.js immediately (pages call calc() inline, before DOMContentLoaded).
@@ -666,7 +705,7 @@
         if (!E.length) return;
         var zmin = E[E.length - 1].z, zmax = E[0].z, zr = Math.max(zmax - zmin, 1e-6);
         cx2.lineCap = 'round';
-        var liveColor = document.documentElement.dataset.mmTheme === 'dark' ? '#00E5FF' : color;
+        var liveColor = color;
         for (var i = 0; i < E.length; i++) {
           var t = 1 - (E[i].z - zmin) / zr;
           cx2.globalAlpha = 0.14 + 0.86 * t;
@@ -712,35 +751,6 @@
     }
     return { mount: mount, prism: prism, ngon: ngon, rect: rectPts, sphere: sphere, cone: cone };
   })();
-
-  /* ══════════ STUDIO DARK MODE (opt-in, calculator pages only) ══════════ */
-  function mmThemeInit() {
-    if (!document.querySelector('.calc-layout')) return; // calculators only
-    var root = document.documentElement;
-    // Studio dark is the DEFAULT on calculator pages; light is the opt-out.
-    try {
-      if (localStorage.getItem('mm_theme') === 'light') delete root.dataset.mmTheme;
-      else root.dataset.mmTheme = 'dark';
-    } catch (e) { root.dataset.mmTheme = 'dark'; }
-    if (document.querySelector('.mm-theme-toggle')) return;
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'mm-theme-toggle';
-    btn.setAttribute('aria-label', 'Toggle studio dark mode');
-    btn.textContent = root.dataset.mmTheme === 'dark' ? '☀️' : '🌙';
-    btn.addEventListener('click', function () {
-      var dark = root.dataset.mmTheme !== 'dark';
-      if (dark) root.dataset.mmTheme = 'dark';
-      else delete root.dataset.mmTheme;
-      btn.textContent = dark ? '☀️' : '🌙';
-      try { localStorage.setItem('mm_theme', dark ? 'dark' : 'light'); } catch (e) {}
-      // let the page's own visuals redraw with the new palette: re-fire the
-      // first live-recalc control's handler (same path as live recalc)
-      var ctl = document.querySelector('.calc-layout input[onchange], .calc-layout select[onchange], .calc-layout input[oninput], .calc-layout select[oninput]');
-      try { if (ctl) (ctl.onchange || ctl.oninput).call(ctl); } catch (e) {}
-    });
-    document.body.appendChild(btn);
-  }
 
   /* exports */
   window.mmVerdict = mmVerdict;
