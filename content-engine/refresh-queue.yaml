@@ -132,3 +132,21 @@ pages:
   impressions: 103
   added: '2026-08-16'
   status: todo
+- url: https://metricmech.com/articles/press-fit-vs-shrink-fit
+  reason: striking-distance
+  position: 14.6
+  impressions: 116
+  added: '2026-08-23'
+  status: todo
+- url: https://metricmech.com/articles/hardness-conversion-chart
+  reason: striking-distance
+  position: 11.6
+  impressions: 72
+  added: '2026-08-23'
+  status: todo
+- url: https://metricmech.com/articles/cpk-vs-ppk
+  reason: low-ctr
+  position: 7.0
+  impressions: 61
+  added: '2026-08-23'
+  status: todo
