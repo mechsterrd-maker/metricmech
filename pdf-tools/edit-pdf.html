@@ -584,47 +584,75 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       var font = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
       var pages = doc.getPages();
       var total = 0;
-      Object.keys(annots).forEach(function (pn) {
-        var page = pages[pn - 1]; if (!page) return;
-        var H = page.getHeight();
+      // Coordinates are stored in VIEWPORT space (what the user saw, y-down,
+      // rotation applied). Convert to raw PDF user space via pdf.js's own
+      // transform so pages with /Rotate or offset boxes flatten correctly.
+      var pageNums = Object.keys(annots).filter(function (pn) { return annots[pn] && annots[pn].length; });
+      for (var k = 0; k < pageNums.length; k++) {
+        var pn = parseInt(pageNums[k], 10);
+        var page = pages[pn - 1]; if (!page) continue;
+        var vp1 = (await pdfDoc.getPage(pn)).getViewport({ scale: 1 });
+        var O = vp1.convertToPdfPoint(0, 0);
+        var PX = vp1.convertToPdfPoint(1, 0);
+        var PY = vp1.convertToPdfPoint(0, 1);
+        var ex = [PX[0] - O[0], PX[1] - O[1]], ey = [PY[0] - O[0], PY[1] - O[1]];
+        var thetaDeg = Math.round(Math.atan2(ex[1], ex[0]) * 180 / Math.PI);
+        var swapAxes = Math.abs(ex[0]) < 0.5; // 90/270: viewport x maps to user y
+        var cvt = function (px, py) {
+          return { x: O[0] + px * ex[0] + py * ey[0], y: O[1] + px * ex[1] + py * ey[1] };
+        };
+        var uLine = function (p1, p2, col, stroke) {
+          page.drawLine({ start: p1, end: p2, color: col, thickness: stroke, lineCap: PDFLib.LineCapStyle.Round });
+        };
         annots[pn].forEach(function (a) {
           total++;
           var c = COLORS[a.color] || COLORS['#DC2626'];
           var col = PDFLib.rgb(c[0], c[1], c[2]);
-          if (a.type === 'rect') page.drawRectangle({ x: a.x, y: H - a.y - a.h, width: a.w, height: a.h, borderColor: col, borderWidth: a.stroke });
-          else if (a.type === 'maskw' || a.type === 'maskb') page.drawRectangle({ x: a.x, y: H - a.y - a.h, width: a.w, height: a.h, color: a.type === 'maskw' ? PDFLib.rgb(1, 1, 1) : PDFLib.rgb(0.04, 0.04, 0.05) });
-          else if (a.type === 'highlight') page.drawRectangle({ x: a.x, y: H - a.y - a.h, width: a.w, height: a.h, color: col, opacity: 0.32 });
-          else if (a.type === 'ellipse') page.drawEllipse({ x: a.x + a.w / 2, y: H - a.y - a.h / 2, xScale: Math.abs(a.w / 2), yScale: Math.abs(a.h / 2), borderColor: col, borderWidth: a.stroke });
+          if (a.type === 'rect' || a.type === 'highlight' || a.type === 'maskw' || a.type === 'maskb') {
+            var c1 = cvt(a.x, a.y), c2 = cvt(a.x + a.w, a.y + a.h);
+            var rx = Math.min(c1.x, c2.x), ry = Math.min(c1.y, c2.y);
+            var rw = Math.abs(c2.x - c1.x), rh = Math.abs(c2.y - c1.y);
+            if (a.type === 'rect') page.drawRectangle({ x: rx, y: ry, width: rw, height: rh, borderColor: col, borderWidth: a.stroke });
+            else if (a.type === 'highlight') page.drawRectangle({ x: rx, y: ry, width: rw, height: rh, color: col, opacity: 0.32 });
+            else page.drawRectangle({ x: rx, y: ry, width: rw, height: rh, color: a.type === 'maskw' ? PDFLib.rgb(1, 1, 1) : PDFLib.rgb(0.04, 0.04, 0.05) });
+          }
+          else if (a.type === 'ellipse') {
+            var ctr = cvt(a.x + a.w / 2, a.y + a.h / 2);
+            page.drawEllipse({ x: ctr.x, y: ctr.y,
+              xScale: Math.abs(swapAxes ? a.h / 2 : a.w / 2),
+              yScale: Math.abs(swapAxes ? a.w / 2 : a.h / 2),
+              borderColor: col, borderWidth: a.stroke });
+          }
           else if (a.type === 'line' || a.type === 'arrow') {
-            page.drawLine({ start: { x: a.x1, y: H - a.y1 }, end: { x: a.x2, y: H - a.y2 }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
+            var p1 = cvt(a.x1, a.y1), p2 = cvt(a.x2, a.y2);
+            uLine(p1, p2, col, a.stroke);
             if (a.type === 'arrow') {
-              var ang = Math.atan2(a.y2 - a.y1, a.x2 - a.x1), hl = Math.max(8, a.stroke * 4);
+              var ang = Math.atan2(p2.y - p1.y, p2.x - p1.x), hl = Math.max(8, a.stroke * 4);
               [-0.45, 0.45].forEach(function (o) {
-                page.drawLine({ start: { x: a.x2, y: H - a.y2 },
-                  end: { x: a.x2 - hl * Math.cos(ang + o), y: H - (a.y2 - hl * Math.sin(ang + o)) },
-                  color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
+                uLine(p2, { x: p2.x - hl * Math.cos(ang + o), y: p2.y - hl * Math.sin(ang + o) }, col, a.stroke);
               });
             }
           }
           else if (a.type === 'pen') {
             for (var i = 1; i < a.pts.length; i++) {
-              page.drawLine({ start: { x: a.pts[i - 1][0], y: H - a.pts[i - 1][1] }, end: { x: a.pts[i][0], y: H - a.pts[i][1] }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
+              uLine(cvt(a.pts[i - 1][0], a.pts[i - 1][1]), cvt(a.pts[i][0], a.pts[i][1]), col, a.stroke);
             }
           }
           else if (a.type === 'text') {
             var t = a.text.replace(/[^\x20-\xFF]/g, '');
-            try { page.drawText(t, { x: a.x, y: H - a.y, size: a.font, font: font, color: col }); } catch (e2) {}
+            var pos = cvt(a.x, a.y);
+            try { page.drawText(t, { x: pos.x, y: pos.y, size: a.font, font: font, color: col, rotate: PDFLib.degrees(thetaDeg) }); } catch (e2) {}
           }
           else if (a.type === 'check') {
-            page.drawLine({ start: { x: a.x - a.m * 0.5, y: H - a.y }, end: { x: a.x - a.m * 0.1, y: H - (a.y + a.m * 0.4) }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
-            page.drawLine({ start: { x: a.x - a.m * 0.1, y: H - (a.y + a.m * 0.4) }, end: { x: a.x + a.m * 0.6, y: H - (a.y - a.m * 0.5) }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
+            uLine(cvt(a.x - a.m * 0.5, a.y), cvt(a.x - a.m * 0.1, a.y + a.m * 0.4), col, a.stroke);
+            uLine(cvt(a.x - a.m * 0.1, a.y + a.m * 0.4), cvt(a.x + a.m * 0.6, a.y - a.m * 0.5), col, a.stroke);
           }
           else if (a.type === 'cross') {
-            page.drawLine({ start: { x: a.x - a.m * 0.5, y: H - (a.y - a.m * 0.5) }, end: { x: a.x + a.m * 0.5, y: H - (a.y + a.m * 0.5) }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
-            page.drawLine({ start: { x: a.x + a.m * 0.5, y: H - (a.y - a.m * 0.5) }, end: { x: a.x - a.m * 0.5, y: H - (a.y + a.m * 0.5) }, color: col, thickness: a.stroke, lineCap: PDFLib.LineCapStyle.Round });
+            uLine(cvt(a.x - a.m * 0.5, a.y - a.m * 0.5), cvt(a.x + a.m * 0.5, a.y + a.m * 0.5), col, a.stroke);
+            uLine(cvt(a.x + a.m * 0.5, a.y - a.m * 0.5), cvt(a.x - a.m * 0.5, a.y + a.m * 0.5), col, a.stroke);
           }
         });
-      });
+      }
       var bytes = await doc.save();
       var outName = fileName.replace(/\.pdf$/i, '') + '-annotated.pdf';
       mmPdf.download(bytes, outName);
