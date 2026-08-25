@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OEE Availability Performance Quality Calculation | MetricMech</title>
+<meta name="description" content="OEE availability performance quality calculation example: real numbers, step-by-step formulas, benchmarks, and mistakes to avoid." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/oee-availability-performance-quality-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="OEE Availability Performance Quality Calculation | MetricMech">
+<meta property="og:description" content="OEE availability performance quality calculation example: real numbers, step-by-step formulas, benchmarks, and mistakes to avoid.">
+<meta property="og:url" content="https://metricmech.com/articles/oee-availability-performance-quality-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OEE Availability Performance Quality Calculation | MetricMech">
+<meta name="twitter:description" content="OEE availability performance quality calculation example: real numbers, step-by-step formulas, benchmarks, and mistakes to avoid.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "OEE Availability Performance Quality Calculation | MetricMech",
+  "description": "OEE availability performance quality calculation example: real numbers, step-by-step formulas, benchmarks, and mistakes to avoid.",
+  "url": "https://metricmech.com/articles/oee-availability-performance-quality-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "OEE Availability Performance Quality Calculation: Step-by-Step Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-25",
+  "mainEntityOfPage": "https://metricmech.com/articles/oee-availability-performance-quality-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the OEE formula for availability, performance, and quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OEE = Availability × Performance × Quality. Availability = Run Time ÷ Planned Production Time. Performance = (Ideal Cycle Time × Total Count) ÷ Run Time. Quality = Good Count ÷ Total Count. Multiply all three decimals and express the result as a percentage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is considered a world-class OEE score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A score of 85% or above is widely cited as world-class for discrete manufacturers. Availability at 90%, Performance at 95%, and Quality at 99.9% individually represent best-in-class targets. Most plants starting an OEE programme see scores between 40–60%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate OEE for a machine shop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Record Planned Production Time, subtract all unplanned and planned stops to get Run Time, then measure actual output against ideal cycle time for Performance, and count good parts versus total parts for Quality. Multiply the three factors. Use a consistent time base — minutes per shift is practical for machine shops."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between OEE and TEEP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OEE measures effectiveness against Planned Production Time only. TEEP (Total Effective Equipment Performance) measures effectiveness against all calendar time, including scheduled downtime and non-production periods. TEEP is always lower than or equal to OEE for the same equipment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can OEE be greater than 100%?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In theory, no — but it can exceed 100% if the ideal cycle time is set incorrectly (too slow) or if planned production time is underestimated. If your OEE calculation returns a value above 100%, audit your ideal cycle time and time-base inputs first."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "OEE Availability Performance Quality Calculation: Step-by-Step Example",
+      "item": "https://metricmech.com/articles/oee-availability-performance-quality-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>OEE Availability Performance Quality Cal</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is OEE and How Is It Calculated?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">OEE Formula and Variables Table</a>
+    <a href="#step-by-step">Step-by-Step OEE Calculation Method</a>
+    <a href="#world-class">World-Class OEE Benchmark Values</a>
+    <a href="#common-mistakes">Common Mistakes in OEE Calculation</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>OEE Availability Performance Quality Calculation: Step-by-Step Example</h1>
+    <div class="art-meta-bar">
+      <span>Production Engineering</span>
+      <span>August 25, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">OEE (Overall Equipment Effectiveness) is calculated by multiplying three factors: Availability, Performance, and Quality. Availability measures uptime against planned time, Performance compares actual throughput to ideal throughput, and Quality captures the proportion of good parts. The result is a single percentage that reveals how effectively a machine converts planned production time into good product.</p>
+
+<h2 id="direct-answer">What Is OEE and How Is It Calculated?</h2>
+
+<p>OEE was formalised within the Total Productive Maintenance (TPM) framework by Seiichi Nakajima in the 1980s and remains the most widely used single-number equipment metric in manufacturing. The SEMI E10 standard and AIAG's lean manufacturing guidelines both reference OEE or equivalent uptime metrics as a baseline for equipment benchmarking.</p>
+
+<p>The three factors map directly onto the Six Big Losses: Availability losses (breakdowns, changeovers), Performance losses (minor stops, reduced speed), and Quality losses (scrap, rework). Isolating each factor tells the engineer exactly where improvement effort will have the greatest leverage.</p>
+
+<p>The top-level formula is straightforward:</p>
+
+<p><strong>OEE = Availability (A) × Performance (P) × Quality (Q)</strong></p>
+
+<p>Each factor is a ratio between 0 and 1, so OEE is also expressed as a decimal before converting to a percentage. A score of 0.72, for example, means 72% of planned production time produced good parts at ideal speed — and 28% was lost somewhere across the three factors.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>The following example is drawn from a typical CNC turning cell in a machine shop running a single day shift. All time values are in minutes.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input Data</th>
+      <th>Value</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Shift length</td>
+      <td>480</td>
+      <td>min</td>
+    </tr>
+    <tr>
+      <td>Planned breaks</td>
+      <td>30</td>
+      <td>min</td>
+    </tr>
+    <tr>
+      <td>Planned Production Time (PPT)</td>
+      <td>450</td>
+      <td>min</td>
+    </tr>
+    <tr>
+      <td>Unplanned downtime (breakdown + changeover)</td>
+      <td>60</td>
+      <td>min</td>
+    </tr>
+    <tr>
+      <td>Run Time</td>
+      <td>390</td>
+      <td>min</td>
+    </tr>
+    <tr>
+      <td>Ideal Cycle Time</td>
+      <td>1.2</td>
+      <td>min/part</td>
+    </tr>
+    <tr>
+      <td>Total Parts Produced</td>
+      <td>295</td>
+      <td>pcs</td>
+    </tr>
+    <tr>
+      <td>Reject / Scrap Parts</td>
+      <td>12</td>
+      <td>pcs</td>
+    </tr>
+    <tr>
+      <td>Good Parts</td>
+      <td>283</td>
+      <td>pcs</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Step 1 — Availability:</strong><br>
+A = Run Time ÷ PPT = 390 ÷ 450 = <strong>0.867 (86.7%)</strong></p>
+
+<p><strong>Step 2 — Performance:</strong><br>
+P = (Ideal Cycle Time × Total Parts) ÷ Run Time = (1.2 × 295) ÷ 390 = 354 ÷ 390 = <strong>0.908 (90.8%)</strong></p>
+
+<p><strong>Step 3 — Quality:</strong><br>
+Q = Good Parts ÷ Total Parts = 283 ÷ 295 = <strong>0.959 (95.9%)</strong></p>
+
+<p><strong>OEE = 0.867 × 0.908 × 0.959 = 0.755 → 75.5%</strong></p>
+
+<p>This machine is running at 75.5% OEE. The dominant loss is Availability (13.3 percentage points lost), followed by Quality (4.1 points) and Performance (9.2 points). The engineer's first priority should be reducing the 60 minutes of unplanned downtime — likely through an FMEA-driven preventive maintenance review. See MetricMech's guide on <a href="https://metricmech.com/articles/fmea-action-priority">FMEA Action Priority (AP)</a> for a structured approach to ranking failure modes.</p>
+
+<p class="callout">Use the <strong>MetricMech OEE Calculator</strong> to verify your shift data and instantly break down losses by factor without manual spreadsheet risk.</p>
+
+<h2 id="formula-table">OEE Formula and Variables Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Factor</th>
+      <th>Formula</th>
+      <th>Numerator</th>
+      <th>Denominator</th>
+      <th>Loss Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Availability (A)</td>
+      <td>A = Run Time ÷ PPT</td>
+      <td>Planned Production Time minus all stops</td>
+      <td>Planned Production Time</td>
+      <td>Downtime losses (breakdowns, changeovers)</td>
+    </tr>
+    <tr>
+      <td>Performance (P)</td>
+      <td>P = (ICT × Total Count) ÷ Run Time</td>
+      <td>Ideal output × Ideal Cycle Time</td>
+      <td>Actual Run Time</td>
+      <td>Speed losses (minor stops, reduced speed)</td>
+    </tr>
+    <tr>
+      <td>Quality (Q)</td>
+      <td>Q = Good Count ÷ Total Count</td>
+      <td>Conforming parts produced</td>
+      <td>All parts attempted</td>
+      <td>Quality losses (scrap, rework, startup rejects)</td>
+    </tr>
+    <tr>
+      <td><strong>OEE</strong></td>
+      <td><strong>OEE = A × P × Q</strong></td>
+      <td>—</td>
+      <td>—</td>
+      <td>All Six Big Losses combined</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Variable definitions:</strong></p>
+<ul>
+  <li><strong>PPT (Planned Production Time):</strong> Shift length minus planned and scheduled stops (meals, planned maintenance).</li>
+  <li><strong>Run Time:</strong> PPT minus unplanned downtime and unplanned changeover time.</li>
+  <li><strong>ICT (Ideal Cycle Time):</strong> The theoretical fastest possible cycle time at full speed — set from engineering standards, not averages.</li>
+  <li><strong>Total Count:</strong> All parts that entered the process, including scrap and rework.</li>
+  <li><strong>Good Count:</strong> Parts meeting specification on the first pass, with no rework.</li>
+</ul>
+
+<p>Quality in OEE is always a <em>first-pass yield</em> metric. A reworked part that eventually ships as good must still be counted as a defect for OEE purposes, because the machine time spent on rework is already captured as a Quality loss. This distinction is critical and often confused in plant-level OEE implementations.</p>
+
+<h2 id="step-by-step">Step-by-Step OEE Calculation Method</h2>
+
+<ol>
+  <li><strong>Define the time boundary.</strong> Choose a consistent measurement period — one shift, one day, or one week. Shorter periods give more granular improvement data; weekly averages smooth out anomalies. Record the total scheduled shift length in minutes.</li>
+  <li><strong>Subtract planned stops to get Planned Production Time (PPT).</strong> Planned stops include meal breaks, scheduled team meetings, and planned preventive maintenance windows. Do not subtract unplanned downtime here — that belongs in Step 3.</li>
+  <li><strong>Record all unplanned stops and calculate Run Time.</strong> Capture every breakdown, tooling failure, material starvation, and unplanned changeover with start and end timestamps. Sum those minutes and subtract from PPT to get Run Time.</li>
+  <li><strong>Confirm your Ideal Cycle Time (ICT).</strong> ICT must reflect the engineered design rate, not the average achieved rate. If the machine is rated at 50 parts per hour, ICT = 60 ÷ 50 = 1.2 min/part. Using average cycle time here will inflate the Performance factor artificially.</li>
+  <li><strong>Calculate Availability.</strong> A = Run Time ÷ PPT. Express as a decimal.</li>
+  <li><strong>Calculate Performance.</strong> P = (ICT × Total Count) ÷ Run Time. If Performance exceeds 1.0, re-examine your ICT — it is likely set too conservatively.</li>
+  <li><strong>Count Good Parts and calculate Quality.</strong> Good parts are first-pass conforming parts only. Q = Good Count ÷ Total Count.</li>
+  <li><strong>Multiply the three factors.</strong> OEE = A × P × Q. Convert the decimal to a percentage for reporting.</li>
+  <li><strong>Identify the dominant loss and initiate action.</strong> Rank the three loss categories by their contribution to OEE reduction. Prioritise the largest loss first. Pair this with a structured method such as 8D — see MetricMech's <a href="https://metricmech.com/articles/8d-problem-solving">8D Problem Solving guide</a> for a disciplined corrective-action approach.</li>
+</ol>
+
+<p>For machine shops specifically, tracking OEE alongside cycle time analysis adds significant resolution to performance losses. The MetricMech <a href="https://metricmech.com/articles/cycle-time-calculation">Cycle Time Calculation guide</a> explains how to establish accurate cycle time baselines — a prerequisite for a reliable ICT input.</p>
+
+<h2 id="world-class">World-Class OEE Benchmark Values</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>OEE Factor</th>
+      <th>Typical Plant</th>
+      <th>Good Performance</th>
+      <th>World-Class Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Availability</td>
+      <td>~75%</td>
+      <td>85%</td>
+      <td>≥ 90%</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>~65%</td>
+      <td>85%</td>
+      <td>≥ 95%</td>
+    </tr>
+    <tr>
+      <td>Quality</td>
+      <td>~80%</td>
+      <td>95%</td>
+      <td>≥ 99.9%</td>
+    </tr>
+    <tr>
+      <td><strong>OEE (combined)</strong></td>
+      <td><strong>~40%</strong></td>
+      <td><strong>~65%</strong></td>
+      <td><strong>≥ 85%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The 85% world-class threshold is widely cited by SEMI, AIAG, and the <a href="https://www.asq.org/quality-resources/overall-equipment-effectiveness" target="_blank" rel="noopener">American Society for Quality (ASQ)</a> as a benchmark for discrete manufacturing. The <a href="https://www.ispe.org/" target="_blank" rel="noopener">International Society for Pharmaceutical Engineering (ISPE)</a> publishes sector-specific OEE guidance for process industries where targets may differ.</p>
+
+<p>It is important to contextualise these benchmarks. A job shop running high-mix, low-volume work will structurally suffer lower Availability due to frequent changeovers. Comparing its OEE directly against a high-volume automotive press line is misleading. The benchmark value is most useful as an internal year-over-year trend target rather than an external comparison point.</p>
+
+<p>Quality at world-class levels (≥99.9%) corresponds to approximately 1,000 PPM defect rate — far from Six Sigma territory. Plants pursuing Six Sigma quality targets alongside OEE improvement should cross-reference their Cpk values. The MetricMech article on <a href="https://metricmech.com/articles/what-is-a-good-cpk-value">what constitutes a good Cpk value</a> explains the statistical link between process capability and quality loss rates.</p>
+
+<p>Quality losses in OEE are closely tied to the Cost of Poor Quality (COPQ). Every reject part captured in the Quality factor carries scrap cost, rework labour, and potential warranty exposure. MetricMech's <a href="https://metricmech.com/articles/cost-of-poor-quality">Cost of Poor Quality (COPQ) guide</a> quantifies those downstream costs in a way that strengthens the business case for OEE improvement investment.</p>
+
+<h2 id="common-mistakes">Common Mistakes in OEE Calculation</h2>
+
+<p class="warn-box"><strong>Warning:</strong> These errors are the most frequent causes of inflated or misleading OEE scores seen in plant audits. Each one makes the machine look better than it actually performs.</p>
+
+<ul>
+  <li><strong>Using average cycle time as Ideal Cycle Time.</strong> Average cycle time already includes minor stops and speed reductions. Using it as ICT collapses the Performance factor to near 100% and hides speed losses entirely. Always use the engineered design rate or the best demonstrated rate under fully capable conditions.</li>
+  <li><strong>Excluding planned changeovers from downtime.</strong> Some teams argue that a planned changeover is not a "real" downtime event. For OEE, any time the machine is not producing parts during Planned Production Time is a loss. Changeover time belongs in Availability losses and should be reduced through SMED methodology.</li>
+  <li><strong>Counting reworked parts as good parts.</strong> A part that required a second operation — even if it ships to spec — was not produced right first time. Including rework as good output inflates the Quality factor and conceals the true cost of variation. Quality = first-pass yield, always.</li>
+  <li><strong>Inconsistent time base across shifts.</strong> Comparing OEE across shifts becomes meaningless if one shift supervisor records planned breaks as downtime and another excludes them from the time boundary. Standardise the data collection form and definitions before aggregating results.</li>
+  <li><strong>Reporting OEE without the component factors.</strong> A single OEE percentage tells management very little. Always report A, P, and Q separately so that the loss structure is visible and actionable. Tools such as Plantrun, Vorne, or Epicor MES report component factors as standard; manual spreadsheets frequently skip this step.</li>
+  <li><strong>Not validating inspection records against OEE quality data.</strong> When the Quality factor is derived from paper inspection records rather than a linked measurement system, rework and scrap are routinely under-reported. Where first-article or in-process inspection records drive quality decisions, automating the ballooning and data capture with a tool like <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=oee-availability-performance-quality-calculation" target="_blank" rel="noopener" class="highlight">CadNexa's auto-ballooning tool</a> reduces transcription errors and gives OEE quality inputs a reliable, audit-traceable source.</li>
+</ul>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the OEE formula for availability, performance, and quality?</h3>
+<p>OEE = Availability × Performance × Quality. Availability = Run Time ÷ Planned Production Time. Performance = (Ideal Cycle Time × Total Count) ÷ Run Time. Quality = Good Count ÷ Total Count. Multiply all three decimals and express the result as a percentage.</p>
+
+<h3>What is considered a world-class OEE score?</h3>
+<p>A score of 85% or above is widely cited as world-class for discrete manufacturers, as referenced by <a href="https://www.asq.org/quality-resources/overall-equipment-effectiveness" target="_blank" rel="noopener">ASQ</a> and industry TPM practitioners. Availability at 90%, Performance at 95%, and Quality at 99.9% individually represent best-in-class targets. Most plants starting an OEE programme see combined scores between 40% and 60%.</p>
+
+<h3>How do I calculate OEE for a machine shop?</h3>
+<p>Record Planned Production Time for the shift, subtract all unplanned stops to get Run Time, measure actual output against ideal cycle time for Performance, and count good parts versus total parts for Quality. Multiply the three factors. Use minutes per shift as the time base — it is the most practical unit for CNC and machining environments where cycle times are measured in minutes.</p>
+
+<h3>What is the difference between OEE and TEEP?</h3>
+<p>OEE measures effectiveness against Planned Production Time only. TEEP (Total Effective Equipment Performance) measures effectiveness against all calendar time, including scheduled downtime and non-production periods such as weekends. TEEP is always lower than or equal to OEE for the same equipment and period.</p>
+
+<h3>Can OEE be greater than 100%?</h3>
+<p>In practice it should not exceed 100%, but calculation errors can produce that result. The most common cause is an Ideal Cycle Time set from a historical average rather than the true design rate, making the Performance numerator larger than the denominator. If OEE exceeds 100%, audit the ICT input and the Planned Production Time boundary first before investigating data collection issues.</p>
+
+<div class="cta-box">
+  <p><strong>Ready to run your own numbers?</strong> The MetricMech OEE Calculator walks through each factor with input validation so you cannot accidentally set an Ideal Cycle Time that is slower than your actual rate — one of the most common errors in manual OEE spreadsheets. Enter your shift data and get a breakdown of Availability, Performance, and Quality losses in seconds.</p>
+  <p>For teams where quality loss data comes from in-process inspection records, consider pairing OEE tracking with <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=oee-availability-performance-quality-calculation" target="_blank" rel="noopener" class="highlight">CadNexa's auto-ballooning tool</a>, which converts drawing callouts into structured inspection data automatically — eliminating the transcription errors that silently inflate your Quality factor.</p>
+</div>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/oee-calculation">OEE Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/cycle-time-calculation">Cycle Time Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/takt-time-calculation">Takt Time Calculation: Formula and Example</a></li>
+    <li><a href="/articles/v-belt-length-calculation">V-Belt Length Calculation: Formula &amp; Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "OEE Availability Performance Quality Calculation: Step-by-Step Example",
+      "item": "https://metricmech.com/articles/oee-availability-performance-quality-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>

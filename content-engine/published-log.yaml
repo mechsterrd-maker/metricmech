@@ -346,3 +346,9 @@ posts:
   keyword: process capability Cp Cpk vs Pp Ppk difference
   cluster: SPC & Quality Statistics
   source: autopilot
+- url: https://metricmech.com/articles/oee-availability-performance-quality-calculation
+  date: '2026-08-25'
+  title: OEE Availability Performance Quality Calculation | MetricMech
+  keyword: OEE availability performance quality calculation example
+  cluster: SPC & Quality Statistics
+  source: autopilot

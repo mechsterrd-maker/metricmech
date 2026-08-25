@@ -332,7 +332,7 @@ queue:
   word_count: 1900
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: cutting speed feed rate formula turning milling
   cluster: Machining & Cutting Calculations
   intent: informational
