@@ -16,8 +16,8 @@
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Edit &amp; Annotate PDF Free — Private, In-Browser</title>
-<meta name="description" content="Mark up PDF drawings in your browser — text notes, arrows, boxes, highlights, check marks and freehand pen, flattened into the file. Nothing is uploaded.">
+<title>Edit PDF Text Free — Change Words In-Browser, Private</title>
+<meta name="description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,7 +46,10 @@
   background: var(--paper); margin-bottom: 12px; position: sticky; top: 64px; z-index: 30;
 }
 html[data-mm-theme="dark"] .ed-toolbar { background: #0d1430; }
-.ed-group { display: flex; gap: 4px; align-items: center; }
+/* The tool row is 13 buttons wide; without wrapping it pushes the whole page
+   sideways on a phone. The toolbar itself wraps, but a nowrap flex child will
+   not shrink below its content. */
+.ed-group { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; min-width: 0; }
 .ed-sep { width: 1px; height: 26px; background: var(--rule); }
 .ed-btn {
   min-width: 38px; height: 38px; padding: 0 8px; border-radius: 8px;
@@ -86,6 +89,30 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   border: 1px dashed var(--blueprint); background: rgba(255,255,255,0.92); color: #111;
   outline: none; padding: 2px 4px; min-width: 120px;
 }
+/* Direct text editing: the input sits exactly on top of the run it replaces,
+   in the run's own font and size, so typing reads as editing the document. */
+#textEntry.doc {
+  font-weight: inherit; padding: 0 1px; min-width: 24px; line-height: 1.05;
+  border: 0; outline: 2px solid var(--blueprint); outline-offset: 1px;
+  background: #fff; border-radius: 2px; transform-origin: 0 0;
+  box-shadow: 0 2px 10px rgba(15,23,42,0.18);
+}
+#overlay.picktext { cursor: text; }
+.ed-livebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px 12px; margin: -4px 0 10px; border: 1px solid var(--rule);
+  border-left: 3px solid var(--blueprint); border-radius: 10px;
+  background: var(--blueprint-tint); font-size: 12.5px; color: var(--ink-2); }
+.ed-livebar b { color: var(--ink); }
+.ed-livebar .ed-btn { min-width: 0; height: 30px; padding: 0 10px; font-size: 12.5px;
+  border-color: var(--rule-strong); background: var(--paper); }
+.ed-livebar .sp { margin-left: auto; font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--mute); }
+.ed-warn { margin: 18px 0 0; padding: 12px 16px; border-radius: 10px;
+  background: var(--amber-tint); border-left: 3px solid var(--amber);
+  font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+.ed-warn strong { color: var(--ink); }
+.ed-warn-link { font: inherit; font-weight: 600; color: var(--blueprint);
+  background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
 </style>
 <!-- SEO -->
 <link rel="canonical" href="https://metricmech.com/pdf-tools/edit-pdf">
@@ -94,8 +121,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Edit &amp; Annotate PDF Free — Private, In-Browser">
-<meta property="og:description" content="Mark up PDF drawings in your browser — text notes, arrows, boxes, highlights, check marks and freehand pen, flattened into the file. Nothing is uploaded.">
+<meta property="og:title" content="Edit PDF Text Free — Change Words In-Browser, Private">
+<meta property="og:description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <meta property="og:url" content="https://metricmech.com/pdf-tools/edit-pdf">
 <meta property="og:site_name" content="MetricMech">
 <meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
@@ -105,8 +132,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Edit &amp; Annotate PDF Free — Private, In-Browser">
-<meta name="twitter:description" content="Mark up PDF drawings in your browser — text notes, arrows, boxes, highlights, check marks and freehand pen, flattened into the file. Nothing is uploaded.">
+<meta name="twitter:title" content="Edit PDF Text Free — Change Words In-Browser, Private">
+<meta name="twitter:description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
 
 <!-- JSON-LD Schema -->
@@ -114,8 +141,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Edit & Annotate PDF Free — Private, In-Browser",
-  "description": "Mark up PDF drawings in your browser — text notes, arrows, boxes, highlights, check marks and freehand pen, flattened into the file. Nothing is uploaded.",
+  "name": "Edit PDF Text Free — Change Words In-Browser, Private",
+  "description": "Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.",
   "url": "https://metricmech.com/pdf-tools/edit-pdf",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",
@@ -147,7 +174,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 <div class="page-header">
   <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../pdf-tools.html">PDF Tools</a><span class="sep">/</span>Edit &amp; Annotate</div>
   <h1 class="page-title">Edit &amp; Annotate <em>PDF.</em></h1>
-  <p class="page-lede">Mark up drawings and documents right in your browser — text notes, arrows, boxes, highlights, inspection check marks and freehand pen. Download with the markup flattened in. Your file never leaves your device.</p>
+  <p class="page-lede">Click a word and retype it — the editor matches the font, size and colour it finds there and puts your wording in its place. Then mark up the rest: notes, arrows, boxes, highlights, inspection check marks and freehand pen. Your file never leaves your device.</p>
 </div>
 
 <div class="tool-layout">
@@ -158,7 +185,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       <div class="ed-toolbar" role="toolbar" aria-label="Annotation tools">
         <div class="ed-group" id="toolBtns">
           <button type="button" class="ed-btn" data-tool="select" data-mm-tip="Select / move"><svg viewBox="0 0 24 24"><path d="M6 3l12 9-5.2 1.2L15 19l-3 1.4-2.2-5.6L6 18z"/></svg></button>
-          <button type="button" class="ed-btn active" data-tool="text" data-mm-tip="Text note"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
+          <button type="button" class="ed-btn active" data-tool="edittext" data-mm-tip="Edit existing text"><svg viewBox="0 0 24 24"><path d="M4 6V4h10v2M9 4v10M7 14h4"/><path d="M14.5 20.5L21 14l2 2-6.5 6.5H14.5v-2z"/></svg></button>
+          <button type="button" class="ed-btn" data-tool="text" data-mm-tip="Add a text note"><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg></button>
           <button type="button" class="ed-btn" data-tool="rect" data-mm-tip="Box"><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="1"/></svg></button>
           <button type="button" class="ed-btn" data-tool="ellipse" data-mm-tip="Cloud / circle"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8" ry="5.5"/></svg></button>
           <button type="button" class="ed-btn" data-tool="arrow" data-mm-tip="Arrow"><svg viewBox="0 0 24 24"><path d="M4 20L20 4M20 4h-7M20 4v7"/></svg></button>
@@ -194,6 +222,12 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
       <div class="ed-hint" id="toolHint"></div>
 
+      <div class="ed-livebar" id="liveBar" style="display:none">
+        <span id="liveMsg"></span>
+        <button type="button" class="ed-btn" id="revertPageText" style="display:none">Restore original text on this page</button>
+        <span class="sp" id="liveCount"></span>
+      </div>
+
       <div class="ed-stage-outer">
         <div class="ed-stage" id="stage">
           <canvas id="pageCanvas"></canvas>
@@ -220,12 +254,22 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       </div>
     </div>
 
+    <div class="ed-warn" id="textWarn" style="display:none">
+      <strong>Heads up — you have replaced text on this document.</strong>
+      The new wording is drawn over the old, which is right for printing and for anyone reading the
+      file. But the words you replaced are <em>still inside the PDF's text layer</em>, so a
+      copy-paste or a Ctrl+F search can still turn them up. If the old wording is confidential — a
+      price, a name, a revision — use
+      <button type="button" class="ed-warn-link" id="warnImgBtn">Download as image PDF</button>
+      instead: the pages are rasterised, and the replaced text is genuinely gone.
+    </div>
+
     <div class="tool-actions">
-      <button type="button" class="mm-btn" id="saveBtn" disabled>Download annotated PDF</button>
+      <button type="button" class="mm-btn" id="saveBtn" disabled>Download edited PDF</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="saveImgBtn" disabled>Download as image PDF</button>
       <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Close file</button>
     </div>
-    <div class="ed-note"><strong>Masking tip:</strong> the standard download layers masks <em>over</em> the content — the text underneath technically remains inside the file. For true redaction use <strong>Download as image PDF</strong>: pages are rasterised with your masks baked in, so hidden details cannot be recovered (drawing becomes a scan-style image PDF).</div>
+    <div class="ed-note"><strong>Masking and replaced text:</strong> the standard download layers masks and new wording <em>over</em> the original content — which technically remains inside the file. For true redaction use <strong>Download as image PDF</strong>: pages are rasterised with your masks and edits baked in, so hidden details cannot be recovered (the drawing becomes a scan-style image PDF).</div>
     <div class="mm-pdf-status" id="status"></div>
     <div class="trust-line">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -239,8 +283,21 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
 <section class="seo-content" data-seo-block="1" style="max-width: var(--max-w-prose); margin: 56px auto; padding: 0 32px;">
 
-<h2>Annotate PDF Drawings Without Uploading Them</h2>
-<p>Reviewing a supplier drawing, redlining a procedure, or marking inspection results usually means either printing the PDF or uploading it to some online editor. Both are wrong for controlled documents. This editor loads the PDF <strong>in your browser</strong>, lets you draw the markup on top, and then flattens your annotations permanently into a new PDF — locally. The file never crosses the network, so NDA drawings and customer data stay where they belong.</p>
+<h2>Change the Words in a PDF Without Uploading It</h2>
+<p>Reviewing a supplier drawing, correcting a revision letter, or fixing a wrong material callout usually means either going back to the source file you do not have, or uploading the PDF to some online editor. Both are wrong for controlled documents. This editor loads the PDF <strong>in your browser</strong>, lets you click a line of text and retype it, and writes the result into a new PDF — locally. The file never crosses the network, so NDA drawings and customer data stay where they belong.</p>
+
+<h3>How editing text actually works</h3>
+<p>A PDF does not store paragraphs. It stores glyphs at coordinates, which is why PDFs are so stubborn to edit and why "just change one word" is not the trivial job it sounds like. What this editor does is read the position, angle, size and font of each line the document already contains, then <strong>replace that line in place</strong>: it patches out the old glyphs in the page's own background colour and re-draws your wording on the same baseline.</p>
+<p>Because it works from what is measurably on the page, it gets the details right without asking you:</p>
+<ul>
+  <li><strong>Font, weight and slant</strong> are read from the embedded font, so a bold heading stays bold and a serif paragraph stays serif.</li>
+  <li><strong>Colour</strong> is sampled from the page itself — white text on a dark blue banner comes back as white text on dark blue.</li>
+  <li><strong>Width</strong> is fitted. If your replacement is longer, it is condensed just enough to stop before the next column instead of running into it.</li>
+  <li><strong>Rotation</strong> is preserved, so text running up the side of a drawing stays running up the side.</li>
+</ul>
+<p>Two honest limits. First, the replacement is drawn in the closest standard font (Helvetica, Times or Courier) rather than the document's own embedded one — Arial and Calibri sit on Helvetica's metrics so the swap is usually invisible, but on an unusual typeface you will see it. Second, a whole line is replaced at a time, not a single character mid-word; splicing inside a run would need per-glyph positions that cannot be recovered exactly, and being a point out leaves a sliver of the old letter behind.</p>
+<p><strong>The words you replace are covered, not deleted.</strong> They remain in the file's text layer, so a copy-paste or a Ctrl+F search can still surface them. If the old wording is confidential, use <strong>Download as image PDF</strong> — the pages are rasterised with your edits baked in and the original text is genuinely gone.</p>
+<p>If the page is a scan or a pure vector drawing there is no text layer to edit, and the editor will say so. Mark those up with the note, box and pen tools instead.</p>
 
 <h3>Built for drawing reviews and inspection</h3>
 <ul>
@@ -252,14 +309,15 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
 <h3>How it works</h3>
 <ol>
-  <li>Drop a PDF above — the first page renders immediately.</li>
-  <li>Pick a tool: text, box, cloud, arrow, line, pen, highlighter, check or cross — plus a colour and size.</li>
-  <li>Draw directly on the page; use Undo or Clear page to fix mistakes; page arrows move through the document.</li>
-  <li>Click <strong>Download annotated PDF</strong> — your markup is flattened into the file, so it shows in every viewer and survives printing.</li>
+  <li>Drop a PDF above — the first page renders immediately, with every editable line underlined in blue.</li>
+  <li>To change existing wording, click it. The word you clicked is selected, so you can type straight over it, then press Enter. Clear the box instead and the line is deleted.</li>
+  <li>To add something new, pick a tool: text note, box, cloud, arrow, line, pen, highlighter, check or cross — plus a colour and size — and draw on the page.</li>
+  <li>Undo steps back through both kinds of change; Clear page resets one page; the page arrows move through the document.</li>
+  <li>Click <strong>Download edited PDF</strong> — your edits and markup are written into the file, so they show in every viewer and survive printing.</li>
 </ol>
 
 <h3>What this editor does not do</h3>
-<p>It does not rewrite existing PDF text — that is a re-authoring problem no browser tool does reliably, and pretending otherwise corrupts drawings. Markup is added <em>on top</em> of the original content, the same way a reviewer's red pen works. Text notes use the standard Helvetica character set (Latin letters, numbers, common symbols).</p>
+<p>It does not reflow text. Change a line and the lines below it stay where they are — a PDF has no paragraph model to push, and inventing one is how browser tools corrupt drawings. Think of it as correcting a printed page, not editing a Word document: excellent for revision letters, part numbers, dates, material callouts, names and result fields; wrong for rewriting a page of prose. Replacement text and notes use the standard Latin character set (letters, numbers, common symbols).</p>
 
 <h3>Related tools</h3>
 <p>To mark a whole document CONTROLLED COPY or OBSOLETE in one action, the <a href="stamp-pdf.html">Stamp &amp; Watermark tool</a> is faster. Assembling the marked-up drawing into a review pack? Use <a href="merge-pdf.html">Merge PDF</a>. And if the markup you need is dimension ballooning for an FAI, <a href="https://cadnexa.com/balloon?utm_source=metricmech&utm_medium=edit-pdf">CadNexa auto-balloons the drawing</a> instead of you clicking each dimension — then the <a href="../calculators/as9102-form3.html">AS9102 Form 3 builder</a> takes the numbers.</p>
@@ -278,8 +336,9 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   var SIZES = { s: { stroke: 1.5, font: 12, mark: 12 }, m: { stroke: 2.5, font: 16, mark: 16 }, l: { stroke: 4, font: 24, mark: 24 } };
 
   var TOOL_HINTS = {
+    edittext: '<b>Edit text</b> — click any word in the document, retype it, press Enter. Empty it to delete the line.',
     select: '<b>Select / move</b> — click an annotation, drag it into place, press Delete to remove it',
-    text: '<b>Text note</b> — click on the page, type, press Enter (move it later with Select)',
+    text: '<b>Add a text note</b> — click anywhere blank, type, press Enter (move it later with Select)',
     rect: '<b>Box</b> — drag to draw a rectangle around a feature',
     ellipse: '<b>Cloud</b> — drag to circle a dimension or note',
     arrow: '<b>Arrow</b> — drag from tail to head',
@@ -306,7 +365,11 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   var MAX_BITMAP_PX = 6000; // browsers refuse very large canvases; degrade to soft, never crash
   var pagePts = { w: 0, h: 0 };
   var annots = {};          // pageNum → [annotation]
-  var tool = 'text', color = '#DC2626', size = 'm';
+  var textRuns = {};        // pageNum → [run]   (the document's own text, from pdf.js)
+  var edits = {};           // pageNum → { runIndex: edit }
+  var history = {};         // pageNum → [action]  so Undo covers both kinds of change
+  var hoverRun = -1;
+  var tool = 'edittext', color = '#DC2626', size = 'm';
   var fileName = 'document.pdf';
 
   var stage = document.getElementById('stage');
@@ -332,6 +395,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         })
         .then(function (doc) {
           pdfDoc = doc; pageCount = doc.numPages; cur = 1; annots = {}; zoom = 1;
+          textRuns = {}; edits = {}; history = {}; hoverRun = -1;
+          overlay.classList.toggle('picktext', tool === 'edittext');
           document.getElementById('editorWrap').style.display = 'block';
           document.getElementById('dropMount').style.display = 'none';
           saveBtn.disabled = false;
@@ -351,6 +416,11 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (renderTask) { try { renderTask.cancel(); } catch (e) {} renderTask = null; }
     srcBuf = null; pdfDoc = null; annots = {}; saveBtn.disabled = true;
     document.getElementById('saveImgBtn').disabled = true;
+    textRuns = {}; edits = {}; history = {}; hoverRun = -1;
+    LIVE.run = -1;
+    textEntry.style.display = 'none'; textEntry.classList.remove('doc');
+    document.getElementById('liveBar').style.display = 'none';
+    document.getElementById('textWarn').style.display = 'none';
     selectedIdx = -1;
     document.getElementById('editorWrap').style.display = 'none';
     document.getElementById('dropMount').style.display = '';
@@ -379,6 +449,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     overlay.style.width = w + 'px'; overlay.style.height = h + 'px';
     var pct = document.getElementById('zoomPct');
     if (pct) pct.textContent = Math.round(scale * 100) + '%';
+    placeRunEditor();   // the inline text box is sized in CSS px — follow the zoom
   }
 
   function renderPage() {
@@ -410,7 +481,9 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       // close-then-reopen) — pdf.js forbids two renders on one canvas
       if (renderTask) { try { renderTask.cancel(); } catch (e) {} }
       renderTask = page.render({ canvasContext: cx, viewport: vp });
-      return renderTask.promise.then(function () { renderTask = null; drawOverlay(); })
+      // The run list needs the rendered page: font weights and the background
+      // colours we sample both come from what pdf.js actually drew.
+      return renderTask.promise.then(function () { renderTask = null; drawOverlay(); ensureRunsForPage(); })
         .catch(function (e) {
           if (e && e.name === 'RenderingCancelledException') return;
           throw e;
@@ -487,6 +560,9 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     var k = pagePts.w ? overlay.width / pagePts.w : dpr * scale;
     octx.setTransform(k, 0, 0, k, 0, 0); // draw in PDF-pt coords (y down from top)
     octx.clearRect(0, 0, pagePts.w, pagePts.h);
+    // Replaced text sits under the markup: it is part of the document now.
+    drawEditsOn(octx, cur, LIVE.run >= 0 ? { idx: LIVE.run, str: textEntry.value } : null);
+    drawRunAffordance(octx, cur);
     pageAnnots().concat(tempA ? [tempA] : []).forEach(function (a) { drawAnnot(octx, a); });
     if (selectedIdx >= 0 && pageAnnots()[selectedIdx]) {
       var b = bboxOf(pageAnnots()[selectedIdx]);
@@ -512,7 +588,11 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     b.classList.add('active'); tool = b.dataset.tool;
     selectedIdx = -1;
     commitText();
+    if (LIVE.run >= 0) commitRunEdit();
+    hoverRun = -1;
+    overlay.classList.toggle('picktext', tool === 'edittext');
     showHint();
+    ensureRunsForPage();
     drawOverlay();
   });
   document.getElementById('colorBtns').addEventListener('click', function (e) {
@@ -521,10 +601,29 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     b.classList.add('active'); color = b.dataset.color;
   });
   document.getElementById('sizeSel').addEventListener('change', function () { size = this.value; });
-  document.getElementById('undoBtn').addEventListener('click', function () { pageAnnots().pop(); selectedIdx = -1; drawOverlay(); });
-  document.getElementById('clearPageBtn').addEventListener('click', function () { annots[cur] = []; selectedIdx = -1; drawOverlay(); });
-  document.getElementById('prevPage').addEventListener('click', function () { if (cur > 1) { commitText(); selectedIdx = -1; cur--; renderPage(); } });
-  document.getElementById('nextPage').addEventListener('click', function () { if (cur < pageCount) { commitText(); selectedIdx = -1; cur++; renderPage(); } });
+  // Undo walks one history of both kinds of change, so it does not skip past
+  // a text replacement to pop an annotation made before it.
+  document.getElementById('undoBtn').addEventListener('click', function () {
+    if (LIVE.run >= 0) { cancelRunEdit(); return; }
+    var h = history[cur] || [], a = h.pop();
+    if (a && a.kind === 'edit') {
+      if (a.prev) pageEdits()[a.idx] = a.prev; else delete pageEdits()[a.idx];
+    } else {
+      pageAnnots().pop();
+    }
+    selectedIdx = -1; drawOverlay(); updateLiveBar();
+  });
+  document.getElementById('clearPageBtn').addEventListener('click', function () {
+    cancelRunEdit();
+    annots[cur] = []; edits[cur] = {}; history[cur] = [];
+    selectedIdx = -1; drawOverlay(); updateLiveBar();
+  });
+  function gotoPage(n) {
+    commitText(); if (LIVE.run >= 0) commitRunEdit();
+    selectedIdx = -1; hoverRun = -1; cur = n; renderPage();
+  }
+  document.getElementById('prevPage').addEventListener('click', function () { if (cur > 1) gotoPage(cur - 1); });
+  document.getElementById('nextPage').addEventListener('click', function () { if (cur < pageCount) gotoPage(cur + 1); });
 
   /* ── pointer input (coords stored in PDF points, y from top) ── */
   function evPt(e) {
@@ -537,6 +636,13 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (e.button !== 0 || spaceDown) return;  // middle/right and space-drag belong to panning
     e.preventDefault();
     var p = evPt(e), st = SIZES[size];
+    if (tool === 'edittext') {
+      commitText();
+      if (LIVE.run >= 0) commitRunEdit();
+      var ri = runAt(p);
+      if (ri >= 0) openRunEditor(ri, p);
+      return;
+    }
     if (tool === 'select') {
       commitText();
       var hit = hitTest(p);
@@ -551,6 +657,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     try { overlay.setPointerCapture(e.pointerId); } catch (e2) {}
     if (tool === 'check' || tool === 'cross') {
       pageAnnots().push({ type: tool, x: p[0], y: p[1], m: st.mark, color: color, stroke: st.stroke });
+      pushHistory({ kind: 'annot' });
       drawOverlay();
       return;
     }
@@ -584,7 +691,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     var degenerate = (d.type === 'pen' && d.pts.length < 2) ||
       ((d.type === 'rect' || d.type === 'ellipse' || d.type === 'highlight' || d.type === 'maskw' || d.type === 'maskb') && (d.w < 2 && d.h < 2)) ||
       ((d.type === 'line' || d.type === 'arrow') && Math.hypot(d.x2 - d.x1, d.y2 - d.y1) < 2);
-    if (!degenerate) pageAnnots().push(d);
+    if (!degenerate) { pageAnnots().push(d); pushHistory({ kind: 'annot' }); }
     drawOverlay();
   });
 
@@ -604,6 +711,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     commitText();
     var st = SIZES[size];
     pendingText = { x: p[0], y: p[1], font: st.font, color: color };
+    textEntry.maxLength = 120;   // the run editor raises this; put it back
     var r = overlay.getBoundingClientRect(), sr = stage.getBoundingClientRect();
     textEntry.style.left = (e.clientX - sr.left) + 'px';
     textEntry.style.top = (e.clientY - sr.top - st.font * scale) + 'px';
@@ -616,28 +724,527 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   function commitText() {
     if (!pendingText) return;
     var t = textEntry.value.replace(/[^\x20-\xFF]/g, '').trim(); // WinAnsi-safe
-    if (t) pageAnnots().push({ type: 'text', text: t, x: pendingText.x, y: pendingText.y, font: pendingText.font, color: pendingText.color });
+    if (t) {
+      pageAnnots().push({ type: 'text', text: t, x: pendingText.x, y: pendingText.y, font: pendingText.font, color: pendingText.color });
+      pushHistory({ kind: 'annot' });
+    }
     pendingText = null;
     textEntry.style.display = 'none';
     drawOverlay();
   }
   textEntry.addEventListener('keydown', function (e) {
+    if (LIVE.run >= 0) {
+      if (e.key === 'Enter') { e.preventDefault(); commitRunEdit(); }
+      else if (e.key === 'Escape') { e.preventDefault(); cancelRunEdit(); }
+      e.stopPropagation();          // keep Ctrl+/− zoom and Delete off the text
+      return;
+    }
     if (e.key === 'Enter') commitText();
     if (e.key === 'Escape') { pendingText = null; textEntry.style.display = 'none'; }
   });
-  textEntry.addEventListener('blur', commitText);
+  // Live preview: the page under the box reflows as you type, so overflow into
+  // the neighbouring column is visible before you commit.
+  textEntry.addEventListener('input', function () { if (LIVE.run >= 0) drawOverlay(); });
+  textEntry.addEventListener('blur', function () {
+    if (LIVE.run >= 0) commitRunEdit(); else commitText();
+  });
+
+  /* ══ direct text editing ════════════════════════════════════════════════
+     A PDF has no notion of an editable paragraph — it has glyphs placed at
+     coordinates. pdf.js hands back each laid-out run (usually one whole line)
+     with its baseline, angle, advance width and font. So "editing a word"
+     means: cover that run in the page's own background colour, then re-draw
+     the whole run with the new wording, matched for font, size, colour and
+     width.
+
+     The run is replaced whole rather than character-by-character. Splicing
+     mid-run would need per-glyph positions we cannot get exactly, and being
+     a point or two out leaves a sliver of the old letter behind — a defect
+     you would not notice until the file was already sent.               */
+
+  var LIVE = { run: -1, orig: '', bg: '#ffffff', fg: '#111111' };
+
+  // Standard-14 substitutes. Real embedded fonts cannot be re-used for new
+  // glyphs without shipping a font subsetter, but Arial/Calibri sit on
+  // Helvetica metrics and Times New Roman on Times, so the swap is close.
+  var FONT_FOR = {
+    'sans-serif': ['Helvetica', 'HelveticaBold', 'HelveticaOblique', 'HelveticaBoldOblique'],
+    'serif': ['TimesRoman', 'TimesRomanBold', 'TimesRomanItalic', 'TimesRomanBoldItalic'],
+    'monospace': ['Courier', 'CourierBold', 'CourierOblique', 'CourierBoldOblique']
+  };
+  var CSS_FOR = { 'sans-serif': 'Helvetica, Arial, sans-serif', 'serif': 'Times, "Times New Roman", serif', 'monospace': '"Courier New", Courier, monospace' };
+
+  var metricsDoc = null, metricFonts = {};
+  function metricFont(key) {
+    if (metricFonts[key]) return Promise.resolve(metricFonts[key]);
+    var chain = metricsDoc ? Promise.resolve(metricsDoc) : PDFLib.PDFDocument.create().then(function (d) { metricsDoc = d; return d; });
+    return chain.then(function (d) { return d.embedFont(PDFLib.StandardFonts[key]); })
+      .then(function (f) { metricFonts[key] = f; return f; });
+  }
+  function fontKey(fam, bold, italic) { return FONT_FOR[fam][(bold ? 1 : 0) + (italic ? 2 : 0)]; }
+
+  /* Build the editable-run list for a page. Needs the page rendered first —
+     the real font name and its bold/italic flags only exist once pdf.js has
+     resolved the font into commonObjs. */
+  function buildTextRuns(pn) {
+    if (textRuns[pn]) return Promise.resolve(textRuns[pn]);
+    return pdfDoc.getPage(pn).then(function (page) {
+      var vp1 = page.getViewport({ scale: 1 });
+      return page.getTextContent().then(function (tc) {
+        var runs = [];
+        tc.items.forEach(function (it) {
+          if (!it.str || !it.str.trim()) return;      // spacers and line breaks
+          var t = it.transform;
+          var sz = Math.hypot(t[0], t[1]);
+          if (!(sz > 1) || !(it.width > 0.5)) return; // invisible / degenerate
+          var rot = Math.atan2(t[1], t[0]);
+          var cs = Math.cos(rot), sn = Math.sin(rot);
+
+          var fam = 'sans-serif', bold = false, italic = false, real = '';
+          var st = tc.styles && tc.styles[it.fontName];
+          try {
+            var f = page.commonObjs.get(it.fontName);
+            if (f) {
+              real = f.name || '';
+              fam = FONT_FOR[f.fallbackName] ? f.fallbackName : 'sans-serif';
+              bold = !!(f.bold || f.black);
+              italic = !!f.italic;
+            }
+          } catch (e) { if (st && FONT_FOR[st.fontFamily]) fam = st.fontFamily; }
+          // Subset names such as "ABCDEF+Arial-BoldMT" still carry the weight.
+          if (/bold|black|heavy|semib|demib/i.test(real)) bold = true;
+          if (/italic|oblique/i.test(real)) italic = true;
+
+          var asc = (st && st.ascent ? st.ascent : 0.72) * sz;
+          var desc = Math.abs(st && st.descent ? st.descent : 0.21) * sz;
+
+          // Corners of the run box in PDF space → viewport space, where every
+          // other annotation in this editor also lives.
+          var pts = [[0, -desc], [it.width, -desc], [it.width, asc], [0, asc]].map(function (p) {
+            return vp1.convertToViewportPoint(t[4] + p[0] * cs - p[1] * sn, t[5] + p[0] * sn + p[1] * cs);
+          });
+          var xs = pts.map(function (p) { return p[0]; }), ys = pts.map(function (p) { return p[1]; });
+          var o = vp1.convertToViewportPoint(t[4], t[5]);
+          var m = pdfjsLib.Util.transform(vp1.transform, t);
+
+          runs.push({
+            str: it.str, size: sz, w: it.width, asc: asc, desc: desc,
+            rotDeg: rot * 180 / Math.PI,       // in PDF space, for pdf-lib
+            vrot: Math.atan2(m[1], m[0]),      // in viewport space, for canvas/CSS
+            vx: o[0], vy: o[1],                // baseline origin, viewport space
+            ox: t[4], oy: t[5],                // baseline origin, PDF user space
+            box: { x: Math.min.apply(null, xs), y: Math.min.apply(null, ys),
+                   w: Math.max.apply(null, xs) - Math.min.apply(null, xs),
+                   h: Math.max.apply(null, ys) - Math.min.apply(null, ys) },
+            fam: fam, bold: bold, italic: italic, real: real, room: 0
+          });
+        });
+
+        // How far can each run grow before it hits the next one on its line?
+        // Without this a longer replacement silently overprints its neighbour.
+        // Everything is measured along the run's own baseline, so text running
+        // up the side of a drawing is handled the same as a normal line.
+        // Bucketed by (angle, perpendicular offset of the baseline) so a dense
+        // drawing does not turn this into an n-squared scan over 1000s of runs.
+        var M = 12;                              // keep-out margin at the page edge
+        runs.forEach(function (r) {
+          r._cs = Math.cos(r.vrot); r._sn = Math.sin(r.vrot);
+          r._perp = -r.vx * r._sn + r.vy * r._cs;
+        });
+        var lines = {};
+        runs.forEach(function (r, i) {
+          var key = Math.round(r.vrot * 50) + ':' + Math.round(r._perp / 3);
+          (lines[key] = lines[key] || []).push(i);
+        });
+        runs.forEach(function (r) {
+          // How far can it run before it leaves the page, along its own direction?
+          var limit = Infinity;
+          if (r._cs > 1e-6) limit = Math.min(limit, (pagePts.w - M - r.vx) / r._cs);
+          if (r._cs < -1e-6) limit = Math.min(limit, (M - r.vx) / r._cs);
+          if (r._sn > 1e-6) limit = Math.min(limit, (pagePts.h - M - r.vy) / r._sn);
+          if (r._sn < -1e-6) limit = Math.min(limit, (M - r.vy) / r._sn);
+
+          var ang = Math.round(r.vrot * 50), base = Math.round(r._perp / 3);
+          for (var k = base - 2; k <= base + 2; k++) {
+            (lines[ang + ':' + k] || []).forEach(function (j) {
+              var o2 = runs[j];
+              if (o2 === r) return;
+              if (Math.abs(o2._perp - r._perp) > r.size * 0.4) return;   // different line
+              var d = (o2.vx - r.vx) * r._cs + (o2.vy - r.vy) * r._sn;   // gap along the baseline
+              if (d > r.w * 0.5 && d < limit) limit = d;
+            });
+          }
+          r.room = Math.max(r.w, (isFinite(limit) ? limit : r.w) - 2);
+          delete r._cs; delete r._sn; delete r._perp;
+        });
+
+        textRuns[pn] = runs;
+        return runs;
+      });
+    }).catch(function () { textRuns[pn] = []; return []; });
+  }
+
+  function pageEdits() { if (!edits[cur]) edits[cur] = {}; return edits[cur]; }
+  function editCount() { var n = 0; Object.keys(edits).forEach(function (p) { n += Object.keys(edits[p]).length; }); return n; }
+
+  /* Sample the rendered page for the run's background and ink colours, so a
+     replacement on a dark banner or a tinted table cell still disappears into
+     it instead of landing on a white patch. */
+  function sampleColors(r) {
+    var out = { bg: '#ffffff', fg: '#111111' };
+    try {
+      var k = overlay.width / pagePts.w;                 // viewport pt → bitmap px
+      var cx = pageCv.getContext('2d', { willReadFrequently: true });
+      var cs = Math.cos(r.vrot), sn = Math.sin(r.vrot);
+      var at = function (lx, ly) {                       // run-local → bitmap px
+        var x = Math.round((r.vx + lx * cs - ly * sn) * k);
+        var y = Math.round((r.vy + lx * sn + ly * cs) * k);
+        if (x < 0 || y < 0 || x >= pageCv.width || y >= pageCv.height) return null;
+        var d = cx.getImageData(x, y, 1, 1).data;
+        return [d[0], d[1], d[2]];
+      };
+      // Background: a ring just outside the run box, most common colour wins.
+      var ring = [], i;
+      var above = -r.asc - r.size * 0.22, below = r.desc + r.size * 0.22;
+      for (i = 0; i <= 10; i++) {
+        var lx = (i / 10) * r.w;
+        ring.push(at(lx, above)); ring.push(at(lx, below));
+      }
+      ring.push(at(-r.size * 0.35, 0)); ring.push(at(r.w + r.size * 0.35, 0));
+      var tally = {}, best = null, bestN = 0;
+      ring.forEach(function (p) {
+        if (!p) return;
+        var key = (p[0] >> 4) + ',' + (p[1] >> 4) + ',' + (p[2] >> 4);
+        (tally[key] = tally[key] || { n: 0, sum: [0, 0, 0] });
+        tally[key].n++;
+        for (var c = 0; c < 3; c++) tally[key].sum[c] += p[c];
+      });
+      Object.keys(tally).forEach(function (key) {
+        if (tally[key].n > bestN) { bestN = tally[key].n; best = tally[key]; }
+      });
+      if (best) out.bg = rgbHex(best.sum.map(function (s) { return Math.round(s / best.n); }));
+      // Ink: inside the box, the pixel furthest from that background.
+      var bgv = hexRgb(out.bg), far = null, farD = -1;
+      for (i = 0; i <= 24; i++) {
+        for (var j = 0; j <= 3; j++) {
+          var p2 = at((i / 24) * r.w, -r.asc * 0.72 + (j / 3) * (r.asc * 0.72));
+          if (!p2) continue;
+          var d2 = Math.abs(p2[0] - bgv[0]) + Math.abs(p2[1] - bgv[1]) + Math.abs(p2[2] - bgv[2]);
+          if (d2 > farD) { farD = d2; far = p2; }
+        }
+      }
+      if (far && farD > 40) out.fg = rgbHex(far);
+      else out.fg = (bgv[0] + bgv[1] + bgv[2] > 384) ? '#111111' : '#ffffff';
+    } catch (e) { /* tainted or zero-size canvas — the defaults are sane */ }
+    return out;
+  }
+  function rgbHex(a) { return '#' + a.map(function (v) { return ('0' + Math.max(0, Math.min(255, v)).toString(16)).slice(-2); }).join(''); }
+  function hexRgb(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+
+  /* Choose the drawn size and horizontal squeeze so the new wording ends
+     where it must. Squeezing to 88% is invisible; shrinking the type is not,
+     so squeeze first and only drop the size when there is no room left. */
+  function fitText(r, str) {
+    var key = fontKey(r.fam, r.bold, r.italic);
+    var f = metricFonts[key];
+    var natural;
+    try { natural = f ? f.widthOfTextAtSize(str, r.size) : measureCanvas(r, str, r.size); }
+    catch (e) { natural = measureCanvas(r, str, r.size); }
+    if (!(natural > 0)) return { size: r.size, squish: 1, width: 0, key: key };
+    var fit = r.room / natural;
+    var sz = r.size, sq = 1;
+    if (fit < 1) {
+      if (fit >= 0.6) sq = fit;
+      else { sq = 0.6; sz = r.size * fit / 0.6; }
+    }
+    return { size: sz, squish: sq, width: natural * (sz / r.size) * sq, key: key };
+  }
+  function cssFont(r, px) {
+    return (r.italic ? 'italic ' : '') + (r.bold ? '700 ' : '400 ') + px + 'px ' + CSS_FOR[r.fam];
+  }
+  function measureCanvas(r, str, sz) {
+    octx.save(); octx.setTransform(1, 0, 0, 1, 0, 0);
+    octx.font = cssFont(r, sz); var w = octx.measureText(str).width; octx.restore();
+    return w;
+  }
+
+  /* Paint the committed edits (and the run being typed) onto a context that is
+     already in viewport-point coordinates. Shared by the on-screen overlay and
+     the rasterised image export. */
+  function drawEditsOn(ctx, pn, live) {
+    var runs = textRuns[pn]; if (!runs) return;
+    var ed = edits[pn] || {};
+    var idxs = Object.keys(ed);
+    // The run being typed right now may not be a committed edit yet.
+    if (live && idxs.indexOf(String(live.idx)) < 0) idxs.push(String(live.idx));
+    idxs.forEach(function (idx) {
+      var r = runs[idx]; if (!r) return;
+      var e = ed[idx] || { bg: LIVE.bg, fg: LIVE.fg, width: 0 };
+      var str = (live && live.idx === +idx) ? live.str : e.str;
+      ctx.save();
+      ctx.translate(r.vx, r.vy);
+      ctx.rotate(r.vrot);
+      var padX = r.size * 0.08, padY = r.size * 0.06;
+      ctx.fillStyle = e.bg;
+      ctx.fillRect(-padX, -r.asc - padY, Math.max(r.w, e.width || 0) + padX * 2, r.asc + r.desc + padY * 2);
+      if (str) {
+        var fit = fitText(r, str);
+        var drawn = measureCanvas(r, str, fit.size);
+        // Match the output width exactly, so what is on screen is where the
+        // glyphs will actually land — the browser's Helvetica is not Adobe's.
+        var sx = drawn > 0 && fit.width > 0 ? fit.width / drawn : 1;
+        ctx.fillStyle = e.fg;
+        ctx.font = cssFont(r, fit.size);
+        ctx.textBaseline = 'alphabetic';
+        ctx.scale(sx, 1);
+        ctx.fillText(str, 0, 0);
+      }
+      ctx.restore();
+    });
+  }
+
+  function drawRunAffordance(ctx, pn) {
+    var runs = textRuns[pn]; if (!runs || tool !== 'edittext') return;
+    var ed = edits[pn] || {};
+    runs.forEach(function (r, i) {
+      var done = ed[i] !== undefined;
+      var hot = i === hoverRun;
+      // Changed lines get a teal rule instead of a blue one: you can see at a
+      // glance what you have already touched, and they stay clickable.
+      var hue = done ? '13,148,136' : '37,84,186';
+      var wide = Math.max(r.w, done ? (ed[i].width || 0) : 0);
+      ctx.save();
+      ctx.translate(r.vx, r.vy); ctx.rotate(r.vrot);
+      if (!done || hot) {
+        ctx.fillStyle = 'rgba(' + hue + ',' + (hot ? 0.22 : 0.10) + ')';
+        ctx.fillRect(-1, -r.asc - 1, wide + 2, r.asc + r.desc + 2);
+      }
+      // A rule on the baseline is what actually reads as "this is a field" —
+      // the tint alone disappears on a busy page.
+      ctx.fillStyle = 'rgba(' + hue + ',' + (hot ? 0.95 : 0.5) + ')';
+      ctx.fillRect(-1, r.desc + 0.5, wide + 2, Math.max(0.5, r.size * 0.05));
+      ctx.restore();
+    });
+  }
+
+  function runAt(p) {
+    var runs = textRuns[cur]; if (!runs) return -1;
+    for (var i = runs.length - 1; i >= 0; i--) {
+      var r = runs[i];
+      var dx = p[0] - r.vx, dy = p[1] - r.vy;
+      var cs = Math.cos(-r.vrot), sn = Math.sin(-r.vrot);
+      var lx = dx * cs - dy * sn, ly = dx * sn + dy * cs;
+      var pad = Math.min(2, r.size * 0.15);
+      if (lx >= -pad && lx <= r.w + pad && ly >= -r.asc - pad && ly <= r.desc + pad) return i;
+    }
+    return -1;
+  }
+
+  /* Open the inline editor over a run, with the clicked word pre-selected so
+     the common case — swap one word — is a click and a type. */
+  function openRunEditor(idx, clickPt) {
+    var r = textRuns[cur][idx];
+    var existing = pageEdits()[idx];
+    LIVE.run = idx;
+    LIVE.orig = existing ? existing.str : r.str;
+    var col = existing ? { bg: existing.bg, fg: existing.fg } : sampleColors(r);
+    LIVE.bg = col.bg; LIVE.fg = col.fg;
+
+    textEntry.classList.add('doc');
+    textEntry.maxLength = 400;
+    textEntry.style.color = col.fg;
+    textEntry.style.background = col.bg;
+    textEntry.value = LIVE.orig;
+    textEntry.style.display = 'block';
+    placeRunEditor();
+
+    setTimeout(function () {
+      textEntry.focus();
+      var sel = wordRangeAt(r, LIVE.orig, clickPt);
+      try { textEntry.setSelectionRange(sel[0], sel[1]); } catch (e) {}
+    }, 0);
+    drawOverlay();
+    updateLiveBar();
+  }
+
+  function placeRunEditor() {
+    if (LIVE.run < 0 || !textRuns[cur]) return;
+    var r = textRuns[cur][LIVE.run]; if (!r) return;
+    var cssPx = r.size * scale;
+    textEntry.style.font = cssFont(r, cssPx);
+    textEntry.style.width = Math.max(40, r.w * scale + cssPx * 1.5) + 'px';
+    var sr = stage.getBoundingClientRect(), ov = overlay.getBoundingClientRect();
+    textEntry.style.left = ((ov.left - sr.left) + r.vx * scale) + 'px';
+    textEntry.style.top = ((ov.top - sr.top) + r.vy * scale) + 'px';
+    textEntry.style.transform = 'rotate(' + (r.vrot * 180 / Math.PI) + 'deg) translate(-1px, ' + (-r.asc * scale - 1) + 'px)';
+  }
+
+  // Which word did they click? Walk the string measuring as we go, scaled so
+  // the total matches the run's real advance width.
+  function wordRangeAt(r, str, p) {
+    if (!p || !str) return [0, str.length];
+    var dx = p[0] - r.vx, dy = p[1] - r.vy;
+    var lx = dx * Math.cos(-r.vrot) - dy * Math.sin(-r.vrot);
+    var total = measureCanvas(r, str, r.size);
+    if (!(total > 0)) return [0, str.length];
+    var target = lx * (total / r.w), i, at = 0;
+    for (i = 0; i < str.length; i++) {
+      var wch = measureCanvas(r, str.slice(0, i + 1), r.size);
+      if (wch >= target) break;
+      at = i + 1;
+    }
+    var a = at, b = at;
+    while (a > 0 && !/\s/.test(str[a - 1])) a--;
+    while (b < str.length && !/\s/.test(str[b])) b++;
+    return a === b ? [0, str.length] : [a, b];
+  }
+
+  function commitRunEdit() {
+    if (LIVE.run < 0) return;
+    var idx = LIVE.run, r = textRuns[cur][idx];
+    var val = textEntry.value.replace(/[^\x20-\xFF]/g, '');
+    LIVE.run = -1;
+    textEntry.style.display = 'none';
+    textEntry.classList.remove('doc');
+    textEntry.style.transform = '';
+    textEntry.style.background = '';
+    textEntry.maxLength = 120;
+
+    var ed = pageEdits(), had = ed[idx];
+    if (val === r.str) {                       // typed back to the original
+      if (had) { delete ed[idx]; pushHistory({ kind: 'edit', idx: idx, prev: had }); }
+    } else if (!had || had.str !== val) {
+      var fit = fitText(r, val);
+      ed[idx] = { str: val, bg: LIVE.bg, fg: LIVE.fg, width: fit.width };
+      pushHistory({ kind: 'edit', idx: idx, prev: had });
+    }
+    drawOverlay();
+    updateLiveBar();
+  }
+  function cancelRunEdit() {
+    LIVE.run = -1;
+    textEntry.style.display = 'none';
+    textEntry.classList.remove('doc');
+    textEntry.style.transform = ''; textEntry.style.background = '';
+    textEntry.maxLength = 120;
+    drawOverlay(); updateLiveBar();
+  }
+
+  function pushHistory(a) { (history[cur] = history[cur] || []).push(a); }
+
+  function updateLiveBar() {
+    var bar = document.getElementById('liveBar');
+    updateTextWarn();
+    if (tool !== 'edittext' || !pdfDoc) { bar.style.display = 'none'; return; }
+    bar.style.display = 'flex';
+    var runs = textRuns[cur], n = runs ? runs.length : 0;
+    var changed = Object.keys(edits[cur] || {}).length;
+    var msg = document.getElementById('liveMsg');
+    if (!runs) msg.innerHTML = 'Reading the text on this page…';
+    else if (!n) msg.innerHTML = '<b>No text layer on this page.</b> It is a scan or a vector drawing, so there are no words to edit — use the note, box and pen tools to mark it up instead.';
+    else msg.innerHTML = '<b>' + n + ' editable line' + (n === 1 ? '' : 's') + ' on this page.</b> Click one to retype it.';
+    document.getElementById('liveCount').textContent = editCount() ? editCount() + ' edit' + (editCount() === 1 ? '' : 's') : '';
+    var rv = document.getElementById('revertPageText');
+    rv.style.display = changed ? 'inline-flex' : 'none';
+  }
+
+  // The warning is about the file you are about to download, so it tracks the
+  // edit count rather than which tool happens to be selected.
+  function updateTextWarn() {
+    document.getElementById('textWarn').style.display = editCount() ? 'block' : 'none';
+  }
+  document.getElementById('warnImgBtn').addEventListener('click', function () {
+    document.getElementById('saveImgBtn').click();
+  });
+
+  document.getElementById('revertPageText').addEventListener('click', function () {
+    cancelRunEdit();
+    edits[cur] = {};
+    history[cur] = (history[cur] || []).filter(function (a) { return a.kind !== 'edit'; });
+    drawOverlay(); updateLiveBar();
+  });
+
+  function ensureRunsForPage() {
+    if (!pdfDoc || tool !== 'edittext') { updateLiveBar(); return; }
+    var pn = cur;
+    updateLiveBar();
+    Promise.all([buildTextRuns(pn), metricFont('Helvetica')]).then(function (res) {
+      var runs = res[0], keys = {};
+      runs.forEach(function (r) { keys[fontKey(r.fam, r.bold, r.italic)] = 1; });
+      return Promise.all(Object.keys(keys).map(metricFont));
+    }).then(function () {
+      if (cur !== pn) return;
+      drawOverlay(); updateLiveBar();
+    });
+  }
+
+  overlay.addEventListener('pointermove', function (e) {
+    if (tool !== 'edittext' || !textRuns[cur] || LIVE.run >= 0) return;
+    var h = runAt(evPt(e));
+    if (h !== hoverRun) { hoverRun = h; drawOverlay(); }
+  });
+  overlay.addEventListener('pointerleave', function () {
+    if (hoverRun !== -1) { hoverRun = -1; drawOverlay(); }
+  });
 
   /* ── export: flatten annotations with pdf-lib ── */
   saveBtn.addEventListener('click', async function () {
     if (!srcBuf) return;
-    commitText();
+    commitText(); if (LIVE.run >= 0) commitRunEdit();
     var btn = this; btn.disabled = true;
-    mmPdf.status('#status', 'Flattening annotations…', 'busy');
+    mmPdf.status('#status', 'Applying text edits and flattening annotations…', 'busy');
     try {
       var doc = await PDFLib.PDFDocument.load(srcBuf);
       var font = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
       var pages = doc.getPages();
-      var total = 0;
+      var total = 0, replaced = 0;
+
+      /* Text replacements go down first, so any markup drawn afterwards sits
+         on top of the new wording rather than being buried by its patch. */
+      var outFonts = {};
+      var editPages = Object.keys(edits).filter(function (pn) { return Object.keys(edits[pn]).length; });
+      for (var ei = 0; ei < editPages.length; ei++) {
+        var epn = parseInt(editPages[ei], 10);
+        var epage = pages[epn - 1], eruns = textRuns[epn];
+        if (!epage || !eruns) continue;
+        var keys = Object.keys(edits[epn]);
+        for (var ki = 0; ki < keys.length; ki++) {
+          var r = eruns[keys[ki]]; if (!r) continue;
+          var ed = edits[epn][keys[ki]];
+          var fit = fitText(r, ed.str);
+          var th = r.rotDeg * Math.PI / 180, cs = Math.cos(th), sn = Math.sin(th);
+          var padX = r.size * 0.08, padY = r.size * 0.06;
+          // Patch the old glyphs out in the page's own background colour.
+          // drawRectangle anchors at the BOTTOM-left and rotates about it, so
+          // the corner is the run's local (-padX, -descender) in PDF space.
+          var lx = -padX, ly = -(r.desc + padY);
+          var bg = hexRgb(ed.bg);
+          epage.drawRectangle({
+            x: r.ox + lx * cs - ly * sn,
+            y: r.oy + lx * sn + ly * cs,
+            width: Math.max(r.w, ed.width || 0) + padX * 2,
+            height: r.asc + r.desc + padY * 2,
+            color: PDFLib.rgb(bg[0] / 255, bg[1] / 255, bg[2] / 255),
+            rotate: PDFLib.degrees(r.rotDeg)
+          });
+          if (!ed.str) { replaced++; continue; }              // emptied = deleted
+          if (!outFonts[fit.key]) outFonts[fit.key] = await doc.embedFont(PDFLib.StandardFonts[fit.key]);
+          var fg = hexRgb(ed.fg);
+          // Tz is a text-state parameter and persists past ET, so set it,
+          // draw, and put it back to 100 for whatever is written next.
+          // The argument must be a PDFNumber: a bare JS number writes a
+          // malformed operator that takes the whole content stream with it.
+          if (fit.squish !== 1) epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(fit.squish * 100)]));
+          epage.drawText(ed.str, {
+            x: r.ox, y: r.oy, size: fit.size, font: outFonts[fit.key],
+            color: PDFLib.rgb(fg[0] / 255, fg[1] / 255, fg[2] / 255),
+            rotate: PDFLib.degrees(r.rotDeg)
+          });
+          if (fit.squish !== 1) epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(100)]));
+          replaced++;
+        }
+      }
+
       // Coordinates are stored in VIEWPORT space (what the user saw, y-down,
       // rotation applied). Convert to raw PDF user space via pdf.js's own
       // transform so pages with /Rotate or offset boxes flatten correctly.
@@ -710,8 +1317,12 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       var bytes = await doc.save();
       var outName = fileName.replace(/\.pdf$/i, '') + '-annotated.pdf';
       mmPdf.download(bytes, outName);
-      mmPdf.status('#status', 'Done — ' + total + ' annotation' + (total === 1 ? '' : 's') + ' flattened (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as ' + outName + '.', 'ok');
-      if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit', annotations: total });
+      var parts = [];
+      if (replaced) parts.push(replaced + ' text edit' + (replaced === 1 ? '' : 's') + ' applied');
+      if (total) parts.push(total + ' annotation' + (total === 1 ? '' : 's') + ' flattened');
+      if (!parts.length) parts.push('no changes to apply');
+      mmPdf.status('#status', 'Done — ' + parts.join(', ') + ' (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as ' + outName + '.', 'ok');
+      if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit', annotations: total, text_edits: replaced });
     } catch (err) {
       mmPdf.status('#status', err.message || 'Export failed.', 'err');
     }
@@ -721,7 +1332,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   /* ── image-PDF export: rasterise pages + markup → true redaction ── */
   document.getElementById('saveImgBtn').addEventListener('click', async function () {
     if (!srcBuf || !pdfDoc) return;
-    commitText();
+    commitText(); if (LIVE.run >= 0) commitRunEdit();
     if (pageCount > 30) { mmPdf.status('#status', 'Image export is capped at 30 pages — split the PDF first.', 'err'); return; }
     var btn = this; btn.disabled = true;
     try {
@@ -736,11 +1347,10 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         var cx = cv.getContext('2d');
         cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
         await page.render({ canvasContext: cx, viewport: vp }).promise;
-        (annots[pn] || []).forEach(function (a) {
-          cx.setTransform(RS, 0, 0, RS, 0, 0);
-          drawAnnot(cx, a);
-          cx.setTransform(1, 0, 0, 1, 0, 0);
-        });
+        cx.setTransform(RS, 0, 0, RS, 0, 0);
+        drawEditsOn(cx, pn, null);
+        (annots[pn] || []).forEach(function (a) { drawAnnot(cx, a); });
+        cx.setTransform(1, 0, 0, 1, 0, 0);
         var blob = await new Promise(function (res) { cv.toBlob(res, 'image/jpeg', 0.87); });
         var img = await out.embedJpg(await blob.arrayBuffer());
         var vp1 = page.getViewport({ scale: 1 });
