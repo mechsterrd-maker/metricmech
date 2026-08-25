@@ -17,7 +17,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Edit PDF Text Free — Change Words In-Browser, Private</title>
-<meta name="description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
+<meta name="description" content="Click a word in a PDF and retype it in the document’s own font — the rupee sign and all. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -107,6 +107,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   border-color: var(--rule-strong); background: var(--paper); }
 .ed-livebar .sp { margin-left: auto; font-family: 'JetBrains Mono', monospace;
   font-size: 11px; color: var(--mute); }
+.ed-sub-note { display: inline-block; margin-top: 4px; color: #92400E; }
 .ed-warn { margin: 18px 0 0; padding: 12px 16px; border-radius: 10px;
   background: var(--amber-tint); border-left: 3px solid var(--amber);
   font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
@@ -152,7 +153,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Edit PDF Text Free — Change Words In-Browser, Private">
-<meta property="og:description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
+<meta property="og:description" content="Click a word in a PDF and retype it in the document’s own font — the rupee sign and all. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <meta property="og:url" content="https://metricmech.com/pdf-tools/edit-pdf">
 <meta property="og:site_name" content="MetricMech">
 <meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
@@ -163,7 +164,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Edit PDF Text Free — Change Words In-Browser, Private">
-<meta name="twitter:description" content="Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
+<meta name="twitter:description" content="Click a word in a PDF and retype it in the document’s own font — the rupee sign and all. Plus notes, arrows, boxes and highlights. Nothing is uploaded.">
 <meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
 
 <!-- JSON-LD Schema -->
@@ -172,7 +173,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Edit PDF Text Free — Change Words In-Browser, Private",
-  "description": "Click a word in a PDF and retype it — font, size and colour matched automatically. Plus notes, arrows, boxes and highlights. Nothing is uploaded.",
+  "description": "Click a word in a PDF and retype it in the document’s own font — the rupee sign and all. Plus notes, arrows, boxes and highlights. Nothing is uploaded.",
   "url": "https://metricmech.com/pdf-tools/edit-pdf",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Web",
@@ -351,12 +352,17 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 <p>A PDF does not store paragraphs. It stores glyphs at coordinates, which is why PDFs are so stubborn to edit and why "just change one word" is not the trivial job it sounds like. What this editor does is read the position, angle, size and font of each line the document already contains, then <strong>replace that line in place</strong>: it patches out the old glyphs in the page's own background colour and re-draws your wording on the same baseline.</p>
 <p>Because it works from what is measurably on the page, it gets the details right without asking you:</p>
 <ul>
-  <li><strong>Font, weight and slant</strong> are read from the embedded font, so a bold heading stays bold and a serif paragraph stays serif.</li>
+  <li><strong>The document's own font is reused</strong> — not a lookalike. The font program embedded in the PDF is re-embedded for your wording, so a bold heading stays bold, a condensed table stays condensed, and the rupee sign keeps working.</li>
   <li><strong>Colour</strong> is sampled from the page itself — white text on a dark blue banner comes back as white text on dark blue.</li>
   <li><strong>Width</strong> is fitted. If your replacement is longer, it is condensed just enough to stop before the next column instead of running into it.</li>
   <li><strong>Rotation</strong> is preserved, so text running up the side of a drawing stays running up the side.</li>
 </ul>
-<p>Two honest limits. First, the replacement is drawn in the closest standard font (Helvetica, Times or Courier) rather than the document's own embedded one — Arial and Calibri sit on Helvetica's metrics so the swap is usually invisible, but on an unusual typeface you will see it. Second, a whole line is replaced at a time, not a single character mid-word; splicing inside a run would need per-glyph positions that cannot be recovered exactly, and being a point out leaves a sliver of the old letter behind.</p>
+<h3>Why the rupee sign survives, and when it might not</h3>
+<p>Most browser PDF editors write replacement text in one of the fourteen standard PDF fonts, which are limited to the Latin-1 character set. That set has no <strong>₹</strong>. So the symbol quietly disappears from a total, or comes back as a box — on a tax invoice, that is a real problem.</p>
+<p>This editor avoids it by taking the font program the PDF already carries and re-embedding it for your wording. Your text is set in the document's own typeface, with the document's own glyphs, so ₹ works, and so do the en and em dashes, curly quotes and accented characters that trip up the standard fonts.</p>
+<p>There is one case where it cannot. PDFs usually embed a <em>subset</em> of a font — only the characters that appear on the page. If a document contains no digit 9 anywhere, its font file genuinely has no 9 in it, and typing one has nothing to draw. When that happens the editor falls back to the closest standard font for that line and <strong>tells you</strong>, both before you download and in the download message, naming any character it could not reproduce. It will not silently drop one.</p>
+
+<p>The other limit is that a whole line is replaced at a time, not a single character mid-word. Splicing inside a run would need per-glyph positions that cannot be recovered exactly, and being a point out leaves a sliver of the old letter behind.</p>
 <p><strong>The words you replace are covered, not deleted.</strong> They remain in the file's text layer, so a copy-paste or a Ctrl+F search can still surface them. If the old wording is confidential, use <strong>Download as image PDF</strong> — the pages are rasterised with your edits baked in and the original text is genuinely gone.</p>
 <p>If the page is a scan or a pure vector drawing there is no text layer to edit, and the editor will say so. Mark those up with the note, box and pen tools instead.</p>
 
@@ -453,7 +459,10 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         .then(function () { return mmPdf.readBuf(files[0]); })
         .then(function (buf) {
           srcBuf = buf;
-          return pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
+          // fontExtraProperties keeps each font's program on the main thread.
+          // Without it pdf.js frees .data once the font face is attached, and
+          // replacement text could not be set in the document's own font.
+          return pdfjsLib.getDocument({ data: buf.slice(0), fontExtraProperties: true }).promise;
         })
         .then(function (doc) {
           pdfDoc = doc; pageCount = doc.numPages; cur = 1; annots = {}; zoom = 1;
@@ -839,13 +848,42 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   };
   var CSS_FOR = { 'sans-serif': 'Helvetica, Arial, sans-serif', 'serif': 'Times, "Times New Roman", serif', 'monospace': '"Courier New", Courier, monospace' };
 
-  var metricsDoc = null, metricFonts = {};
-  function metricFont(key) {
-    if (metricFonts[key]) return Promise.resolve(metricFonts[key]);
-    var chain = metricsDoc ? Promise.resolve(metricsDoc) : PDFLib.PDFDocument.create().then(function (d) { metricsDoc = d; return d; });
-    return chain.then(function (d) { return d.embedFont(PDFLib.StandardFonts[key]); })
-      .then(function (f) { metricFonts[key] = f; return f; });
+  /* The document's own fonts, keyed by pdf.js's loadedName — which is also the
+     CSS family pdf.js attached them under, so the same key serves the canvas
+     preview and the re-embed on export. */
+  var nativeFonts = {};      // loadedName → { data, name, fk?, ok? }
+  var fontkitReady = null;
+
+  function loadFontkit() {
+    if (!fontkitReady) fontkitReady = mmPdf.ensureLibs({ fontkit: true }).then(function () {
+      return window.fontkit && (window.fontkit.default || window.fontkit);
+    }).catch(function () { return null; });
+    return fontkitReady;
   }
+
+  // Parse the font once so we can ask whether it actually has the glyphs the
+  // new wording needs. Subset fonts routinely carry only the characters the
+  // page already used — a document with no "9" on it may genuinely have no "9".
+  function nativeCoverage(key) {
+    var n = nativeFonts[key];
+    if (!n) return null;
+    if (n.fk !== undefined) return n.fk;
+    var fk = window.fontkit && (window.fontkit.default || window.fontkit);
+    if (!fk || !fk.create) return null;
+    try { n.fk = fk.create(n.data); } catch (e) { n.fk = null; }
+    return n.fk;
+  }
+  function nativeCovers(key, str) {
+    var parsed = nativeCoverage(key);
+    if (!parsed || typeof parsed.hasGlyphForCodePoint !== 'function') return false;
+    for (var i = 0; i < str.length; i++) {
+      var cp = str.codePointAt(i);
+      if (cp > 0xFFFF) i++;
+      if (cp !== 32 && !parsed.hasGlyphForCodePoint(cp)) return false;
+    }
+    return true;
+  }
+
   function fontKey(fam, bold, italic) { return FONT_FOR[fam][(bold ? 1 : 0) + (italic ? 2 : 0)]; }
 
   /* Build the editable-run list for a page. Needs the page rendered first —
@@ -865,7 +903,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
           var rot = Math.atan2(t[1], t[0]);
           var cs = Math.cos(rot), sn = Math.sin(rot);
 
-          var fam = 'sans-serif', bold = false, italic = false, real = '';
+          var fam = 'sans-serif', bold = false, italic = false, real = '', native = '';
           var st = tc.styles && tc.styles[it.fontName];
           try {
             var f = page.commonObjs.get(it.fontName);
@@ -874,6 +912,14 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
               fam = FONT_FOR[f.fallbackName] ? f.fallbackName : 'sans-serif';
               bold = !!(f.bold || f.black);
               italic = !!f.italic;
+              // The document's own font, on two fronts: pdf.js has already
+              // attached it to the page under this CSS family (so the canvas
+              // preview can use it), and .data is the program itself, which
+              // gets re-embedded on export.
+              if (f.data && f.data.length && f.loadedName) {
+                native = f.loadedName;
+                if (!nativeFonts[native]) nativeFonts[native] = { data: f.data, name: real };
+              }
             }
           } catch (e) { if (st && FONT_FOR[st.fontFamily]) fam = st.fontFamily; }
           // Subset names such as "ABCDEF+Arial-BoldMT" still carry the weight.
@@ -901,7 +947,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
             box: { x: Math.min.apply(null, xs), y: Math.min.apply(null, ys),
                    w: Math.max.apply(null, xs) - Math.min.apply(null, xs),
                    h: Math.max.apply(null, ys) - Math.min.apply(null, ys) },
-            fam: fam, bold: bold, italic: italic, real: real, room: 0
+            fam: fam, bold: bold, italic: italic, real: real, native: native, room: 0
           });
         });
 
@@ -1006,31 +1052,68 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   function rgbHex(a) { return '#' + a.map(function (v) { return ('0' + Math.max(0, Math.min(255, v)).toString(16)).slice(-2); }).join(''); }
   function hexRgb(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
 
-  /* Choose the drawn size and horizontal squeeze so the new wording ends
-     where it must. Squeezing to 88% is invisible; shrinking the type is not,
-     so squeeze first and only drop the size when there is no room left. */
-  function fitText(r, str) {
-    var key = fontKey(r.fam, r.bold, r.italic);
-    var f = metricFonts[key];
-    var natural;
-    try { natural = f ? f.widthOfTextAtSize(str, r.size) : measureCanvas(r, str, r.size); }
-    catch (e) { natural = measureCanvas(r, str, r.size); }
-    if (!(natural > 0)) return { size: r.size, squish: 1, width: 0, key: key };
-    var fit = r.room / natural;
-    var sz = r.size, sq = 1;
-    if (fit < 1) {
-      if (fit >= 0.6) sq = fit;
-      else { sq = 0.6; sz = r.size * fit / 0.6; }
+  /* Which font will actually set this replacement?
+       native — the document's own embedded font. Perfect match, and it is the
+                only way to keep characters the standard fonts cannot encode
+                (₹ above all, on an Indian invoice).
+       std    — a standard-14 substitute, used only when the document's font
+                has no glyph for something typed. Subset fonts routinely carry
+                just the characters the page already used, so a document with
+                no "9" anywhere really does lack a "9". */
+  function planFont(r, str) {
+    if (r.native && nativeFonts[r.native] && nativeCovers(r.native, str)) {
+      return { mode: 'native', key: r.native };
     }
-    return { size: sz, squish: sq, width: natural * (sz / r.size) * sq, key: key };
+    return { mode: 'std', key: fontKey(r.fam, r.bold, r.italic), lost: unencodable(str) };
   }
-  function cssFont(r, px) {
-    return (r.italic ? 'italic ' : '') + (r.bold ? '700 ' : '400 ') + px + 'px ' + CSS_FOR[r.fam];
+  // What a standard-14 (WinAnsi) font would have to throw away.
+  function unencodable(str) {
+    var bad = '', seen = {};
+    for (var i = 0; i < str.length; i++) {
+      var c = str[i];
+      if (c.charCodeAt(0) > 0xFF && !seen[c]) { seen[c] = 1; bad += c; }
+    }
+    return bad;
   }
-  function measureCanvas(r, str, sz) {
+
+  function cssFont(r, px, plan) {
+    plan = plan || planFont(r, r.str);
+    // The native face already carries its own weight and slant — asking the
+    // browser to embolden it on top would double up.
+    return plan.mode === 'native'
+      ? px + 'px "' + plan.key + '", ' + CSS_FOR[r.fam]
+      : (r.italic ? 'italic ' : '') + (r.bold ? '700 ' : '400 ') + px + 'px ' + CSS_FOR[r.fam];
+  }
+  function measureCanvas(r, str, sz, plan) {
     octx.save(); octx.setTransform(1, 0, 0, 1, 0, 0);
-    octx.font = cssFont(r, sz); var w = octx.measureText(str).width; octx.restore();
+    octx.font = cssFont(r, sz, plan);
+    var w = octx.measureText(str).width;
+    octx.restore();
     return w;
+  }
+
+  /* Choose the drawn size and target width. Measured on canvas in the very
+     font that will be used, then calibrated against this run's own known
+     advance width — so text typed back unchanged reproduces its original
+     width exactly, whatever the metric differences between the browser, the
+     source PDF and pdf-lib. */
+  function fitText(r, str) {
+    var plan = planFont(r, str);
+    var base = measureCanvas(r, r.str, r.size, plan);
+    var calib = base > 0 ? r.w / base : 1;
+    if (!(calib > 0.5 && calib < 2)) calib = 1;
+    var natural = measureCanvas(r, str, r.size, plan) * calib;
+    var sz = r.size, sq = 1;
+    if (natural > 0) {
+      var fit = r.room / natural;
+      // Squeezing to ~88% reads as normal type; shrinking the point size does
+      // not. Squeeze first, drop the size only when there is no room left.
+      if (fit < 1) {
+        if (fit >= 0.6) sq = fit;
+        else { sq = 0.6; sz = r.size * fit / 0.6; }
+      }
+    }
+    return { size: sz, squish: sq, width: natural * (sz / r.size) * sq, plan: plan, key: plan.key };
   }
 
   /* Paint the committed edits (and the run being typed) onto a context that is
@@ -1054,12 +1137,12 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       ctx.fillRect(-padX, -r.asc - padY, Math.max(r.w, e.width || 0) + padX * 2, r.asc + r.desc + padY * 2);
       if (str) {
         var fit = fitText(r, str);
-        var drawn = measureCanvas(r, str, fit.size);
+        var drawn = measureCanvas(r, str, fit.size, fit.plan);
         // Match the output width exactly, so what is on screen is where the
         // glyphs will actually land — the browser's Helvetica is not Adobe's.
         var sx = drawn > 0 && fit.width > 0 ? fit.width / drawn : 1;
         ctx.fillStyle = e.fg;
-        ctx.font = cssFont(r, fit.size);
+        ctx.font = cssFont(r, fit.size, fit.plan);
         ctx.textBaseline = 'alphabetic';
         ctx.scale(sx, 1);
         ctx.fillText(str, 0, 0);
@@ -1136,7 +1219,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (LIVE.run < 0 || !textRuns[cur]) return;
     var r = textRuns[cur][LIVE.run]; if (!r) return;
     var cssPx = r.size * scale;
-    textEntry.style.font = cssFont(r, cssPx);
+    textEntry.style.font = cssFont(r, cssPx, planFont(r, textEntry.value || r.str));
     textEntry.style.width = Math.max(40, r.w * scale + cssPx * 1.5) + 'px';
     var sr = stage.getBoundingClientRect(), ov = overlay.getBoundingClientRect();
     textEntry.style.left = ((ov.left - sr.left) + r.vx * scale) + 'px';
@@ -1167,7 +1250,10 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   function commitRunEdit() {
     if (LIVE.run < 0) return;
     var idx = LIVE.run, r = textRuns[cur][idx];
-    var val = textEntry.value.replace(/[^\x20-\xFF]/g, '');
+    // Deliberately unfiltered. This used to strip everything above Latin-1,
+    // which silently deleted the rupee sign out of invoice totals. The
+    // document's own font is used now, so ₹ and friends survive.
+    var val = textEntry.value;
     LIVE.run = -1;
     textEntry.style.display = 'none';
     textEntry.classList.remove('doc');
@@ -1180,7 +1266,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       if (had) { delete ed[idx]; pushHistory({ kind: 'edit', idx: idx, prev: had }); }
     } else if (!had || had.str !== val) {
       var fit = fitText(r, val);
-      ed[idx] = { str: val, bg: LIVE.bg, fg: LIVE.fg, width: fit.width };
+      ed[idx] = { str: val, bg: LIVE.bg, fg: LIVE.fg, width: fit.width,
+                  mode: fit.plan.mode, lost: fit.plan.lost || '' };
       pushHistory({ kind: 'edit', idx: idx, prev: had });
     }
     drawOverlay();
@@ -1196,6 +1283,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   }
 
   function pushHistory(a) { (history[cur] = history[cur] || []).push(a); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   function updateLiveBar() {
     var bar = document.getElementById('liveBar');
@@ -1208,6 +1297,20 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (!runs) msg.innerHTML = 'Reading the text on this page…';
     else if (!n) msg.innerHTML = '<b>No text layer on this page.</b> It is a scan or a vector drawing, so there are no words to edit — use the note, box and pen tools to mark it up instead.';
     else msg.innerHTML = '<b>' + n + ' editable line' + (n === 1 ? '' : 's') + ' on this page.</b> Click one to retype it.';
+    // If any edit could not stay in the document's own font, say so here
+    // rather than letting it surface as a surprise in the download.
+    var sub = 0, lost = '';
+    Object.keys(edits).forEach(function (p) {
+      Object.keys(edits[p]).forEach(function (i) {
+        var e = edits[p][i];
+        if (e.str && e.mode === 'std') { sub++; lost += e.lost || ''; }
+      });
+    });
+    if (sub) {
+      msg.innerHTML += '<br><span class="ed-sub-note">' + sub + ' line' + (sub === 1 ? '' : 's') +
+        ' had to fall back to a substitute font — the document’s own font has no glyph for something you typed' +
+        (lost ? ', and <b>' + esc([...new Set(lost)].join(' ')) + '</b> cannot be shown at all' : '') + '.</span>';
+    }
     document.getElementById('liveCount').textContent = editCount() ? editCount() + ' edit' + (editCount() === 1 ? '' : 's') : '';
     var rv = document.getElementById('revertPageText');
     rv.style.display = changed ? 'inline-flex' : 'none';
@@ -1233,10 +1336,10 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (!pdfDoc || tool !== 'edittext') { updateLiveBar(); return; }
     var pn = cur;
     updateLiveBar();
-    Promise.all([buildTextRuns(pn), metricFont('Helvetica')]).then(function (res) {
-      var runs = res[0], keys = {};
-      runs.forEach(function (r) { keys[fontKey(r.fam, r.bold, r.italic)] = 1; });
-      return Promise.all(Object.keys(keys).map(metricFont));
+    buildTextRuns(pn).then(function (runs) {
+      // Only pull fontkit in if this page actually has embedded fonts to
+      // reuse — a scan or a pure vector drawing never needs it.
+      return runs.some(function (r) { return r.native; }) ? loadFontkit() : null;
     }).then(function () {
       if (cur !== pn) return;
       drawOverlay(); updateLiveBar();
@@ -1321,7 +1424,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
       /* Text replacements go down first, so any markup drawn afterwards sits
          on top of the new wording rather than being buried by its patch. */
-      var outFonts = {};
+      var outFonts = {}, fontkitOn = false, dropped = '';
       var editPages = Object.keys(edits).filter(function (pn) { return Object.keys(edits[pn]).length; });
       for (var ei = 0; ei < editPages.length; ei++) {
         var epn = parseInt(editPages[ei], 10);
@@ -1349,19 +1452,46 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
             rotate: PDFLib.degrees(r.rotDeg)
           });
           if (!ed.str) { replaced++; continue; }              // emptied = deleted
-          if (!outFonts[fit.key]) outFonts[fit.key] = await doc.embedFont(PDFLib.StandardFonts[fit.key]);
+
+          // Set it in the document's own font where that font has the glyphs,
+          // otherwise in the closest standard face — which cannot encode
+          // anything above Latin-1, so those characters are reported rather
+          // than quietly dropped.
+          var useNative = fit.plan.mode === 'native';
+          var outKey = (useNative ? 'n:' : 's:') + fit.key;
+          var drawStr = ed.str;
+          if (!outFonts[outKey]) {
+            if (useNative) {
+              if (!fontkitOn) { doc.registerFontkit(window.fontkit.default || window.fontkit); fontkitOn = true; }
+              outFonts[outKey] = await doc.embedFont(nativeFonts[fit.key].data, { subset: true });
+            } else {
+              outFonts[outKey] = await doc.embedFont(PDFLib.StandardFonts[fit.key]);
+            }
+          }
+          if (!useNative) {
+            var kept = drawStr.replace(/[^\x20-\xFF]/g, '');
+            if (kept !== drawStr) { dropped += unencodable(drawStr); drawStr = kept; }
+            if (!drawStr) { replaced++; continue; }
+          }
           var fg = hexRgb(ed.fg);
+          // Land the text on exactly the width the fit decided. drawText
+          // reproduces widthOfTextAtSize exactly (measured), so this closes
+          // any metric gap between the browser, the source PDF and pdf-lib.
+          var natural = 0;
+          try { natural = outFonts[outKey].widthOfTextAtSize(drawStr, fit.size); } catch (e2) { natural = 0; }
+          var squish = (natural > 0 && fit.width > 0) ? fit.width / natural : fit.squish;
+          squish = Math.max(0.3, Math.min(3, squish));
           // Tz is a text-state parameter and persists past ET, so set it,
           // draw, and put it back to 100 for whatever is written next.
           // The argument must be a PDFNumber: a bare JS number writes a
           // malformed operator that takes the whole content stream with it.
-          if (fit.squish !== 1) epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(fit.squish * 100)]));
-          epage.drawText(ed.str, {
-            x: r.ox, y: r.oy, size: fit.size, font: outFonts[fit.key],
+          epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(squish * 100)]));
+          epage.drawText(drawStr, {
+            x: r.ox, y: r.oy, size: fit.size, font: outFonts[outKey],
             color: PDFLib.rgb(fg[0] / 255, fg[1] / 255, fg[2] / 255),
             rotate: PDFLib.degrees(r.rotDeg)
           });
-          if (fit.squish !== 1) epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(100)]));
+          epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(100)]));
           replaced++;
         }
       }
@@ -1450,7 +1580,15 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       if (replaced) parts.push(replaced + ' text edit' + (replaced === 1 ? '' : 's') + ' applied');
       if (total) parts.push(total + ' annotation' + (total === 1 ? '' : 's') + ' flattened');
       if (!parts.length) parts.push('no changes to apply');
-      mmPdf.status('#status', 'Done — ' + parts.join(', ') + ' (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as ' + outName + '.', 'ok');
+      var msg = 'Done — ' + parts.join(', ') + ' (' + mmPdf.fmtSize(bytes.length) + '). Downloaded as ' + outName + '.';
+      if (dropped) {
+        // Never let a character vanish without saying so — on an invoice a
+        // missing ₹ changes what the document means.
+        mmPdf.status('#status', msg + ' Note: ' + [...new Set(dropped)].join(' ') +
+          ' could not be shown, because the document’s own font has no glyph for some of what you typed and the substitute font cannot encode it. Retype that line without those characters, or leave it as it was.', 'err');
+      } else {
+        mmPdf.status('#status', msg, 'ok');
+      }
       if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit', annotations: total, text_edits: replaced });
     } catch (err) {
       mmPdf.status('#status', err.message || 'Export failed.', 'err');

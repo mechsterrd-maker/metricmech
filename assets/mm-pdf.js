@@ -49,6 +49,12 @@
           }
         });
     }
+    // fontkit is only needed to re-embed a document's own font (the PDF text
+    // editor). It is big, so it stays off the critical path for every other
+    // tool and is asked for explicitly.
+    if (opts.fontkit) {
+      chain = chain.then(function () { return loadScript('assets/vendor/fontkit.min.js'); });
+    }
     return chain;
   }
 
