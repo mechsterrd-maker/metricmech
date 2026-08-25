@@ -873,15 +873,25 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     try { n.fk = fk.create(n.data); } catch (e) { n.fk = null; }
     return n.fk;
   }
-  function nativeCovers(key, str) {
+  /* Which characters of `str` this font cannot draw — and, separately, whether
+     it has a space glyph at all. Plenty of embedded subsets do not: the
+     generator positions each word by moving the pen, so a space is never drawn
+     and never gets subsetted in. Asking such a font for a space yields glyph 0,
+     .notdef, which is the empty box people find in the downloaded file.
+     Whitespace is therefore never counted as missing — it is laid out by
+     advancing the pen instead of by drawing anything. */
+  function nativeGaps(key, str) {
     var parsed = nativeCoverage(key);
-    if (!parsed || typeof parsed.hasGlyphForCodePoint !== 'function') return false;
+    if (!parsed || typeof parsed.hasGlyphForCodePoint !== 'function') return null;
+    var missing = '', seen = {};
     for (var i = 0; i < str.length; i++) {
       var cp = str.codePointAt(i);
       if (cp > 0xFFFF) i++;
-      if (cp !== 32 && !parsed.hasGlyphForCodePoint(cp)) return false;
+      var ch = String.fromCodePoint(cp);
+      if (/\s/.test(ch)) continue;
+      if (!parsed.hasGlyphForCodePoint(cp) && !seen[ch]) { seen[ch] = 1; missing += ch; }
     }
-    return true;
+    return { missing: missing, hasSpace: !!parsed.hasGlyphForCodePoint(32) };
   }
 
   function fontKey(fam, bold, italic) { return FONT_FOR[fam][(bold ? 1 : 0) + (italic ? 2 : 0)]; }
@@ -1061,8 +1071,9 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
                 just the characters the page already used, so a document with
                 no "9" anywhere really does lack a "9". */
   function planFont(r, str) {
-    if (r.native && nativeFonts[r.native] && nativeCovers(r.native, str)) {
-      return { mode: 'native', key: r.native };
+    if (r.native && nativeFonts[r.native]) {
+      var g = nativeGaps(r.native, str);
+      if (g && !g.missing) return { mode: 'native', key: r.native, hasSpace: g.hasSpace };
     }
     return { mode: 'std', key: fontKey(r.fam, r.bold, r.italic), lost: unencodable(str) };
   }
@@ -1408,6 +1419,56 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     return contiguous ? '-p' + keep[0] + '-' + keep[keep.length - 1] : '-' + keep.length + 'pages';
   }
 
+  /* Write a replacement line onto the page, ending at exactly fit.width.
+     drawText reproduces widthOfTextAtSize exactly (measured), so scaling by
+     target/measured closes every metric gap between the browser, the source
+     PDF and pdf-lib in one step. */
+  function drawRunText(epage, r, str, fit, font, colour) {
+    var th = r.rotDeg * Math.PI / 180, cs = Math.cos(th), sn = Math.sin(th);
+    var target = fit.width;
+    var meas = function (t) {
+      if (!t) return 0;
+      try { return font.widthOfTextAtSize(t, fit.size); } catch (e) { return 0; }
+    };
+    // Tz is a text-state parameter and persists past ET, so set it, draw, and
+    // put it back to 100 for whatever is written next. The argument must be a
+    // PDFNumber: a bare JS number writes a malformed operator that takes the
+    // whole content stream with it.
+    var put = function (text, off, sq) {
+      epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(sq * 100)]));
+      epage.drawText(text, {
+        x: r.ox + off * cs, y: r.oy + off * sn,
+        size: fit.size, font: font, color: colour, rotate: PDFLib.degrees(r.rotDeg)
+      });
+      epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(100)]));
+    };
+    var clamp = function (v) { return Math.max(0.3, Math.min(3, v)); };
+
+    var spaceless = fit.plan.mode === 'native' && fit.plan.hasSpace === false && /\s/.test(str);
+    if (!spaceless) {
+      var natural = meas(str);
+      put(str, 0, natural > 0 && target > 0 ? clamp(target / natural) : 1);
+      return;
+    }
+
+    // This font has no space glyph, so asking for one would draw .notdef — the
+    // box. Advance the pen across the gaps instead and set each word on its own.
+    var parts = str.split(/(\s+)/).filter(function (s) { return s !== ''; });
+    var wText = 0, nSp = 0;
+    parts.forEach(function (p) {
+      if (/^\s+$/.test(p)) nSp += p.length; else wText += meas(p);
+    });
+    var sw = nSp > 0 ? (target - wText) / nSp : 0;
+    sw = Math.max(fit.size * 0.18, Math.min(fit.size * 0.55, sw));   // a believable space
+    var sq = wText > 0 ? clamp((target - nSp * sw) / wText) : 1;
+    var off = 0;
+    parts.forEach(function (p) {
+      if (/^\s+$/.test(p)) { off += sw * p.length; return; }
+      put(p, off, sq);
+      off += sq * meas(p);
+    });
+  }
+
   /* ── export: flatten annotations with pdf-lib ── */
   saveBtn.addEventListener('click', async function () {
     if (!srcBuf) return;
@@ -1474,24 +1535,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
             if (!drawStr) { replaced++; continue; }
           }
           var fg = hexRgb(ed.fg);
-          // Land the text on exactly the width the fit decided. drawText
-          // reproduces widthOfTextAtSize exactly (measured), so this closes
-          // any metric gap between the browser, the source PDF and pdf-lib.
-          var natural = 0;
-          try { natural = outFonts[outKey].widthOfTextAtSize(drawStr, fit.size); } catch (e2) { natural = 0; }
-          var squish = (natural > 0 && fit.width > 0) ? fit.width / natural : fit.squish;
-          squish = Math.max(0.3, Math.min(3, squish));
-          // Tz is a text-state parameter and persists past ET, so set it,
-          // draw, and put it back to 100 for whatever is written next.
-          // The argument must be a PDFNumber: a bare JS number writes a
-          // malformed operator that takes the whole content stream with it.
-          epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(squish * 100)]));
-          epage.drawText(drawStr, {
-            x: r.ox, y: r.oy, size: fit.size, font: outFonts[outKey],
-            color: PDFLib.rgb(fg[0] / 255, fg[1] / 255, fg[2] / 255),
-            rotate: PDFLib.degrees(r.rotDeg)
-          });
-          epage.pushOperators(PDFLib.PDFOperator.of('Tz', [PDFLib.PDFNumber.of(100)]));
+          drawRunText(epage, r, drawStr, fit, outFonts[outKey],
+                      PDFLib.rgb(fg[0] / 255, fg[1] / 255, fg[2] / 255));
           replaced++;
         }
       }
