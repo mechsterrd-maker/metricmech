@@ -61,7 +61,13 @@ html[data-mm-theme="dark"] .ed-toolbar { background: #0d1430; }
 .ed-swatch.active { border-color: var(--ink); box-shadow: 0 0 0 2px var(--paper); }
 .ed-select { font: inherit; font-size: 12.5px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
 html[data-mm-theme="dark"] .ed-select { background: rgba(2,8,26,0.6); }
-.ed-stage-outer { overflow: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-3); max-height: 78vh; }
+.ed-stage-outer { overflow: auto; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-3); max-height: 78vh; overscroll-behavior: contain; }
+.ed-stage-outer.panning { cursor: grabbing; }
+.ed-stage-outer.panning #overlay { cursor: grabbing; }
+.ed-zoom { display: inline-flex; align-items: center; gap: 2px; margin-left: 6px; }
+.ed-zoom .ed-btn { min-width: 30px; padding: 5px 8px; }
+#zoomPct { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-2);
+  min-width: 52px; text-align: center; font-variant-numeric: tabular-nums; }
 html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 .ed-stage { position: relative; margin: 18px auto; width: fit-content; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
 .ed-stage canvas { display: block; }
@@ -200,6 +206,17 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         <button type="button" class="ed-btn" id="prevPage" aria-label="Previous page">‹</button>
         <span id="pageInfo">page 1 / 1</span>
         <button type="button" class="ed-btn" id="nextPage" aria-label="Next page">›</button>
+        <span class="ed-zoom">
+          <button type="button" class="ed-btn" id="zoomOut" data-mm-tip="Zoom out (Ctrl −)" aria-label="Zoom out">−</button>
+          <span id="zoomPct" aria-live="polite">100%</span>
+          <button type="button" class="ed-btn" id="zoomIn" data-mm-tip="Zoom in (Ctrl +)" aria-label="Zoom in">+</button>
+          <button type="button" class="ed-btn" id="zoomFit" data-mm-tip="Fit to width (Ctrl 0)" aria-label="Fit to width">Fit</button>
+        </span>
+      </div>
+      <div class="ed-note" style="margin-top:2px">
+        <strong>Zoom:</strong> mouse wheel zooms in on wherever the pointer is.
+        Middle-drag or hold <kbd>Space</kbd> and drag to pan · <kbd>Shift</kbd>+wheel scrolls sideways ·
+        <kbd>Alt</kbd>+wheel scrolls up/down.
       </div>
     </div>
 
@@ -281,7 +298,12 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
   var srcBuf = null, pdfDoc = null, pageCount = 0, cur = 1;
   var selectedIdx = -1, dragSel = null;
-  var scale = 1;            // canvas CSS px per PDF point
+  var scale = 1;            // display scale: canvas CSS px per PDF point
+  var fitScale = 1;         // the scale at which the page fits the container width
+  var renderScale = 1;      // the scale the bitmaps were actually rasterised at
+  var zoom = 1;             // user zoom, 1 = fit to width
+  var ZMIN = 0.2, ZMAX = 10;
+  var MAX_BITMAP_PX = 6000; // browsers refuse very large canvases; degrade to soft, never crash
   var pagePts = { w: 0, h: 0 };
   var annots = {};          // pageNum → [annotation]
   var tool = 'text', color = '#DC2626', size = 'm';
@@ -309,7 +331,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
           return pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
         })
         .then(function (doc) {
-          pdfDoc = doc; pageCount = doc.numPages; cur = 1; annots = {};
+          pdfDoc = doc; pageCount = doc.numPages; cur = 1; annots = {}; zoom = 1;
           document.getElementById('editorWrap').style.display = 'block';
           document.getElementById('dropMount').style.display = 'none';
           saveBtn.disabled = false;
@@ -339,20 +361,48 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
   /* ── page render ── */
   var renderTask = null;
+
+  function computeFit() {
+    var container = document.querySelector('.ed-stage-outer');
+    var cw = container.clientWidth;
+    if (cw < 120) cw = 940; // hidden/collapsed layout — use a sane default
+    var maxW = Math.min(cw - 40, 980);
+    return maxW / pagePts.w;
+  }
+
+  // CSS size only. Cheap and synchronous, so a wheel tick feels instant — the
+  // existing bitmap is simply scaled by the browser until the debounced
+  // rasterise below redraws it sharply at the new scale.
+  function applyCssSize() {
+    var w = pagePts.w * scale, h = pagePts.h * scale;
+    pageCv.style.width = w + 'px';  pageCv.style.height = h + 'px';
+    overlay.style.width = w + 'px'; overlay.style.height = h + 'px';
+    var pct = document.getElementById('zoomPct');
+    if (pct) pct.textContent = Math.round(scale * 100) + '%';
+  }
+
   function renderPage() {
     return pdfDoc.getPage(cur).then(function (page) {
       var vp1 = page.getViewport({ scale: 1 });
       pagePts.w = vp1.width; pagePts.h = vp1.height;
-      var container = document.querySelector('.ed-stage-outer');
-      var cw = container.clientWidth;
-      if (cw < 120) cw = 940; // hidden/collapsed layout — use a sane default
-      var maxW = Math.min(cw - 40, 980);
-      scale = maxW / vp1.width;
-      var vp = page.getViewport({ scale: scale * dpr });
+      fitScale = computeFit();
+      zoom = Math.min(ZMAX, Math.max(ZMIN, zoom));
+      scale = fitScale * zoom;
+
+      // Rasterise at the display scale, but never past the canvas size limit.
+      var eff = scale * dpr;
+      var cap = Math.min(MAX_BITMAP_PX / pagePts.w, MAX_BITMAP_PX / pagePts.h);
+      if (eff > cap) eff = cap;
+      renderScale = eff / dpr;
+
+      var vp = page.getViewport({ scale: eff });
       pageCv.width = vp.width; pageCv.height = vp.height;
-      pageCv.style.width = (vp.width / dpr) + 'px'; pageCv.style.height = (vp.height / dpr) + 'px';
       overlay.width = vp.width; overlay.height = vp.height;
-      overlay.style.width = pageCv.style.width; overlay.style.height = pageCv.style.height;
+      applyCssSize();
+      // Setting .width wipes the canvas, so repaint the annotations now rather
+      // than waiting for the page render to resolve — otherwise every zoom
+      // blinks them out for the length of the rasterise.
+      drawOverlay();
       document.getElementById('pageInfo').textContent = 'page ' + cur + ' / ' + pageCount;
       var cx = pageCv.getContext('2d');
       cx.fillStyle = '#fff'; cx.fillRect(0, 0, vp.width, vp.height);
@@ -431,7 +481,11 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   }
 
   function drawOverlay(tempA) {
-    octx.setTransform(dpr * scale, 0, 0, dpr * scale, 0, 0); // draw in PDF-pt coords (y down from top)
+    // Derive the transform from the bitmap itself rather than from `scale`:
+    // during a zoom the bitmap is still at the previous rasterise scale while
+    // CSS stretches it, and the two must not be assumed equal.
+    var k = pagePts.w ? overlay.width / pagePts.w : dpr * scale;
+    octx.setTransform(k, 0, 0, k, 0, 0); // draw in PDF-pt coords (y down from top)
     octx.clearRect(0, 0, pagePts.w, pagePts.h);
     pageAnnots().concat(tempA ? [tempA] : []).forEach(function (a) { drawAnnot(octx, a); });
     if (selectedIdx >= 0 && pageAnnots()[selectedIdx]) {
@@ -480,6 +534,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   var drawing = null;
   overlay.addEventListener('pointerdown', function (e) {
     if (!pdfDoc) return;
+    if (e.button !== 0 || spaceDown) return;  // middle/right and space-drag belong to panning
     e.preventDefault();
     var p = evPt(e), st = SIZES[size];
     if (tool === 'select') {
@@ -705,7 +760,113 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 
   showHint();
 
-  /* re-fit on resize */
+  /* ── zoom & pan ─────────────────────────────────────────────────────────
+     Wheel zooms about the pointer, the convention this audience already has
+     from CAD. Because that takes the wheel away from scrolling, panning is
+     available three ways: middle-drag, Space+drag, and the scrollbars, with
+     Shift/Alt+wheel kept as scroll escape hatches.                        */
+
+  var stageOuter = document.querySelector('.ed-stage-outer');
+  var rasterTimer = null;
+
+  // Re-rasterising blanks the page canvas for the length of the render, so do
+  // it only when the bitmap has actually drifted far enough from the display
+  // size to look soft. Within that band the browser's own scaling is fine and
+  // zooming stays completely flicker-free.
+  function scheduleRaster(force) {
+    clearTimeout(rasterTimer);
+    rasterTimer = setTimeout(function () {
+      if (!pdfDoc) return;
+      var drift = scale / renderScale;
+      if (!force && drift < 1.35 && drift > 0.6) return;
+      renderPage();
+    }, 160);
+  }
+
+  // Zoom by `factor`, keeping whatever PDF point sits under (cx, cy) put.
+  function zoomAt(factor, cx, cy) {
+    if (!pdfDoc) return;
+    var next = Math.min(ZMAX, Math.max(ZMIN, zoom * factor));
+    if (Math.abs(next - zoom) < 1e-6) return;
+
+    var before = pageCv.getBoundingClientRect();
+    // If no anchor was given (buttons, keyboard) hold the centre of the view.
+    if (cx == null) { var vr = stageOuter.getBoundingClientRect(); cx = vr.left + vr.width / 2; cy = vr.top + vr.height / 2; }
+    var px = (cx - before.left) / scale;
+    var py = (cy - before.top) / scale;
+
+    zoom = next;
+    scale = fitScale * zoom;
+    applyCssSize();
+
+    // Where did that point land after the resize? Scroll by the difference so
+    // it returns to the cursor. Measuring beats predicting here — the stage is
+    // margin-centred, so its offset changes as the page grows.
+    var after = pageCv.getBoundingClientRect();
+    stageOuter.scrollLeft += (after.left + px * scale) - cx;
+    stageOuter.scrollTop  += (after.top  + py * scale) - cy;
+
+    scheduleRaster();
+  }
+
+  stageOuter.addEventListener('wheel', function (e) {
+    if (!pdfDoc) return;
+    if (e.shiftKey || e.altKey) return;   // leave these for scrolling
+    e.preventDefault();                   // also stops the browser's own ctrl+wheel page zoom
+    // deltaMode 1 is lines rather than pixels; a trackpad pinch arrives as ctrl+wheel.
+    var d = e.deltaY * (e.deltaMode === 1 ? 18 : 1);
+    zoomAt(Math.exp(-d * 0.0022), e.clientX, e.clientY);
+  }, { passive: false });
+
+  document.getElementById('zoomIn').addEventListener('click', function () { zoomAt(1.25, null, null); });
+  document.getElementById('zoomOut').addEventListener('click', function () { zoomAt(1 / 1.25, null, null); });
+  document.getElementById('zoomFit').addEventListener('click', function () {
+    if (!pdfDoc) return;
+    zoom = 1; scale = fitScale; applyCssSize();
+    stageOuter.scrollTop = 0; stageOuter.scrollLeft = 0;
+    scheduleRaster(true);
+  });
+
+  /* keyboard: Ctrl/Cmd +, −, 0 */
+  window.addEventListener('keydown', function (e) {
+    if (!pdfDoc) return;
+    if (document.activeElement === textEntry) return;
+    if (!(e.ctrlKey || e.metaKey)) return;
+    if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomAt(1.25, null, null); }
+    else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomAt(1 / 1.25, null, null); }
+    else if (e.key === '0') { e.preventDefault(); document.getElementById('zoomFit').click(); }
+  });
+
+  /* panning: middle-drag, or Space+drag for trackpads with no middle button */
+  var spaceDown = false, pan = null;
+  window.addEventListener('keydown', function (e) {
+    if (e.code === 'Space' && document.activeElement !== textEntry) { spaceDown = true; }
+  });
+  window.addEventListener('keyup', function (e) {
+    if (e.code === 'Space') { spaceDown = false; stageOuter.classList.remove('panning'); }
+  });
+
+  stageOuter.addEventListener('pointerdown', function (e) {
+    if (!pdfDoc) return;
+    if (e.button !== 1 && !(e.button === 0 && spaceDown)) return;
+    e.preventDefault();
+    pan = { x: e.clientX, y: e.clientY, sl: stageOuter.scrollLeft, st: stageOuter.scrollTop };
+    stageOuter.classList.add('panning');
+    try { stageOuter.setPointerCapture(e.pointerId); } catch (e2) {}
+  });
+  stageOuter.addEventListener('pointermove', function (e) {
+    if (!pan) return;
+    stageOuter.scrollLeft = pan.sl - (e.clientX - pan.x);
+    stageOuter.scrollTop  = pan.st - (e.clientY - pan.y);
+  });
+  function endPan() { pan = null; stageOuter.classList.remove('panning'); }
+  stageOuter.addEventListener('pointerup', endPan);
+  stageOuter.addEventListener('pointercancel', endPan);
+  // Middle-click otherwise pastes on Linux / opens autoscroll on Windows.
+  stageOuter.addEventListener('auxclick', function (e) { if (e.button === 1) e.preventDefault(); });
+
+  /* re-fit on resize — the container width changed, so the fit scale moves
+     with it, but the user's zoom level is theirs and is preserved. */
   var rz;
   window.addEventListener('resize', function () {
     clearTimeout(rz);
