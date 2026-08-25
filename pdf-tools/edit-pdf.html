@@ -113,6 +113,36 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
 .ed-warn strong { color: var(--ink); }
 .ed-warn-link { font: inherit; font-weight: 600; color: var(--blueprint);
   background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+
+/* ---- download panel: two formats, side by side, so the trade-off between
+   them is visible at the moment of choosing rather than buried in a note. */
+.ed-dl { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.ed-dl-head { display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.ed-dl-head h3 { font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+.ed-dl-pages { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12.5px; }
+.ed-dl-pages label { color: var(--mute); font-weight: 600; }
+.ed-range { width: 128px; }
+.ed-dl-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mute); }
+.ed-dl-count.bad { color: var(--alert); }
+
+.ed-dl-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 720px) { .ed-dl-opts { grid-template-columns: 1fr; } }
+.ed-dl-opts > * { min-width: 0; }
+.ed-dl-opt { border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px;
+  background: var(--paper); display: flex; flex-direction: column; gap: 10px; }
+.ed-dl-name { font-weight: 700; font-size: 14.5px; color: var(--ink);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ed-dl-tag { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 7px; border-radius: 20px;
+  background: var(--blueprint-tint); color: var(--blueprint); }
+.ed-dl-tag.alt { background: var(--amber-tint); color: #92400E; }
+/* the copy grows, so both buttons land on the same line despite unequal text */
+.ed-dl-opt p { font-size: 12.5px; line-height: 1.55; color: var(--mute); margin: 0; flex: 1 1 auto; }
+.ed-dl-opt p strong { color: var(--ink-2); }
+.ed-dl-opt .mm-btn { align-self: flex-start; }
+.ed-dl-for { font-size: 11.5px; line-height: 1.5; color: var(--mute-2);
+  border-top: 1px dotted var(--rule); padding-top: 9px; margin-top: auto; }
 </style>
 <!-- SEO -->
 <link rel="canonical" href="https://metricmech.com/pdf-tools/edit-pdf">
@@ -255,21 +285,52 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     </div>
 
     <div class="ed-warn" id="textWarn" style="display:none">
-      <strong>Heads up — you have replaced text on this document.</strong>
-      The new wording is drawn over the old, which is right for printing and for anyone reading the
-      file. But the words you replaced are <em>still inside the PDF's text layer</em>, so a
-      copy-paste or a Ctrl+F search can still turn them up. If the old wording is confidential — a
-      price, a name, a revision — use
-      <button type="button" class="ed-warn-link" id="warnImgBtn">Download as image PDF</button>
-      instead: the pages are rasterised, and the replaced text is genuinely gone.
+      <strong>You have replaced text on this document.</strong>
+      The words you replaced are covered, but they are <em>still inside the PDF's text layer</em> — a
+      copy-paste or a Ctrl+F search can turn them up. If that matters here, take the
+      <button type="button" class="ed-warn-link" id="warnImgBtn">Image PDF</button>
+      below instead.
     </div>
 
-    <div class="tool-actions">
-      <button type="button" class="mm-btn" id="saveBtn" disabled>Download edited PDF</button>
-      <button type="button" class="mm-btn mm-btn--ghost" id="saveImgBtn" disabled>Download as image PDF</button>
-      <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Close file</button>
+    <div class="ed-dl">
+      <div class="ed-dl-head">
+        <h3>Download</h3>
+        <div class="ed-dl-pages" id="dlPages" style="display:none">
+          <label for="pageScope">Pages</label>
+          <select class="ed-select" id="pageScope">
+            <option value="all" selected>All pages</option>
+            <option value="cur">This page only</option>
+            <option value="range">Choose pages…</option>
+          </select>
+          <input type="text" class="ed-select ed-range" id="pageRange" placeholder="e.g. 1-3, 7" hidden
+                 aria-label="Page numbers to download">
+          <span class="ed-dl-count" id="pageCountNote"></span>
+        </div>
+      </div>
+
+      <div class="ed-dl-opts">
+        <div class="ed-dl-opt">
+          <div class="ed-dl-name">Edited PDF <span class="ed-dl-tag">keeps text</span></div>
+          <p>Still a real PDF: text stays selectable and searchable, lines stay sharp at any zoom, and
+             the file stays small. The words you replaced are covered but <strong>remain in the text
+             layer</strong>, so a Ctrl+F search can still find them.</p>
+          <button type="button" class="mm-btn" id="saveBtn" disabled>Download edited PDF</button>
+          <div class="ed-dl-for">Everyday choice — revisions, redlines, anything you would normally print or email.</div>
+        </div>
+        <div class="ed-dl-opt">
+          <div class="ed-dl-name">Image PDF <span class="ed-dl-tag alt">removes text</span></div>
+          <p>Each page is rasterised with your edits and masks baked in, so <strong>the original wording
+             is gone for good</strong> — there is nothing underneath to recover. Text is no longer
+             selectable and the file is bigger.</p>
+          <button type="button" class="mm-btn mm-btn--ghost" id="saveImgBtn" disabled>Download as image PDF</button>
+          <div class="ed-dl-for">Use when the old wording is confidential — a price, a name, a supplier — or the file leaves the company.</div>
+        </div>
+      </div>
+
+      <div class="tool-actions">
+        <button type="button" class="mm-btn mm-btn--ghost" id="clearBtn">Close file</button>
+      </div>
     </div>
-    <div class="ed-note"><strong>Masking and replaced text:</strong> the standard download layers masks and new wording <em>over</em> the original content — which technically remains inside the file. For true redaction use <strong>Download as image PDF</strong>: pages are rasterised with your masks and edits baked in, so hidden details cannot be recovered (the drawing becomes a scan-style image PDF).</div>
     <div class="mm-pdf-status" id="status"></div>
     <div class="trust-line">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -313,7 +374,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
   <li>To change existing wording, click it. The word you clicked is selected, so you can type straight over it, then press Enter. Clear the box instead and the line is deleted.</li>
   <li>To add something new, pick a tool: text note, box, cloud, arrow, line, pen, highlighter, check or cross — plus a colour and size — and draw on the page.</li>
   <li>Undo steps back through both kinds of change; Clear page resets one page; the page arrows move through the document.</li>
-  <li>Click <strong>Download edited PDF</strong> — your edits and markup are written into the file, so they show in every viewer and survive printing.</li>
+  <li>Choose which pages to save — all of them, just the one you are on, or a list like <code>1-3, 7</code>.</li>
+  <li>Take <strong>Edited PDF</strong> to keep the text selectable and searchable, or <strong>Image PDF</strong> when the wording you replaced must not be recoverable. Either way the result shows in every viewer and survives printing.</li>
 </ol>
 
 <h3>What this editor does not do</h3>
@@ -401,6 +463,8 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
           document.getElementById('dropMount').style.display = 'none';
           saveBtn.disabled = false;
           document.getElementById('saveImgBtn').disabled = false;
+          scopeSel.value = 'all'; rangeIn.value = '';
+          updatePageNote();
           mmPdf.status('#status', fileName + ' — ' + pageCount + ' page' + (pageCount > 1 ? 's' : '') + '. Pick a tool and draw on the page.', 'ok');
           return renderPage();
         })
@@ -421,6 +485,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     textEntry.style.display = 'none'; textEntry.classList.remove('doc');
     document.getElementById('liveBar').style.display = 'none';
     document.getElementById('textWarn').style.display = 'none';
+    document.getElementById('dlPages').style.display = 'none';
     selectedIdx = -1;
     document.getElementById('editorWrap').style.display = 'none';
     document.getElementById('dropMount').style.display = '';
@@ -1187,10 +1252,65 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (hoverRun !== -1) { hoverRun = -1; drawOverlay(); }
   });
 
+  /* ══ which pages to download ═══════════════════════════════════════════ */
+
+  var scopeSel = document.getElementById('pageScope');
+  var rangeIn = document.getElementById('pageRange');
+
+  // "1-3, 7, 12-9" → [1,2,3,7,9,10,11,12]. Anything unparseable is skipped
+  // rather than failing the whole box, so a stray comma is not a dead end.
+  function parseRange(s, max) {
+    var seen = {}, any = false;
+    String(s || '').split(',').forEach(function (part) {
+      var m = part.trim().match(/^(\d+)\s*(?:[-–—to]+\s*(\d+))?$/i);
+      if (!m) return;
+      var a = parseInt(m[1], 10), b = m[2] ? parseInt(m[2], 10) : a;
+      if (b < a) { var t = a; a = b; b = t; }
+      for (var i = Math.max(1, a); i <= Math.min(max, b); i++) { seen[i] = 1; any = true; }
+    });
+    return any ? Object.keys(seen).map(Number).sort(function (x, y) { return x - y; }) : [];
+  }
+
+  function selectedPages() {
+    if (!pdfDoc) return [];
+    var mode = scopeSel.value;
+    if (mode === 'cur') return [cur];
+    if (mode === 'range') return parseRange(rangeIn.value, pageCount);
+    var all = [];
+    for (var i = 1; i <= pageCount; i++) all.push(i);
+    return all;
+  }
+
+  function updatePageNote() {
+    var wrap = document.getElementById('dlPages');
+    wrap.style.display = pdfDoc ? 'flex' : 'none';
+    rangeIn.hidden = scopeSel.value !== 'range';
+    if (!pdfDoc) return;
+    var n = selectedPages().length, note = document.getElementById('pageCountNote');
+    var bad = n === 0;
+    note.classList.toggle('bad', bad);
+    note.textContent = bad ? 'no valid pages' :
+      (n === pageCount ? pageCount + (pageCount === 1 ? ' page' : ' pages')
+                       : n + ' of ' + pageCount + ' pages');
+    saveBtn.disabled = bad; document.getElementById('saveImgBtn').disabled = bad;
+  }
+  scopeSel.addEventListener('change', updatePageNote);
+  rangeIn.addEventListener('input', updatePageNote);
+
+  // Name the file after what is actually in it.
+  function pageSuffix(keep) {
+    if (!keep.length || keep.length === pageCount) return '';
+    if (keep.length === 1) return '-p' + keep[0];
+    var contiguous = keep[keep.length - 1] - keep[0] === keep.length - 1;
+    return contiguous ? '-p' + keep[0] + '-' + keep[keep.length - 1] : '-' + keep.length + 'pages';
+  }
+
   /* ── export: flatten annotations with pdf-lib ── */
   saveBtn.addEventListener('click', async function () {
     if (!srcBuf) return;
     commitText(); if (LIVE.run >= 0) commitRunEdit();
+    var keep = selectedPages();
+    if (!keep.length) { mmPdf.status('#status', 'No pages selected — check the page numbers.', 'err'); return; }
     var btn = this; btn.disabled = true;
     mmPdf.status('#status', 'Applying text edits and flattening annotations…', 'busy');
     try {
@@ -1205,6 +1325,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       var editPages = Object.keys(edits).filter(function (pn) { return Object.keys(edits[pn]).length; });
       for (var ei = 0; ei < editPages.length; ei++) {
         var epn = parseInt(editPages[ei], 10);
+        if (keep.indexOf(epn) < 0) continue;      // page not being downloaded
         var epage = pages[epn - 1], eruns = textRuns[epn];
         if (!epage || !eruns) continue;
         var keys = Object.keys(edits[epn]);
@@ -1251,6 +1372,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       var pageNums = Object.keys(annots).filter(function (pn) { return annots[pn] && annots[pn].length; });
       for (var k = 0; k < pageNums.length; k++) {
         var pn = parseInt(pageNums[k], 10);
+        if (keep.indexOf(pn) < 0) continue;       // page not being downloaded
         var page = pages[pn - 1]; if (!page) continue;
         var vp1 = (await pdfDoc.getPage(pn)).getViewport({ scale: 1 });
         var O = vp1.convertToPdfPoint(0, 0);
@@ -1314,10 +1436,17 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
           }
         });
       }
+      // Drop the pages that were not asked for. Done last, and back to front so
+      // the indices behind us stay valid while everything above is drawn.
+      if (keep.length !== pageCount) {
+        for (var rp = pageCount; rp >= 1; rp--) if (keep.indexOf(rp) < 0) doc.removePage(rp - 1);
+      }
+
       var bytes = await doc.save();
-      var outName = fileName.replace(/\.pdf$/i, '') + '-annotated.pdf';
+      var outName = fileName.replace(/\.pdf$/i, '') + '-annotated' + pageSuffix(keep) + '.pdf';
       mmPdf.download(bytes, outName);
       var parts = [];
+      if (keep.length !== pageCount) parts.push(keep.length + ' of ' + pageCount + ' pages');
       if (replaced) parts.push(replaced + ' text edit' + (replaced === 1 ? '' : 's') + ' applied');
       if (total) parts.push(total + ' annotation' + (total === 1 ? '' : 's') + ' flattened');
       if (!parts.length) parts.push('no changes to apply');
@@ -1327,19 +1456,26 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       mmPdf.status('#status', err.message || 'Export failed.', 'err');
     }
     btn.disabled = !srcBuf;
+    if (srcBuf) updatePageNote();
   });
 
   /* ── image-PDF export: rasterise pages + markup → true redaction ── */
   document.getElementById('saveImgBtn').addEventListener('click', async function () {
     if (!srcBuf || !pdfDoc) return;
     commitText(); if (LIVE.run >= 0) commitRunEdit();
-    if (pageCount > 30) { mmPdf.status('#status', 'Image export is capped at 30 pages — split the PDF first.', 'err'); return; }
+    var keep = selectedPages();
+    if (!keep.length) { mmPdf.status('#status', 'No pages selected — check the page numbers.', 'err'); return; }
+    if (keep.length > 30) {
+      mmPdf.status('#status', 'Image export is capped at 30 pages — narrow the page selection above, or split the PDF first.', 'err');
+      return;
+    }
     var btn = this; btn.disabled = true;
     try {
       var out = await PDFLib.PDFDocument.create();
       var RS = 2; // ~144 DPI raster
-      for (var pn = 1; pn <= pageCount; pn++) {
-        mmPdf.status('#status', 'Rasterising page ' + pn + ' / ' + pageCount + '…', 'busy');
+      for (var ki2 = 0; ki2 < keep.length; ki2++) {
+        var pn = keep[ki2];
+        mmPdf.status('#status', 'Rasterising page ' + pn + ' (' + (ki2 + 1) + ' / ' + keep.length + ')…', 'busy');
         var page = await pdfDoc.getPage(pn);
         var vp = page.getViewport({ scale: RS });
         var cv = document.createElement('canvas');
@@ -1358,14 +1494,18 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         pg.drawImage(img, { x: 0, y: 0, width: vp1.width, height: vp1.height });
       }
       var bytes = await out.save();
-      var outName = fileName.replace(/\.pdf$/i, '') + '-redacted.pdf';
+      var outName = fileName.replace(/\.pdf$/i, '') + '-redacted' + pageSuffix(keep) + '.pdf';
       mmPdf.download(bytes, outName);
-      mmPdf.status('#status', 'Done — ' + pageCount + ' page' + (pageCount > 1 ? 's' : '') + ' rasterised with markup baked in (' + mmPdf.fmtSize(bytes.length) + '). Hidden content is not recoverable. Downloaded as ' + outName + '.', 'ok');
+      mmPdf.status('#status', 'Done — ' + keep.length + ' page' + (keep.length > 1 ? 's' : '') +
+        (keep.length !== pageCount ? ' of ' + pageCount : '') +
+        ' rasterised with your edits and markup baked in (' + mmPdf.fmtSize(bytes.length) +
+        '). Replaced and hidden content is not recoverable. Downloaded as ' + outName + '.', 'ok');
       if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit-image-export' });
     } catch (err) {
       mmPdf.status('#status', err.message || 'Image export failed.', 'err');
     }
     btn.disabled = !srcBuf;
+    if (srcBuf) updatePageNote();
   });
 
   showHint();
