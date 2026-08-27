@@ -352,3 +352,9 @@ posts:
   keyword: OEE availability performance quality calculation example
   cluster: SPC & Quality Statistics
   source: autopilot
+- url: https://metricmech.com/articles/cutting-speed-feed-rate-formula
+  date: '2026-08-27'
+  title: 'Cutting Speed & Feed Rate Formula: Turning & Milling | MetricMech'
+  keyword: cutting speed feed rate formula turning milling
+  cluster: Machining & Cutting Calculations
+  source: autopilot

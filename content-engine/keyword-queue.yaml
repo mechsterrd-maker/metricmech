@@ -346,7 +346,7 @@ queue:
   word_count: 1900
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: weld symbol drawing interpretation AWS ISO guide
   cluster: Welding & Joining
   intent: informational

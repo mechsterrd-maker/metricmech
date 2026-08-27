@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cutting Speed & Feed Rate Formula: Turning & Milling | MetricMech</title>
+<meta name="description" content="Master the cutting speed feed rate formula turning milling. Get spindle RPM, surface footage conversion, and CNC worked examples fast." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/cutting-speed-feed-rate-formula">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cutting Speed & Feed Rate Formula: Turning & Milling | MetricMech">
+<meta property="og:description" content="Master the cutting speed feed rate formula turning milling. Get spindle RPM, surface footage conversion, and CNC worked examples fast.">
+<meta property="og:url" content="https://metricmech.com/articles/cutting-speed-feed-rate-formula">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cutting Speed & Feed Rate Formula: Turning & Milling | MetricMech">
+<meta name="twitter:description" content="Master the cutting speed feed rate formula turning milling. Get spindle RPM, surface footage conversion, and CNC worked examples fast.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Cutting Speed & Feed Rate Formula: Turning & Milling | MetricMech",
+  "description": "Master the cutting speed feed rate formula turning milling. Get spindle RPM, surface footage conversion, and CNC worked examples fast.",
+  "url": "https://metricmech.com/articles/cutting-speed-feed-rate-formula",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Cutting Speed & Feed Rate Formula for Turning and Milling",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-27",
+  "mainEntityOfPage": "https://metricmech.com/articles/cutting-speed-feed-rate-formula"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you calculate cutting speed from RPM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply RPM by the tool or workpiece diameter (in mm) and divide by 1000 to get surface speed in m/min. The formula is: Vc = (π × D × N) / 1000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the feed rate formula for milling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Feed rate (Vf) = fz × z × N, where fz is feed per tooth (chip load), z is the number of flutes, and N is spindle speed in RPM."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you convert surface footage to RPM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For imperial units, RPM = (SFM × 3.82) / D, where D is the cutter diameter in inches. For metric, RPM = (Vc × 1000) / (π × D)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the spindle speed calculation formula for CNC turning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "N = (Vc × 1000) / (π × D), where Vc is the recommended cutting speed in m/min and D is the workpiece diameter in mm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the cutting speed formula change between turning and milling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The core formula is the same — both use N = (Vc × 1000) / (π × D). The difference is that in turning D refers to the workpiece diameter, while in milling D refers to the cutter diameter."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cutting Speed & Feed Rate Formula for Turning and Milling",
+      "item": "https://metricmech.com/articles/cutting-speed-feed-rate-formula"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Cutting Speed & Feed Rate Formula for Tu</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What the Formulas Are</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula & Variables Reference Table</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#common-mistakes">Common Mistakes to Avoid</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Cutting Speed & Feed Rate Formula for Turning and Milling</h1>
+    <div class="art-meta-bar">
+      <span>Machining Reference</span>
+      <span>August 27, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede">The <strong>cutting speed and feed rate formula</strong> for turning and milling converts a material's recommended surface speed (Vc, in m/min or SFM) into spindle RPM using <em>N = (Vc × 1000) / (π × D)</em>, then calculates table feed rate as <em>Vf = fz × z × N</em> for milling or <em>f = fn × N</em> for turning. These two formulas govern tool life, surface finish, and cycle time on every CNC machine.</p>
+
+<h2 id="direct-answer">What the Formulas Are</h2>
+
+<p>Every machining parameter chain begins with one material property: the recommended cutting speed (Vc). Tool manufacturers publish Vc values in metres per minute (metric) or surface feet per minute (imperial, also called SFM). From Vc, two formulas do all the work.</p>
+
+<p><strong>Spindle speed (RPM):</strong></p>
+<p><code>N = (Vc × 1000) / (π × D)</code></p>
+
+<p><strong>Feed rate for milling:</strong></p>
+<p><code>Vf = fz × z × N</code></p>
+
+<p><strong>Feed rate for turning:</strong></p>
+<p><code>Vf = fn × N</code></p>
+
+<p>In turning, D is the workpiece diameter. In milling, D is the cutter diameter. Everything else — depth of cut, material removal rate, power demand — flows from these starting points. The <a href="https://metricmech.com/articles/chip-load-calculation">chip load calculation guide on MetricMech</a> goes deeper on selecting the right fz value for end mills and face mills.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a CNC turning operation on an aluminium alloy 6061 shaft. The shaft diameter is 50 mm. The carbide insert manufacturer recommends a cutting speed of 300 m/min for this material. The feed per revolution is set at 0.15 mm/rev.</p>
+
+<p><strong>Step 1 — Calculate spindle speed:</strong></p>
+<p><code>N = (300 × 1000) / (π × 50) = 300,000 / 157.08 ≈ 1,910 RPM</code></p>
+
+<p><strong>Step 2 — Calculate feed rate:</strong></p>
+<p><code>Vf = fn × N = 0.15 × 1,910 ≈ 287 mm/min</code></p>
+
+<p>Programme the CNC lathe at 1,910 RPM and 287 mm/min feed. If the machine's maximum spindle speed is 1,800 RPM, clamp N at 1,800 and recalculate Vf = 0.15 × 1,800 = 270 mm/min. Never exceed the machine ceiling just to honour the catalogue Vc.</p>
+
+<div class="callout">
+  <strong>Quick sanity check:</strong> Back-calculate Vc from your set RPM to confirm actual surface speed. Use <em>Vc = (π × D × N) / 1000</em>. This is how to calculate cutting speed from RPM — essential when a machine limit forces you below the catalogue value.
+</div>
+
+<h2 id="formula-table">Formula & Variables Reference Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Parameter</th>
+      <th>Unit (Metric)</th>
+      <th>Unit (Imperial)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vc</td>
+      <td>Cutting speed (surface speed)</td>
+      <td>m/min</td>
+      <td>SFM (ft/min)</td>
+      <td>From tool/material datasheet</td>
+    </tr>
+    <tr>
+      <td>N</td>
+      <td>Spindle speed</td>
+      <td>RPM</td>
+      <td>RPM</td>
+      <td>Calculated; capped by machine limit</td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td>Diameter</td>
+      <td>mm</td>
+      <td>inches</td>
+      <td>Workpiece (turning) or cutter (milling)</td>
+    </tr>
+    <tr>
+      <td>fz</td>
+      <td>Feed per tooth (chip load)</td>
+      <td>mm/tooth</td>
+      <td>in/tooth</td>
+      <td>Milling only; from tool datasheet</td>
+    </tr>
+    <tr>
+      <td>fn</td>
+      <td>Feed per revolution</td>
+      <td>mm/rev</td>
+      <td>in/rev</td>
+      <td>Turning and drilling</td>
+    </tr>
+    <tr>
+      <td>z</td>
+      <td>Number of flutes / teeth</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Milling only</td>
+    </tr>
+    <tr>
+      <td>Vf</td>
+      <td>Feed rate (table feed)</td>
+      <td>mm/min</td>
+      <td>in/min</td>
+      <td>Final programmed feed value</td>
+    </tr>
+    <tr>
+      <td>SFM</td>
+      <td>Surface feet per minute</td>
+      <td>—</td>
+      <td>ft/min</td>
+      <td>Imperial equivalent of Vc</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For imperial users, the spindle speed calculation formula CNC operators use is: <code>N = (SFM × 3.82) / D_inches</code>. The constant 3.82 is simply 12/π rounded to two decimal places. Surface footage to RPM conversion is then straightforward: multiply SFM by 3.82 and divide by cutter diameter in inches.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<p>Follow these steps in sequence for any turning or milling operation. Skipping step 1 — confirming the correct Vc — is the most common source of tool failure on the shop floor.</p>
+
+<ol>
+  <li><strong>Identify workpiece material and hardness.</strong> Cutting speed recommendations vary significantly with material hardness. Check your insert or end mill manufacturer's catalogue for the specific Vc range. ISO 513 classifies work materials into groups (P, M, K, N, S, H) that tooling manufacturers use as the basis for their speed tables. Refer to <a href="https://www.iso.org/standard/37348.html" rel="nofollow noopener noreferrer" target="_blank">ISO 513</a> for the material classification standard. Hardness also affects selection — see the <a href="https://metricmech.com/articles/hardness-conversion-chart">MetricMech hardness conversion chart</a> if your material spec is in a different scale than the catalogue.</li>
+
+  <li><strong>Select the recommended Vc.</strong> Choose a conservative starting point within the catalogue range, especially for difficult materials or unstable setups. Start at 70–80% of the maximum recommended Vc and adjust upward after confirming tool life.</li>
+
+  <li><strong>Measure or confirm the relevant diameter.</strong> For turning, measure the current workpiece diameter at the cut point — not the stock diameter after roughing. For milling, use the effective cutting diameter of the cutter (some face mills have a smaller effective diameter than their nominal size).</li>
+
+  <li><strong>Calculate spindle speed N.</strong> Apply <em>N = (Vc × 1000) / (π × D)</em> for metric, or <em>N = (SFM × 3.82) / D</em> for imperial. Round down to the nearest available spindle increment on your machine.</li>
+
+  <li><strong>Select feed per tooth (milling) or feed per revolution (turning).</strong> These values come from the tool datasheet and depend on radial depth of cut, axial depth of cut, and operation type (roughing vs. finishing). The <a href="https://metricmech.com/articles/chip-load-calculation">chip load calculation article</a> covers how to adjust fz for different radial engagement percentages.</li>
+
+  <li><strong>Calculate feed rate Vf.</strong> For milling: <em>Vf = fz × z × N</em>. For turning: <em>Vf = fn × N</em>. Enter this as the programmed feed in mm/min (or in/min) in the CNC controller.</li>
+
+  <li><strong>Verify against machine limits and power.</strong> Confirm that the required spindle power does not exceed the machine's rated output. See the <a href="https://metricmech.com/articles/motor-power-calculation">motor power calculation guide</a> for a quick check. Cross-reference cycle time impact using the <a href="https://metricmech.com/articles/cycle-time-calculation">cycle time calculation article</a> — feed rate changes directly affect part-to-part time.</li>
+
+  <li><strong>Run, observe, and adjust.</strong> Monitor chip colour, chip form, and insert flank wear. Discoloured chips or rapid edge wear indicate the Vc or fz is too high. Vibration and poor surface finish often indicate Vc is too low or depth of cut is insufficient for the insert geometry.</li>
+</ol>
+
+<div class="callout">
+  <strong>CadNexa tip:</strong> Once machining parameters are finalised, inspection documentation becomes the next task. If your part has balloon-referenced dimensions on a drawing, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=cutting-speed-feed-rate-formula" class="highlight" target="_blank" rel="noopener noreferrer">CadNexa's auto-ballooning tool</a> can generate balloon callouts from your CAD drawing in seconds, eliminating manual FAI prep work before first-article inspection.
+</div>
+
+<h2 id="common-mistakes">Common Mistakes to Avoid</h2>
+
+<p><strong>1. Using nominal stock diameter instead of current cut diameter in turning.</strong> As diameter decreases during facing or taper turning, constant RPM means surface speed drops. Many CNC lathes offer constant surface speed (CSS) mode — use it. Without CSS, Vc falls as the tool moves toward the centre, leaving a poor finish on the face.</p>
+
+<p><strong>2. Ignoring the radial engagement factor in milling feed rate calculations.</strong> The feed rate formula milling calculation <em>Vf = fz × z × N</em> assumes full-slot engagement. When radial depth of cut is below 50% of cutter diameter, chip thinning occurs and fz should be increased proportionally. Failure to adjust leads to under-loaded tools, rubbing, and accelerated wear.</p>
+
+<p><strong>3. Treating the catalogue Vc as a fixed target rather than a range midpoint.</strong> Tool manufacturers publish a range, not a single value. Older machines with worn spindle bearings, long tool overhangs, or thin-walled workpieces all justify a reduction of 20–30% from the midpoint Vc. The catalogue assumes ideal conditions that rarely exist on a production floor.</p>
+
+<p><strong>4. Confusing feed per tooth with feed per revolution in the CNC programme.</strong> This mistake produces feed rates that are four to eight times too fast or too slow depending on cutter flute count. Always confirm the controller input field — some post-processors output IPT (inches per tooth) while others expect IPM (inches per minute). Refer to <a href="https://www.nist.gov/system/files/documents/2017/05/09/NIST_RS274NGC_v3.pdf" rel="nofollow noopener noreferrer" target="_blank">NIST RS274NGC G-code documentation</a> for standard feed mode definitions.</p>
+
+<p><strong>5. Not recalculating RPM when the tool wears and diameter changes.</strong> For tools with re-grindable profiles or when running tipped tools close to their wear limit, effective cutting diameter can change. Competitors such as Sandvik Coromant's CoroPlus Tool Guide and Kennametal's NOVO provide automated parameter updates, but the underlying formula is the same — always re-enter a changed diameter before accepting the RPM output.</p>
+
+<div class="warn-box">
+  <strong>Important:</strong> ASME B94.55M defines tool life testing methodology. Tool life recommendations in catalogues are typically based on a 15-minute tool life criterion under controlled conditions. Production environments with interrupted cuts, coolant variation, or workpiece hardness scatter will deviate from this baseline. See <a href="https://www.asme.org/codes-standards/find-codes-standards/b94-55m-evaluation-tool-life-cutting-speed" rel="nofollow noopener noreferrer" target="_blank">ASME B94.55M</a> for the standard testing protocol.
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>How do you calculate cutting speed from RPM?</h3>
+<p>Multiply the spindle speed (RPM) by the tool or workpiece diameter in mm, then multiply by π and divide by 1000. The formula is <em>Vc = (π × D × N) / 1000</em>, giving Vc in m/min. This reverse calculation is essential when a machine limit prevents reaching the recommended RPM — it confirms the actual surface speed being achieved at the constrained setting.</p>
+
+<h3>What is the feed rate formula for milling calculation?</h3>
+<p>The milling feed rate formula is <em>Vf = fz × z × N</em>, where fz is feed per tooth in mm, z is the number of cutter flutes, and N is spindle speed in RPM. The result Vf is the programmed table feed in mm/min. For a 4-flute end mill running at 2,000 RPM with fz = 0.05 mm/tooth, Vf = 0.05 × 4 × 2,000 = 400 mm/min.</p>
+
+<h3>How do you do surface footage to RPM conversion?</h3>
+<p>For imperial machining, use <em>N = (SFM × 3.82) / D</em>, where D is in inches. For example, a 0.5-inch end mill at 400 SFM gives N = (400 × 3.82) / 0.5 = 3,056 RPM. For metric, convert SFM to m/min first by multiplying by 0.3048, then apply the standard spindle speed formula.</p>
+
+<h3>What is the spindle speed calculation formula for CNC operations?</h3>
+<p>The universal spindle speed calculation formula for CNC turning and milling is <em>N = (Vc × 1000) / (π × D)</em> in metric units. Vc is the recommended cutting speed in m/min and D is the relevant diameter in mm. Most CNC control software includes this as a built-in parameter, but understanding the formula allows engineers to verify and override controller suggestions when machine conditions require it.</p>
+
+<h3>Does the cutting speed formula change between turning and milling?</h3>
+<p>The spindle speed formula is identical for both processes. The critical difference is what D represents: in turning, D is the workpiece diameter at the cutting point, which changes continuously during facing operations. In milling, D is the cutter diameter, which remains constant. Feed rate calculation differs because milling uses feed per tooth multiplied by flute count, while turning uses feed per revolution directly.</p>
+
+<hr/>
+
+<p>For further reading on related mechanical and quality engineering calculations, explore the <a href="https://metricmech.com/articles/oee-availability-performance-quality-calculation">OEE calculation guide</a> to understand how spindle utilisation and feed rate decisions flow into overall equipment effectiveness metrics. If your machining process feeds a dimensional inspection step, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=cutting-speed-feed-rate-formula" class="cta-box" target="_blank" rel="noopener noreferrer">CadNexa's auto-ballooning tool</a> can eliminate manual ballooning time on first-article inspection drawings — a natural next step after locking in your cutting parameters.</p>
+
+<p>Additional external reference: ISO 3685 covers tool life testing for single-point turning tools and is the foundation for most turning speed-life data published by carbide insert manufacturers. See <a href="https://www.iso.org/standard/9151.html" rel="nofollow noopener noreferrer" target="_blank">ISO 3685 on the ISO catalogue</a> for the normative testing conditions behind the Vc values used in these formulas.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/chip-load-calculation">Chip Load Calculation: Feed Per Tooth Formula</a></li>
+    <li><a href="/articles/speeds-and-feeds-calculator">Speeds and Feeds Calculator: Formula &amp; Charts</a></li>
+    <li><a href="/articles/oee-calculation">OEE Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/cycle-time-calculation">Cycle Time Calculation: Formula and Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cutting Speed & Feed Rate Formula for Turning and Milling",
+      "item": "https://metricmech.com/articles/cutting-speed-feed-rate-formula"
+    }
+  ]
+}
+</script>
+</body>
+</html>
