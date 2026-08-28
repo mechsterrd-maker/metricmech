@@ -423,6 +423,25 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (el) el.innerHTML = TOOL_HINTS[tool] || '';
   }
 
+  /* ── funnel tracking ──────────────────────────────────────────────────
+     Landing on this page and downloading from it were the only measurable
+     moments, which says nothing about the middle: whether people who arrive
+     actually open a file, and whether they get an edit made. Each step below
+     fires once per file so a campaign can be judged on use, not just visits.
+     analytics.js (loaded by site.js) exposes mmTrack; gtag is the fallback. */
+  var firedSteps = {};
+  function fire(name, params) {
+    try {
+      if (typeof window.mmTrack === 'function') window.mmTrack(name, params || {});
+      else if (typeof gtag === 'function') gtag('event', name, params || {});
+    } catch (e) { /* analytics must never break the editor */ }
+  }
+  function fireOnce(name, params) {
+    if (firedSteps[name]) return;
+    firedSteps[name] = 1;
+    fire(name, params);
+  }
+
   var srcBuf = null, pdfDoc = null, pageCount = 0, cur = 1;
   var selectedIdx = -1, dragSel = null;
   var scale = 1;            // display scale: canvas CSS px per PDF point
@@ -475,11 +494,16 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
           scopeSel.value = 'all'; rangeIn.value = '';
           updatePageNote();
           mmPdf.status('#status', fileName + ' — ' + pageCount + ' page' + (pageCount > 1 ? 's' : '') + '. Pick a tool and draw on the page.', 'ok');
+          firedSteps = {};
+          fireOnce('pdf_edit_open', { pages: pageCount });
           return renderPage();
         })
         .catch(function (err) {
           if (window.console && console.error) console.error('edit-pdf load failed:', err);
           closeFile();
+          // A visitor who could not even open their file is a different kind
+          // of drop-off from one who opened it and left.
+          fire('pdf_edit_fail', { reason: String((err && err.name) || 'unreadable').slice(0, 40) });
           mmPdf.status('#status', 'Could not read that PDF — if it is password-protected, unlock it first.', 'err');
         });
     }
@@ -732,6 +756,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (tool === 'check' || tool === 'cross') {
       pageAnnots().push({ type: tool, x: p[0], y: p[1], m: st.mark, color: color, stroke: st.stroke });
       pushHistory({ kind: 'annot' });
+      fireOnce('pdf_edit_markup', { kind: tool });
       drawOverlay();
       return;
     }
@@ -765,7 +790,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     var degenerate = (d.type === 'pen' && d.pts.length < 2) ||
       ((d.type === 'rect' || d.type === 'ellipse' || d.type === 'highlight' || d.type === 'maskw' || d.type === 'maskb') && (d.w < 2 && d.h < 2)) ||
       ((d.type === 'line' || d.type === 'arrow') && Math.hypot(d.x2 - d.x1, d.y2 - d.y1) < 2);
-    if (!degenerate) { pageAnnots().push(d); pushHistory({ kind: 'annot' }); }
+    if (!degenerate) { pageAnnots().push(d); pushHistory({ kind: 'annot' }); fireOnce('pdf_edit_markup', { kind: d.type }); }
     drawOverlay();
   });
 
@@ -801,6 +826,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     if (t) {
       pageAnnots().push({ type: 'text', text: t, x: pendingText.x, y: pendingText.y, font: pendingText.font, color: pendingText.color });
       pushHistory({ kind: 'annot' });
+      fireOnce('pdf_edit_markup', { kind: 'note' });
     }
     pendingText = null;
     textEntry.style.display = 'none';
@@ -1280,6 +1306,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       ed[idx] = { str: val, bg: LIVE.bg, fg: LIVE.fg, width: fit.width,
                   mode: fit.plan.mode, lost: fit.plan.lost || '' };
       pushHistory({ kind: 'edit', idx: idx, prev: had });
+      fireOnce('pdf_edit_text', { font: fit.plan.mode });   // native vs substituted
     }
     drawOverlay();
     updateLiveBar();
@@ -1306,7 +1333,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
     var changed = Object.keys(edits[cur] || {}).length;
     var msg = document.getElementById('liveMsg');
     if (!runs) msg.innerHTML = 'Reading the text on this page…';
-    else if (!n) msg.innerHTML = '<b>No text layer on this page.</b> It is a scan or a vector drawing, so there are no words to edit — use the note, box and pen tools to mark it up instead.';
+    else if (!n) { fireOnce('pdf_edit_no_text', {}); msg.innerHTML = '<b>No text layer on this page.</b> It is a scan or a vector drawing, so there are no words to edit — use the note, box and pen tools to mark it up instead.'; }
     else msg.innerHTML = '<b>' + n + ' editable line' + (n === 1 ? '' : 's') + ' on this page.</b> Click one to retype it.';
     // If any edit could not stay in the document's own font, say so here
     // rather than letting it surface as a surprise in the download.
@@ -1634,6 +1661,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
       } else {
         mmPdf.status('#status', msg, 'ok');
       }
+      fire('pdf_edit_download', { kind: 'vector', text_edits: replaced, annotations: total, pages: keep.length });
       if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit', annotations: total, text_edits: replaced });
     } catch (err) {
       mmPdf.status('#status', err.message || 'Export failed.', 'err');
@@ -1683,6 +1711,7 @@ html[data-mm-theme="dark"] .ed-stage-outer { background: rgba(2,8,26,0.5); }
         (keep.length !== pageCount ? ' of ' + pageCount : '') +
         ' rasterised with your edits and markup baked in (' + mmPdf.fmtSize(bytes.length) +
         '). Replaced and hidden content is not recoverable. Downloaded as ' + outName + '.', 'ok');
+      fire('pdf_edit_download', { kind: 'image', pages: keep.length });
       if (typeof gtag === 'function') gtag('event', 'pdf_tool_use', { tool: 'edit-image-export' });
     } catch (err) {
       mmPdf.status('#status', err.message || 'Image export failed.', 'err');

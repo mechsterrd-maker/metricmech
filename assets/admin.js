@@ -216,6 +216,103 @@
     }).join('') + '</div>';
   }
 
+  /* ------------------------------------------------------- funnel & ads */
+
+  var EDITOR_PATH = '/pdf-tools/edit-pdf';
+  function pct(n, of) { return of > 0 ? Math.round((n / of) * 100) + '%' : '—'; }
+  function evCount(d, name) {
+    var e = (d.events || []).find(function (x) { return x.name === name; });
+    return e ? e.count : 0;
+  }
+
+  /* Views → opened a file → made an edit → downloaded. Each step is measured
+     against the step above it, because a 40% drop from "opened" means
+     something quite different from 40% of everyone who ever saw the page. */
+  function renderFunnel(d) {
+    var page = (d.pages || []).find(function (p) { return p.path === EDITOR_PATH; });
+    var views = page ? page.views : 0;
+    var opened = evCount(d, 'pdf_edit_open');
+    var edited = evCount(d, 'pdf_edit_text') + evCount(d, 'pdf_edit_markup');
+    var got = evCount(d, 'pdf_edit_download');
+    var noText = evCount(d, 'pdf_edit_no_text');
+    var failed = evCount(d, 'pdf_edit_fail');
+
+    var steps = [
+      { name: 'Viewed the page', value: views, of: views },
+      { name: 'Opened a PDF', value: opened, of: views },
+      { name: 'Edited something', value: edited, of: opened },
+      { name: 'Downloaded the result', value: got, of: edited }
+    ];
+    var host = document.getElementById('ad-funnel');
+    var rate = document.getElementById('ad-funnel-rate');
+
+    if (!views && !opened) {
+      host.innerHTML = '<div class="ad-empty">Nothing recorded for ' + EDITOR_PATH + ' in this period.<br>' +
+        'The step events ship from 25 Aug 2026 — traffic from before then shows views only.</div>';
+      rate.textContent = '';
+      return;
+    }
+    rate.textContent = views ? pct(got, views) + ' of visitors leave with a file' : '';
+
+    var max = Math.max.apply(null, steps.map(function (s) { return s.value; })) || 1;
+    host.innerHTML = '<div class="ad-rank">' + steps.map(function (s, i) {
+      var carry = i === 0 ? '' : pct(s.value, s.of) + ' of the step above';
+      return '<div class="ad-row">' +
+        '<div class="ad-row-label">' +
+          '<span class="ad-row-name">' + esc(s.name) + '</span>' +
+          (carry ? '<span class="ad-row-sub">' + esc(carry) + '</span>' : '') +
+          '<div class="ad-bar-track"><div class="ad-bar-fill" style="width:' +
+            Math.max(2, (s.value / max) * 100).toFixed(1) + '%"></div></div>' +
+        '</div>' +
+        '<div class="ad-row-value">' + fmt(s.value) + '</div>' +
+      '</div>';
+    }).join('') + '</div>' +
+    ((noText || failed)
+      ? '<p class="ad-panel-note" style="margin:14px 0 0">' +
+          (noText ? fmt(noText) + ' opened a scan with no text layer (nothing to retype). ' : '') +
+          (failed ? fmt(failed) + ' could not be opened at all. ' : '') +
+        '</p>'
+      : '');
+  }
+
+  /* Campaign table with the funnel folded in, so a campaign that sends a lot
+     of traffic and produces no edits is visible as such. */
+  function renderCampaigns(d) {
+    var host = document.getElementById('ad-campaigns');
+    var camps = d.campaigns || [];
+    if (!camps.length) {
+      host.innerHTML = '<div class="ad-empty">No campaign-tagged sessions in this period.<br>' +
+        'Ads only appear here if the destination URL carries UTM tags, e.g.<br>' +
+        '<code>' + esc('https://metricmech.com/pdf-tools/edit-pdf?utm_source=google&utm_medium=cpc&utm_campaign=pdf-editor') + '</code></div>';
+      return;
+    }
+    var byCamp = {};
+    (d.campaignFunnel || []).forEach(function (r) {
+      (byCamp[r.campaign] = byCamp[r.campaign] || {})[r.event] = r.count;
+    });
+    host.innerHTML =
+      '<div class="ad-tablewrap"><table class="ad-table"><thead><tr>' +
+        '<th>Campaign</th><th>Source / medium</th>' +
+        '<th class="num">Sessions</th><th class="num">People</th><th class="num">Engaged</th>' +
+        '<th class="num">Opened</th><th class="num">Edited</th><th class="num">Downloaded</th>' +
+      '</tr></thead><tbody>' +
+      camps.map(function (c) {
+        var f = byCamp[c.name] || {};
+        var edited = (f.pdf_edit_text || 0) + (f.pdf_edit_markup || 0);
+        return '<tr>' +
+          '<td><span class="path">' + esc(c.name) + '</span></td>' +
+          '<td>' + esc(c.sourceMedium || '—') + '</td>' +
+          '<td class="num">' + fmt(c.sessions) + '</td>' +
+          '<td class="num">' + fmt(c.users) + '</td>' +
+          '<td class="num">' + pct(c.engaged, c.sessions) + '</td>' +
+          '<td class="num">' + fmt(f.pdf_edit_open || 0) + '</td>' +
+          '<td class="num">' + fmt(edited) + '</td>' +
+          '<td class="num">' + fmt(f.pdf_edit_download || 0) + '</td>' +
+        '</tr>';
+      }).join('') +
+      '</tbody></table></div>';
+  }
+
   /* --------------------------------------------------------------- render */
 
   function render(d) {
@@ -232,6 +329,17 @@
              '<div class="ad-tile-value">' + k[1] + '</div>' +
              '<div class="ad-tile-foot">' + k[2] + '</div></div>';
     }).join('');
+
+    renderFunnel(d);
+    renderCampaigns(d);
+    document.getElementById('ad-landings').innerHTML = rankRows(
+      (d.landings || []).map(function (l) {
+        return { name: prettyPath(l.path), sub: l.path, value: l.sessions,
+                 note: pct(l.engaged, l.sessions) + ' engaged',
+                 href: 'https://metricmech.com' + l.path };
+      }),
+      { empty: 'No landing-page data in this period.' }
+    );
 
     document.getElementById('ad-trend').innerHTML = trendChart(d.daily);
     wireTrend(d.daily);
@@ -363,6 +471,17 @@
     d.devices.forEach(function (x) { lines.push(['device', x.name, '', 'sessions', x.sessions]); });
     d.countries.forEach(function (c) { lines.push(['country', c.name, '', 'users', c.users]); });
     d.daily.forEach(function (r) { lines.push(['daily', r.date, '', 'pageviews', r.pageviews], ['daily', r.date, '', 'calculator_runs', r.calcRuns]); });
+    (d.campaigns || []).forEach(function (c) {
+      lines.push(['campaign', c.name, c.sourceMedium, 'sessions', c.sessions],
+                 ['campaign', c.name, c.sourceMedium, 'users', c.users],
+                 ['campaign', c.name, c.sourceMedium, 'engaged_sessions', c.engaged]);
+    });
+    (d.campaignFunnel || []).forEach(function (r) {
+      lines.push(['campaign_funnel', r.campaign, r.event, 'count', r.count]);
+    });
+    (d.landings || []).forEach(function (l) {
+      lines.push(['landing', l.path, '', 'sessions', l.sessions], ['landing', l.path, '', 'engaged_sessions', l.engaged]);
+    });
 
     var csv = lines.map(function (r) {
       return r.map(function (c) { return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(',');

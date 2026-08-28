@@ -17,7 +17,8 @@
 
    Note on calculator breakdown: calculator_run fires on the calculator's own
    page, so we group it by the built-in pagePath dimension. That deliberately
-   avoids requiring custom-dimension registration in GA4.
+   avoids requiring custom-dimension registration in GA4. The PDF editor's
+   funnel events do the same job by having names of their own.
    ========================================================================== */
 
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
@@ -286,6 +287,46 @@ Deno.serve(async (req) => {
       }
     ]);
 
+    /* Campaign reporting. An ad buy is judged on what the traffic did, not
+       how much of it there was, so the second report below crosses campaign
+       against the tool's own funnel events. Those names are only emitted by
+       the PDF editor, so no custom dimension registration is needed. */
+    const FUNNEL = [
+      'pdf_edit_open', 'pdf_edit_text', 'pdf_edit_markup',
+      'pdf_edit_download', 'pdf_edit_no_text', 'pdf_edit_fail'
+    ];
+    const batchC = await batchRunReports(propertyId, token, [
+      // 0 · campaigns
+      {
+        dateRanges: [cur],
+        dimensions: [{ name: 'sessionCampaignName' }, { name: 'sessionSourceMedium' }],
+        metrics: [
+          { name: 'sessions' }, { name: 'totalUsers' },
+          { name: 'engagedSessions' }, { name: 'userEngagementDuration' }
+        ],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 25
+      },
+      // 1 · what each campaign's traffic actually did in the editor
+      {
+        dateRanges: [cur],
+        dimensions: [{ name: 'sessionCampaignName' }, { name: 'eventName' }],
+        metrics: [{ name: 'eventCount' }, { name: 'totalUsers' }],
+        dimensionFilter: {
+          filter: { fieldName: 'eventName', inListFilter: { values: FUNNEL } }
+        },
+        limit: 150
+      },
+      // 2 · where the ads actually landed people
+      {
+        dateRanges: [cur],
+        dimensions: [{ name: 'landingPage' }],
+        metrics: [{ name: 'sessions' }, { name: 'totalUsers' }, { name: 'engagedSessions' }],
+        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+        limit: 25
+      }
+    ]);
+
     /* --- 4. shape ------------------------------------------------------ */
     const totalRows = rows(batchA[0]);
     const pick = (name: string) => totalRows.find((r: any) => r.d[0] === name)?.m || [0, 0, 0, 0];
@@ -321,7 +362,20 @@ Deno.serve(async (req) => {
       channels:  rows(batchB[1]).map((r: any) => ({ name: r.d[0], sessions: r.m[0], users: r.m[1] })),
       devices:   rows(batchB[2]).map((r: any) => ({ name: r.d[0], sessions: r.m[0] })),
       countries: rows(batchB[3]).map((r: any) => ({ name: r.d[0], users: r.m[0] })),
-      sources:   rows(batchB[4]).map((r: any) => ({ name: r.d[0], sessions: r.m[0] }))
+      sources:   rows(batchB[4]).map((r: any) => ({ name: r.d[0], sessions: r.m[0] })),
+      campaigns: rows(batchC[0])
+        .filter((r: any) => r.d[0] && r.d[0] !== '(not set)')
+        .map((r: any) => ({
+          name: r.d[0], sourceMedium: r.d[1],
+          sessions: r.m[0], users: r.m[1], engaged: r.m[2], engagementS: r.m[3]
+        })),
+      campaignFunnel: rows(batchC[1]).map((r: any) => ({
+        campaign: r.d[0] || '(none)', event: r.d[1], count: r.m[0], users: r.m[1]
+      })),
+      landings: rows(batchC[2]).map((r: any) => ({
+        path: r.d[0], sessions: r.m[0], users: r.m[1], engaged: r.m[2]
+      })),
+      funnelEvents: FUNNEL
     };
 
     return json(payload);

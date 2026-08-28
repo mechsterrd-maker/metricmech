@@ -10,15 +10,18 @@ Not linked from anywhere on the site, `noindex, nofollow`, and blocked in `robot
 
 ## Two things to do before it works
 
-### 1. Make yourself an admin — 10 seconds
+### 1. Make yourself an admin — already done
 
-Sign in once at [metricmech.com/forum](https://metricmech.com/forum) so a profile exists, then in the
-Supabase SQL editor:
+`rajadurai-r` now has `role = 'admin'` (migration `grant_admin_role_to_owner`). To add someone else
+later, sign them in once at [metricmech.com/forum](https://metricmech.com/forum) so a profile
+exists, then in the Supabase SQL editor:
 
 ```sql
-update public.forum_profiles set role = 'admin'
-where handle = 'rajadurai-r';
+select set_config('forum.internal', '1', true);
+update public.forum_profiles set role = 'admin' where handle = 'their-handle';
 ```
+
+The `set_config` line is required — a trigger stops profiles promoting themselves.
 
 Anyone without `role = 'admin'` gets a polite refusal — both in the page **and** in the API, so it
 cannot be bypassed by calling the endpoint directly.
@@ -66,6 +69,9 @@ through it with the page open.
 | **Events** | All tracked interactions: `calculator_run`, `pdf_download`, `cadnexa_cta_click`, `scroll_depth`, `study_saved`, `whatif_used`, `outbound_click` |
 | **Acquisition** | Channels and top referrers |
 | **Devices / Countries** | Sessions by device, people by country |
+| **PDF editor funnel** | Viewed → opened a PDF → edited something → downloaded, with the drop-off at each step |
+| **Campaigns** | Every `utm_campaign`, its source/medium, engagement rate, and how many of those sessions opened, edited and downloaded |
+| **Where people land** | First page of each session — check an ad is sending people where you meant |
 | **Every page** | Full table — path, title, views, people, average time. Up to 300 pages |
 
 **Export CSV** dumps everything on screen for the selected period.
@@ -114,3 +120,9 @@ Deltas carry an arrow **and** the word "up"/"down", so direction never rests on 
 - **The `mm-analytics` function is deployed but has not yet run against live GA4** — it could not be
   exercised end to end until the secrets in step 2 exist. If the first load errors, the message on
   the page will name the cause.
+- **Campaign rows only appear for UTM-tagged ads.** Point the ad at a URL carrying the tags, e.g.
+  `https://metricmech.com/pdf-tools/edit-pdf?utm_source=google&utm_medium=cpc&utm_campaign=pdf-editor`.
+  Untagged paid traffic still shows under *How people arrive*, but cannot be split by campaign.
+- **The PDF editor funnel starts from 25 Aug 2026.** `pdf_edit_open`, `pdf_edit_text`,
+  `pdf_edit_markup`, `pdf_edit_download`, `pdf_edit_no_text` and `pdf_edit_fail` did not exist
+  before then, so earlier traffic shows views but no funnel.
