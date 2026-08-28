@@ -66,6 +66,43 @@
       <!-- Headline numbers -->
       <div class="ad-kpis" id="ad-kpis"></div>
 
+      <!-- Tool funnel: did visitors actually use the thing they landed on? -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head">
+            <h2>PDF editor — what visitors actually did</h2>
+            <span class="ad-stamp" id="ad-funnel-rate"></span>
+          </div>
+          <p class="ad-panel-note">
+            Visits alone cannot tell you whether an ad worked. Each step below is a real action in
+            the editor, so the drop-off shows where people give up.
+          </p>
+          <div id="ad-funnel"></div>
+        </section>
+      </div>
+
+      <!-- Campaigns -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Campaigns</h2></div>
+          <p class="ad-panel-note" id="ad-camp-note">
+            Sessions carrying a <code>utm_campaign</code>, with what that traffic did in the editor.
+          </p>
+          <div id="ad-campaigns"></div>
+        </section>
+      </div>
+
+      <!-- Landing pages -->
+      <div class="ad-grid full">
+        <section class="ad-panel">
+          <div class="ad-panel-head"><h2>Where people land</h2></div>
+          <p class="ad-panel-note">
+            The first page of each session. Useful for checking an ad is sending people where you meant.
+          </p>
+          <div id="ad-landings"></div>
+        </section>
+      </div>
+
       <!-- Trend -->
       <div class="ad-grid full">
         <section class="ad-panel">
