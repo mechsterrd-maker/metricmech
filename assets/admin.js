@@ -505,7 +505,17 @@
       (showSignIn ? '<button class="ad-btn" type="button" id="ad-signin">Sign in</button>' : '');
     if (showSignIn) {
       document.getElementById('ad-signin').onclick = function () {
-        sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + '/admin' } });
+        // Supabase honours a redirect target only if it is on the project's
+        // allow-list; anything else is silently swapped for the project Site
+        // URL, which belongs to a different product — that is where admin
+        // sign-ins were landing. /forum/auth is allow-listed and already knows
+        // how to bounce to a same-origin path once the session exists, so the
+        // sign-in goes through it rather than asking for /admin directly.
+        try { sessionStorage.setItem('mm_forum_return', '/admin'); } catch (e) {}
+        sb.auth.signInWithOAuth({
+          provider: 'google',
+          options: { redirectTo: location.origin + '/forum/auth' }
+        });
       };
     }
   }
