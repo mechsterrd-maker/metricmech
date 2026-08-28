@@ -524,9 +524,13 @@
 
     var prof = await sb.from('forum_profiles').select('role, display_name').eq('id', session.user.id).maybeSingle();
     if (!prof.data || prof.data.role !== 'admin') {
+      // The set_config line is not optional: a BEFORE UPDATE trigger on
+      // forum_profiles blocks a profile from promoting itself, and the bare
+      // UPDATE below it is silently reverted without it.
       showGate('You are signed in as <b>' + esc((prof.data && prof.data.display_name) || session.user.email) +
-        '</b>, which is not an admin account.<br><br>Grant yourself access with one statement in the Supabase SQL editor:' +
-        '<br><code style="display:block;margin-top:10px;font-size:12px">' +
+        '</b>, which is not an admin account.<br><br>Grant access with these two statements in the Supabase SQL editor:' +
+        '<br><code style="display:block;margin-top:10px;font-size:12px;white-space:pre-wrap">' +
+        "select set_config('forum.internal', '1', true);\n" +
         "update public.forum_profiles set role = 'admin' where id = '" + esc(session.user.id) + "';</code>", false);
       return;
     }
