@@ -435,14 +435,23 @@
       if (!res.ok) {
         if (body.error === 'setup_incomplete') {
           showError(
-            '<strong>One setup step left.</strong> ' + esc(body.message || '') +
+            '<strong>One setup step left.</strong> These four need your Google account, so they ' +
+            'cannot be done for you.' +
+            '<p style="margin-top:10px">You already have a Google service account — the one the ' +
+            'weekly Search Console workflow signs in with. <b>Reuse it</b>; do not make a second.</p>' +
             '<ol>' +
-              '<li>Google Cloud → enable the <b>Google Analytics Data API</b>.</li>' +
-              '<li>GA4 → Admin → Property Access Management → add the service-account email as <b>Viewer</b>.</li>' +
-              '<li>Supabase → Edge Functions → Secrets → set <code>GA4_PROPERTY_ID</code> and ' +
-                  '<code>GA4_SERVICE_ACCOUNT_JSON</code>.</li>' +
+              '<li><b>console.cloud.google.com</b> → APIs &amp; Services → Library → ' +
+                  '<b>Google Analytics Data API</b> → Enable. This is the one people skip, and ' +
+                  'without it every request comes back 403.</li>' +
+              '<li><b>analytics.google.com</b> → Admin → Property access management → <b>+</b> → ' +
+                  'paste the service-account email (ends <code>.iam.gserviceaccount.com</code>) → ' +
+                  'role <b>Viewer</b>.</li>' +
+              '<li>Admin → <b>Property Settings</b> → copy the numeric <b>Property ID</b>. It looks ' +
+                  'like <code>493812345</code> — not the <code>G-SQ0H6965Z1</code> measurement ID.</li>' +
+              '<li><b>Supabase</b> → Edge Functions → Secrets → <code>GA4_PROPERTY_ID</code> = that ' +
+                  'number, <code>GA4_SERVICE_ACCOUNT_JSON</code> = the entire key file.</li>' +
             '</ol>' +
-            'Full walkthrough in <code>ADMIN.md</code>.', 'warn');
+            'Then press <b>Refresh</b> above. Full walkthrough in <code>ADMIN.md</code>.', 'warn');
           return;
         }
         showError('<strong>Could not load analytics.</strong> ' + esc(body.error || body.message || res.status));
