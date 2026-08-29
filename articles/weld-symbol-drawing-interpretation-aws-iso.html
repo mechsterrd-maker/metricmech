@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Weld Symbol Drawing Interpretation: AWS & ISO Guide | MetricMech</title>
+<meta name="description" content="Master weld symbol drawing interpretation AWS ISO guide—arrow side, weld size, contour & finish explained clearly with examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weld Symbol Drawing Interpretation: AWS & ISO Guide | MetricMech">
+<meta property="og:description" content="Master weld symbol drawing interpretation AWS ISO guide—arrow side, weld size, contour & finish explained clearly with examples.">
+<meta property="og:url" content="https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Weld Symbol Drawing Interpretation: AWS & ISO Guide | MetricMech">
+<meta name="twitter:description" content="Master weld symbol drawing interpretation AWS ISO guide—arrow side, weld size, contour & finish explained clearly with examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Weld Symbol Drawing Interpretation: AWS & ISO Guide | MetricMech",
+  "description": "Master weld symbol drawing interpretation AWS ISO guide—arrow side, weld size, contour & finish explained clearly with examples.",
+  "url": "https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Weld Symbol Drawing Interpretation: AWS A2.4 & ISO 2553 Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-08-29",
+  "mainEntityOfPage": "https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between AWS A2.4 and ISO 2553 weld symbols?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AWS A2.4 (used mainly in the USA) places the reference line horizontally with a tail on the left. ISO 2553 uses a dashed identification line below or above the reference line to indicate the other side. Symbol positions and contour conventions differ, but the core arrow-side / other-side logic is the same."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the arrow side mean on a welding symbol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The arrow side means the weld is applied on the same surface that the arrow physically points to on the joint. All dimensions written below the reference line (AWS) apply to that surface."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you read weld size on a drawing symbol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a fillet weld, the leg size appears to the left of the weld symbol on the reference line. For a groove weld, the groove depth appears in parentheses to the left and the effective throat outside parentheses, e.g. (16)18 means 16 mm groove depth, 18 mm throat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the circle at the reference line junction mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A filled circle at the junction of the arrow and reference line indicates an all-around weld — the weld continues completely around the joint profile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should a weld symbol include a finishing contour symbol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A contour symbol (flat, convex, or concave) is added when the finished weld surface must meet a specific profile for fatigue, sealing, or aesthetic reasons. A letter beside it (G, C, M, R) specifies the finishing method: grind, chip, machine, or roll."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Weld Symbol Drawing Interpretation: AWS A2.4 & ISO 2553 Guide",
+      "item": "https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Weld Symbol Drawing Interpretation: AWS </div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What a Weld Symbol Tells You</a>
+    <a href="#anatomy">Anatomy of the Welding Symbol</a>
+    <a href="#arrow-side">Arrow Side vs Other Side</a>
+    <a href="#worked-example">Worked Example: Reading a Fillet Weld Symbol</a>
+    <a href="#formula-table">Key Dimensions and Variables</a>
+    <a href="#step-by-step">Step-by-Step: How to Interpret Any Weld Symbol</a>
+    <a href="#aws-vs-iso">AWS A2.4 vs ISO 2553: Key Differences</a>
+    <a href="#common-mistakes">Common Mistakes Design Engineers Make</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Weld Symbol Drawing Interpretation: AWS A2.4 & ISO 2553 Guide</h1>
+    <div class="art-meta-bar">
+      <span>Engineering Drawing</span>
+      <span>August 29, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">A <strong>weld symbol on an engineering drawing</strong> is a standardised graphical shorthand that encodes joint type, weld size, groove geometry, finish method, and which side of the joint to weld — all without a single line of text. AWS A2.4 governs North American practice; ISO 2553 governs international and European drawings. Reading either correctly requires understanding the reference line, arrow, tail, and the symbol elements placed above or below the line.</p>
+
+<p>Design engineers who misread even one element — confusing arrow side with other side, or ignoring a contour letter — can send incorrect instructions to the shop floor. The consequence is weld rework, rejected joints, or worse, structural failure. This guide explains every element of the welding symbol, compares AWS A2.4 with ISO 2553, and gives you a repeatable reading method.</p>
+
+<h2 id="anatomy">Anatomy of the Welding Symbol</h2>
+
+<p>A complete welding symbol has up to eight distinct parts. Most drawings use only three to five of them, but a design engineer must recognise all eight to avoid misreading a complex joint. The standard reference is <a href="https://www.aws.org/standards/detail/a2-4" rel="noopener noreferrer" target="_blank">AWS A2.4 Standard Symbols for Welding, Brazing, and Nondestructive Examination</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Location on Symbol</th>
+      <th>What It Specifies</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Reference line</td>
+      <td>Horizontal base line</td>
+      <td>Anchor for all other data</td>
+    </tr>
+    <tr>
+      <td>Arrow</td>
+      <td>Leads from reference line to joint</td>
+      <td>Identifies the joint and arrow side</td>
+    </tr>
+    <tr>
+      <td>Weld symbol (basic)</td>
+      <td>Below line = arrow side; above = other side</td>
+      <td>Joint type (fillet, groove, plug, spot, etc.)</td>
+    </tr>
+    <tr>
+      <td>Weld size / groove depth</td>
+      <td>Left of the basic symbol</td>
+      <td>Leg, throat, or groove dimension in mm or inches</td>
+    </tr>
+    <tr>
+      <td>Length and pitch</td>
+      <td>Right of the basic symbol</td>
+      <td>Weld length; pitch for intermittent welds</td>
+    </tr>
+    <tr>
+      <td>Contour symbol</td>
+      <td>Above or below the basic symbol</td>
+      <td>Flat (——), convex (arc up), concave (arc down)</td>
+    </tr>
+    <tr>
+      <td>Finish method letter</td>
+      <td>Adjacent to contour symbol</td>
+      <td>G = grind, C = chip, M = machine, R = roll</td>
+    </tr>
+    <tr>
+      <td>Tail</td>
+      <td>Opposite end of arrow</td>
+      <td>Welding process, specification, or special notes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The all-around symbol (a small circle at the arrow–reference junction) and the field weld flag (a filled flag at the same junction) are additional modifiers that appear frequently in structural and pressure-vessel drawings.</p>
+
+<h2 id="arrow-side">Arrow Side vs Other Side: The Fundamental Rule</h2>
+
+<p>The position of the basic weld symbol relative to the reference line tells the welder which side of the joint to weld. This is the single most misread element on a drawing.</p>
+
+<ul>
+  <li><strong>Below the reference line</strong> = Arrow side (the side the arrowhead physically touches).</li>
+  <li><strong>Above the reference line</strong> = Other side (the opposite face of the joint).</li>
+  <li><strong>Both sides</strong> = Symbols appear both above and below the line simultaneously.</li>
+</ul>
+
+<p>In ISO 2553, the convention works differently. A dashed identification line is placed parallel to the reference line. When the basic symbol sits on the reference line, the weld is on the arrow side. When it sits on the dashed line, the weld is on the other side. The <a href="https://www.iso.org/standard/72740.html" rel="noopener noreferrer" target="_blank">ISO 2553:2019 standard document</a> is the definitive source for this layout.</p>
+
+<p>A broken arrow (a kink in the arrow line) has specific meaning in groove weld symbols. It indicates that the arrow points to the member that is to be prepared — i.e., the member that receives the bevel or J-groove machining. Never ignore a kinked arrow on a groove weld symbol.</p>
+
+<h2 id="worked-example">Worked Example: Reading a Fillet Weld Symbol</h2>
+
+<p>Consider a single fillet weld symbol on a T-joint drawing. The symbol shows:</p>
+
+<ul>
+  <li>A fillet triangle <strong>below</strong> the reference line.</li>
+  <li>The number <strong>8</strong> to the left of the triangle.</li>
+  <li>The number <strong>50</strong> to the right, followed by <strong>(75)</strong>.</li>
+  <li>A flat contour line above the triangle, with the letter <strong>G</strong>.</li>
+</ul>
+
+<p><strong>Decoded interpretation:</strong> Weld a fillet on the arrow side of the T-joint. Leg size = 8 mm. Weld length = 50 mm. Pitch (centre-to-centre spacing for intermittent welds) = 75 mm. The finished weld face must be flat, achieved by grinding.</p>
+
+<p>To verify the effective throat: for a 45° fillet, throat = 0.707 × leg = 0.707 × 8 = <strong>5.66 mm</strong>. This number does not appear on the drawing symbol itself, but it is used in structural calculations. For the full heat energy needed to deposit this weld, cross-reference the <a href="https://metricmech.com/articles/welding-heat-input">Welding Heat Input Calculation guide</a> to confirm your procedure settings stay within metallurgical limits.</p>
+
+<h2 id="formula-table">Key Dimensions and Variables</h2>
+
+<p>The table below summarises the measurable quantities embedded in a weld symbol and their standard variable names. These feed directly into weld design calculations.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Symbol</th>
+      <th>Definition</th>
+      <th>Where on Drawing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fillet leg size</td>
+      <td>w</td>
+      <td>Length of each equal leg of the fillet triangle</td>
+      <td>Left of basic symbol</td>
+    </tr>
+    <tr>
+      <td>Effective throat</td>
+      <td>t<sub>e</sub></td>
+      <td>0.707 × w for equal-leg fillet; calculated, not always shown</td>
+      <td>Derived (or in parentheses)</td>
+    </tr>
+    <tr>
+      <td>Groove depth</td>
+      <td>S</td>
+      <td>Depth of bevel or groove preparation</td>
+      <td>In parentheses, left of symbol</td>
+    </tr>
+    <tr>
+      <td>Groove weld size</td>
+      <td>E</td>
+      <td>Effective weld throat for groove welds</td>
+      <td>Outside parentheses, left of symbol</td>
+    </tr>
+    <tr>
+      <td>Weld length</td>
+      <td>l</td>
+      <td>Individual weld segment length</td>
+      <td>Right of basic symbol (first number)</td>
+    </tr>
+    <tr>
+      <td>Pitch</td>
+      <td>p</td>
+      <td>Centre-to-centre spacing of intermittent welds</td>
+      <td>Right of basic symbol (in parentheses)</td>
+    </tr>
+    <tr>
+      <td>Root opening</td>
+      <td>R</td>
+      <td>Gap between members at root of groove weld</td>
+      <td>Inside the basic symbol graphic</td>
+    </tr>
+    <tr>
+      <td>Groove angle</td>
+      <td>α</td>
+      <td>Included angle of the groove preparation</td>
+      <td>Inside the basic symbol graphic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Effective throat is the structural design dimension for both fillet and groove welds. Engineers working to AISC or EN 1993 use t<sub>e</sub> to calculate allowable load capacity — the weld size shown on the drawing is only the starting point.</p>
+
+<h2 id="step-by-step">Step-by-Step: How to Interpret Any Weld Symbol</h2>
+
+<ol>
+  <li><strong>Locate the reference line.</strong> Find the horizontal line that anchors the entire symbol. Everything else is read relative to this line.</li>
+  <li><strong>Follow the arrow.</strong> Identify which physical surface or joint the arrowhead touches. That surface is the arrow side.</li>
+  <li><strong>Check for a broken arrow.</strong> A kinked arrow on a groove weld indicates the pointed member is the one to be prepared (bevelled or J-grooved).</li>
+  <li><strong>Read the basic weld symbol position.</strong> Symbol below the line = weld on arrow side. Symbol above the line = weld on other side. Symbols on both sides = weld both sides. In ISO 2553, check whether the symbol is on the solid reference line or the dashed identification line.</li>
+  <li><strong>Read the weld size (left of symbol).</strong> For fillets, this is the leg dimension. For groove welds, numbers in parentheses give groove depth S; numbers outside give weld size E.</li>
+  <li><strong>Read length and pitch (right of symbol).</strong> A single number is total weld length. Two numbers — e.g., 50(100) — mean 50 mm welds spaced at 100 mm pitch (intermittent weld).</li>
+  <li><strong>Check the contour and finish symbols.</strong> A flat, convex, or concave line above or below the basic symbol defines the required weld face profile. A letter specifies the finishing method.</li>
+  <li><strong>Read the tail.</strong> The tail (forked end opposite the arrow) carries welding process designations (e.g., SMAW, GTAW), specification numbers, or special instructions. If the tail is absent, no special process is required beyond what the general welding procedure specifies.</li>
+  <li><strong>Check for all-around and field weld markers.</strong> A small circle at the arrow–reference junction means all-around. A filled flag at the same point means the weld is to be made in the field (not in the shop).</li>
+  <li><strong>Cross-check the drawing title block and general notes.</strong> Many drawings include a general weld symbol note that modifies or overrides individual symbols for back-purging, PWHT requirements, or NDE extent.</li>
+</ol>
+
+<p>When drawings are issued digitally with item balloons that link to weld specifications, auto-ballooning tools such as <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=weld-symbol-drawing-interpretation-aws-iso" rel="noopener noreferrer" target="_blank" class="highlight">CadNexa's balloon annotation tool</a> can map each weld symbol to its inspection requirement automatically — removing the risk of a balloon pointing to the wrong joint in complex assemblies.</p>
+
+<h2 id="aws-vs-iso">AWS A2.4 vs ISO 2553: Key Differences at a Glance</h2>
+
+<p>Both standards communicate the same physical information. The differences are in visual convention, not engineering intent. A design engineer working on international projects must know which standard governs the drawing before reading a single symbol.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>AWS A2.4</th>
+      <th>ISO 2553</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Other-side indicator</td>
+      <td>Symbol above reference line</td>
+      <td>Symbol on dashed identification line</td>
+    </tr>
+    <tr>
+      <td>Dashed line position</td>
+      <td>Not used</td>
+      <td>Below reference line (some editions above)</td>
+    </tr>
+    <tr>
+      <td>Weld size position</td>
+      <td>Left of symbol</td>
+      <td>Left of symbol</td>
+    </tr>
+    <tr>
+      <td>Groove depth notation</td>
+      <td>(S)E format</td>
+      <td>a (throat) or z (leg) prefix letters</td>
+    </tr>
+    <tr>
+      <td>Staggered intermittent welds</td>
+      <td>Offset symbols on each side</td>
+      <td>Uses Z-notation</td>
+    </tr>
+    <tr>
+      <td>Backing / spacer</td>
+      <td>Rectangular symbol added</td>
+      <td>MR notation used</td>
+    </tr>
+    <tr>
+      <td>Primary user regions</td>
+      <td>USA, Canada, and AWS-licensed plants globally</td>
+      <td>Europe, Asia, and most ISO-governed industries</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ISO 2553 uses letter prefixes to make size type explicit. The prefix <em>a</em> means throat dimension; the prefix <em>z</em> means leg dimension. So <em>z8</em> and <em>a5.6</em> both describe the same 8 mm equal-leg fillet weld. AWS relies on position and context instead of letter prefixes.</p>
+
+<p>When a drawing is produced to a mix of standards — common in joint ventures — the title block must state which weld symbol standard applies. Never assume. A single misread joint in a pressure vessel or structural beam connection can escalate into a significant non-conformance. For a systematic approach to non-conformance costs, see the <a href="https://metricmech.com/articles/cost-of-poor-quality">Cost of Poor Quality (COPQ) guide</a>.</p>
+
+<div class="callout">
+<p><strong>Standard download tip:</strong> AWS A2.4 and ISO 2553 are copyrighted documents. Access them through your organisation's standards library or purchase directly from <a href="https://www.aws.org" rel="noopener noreferrer" target="_blank">AWS</a> or <a href="https://www.iso.org" rel="noopener noreferrer" target="_blank">ISO</a>. Never rely on unofficial summaries for production use — even small transcription errors propagate into weld procedures.</p>
+</div>
+
+<h2 id="common-mistakes">Common Mistakes Design Engineers Make</h2>
+
+<p>Most weld symbol errors fall into a predictable set of categories. Catching them at the drawing review stage costs nothing; catching them after fabrication costs significantly more.</p>
+
+<ul>
+  <li><strong>Confusing arrow side and other side.</strong> Placing the fillet symbol above the line when you intend the arrow side is the most common error. It sends the welder to the wrong face of the joint.</li>
+  <li><strong>Omitting the weld size entirely.</strong> Some engineers write a weld type symbol without a dimension and rely on a general note. If the general note and the specific joint geometry conflict, the welder has no clear instruction.</li>
+  <li><strong>Ignoring the broken arrow on groove welds.</strong> Missing the kink means the wrong member gets bevelled. This is a machining error discovered only at fit-up, often after material has already been cut.</li>
+  <li><strong>Using AWS symbols on an ISO-governed drawing (or vice versa).</strong> The all-around circle and field flag look similar, but the other-side indication is fundamentally different. Mixed symbol conventions on one drawing create ambiguity.</li>
+  <li><strong>Confusing weld length with joint length.</strong> A fillet symbol with no length number means weld the full joint length. Adding a length number smaller than the joint creates an intermittent weld. Engineers sometimes omit the length intending a continuous weld but inadvertently create an intermittent one by adding a pitch number.</li>
+  <li><strong>Skipping the finish letter.</strong> Specifying a flat contour without a finish letter leaves the method open to interpretation. Grinding and machining produce different surface textures and residual stress states — especially relevant for fatigue-loaded joints.</li>
+  <li><strong>Not reconciling weld symbols with GD&T tolerances.</strong> A weld that meets its own symbol requirements can still violate a true-position or flatness callout on an adjacent feature. Always cross-check weld location tolerance against any GD&T datum structure. The <a href="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&T Formula</a> guide shows how that tolerance zone is calculated.</li>
+</ul>
+
+<div class="warn-box">
+<p><strong>Documentation alert:</strong> In aerospace and defence fabrication, each weld symbol on a first article drawing must be traceable to an inspected weld joint. When drawings have dozens of weld callouts, manually tracking balloon-to-joint correspondence in FAI reports is error-prone. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=weld-symbol-drawing-interpretation-aws-iso" rel="noopener noreferrer" target="_blank" class="highlight">CadNexa's auto-ballooning tool</a> links each symbol directly to its inspection record, eliminating the transcription step that most manual FAI workflows rely on.</p>
+</div>
+
+<p>Sheet metal fabrications that combine welding with bending also require careful symbol coordination. A weld placed too close to a bend can induce cracking if the heat-affected zone overlaps the bend radius. For guidance on bend geometry, see the <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance</a> article to understand how material deformation near weld zones affects flat-pattern dimensions.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the difference between AWS A2.4 and ISO 2553 weld symbols?</h3>
+<p>AWS A2.4 (used mainly in the USA) places the reference line horizontally with a tail on the left. ISO 2553 uses a dashed identification line below or above the reference line to indicate the other side. Symbol positions and contour conventions differ, but the core arrow-side / other-side logic is consistent between both standards. Always check the drawing title block for the governing standard before reading any symbol.</p>
+
+<h3>What does the arrow side mean on a welding symbol?</h3>
+<p>The arrow side means the weld is applied on the same surface that the arrowhead physically points to on the joint. In AWS A2.4, all information written below the reference line applies to that surface. Dimensions above the line apply to the opposite (other) side of the joint.</p>
+
+<h3>How do you read weld size on a drawing symbol?</h3>
+<p>For a fillet weld, the leg size appears as a number to the left of the weld symbol on the reference line. For a groove weld using AWS A2.4, groove depth appears in parentheses to the left and effective throat outside them — for example, (16)18 means 16 mm groove depth and 18 mm effective throat. In ISO 2553, a prefix letter clarifies dimension type: <em>z</em> for leg, <em>a</em> for throat.</p>
+
+<h3>What does the circle at the reference line junction mean?</h3>
+<p>A small open circle at the junction of the arrow line and the reference line indicates an all-around weld. The weld continues completely around the entire joint profile. This is common on tube-to-plate connections and pipe nipples where full perimeter fusion is required for strength or sealing.</p>
+
+<h3>When should a weld symbol include a finishing contour symbol?</h3>
+<p>A contour symbol — flat, convex, or concave — is added whenever the finished weld surface must meet a specific profile for fatigue resistance, sealing, or dimensional fit. A letter beside the contour symbol specifies the method: G for grind, C for chip, M for machine, and R for roll. Omitting the letter when a contour is specified leaves the finishing method at the fabricator's discretion, which is only acceptable when any method produces an equivalent result.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance: Which to Use</a></li>
+    <li><a href="/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula Calculation</a></li>
+    <li><a href="/articles/surface-finish-symbols">Surface Finish Symbols on Drawings, Explained</a></li>
+    <li><a href="/articles/first-article-inspection-report">First Article Inspection Report: Fast FAI Guide</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Weld Symbol Drawing Interpretation: AWS A2.4 & ISO 2553 Guide",
+      "item": "https://metricmech.com/articles/weld-symbol-drawing-interpretation-aws-iso"
+    }
+  ]
+}
+</script>
+</body>
+</html>

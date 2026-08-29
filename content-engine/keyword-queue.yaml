@@ -360,7 +360,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: go no-go gauge design tolerance calculation
   cluster: Inspection, CMM & Measurement
   intent: informational
