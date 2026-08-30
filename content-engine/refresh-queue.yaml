@@ -150,3 +150,9 @@ pages:
   impressions: 61
   added: '2026-08-23'
   status: todo
+- url: https://metricmech.com/articles/cpk-to-ppm
+  reason: low-ctr
+  position: 7.1
+  impressions: 56
+  added: '2026-08-30'
+  status: todo
