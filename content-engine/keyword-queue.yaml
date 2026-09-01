@@ -374,7 +374,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: sampling plan AQL table how to use
   cluster: Inspection, CMM & Measurement
   intent: informational

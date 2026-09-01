@@ -364,3 +364,9 @@ posts:
   keyword: weld symbol drawing interpretation AWS ISO guide
   cluster: Welding & Joining
   source: autopilot
+- url: https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation
+  date: '2026-09-01'
+  title: Go No-Go Gauge Design Tolerance Calculation | MetricMech
+  keyword: go no-go gauge design tolerance calculation
+  cluster: Inspection, CMM & Measurement
+  source: autopilot

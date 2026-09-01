@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Go No-Go Gauge Design Tolerance Calculation | MetricMech</title>
+<meta name="description" content="Learn go no-go gauge design tolerance calculation step by step: 10% rule, plug gauge limits, ISO gauge maker tolerances, and a full H7 hole worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go No-Go Gauge Design Tolerance Calculation | MetricMech">
+<meta property="og:description" content="Learn go no-go gauge design tolerance calculation step by step: 10% rule, plug gauge limits, ISO gauge maker tolerances, and a full H7 hole worked example.">
+<meta property="og:url" content="https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Go No-Go Gauge Design Tolerance Calculation | MetricMech">
+<meta name="twitter:description" content="Learn go no-go gauge design tolerance calculation step by step: 10% rule, plug gauge limits, ISO gauge maker tolerances, and a full H7 hole worked example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Go No-Go Gauge Design Tolerance Calculation | MetricMech",
+  "description": "Learn go no-go gauge design tolerance calculation step by step: 10% rule, plug gauge limits, ISO gauge maker tolerances, and a full H7 hole worked example.",
+  "url": "https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Go No-Go Gauge Design Tolerance Calculation: 10% Rule, Formulas & H7 Worked Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the 10% rule for go no-go gauge tolerance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 10% rule allocates gauge maker tolerance as 10% of the workpiece tolerance. This ensures the gauge itself consumes only a small fraction of the part tolerance band, preserving the integrity of the accept/reject decision."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate the GO gauge limit for an H7 hole?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The GO gauge maximum diameter equals the hole's lower limit (MMC) plus the gauge maker tolerance directed inward. For a 25 mm H7 hole with a 21 µm workpiece tolerance, GO max = 25.000 + 0.0021 = 25.0021 mm, and GO min (new gauge, no wear allowance) = 25.000 mm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does gauge wear allowance come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wear allowance is typically 10% of the workpiece tolerance, added to the GO gauge and shifting both gauge limits away from the MMC boundary. The gauge is condemned when it wears back down to the part's MMC boundary (the lower limit for a hole). It is not applied to the NO-GO gauge because wear on that member produces an obvious reject condition."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does ISO 286 specify gauge maker tolerances directly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. ISO 286-1 defines workpiece tolerance grades (IT grades). Gauge maker tolerances for plain limit gauges are defined in the companion standard ISO 1938-1:2015. Use ISO 286 to find part limits, then ISO 1938-1 to set gauge design limits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the same go no-go gauge for both hole-basis and shaft-basis fits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. A plug gauge checks internal features (holes); a snap or ring gauge checks external features (shafts). The calculation method is mirrored but the physical members differ entirely. Always confirm the feature type before designing or specifying a gauge."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Go No-Go Gauge Design Tolerance Calculation: 10% Rule, Formulas & H7 Worked Exam",
+      "item": "https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Go No-Go Gauge Design Tolerance Calculat</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is Go No-Go Gauge Tolerance Calculation?</a>
+    <a href="#worked-example">Worked Example: H7 Hole Plug Gauge Design</a>
+    <a href="#formulas">Formulas & Variables</a>
+    <a href="#step-by-step">Step-by-Step Method</a>
+    <a href="#gauge-maker-iso">ISO Gauge Maker Tolerance Standards</a>
+    <a href="#common-mistakes">Common Mistakes in Gauge Design</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Go No-Go Gauge Design Tolerance Calculation: 10% Rule, Formulas & H7 Worked Example</h1>
+    <div class="art-meta-bar">
+      <span>Quality Engineering</span>
+      <span>September 01, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">
+<strong>Go no-go gauge design tolerance calculation</strong> is the process of deriving the physical size limits of a limit gauge from a workpiece tolerance, so the gauge correctly accepts conforming parts and rejects non-conforming ones. The standard industry method allocates gauge maker tolerance as <strong>10% of the workpiece tolerance</strong>, positioned at the Maximum Material Condition (MMC) boundary for the GO member and at the Least Material Condition (LMC) boundary for the NO-GO member — both directed inward into the tolerance zone — to ensure no bad part can be accepted.
+</p>
+
+<p>Getting these numbers right matters more than most engineers realise. A gauge built even a few microns outside its design limits can either pass defective parts (a quality escape) or reject good ones (a yield loss). Both outcomes carry measurable cost — see the full financial breakdown in the <a href="https://metricmech.com/articles/cost-of-poor-quality">Cost of Poor Quality (COPQ) guide</a> on MetricMech.</p>
+
+<p>This article walks through the complete calculation with a real H7 hole example, the governing formulas, and the mistakes that cause gauge designs to fail inspection audits.</p>
+
+<h2 id="worked-example">Worked Example: H7 Hole Plug Gauge Design (25 mm)</h2>
+
+<p>A 25 mm H7 hole is one of the most common fits in mechanical engineering, typically pairing with a shaft in a location clearance fit. Working through this case makes the abstract rules concrete.</p>
+
+<p>From ISO 286-1, a 25 mm H7 hole has the following limits:</p>
+
+<ul>
+  <li><strong>Lower limit (MMC / GO boundary):</strong> 25.000 mm</li>
+  <li><strong>Upper limit (LMC / NO-GO boundary):</strong> 25.021 mm</li>
+  <li><strong>Workpiece tolerance (IT7 at 25 mm):</strong> 21 µm (0.021 mm)</li>
+</ul>
+
+<p>Applying the 10% rule, gauge maker tolerance T<sub>g</sub> = 10% × 21 µm = <strong>2.1 µm (0.0021 mm)</strong>. Wear allowance W (also 10% of workpiece tolerance in this example) = <strong>2.1 µm</strong>, applied to the GO member only.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Gauge Member</th>
+      <th>Reference Boundary</th>
+      <th>Gauge Min Ø (mm)</th>
+      <th>Gauge Max Ø (mm)</th>
+      <th>Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GO plug (no wear allowance)</td>
+      <td>MMC = 25.000 mm</td>
+      <td>25.000</td>
+      <td>25.0021</td>
+      <td>New gauge, tolerance into zone</td>
+    </tr>
+    <tr>
+      <td>GO plug (with wear allowance)</td>
+      <td>MMC = 25.000 mm</td>
+      <td>25.0021</td>
+      <td>25.0042</td>
+      <td>Both limits shifted +W; condemning limit = 25.000 mm (MMC boundary)</td>
+    </tr>
+    <tr>
+      <td>NO-GO plug</td>
+      <td>LMC = 25.021 mm</td>
+      <td>25.0189</td>
+      <td>25.021</td>
+      <td>Tolerance into zone; no wear allowance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">The GO gauge must <em>enter</em> the hole; the NO-GO gauge must <em>not</em>. When wear allowance is incorporated, the new gauge is manufactured with both limits shifted inward by W. As the gauge wears in service, its diameter decreases back toward the MMC boundary (25.000 mm) — that boundary is the <strong>condemning limit</strong>. Once the GO plug wears to 25.000 mm, it must be scrapped or reworked. Use the <a href="https://metricmech.com/articles/go-no-go-gauges">Go/No-Go Gauges: Sizing, 10% Rule & Wear Limits</a> reference article to cross-check your limits before committing to manufacture.</p>
+
+<p>For related ISO fit work, the <a href="https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis">ISO 286 Hole Basis vs Shaft Basis</a> article explains how hole and shaft limits are derived in the first place — a necessary input to any gauge design.</p>
+
+<h2 id="formulas">Formulas & Variables</h2>
+
+<p>The following relationships govern plug gauge design for an internal feature (hole). Snap gauge design for shafts uses mirrored logic.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Variable</th>
+      <th>Formula / Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T<sub>w</sub></td>
+      <td>Workpiece tolerance</td>
+      <td>Upper limit − Lower limit (from drawing or ISO 286)</td>
+    </tr>
+    <tr>
+      <td>T<sub>g</sub></td>
+      <td>Gauge maker tolerance</td>
+      <td>T<sub>g</sub> = 0.10 × T<sub>w</sub></td>
+    </tr>
+    <tr>
+      <td>W</td>
+      <td>Wear allowance (GO member only)</td>
+      <td>W = 0.10 × T<sub>w</sub> (some standards use 0.05 × T<sub>w</sub>)</td>
+    </tr>
+    <tr>
+      <td>GO<sub>max</sub></td>
+      <td>GO plug maximum diameter (new, no wear allowance)</td>
+      <td>Lower limit + T<sub>g</sub></td>
+    </tr>
+    <tr>
+      <td>GO<sub>min</sub></td>
+      <td>GO plug minimum diameter (new, no wear allowance)</td>
+      <td>Lower limit</td>
+    </tr>
+    <tr>
+      <td>GO<sub>max,W</sub></td>
+      <td>GO plug maximum diameter (new, with wear allowance)</td>
+      <td>Lower limit + W + T<sub>g</sub></td>
+    </tr>
+    <tr>
+      <td>GO<sub>min,W</sub></td>
+      <td>GO plug minimum diameter (new, with wear allowance)</td>
+      <td>Lower limit + W</td>
+    </tr>
+    <tr>
+      <td>Condemning limit</td>
+      <td>Size at which GO plug is scrapped</td>
+      <td>Lower limit (MMC boundary) — the gauge is discarded when worn back to this size</td>
+    </tr>
+    <tr>
+      <td>NOGO<sub>max</sub></td>
+      <td>NO-GO plug maximum diameter</td>
+      <td>Upper limit</td>
+    </tr>
+    <tr>
+      <td>NOGO<sub>min</sub></td>
+      <td>NO-GO plug minimum diameter</td>
+      <td>Upper limit − T<sub>g</sub></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These formulas align with the bilateral approach described in <a href="https://www.iso.org/standard/72463.html" rel="nofollow noopener" target="_blank">ISO 1938-1:2015 — Plain limit gauges</a> and with the ASME B89.1.5 standard for inch-unit gauges. Both standards endorse the 10% principle as the default gauge tolerance allocation, though tighter allocations (5%) are permitted where the gauge-to-part tolerance ratio demands it.</p>
+
+<p>If you are working with GD&T position tolerances rather than simple size limits, the <a href="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&T Formula Calculation</a> article covers how functional gauges for position are designed differently from plain limit gauges.</p>
+
+<h2 id="step-by-step">Step-by-Step Method for Plug Gauge Design Limit Calculation</h2>
+
+<ol>
+  <li><strong>Read the workpiece drawing.</strong> Identify the nominal size, tolerance grade (e.g. H7), and deviation letter. Confirm whether the feature is a hole or a shaft.</li>
+  <li><strong>Extract the part limits.</strong> Use ISO 286-1 tables or a fit calculator to obtain the upper and lower limits in millimetres. Verify the fundamental deviation and IT grade match the drawing callout.</li>
+  <li><strong>Calculate workpiece tolerance T<sub>w</sub>.</strong> Subtract lower limit from upper limit: T<sub>w</sub> = Upper − Lower.</li>
+  <li><strong>Apply the 10% rule for gauge maker tolerance.</strong> T<sub>g</sub> = 0.10 × T<sub>w</sub>. Round to the nearest 0.1 µm if required by your quality plan.</li>
+  <li><strong>Determine wear allowance W.</strong> W = 0.10 × T<sub>w</sub> for standard fits. Use W = 0.05 × T<sub>w</sub> for IT6 and finer, where the workpiece tolerance is small relative to achievable surface finish on the gauge.</li>
+  <li><strong>Set GO gauge limits without wear allowance.</strong> GO<sub>max</sub> = Lower limit + T<sub>g</sub>. GO<sub>min</sub> = Lower limit. These limits apply when wear allowance is tracked separately in the gauge management system.</li>
+  <li><strong>Set GO gauge limits with wear allowance built in.</strong> GO<sub>min,W</sub> = Lower limit + W. GO<sub>max,W</sub> = Lower limit + W + T<sub>g</sub>. The <strong>condemning limit</strong> is the part's lower limit (MMC boundary = 25.000 mm in the H7 example) — when the gauge wears back to this size, it must be scrapped.</li>
+  <li><strong>Set NO-GO gauge limits.</strong> NOGO<sub>max</sub> = Upper limit. NOGO<sub>min</sub> = Upper limit − T<sub>g</sub>. No wear allowance is applied to the NO-GO member.</li>
+  <li><strong>Record gauge design limits on the gauge drawing.</strong> Express as nominal + upper deviation / lower deviation in µm. Include material, hardness, and surface finish requirements (typically Ra 0.1 µm for gauge working surfaces).</li>
+  <li><strong>Verify gauge tolerance ratio.</strong> Confirm T<sub>g</sub> / T<sub>w</sub> ≤ 10%. If T<sub>w</sub> is very small (under 10 µm), consult ISO 1938-1 for alternative gauge tolerance grades — standard workshop gauges may be impractical.</li>
+  <li><strong>Document and calibrate.</strong> Enter gauge design limits and the condemning limit into your gauge management system. Schedule calibration intervals per <a href="https://www.iso.org/standard/69193.html" rel="nofollow noopener" target="_blank">ISO 10012 — Measurement management systems</a>.</li>
+</ol>
+
+<div class="cta-box">
+  <p><strong>Automate the arithmetic:</strong> The MetricMech <a href="https://metricmech.com/articles/go-no-go-gauges">Go/No-Go Gauge sizing reference</a> walks through standard gauge size selection alongside these design limits. For tolerance stack-up review before committing gauge limits, the <a href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a> article shows how gauge error contributes to assembly-level variation.</p>
+</div>
+
+<h2 id="gauge-maker-iso">ISO Gauge Maker Tolerance Standards: What Engineers Need to Know</h2>
+
+<p>ISO 1938-1:2015 specifies gauge manufacturing tolerances in its own grade system — entirely separate from the ISO 286 IT-grade designations used for workpieces. Numerically, these gauge grades are approximately equivalent to 10% of the corresponding workpiece IT grade, which is precisely where the 10% rule originates. A workpiece tolerance at IT7 therefore maps to a gauge manufactured to roughly one-tenth of that tolerance value, corresponding to the finest achievable grades in the ISO 1938-1 system.</p>
+
+<p>ASME B89.1.5 (inch system) and DIN 7152 (now superseded by ISO 1938) used the same fundamental principle. Mitutoyo, Starrett, and Mahr publish gauge tolerance tables aligned with these standards; however, the calculation method behind those tables is identical to what is shown above.</p>
+
+<p class="callout">ISO 286 and ISO 1938-1 are <em>companion</em> standards. ISO 286 gives you the workpiece limits; ISO 1938-1 gives you the gauge limits. Neither standard alone is sufficient for a complete gauge design specification.</p>
+
+<p>For <strong>shaft gauges</strong> (snap gauges or ring gauges), the logic is mirrored: the GO snap gauge maximum opening equals the shaft upper limit (MMC for a shaft), and tolerance is applied inward. The <a href="https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis">ISO 286 hole basis vs shaft basis</a> article is worth reviewing if you are unsure which feature is controlling the fit.</p>
+
+<p>When gauge inspection records need to be linked to drawing balloon numbers for FAIR or PPAP submissions, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=go-no-go-gauge-design-tolerance-calculation" class="highlight" target="_blank" rel="noopener">CadNexa auto-ballooning</a> can extract every critical dimension from the drawing and number it automatically — eliminating the manual mapping step that routinely causes errors in gauge calibration records.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Go No-Go Gauge Tolerance Calculation</h2>
+
+<p class="warn-box"><strong>Warning:</strong> The mistakes below are the most frequent causes of gauge-related non-conformances during customer audits. Each category represents a recurrent failure mode documented in gauge-related non-conformance literature and audit findings.</p>
+
+<h3>1. Applying Gauge Tolerance Outside the Workpiece Tolerance Zone</h3>
+<p>Both the GO and NO-GO gauge tolerances must be positioned <em>inside</em> the workpiece tolerance band. Engineers sometimes place the gauge tolerance straddling the workpiece boundary, which creates a zone where gauging gives an ambiguous result. The rule is unambiguous: gauge tolerance goes into the zone, never across the limit.</p>
+
+<h3>2. Confusing the Wear Allowance Band with the Condemning Limit</h3>
+<p>The wear allowance W shifts the new GO gauge's limits away from the MMC boundary, giving the gauge a service life. The condemning limit is always the part's MMC boundary itself — 25.000 mm in the H7 example — not the lower manufacturing limit of the new gauge (25.0021 mm). Labelling Lower limit + W as the "condemning limit" is incorrect; that value is the minimum manufacturing size of a new gauge with wear allowance built in. The condemning limit is Lower limit (the part boundary), and the gauge is scrapped when worn back to that size.</p>
+
+<h3>3. Using Workpiece IT Grade Tables for the Gauge</h3>
+<p>ISO 286 IT grade tables are for workpieces. Applying an IT7 tolerance directly to the gauge is a factor-of-ten error. The gauge must be manufactured to a tolerance roughly 10% of the workpiece IT grade value — this mistake produces a gauge far too loose to distinguish conforming from non-conforming parts reliably.</p>
+
+<h3>4. Ignoring Surface Finish and Form Errors on the Gauge</h3>
+<p>Gauge diameter tolerances are only part of the story. A plug gauge with correct diameter but poor cylindricity or surface roughness will give inconsistent results. Working surface Ra should be ≤ 0.1 µm for gauges checking IT6–IT8 parts, per ISO 1938-1. This requirement should appear explicitly on the gauge manufacturing drawing. The <a href="https://metricmech.com/articles/ra-rz-surface-roughness-difference">Ra vs Rz surface roughness difference</a> article explains which parameter to specify and why.</p>
+
+<h3>5. Applying Wear Allowance to the NO-GO Member</h3>
+<p>The NO-GO member does not need wear allowance because a worn NO-GO plug becomes <em>smaller</em> — it will enter holes it should reject, which is immediately obvious in use and the part simply fails. In contrast, a worn GO plug passes undersized holes silently, which is the hidden danger. Applying wear allowance to the NO-GO member wastes gauge tolerance unnecessarily and adds confusion to the gauge drawing.</p>
+
+<h3>6. Not Documenting the Gauge Design Basis</h3>
+<p>For PPAP Level 3 and above, the gauge design basis must be traceable. If an auditor asks why the gauge limits are what they are, "we always do it this way" is not an acceptable answer. The calculation sheet, referencing ISO 1938-1 and the relevant drawing revision, must be on file. Poor documentation is one of the most common findings in PPAP submissions — the <a href="https://metricmech.com/articles/ppap-checklist">PPAP Checklist: 18 Elements</a> covers exactly what records are required.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the 10% rule for go no-go gauge tolerance?</h3>
+<p>The 10% rule allocates gauge maker tolerance as 10% of the workpiece tolerance. This ensures the gauge itself consumes only a small fraction of the part tolerance band, preserving the integrity of the accept/reject decision. For very tight workpiece tolerances (IT5 and below), a 5% allocation is sometimes necessary to keep gauge limits manufacturable.</p>
+
+<h3>How do you calculate the GO gauge limit for an H7 hole?</h3>
+<p>The GO gauge maximum diameter (without wear allowance) equals the hole's lower limit plus the gauge maker tolerance, directed into the tolerance zone. For a 25 mm H7 hole with a 21 µm workpiece tolerance, T<sub>g</sub> = 2.1 µm, so GO<sub>max</sub> = 25.000 + 0.0021 = 25.0021 mm, and GO<sub>min</sub> (new gauge, no wear allowance) = 25.000 mm. When wear allowance W = 2.1 µm is incorporated, the new gauge is made to 25.0021–25.0042 mm, and the condemning limit remains 25.000 mm (the part's MMC boundary).</p>
+
+<h3>Where does gauge wear allowance come from?</h3>
+<p>Wear allowance is typically 10% of the workpiece tolerance, added to the GO gauge and shifting both gauge manufacturing limits away from the MMC boundary. As the gauge wears in service, its diameter decreases back toward the part's MMC boundary, which is the condemning limit — the point at which the gauge must be scrapped. Wear allowance is not applied to the NO-GO gauge because wear on that member produces an obvious reject condition rather than a silent pass.</p>
+
+<h3>Does ISO 286 specify gauge maker tolerances directly?</h3>
+<p>No. ISO 286-1 defines workpiece tolerance grades (IT grades) and fundamental deviations. Gauge maker tolerances for plain limit gauges are defined in the companion standard <a href="https://www.iso.org/standard/72463.html" rel="nofollow noopener" target="_blank">ISO 1938-1:2015</a>. Use ISO 286 to find part limits, then ISO 1938-1 to set gauge design limits. The <a href="https://www.asme.org/codes-standards/find-codes-standards/b89-1-5-measurement-of-plain-external-diameters-external-thread-and-plain-internal-measurement" rel="nofollow noopener" target="_blank">ASME B89.1.5</a> standard covers the equivalent inch-unit approach.</p>
+
+<h3>Can I use the same go no-go gauge for both hole-basis and shaft-basis fits?</h3>
+<p>No. A plug gauge checks internal features (holes); a snap or ring gauge checks external features (shafts). The calculation method is mirrored, but the physical members differ entirely. Always confirm the feature type before designing or specifying a gauge — the <a href="https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis">ISO 286 hole basis vs shaft basis guide</a> clarifies which system applies to your fit.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/go-no-go-gauges">Go/No-Go Gauges: Sizing, 10% Rule &amp; Wear Limits</a></li>
+    <li><a href="/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula Calculation</a></li>
+    <li><a href="/articles/tolerance-stack-up-worst-case-vs-rss">Tolerance Stack-Up: Worst Case vs RSS Method</a></li>
+    <li><a href="/articles/iso-286-hole-basis-vs-shaft-basis">ISO 286 Hole Basis vs Shaft Basis System</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Go No-Go Gauge Design Tolerance Calculation: 10% Rule, Formulas & H7 Worked Exam",
+      "item": "https://metricmech.com/articles/go-no-go-gauge-design-tolerance-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>
