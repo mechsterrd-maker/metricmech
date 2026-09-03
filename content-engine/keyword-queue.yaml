@@ -388,7 +388,16 @@ queue:
   word_count: 1900
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-09-03: LINT PASS (2520 words, 6 internal links)
+
+
+
+    Mistake 2 and Step 4 state that a lot of exactly 1,200 units belongs to the 501–1,200
+    row and yields code letter J with n=80. In ANSI/ASQ Z1.4 Table I, the lot-size
+    range for code letter J under General Level II is 501–1,200, so 1,200 is correctly
+    assigned to J. However, the article then states in Step 5 and Mistake 2 that J
+    gives Ac=2, Re=3 at AQL 1.0 — '
 - keyword: shaft deflection calculation simply supported beam formula
   cluster: Design Calculations (shafts, bearings, springs, gears)
   intent: informational
