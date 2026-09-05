@@ -411,7 +411,16 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: 'QA failed 2026-09-05: LINT PASS (2328 words, 5 internal links)
+
+
+
+    Replace the off-centre maximum deflection formula in the load-cases table and
+    in the ''Common Load Cases Beyond Midpoint'' section. The article states δ_max
+    = Fab(a+2b)√(3a(a+2b)) / (27EIL), which is incorrect. The correct standard formula
+    is δ_max = Fb(L²−b²)^(3/2) / (9√3·EIL), valid at position x = √((L²−b²)/3) from
+    the left support (where a ≥ b, a+b = L)'
 - keyword: compression spring design calculation step by step
   cluster: Design Calculations (shafts, bearings, springs, gears)
   intent: informational
