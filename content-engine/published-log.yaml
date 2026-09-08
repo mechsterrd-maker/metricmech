@@ -370,3 +370,9 @@ posts:
   keyword: go no-go gauge design tolerance calculation
   cluster: Inspection, CMM & Measurement
   source: autopilot
+- url: https://metricmech.com/articles/compression-spring-design-calculation
+  date: '2026-09-08'
+  title: Compression Spring Design Calculation Step by Step | MetricMech
+  keyword: compression spring design calculation step by step
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  source: autopilot

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Compression Spring Design Calculation Step by Step | MetricMech</title>
+<meta name="description" content="Master compression spring design calculation step by step: spring rate, wire diameter, Wahl factor, and free length with a clear worked example." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/compression-spring-design-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Compression Spring Design Calculation Step by Step | MetricMech">
+<meta property="og:description" content="Master compression spring design calculation step by step: spring rate, wire diameter, Wahl factor, and free length with a clear worked example.">
+<meta property="og:url" content="https://metricmech.com/articles/compression-spring-design-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compression Spring Design Calculation Step by Step | MetricMech">
+<meta name="twitter:description" content="Master compression spring design calculation step by step: spring rate, wire diameter, Wahl factor, and free length with a clear worked example.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Compression Spring Design Calculation Step by Step | MetricMech",
+  "description": "Master compression spring design calculation step by step: spring rate, wire diameter, Wahl factor, and free length with a clear worked example.",
+  "url": "https://metricmech.com/articles/compression-spring-design-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Compression Spring Design Calculation Step by Step",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-08",
+  "mainEntityOfPage": "https://metricmech.com/articles/compression-spring-design-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Wahl correction factor and why does it matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Wahl correction factor accounts for both curvature stress concentration and direct shear in a helical spring coil. Without it, calculated shear stress is underestimated by 10–30%, leading to premature fatigue failure. It is a function of the spring index C and is applied as a multiplier to the torsional shear stress formula."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I calculate the number of active coils for a target spring rate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rearrange the spring rate formula: Na = (G × d⁴) / (8 × D³ × k). Substitute your shear modulus G, wire diameter d, mean coil diameter D, and target rate k. Round to the nearest practical coil count and recalculate the actual rate to confirm it stays within tolerance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between free length and solid height?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free length (Lf) is the overall spring length when no load is applied. Solid height (Ls) is the compressed length when every coil touches its neighbour: Ls = Nt × d, where Nt is the total number of coils and d is the wire diameter. The design must ensure the working deflection never reaches solid height under any combination of tolerances."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What spring index range is recommended for most applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A spring index C (mean coil diameter divided by wire diameter) between 4 and 12 is recommended for most production springs. Values below 4 create coiling difficulties and very high stress concentrations. Values above 12 produce fragile, buckle-prone springs that are hard to maintain in a guide."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which standard governs helical compression spring design?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No single ASME standard covers helical compression spring design. ISO 2162 governs spring drawing conventions and terminology. ISO 10243 applies to die springs. The Spring Manufacturers Institute (SMI) Handbook of Spring Design is the primary industry reference for general helical spring design and fatigue life estimation. Material property limits are found in ISO 8458 for steel spring wire."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Compression Spring Design Calculation Step by Step",
+      "item": "https://metricmech.com/articles/compression-spring-design-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Compression Spring Design Calculation St</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What the Calculation Covers</a>
+    <a href="#key-formulas">Helical Compression Spring Design Formulas</a>
+    <a href="#variables-table">Variables and Symbols</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#step-by-step">Step-by-Step Design Method</a>
+    <a href="#common-mistakes">Common Mistakes in Spring Design</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Compression Spring Design Calculation Step by Step</h1>
+    <div class="art-meta-bar">
+      <span>Mechanical Design</span>
+      <span>September 08, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">Compression spring design calculation determines wire diameter, coil count, free length, solid height and shear stress for a helical compression spring. The core sequence is: define load and deflection targets, select a wire diameter, calculate spring index and Wahl factor, check shear stress against the material allowable, then verify free length and solid height clearance. All five checks must pass before geometry is finalised.</p>
+
+<p>Getting this sequence wrong is expensive. An under-designed spring fails in fatigue after a few thousand cycles. An over-designed spring wastes material and occupies envelope space the assembly does not have. Working through every parameter in a fixed order eliminates both failure modes before a single coil is wound.</p>
+
+<p>The sections below build the full method from formula derivation through to a worked numeric example, covering every secondary check that experienced spring designers include but textbooks often omit.</p>
+
+<h2 id="key-formulas">Helical Compression Spring Design Formulas</h2>
+
+<p>Four equations govern almost every helical compression spring design calculation. Each formula connects directly to a physical behaviour, so understanding their structure prevents blind substitution errors during iteration.</p>
+
+<h3>Spring Rate (Stiffness)</h3>
+<p>The spring rate <em>k</em> defines how much force is required per unit of deflection. For a helical compression spring wound from round wire:</p>
+<p><strong>k = (G × d⁴) / (8 × D³ × Na)</strong></p>
+<p>G is the shear modulus of the wire material, d is the wire diameter, D is the mean coil diameter, and Na is the number of active coils.</p>
+
+<h3>Spring Index</h3>
+<p>The spring index C is a dimensionless ratio central to every stress calculation:</p>
+<p><strong>C = D / d</strong></p>
+<p>A low index means a tightly wound spring with high curvature stress. A high index means a loosely wound spring that is prone to buckling and difficult to guide reliably.</p>
+
+<h3>Wahl Correction Factor</h3>
+<p>The Wahl correction factor K_W adjusts the theoretical shear stress for the curvature of the coil and the direct shear component. It is the industry-standard correction referenced in the Spring Manufacturers Institute (SMI) Handbook of Spring Design and in ISO spring design literature:</p>
+<p><strong>K_W = (4C − 1) / (4C − 4) + 0.615 / C</strong></p>
+<p>For a spring index of 6, K_W evaluates to approximately 1.25 — meaning actual shear stress is 25% higher than the basic torsion formula alone would predict.</p>
+
+<h3>Shear Stress at Maximum Load</h3>
+<p>Once K_W is known, maximum shear stress τ_max is:</p>
+<p><strong>τ_max = K_W × (8 × F_max × D) / (π × d³)</strong></p>
+<p>This value must remain below the allowable shear stress for the chosen wire material and end-use condition (static or cyclic loading).</p>
+
+<h3>Solid Height and Free Length</h3>
+<p>Solid height Ls is the fully compressed length of the spring:</p>
+<p><strong>Ls = Nt × d</strong></p>
+<p>Nt is the total number of coils — active coils plus inactive end coils. Free length Lf is built up from solid height, required working deflection and a clash allowance:</p>
+<p><strong>Lf = Ls + δ_max + δ_clash</strong></p>
+<p>A clash allowance of 10–15% of maximum working deflection is standard practice for most applications and is non-negotiable in cyclic-duty springs.</p>
+
+<h2 id="variables-table">Variables and Symbols</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Parameter</th>
+      <th>Typical Unit</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>d</td>
+      <td>Wire diameter</td>
+      <td>mm</td>
+      <td>Select from standard wire gauge series</td>
+    </tr>
+    <tr>
+      <td>D</td>
+      <td>Mean coil diameter</td>
+      <td>mm</td>
+      <td>Outside dia. minus one wire diameter</td>
+    </tr>
+    <tr>
+      <td>C</td>
+      <td>Spring index (D/d)</td>
+      <td>—</td>
+      <td>Target range 4–12</td>
+    </tr>
+    <tr>
+      <td>Na</td>
+      <td>Active coils</td>
+      <td>—</td>
+      <td>Does not include closed end coils</td>
+    </tr>
+    <tr>
+      <td>Nt</td>
+      <td>Total coils</td>
+      <td>—</td>
+      <td>Na + inactive end coils</td>
+    </tr>
+    <tr>
+      <td>k</td>
+      <td>Spring rate</td>
+      <td>N/mm</td>
+      <td>Force per unit deflection</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>Shear modulus</td>
+      <td>MPa</td>
+      <td>~79,000 MPa for carbon steel wire</td>
+    </tr>
+    <tr>
+      <td>F_max</td>
+      <td>Maximum load</td>
+      <td>N</td>
+      <td>Load at maximum working deflection</td>
+    </tr>
+    <tr>
+      <td>τ_max</td>
+      <td>Maximum shear stress</td>
+      <td>MPa</td>
+      <td>Must be ≤ allowable for wire grade</td>
+    </tr>
+    <tr>
+      <td>K_W</td>
+      <td>Wahl correction factor</td>
+      <td>—</td>
+      <td>Accounts for curvature and direct shear</td>
+    </tr>
+    <tr>
+      <td>Lf</td>
+      <td>Free length</td>
+      <td>mm</td>
+      <td>Unloaded spring length</td>
+    </tr>
+    <tr>
+      <td>Ls</td>
+      <td>Solid height</td>
+      <td>mm</td>
+      <td>Nt × d</td>
+    </tr>
+    <tr>
+      <td>δ</td>
+      <td>Deflection</td>
+      <td>mm</td>
+      <td>F / k</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>A valve return spring must produce a minimum load of 150 N at 15 mm deflection and a maximum load of 300 N at 30 mm deflection. The available bore is 25 mm outside diameter. Material: patented carbon steel wire (G = 79,000 MPa, allowable shear stress 550 MPa for static duty).</p>
+
+<h3>Step 1 — Confirm spring rate from load requirements</h3>
+<p>The load-deflection relationship must be linear: (300 − 150) / (30 − 15) = 150 / 15 = <strong>10 N/mm</strong>. This is the required spring rate k.</p>
+
+<h3>Step 2 — Estimate wire diameter and mean coil diameter</h3>
+<p>With a 25 mm OD bore, allow 1.5 mm clearance each side. Target spring OD = 22 mm. Try wire diameter d = 2.5 mm. Mean coil diameter D = 22 − 2.5 = <strong>19.5 mm</strong>.</p>
+
+<h3>Step 3 — Calculate spring index</h3>
+<p>C = D / d = 19.5 / 2.5 = <strong>7.8</strong>. This sits comfortably within the 4–12 recommended range.</p>
+
+<h3>Step 4 — Calculate number of active coils</h3>
+<p>Na = (G × d⁴) / (8 × D³ × k) = (79,000 × 2.5⁴) / (8 × 19.5³ × 10)</p>
+<p>= (79,000 × 39.0625) / (8 × 7,414.9 × 10) = 3,085,938 / 593,192 ≈ <strong>5.2 active coils</strong>. Round to 5.5 for practical coiling.</p>
+
+<h3>Step 5 — Recalculate actual spring rate with Na = 5.5</h3>
+<p>k = 3,085,938 / (8 × 7,414.9 × 5.5) = 3,085,938 / 326,256 ≈ <strong>9.46 N/mm</strong>. Acceptable — within the typical ±10% spring rate tolerance per ISO 10243.</p>
+
+<h3>Step 6 — Calculate Wahl correction factor</h3>
+<p>K_W = (4 × 7.8 − 1) / (4 × 7.8 − 4) + 0.615 / 7.8 = 30.2 / 27.2 + 0.0788 = 1.110 + 0.079 = <strong>1.189</strong></p>
+
+<h3>Step 7 — Check shear stress at maximum load</h3>
+<p>τ_max = 1.189 × (8 × 300 × 19.5) / (π × 2.5³) = 1.189 × 46,800 / 49.09 = 1.189 × 953.4 = <strong>1,133 MPa</strong>.</p>
+
+<p class="warn-box">This result significantly exceeds the 550 MPa allowable. The wire diameter must increase. Increasing d to 3.5 mm and recalculating (D = 18.5 mm, C = 5.3, Na ≈ 6.5) reduces τ_max to approximately 480 MPa — within the allowable. Always iterate until the stress check passes before finalising geometry. This iterative nature is exactly why a dedicated spring design tool eliminates the risk of missing a failed stress check mid-iteration.</p>
+
+<h3>Step 8 — Calculate solid height and free length (using revised d = 3.5 mm, Nt = 8.5 with two closed ends)</h3>
+<p>Ls = Nt × d = 8.5 × 3.5 = <strong>29.75 mm</strong>.</p>
+<p>Lf = Ls + δ_max + clash allowance = 29.75 + 30 + (0.12 × 30) = 29.75 + 30 + 3.6 = <strong>63.35 mm</strong>. Round to 63.5 mm.</p>
+
+<h2 id="step-by-step">Step-by-Step Compression Spring Design Method</h2>
+
+<ol>
+  <li><strong>Define load and deflection requirements.</strong> Establish minimum load F1, maximum load F2, corresponding deflections δ1 and δ2, and any envelope constraints such as bore diameter or maximum installed length.</li>
+  <li><strong>Calculate the required spring rate.</strong> k = (F2 − F1) / (δ2 − δ1). Confirm that a linear rate is acceptable for the application before proceeding.</li>
+  <li><strong>Select wire material and obtain G and allowable shear stress.</strong> Carbon steel wire (EN 10270-1 / ASTM A228) suits most static and moderate-cycle applications. Stainless steel (EN 10270-3) or alloy steel suits high-temperature or corrosive environments. Refer to <a href="https://www.iso.org/standard/55598.html" rel="nofollow noopener" target="_blank">ISO 8458</a> for steel spring wire mechanical property requirements.</li>
+  <li><strong>Estimate wire diameter d.</strong> Use the bore or OD constraint to set a trial wire diameter. A practical starting point is d ≈ OD / 10 for moderate-index springs.</li>
+  <li><strong>Calculate mean coil diameter D.</strong> D = OD_spring − d for outside-diameter-constrained designs, or D = ID_spring + d for bore-constrained designs.</li>
+  <li><strong>Calculate spring index C = D / d.</strong> If C falls outside 4–12, revise d or D before continuing to the next step.</li>
+  <li><strong>Calculate active coil count Na.</strong> Na = (G × d⁴) / (8 × D³ × k). Round to the nearest practical half-coil increment available from the coiling process.</li>
+  <li><strong>Recalculate actual spring rate.</strong> Confirm the rate meets the design tolerance, typically ±10% per ISO 10243 or the customer requirement, whichever is tighter.</li>
+  <li><strong>Calculate Wahl correction factor K_W.</strong> K_W = (4C − 1) / (4C − 4) + 0.615 / C. Never omit this step.</li>
+  <li><strong>Check maximum shear stress τ_max.</strong> τ_max = K_W × 8 × F_max × D / (π × d³). If τ_max exceeds the material allowable, increase d and repeat from Step 4.</li>
+  <li><strong>Set total coil count Nt.</strong> Add inactive end coils to Na — typically two coils for closed-and-ground ends, or 1.5 coils for closed-not-ground ends.</li>
+  <li><strong>Calculate solid height Ls = Nt × d.</strong> Verify that the installed compressed length never reaches Ls under worst-case deflection combined with manufacturing tolerances.</li>
+  <li><strong>Calculate free length Lf.</strong> Lf = Ls + δ_max + clash allowance (10–15% of δ_max). Confirm Lf fits within the installed envelope at its maximum tolerance condition.</li>
+  <li><strong>Check buckling if Lf / D > 4.</strong> Springs with a high slenderness ratio require a guide rod or bore to prevent lateral buckling. The SMI Handbook of Spring Design provides buckling stability charts for various end-condition factors. No single ASME standard covers helical compression spring design; the Spring Manufacturers Institute handbook and ISO standards are the primary authorities for this check.</li>
+  <li><strong>Document the final specification.</strong> Record d, D, Na, Nt, Lf, Ls, k, τ_max, end type and surface treatment on the engineering drawing with tolerances referenced to <a href="https://www.iso.org/standard/61619.html" rel="nofollow noopener" target="_blank">ISO 2162</a>. When springs are part of a first-article inspection package, every dimensional callout on the drawing must be clearly ballooned and cross-referenced to the inspection report. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=compression-spring-design-calculation" class="highlight" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> assigns balloon numbers to every drawing callout automatically, which supports FAI documentation preparation for spring drawings.</li>
+</ol>
+
+<p>For the pressure and force unit conversions that arise during spring material specification, the MetricMech <a href="https://metricmech.com/articles/pressure-unit-conversion">pressure unit conversion reference</a> provides a quick cross-check for MPa, bar and psi values used in material data sheets.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Compression Spring Design Calculation</h2>
+
+<h3>Using nominal wire diameter without checking standard availability</h3>
+<p>Spring wire is manufactured in discrete gauge steps. Specifying a calculated diameter of 3.1 mm when 3.0 mm and 3.2 mm are the nearest standard sizes forces a coil count revision and a full stress re-check. Always iterate the design around available wire sizes from the outset. Standard wire diameter series are listed in <a href="https://www.iso.org/standard/55598.html" rel="nofollow noopener" target="_blank">ISO 8458</a>.</p>
+
+<h3>Ignoring the clash allowance</h3>
+<p>Designing the spring so that maximum working deflection equals exactly the available stroke to solid height leaves zero margin. Spring rate tolerances and deflection tolerances combine to occasionally bottom the spring, inducing solid-height impact stress that destroys the part quickly. A 10–15% clash allowance is non-negotiable for cyclic applications.</p>
+
+<h3>Omitting the Wahl correction factor</h3>
+<p>Some older references use the simplified shear stress formula without K_W. For a spring index of 5, K_W ≈ 1.31, meaning omitting it underestimates shear stress by 31%. This is the single most common root cause of unexpected fatigue failures in springs that appeared correctly sized on paper.</p>
+
+<h3>Confusing active and total coil count in solid height</h3>
+<p>Solid height uses total coils Nt, not active coils Na. Closed-and-ground ends add approximately two inactive coils. Using Na in the solid height formula produces an optimistic result that makes the design appear to have more clash clearance than it actually possesses.</p>
+
+<h3>Specifying free length without a squareness tolerance</h3>
+<p>A spring that is not square applies a lateral load to its seat and guide, accelerating bore wear and introducing off-axis deflection. <a href="https://www.iso.org/standard/61619.html" rel="nofollow noopener" target="_blank">ISO 2162</a> specifies squareness measurement methodology. Including a squareness callout of ≤2° is standard practice for precision applications.</p>
+
+<h3>Applying static allowable stress to a fatigue application</h3>
+<p>Static allowable shear stress values can be 30–50% higher than the Goodman fatigue allowable for the same wire material and size. Applications with more than 10,000 cycles require a fatigue analysis using mean stress and alternating stress components, not just a peak load stress check. The SMI Handbook of Spring Design provides Goodman diagram data for common spring wire grades.</p>
+
+<p>Bolt and fastener preload calculations share similar iterative stress-checking logic. The MetricMech article on <a href="https://metricmech.com/articles/bolt-preload-calculation-formula-worked-example">bolt preload calculation</a> covers that parallel design process in detail. For other mechanical fit and stress scenarios, the <a href="https://metricmech.com/articles/press-fit-calculation">press fit calculation guide</a> is a useful companion reference when springs seat against interference-fit components.</p>
+
+<div class="callout">
+  <p><strong>Design shortcut:</strong> Once the spring rate calculation wire diameter coils combination passes the Wahl stress check, verify the confirmed values against the MetricMech <a href="https://metricmech.com/articles/steel-weight-calculation">steel weight calculation tool</a> to estimate spring mass — useful for dynamic load calculations and bill-of-material costing early in the design process.</p>
+</div>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the Wahl correction factor and why does it matter?</h3>
+<p>The Wahl correction factor accounts for both curvature stress concentration and direct shear in a helical spring coil. Without it, calculated shear stress is underestimated by 10–30%, leading to premature fatigue failure. It is a function of the spring index C and is applied as a multiplier to the torsional shear stress formula.</p>
+
+<h3>How do I calculate the number of active coils for a target spring rate?</h3>
+<p>Rearrange the spring rate formula: Na = (G × d⁴) / (8 × D³ × k). Substitute your shear modulus G, wire diameter d, mean coil diameter D, and target rate k. Round to the nearest practical coil count and recalculate the actual rate to confirm it stays within tolerance.</p>
+
+<h3>What is the difference between free length and solid height?</h3>
+<p>Free length (Lf) is the overall spring length when no load is applied. Solid height (Ls) is the compressed length when every coil touches its neighbour: Ls = Nt × d, where Nt is the total number of coils and d is the wire diameter. The design must ensure the working deflection never reaches solid height under any combination of tolerances.</p>
+
+<h3>What spring index range is recommended for most applications?</h3>
+<p>A spring index C (mean coil diameter divided by wire diameter) between 4 and 12 is recommended for most production springs. Values below 4 create coiling difficulties and very high stress concentrations. Values above 12 produce fragile, buckle-prone springs that are hard to maintain in a guide.</p>
+
+<h3>Which standard governs helical compression spring design?</h3>
+<p>No single ASME standard covers helical compression spring design. ISO 2162 governs spring drawing conventions and terminology. ISO 10243 applies to die springs. The Spring Manufacturers Institute (SMI) Handbook of Spring Design is the primary industry reference for general helical spring design and fatigue life estimation. Material property limits are found in <a href="https://www.iso.org/standard/55598.html" rel="nofollow noopener" target="_blank">ISO 8458</a> for steel spring wire.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/reorder-point-calculation">Reorder Point Calculation: Formula and Example</a></li>
+    <li><a href="/articles/oee-calculation">OEE Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/go-no-go-gauge-design-tolerance-calculation">Go No-Go Gauge Design Tolerance Calculation</a></li>
+    <li><a href="/articles/bolt-preload-calculation-formula-worked-example">Bolt Preload Calculation: Formula &amp; Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Compression Spring Design Calculation Step by Step",
+      "item": "https://metricmech.com/articles/compression-spring-design-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>

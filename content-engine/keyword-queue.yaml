@@ -434,7 +434,7 @@ queue:
   word_count: 2100
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: gear module pitch diameter calculation formula
   cluster: Design Calculations (shafts, bearings, springs, gears)
   intent: informational
