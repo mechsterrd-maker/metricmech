@@ -448,7 +448,7 @@ queue:
   word_count: 1900
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: rolling element bearing selection load rating calculation
   cluster: Design Calculations (shafts, bearings, springs, gears)
   intent: informational

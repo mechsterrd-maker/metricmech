@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gear Module Pitch Diameter Calculation Formula | MetricMech</title>
+<meta name="description" content="Master the gear module pitch diameter calculation formula with step-by-step examples and variable tables for spur gear design engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/gear-module-pitch-diameter-calculation">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gear Module Pitch Diameter Calculation Formula | MetricMech">
+<meta property="og:description" content="Master the gear module pitch diameter calculation formula with step-by-step examples and variable tables for spur gear design engineers.">
+<meta property="og:url" content="https://metricmech.com/articles/gear-module-pitch-diameter-calculation">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gear Module Pitch Diameter Calculation Formula | MetricMech">
+<meta name="twitter:description" content="Master the gear module pitch diameter calculation formula with step-by-step examples and variable tables for spur gear design engineers.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Gear Module Pitch Diameter Calculation Formula | MetricMech",
+  "description": "Master the gear module pitch diameter calculation formula with step-by-step examples and variable tables for spur gear design engineers.",
+  "url": "https://metricmech.com/articles/gear-module-pitch-diameter-calculation",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Gear Module Pitch Diameter Calculation Formula: A Complete Guide for Design Engineers",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-10",
+  "mainEntityOfPage": "https://metricmech.com/articles/gear-module-pitch-diameter-calculation"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the formula for gear pitch diameter from module and teeth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pitch diameter (d) equals module (m) multiplied by the number of teeth (z): d = m × z. For a module 3 gear with 40 teeth, the pitch diameter is 3 × 40 = 120 mm."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find the gear module if I know the pitch diameter and tooth count?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rearrange the formula: m = d ÷ z. Measure the pitch diameter and divide by the number of teeth. Module values should match a standard series (1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10) per ISO 54."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between module and diametral pitch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Module (mm) is the metric system ratio of pitch diameter to tooth count. Diametral pitch (DP, in⁻¹) is the imperial equivalent: DP = z ÷ d(inches). They are inversely related: m = 25.4 ÷ DP."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the same module formula apply to helical gears?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For helical gears, the normal module (mn) differs from the transverse module (mt). Pitch diameter uses the transverse module: d = mt × z, where mt = mn ÷ cos(helix angle). See the MetricMech helical gear article for full details."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What standard defines gear module and geometry formulas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ISO 54 specifies preferred module values, while ISO 21771 defines cylindrical gear geometry including pitch diameter, addendum, dedendum, and tooth thickness formulas for involute gears."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Gear Module Pitch Diameter Calculation Formula: A Complete Guide for Design Engi",
+      "item": "https://metricmech.com/articles/gear-module-pitch-diameter-calculation"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Gear Module Pitch Diameter Calculation F</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">The Core Formula at a Glance</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula & Variables Reference Table</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#full-geometry">Calculating Full Gear Tooth Geometry</a>
+    <a href="#common-mistakes">Common Mistakes to Avoid</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Gear Module Pitch Diameter Calculation Formula: A Complete Guide for Design Engineers</h1>
+    <div class="art-meta-bar">
+      <span>Gear Design</span>
+      <span>September 10, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The <strong>gear module pitch diameter calculation formula</strong> is: <strong>d = m × z</strong>, where d is pitch diameter (mm), m is module (mm), and z is number of teeth. Module is defined as the ratio of pitch diameter to tooth count and sets the proportional size of every tooth feature. All other gear geometry — addendum, dedendum, tooth thickness, and centre distance — derives from this single relationship.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a spur gear driving a conveyor head pulley. The design specification calls for a module 3 gear with 40 teeth on the pinion and 80 teeth on the wheel. The goal is to confirm pitch diameters and centre distance before releasing the drawing package.</p>
+
+<p><strong>Given:</strong> m = 3 mm, z₁ = 40 (pinion), z₂ = 80 (wheel)</p>
+
+<ol>
+  <li><strong>Pinion pitch diameter:</strong> d₁ = 3 × 40 = <strong>120 mm</strong></li>
+  <li><strong>Wheel pitch diameter:</strong> d₂ = 3 × 80 = <strong>240 mm</strong></li>
+  <li><strong>Standard centre distance:</strong> a = (d₁ + d₂) ÷ 2 = (120 + 240) ÷ 2 = <strong>180 mm</strong></li>
+</ol>
+
+<p>These three results define the spatial envelope for your gear pair. You can cross-check the gear ratio immediately: i = z₂ ÷ z₁ = 80 ÷ 40 = 2.0, meaning the wheel rotates at exactly half the pinion speed. For a deeper look at ratio and torque multiplication, see the MetricMech article on <a href="https://metricmech.com/articles/gear-ratio-calculation">Gear Ratio Calculation: Speed, Torque & Teeth</a>.</p>
+
+<div class="callout">
+<p><strong>Quick check:</strong> Use the <a href="https://metricmech.com/articles/spur-gear-calculation">MetricMech Spur Gear Calculator</a> to verify pitch diameter, addendum, dedendum, and tip diameter in one step — no manual arithmetic required.</p>
+</div>
+
+<h2 id="formula-table">Formula & Variables Reference Table</h2>
+
+<p>The table below collects every standard gear geometry formula that flows from the module. All dimensions are in millimetres. Pressure angle φ is typically 20° for general-purpose gears per <a href="https://www.iso.org/standard/68121.html" rel="noopener noreferrer" target="_blank">ISO 21771</a>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Symbol</th>
+      <th>Formula</th>
+      <th>Example (m=3, z=40)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Module</td>
+      <td>m</td>
+      <td>d ÷ z</td>
+      <td>3 mm</td>
+    </tr>
+    <tr>
+      <td>Pitch diameter</td>
+      <td>d</td>
+      <td>m × z</td>
+      <td>120 mm</td>
+    </tr>
+    <tr>
+      <td>Addendum</td>
+      <td>ha</td>
+      <td>1.0 × m</td>
+      <td>3 mm</td>
+    </tr>
+    <tr>
+      <td>Dedendum</td>
+      <td>hf</td>
+      <td>1.25 × m</td>
+      <td>3.75 mm</td>
+    </tr>
+    <tr>
+      <td>Whole tooth depth</td>
+      <td>h</td>
+      <td>2.25 × m</td>
+      <td>6.75 mm</td>
+    </tr>
+    <tr>
+      <td>Tip (outside) diameter</td>
+      <td>da</td>
+      <td>d + 2ha = m(z + 2)</td>
+      <td>126 mm</td>
+    </tr>
+    <tr>
+      <td>Root diameter</td>
+      <td>df</td>
+      <td>d − 2hf = m(z − 2.5)</td>
+      <td>112.5 mm</td>
+    </tr>
+    <tr>
+      <td>Circular pitch</td>
+      <td>p</td>
+      <td>π × m</td>
+      <td>9.425 mm</td>
+    </tr>
+    <tr>
+      <td>Base circle diameter</td>
+      <td>db</td>
+      <td>d × cos φ</td>
+      <td>112.76 mm (φ=20°)</td>
+    </tr>
+    <tr>
+      <td>Tooth thickness (pitch circle)</td>
+      <td>s</td>
+      <td>(π ÷ 2) × m</td>
+      <td>4.712 mm</td>
+    </tr>
+    <tr>
+      <td>Centre distance (pair)</td>
+      <td>a</td>
+      <td>(d₁ + d₂) ÷ 2</td>
+      <td>180 mm (z₂=80)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Preferred module values are standardised in <a href="https://www.iso.org/standard/4231.html" rel="noopener noreferrer" target="_blank">ISO 54</a>: 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 16, 20. Always select a standard module; non-standard values make tooling procurement difficult and costly.</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<p>The method below follows the sequence used in industrial gear design. It moves from defining the module to confirming the complete tooth envelope before any drawing is released.</p>
+
+<ol>
+  <li><strong>Define module and tooth count.</strong> Start from the gear ratio requirement and centre distance constraint. Choose module from the ISO 54 preferred series. Set tooth counts z₁ and z₂ such that z₂/z₁ equals the target ratio.</li>
+  <li><strong>Calculate pitch diameters.</strong> Apply d = m × z to each gear. These are the reference circles on which pitch and tooth thickness are defined.</li>
+  <li><strong>Verify centre distance.</strong> Compute a = (d₁ + d₂) ÷ 2 and confirm it matches the housing bore spacing on the layout drawing.</li>
+  <li><strong>Calculate addendum and dedendum.</strong> Use ha = 1.0 × m and hf = 1.25 × m for standard full-depth teeth. The 0.25 m clearance prevents tip-to-root interference.</li>
+  <li><strong>Determine tip and root diameters.</strong> Tip diameter da = m(z + 2); root diameter df = m(z − 2.5). These diameters control the gear blank turning operation on the lathe.</li>
+  <li><strong>Calculate base circle diameter.</strong> db = d × cos 20° for a standard 20° pressure angle. The base circle governs the involute profile and directly affects contact ratio.</li>
+  <li><strong>Check contact ratio.</strong> A contact ratio above 1.2 is the minimum for smooth transmission; above 1.4 is preferred for industrial applications. Contact ratio requires the tip circle and base circle diameters of both gears plus centre distance.</li>
+  <li><strong>Record all values on the gear drawing.</strong> Tooth geometry data — module, pressure angle, number of teeth, pitch diameter, tip diameter, root diameter, and span measurement — must appear in the gear data block per drawing standards.</li>
+</ol>
+
+<h2 id="full-geometry">Calculating Full Gear Tooth Geometry</h2>
+
+<p>Once pitch diameter is confirmed, two additional checks protect manufacturability: span measurement (over-pins or over-balls) and root fillet radius. Span measurement provides a practical in-process control that CMM and gear testers use to verify tooth thickness indirectly, especially when pitch diameter cannot be directly measured on the machine.</p>
+
+<p>Root fillet radius rf is not defined by the simple module formula. It depends on the hobbing cutter tip radius, which is typically 0.38 × m for standard cutters. A generous root fillet dramatically improves bending fatigue life and should be specified explicitly rather than left to cutter default.</p>
+
+<p>For helical gears, the pitch diameter formula uses the transverse module mt rather than normal module mn. The relationship is mt = mn ÷ cos(ψ), where ψ is the helix angle. The <a href="https://metricmech.com/articles/helical-gear-calculation">MetricMech Helical Gear Calculation article</a> covers this in full detail with its own worked example.</p>
+
+<p>When the gear pair feeds into a formal inspection or first-article report, consider using <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=gear-module-pitch-diameter-calculation" target="_blank" rel="noopener noreferrer" class="highlight">CadNexa's auto-ballooning tool</a> to tag every critical gear dimension on the drawing automatically, linking each balloon to a ballooned inspection record. Manual ballooning of a gear drawing with 15–20 critical dimensions is error-prone and slow; automated ballooning eliminates numbering mismatches before the part reaches the CMM.</p>
+
+<div class="cta-box">
+<p>Design engineers who need to confirm motor-to-gear compatibility alongside gear geometry will find the <a href="https://metricmech.com/articles/motor-torque-calculation">Motor Torque Calculation article</a> a useful companion reference — especially when sizing the pinion shaft for torsional stress.</p>
+</div>
+
+<h2 id="common-mistakes">Common Mistakes to Avoid</h2>
+
+<p>Even experienced engineers make systematic errors when switching between unit systems or gear standards. The following list covers the most frequent problems seen in gear design reviews.</p>
+
+<ul>
+  <li><strong>Confusing module with diametral pitch.</strong> Module is a metric ratio in mm. Diametral pitch (DP) is the imperial equivalent in in⁻¹. The conversion is m = 25.4 ÷ DP. A module 3 gear is equivalent to approximately DP 8.47 — not DP 3. Mixing the two systems produces gears that will not mesh.</li>
+  <li><strong>Using pitch diameter as the outside diameter for blank sizing.</strong> The tip diameter da = m(z + 2) is always larger than pitch diameter by 2 × addendum. Ordering a gear blank turned to pitch diameter leaves no stock for the tooth tips and results in scrapped blanks.</li>
+  <li><strong>Selecting a non-standard module.</strong> Choosing m = 3.5 or m = 7 forces custom hob procurement. Always use ISO 54 preferred values unless there is a documented engineering reason to deviate.</li>
+  <li><strong>Ignoring backlash in centre distance.</strong> Standard centre distance assumes zero backlash. In practice, gears need 0.05–0.10 × m of circumferential backlash. This is achieved either by increasing centre distance slightly or by using profile shift (addendum modification), not by reducing tooth count.</li>
+  <li><strong>Calculating root diameter with the wrong clearance factor.</strong> The standard dedendum is 1.25 × m, giving df = m(z − 2.5). Some older references use 1.157 × m (fine-pitch convention). Using the wrong factor produces a root diameter mismatch with the mating gear's tip, causing interference or excessive clearance.</li>
+  <li><strong>Omitting base circle from the drawing data block.</strong> Inspection equipment calculates involute profile deviation from the base circle. If db is missing from the drawing, CMM programs must back-calculate it — introducing an additional source of error in the inspection record.</li>
+  <li><strong>Treating module as pitch for circular pitch calculations.</strong> Circular pitch p = π × m, not p = m. A module 3 gear has a circular pitch of 9.425 mm. Using 3 mm as the pitch produces an incorrect tooth spacing and assembly interference.</li>
+</ul>
+
+<p>For engineers working with power transmission design more broadly, the principles of gear module selection intersect with shaft sizing, key selection, and bearing span. The <a href="https://metricmech.com/articles/motor-power-calculation">Motor Power Calculation article</a> provides the upstream torque and speed figures that feed directly into gear sizing.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the formula for gear pitch diameter from module and teeth?</h3>
+<p>Pitch diameter (d) equals module (m) multiplied by the number of teeth (z): <strong>d = m × z</strong>. For a module 3 gear with 40 teeth, the pitch diameter is 3 × 40 = 120 mm. This is the fundamental relationship from which all other gear geometry is derived.</p>
+
+<h3>How do I find the gear module if I know the pitch diameter and tooth count?</h3>
+<p>Rearrange the formula: <strong>m = d ÷ z</strong>. Measure the pitch diameter (using a span measurement or over-pins method) and divide by the number of teeth. The result should match a standard module value from the <a href="https://www.iso.org/standard/4231.html" rel="noopener noreferrer" target="_blank">ISO 54</a> preferred series — 1, 1.25, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10. If it does not match, verify the measurement method or check whether the gear was manufactured to a diametral pitch (imperial) standard.</p>
+
+<h3>What is the difference between module and diametral pitch?</h3>
+<p>Module (mm) is the metric system ratio of pitch diameter to tooth count: m = d/z. Diametral pitch (DP, in⁻¹) is the imperial equivalent defined as tooth count divided by pitch diameter in inches. They are inversely related: <strong>m = 25.4 ÷ DP</strong>. A module 2 gear is equivalent to approximately DP 12.7. Metric and imperial gears are not interchangeable even if tooth counts happen to match.</p>
+
+<h3>Can the same module formula apply to helical gears?</h3>
+<p>For helical gears, the normal module (mn) differs from the transverse module (mt) by the helix angle: mt = mn ÷ cos(ψ). Pitch diameter uses the transverse module: <strong>d = mt × z</strong>. A module 3 helical gear with a 15° helix angle has mt = 3 ÷ cos 15° ≈ 3.106 mm, giving a larger pitch diameter than a spur gear with the same module and tooth count. The <a href="https://metricmech.com/articles/helical-gear-calculation">MetricMech Helical Gear Calculation guide</a> covers the full derivation.</p>
+
+<h3>What standard defines gear module and geometry formulas?</h3>
+<p><a href="https://www.iso.org/standard/4231.html" rel="noopener noreferrer" target="_blank">ISO 54</a> specifies preferred module values for cylindrical gears. <a href="https://www.iso.org/standard/68121.html" rel="noopener noreferrer" target="_blank">ISO 21771</a> defines cylindrical gear geometry including pitch diameter, addendum, dedendum, tooth thickness, and base circle formulas for involute gears. In North America, <a href="https://www.agma.org/" rel="noopener noreferrer" target="_blank">AGMA 2001</a> covers similar ground using diametral pitch as the primary size parameter, with equivalent geometry formulas expressed in inch units.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/spur-gear-calculation">Spur Gear Calculation: Module, Ratio &amp; Tooth Count</a></li>
+    <li><a href="/articles/helical-gear-calculation">Helical Gear Calculation: Formulas &amp; Worked Example</a></li>
+    <li><a href="/articles/motor-torque-calculation">Motor Torque Calculation: Formula &amp; Worked Example</a></li>
+    <li><a href="/articles/gear-ratio-calculation">Gear Ratio Calculation: Speed, Torque &amp; Teeth</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Gear Module Pitch Diameter Calculation Formula: A Complete Guide for Design Engi",
+      "item": "https://metricmech.com/articles/gear-module-pitch-diameter-calculation"
+    }
+  ]
+}
+</script>
+</body>
+</html>
