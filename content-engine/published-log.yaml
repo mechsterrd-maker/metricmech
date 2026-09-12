@@ -382,3 +382,9 @@ posts:
   keyword: gear module pitch diameter calculation formula
   cluster: Design Calculations (shafts, bearings, springs, gears)
   source: autopilot
+- url: https://metricmech.com/articles/rolling-element-bearing-selection-load-rating
+  date: '2026-09-12'
+  title: Rolling Element Bearing Selection Load | MetricMech
+  keyword: rolling element bearing selection load rating calculation
+  cluster: Design Calculations (shafts, bearings, springs, gears)
+  source: autopilot

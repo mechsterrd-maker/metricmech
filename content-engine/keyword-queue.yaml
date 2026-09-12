@@ -462,7 +462,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: torsional stress in shaft formula worked example
   cluster: Design Calculations (shafts, bearings, springs, gears)
   intent: informational

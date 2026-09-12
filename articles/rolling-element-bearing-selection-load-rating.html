@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rolling Element Bearing Selection Load | MetricMech</title>
+<meta name="description" content="Master rolling element bearing selection load rating calculation: dynamic load C, equivalent load P, and L10 life formula explained with examples." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/rolling-element-bearing-selection-load-rating">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rolling Element Bearing Selection Load | MetricMech">
+<meta property="og:description" content="Master rolling element bearing selection load rating calculation: dynamic load C, equivalent load P, and L10 life formula explained with examples.">
+<meta property="og:url" content="https://metricmech.com/articles/rolling-element-bearing-selection-load-rating">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rolling Element Bearing Selection Load | MetricMech">
+<meta name="twitter:description" content="Master rolling element bearing selection load rating calculation: dynamic load C, equivalent load P, and L10 life formula explained with examples.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Rolling Element Bearing Selection Load | MetricMech",
+  "description": "Master rolling element bearing selection load rating calculation: dynamic load C, equivalent load P, and L10 life formula explained with examples.",
+  "url": "https://metricmech.com/articles/rolling-element-bearing-selection-load-rating",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Rolling Element Bearing Selection: Load Rating Calculation Guide",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-12",
+  "mainEntityOfPage": "https://metricmech.com/articles/rolling-element-bearing-selection-load-rating"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between basic dynamic load rating C and static load rating C0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The basic dynamic load rating C is the constant radial load that a bearing group can theoretically endure for one million revolutions (L10 life). The static load rating C0 is the load at which permanent deformation of rolling elements or raceways begins. Use C for rotating applications and C0 to check bearings under shock or very slow rotation. ISO 281 governs C; ISO 76 governs C0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate the equivalent dynamic bearing load when both radial and axial forces act simultaneously?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the formula P = X·Fr + Y·Fa, where X is the radial load factor, Y is the axial load factor, Fr is the actual radial force, and Fa is the actual axial force. X and Y values depend on the bearing type and the ratio Fa/Fr; they are tabulated in ISO 281 and individual manufacturer catalogues. Always confirm that P ≥ Fr; if the formula returns a lower value, set P = Fr."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does L10 bearing life mean in practical terms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "L10 life is the number of operating hours at which 90% of a large population of identical bearings are expected to still be running — meaning 10% may have failed. It is calculated as L10h = (16,667/n) × (C/P)^p, where n is speed in rpm, C is the dynamic load rating, P is the equivalent dynamic load, and p is 3 for ball bearings or 10/3 for roller bearings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does bearing selection change when the load is predominantly axial rather than radial?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Predominantly axial loads favour angular contact ball bearings or tapered roller bearings because their geometry reacts an axial load component effectively. For purely axial loads at low speed, thrust ball bearings are the standard choice. Standard deep-groove ball bearings can handle moderate axial loads, but their Y factor must be checked against the Fa/C0 ratio per ISO 281 tables before accepting the design."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use a higher speed bearing to get a longer L10 life at the same load?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Reducing speed increases L10 life because fewer stress cycles accumulate per hour, but it does not change the bearing's load rating C. To extend life under the same speed and load, select a bearing with a higher dynamic load rating C, change to a roller bearing type, or reduce the actual load applied to the bearing through design changes such as shortening the shaft overhang."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Rolling Element Bearing Selection: Load Rating Calculation Guide",
+      "item": "https://metricmech.com/articles/rolling-element-bearing-selection-load-rating"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Rolling Element Bearing Selection: Load </div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is Bearing Load Rating?</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#formula-table">Formula & Variables Reference</a>
+    <a href="#step-by-step">Step-by-Step Selection Method</a>
+    <a href="#common-mistakes">Common Mistakes in Bearing Selection</a>
+    <a href="#bearing-type-comparison">Bearing Type vs. Load Suitability</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Rolling Element Bearing Selection: Load Rating Calculation Guide</h1>
+    <div class="art-meta-bar">
+      <span>Machine Design</span>
+      <span>September 12, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">Rolling element bearing selection using load rating calculation means finding a bearing whose basic dynamic load rating C is high enough that its calculated L10 life meets or exceeds the required service life. You derive the equivalent dynamic bearing load P from the actual radial and axial forces, then use the ISO 281 life formula to confirm adequacy — or iterate to a larger bearing if the result falls short.</p>
+
+<h2 id="what-is-bearing-load-rating">What Is Bearing Load Rating?</h2>
+
+<p>The <strong>basic dynamic load rating C</strong> is a standardised value, expressed in kilonewtons (kN), that every bearing manufacturer publishes in their catalogue for each bearing size. It represents the constant radial load under which a reference population of identical bearings achieves exactly one million inner-ring revolutions with 90&nbsp;% reliability. The definition is standardised in <a href="https://www.iso.org/standard/56299.html" target="_blank" rel="noopener">ISO 281:2007 Rolling bearings — Dynamic load ratings and rating life</a>.</p>
+
+<p>A companion value, the <strong>basic static load rating C0</strong>, defines the load at which the contact stress between rolling element and raceway reaches a level that causes measurable permanent deformation. C0 governs selection for slow-rotating or stationary bearings under shock loads. For the majority of rotating-machinery applications, C — not C0 — drives bearing selection.</p>
+
+<p>Understanding how these two values interact with the actual forces on a shaft is the foundation of any sound bearing specification. Engineers who skip this step frequently under-specify bearings, leading to premature failures, or over-specify them, driving unnecessary cost and weight into the design.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a conveyor head-pulley shaft running at <strong>480 rpm</strong> with a required service life of <strong>30,000 hours</strong>. Bearing analysis identifies a radial force Fr = 12 kN and an axial force Fa = 3 kN at the drive-side bearing position. A standard deep-groove ball bearing is the first candidate.</p>
+
+<p><strong>Step 1 — Find the equivalent dynamic load P.</strong><br>
+For a deep-groove ball bearing, consult the X and Y factors from the manufacturer table (ISO 281 basis). At an Fa/Fr ratio of 3/12 = 0.25, a typical catalogue gives X = 0.56 and Y ≈ 1.4 when Fa/C0 falls in the appropriate range. Therefore:</p>
+
+<p><code>P = X·Fr + Y·Fa = 0.56 × 12 + 1.4 × 3 = 6.72 + 4.20 = 10.92 kN</code></p>
+
+<p>Because the combined value of 10.92 kN is less than Fr = 12 kN, the catalogue rule states use P = Fr when X·Fr + Y·Fa &lt; Fr. Here 10.92 &lt; 12, so <strong>P = 12 kN</strong> governs.</p>
+
+<p><strong>Step 2 — Calculate the required dynamic load rating C.</strong><br>
+Rearrange the L10 life formula for ball bearings (exponent p = 3):</p>
+
+<p><code>C = P × (L10h × n / 16,667)^(1/p)</code></p>
+
+<p>First, compute the term inside the brackets:</p>
+
+<p><code>L10h × n = 30,000 × 480 = 14,400,000</code></p>
+
+<p><code>14,400,000 / 16,667 = 864.0 (million revolutions)</code></p>
+
+<p><code>864.0^(1/3) = 9.52</code></p>
+
+<p><code>C = 12 × 9.52 ≈ 114.3 kN</code></p>
+
+<p>A bearing with C ≥ 114.3 kN is required. Checking a standard catalogue, a 6320 deep-groove ball bearing offers C = 156 kN, which comfortably exceeds 114.3 kN — so the 6320 <strong>passes</strong> this selection check. The designer would then verify the static load rating and speed limit before finalising the selection. If the required life were doubled to 60,000 hours at the same speed and load, the required C would rise to approximately 144 kN — still satisfied by the 6320, illustrating how the cube-root relationship means doubling life demands only a 26&nbsp;% increase in C, not double the rating.</p>
+
+<div class="callout">
+<p><strong>Calculator shortcut:</strong> Use the MetricMech <a href="https://metricmech.com/calculators/bearing-life">Bearing Life Calculator</a> to run L10 iterations instantly — enter C, P, speed, and bearing type and it returns L10h without manual arithmetic. This is particularly useful when stepping through multiple bearing candidates from a catalogue shortlist.</p>
+</div>
+
+<h2 id="formula-table">Formula &amp; Variables Reference</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Unit</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>C</td>
+      <td>Basic dynamic load rating</td>
+      <td>kN</td>
+      <td>From bearing catalogue; per ISO 281</td>
+    </tr>
+    <tr>
+      <td>C0</td>
+      <td>Basic static load rating</td>
+      <td>kN</td>
+      <td>Used for shock/stationary loads</td>
+    </tr>
+    <tr>
+      <td>P</td>
+      <td>Equivalent dynamic bearing load</td>
+      <td>kN</td>
+      <td>P = X·Fr + Y·Fa; minimum = Fr</td>
+    </tr>
+    <tr>
+      <td>Fr</td>
+      <td>Actual radial force</td>
+      <td>kN</td>
+      <td>Resultant of all radial components</td>
+    </tr>
+    <tr>
+      <td>Fa</td>
+      <td>Actual axial force</td>
+      <td>kN</td>
+      <td>Net thrust along shaft axis</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>Radial load factor</td>
+      <td>—</td>
+      <td>Tabulated by bearing type and Fa/Fr</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>Axial load factor</td>
+      <td>—</td>
+      <td>Tabulated; varies with Fa/C0 for ball bearings</td>
+    </tr>
+    <tr>
+      <td>L10</td>
+      <td>Basic rating life</td>
+      <td>10⁶ revolutions</td>
+      <td>L10 = (C/P)^p</td>
+    </tr>
+    <tr>
+      <td>L10h</td>
+      <td>Basic rating life in hours</td>
+      <td>hours</td>
+      <td>L10h = (16,667/n) × (C/P)^p</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>Rotational speed</td>
+      <td>rpm</td>
+      <td>Constant or equivalent speed</td>
+    </tr>
+    <tr>
+      <td>p</td>
+      <td>Life exponent</td>
+      <td>—</td>
+      <td>3 for ball bearings; 10/3 for roller bearings</td>
+    </tr>
+    <tr>
+      <td>a1</td>
+      <td>Reliability factor</td>
+      <td>—</td>
+      <td>1.0 at 90&nbsp;%; 0.62 at 95&nbsp;%; per ISO 281 Table 1</td>
+    </tr>
+    <tr>
+      <td>aISO</td>
+      <td>Life modification factor</td>
+      <td>—</td>
+      <td>Accounts for lubrication and contamination</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The modified rating life including reliability and lubrication effects is: <strong>Lnm = a1 × aISO × (C/P)^p</strong>. For most industrial selections, engineers first confirm the basic L10h, then apply modification factors to validate the result under actual lubrication conditions. The <a href="https://www.iso.org/standard/56299.html" target="_blank" rel="noopener">ISO 281 standard</a> provides the complete methodology and factor tables.</p>
+
+<h2 id="step-by-step">Step-by-Step Bearing Selection Method</h2>
+
+<ol>
+  <li><strong>Define the load environment.</strong> Identify all forces acting on the bearing: radial loads from belt tension, gear separating forces, or weight of the shaft assembly; axial loads from helical gear thrust, fluid pressure on impellers, or thermal expansion. Refer to the MetricMech <a href="https://metricmech.com/articles/gear-ratio-calculation">Gear Ratio Calculation</a> article if transmitted torque is a primary input to your radial load estimate, and the <a href="https://metricmech.com/articles/motor-torque-calculation">Motor Torque Calculation</a> guide for motor-driven shaft force derivations.</li>
+  <li><strong>Resolve forces to bearing positions.</strong> Use free-body diagrams of the shaft with support reactions at each bearing position. The radial reaction at each bearing is typically Fr = √(Fh² + Fv²), where Fh and Fv are horizontal and vertical components respectively.</li>
+  <li><strong>Calculate the equivalent dynamic load P.</strong> Apply the formula P = X·Fr + Y·Fa using X and Y factors for the candidate bearing type. If the combined value falls below Fr, set P = Fr. For purely radial loads with no axial component, P = Fr directly.</li>
+  <li><strong>Set the required life target L10h.</strong> Industry guidelines suggest 20,000–30,000 hours for industrial gearboxes, 30,000–50,000 hours for electric motors, and up to 100,000 hours for heavy continuous-duty applications. AGMA and ISO standards provide guidance for specific equipment classes.</li>
+  <li><strong>Calculate the required basic dynamic load rating C.</strong> Rearrange the life formula: C = P × (L10h × n / 16,667)^(1/p). This gives the minimum C value the selected bearing must meet or exceed.</li>
+  <li><strong>Select a bearing from the catalogue.</strong> Enter the bearing catalogue — SKF, NSK, Schaeffler, Timken, or similar — and identify a bearing type and size whose published C value equals or exceeds the calculated requirement. Prefer the smallest bearing that satisfies C to minimise cost and envelope size.</li>
+  <li><strong>Verify the static load rating.</strong> Check that the actual peak load (including shock) does not exceed C0 / s0, where s0 is a static safety factor — typically 1.5–2.0 for smooth operation, higher for shock loading. The <a href="https://www.iso.org/standard/12757.html" target="_blank" rel="noopener">ISO 76 standard</a> covers static load ratings in full.</li>
+  <li><strong>Check speed limitations.</strong> Confirm the operating speed does not exceed the bearing's limiting speed (oil lubrication) or reference speed (grease lubrication) listed in the catalogue. Exceeding these values causes thermal failure independently of load rating.</li>
+  <li><strong>Apply life modification factors.</strong> Multiply the basic L10h by a1 for reliability and aISO for the lubrication contamination factor (κ = actual viscosity / required viscosity). This produces the modified Lnmh life, which is more realistic for contaminated or borderline-lubrication environments.</li>
+  <li><strong>Document the selection.</strong> Record the bearing designation, C value used, calculated P, n, and L10h for the design dossier. When bearing positions tie to a dimensional drawing that requires inspection traceability, consider using <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=rolling-element-bearing-selection-load-rating" target="_blank" rel="noopener" class="highlight">CadNexa's auto-ballooning tool</a> to balloon the bearing seats on assembly drawings automatically, reducing manual documentation time on inspection reports.</li>
+</ol>
+
+<h2 id="common-mistakes">Common Mistakes in Bearing Selection</h2>
+
+<h3>Ignoring Axial Load on Nominally Radial Bearings</h3>
+<p>Deep-groove ball bearings tolerate moderate axial loads, but their Y factor rises sharply as the Fa/C0 ratio increases. Engineers who assume Fa has no effect and set P = Fr alone can underestimate equivalent load significantly in applications with meaningful thrust. Always check the Fa/Fr and Fa/C0 ratios against the bearing type's X/Y table in the ISO 281 annex or manufacturer catalogue before defaulting to P = Fr.</p>
+
+<h3>Using Catalogue C Values Without Checking the Speed Factor</h3>
+<p>The life formula C = P × (L10h × n / 16,667)^(1/p) grows rapidly with speed. At high rpm, even a large bearing may not deliver a realistic L10h because thermal and lubrication constraints become the binding limit before load rating does. Always cross-reference the required C against the bearing's speed rating before finalising selection.</p>
+
+<h3>Applying a Safety Factor Directly to C</h3>
+<p>Some engineers multiply P by an arbitrary safety factor of 1.5 or 2.0 before entering the life formula, effectively demanding a bearing with a disproportionately higher C. The correct approach is to use the actual load P and achieve the required life through the life formula. Safety factors belong to the static load check via s0 = C0/P0, not inside the dynamic life calculation itself.</p>
+
+<h3>Selecting Bearing Type Before Calculating Load Ratio</h3>
+<p>Specifying a deep-groove ball bearing without first checking whether the axial-to-radial load ratio suits that type is a common early-stage error. When Fa/Fr exceeds approximately 0.35–0.5, angular contact or tapered roller bearings are usually more appropriate. Bearing type selection should follow load analysis, not precede it. Refer to the <a href="https://metricmech.com/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit guide</a> when specifying the fit tolerances for the selected bearing — fit tightness directly affects internal clearance and therefore load distribution within the bearing.</p>
+
+<h3>Neglecting Operating Temperature Effects on Grease Life</h3>
+<p>Even a correctly sized bearing will fail early if grease relubrication intervals are not adjusted for operating temperature. Above 70&nbsp;°C, the relubrication interval halves roughly every 15&nbsp;°C rise. The design engineer must flag the thermal environment when issuing the bearing specification so maintenance schedules are set correctly from the outset.</p>
+
+<div class="callout">
+<p>The MetricMech <a href="https://metricmech.com/calculators/bearing-life">Bearing Life Calculator</a> handles both ball and roller bearing exponents, accepts inputs for speed, C, and P, and returns L10h directly — saving the manual iteration described above when stepping through a shortlist of candidate bearings from a catalogue.</p>
+</div>
+
+<h2 id="bearing-type-comparison">Bearing Type vs. Load Suitability — Quick Reference</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bearing Type</th>
+      <th>Primary Load Direction</th>
+      <th>Axial Capacity</th>
+      <th>Speed Capability</th>
+      <th>Typical Application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Deep-groove ball (6xxx)</td>
+      <td>Radial</td>
+      <td>Moderate (both directions)</td>
+      <td>High</td>
+      <td>Electric motors, pumps</td>
+    </tr>
+    <tr>
+      <td>Angular contact ball (7xxx)</td>
+      <td>Combined radial + axial</td>
+      <td>High (one direction per unit)</td>
+      <td>High</td>
+      <td>Spindles, gearboxes</td>
+    </tr>
+    <tr>
+      <td>Cylindrical roller (NJ, NU)</td>
+      <td>Radial (very high)</td>
+      <td>Low to nil</td>
+      <td>Moderate–high</td>
+      <td>Heavy radial-load shafts</td>
+    </tr>
+    <tr>
+      <td>Tapered roller (320xx)</td>
+      <td>Combined radial + axial</td>
+      <td>High (one direction per unit)</td>
+      <td>Moderate</td>
+      <td>Wheel hubs, gearboxes</td>
+    </tr>
+    <tr>
+      <td>Spherical roller (222xx)</td>
+      <td>High radial + moderate axial</td>
+      <td>Moderate (both directions)</td>
+      <td>Moderate</td>
+      <td>Conveyors, crushers</td>
+    </tr>
+    <tr>
+      <td>Thrust ball (511xx)</td>
+      <td>Axial only</td>
+      <td>Very high (one direction)</td>
+      <td>Low</td>
+      <td>Vertical shafts, jacks</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This table reflects general design guidance in <a href="https://www.iso.org/standard/56299.html" target="_blank" rel="noopener">ISO 281</a> and the bearing classification framework of <a href="https://www.iso.org/standard/60892.html" target="_blank" rel="noopener">ISO 15:2017 Rolling bearings — Radial bearings</a>. Specific capacity values always come from individual manufacturer tables, not generic comparisons.</p>
+
+<p>Pump designers combining this analysis with hydraulic load calculations will find the <a href="https://metricmech.com/articles/pump-power-calculation">Pump Power Calculation guide</a> useful for resolving the impeller thrust force that feeds directly into Fa at the pump bearing positions.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the difference between basic dynamic load rating C and static load rating C0?</h3>
+<p>The basic dynamic load rating C is the constant radial load that a bearing group can theoretically endure for one million revolutions at 90&nbsp;% reliability. The static load rating C0 is the load at which permanent deformation of rolling elements or raceways begins. Use C for rotating applications and C0 to check bearings under shock loads or very slow rotation. ISO 281 governs C; <a href="https://www.iso.org/standard/12757.html" target="_blank" rel="noopener">ISO 76</a> governs C0.</p>
+
+<h3>How do you calculate the equivalent dynamic bearing load when both radial and axial forces act simultaneously?</h3>
+<p>Use the formula <strong>P = X·Fr + Y·Fa</strong>, where X is the radial load factor, Y is the axial load factor, Fr is the actual radial force, and Fa is the actual axial force. X and Y values depend on the bearing type and the ratio Fa/Fr; they are tabulated in ISO 281 and individual manufacturer catalogues. Always confirm that P ≥ Fr; if the formula returns a lower value, set P = Fr.</p>
+
+<h3>What does L10 bearing life mean in practical terms?</h3>
+<p>L10 life is the number of operating hours at which 90&nbsp;% of a large population of identical bearings are expected to still be running — meaning 10&nbsp;% may have failed. It is calculated as <strong>L10h = (16,667/n) × (C/P)^p</strong>, where n is speed in rpm, C is the dynamic load rating, P is the equivalent dynamic load, and p is 3 for ball bearings or 10/3 for roller bearings.</p>
+
+<h3>How does bearing selection change when the load is predominantly axial rather than radial?</h3>
+<p>Predominantly axial loads favour angular contact ball bearings or tapered roller bearings because their geometry reacts an axial load component effectively. For purely axial loads at low speed, thrust ball bearings are the standard choice. Standard deep-groove ball bearings can handle moderate axial loads, but their Y factor must be checked against the Fa/C0 ratio per ISO 281 tables before accepting the design.</p>
+
+<h3>Can I use a higher speed bearing to get a longer L10 life at the same load?</h3>
+<p>No. Reducing speed increases L10 life because fewer stress cycles accumulate per hour, but it does not change the bearing's load rating C. To extend life under the same speed and load, select a bearing with a higher dynamic load rating C, change to a roller bearing type with a higher C for the same envelope, or reduce the actual load applied to the bearing through design changes such as shortening the shaft overhang.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/takt-time-calculation">Takt Time Calculation: Formula and Example</a></li>
+    <li><a href="/articles/press-fit-calculation">Press Fit Calculation: Interference, Force &amp;amp; Stress</a></li>
+    <li><a href="/articles/oee-calculation">OEE Calculation: Formula and Worked Example</a></li>
+    <li><a href="/articles/motor-torque-calculation">Motor Torque Calculation: Formula &amp; Worked Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Rolling Element Bearing Selection: Load Rating Calculation Guide",
+      "item": "https://metricmech.com/articles/rolling-element-bearing-selection-load-rating"
+    }
+  ]
+}
+</script>
+</body>
+</html>
