@@ -156,3 +156,9 @@ pages:
   impressions: 56
   added: '2026-08-30'
   status: todo
+- url: https://metricmech.com/articles/measurement-system-analysis
+  reason: low-ctr
+  position: 6.5
+  impressions: 50
+  added: '2026-09-13'
+  status: todo
