@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Torsional Stress in Shaft: Formula & Worked Example | MetricMech</title>
+<meta name="description" content="Master torsional stress in shaft formula worked example covering solid, hollow shafts, polar moment, and shear stress steps." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Torsional Stress in Shaft: Formula & Worked Example | MetricMech">
+<meta property="og:description" content="Master torsional stress in shaft formula worked example covering solid, hollow shafts, polar moment, and shear stress steps.">
+<meta property="og:url" content="https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Torsional Stress in Shaft: Formula & Worked Example | MetricMech">
+<meta name="twitter:description" content="Master torsional stress in shaft formula worked example covering solid, hollow shafts, polar moment, and shear stress steps.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Torsional Stress in Shaft: Formula & Worked Example | MetricMech",
+  "description": "Master torsional stress in shaft formula worked example covering solid, hollow shafts, polar moment, and shear stress steps.",
+  "url": "https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Torsional Stress in Shaft: Formula & Worked Example",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-15",
+  "mainEntityOfPage": "https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the torsional stress formula for a shaft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The torsional shear stress formula is τ = T·r / J, where T is the applied torque in N·mm, r is the outer radius in mm, and J is the polar moment of inertia in mm⁴. Maximum shear stress occurs at the outer surface of the shaft."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you calculate the polar moment of inertia for a solid shaft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a solid circular shaft, J = π·d⁴ / 32, where d is the shaft diameter in mm. For a hollow shaft, J = π·(d_o⁴ − d_i⁴) / 32, where d_o is the outer diameter and d_i is the inner diameter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between torsional shear stress and bending stress in a shaft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Torsional shear stress acts circumferentially and is caused by an applied torque (twisting moment). Bending stress is a normal stress caused by transverse loads or moments that bend the shaft. Both must be combined using principal stress theory when both act simultaneously."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an acceptable shear stress limit for a steel shaft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A common design rule limits shear stress to τ_allowable = S_y / (2 × safety factor) for ductile materials under the Tresca criterion. Always verify against ASME B106.1M for rotating transmission shafts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the torsion formula apply to hollow shafts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The same formula τ = T·r / J applies to hollow shafts. Only the polar moment of inertia changes: J = π·(d_o⁴ − d_i⁴) / 32. Hollow shafts are more mass-efficient because the low-stress material near the neutral axis is removed."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Torsional Stress in Shaft: Formula & Worked Example",
+      "item": "https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Torsional Stress in Shaft: Formula & Wor</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Is Torsional Stress in a Shaft?</a>
+    <a href="#worked-example">Worked Example: Solid Shaft Under Torque</a>
+    <a href="#formula-table">Torsion Formula and Variables</a>
+    <a href="#polar-moment">Polar Moment of Inertia: Solid vs Hollow Shaft</a>
+    <a href="#step-by-step">Step-by-Step Calculation Method</a>
+    <a href="#common-mistakes">Common Mistakes in Torsion Calculations</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Torsional Stress in Shaft: Formula & Worked Example</h1>
+    <div class="art-meta-bar">
+      <span>Mechanical Design</span>
+      <span>September 15, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">
+  The torsional stress in a shaft formula is <strong>τ = T · r / J</strong>, where τ is the shear stress (MPa), T is the applied torque (N·mm), r is the distance from the shaft centre to the outer surface (mm), and J is the polar moment of inertia (mm⁴). Maximum torsional shear stress always occurs at the outer radius. This formula applies to both solid and hollow circular cross-sections and is the starting point for any shaft torque stress calculation example.
+</p>
+
+<h2 id="worked-example">Worked Example: Solid Shaft Under Torque</h2>
+
+<p>
+  Consider a solid steel drive shaft with a diameter of <strong>50 mm</strong> transmitting a torque of <strong>1 500 N·m</strong>. The goal is to find the maximum torsional shear stress and compare it against a design limit.
+</p>
+
+<p>
+  This is a representative scenario found in conveyor drives, gearbox output shafts, and pump couplings — exactly the type of calculation that needs to be verified before finalising a shaft diameter. If you need to cross-check torque values upstream, the <a href="https://metricmech.com/articles/motor-torque-calculation">Motor Torque Calculation guide</a> walks through deriving T from power and speed.
+</p>
+
+<h3>Given Data</h3>
+<ul>
+  <li>Shaft diameter: d = 50 mm</li>
+  <li>Applied torque: T = 1 500 N·m = 1 500 000 N·mm</li>
+  <li>Material: Medium carbon steel, yield strength S<sub>y</sub> = 350 MPa</li>
+  <li>Design safety factor: n = 2</li>
+</ul>
+
+<h3>Step 1 — Calculate Polar Moment of Inertia (J)</h3>
+<p>
+  For a solid circular shaft: J = π · d⁴ / 32
+</p>
+<p>
+  J = π × (50)⁴ / 32 = π × 6 250 000 / 32 = <strong>613 592 mm⁴</strong> (≈ 6.136 × 10⁵ mm⁴)
+</p>
+
+<h3>Step 2 — Identify the Outer Radius (r)</h3>
+<p>
+  r = d / 2 = 50 / 2 = <strong>25 mm</strong>
+</p>
+
+<h3>Step 3 — Apply the Torsion Formula</h3>
+<p>
+  τ = T · r / J = 1 500 000 × 25 / 613 592 = <strong>61.1 MPa</strong>
+</p>
+
+<h3>Step 4 — Check Against Allowable Shear Stress</h3>
+<p>
+  Allowable shear stress: τ<sub>allow</sub> = S<sub>y</sub> / (2 × n) = 350 / (2 × 2) = <strong>87.5 MPa</strong>
+</p>
+<p>
+  Since 61.1 MPa &lt; 87.5 MPa, the shaft diameter is <strong>acceptable</strong> under pure torsion. A combined loading check (bending + torsion) would be the logical next step in a full shaft design.
+</p>
+
+<div class="callout">
+  <strong>Quick check:</strong> Use MetricMech's shaft torsion calculator to verify this result instantly and explore how changing diameter or torque shifts the stress value before you commit to a final design.
+</div>
+
+<h2 id="formula-table">Torsion Formula and Variables</h2>
+
+<p>
+  The governing equation for torsional shear stress comes directly from the theory of elasticity for circular cross-sections, codified in <a href="https://www.asme.org/codes-standards/find-codes-standards/b106-1m-design-of-transmission-shafting" rel="noopener noreferrer" target="_blank">ASME B106.1M — Design of Transmission Shafting</a>. The table below defines every symbol used in the torsion formula.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Quantity</th>
+      <th>SI Unit</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>τ</td>
+      <td>Torsional shear stress</td>
+      <td>MPa (N/mm²)</td>
+      <td>Maximum at outer radius</td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>Applied torque (twisting moment)</td>
+      <td>N·mm</td>
+      <td>Convert N·m × 1000 to get N·mm</td>
+    </tr>
+    <tr>
+      <td>r</td>
+      <td>Radial distance from centre to point</td>
+      <td>mm</td>
+      <td>Use r = d/2 for maximum stress</td>
+    </tr>
+    <tr>
+      <td>J</td>
+      <td>Polar moment of inertia</td>
+      <td>mm⁴</td>
+      <td>Depends on cross-section geometry</td>
+    </tr>
+    <tr>
+      <td>d</td>
+      <td>Shaft outer diameter</td>
+      <td>mm</td>
+      <td>Nominal machined diameter</td>
+    </tr>
+    <tr>
+      <td>d<sub>o</sub></td>
+      <td>Hollow shaft outer diameter</td>
+      <td>mm</td>
+      <td>Used in hollow shaft J formula</td>
+    </tr>
+    <tr>
+      <td>d<sub>i</sub></td>
+      <td>Hollow shaft inner diameter</td>
+      <td>mm</td>
+      <td>Bore diameter</td>
+    </tr>
+    <tr>
+      <td>G</td>
+      <td>Shear modulus (modulus of rigidity)</td>
+      <td>GPa</td>
+      <td>~80 GPa for steel; used for angle of twist</td>
+    </tr>
+    <tr>
+      <td>L</td>
+      <td>Shaft length</td>
+      <td>mm</td>
+      <td>Used for angle of twist: φ = TL / GJ</td>
+    </tr>
+    <tr>
+      <td>φ</td>
+      <td>Angle of twist</td>
+      <td>radians</td>
+      <td>φ = TL / GJ</td>
+    </tr>
+    <tr>
+      <td>S<sub>y</sub></td>
+      <td>Material yield strength</td>
+      <td>MPa</td>
+      <td>From material datasheet or standard</td>
+    </tr>
+    <tr>
+      <td>n</td>
+      <td>Safety factor</td>
+      <td>—</td>
+      <td>Typically 1.5–3 for rotating machinery</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="polar-moment">Polar Moment of Inertia: Solid vs Hollow Shaft</h2>
+
+<p>
+  The polar moment of inertia J quantifies a cross-section's resistance to torsion. A larger J means lower stress for the same torque — which is why shaft diameter has such a powerful effect on torsional capacity (stress scales with d³ for a solid shaft when r and J are both expressed in terms of d).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cross-Section</th>
+      <th>J Formula</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Solid circular shaft</td>
+      <td>J = π · d⁴ / 32</td>
+      <td>Most common in drive shafts</td>
+    </tr>
+    <tr>
+      <td>Hollow circular shaft</td>
+      <td>J = π · (d<sub>o</sub>⁴ − d<sub>i</sub>⁴) / 32</td>
+      <td>Better strength-to-weight ratio</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Hollow shafts are preferred in aerospace and automotive applications where weight reduction is critical. For the same outer diameter, removing material near the centre reduces J by a smaller proportion than it reduces mass, making hollowing an efficient trade-off. This intersects directly with press and shrink fit design when hollow shafts must interface with hubs — see the <a href="https://metricmech.com/articles/press-fit-vs-shrink-fit">Press Fit vs Shrink Fit guide</a> for those interface calculations.
+</p>
+
+<p>
+  <a href="https://www.asme.org/codes-standards/find-codes-standards/b106-1m-design-of-transmission-shafting" rel="noopener noreferrer" target="_blank">ASME B106.1M</a> references the polar section modulus Z<sub>p</sub> = J / r as a convenient shorthand, allowing the torsion formula to be written as τ = T / Z<sub>p</sub>. For a solid shaft, Z<sub>p</sub> = π · d³ / 16, which simplifies hand calculations when only the maximum surface stress is needed.
+</p>
+
+<h2 id="step-by-step">Step-by-Step Calculation Method</h2>
+
+<p>
+  Follow this procedure for any shaft torque stress calculation, whether solid or hollow, for any consistent unit system.
+</p>
+
+<ol>
+  <li><strong>Determine the applied torque T.</strong> Calculate from power and rotational speed: T (N·mm) = (Power in W × 1 000) / (2π × n / 60), where n is speed in rpm. Alternatively, derive from gear ratios using the <a href="https://metricmech.com/articles/gear-ratio-calculation">Gear Ratio Calculation guide</a>. Convert the final value to N·mm before proceeding.</li>
+  <li><strong>Record shaft geometry.</strong> For a solid shaft, note the outer diameter d. For a hollow shaft, note both d<sub>o</sub> and d<sub>i</sub>. If keyways or splines are present, use the reduced effective cross-section diameter per ASME B106.1M.</li>
+  <li><strong>Calculate the polar moment of inertia J.</strong> Solid: J = π · d⁴ / 32. Hollow: J = π · (d<sub>o</sub>⁴ − d<sub>i</sub>⁴) / 32. Work in mm throughout to keep units consistent.</li>
+  <li><strong>Identify the radius r for maximum stress.</strong> For maximum shear stress at the outer surface, r = d<sub>o</sub> / 2. For stress at a specific radius (for example, the inner bore of a hollow shaft), substitute that radius instead.</li>
+  <li><strong>Apply the torsion formula.</strong> τ = T · r / J. The result is in MPa when T is in N·mm, r in mm, and J in mm⁴.</li>
+  <li><strong>Calculate the allowable shear stress.</strong> Use τ<sub>allow</sub> = S<sub>y</sub> / (2 × n) for ductile materials under the maximum shear stress theory (Tresca criterion). The distortion energy theory (von Mises) gives τ<sub>allow</sub> = S<sub>y</sub> / (√3 × n), which is slightly less conservative.</li>
+  <li><strong>Compare and decide.</strong> If τ &lt; τ<sub>allow</sub>, the shaft is adequate in torsion. If τ ≥ τ<sub>allow</sub>, increase d or select a higher-strength material. Where bending moments also act, combine stresses using the equivalent torque method: T<sub>e</sub> = √(M² + T²).</li>
+  <li><strong>Check angle of twist if stiffness matters.</strong> φ = T · L / (G · J). For precision machinery, φ is often limited to 0.25°–0.5° per metre of shaft length as a practical stiffness criterion.</li>
+</ol>
+
+<div class="callout">
+  When your shaft design is finalised, inspection drawings must capture tolerances and surface finish requirements correctly. CadNexa's <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=torsional-stress-shaft-formula-worked-example" class="highlight" rel="noopener noreferrer" target="_blank">auto-ballooning tool</a> can balloon those shaft drawings automatically, eliminating the tedious manual step of linking dimensions to a FAIR or inspection report.
+</div>
+
+<h2 id="common-mistakes">Common Mistakes in Torsion Calculations</h2>
+
+<p>
+  Even experienced engineers make unit and geometry errors in torsion problems. The following issues appear repeatedly in design reviews and are worth a deliberate check before signing off.
+</p>
+
+<div class="warn-box">
+  <strong>Unit mismatch — the most common error.</strong> Torque given in N·m must be converted to N·mm (multiply by 1 000) before inserting into τ = T · r / J. Forgetting this conversion produces a stress 1 000× too low and results in a dangerously undersized shaft.
+</div>
+
+<ul>
+  <li><strong>Using diameter instead of radius for r.</strong> The formula uses the radial distance r, not the full diameter. Substituting d instead of d/2 doubles the calculated stress and leads to unnecessary oversizing — or, if used backwards in sizing, a shaft that is critically undersized.</li>
+  <li><strong>Ignoring stress concentration factors (K<sub>t</sub>).</strong> Keyways, holes, shoulders, and grooves raise local stress significantly. ASME B106.1M and <a href="https://www.nist.gov/" rel="noopener noreferrer" target="_blank">published engineering reference data</a> provide stress concentration factors that must multiply τ at the feature location.</li>
+  <li><strong>Applying the formula to non-circular sections.</strong> The Coulomb torsion formula τ = T · r / J is valid only for circular cross-sections. Square, rectangular, or I-section shafts require different methods based on Saint-Venant's torsion theory.</li>
+  <li><strong>Neglecting combined loading.</strong> A shaft in a real drive system carries bending from gear or pulley forces alongside torsion. Treating them separately and checking each alone can give a false sense of safety. Always compute the equivalent torque or use principal stress analysis when both are present.</li>
+  <li><strong>Using nominal diameter for a hollow shaft with thick walls.</strong> For hollow shafts, using only d<sub>o</sub> in a solid-shaft formula significantly overestimates J and underestimates stress. Calculate J correctly with both diameters.</li>
+  <li><strong>Overlooking fatigue under cyclic torque.</strong> For rotating shafts under fluctuating loads, the static shear stress limit is insufficient. Apply the <a href="https://www.asme.org" rel="noopener noreferrer" target="_blank">ASME fatigue design criteria</a> or an appropriate endurance limit correction for the material and surface condition.</li>
+</ul>
+
+<p>
+  For shaft-to-hub interfaces that sit alongside these stress considerations, the <a href="https://metricmech.com/articles/h7-p6-press-fit-interference-calculation">H7/p6 Press Fit Interference Calculation</a> article covers the contact pressure and hoop stress side of the problem — directly complementing torsional design when torque is transferred through an interference fit rather than a key.
+</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the torsional stress formula for a shaft?</h3>
+<p>
+  The torsional shear stress formula is τ = T · r / J, where T is the applied torque in N·mm, r is the outer radius in mm, and J is the polar moment of inertia in mm⁴. Maximum shear stress occurs at the outer surface of the shaft where r is greatest.
+</p>
+
+<h3>How do you calculate the polar moment of inertia for a solid shaft?</h3>
+<p>
+  For a solid circular shaft, J = π · d⁴ / 32, where d is the shaft diameter in mm. For a hollow shaft, J = π · (d<sub>o</sub>⁴ − d<sub>i</sub>⁴) / 32, where d<sub>o</sub> is the outer diameter and d<sub>i</sub> is the inner bore diameter. Both values must be in the same unit — millimetres are recommended for SI work.
+</p>
+
+<h3>What is the difference between torsional shear stress and bending stress in a shaft?</h3>
+<p>
+  Torsional shear stress acts circumferentially and is caused by an applied torque. Bending stress is a normal (tensile or compressive) stress caused by transverse loads or overhanging moments. When both act together, principal stress theory or the equivalent torque method T<sub>e</sub> = √(M² + T²) must be used to find the critical stress state.
+</p>
+
+<h3>What is an acceptable shear stress limit for a steel shaft?</h3>
+<p>
+  A common design rule for ductile steel under static loading limits shear stress to τ<sub>allow</sub> = S<sub>y</sub> / (2 × n), where n is the safety factor (typically 1.5–3 depending on loading certainty). ASME B106.1M provides detailed guidance for transmission shafting. Always consult the applicable standard rather than relying on a generic rule for critical applications.
+</p>
+
+<h3>Does the torsion formula apply to hollow shafts?</h3>
+<p>
+  Yes. The formula τ = T · r / J applies equally to hollow circular shafts. Only the polar moment of inertia changes: J = π · (d<sub>o</sub>⁴ − d<sub>i</sub>⁴) / 32. Hollow shafts are mass-efficient because the low-stress material near the neutral axis is removed, reducing weight with a relatively small loss in torsional capacity.
+</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/h7-p6-press-fit-interference-calculation">H7/p6 Press Fit Interference Calculation Worked</a></li>
+    <li><a href="/articles/motor-torque-calculation">Motor Torque Calculation: Formula &amp; Worked Example</a></li>
+    <li><a href="/articles/v-belt-length-calculation">V-Belt Length Calculation: Formula &amp; Worked Example</a></li>
+    <li><a href="/articles/reorder-point-calculation">Reorder Point Calculation: Formula and Example</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Torsional Stress in Shaft: Formula & Worked Example",
+      "item": "https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example"
+    }
+  ]
+}
+</script>
+</body>
+</html>

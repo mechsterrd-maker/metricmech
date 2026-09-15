@@ -476,7 +476,7 @@ queue:
   word_count: 1900
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: ISO 286 tolerance grade selection guide machining
   cluster: Fits & Tolerances (ISO 286)
   intent: informational
