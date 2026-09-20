@@ -162,3 +162,33 @@ pages:
   impressions: 50
   added: '2026-09-13'
   status: todo
+- url: https://metricmech.com/articles/press-fit-calculation
+  reason: striking-distance
+  position: 24.4
+  impressions: 243
+  added: '2026-09-20'
+  status: todo
+- url: https://metricmech.com/articles/bolt-shear-strength-calculation
+  reason: low-ctr
+  position: 6.4
+  impressions: 205
+  added: '2026-09-20'
+  status: todo
+- url: https://metricmech.com/articles/iso-286-hole-basis-vs-shaft-basis
+  reason: low-ctr
+  position: 7.0
+  impressions: 370
+  added: '2026-09-20'
+  status: todo
+- url: https://metricmech.com/articles/beam-deflection
+  reason: striking-distance
+  position: 9.7
+  impressions: 48
+  added: '2026-09-20'
+  status: todo
+- url: https://metricmech.com/articles/control-chart-constants-a2-d3-d4-explained
+  reason: low-ctr
+  position: 6.9
+  impressions: 32
+  added: '2026-09-20'
+  status: todo
