@@ -490,7 +490,13 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: blocked
+  note: "QA failed 2026-09-22: LINT FAIL:\n  - 9 unique internal links (need 3-8)\n\
+    \n\nIn the 'Common Mistakes' section, correct the IT7 at 250 mm example: 250 mm\
+    \ falls in the 180–250 mm diameter step (D = √(180×250) ≈ 212 mm), giving IT7\
+    \ = 46 µm, not 52 µm. The 52 µm figure belongs to the 250–315 mm step. Use a diameter\
+    \ clearly within one step — for example, state IT7 at 300 mm nominal (250–315\
+    \ mm step) = 52 µm, or change the 250 "
 - keyword: M8 bolt torque tightening values grade 8.8 10.9
   cluster: Threads & Fasteners
   intent: informational
