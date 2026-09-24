@@ -510,7 +510,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: minimum flange width sheet metal bending design rule
   cluster: Sheet Metal Design
   intent: informational
