@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Minimum Flange Width Sheet Metal Bending Design Rule | MetricMech</title>
+<meta name="description" content="Learn the minimum flange width rule for sheet metal bending, with formulas, worked examples, press brake guidelines, and flange-to-hole distances explained." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Flange Width Sheet Metal Bending Design Rule | MetricMech">
+<meta property="og:description" content="Learn the minimum flange width rule for sheet metal bending, with formulas, worked examples, press brake guidelines, and flange-to-hole distances explained.">
+<meta property="og:url" content="https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Minimum Flange Width Sheet Metal Bending Design Rule | MetricMech">
+<meta name="twitter:description" content="Learn the minimum flange width rule for sheet metal bending, with formulas, worked examples, press brake guidelines, and flange-to-hole distances explained.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Minimum Flange Width Sheet Metal Bending Design Rule | MetricMech",
+  "description": "Learn the minimum flange width rule for sheet metal bending, with formulas, worked examples, press brake guidelines, and flange-to-hole distances explained.",
+  "url": "https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Minimum Flange Width Sheet Metal Bending: The Design Rule Explained",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-09-26",
+  "mainEntityOfPage": "https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the minimum flange width for sheet metal bending?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The minimum flange width is typically 4 times the material thickness plus the inside bend radius. For a 2 mm thick mild steel sheet with a 2 mm inside radius, the minimum flange is approximately 10 mm. Always verify against your specific press brake die width."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does flange width matter in press brake bending?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the flange is too short, it cannot seat properly on the die shoulders. This causes the part to slip, produces an inaccurate bend angle, and can damage the tooling or the workpiece."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the minimum distance from a hole to a bend line in sheet metal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The recommended minimum distance from a hole edge to the bend line is at least 2 times the material thickness plus the bend radius. Placing holes closer risks distortion of the hole during bending."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does material type change the minimum flange width rule?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Harder or springback-prone materials like stainless steel and aluminium alloys may require a larger inside bend radius, which in turn increases the minimum flange width. Always recalculate using the actual inside bend radius for the chosen material."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does die width affect the minimum flange width?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The die opening width directly controls the inside bend radius and the required flange seating length. A wider die opening produces a larger radius and demands a longer minimum flange. Match the die width to the material thickness using the 8× rule of thumb before finalising flange dimensions."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Minimum Flange Width Sheet Metal Bending: The Design Rule Explained",
+      "item": "https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Minimum Flange Width Sheet Metal Bending</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">The Rule in Plain Terms</a>
+    <a href="#formula">Formula and Variables</a>
+    <a href="#worked-example">Worked Example with Real Numbers</a>
+    <a href="#step-by-step">Step-by-Step Method</a>
+    <a href="#hole-distance">Flange-to-Hole Distance Rule</a>
+    <a href="#common-mistakes">Common Mistakes</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Minimum Flange Width Sheet Metal Bending: The Design Rule Explained</h1>
+    <div class="art-meta-bar">
+      <span>Sheet Metal Design</span>
+      <span>September 26, 2026</span>
+      <span>8 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">The <strong>minimum flange width in sheet metal bending</strong> is the shortest leg length a press brake can reliably form without the material slipping off the die. The widely accepted rule is: <em>minimum flange width = 4 × material thickness + inside bend radius</em>. For standard mild steel at 2 mm thick with a 2 mm inside radius, that yields a 10 mm minimum flange. Designing below this limit causes angular error, tooling damage, and scrap.</p>
+
+<h2 id="formula">Formula and Variables</h2>
+
+<p>The core formula used across most press brake applications and sheet metal design guidelines is straightforward. It links material thickness, inside bend radius, and the geometric requirement for the sheet to rest securely on both die shoulders during forming.</p>
+
+<p>The formula is derived from the geometry of a V-die opening. For the blank to remain stable during bending, the flange must extend beyond the die shoulder on each side. Industry references, including guidelines aligned with <a href="https://www.astm.org/" rel="nofollow noopener" target="_blank">ASTM material standards</a> and fabrication handbooks, consistently point to a multiple of 4t as the practical lower limit.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Symbol</th>
+      <th>Description</th>
+      <th>Typical Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Minimum flange width</td>
+      <td>F<sub>min</sub></td>
+      <td>Shortest allowable leg measured from the bend tangent line to the flange edge</td>
+      <td>Drawing / design requirement</td>
+    </tr>
+    <tr>
+      <td>Material thickness</td>
+      <td>t</td>
+      <td>Nominal gauge thickness of the sheet</td>
+      <td>Material spec / gauge chart</td>
+    </tr>
+    <tr>
+      <td>Inside bend radius</td>
+      <td>R<sub>i</sub></td>
+      <td>Radius at the inner surface of the bend</td>
+      <td>Tooling / material property</td>
+    </tr>
+    <tr>
+      <td>Die opening width</td>
+      <td>V</td>
+      <td>Width of the V-die used on the press brake; typically 6–10× t</td>
+      <td>Press brake tooling catalogue</td>
+    </tr>
+    <tr>
+      <td>Bend deduction / allowance</td>
+      <td>BD / BA</td>
+      <td>Flat layout correction values; affect developed blank length, not flange minimum</td>
+      <td>K-factor tables</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout"><strong>Core rule:</strong> F<sub>min</sub> = 4t + R<sub>i</sub></p>
+
+<p>Some fabricators use a simplified conservative version: F<sub>min</sub> = V/2 + a small safety margin, where V is the die opening. Both approaches give similar results when the die is sized correctly for the material thickness. Use the MetricMech <a href="https://metricmech.com/articles/bend-allowance-k-factor-chart">Sheet Metal Bend Allowance Formula and K-Factor Chart</a> to confirm your inside radius and bend allowance before calculating the flange minimum.</p>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a 3 mm thick mild steel (low-carbon) sheet being formed on a press brake with a 24 mm wide V-die. The tooling produces an inside bend radius of 4 mm for this material and die combination.</p>
+
+<p><strong>Step 1 — Apply the formula:</strong></p>
+<p>F<sub>min</sub> = 4 × t + R<sub>i</sub> = 4 × 3 + 4 = 12 + 4 = <strong>16 mm</strong></p>
+
+<p>This means the flange leg, measured from the bend tangent line to the outer edge of the part, must be at least 16 mm. Designing a 14 mm flange on this part would create a seating problem on the 24 mm die — the short leg would not clear the die shoulder properly, producing an unreliable bend angle and likely a kinked or bowed flange.</p>
+
+<p>As a cross-check, verify against the die half-width: 24 / 2 = 12 mm. The flange must exceed this value to prevent the edge from dropping into the die. The formula result of 16 mm satisfies this condition with margin. For additional insight into how the inside radius affects your flat blank length, see the companion article on <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance: Which to Use</a>.</p>
+
+<h2 id="step-by-step">Step-by-Step Method for Minimum Flange Width</h2>
+
+<p>Follow this sequence during the design stage, before releasing drawings for fabrication. Catching flange issues at the design desk costs nothing; catching them at the press brake costs scrap and machine time.</p>
+
+<ol>
+  <li><strong>Confirm material thickness (t).</strong> Use the specified nominal gauge. Refer to the <a href="https://metricmech.com/articles/sheet-metal-gauge-chart">Sheet Metal Gauge Chart (gauge to mm and inches)</a> if the drawing states a gauge number rather than a metric thickness.</li>
+  <li><strong>Determine the inside bend radius (R<sub>i</sub>).</strong> This depends on material type, temper, and the die opening selected. For most mild steel, R<sub>i</sub> ≈ t when using a die width of 8t. For harder alloys, consult the <a href="https://metricmech.com/articles/minimum-bend-radius-sheet-metal-material-chart">Minimum Bend Radius Sheet Metal Chart by Material</a> to avoid cracking.</li>
+  <li><strong>Select the press brake die width (V).</strong> The standard shop guideline is V = 8 × t for mild steel. Aluminium typically uses 6t to 8t; stainless steel may need 8t to 10t due to higher springback and tonnage.</li>
+  <li><strong>Apply the minimum flange formula.</strong> Calculate F<sub>min</sub> = 4t + R<sub>i</sub>. If the result is less than V/2, use V/2 as your lower bound instead — the sheet must cover at least half the die opening on each side.</li>
+  <li><strong>Add engineering margin.</strong> Apply a practical margin of 1–2 mm above F<sub>min</sub> for manufacturing tolerance. This absorbs positional variation in sheet loading and mild wear on die shoulders.</li>
+  <li><strong>Check the flange against hole positions.</strong> Any holes or cutouts in the flange zone must respect the flange-to-hole distance rule covered in the next section.</li>
+  <li><strong>Verify on the drawing.</strong> Dimension the flange height from the tangent line (start of the bend), not from the apex of the bend radius. Mislocating the datum is a common drawing error that misleads the fabricator.</li>
+</ol>
+
+<p>Once the flange minimum is confirmed, annotate the drawing with the bend radius call-out and reference your general tolerances. For parts entering first-article inspection, structured balloon annotations on your drawing speed up the FAI process significantly. <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=minimum-flange-width-sheet-metal-bending" class="highlight" target="_blank" rel="noopener">CadNexa's auto-ballooning tool</a> automatically assigns balloon numbers to every dimension, reducing the manual effort of cross-referencing flange and hole dimensions during FAI.</p>
+
+<div class="cta-box">
+  <p><strong>Running FAI on a bent sheet metal assembly?</strong> Use <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=minimum-flange-width-sheet-metal-bending" target="_blank" rel="noopener">CadNexa Auto-Ballooning</a> to balloon your press brake drawings in minutes and eliminate numbering errors before the inspection report is raised.</p>
+</div>
+
+<h2 id="hole-distance">Flange-to-Hole Distance Rule</h2>
+
+<p>Punched or drilled holes placed too close to a bend line will distort during forming. The stress and strain field around the bend tangent line extends inward, deforming any feature within that zone. This is a critical sheet metal design rule for bending that is frequently overlooked at the design stage.</p>
+
+<p>The standard guideline for <strong>flange to hole distance in sheet metal</strong> is:</p>
+
+<p class="callout"><strong>Minimum hole-to-bend-line distance:</strong> d<sub>min</sub> = 2t + R<sub>i</sub></p>
+
+<p>For the earlier example (t = 3 mm, R<sub>i</sub> = 4 mm): d<sub>min</sub> = 2 × 3 + 4 = <strong>10 mm</strong>. Any hole edge — not the hole centre — must sit at least 10 mm away from the bend tangent line. If the design requires holes closer than this, the recommended practice is to either move the hole to the flat panel area, add a relief slot at the bend, or use a secondary operation to pierce the hole after bending.</p>
+
+<p>Slots and notches near bends follow the same principle and should maintain the same minimum distance. The <a href="https://www.iso.org/committee/48920.html" rel="nofollow noopener" target="_blank">ISO/TC 10 technical drawing committee</a> standards for manufacturing documentation reinforce the need to clearly dimension these critical zones on fabrication drawings.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Flange Width Design</h2>
+
+<p class="warn-box"><strong>Watch out:</strong> These are the most frequent errors that lead to press brake rework and scrap. Each one is avoidable at the drawing stage.</p>
+
+<ul>
+  <li><strong>Designing flanges equal to or shorter than V/2.</strong> A flange that does not clear the die shoulder creates an unstable condition. The sheet rocks during bending, and the angle is unpredictable.</li>
+  <li><strong>Using the same flange minimum for all materials.</strong> The formula uses R<sub>i</sub>, and R<sub>i</sub> changes with material. Stainless steel and 5052 aluminium require larger radii than mild steel of the same thickness. Copying a mild steel flange minimum onto a stainless drawing is a direct path to cracking or springback problems.</li>
+  <li><strong>Measuring flange length from the bend apex, not the tangent line.</strong> The tangent line is where the flat section ends and the curve begins. Measuring from the apex adds R<sub>i</sub> to the apparent flange length on the drawing, making it look longer than it actually is in the formed flat region.</li>
+  <li><strong>Ignoring the hem and return flange cases.</strong> A hem (180° fold) or a return flange has a very short free leg that can be even more demanding. Press brake minimum flange guidelines for hems often require the leg to be at least 4t before the hem fold, separate from the overall part flange.</li>
+  <li><strong>Not accounting for bend deduction in blank development.</strong> The flat blank length determines where bend lines fall relative to punched holes. If bend deduction is calculated incorrectly, holes may end up closer to the bend line than intended in the formed part. Use the <a href="https://metricmech.com/articles/bend-allowance-k-factor-chart">Bend Allowance K-Factor Chart</a> to get the blank layout right.</li>
+  <li><strong>Specifying radii that require non-standard tooling.</strong> An unusual R<sub>i</sub> forces the fabricator to use special tooling or air-bend to a larger radius. Either outcome changes the minimum flange requirement. Standardise on tooling-compatible radii where possible.</li>
+  <li><strong>Overlooking secondary operations.</strong> Tapping, riveting, or clinch-nut insertion in a short flange can be impossible or unreliable. Ensure the flange width accommodates the minimum edge distance for any secondary fastening. Reference <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-and-tolerancing" rel="nofollow noopener" target="_blank">ASME Y14.5 Dimensioning and Tolerancing</a> for edge distance callouts on fabrication drawings.</li>
+</ul>
+
+<p>On the quality system side, capturing flange non-conformances through a structured FMEA helps prioritise which design features carry the highest failure risk in production. The <a href="https://metricmech.com/articles/fmea-action-priority">FMEA Action Priority guide</a> explains how the AIAG-VDA AP method ranks risks differently from traditional RPN, which is directly applicable when reviewing sheet metal bending failure modes.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the minimum flange width for sheet metal bending?</h3>
+<p>The minimum flange width is typically 4 times the material thickness plus the inside bend radius (F<sub>min</sub> = 4t + R<sub>i</sub>). For a 2 mm thick mild steel sheet with a 2 mm inside radius, the minimum flange is approximately 10 mm. Always verify against your specific press brake die width — the flange must also exceed half the die opening width.</p>
+
+<h3>Why does flange width matter in press brake bending?</h3>
+<p>If the flange is too short, it cannot seat properly on the die shoulders. This causes the part to slip during the stroke, producing an inaccurate bend angle, a bowed flange surface, and potential tooling damage. Short flanges are one of the most common root causes of angular error in press brake work.</p>
+
+<h3>What is the minimum distance from a hole to a bend line in sheet metal?</h3>
+<p>The recommended minimum distance from a hole edge to the bend tangent line is 2 times the material thickness plus the inside bend radius (d<sub>min</sub> = 2t + R<sub>i</sub>). Placing holes closer than this risks distortion of the hole geometry during bending due to the strain field around the bend zone.</p>
+
+<h3>Does material type change the minimum flange width rule?</h3>
+<p>Yes. Harder or springback-prone materials such as stainless steel and aluminium alloys require a larger inside bend radius, which directly increases the minimum flange width. Always recalculate using the actual inside bend radius for the chosen material and temper. The <a href="https://metricmech.com/articles/minimum-bend-radius">Minimum Bend Radius for Sheet Metal guide</a> provides material-specific radius guidance to support this calculation.</p>
+
+<h3>How does die width affect the minimum flange width?</h3>
+<p>The V-die opening width controls the achievable inside bend radius and determines the minimum seating length. A wider die opening produces a larger radius and demands a longer minimum flange. Select the die width first using the 8t rule for mild steel, then calculate R<sub>i</sub> and F<sub>min</sub> in sequence. Locking the die width before designing the part prevents costly redesigns later.</p>
+
+<hr/>
+
+<p><strong>Related reading on MetricMech:</strong> If you are developing the flat blank for a bent part, the <a href="https://metricmech.com/articles/bend-deduction-vs-bend-allowance">Bend Deduction vs Bend Allowance article</a> explains which method to use for your CAD system. For tolerance decisions on formed features, the <a href="https://metricmech.com/articles/iso-2768-general-tolerances">ISO 2768 General Tolerances guide</a> covers the mK and fH classes that most sheet metal fabrication drawings reference. Standards bodies including <a href="https://www.iso.org/" rel="nofollow noopener" target="_blank">ISO</a> and <a href="https://www.asme.org/" rel="nofollow noopener" target="_blank">ASME</a> continue to update fabrication and dimensioning standards, so always confirm that the edition cited on your drawing is the current release.</p>
+
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Minimum Flange Width Sheet Metal Bending: The Design Rule Explained",
+      "item": "https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending"
+    }
+  ]
+}
+</script>
+</body>
+</html>

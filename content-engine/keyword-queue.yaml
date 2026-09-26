@@ -524,7 +524,7 @@ queue:
   word_count: 1600
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: sheet metal gauge thickness chart steel aluminium
   cluster: Sheet Metal Design
   intent: informational

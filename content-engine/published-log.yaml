@@ -400,3 +400,9 @@ posts:
   keyword: M8 bolt torque tightening values grade 8.8 10.9
   cluster: Threads & Fasteners
   source: autopilot
+- url: https://metricmech.com/articles/minimum-flange-width-sheet-metal-bending
+  date: '2026-09-26'
+  title: Minimum Flange Width Sheet Metal Bending Design Rule | MetricMech
+  keyword: minimum flange width sheet metal bending design rule
+  cluster: Sheet Metal Design
+  source: autopilot
