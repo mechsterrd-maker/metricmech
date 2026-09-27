@@ -192,3 +192,15 @@ pages:
   impressions: 32
   added: '2026-09-20'
   status: todo
+- url: https://metricmech.com/articles/torsional-stress-shaft-formula-worked-example
+  reason: low-ctr
+  position: 8.0
+  impressions: 719
+  added: '2026-09-27'
+  status: todo
+- url: https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss
+  reason: low-ctr
+  position: 7.9
+  impressions: 65
+  added: '2026-09-27'
+  status: todo
