@@ -538,7 +538,7 @@ queue:
   word_count: 1400
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: datum feature selection rules GD&T best practice
   cluster: GD&T Reference
   intent: informational
