@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Datum Feature Selection Rules GD&T Best Practice | MetricMech</title>
+<meta name="description" content="Master datum feature selection rules GD&T best practice: choose primary, secondary, tertiary datums for prismatic parts per ASME Y14.5." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/datum-feature-selection-rules-gdt">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Datum Feature Selection Rules GD&T Best Practice | MetricMech">
+<meta property="og:description" content="Master datum feature selection rules GD&T best practice: choose primary, secondary, tertiary datums for prismatic parts per ASME Y14.5.">
+<meta property="og:url" content="https://metricmech.com/articles/datum-feature-selection-rules-gdt">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Datum Feature Selection Rules GD&T Best Practice | MetricMech">
+<meta name="twitter:description" content="Master datum feature selection rules GD&T best practice: choose primary, secondary, tertiary datums for prismatic parts per ASME Y14.5.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Datum Feature Selection Rules GD&T Best Practice | MetricMech",
+  "description": "Master datum feature selection rules GD&T best practice: choose primary, secondary, tertiary datums for prismatic parts per ASME Y14.5.",
+  "url": "https://metricmech.com/articles/datum-feature-selection-rules-gdt",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Datum Feature Selection Rules GD&T Best Practice",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-10-01",
+  "mainEntityOfPage": "https://metricmech.com/articles/datum-feature-selection-rules-gdt"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the primary datum feature in GD&T?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The primary datum is the feature that provides the most constraint — typically the largest flat surface or the feature that controls part orientation in service. It contacts the datum reference frame with the highest point count: three points for a plane, eliminating three degrees of freedom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a datum feature be a hole or cylinder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A cylindrical hole or boss is a valid datum feature, most commonly used as the secondary or tertiary datum on prismatic parts. A cylinder eliminates two translational degrees of freedom when used as a datum simulator (pin or collet). ASME Y14.5-2018 classifies it as a complex datum feature."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a functional datum and a tooling datum?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A functional datum is chosen because it represents how the part mates or loads in the assembly. A tooling datum is chosen for manufacturing convenience, such as a machined reference pad. They often conflict; ASME Y14.5 strongly recommends using functional datums on the engineering drawing and defining tooling datums separately in the process plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many degrees of freedom does a three-plane datum reference frame constrain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A three-plane DRF constrains all six degrees of freedom: three translational (X, Y, Z) and three rotational (u, v, w). The primary plane removes three, the secondary plane or line removes two more, and the tertiary plane or point removes the final one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does the datum feature symbol attach on a drawing per ASME Y14.5-2018?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The filled or unfilled triangle of the datum feature symbol attaches to the feature's extension line (when the datum is a surface) or to the feature control frame (when the datum is an axis or median plane derived from a feature of size). Placing it inline with a dimension line signals an axis or median-plane datum."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Datum Feature Selection Rules GD&T Best Practice",
+      "item": "https://metricmech.com/articles/datum-feature-selection-rules-gdt"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Datum Feature Selection Rules GD&T Best </div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="#direct-answer">What Are Datum Feature Selection Rules?</a>
+    <a href="#worked-example">Worked Example: Prismatic Bracket</a>
+    <a href="#datum-reference-frame">The Datum Reference Frame Explained</a>
+    <a href="#step-by-step">Step-by-Step Method for Selecting Datums</a>
+    <a href="#functional-vs-tooling">Functional Datum vs Tooling Datum</a>
+    <a href="#symbol-placement">Datum Feature Symbol Placement Rules (ASME Y14.5)</a>
+    <a href="#common-mistakes">Common Mistakes in Datum Selection</a>
+    <a href="#faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Datum Feature Selection Rules GD&T Best Practice</h1>
+    <div class="art-meta-bar">
+      <span>GD&T Engineering</span>
+      <span>October 01, 2026</span>
+      <span>9 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">
+<strong>Datum feature selection rules in GD&T</strong> are a structured set of guidelines for choosing which part surfaces or features define the coordinate system — called the Datum Reference Frame (DRF) — from which all tolerances are measured. The correct sequence is: select the primary datum for maximum stability, the secondary datum for orientation, and the tertiary datum for final location. All choices must reflect how the part functions in its assembly, not manufacturing convenience.
+</p>
+
+<p>Getting datums wrong is arguably the most expensive GD&T mistake a design engineer can make. A mismatch between the drawing datum and the assembly interface forces inspection, machining, and supplier quality teams to work from different coordinate systems — producing parts that pass CMM checks yet fail in assembly. The rules below follow <a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-and-tolerancing" rel="noopener noreferrer" target="_blank">ASME Y14.5-2018</a>, the governing standard for dimensioning and tolerancing in North America, and align closely with <a href="https://www.iso.org/standard/72463.html" rel="noopener noreferrer" target="_blank">ISO 5459 (Datums and Datum Systems)</a>.</p>
+
+<h2 id="worked-example">Worked Example: Prismatic Bracket</h2>
+
+<p>Consider a steel mounting bracket — 120 mm × 80 mm × 30 mm — with a large flat base that bolts to a machine frame and two Ø10 H7 mounting holes on a 60 mm pitch. The part must locate a sensor within ±0.1 mm relative to the machine frame.</p>
+
+<p>The base face (120 × 80 mm) is the largest flat surface and contacts the machine frame directly. This becomes <strong>Datum A (primary)</strong>. It eliminates three degrees of freedom: Z-translation and rotation about X and Y. The larger mounting hole (or the pattern of two holes used as a compound datum) is the most functionally relevant locating feature — it becomes <strong>Datum B (secondary)</strong>, eliminating X and Y translation. The second hole, constrained to a slot or anti-rotation feature, provides <strong>Datum C (tertiary)</strong>, eliminating rotation about Z.</p>
+
+<p>The resulting feature control frame for the sensor mounting face reads: <code>⊥ | 0.05 | A | B | C</code>. Every tolerance on the drawing traces back to the same A–B–C sequence used when the bracket sits on the machine. Inspection on a CMM using the same DRF sequence will reproduce assembly reality — and that alignment between drawing and function is the entire point of correct datum selection. When generating ballooned inspection reports from this drawing, tools like <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=datum-feature-selection-rules-gdt" rel="noopener noreferrer" target="_blank" class="highlight">CadNexa's auto-ballooning tool</a> can read datum labels directly from the PDF and link each balloon to its correct reference, reducing manual transcription errors on first-article reports.</p>
+
+<h2 id="datum-reference-frame">The Datum Reference Frame Explained</h2>
+
+<p>The Datum Reference Frame is a theoretically exact orthogonal coordinate system made up of three mutually perpendicular datum planes. Physical part surfaces approximate — but never perfectly replicate — these planes. The datum simulator (the inspection equipment or fixture surface) stands in for the theoretical plane.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Datum Rank</th>
+      <th>Degrees of Freedom Removed</th>
+      <th>Typical Feature Type</th>
+      <th>Contact Requirement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary (A)</td>
+      <td>3 (1 translation + 2 rotation)</td>
+      <td>Largest flat face; major diameter cylinder</td>
+      <td>Minimum 3-point contact</td>
+    </tr>
+    <tr>
+      <td>Secondary (B)</td>
+      <td>2 (2 translation or 1 translation + 1 rotation)</td>
+      <td>Long edge, slot, hole pattern</td>
+      <td>Minimum 2-point contact</td>
+    </tr>
+    <tr>
+      <td>Tertiary (C)</td>
+      <td>1 (1 translation or 1 rotation)</td>
+      <td>Short edge, single hole, anti-rotation pin</td>
+      <td>Minimum 1-point contact</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sequence in the feature control frame — A, B, C — is not alphabetical preference. It represents a <em>priority order</em>: the primary datum is always established first, then the secondary datum is brought into contact without disturbing the primary, then the tertiary. Reversing this sequence changes the DRF and changes your toleranced output.</p>
+
+<h2 id="step-by-step">Step-by-Step Method for Selecting Datums</h2>
+
+<ol>
+  <li><strong>Identify the primary assembly interface.</strong> Ask: which surface of the part touches a mating part, fixture, or support structure first and over the largest area? That surface constrains the most degrees of freedom and becomes the primary datum. For a prismatic part, this is almost always the largest flat face. For a rotational part, it is usually the longest cylindrical feature or a shoulder face.</li>
+  <li><strong>Identify the secondary locating feature.</strong> Once the primary surface is seated, what feature positions the part laterally? On prismatic parts, a hole pattern or machined edge typically serves this role. The feature must be functional — it should mirror the locating pin, dowel, or mating edge used in the actual assembly.</li>
+  <li><strong>Identify the tertiary anti-rotation feature.</strong> The remaining degree of freedom is usually rotation about the axis perpendicular to the primary face. A single hole, a slot, or an edge stops this rotation. The tertiary datum need only eliminate one final degree of freedom.</li>
+  <li><strong>Verify that the DRF is repeatable.</strong> A good datum scheme produces the same part position every time. Test this by asking: can two different operators set up this part in a CMM fixture using only the drawing datums and get the same measurement result? If the answer is no, the datum geometry is ambiguous or unstable.</li>
+  <li><strong>Check functional datum vs tooling datum alignment.</strong> Confirm that every datum on the engineering drawing represents an assembly-function interface, not a machining convenience. If a manufacturing engineer needs a tooling datum, document it separately in the process plan, not on the design drawing.</li>
+  <li><strong>Apply datum feature symbols per ASME Y14.5-2018.</strong> Place the datum triangle on the surface extension line for a planar datum, or in-line with the dimension line (replacing one arrowhead) for an axis or median-plane datum. Confirm that the datum letter appears in all relevant feature control frames in the correct priority sequence.</li>
+  <li><strong>Review tolerance stack-up from the DRF origin.</strong> Use the confirmed datum sequence to run a worst-case or RSS tolerance stack-up. If critical features trace back through three or four datum hops, the stack accumulates rapidly. Our <a href="https://metricmech.com/articles/tolerance-stack-up-worst-case-vs-rss" rel="noopener noreferrer">tolerance stack-up guide</a> walks through both methods with worked examples.</li>
+</ol>
+
+<h2 id="functional-vs-tooling">Functional Datum vs Tooling Datum</h2>
+
+<p>This distinction causes more production-quality escapes than almost any other GD&T error. A <strong>functional datum</strong> is a surface or feature that directly participates in the part's assembly function: a sealing face, a pilot bore, a bolt pattern that clamps the part to a frame. A <strong>tooling datum</strong> is a reference surface added or reserved for manufacturing use — a machined pad, a centre-drill hole, a rough cast surface used for first-op clamping.</p>
+
+<p>When a designer labels a tooling datum as "Datum A" on the engineering drawing, several problems follow in sequence. Inspection measures the part relative to the tooling surface. The customer receives the part and assembles it relative to the functional surface. The two coordinate systems diverge — sometimes by a fraction of a millimetre, sometimes by several millimetres — and marginal parts that passed inspection fail in service.</p>
+
+<p class="callout">ASME Y14.5-2018 Section 4.1 states clearly that datum features should be selected based on their functional requirements and should identify features that are significant to the design. The standard does not prohibit tooling datums but explicitly separates them from the design datum scheme.</p>
+
+<p>In practice, the best workflow is to establish the functional DRF on the design drawing and then allow the manufacturing engineer to define secondary process datums — sometimes called "Manufacturing Datums" or "Tooling Datums" — in the control plan or process FMEA. For guidance on linking datum choices to failure mode risk, the <a href="https://metricmech.com/articles/fmea-action-priority" rel="noopener noreferrer">FMEA Action Priority guide</a> on MetricMech explains how to rank datum-related failure modes using the AIAG-VDA framework.</p>
+
+<h2 id="symbol-placement">Datum Feature Symbol Placement Rules (ASME Y14.5-2018)</h2>
+
+<p>The datum feature symbol consists of a capital letter inside a square frame, connected by a leader line to a filled or unfilled equilateral triangle. Placement determines what the datum actually is — a surface, an axis, or a median plane — so errors in placement create genuine ambiguity.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Placement Location</th>
+      <th>Datum Established</th>
+      <th>Rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>On the surface or its extension line, offset from a dimension line</td>
+      <td>Datum plane (surface)</td>
+      <td>Triangle touches the surface or its projection line</td>
+    </tr>
+    <tr>
+      <td>In-line with dimension line arrowhead (replacing one arrowhead)</td>
+      <td>Datum axis or median plane (feature of size)</td>
+      <td>Used for cylinders, widths, and slots</td>
+    </tr>
+    <tr>
+      <td>Attached to the feature control frame</td>
+      <td>Axis or median plane defined by that tolerance zone</td>
+      <td>Common with position or straightness applied to an axis</td>
+    </tr>
+    <tr>
+      <td>On a centre line or axis line directly</td>
+      <td>Not permitted per ASME Y14.5-2018</td>
+      <td>This was allowed under older standards; update legacy drawings</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>One frequently missed rule: when a cylindrical feature of size is identified as a datum, the datum is the <em>axis</em> derived from the datum feature simulator (typically a precision pin or chuck), not the surface of the hole itself. This matters enormously when applying bonus tolerance via MMC or LMC modifiers. The <a href="https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt" rel="noopener noreferrer">Maximum Material Condition bonus tolerance guide</a> on MetricMech covers how datum feature modifiers interact with inspection fixturing.</p>
+
+<p>True position callouts that reference datum holes are among the most common tolerances affected by datum symbol placement errors. The <a href="https://metricmech.com/articles/true-position-tolerance-gdt-formula-calculation" rel="noopener noreferrer">true position tolerance GD&T calculation guide</a> on MetricMech includes the diametral tolerance zone formula and explains how the datum sequence in the feature control frame drives CMM measurement setup. When inspection teams generate FAI ballooning packages from engineering drawings, correct datum symbol placement ensures that ballooning software — including <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=datum-feature-selection-rules-gdt" rel="noopener noreferrer" target="_blank" class="highlight">CadNexa's automated ballooning platform</a> — can correctly identify and tag datum callouts without manual correction, which is a significant time saving on complex multi-datum drawings.</p>
+
+<h2 id="common-mistakes">Common Mistakes in Datum Selection</h2>
+
+<p class="warn-box"><strong>Warning:</strong> The following errors appear repeatedly in design reviews across automotive, aerospace, and industrial equipment sectors. Each one can invalidate an entire inspection dataset if left uncorrected.</p>
+
+<ul>
+  <li><strong>Selecting datums for drawing convenience, not function.</strong> Engineers sometimes choose a datum because it simplifies dimension placement on the drawing. If the chosen surface does not represent an assembly interface, the tolerance scheme misleads everyone downstream.</li>
+  <li><strong>Inconsistent datum reference across the drawing.</strong> A part with Datum A, B, C defined on the front view but a feature control frame elsewhere that references D, E without defining those features creates a legally ambiguous drawing. Every datum letter must be defined before use.</li>
+  <li><strong>Using a datum that is not accessible for inspection.</strong> A datum surface hidden inside an assembly, or a datum hole that is too small for a standard CMM probe, forces inspectors to substitute a different surface — invalidating the measurement. Confirm datum accessibility early in the design review.</li>
+  <li><strong>Datum surface too small to be stable.</strong> A primary datum plane contacts the DRF at three points. If the candidate surface is narrow, warped, or has a machined relief in the middle, the three contact points will be poorly distributed and the part will rock. Choose flat surfaces large enough to provide a stable three-point contact.</li>
+  <li><strong>Ignoring datum precedence in the feature control frame.</strong> Writing <code>| A | C | B |</code> instead of <code>| A | B | C |</code> is not a typographic preference — it changes the mathematical DRF. The order of datum references in a feature control frame is a design requirement, not formatting style.</li>
+  <li><strong>Confusing datum features with datum targets.</strong> Datum targets (points, lines, or areas designated by a datum target symbol) are used when the full surface cannot serve as a datum — for example, on castings with uneven surfaces. They follow different rules under ASME Y14.5-2018 Section 4.24 and should not be mixed casually with full-surface datum schemes.</li>
+  <li><strong>Applying the datum symbol to a centreline.</strong> Legacy drawings sometimes attach the datum triangle to a centre line drawn through a hole or shaft. ASME Y14.5-2018 does not permit this. The symbol must attach to an extension line or dimension line as described in the placement rules above.</li>
+</ul>
+
+<p>A related quality discipline that helps surface datum-related risks before production is first-article inspection documentation. Poorly structured datum schemes consistently generate ballooning errors and measurement plan disputes during FAI — a topic explored in detail in the <a href="https://metricmech.com/articles/cost-of-manual-fai-inspection" rel="noopener noreferrer">real cost of manual FAI inspection</a> analysis on MetricMech.</p>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the primary datum feature in GD&T?</h3>
+<p>The primary datum is the feature that provides the most constraint — typically the largest flat surface or the feature that controls part orientation in service. It contacts the datum reference frame with the highest point count: three points for a plane, eliminating three degrees of freedom: one translation and two rotations.</p>
+
+<h3>Can a datum feature be a hole or cylinder?</h3>
+<p>Yes. A cylindrical hole or boss is a valid datum feature, most commonly used as the secondary or tertiary datum on prismatic parts. A cylinder eliminates two translational degrees of freedom when used as a datum simulator — typically a precision ground pin or expanding mandrel. ASME Y14.5-2018 classifies it as a complex feature of size that establishes a datum axis, not a datum plane.</p>
+
+<h3>What is the difference between a functional datum and a tooling datum?</h3>
+<p>A functional datum is chosen because it represents how the part mates or loads in the assembly — a sealing face, a pilot bore, a bolt flange. A tooling datum is chosen for manufacturing convenience, such as a machined reference pad or centre-drill location. They often conflict. ASME Y14.5 recommends using functional datums on the engineering drawing and documenting tooling datums separately in the process plan or control plan.</p>
+
+<h3>How many degrees of freedom does a three-plane datum reference frame constrain?</h3>
+<p>A three-plane DRF constrains all six degrees of freedom: three translational (X, Y, Z) and three rotational (rotation about X, Y, and Z axes). The primary plane removes three, the secondary removes two more, and the tertiary removes the final one. Any feature tolerance on the drawing is then fully repeatable within this six-constraint system.</p>
+
+<h3>Where does the datum feature symbol attach on a drawing per ASME Y14.5-2018?</h3>
+<p>The triangle of the datum feature symbol attaches to the feature's extension line (offset from the dimension line) when the datum is a surface. It attaches in-line with the dimension line — replacing one arrowhead — when the datum is an axis or median plane derived from a feature of size such as a hole, shaft, or slot. Placing it directly on a centre line is not permitted under the 2018 revision of the standard.</p>
+
+<hr />
+
+<p><strong>External references:</strong><br />
+<a href="https://www.asme.org/codes-standards/find-codes-standards/y14-5-dimensioning-and-tolerancing" rel="noopener noreferrer" target="_blank">ASME Y14.5-2018 — Dimensioning and Tolerancing</a><br />
+<a href="https://www.iso.org/standard/72463.html" rel="noopener noreferrer" target="_blank">ISO 5459:2011 — Geometrical product specifications: Datums and datum systems</a><br />
+<a href="https://www.nist.gov/system/files/documents/2017/05/09/gdt_fundamentals.pdf" rel="noopener noreferrer" target="_blank">NIST — GD&T Fundamentals Reference</a><br />
+<a href="https://asq.org/quality-resources/geometric-dimensioning-and-tolerancing" rel="noopener noreferrer" target="_blank">ASQ — Geometric Dimensioning and Tolerancing Resource</a>
+</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/gdt-reference-guide">GD&amp;T Reference: Complete Guide</a></li>
+    <li><a href="/articles/true-position-tolerance-gdt-formula-calculation">True Position Tolerance GD&amp;T Formula Calculation</a></li>
+    <li><a href="/articles/cost-of-manual-fai-inspection">The Real Cost of Manual FAI Inspection</a></li>
+    <li><a href="/articles/surface-finish-symbols">Surface Finish Symbols on Drawings, Explained</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Datum Feature Selection Rules GD&T Best Practice",
+      "item": "https://metricmech.com/articles/datum-feature-selection-rules-gdt"
+    }
+  ]
+}
+</script>
+</body>
+</html>

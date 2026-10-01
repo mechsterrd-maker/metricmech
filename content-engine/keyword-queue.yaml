@@ -552,7 +552,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: surface roughness Ra 0.8 vs Ra 1.6 vs Ra 3.2 applications
   cluster: Surface Finish & Metrology
   intent: informational
