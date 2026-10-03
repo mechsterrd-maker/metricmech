@@ -566,7 +566,7 @@ queue:
   word_count: 1700
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: tensile test yield strength UTS elongation explained
   cluster: Materials & Hardness
   intent: informational

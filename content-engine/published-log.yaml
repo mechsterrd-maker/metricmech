@@ -418,3 +418,9 @@ posts:
   keyword: datum feature selection rules GD&T best practice
   cluster: GD&T Reference
   source: autopilot
+- url: https://metricmech.com/articles/surface-roughness-ra-0-8-vs-ra-1-6-vs-ra-3-2-applications
+  date: '2026-10-03'
+  title: Surface Roughness Applications Ra Guide | MetricMech
+  keyword: surface roughness Ra 0.8 vs Ra 1.6 vs Ra 3.2 applications
+  cluster: Surface Finish & Metrology
+  source: autopilot
