@@ -580,7 +580,7 @@ queue:
   word_count: 1800
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: process capability study step by step procedure
   cluster: SPC & Quality Statistics
   intent: informational

@@ -424,3 +424,9 @@ posts:
   keyword: surface roughness Ra 0.8 vs Ra 1.6 vs Ra 3.2 applications
   cluster: Surface Finish & Metrology
   source: autopilot
+- url: https://metricmech.com/articles/tensile-test-yield-strength-uts-elongation-explained
+  date: '2026-10-06'
+  title: 'Tensile Test: Yield Strength & UTS Explained | MetricMech'
+  keyword: tensile test yield strength UTS elongation explained
+  cluster: Materials & Hardness
+  source: autopilot
