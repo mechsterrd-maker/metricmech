@@ -594,7 +594,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: measurement uncertainty calculation step by step metrology
   cluster: Inspection, CMM & Measurement
   intent: informational

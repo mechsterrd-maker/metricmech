@@ -430,3 +430,9 @@ posts:
   keyword: tensile test yield strength UTS elongation explained
   cluster: Materials & Hardness
   source: autopilot
+- url: https://metricmech.com/articles/process-capability-study-step-by-step
+  date: '2026-10-08'
+  title: 'Process Capability Study: Step-by-Step Procedure | MetricMech'
+  keyword: process capability study step by step procedure
+  cluster: SPC & Quality Statistics
+  source: autopilot

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0H6965Z1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SQ0H6965Z1', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Process Capability Study: Step-by-Step Procedure | MetricMech</title>
+<meta name="description" content="Learn process capability study step by step procedure: sample size, data collection, Cp/Cpk calculation & reporting for quality engineers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css?v=20260823a">
+<link rel="stylesheet" href="../assets/mm.css?v=20260823a">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MetricMech">
+<meta name="mobile-web-app-capable" content="yes">
+<!-- SEO -->
+<link rel="canonical" href="https://metricmech.com/articles/process-capability-study-step-by-step">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="author" content="Rajadurai R · MetricMech">
+
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Process Capability Study: Step-by-Step Procedure | MetricMech">
+<meta property="og:description" content="Learn process capability study step by step procedure: sample size, data collection, Cp/Cpk calculation & reporting for quality engineers.">
+<meta property="og:url" content="https://metricmech.com/articles/process-capability-study-step-by-step">
+<meta property="og:site_name" content="MetricMech">
+<meta property="og:image" content="https://metricmech.com/icons/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_IN">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Process Capability Study: Step-by-Step Procedure | MetricMech">
+<meta name="twitter:description" content="Learn process capability study step by step procedure: sample size, data collection, Cp/Cpk calculation & reporting for quality engineers.">
+<meta name="twitter:image" content="https://metricmech.com/icons/icon-512.png">
+
+<!-- JSON-LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "name": "Process Capability Study: Step-by-Step Procedure | MetricMech",
+  "description": "Learn process capability study step by step procedure: sample size, data collection, Cp/Cpk calculation & reporting for quality engineers.",
+  "url": "https://metricmech.com/articles/process-capability-study-step-by-step",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MetricMech",
+    "url": "https://metricmech.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://metricmech.com/icons/icon-512.png"
+    }
+  },
+  "@type": "Article",
+  "headline": "Process Capability Study: Step-by-Step Procedure for Quality Engineers",
+  "author": {
+    "@type": "Person",
+    "name": "Rajadurai R",
+    "jobTitle": "Founder, Plant Head, Mechanical Engineer"
+  },
+  "datePublished": "2026-10-08",
+  "mainEntityOfPage": "https://metricmech.com/articles/process-capability-study-step-by-step"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the minimum sample size for a process capability study?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AIAG's SPC manual recommends a minimum of 125 consecutive parts for a preliminary capability study, typically collected as 25 subgroups of 5. For ongoing capability, 30 or more subgroups over a sustained period is the accepted standard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between preliminary and ongoing process capability?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Preliminary capability (Ppk) is measured over a short initial run using overall standard deviation, before the process is fully in statistical control. Ongoing capability (Cpk) is measured after the process is stable and uses within-subgroup standard deviation estimated from the control chart."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What Cpk value is required to pass a capability study?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most automotive and manufacturing customers require a minimum Cpk of 1.33 for standard characteristics and 1.67 for safety or critical characteristics. Some customers accept 1.0 with documented corrective action plans."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you run a capability study on a non-normal distribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. If the Anderson-Darling or Shapiro-Wilk test indicates non-normality, use transformation techniques such as Box-Cox, or switch to non-parametric capability indices. Always document the distribution assumption in your study report."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a process capability study replace a gauge R&R study?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Measurement System Analysis (MSA/gauge R&R) must be completed and accepted before running a capability study. Unacceptable measurement variation inflates process spread and produces misleading Cpk results."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Process Capability Study: Step-by-Step Procedure for Quality Engineers",
+      "item": "https://metricmech.com/articles/process-capability-study-step-by-step"
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="mm-grid">
+
+<div class="grid-bg"></div>
+<div data-mw="notice-bar"></div>
+<div data-mw="header" data-page="articles" data-prefix="../"></div>
+
+<main>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Home</a><span class="sep">/</span><a href="../articles.html">Articles</a><span class="sep">/</span>Process Capability Study: Step-by-Step P</div>
+</div>
+
+<div class="art-layout">
+  <aside class="art-toc">
+    <h4>On this page</h4>
+    <a href="##direct-answer">What Is a Process Capability Study?</a>
+    <a href="##worked-example">Worked Example with Real Numbers</a>
+    <a href="##formulas">Capability Formulas & Variables</a>
+    <a href="##step-by-step">Step-by-Step Procedure</a>
+    <a href="##preliminary-vs-ongoing">Preliminary vs Ongoing Capability</a>
+    <a href="##sample-size">Capability Study Minimum Sample Size</a>
+    <a href="##report-template">Capability Study Report Template Format</a>
+    <a href="##common-mistakes">Common Mistakes to Avoid</a>
+    <a href="##faq">Frequently Asked Questions</a>
+  </aside>
+
+  <article class="art-content">
+    <h1>Process Capability Study: Step-by-Step Procedure for Quality Engineers</h1>
+    <div class="art-meta-bar">
+      <span>Quality Engineering</span>
+      <span>October 08, 2026</span>
+      <span>10 min read</span>
+      <span>By Rajadurai R</span>
+    </div>
+
+<p class="lede" id="direct-answer">A <strong>process capability study</strong> is a structured statistical method that compares measured process variation to engineering specification limits. The procedure runs in six core phases: define the characteristic, validate the measurement system, collect a representative sample, verify statistical control, calculate capability indices (Cp, Cpk, Pp, Ppk), and report conclusions with an action plan if indices fall below acceptance thresholds.</p>
+
+<p>Capability studies sit at the heart of PPAP submissions, new product launches, and continuous improvement programmes. Done correctly, they give a plant team objective evidence that a process can hold its tolerances consistently — not just on a good day, but run after run. Done incorrectly, they generate false confidence and allow defects to escape into the field.</p>
+
+<p>This guide walks through each phase with real numbers, formula references, sample-size rules, and a report structure quality engineers can use immediately.</p>
+
+<hr>
+
+<h2 id="worked-example">Worked Example with Real Numbers</h2>
+
+<p>Consider a turned shaft diameter with a drawing specification of <strong>25.00 ± 0.05 mm</strong>, giving a USL of 25.05 mm and an LSL of 24.95 mm. The tolerance spread is 0.10 mm.</p>
+
+<p>After collecting 125 consecutive parts in 25 subgroups of 5, the data analysis yields the following summary statistics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Statistic</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sample mean (x̄)</td>
+      <td>25.012 mm</td>
+    </tr>
+    <tr>
+      <td>Within-subgroup std dev (σ̂)</td>
+      <td>0.0145 mm</td>
+    </tr>
+    <tr>
+      <td>Overall std dev (s)</td>
+      <td>0.0162 mm</td>
+    </tr>
+    <tr>
+      <td>USL</td>
+      <td>25.050 mm</td>
+    </tr>
+    <tr>
+      <td>LSL</td>
+      <td>24.950 mm</td>
+    </tr>
+    <tr>
+      <td>Cp</td>
+      <td>1.15</td>
+    </tr>
+    <tr>
+      <td>Cpk</td>
+      <td>0.89</td>
+    </tr>
+    <tr>
+      <td>Ppk</td>
+      <td>0.80</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Cpk of 0.89 signals that the process is not centred — the mean is shifted toward the upper limit and the process does not yet meet the 1.33 threshold. The corrective action is clear: adjust the tool offset to bring the mean closer to nominal 25.00 mm, then re-study. The article <a href="https://metricmech.com/articles/cpk-vs-ppk">Cpk vs Ppk: Capability vs Performance</a> explains exactly why the Cpk and Ppk values differ here and what each tells you about the process.</p>
+
+<hr>
+
+<h2 id="formulas">Capability Formulas &amp; Variables</h2>
+
+<p>Four indices are commonly reported in a capability study. Understanding which standard deviation each uses is critical — confusing within-subgroup and overall variation is one of the most frequent errors seen in plant-level studies.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Formula</th>
+      <th>Std Dev Used</th>
+      <th>Typical Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cp</td>
+      <td>(USL − LSL) / (6σ̂)</td>
+      <td>Within-subgroup (σ̂)</td>
+      <td>Potential capability — process perfectly centred</td>
+    </tr>
+    <tr>
+      <td>Cpk</td>
+      <td>min[(USL − x̄)/3σ̂, (x̄ − LSL)/3σ̂]</td>
+      <td>Within-subgroup (σ̂)</td>
+      <td>Actual capability — accounts for mean shift</td>
+    </tr>
+    <tr>
+      <td>Pp</td>
+      <td>(USL − LSL) / (6s)</td>
+      <td>Overall (s)</td>
+      <td>Preliminary performance index</td>
+    </tr>
+    <tr>
+      <td>Ppk</td>
+      <td>min[(USL − x̄)/3s, (x̄ − LSL)/3s]</td>
+      <td>Overall (s)</td>
+      <td>Preliminary performance — accounts for mean shift</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Variable Definitions</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Definition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>USL</td>
+      <td>Upper Specification Limit</td>
+    </tr>
+    <tr>
+      <td>LSL</td>
+      <td>Lower Specification Limit</td>
+    </tr>
+    <tr>
+      <td>x̄</td>
+      <td>Process mean (average of all measurements)</td>
+    </tr>
+    <tr>
+      <td>σ̂</td>
+      <td>Within-subgroup standard deviation, estimated from R̄/d₂ or s̄/c₄</td>
+    </tr>
+    <tr>
+      <td>s</td>
+      <td>Overall standard deviation of all individual values</td>
+    </tr>
+    <tr>
+      <td>d₂, c₄</td>
+      <td>Control chart unbiasing constants — values tabulated by subgroup size</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The AIAG Statistical Process Control (SPC) Reference Manual, 2nd Edition, remains the definitive industry source for these constants and index definitions. The <a href="https://asq.org/quality-resources/statistics" rel="noopener noreferrer" target="_blank">ASQ Statistics Resources</a> portal also provides free guidance on selecting the correct capability model for your process type.</p>
+
+<hr>
+
+<h2 id="step-by-step">Step-by-Step Procedure: How to Do a Capability Study in Manufacturing</h2>
+
+<ol>
+  <li><strong>Define the characteristic and specification limits.</strong> Identify the specific dimension, parameter, or attribute to study. Confirm the nominal value, USL, and LSL from the approved drawing or control plan. Bilateral tolerances are most common, but one-sided specs — such as a surface roughness maximum — require modified index calculations.</li>
+
+  <li><strong>Validate the measurement system (MSA).</strong> Complete a gauge Repeatability and Reproducibility (R&amp;R) study before collecting capability data. AIAG guidelines recommend gauge %R&amp;R below 10% as acceptable and 10–30% as conditionally acceptable. A poor measurement system inflates apparent process variation and renders the study invalid — see <a href="https://metricmech.com/articles/measurement-system-analysis">MSA: The 5 Measurement System Studies Explained</a> for full guidance.</li>
+
+  <li><strong>Select the subgroup structure.</strong> Choose rational subgroups — parts produced consecutively under the same conditions form one subgroup. A subgroup size of n = 5 is standard for variables data. Avoid mixing parts from different cavities, operators, or shifts within a single subgroup unless the study is specifically designed to capture that variation.</li>
+
+  <li><strong>Collect the minimum required sample.</strong> For a preliminary study, collect at least 125 parts (25 subgroups × 5). Record measurements in production order, noting time, operator, and any process events. Do not discard outliers without documented, assignable causes.</li>
+
+  <li><strong>Plot and verify statistical control.</strong> Construct an X-bar &amp; R chart (or X-bar &amp; s chart for n &gt; 8) from the subgroup data. Investigate and remove points due to special causes — broken tools, material changeovers, operator errors — with full documentation. A process that is not in statistical control cannot produce a valid capability index.</li>
+
+  <li><strong>Test for normality.</strong> Apply the Anderson-Darling or Shapiro-Wilk test to the individual values. Most manufacturing processes produce near-normal distributions, but never assume without testing. If the p-value falls below 0.05, investigate the cause before applying standard Cp/Cpk formulas. The <a href="https://www.nist.gov/srd/nist-sematech-e-handbook-statistical-methods" rel="noopener noreferrer" target="_blank">NIST/SEMATECH e-Handbook of Statistical Methods</a> covers normality testing and non-normal capability methods in depth.</li>
+
+  <li><strong>Calculate capability indices.</strong> With a validated, in-control, normally distributed dataset, calculate Cp, Cpk, Pp, and Ppk using the formulas in the table above. Use the within-subgroup standard deviation (σ̂ = R̄/d₂) for Cp and Cpk, and the overall standard deviation (s) for Pp and Ppk.</li>
+
+  <li><strong>Compare results against acceptance criteria.</strong> Apply the customer or internal acceptance threshold — typically Cpk ≥ 1.33 for standard characteristics and Cpk ≥ 1.67 for safety-critical or high-volume features. The article <a href="https://metricmech.com/articles/what-is-a-good-cpk-value">What Is a Good Cpk Value?</a> provides a benchmark table across industries and customer types.</li>
+
+  <li><strong>Document and report findings.</strong> Compile the study into a structured report covering the characteristic description, specification limits, MSA summary, raw data, control charts, histogram, normality test result, index summary, and a corrective action plan where any index falls below threshold. For PPAP submissions, the capability study is Element 9 of the 18-element package.</li>
+
+  <li><strong>Implement corrective action or transition to ongoing monitoring.</strong> If the study passes, establish the control chart as a live monitoring tool and define the re-study frequency. If it fails, implement root-cause analysis, correct the process, and repeat from Step 4.</li>
+</ol>
+
+<div class="highlight cta-box">
+  <p>When your capability study generates a formal inspection report with a ballooned drawing for characteristic identification, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=process-capability-study-step-by-step" rel="noopener noreferrer" target="_blank">CadNexa's auto-ballooning tool</a> extracts every GD&amp;T callout from your PDF drawing automatically — eliminating manual balloon numbering and the risk of missed characteristics before PPAP submission.</p>
+</div>
+
+<hr>
+
+<h2 id="preliminary-vs-ongoing">Preliminary vs Ongoing Process Capability</h2>
+
+<p>The terms are frequently used interchangeably on the shop floor, but they describe fundamentally different study conditions. Reporting Cpk when only Ppk is defensible is a common audit finding in IATF 16949 environments.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Preliminary Capability</th>
+      <th>Ongoing Capability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary index</td>
+      <td>Pp, Ppk</td>
+      <td>Cp, Cpk</td>
+    </tr>
+    <tr>
+      <td>Standard deviation</td>
+      <td>Overall (s)</td>
+      <td>Within-subgroup (σ̂)</td>
+    </tr>
+    <tr>
+      <td>Process control required?</td>
+      <td>Not necessarily — process may still be stabilising</td>
+      <td>Yes — process must be in statistical control</td>
+    </tr>
+    <tr>
+      <td>Typical trigger</td>
+      <td>Initial PPAP run, process qualification, new tooling</td>
+      <td>Established production, periodic re-evaluation</td>
+    </tr>
+    <tr>
+      <td>Minimum sample</td>
+      <td>125 parts (AIAG recommendation)</td>
+      <td>30+ subgroups over representative time period</td>
+    </tr>
+    <tr>
+      <td>Typical acceptance threshold</td>
+      <td>Ppk ≥ 1.67 for new processes (customer-dependent)</td>
+      <td>Cpk ≥ 1.33 ongoing minimum</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Preliminary studies use overall standard deviation because the process has not yet demonstrated sustained statistical control. Ongoing studies use within-subgroup variation because, with special causes removed, the within-subgroup estimate reflects the true inherent process capability. The deeper explanation of how these indices relate is covered in <a href="https://metricmech.com/articles/process-capability-cp-cpk-pp-ppk-difference">Cp Cpk vs Pp Ppk: Process Capability Difference</a>.</p>
+
+<hr>
+
+<h2 id="sample-size">Capability Study Minimum Sample Size</h2>
+
+<p>Sample size is one of the most debated topics in capability studies, and different standards bodies offer slightly different guidance. The table below summarises the most widely cited requirements.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Study Type</th>
+      <th>Minimum Parts</th>
+      <th>Typical Structure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AIAG SPC Manual (2nd Ed.)</td>
+      <td>Preliminary</td>
+      <td>125</td>
+      <td>25 subgroups × 5</td>
+    </tr>
+    <tr>
+      <td>AIAG SPC Manual (2nd Ed.)</td>
+      <td>Ongoing</td>
+      <td>≥30 subgroups</td>
+      <td>Continuous chart over time</td>
+    </tr>
+    <tr>
+      <td>ISO 22514-2</td>
+      <td>Short-term machine capability (Cm/Cmk)</td>
+      <td>50 consecutive parts</td>
+      <td>Single uninterrupted run</td>
+    </tr>
+    <tr>
+      <td>IATF 16949 / Customer-specific</td>
+      <td>Varies by characteristic class</td>
+      <td>Customer-defined</td>
+      <td>Often 300-part runs for new launches</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="callout">A larger sample always improves the confidence interval around the Cpk estimate. With only 30 parts, the 95% confidence interval on a Cpk of 1.33 is wide enough to include values well below 1.00. With 125 parts, the interval narrows substantially. The underlying method for calculating exact confidence intervals is documented in <a href="https://www.iso.org/standard/70534.html" rel="noopener noreferrer" target="_blank">ISO 22514-1: Statistical Methods in Process Management</a>. Most statistical software packages include a built-in capability confidence interval function for this purpose.</p>
+
+<p>For machine capability studies (Cm/Cmk) where only machine variation is isolated — not operator or material effects — a minimum of 50 consecutive parts from a single setup is standard. The <a href="https://metricmech.com/articles/cmk-calculation">Cmk Calculation: Machine Capability Index Guide</a> explains how Cmk differs from Cpk and when each applies.</p>
+
+<hr>
+
+<h2 id="report-template">Capability Study Report Template Format</h2>
+
+<p>A well-structured report communicates study results unambiguously to customers, auditors, and internal teams. The sections below represent the standard format accepted in IATF 16949 environments and by most Tier 1 automotive customers.</p>
+
+<h3>Recommended Report Sections</h3>
+
+<ol>
+  <li><strong>Header information:</strong> Part number, revision level, characteristic description, drawing callout, specification limits, study date, operator, equipment ID, and plant location.</li>
+  <li><strong>Measurement system summary:</strong> Gauge ID, calibration due date, %R&amp;R result, number of appraisers and trials, and acceptance decision.</li>
+  <li><strong>Raw data table:</strong> All individual measurements in subgroup order, with subgroup means and ranges calculated. Minimum 125 rows for a preliminary study.</li>
+  <li><strong>Control charts:</strong> X-bar &amp; R (or X-bar &amp; s) chart with control limits, out-of-control points marked, and notation of any excluded points with documented assignable causes.</li>
+  <li><strong>Histogram:</strong> Frequency distribution of individual values with USL and LSL overlaid, nominal marked, and fitted normal curve if applicable.</li>
+  <li><strong>Normality test result:</strong> Test statistic (Anderson-Darling or Shapiro-Wilk) and p-value. State the distribution assumption used.</li>
+  <li><strong>Capability index summary table:</strong> Cp, Cpk, Pp, Ppk — each with the standard deviation type used, the acceptance threshold, and a pass/fail designation.</li>
+  <li><strong>PPM estimate:</strong> Expected defect rate in parts per million based on the Cpk value. The <a href="https://metricmech.com/articles/cpk-to-ppm">Cpk to PPM Conversion</a> reference covers the index-to-PPM relationship with a worked table.</li>
+  <li><strong>Conclusion and action plan:</strong> Clear statement of pass or fail, root cause of any non-conformance, corrective actions with owners and target dates, and re-study plan if required.</li>
+  <li><strong>Approvals:</strong> Quality engineer, plant manager, and customer representative signatures where required.</li>
+</ol>
+
+<div class="highlight cta-box">
+  <p>When your capability report requires a ballooned drawing for characteristic traceability, <a href="https://cadnexa.com/balloon?utm_source=blog&utm_medium=cta&utm_campaign=process-capability-study-step-by-step" rel="noopener noreferrer" target="_blank">CadNexa's drawing balloon tool</a> reads GD&amp;T callouts directly from the PDF and generates numbered balloons in seconds — keeping your report package consistent and audit-ready without manual rework.</p>
+</div>
+
+<hr>
+
+<h2 id="common-mistakes">Common Mistakes to Avoid</h2>
+
+<div class="warn-box">
+<ul>
+  <li><strong>Running the capability study before MSA is complete.</strong> An unvalidated gauge inflates the spread of data and produces a Cpk that understates true process performance — or masks a poor process behind a misleading result.</li>
+  <li><strong>Collecting parts non-consecutively.</strong> Cherry-picking periods of good production generates optimistic indices that do not represent the real process. Parts must be collected in production sequence over a representative time window.</li>
+  <li><strong>Reporting Cpk when the process is not in statistical control.</strong> Cpk is only meaningful for a stable process. If the X-bar chart shows unresolved out-of-control signals, report Ppk and flag the process as under investigation.</li>
+  <li><strong>Ignoring the normality assumption.</strong> Applying standard Cp/Cpk formulas to a bi-modal or skewed distribution produces meaningless results. Always test normality before interpreting indices.</li>
+  <li><strong>Using overall standard deviation to calculate Cpk.</strong> Using s instead of σ̂ for the ongoing capability index is the most common index confusion in practice. The indices share similar formulas but carry entirely different interpretations — review the difference before reporting.</li>
+  <li><strong>Treating a single passing study as permanent proof.</strong> Process drift, tool wear, material batch changes, and operator variability mean capability must be monitored continuously through SPC, not just confirmed at launch.</li>
+  <li><strong>Mixing cavities or spindles in one subgroup.</strong> A multi-cavity mould study must treat each cavity as a separate process stream, or use a study design that explicitly captures between-cavity variation.</li>
+</ul>
+</div>
+
+<hr>
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<h3>What is the minimum sample size for a process capability study?</h3>
+<p>AIAG's SPC manual recommends a minimum of 125 consecutive parts for a preliminary capability study, typically collected as 25 subgroups of 5. For ongoing capability, 30 or more subgroups over a sustained production period is the accepted standard. ISO 22514-2 sets 50 consecutive parts for short-term machine capability (Cm/Cmk) studies.</p>
+
+<h3>What is the difference between preliminary and ongoing process capability?</h3>
+<p>Preliminary capability (Pp, Ppk) is measured over a short initial run using overall standard deviation, before the process is demonstrated to be in statistical control. Ongoing capability (Cp, Cpk) is measured after the process is stable over time, using within-subgroup standard deviation estimated from the control chart. Confusing the two is a frequent audit finding in IATF 16949 environments.</p>
+
+<h3>What Cpk value is required to pass a capability study?</h3>
+<p>Most automotive and general manufacturing customers require a minimum Cpk of 1.33 for standard characteristics and 1.67 for safety or critical characteristics. Some customers accept 1.00 with a documented containment and improvement plan. Always confirm the threshold with your specific customer's quality requirements or control plan before the study.</p>
+
+<h3>Can a capability study be run on a non-normal distribution?</h3>
+<p>Yes. If the Anderson-Darling or Shapiro-Wilk normality test indicates non-normality (p-value below 0.05), use data transformation techniques such as Box-Cox, or apply non-parametric capability indices. Always document the distribution assumption and the test result in the capability report. The <a href="https://www.nist.gov/srd/nist-sematech-e-handbook-statistical-methods" rel="noopener noreferrer" target="_blank">NIST/SEMATECH e-Handbook</a> provides detailed guidance on non-normal capability methods.</p>
+
+<h3>Does a process capability study replace a gauge R&amp;R study?</h3>
+<p>No. Measurement System Analysis (MSA/gauge R&amp;R) must be completed and accepted before running a capability study. Unacceptable measurement variation inflates the apparent process spread and produces misleading Cpk results. The two studies are sequential requirements, not alternatives — MSA first, capability study second.</p>
+
+    
+  <div class="related-articles">
+    <h2>Related reading</h2>
+    <ul>
+    <li><a href="/articles/process-capability-cp-cpk-pp-ppk-difference">Cp Cpk vs Pp Ppk: Process Capability Difference</a></li>
+    <li><a href="/articles/spc-control-charts">SPC Control Charts: X-bar &amp;amp; R Chart Guide</a></li>
+    <li><a href="/articles/what-is-a-good-cpk-value">What Is a Good Cpk Value? 1.33, 1.67 &amp;amp; Benchmarks</a></li>
+    <li><a href="/articles/measurement-system-analysis">MSA: The 5 Measurement System Studies Explained</a></li>
+    </ul>
+  </div>
+    <div class="author-card">
+      <div class="author-avatar">RR</div>
+      <div>
+        <div class="author-name">Rajadurai R</div>
+        <div class="author-title">Founder, 14 years plant-head experience · Mechanical engineer</div>
+      </div>
+    </div>
+
+  </article>
+
+  <aside class="art-aside">
+    <div data-mw="cn-sidebar"></div>
+
+    <div style="background: var(--paper-2); border: 1px solid var(--rule); border-radius: var(--rad-lg); padding: 22px; margin-top: 16px;">
+      <h4 style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--mute); margin-bottom: 14px;">Related</h4>
+      <a href="../calculators/gauge-rr.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R Calculator</a>
+      <a href="../articles/gauge-rr-explained.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">Gauge R&R explained</a>
+      <a href="../articles/iso-286-fits-tolerances.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; border-bottom: 1px dotted var(--rule); color: var(--ink); text-decoration: none;">ISO 286 fits & tolerances</a>
+      <a href="../templates.html" style="display: block; padding: 8px 0; font-family: var(--display); font-size: 14px; line-height: 1.4; color: var(--ink); text-decoration: none;">Inspection templates</a>
+    </div>
+  </aside>
+</div>
+
+<div data-mw="cn-big"></div>
+
+</main>
+
+<div data-mw="footer" data-prefix="../"></div>
+<script src="../site.js?v=20260823a"></script>
+<script src="../assets/mm.js?v=20260823a"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://metricmech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://metricmech.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Process Capability Study: Step-by-Step Procedure for Quality Engineers",
+      "item": "https://metricmech.com/articles/process-capability-study-step-by-step"
+    }
+  ]
+}
+</script>
+</body>
+</html>
