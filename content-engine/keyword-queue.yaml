@@ -608,7 +608,7 @@ queue:
   word_count: 2000
   template: tutorial
   screenshots: []
-  status: queued
+  status: published
 - keyword: vernier caliper reading how to measure correctly
   cluster: Inspection, CMM & Measurement
   intent: informational
