@@ -204,3 +204,15 @@ pages:
   impressions: 65
   added: '2026-09-27'
   status: todo
+- url: https://metricmech.com/articles/surface-finish-symbols
+  reason: striking-distance
+  position: 8.1
+  impressions: 443
+  added: '2026-10-18'
+  status: todo
+- url: https://metricmech.com/articles/mmc-lmc-bonus-tolerance-gdt
+  reason: striking-distance
+  position: 10.0
+  impressions: 219
+  added: '2026-10-18'
+  status: todo
