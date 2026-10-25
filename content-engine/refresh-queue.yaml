@@ -216,3 +216,15 @@ pages:
   impressions: 219
   added: '2026-10-18'
   status: todo
+- url: https://metricmech.com/calculators/gear-calculator
+  reason: striking-distance
+  position: 27.9
+  impressions: 387
+  added: '2026-10-25'
+  status: todo
+- url: https://metricmech.com/articles/datum-feature-selection-rules-gdt
+  reason: low-ctr
+  position: 6.4
+  impressions: 561
+  added: '2026-10-25'
+  status: todo
