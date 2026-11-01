@@ -228,3 +228,15 @@ pages:
   impressions: 561
   added: '2026-10-25'
   status: todo
+- url: https://metricmech.com/standards/as9102
+  reason: striking-distance
+  position: 14.6
+  impressions: 321
+  added: '2026-11-01'
+  status: todo
+- url: https://metricmech.com/calculators/motor-hp
+  reason: striking-distance
+  position: 19.9
+  impressions: 258
+  added: '2026-11-01'
+  status: todo
